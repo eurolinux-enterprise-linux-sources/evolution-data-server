@@ -26,7 +26,7 @@
 
 Name: evolution-data-server
 Version: 2.32.3
-Release: 23%{?dist}
+Release: 25%{?dist}
 Group: System Environment/Libraries
 Summary: Backend data server for Evolution
 License: LGPLv2+
@@ -166,6 +166,12 @@ Patch41: evolution-data-server-2.32.3-camel-poodle-enable-tls.patch
 # RH bug #1141760
 Patch42: evolution-data-server-2.32.3-cal-factory-close-on-logout.patch
 
+# RH bug #749128
+Patch43: evolution-data-server-2.32.3-camel-tohtml-extra-cr.patch
+
+# RH bug #1333646
+Patch44: evolution-data-server-2.32.3-translations-el6.9.patch
+
 ## Dependencies ###
 
 Requires: glib2 >= %{glib2_version}
@@ -290,6 +296,8 @@ This package contains developer documentation for %{name}.
 %patch40 -p1 -b .cameldb-migrate-maildir
 %patch41 -p1 -b .camel-poodle-enable-tls
 %patch42 -p1 -b .cal-factory-close-on-logout
+%patch43 -p1 -b .camel-tohtml-extra-cr
+%patch44 -p2 -b .translations-el6.9
 
 mkdir -p krb5-fakeprefix/include
 mkdir -p krb5-fakeprefix/lib
@@ -504,6 +512,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/libedataserverui
 
 %changelog
+* Fri Oct 21 2016 Milan Crha <mcrha@redhat.com> - 2.32.3-25.el6
+- Add patch for RH bug #1333646 (Update translations)
+
+* Tue Sep 06 2016 Milan Crha <mcrha@redhat.com> - 2.32.3-24.el6
+- Add patch for RH bug #749128 (Extra 000D letters at the end of lines)
+
 * Thu Jan 08 2015 Milan Crha <mcrha@redhat.com> - 2.32.3-23.el6
 - Add patch for RH bug #1141760 (e-calendar-factory process does not close on logout)
 

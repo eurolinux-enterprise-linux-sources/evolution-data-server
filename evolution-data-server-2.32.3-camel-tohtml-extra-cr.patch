@@ -1,0 +1,20 @@
+diff -up evolution-data-server-2.32.3/camel/camel-mime-filter-tohtml.c.camel-tohtml-extra-cr evolution-data-server-2.32.3/camel/camel-mime-filter-tohtml.c
+--- evolution-data-server-2.32.3/camel/camel-mime-filter-tohtml.c.camel-tohtml-extra-cr	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-mime-filter-tohtml.c	2016-09-06 18:02:09.361308628 +0200
+@@ -206,9 +206,14 @@ writeln (CamelMimeFilter *mime_filter,
+ 			}
+ 			/* otherwise, FALL THROUGH */
+ 		default:
+-			if (u >= 20 && u <0x80)
++			if (u == '\r' && inptr >= inend) {
++				/* This constructs \r\n sequence at the end of the line, thus pass it in
++				   only if not converting the new-line breaks */
++				if (!(priv->flags & CAMEL_MIME_FILTER_TOHTML_CONVERT_NL))
++					*outptr++ = u;
++			} else if (u >= 20 && u <0x80) {
+ 				*outptr++ = u;
+-			else {
++			} else {
+ 				if (priv->flags & CAMEL_MIME_FILTER_TOHTML_ESCAPE_8BIT)
+ 					*outptr++ = '?';
+ 				else
