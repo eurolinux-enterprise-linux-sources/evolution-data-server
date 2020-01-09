@@ -58,10 +58,11 @@ typedef void (* ETestSourceCustomizeFunc) (ESource            *scratch,
 /**
  * ETestServiceType:
  * @E_TEST_SERVER_NONE: Only the #ESourceRegistry will be created
- * @E_TEST_SERVER_ADDRESS_BOOK: An #EBookCLient will be created and opened for the test
- * @E_TEST_SERVER_DIRECT_ADDRESS_BOOK: An #EBookCLient in direct read access mode will be created and opened for the test
+ * @E_TEST_SERVER_ADDRESS_BOOK: An #EBookClient will be created and opened for the test
+ * @E_TEST_SERVER_DIRECT_ADDRESS_BOOK: An #EBookClient in direct read access mode will be created and opened for the test
  * @E_TEST_SERVER_CALENDAR: An #ECalClient will be created and opened for the test
  * @E_TEST_SERVER_DEPRECATED_ADDRESS_BOOK: An #EBook will be created and opened for the test
+ * @E_TEST_SERVER_DEPRECATED_CALENDAR: An #ECal will be created and opened for the test
  *
  * The type of service to test
  */
@@ -76,6 +77,7 @@ typedef enum {
 
 /**
  * ETestServerClosure:
+ * @type:                 An #ETestServiceType, type of the service
  * @customize:            An #ETestSourceCustomizeFunc to use to parameterize the scratch #ESource, or %NULL
  * @calendar_source_type: An #ECalClientSourceType or #ECalSourceType; for %E_TEST_SERVER_CALENDAR
  *                        and %E_TEST_SERVER_DEPRECATED_CALENDAR tests
@@ -160,5 +162,7 @@ void e_test_server_utils_teardown (ETestServerFixture *fixture,
 
 gint e_test_server_utils_run      (void);
 gint e_test_server_utils_run_full (ETestServerFlags flags);
+void e_test_server_utils_prepare_run (ETestServerFlags flags);
+void e_test_server_utils_finish_run (void);
 
 #endif /* E_TEST_UTILS_H */

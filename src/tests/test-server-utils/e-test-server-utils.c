@@ -34,9 +34,7 @@
  * and e_test_server_utils_teardown() in thier fixture's setup and teardown routines.
  **/
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include "evolution-data-server-config.h"
 
 #include "e-test-server-utils.h"
 
@@ -259,16 +257,16 @@ setup_environment (void)
 		g_string_append_printf (libs_dir, EDS_TEST_TOP_BUILD_DIR x); \
 		} G_STMT_END
 
-	add_lib_path ("addressbook/libebook/.libs");
-	add_lib_path ("addressbook/libebook-contacts/.libs");
-	add_lib_path ("addressbook/libedata-book/.libs");
-	add_lib_path ("calendar/libecal/.libs");
-	add_lib_path ("calendar/libedata-cal/.libs");
-	add_lib_path ("camel/.libs");
-	add_lib_path ("libebackend/.libs");
-	add_lib_path ("libedataserver/.libs");
-	add_lib_path ("libedataserverui/.libs");
-	add_lib_path ("private/.libs");
+	add_lib_path ("addressbook/libebook");
+	add_lib_path ("addressbook/libebook-contacts");
+	add_lib_path ("addressbook/libedata-book");
+	add_lib_path ("calendar/libecal");
+	add_lib_path ("calendar/libedata-cal");
+	add_lib_path ("camel");
+	add_lib_path ("libebackend");
+	add_lib_path ("libedataserver");
+	add_lib_path ("libedataserverui");
+	add_lib_path ("private");
 
 	#undef add_lib_path
 
@@ -743,11 +741,9 @@ e_test_server_utils_run (void)
 	return e_test_server_utils_run_full (0);
 }
 
-gint
-e_test_server_utils_run_full (ETestServerFlags flags)
+void
+e_test_server_utils_prepare_run (ETestServerFlags flags)
 {
-	gint tests_ret;
-
 	/* Cleanup work directory */
 	if (!test_installed_services ()) {
 
@@ -769,10 +765,11 @@ e_test_server_utils_run_full (ETestServerFlags flags)
 		g_test_dbus_up (global_test_dbus);
 	}
 #endif
+}
 
-	/* Run the GTest suite */
-	tests_ret = g_test_run ();
-
+void
+e_test_server_utils_finish_run (void)
+{
 #if GLOBAL_DBUS_DAEMON
 	if (!test_installed_services ()) {
 		/* Teardown the D-Bus Daemon
@@ -786,6 +783,19 @@ e_test_server_utils_run_full (ETestServerFlags flags)
 		global_test_dbus = NULL;
 	}
 #endif
+}
+
+gint
+e_test_server_utils_run_full (ETestServerFlags flags)
+{
+	gint tests_ret;
+
+	e_test_server_utils_prepare_run (flags);
+
+	/* Run the GTest suite */
+	tests_ret = g_test_run ();
+
+	e_test_server_utils_finish_run ();
 
 	return tests_ret;
 }

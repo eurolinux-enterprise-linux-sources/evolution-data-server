@@ -1,17 +1,603 @@
-Evolution-Data-Server 3.22.7 2017-03-20
----------------------------------------
-
-Miscellaneous:
-	Revert "Disable support for all POP3 extensions by default" (Milan Crha)
-
-Evolution-Data-Server 3.22.6 2017-03-13
+Evolution-Data-Server 3.28.5 2018-07-30
 ---------------------------------------
 
 Bug Fixes:
-	Bug 778775 - Add carddav scope to google-contacts.service for Ubuntu online accounts (Khurshid Alam)
-	Bug 778768 - Fails to modify contact with Yandex CardDAV server (Milan Crha)
-	Bug 778235 - [IMAPx] Ignore truncated COPYUID server response (Milan Crha)
-	Bug 775699 - Only latest 100 tasks downloaded from the Google (Milan Crha)
+	I#22 - [Camel] Store disconnect can abort just started downsync for offline (Milan Crha)
+	I#19 - Check also /var/db/zoneinfo when looking for system timezone (Milan Crha)
+
+Miscellaneous:
+	ESourceRegistry's thread main_context can leak (Milan Crha)
+	[EClient] Really default readonly property to FALSE (Milan Crha)
+
+Translations:
+	Guillaume Bernard (fr)
+
+Evolution-Data-Server 3.28.4 2018-07-16
+---------------------------------------
+
+Bug Fixes:
+	Bug 796174 - strcat() considered unsafe for buffer overflow (Milan Crha)
+	Bug 702127 - Crash under cal_backend_store_save_cache_now() ][ (Milan Crha)
+	I#12 - vCard REV attribute should be a timestamp (Milan Crha)
+	I#13 - [IMAPx] Fails to append message to Yahoo! with no CRLF at the end (Milan Crha)
+	I#14 - [IMAPx] Use extended LIST with Cyrus IMAP >= 2.5.11 (Milan Crha)
+
+Miscellaneous:
+	Make sure errors reported from backends are valid UTF-8 strings (Milan Crha)
+	[CamelSMIMEContext] Fix a memory leak (Milan Crha)
+	[IMAPx] Search for whole word "Cyrus" when parsing version from the server response (Milan Crha)
+
+Evolution-Data-Server 3.28.3 2018-06-18
+---------------------------------------
+
+Bug Fixes:
+	Bug 795997 - Fails to parse Google OAuth2 authorization code (Milan Crha)
+	Bug 796206 - CalDAV PUT's If-Match ETag is double quoted (Milan Crha)
+	Bug 796115 - [EWebDAVDiscover] Propagate auth error from .well-known addresses (Milan Crha)
+	Bug 796116 - [webcal] Skip UTF-8 marker when parsing iCalendar string (Milan Crha)
+	Bug 796281 - [Calendar] Runtime warning when searching in empty Description (Milan Crha)
+	Bug 763029 - S/MIME encrypt fails to find certificate in other slots (Milan Crha)
+	Bug 792610 - Consider alternate signer emails in sender address verification (Milan Crha)
+	I#2 - Confusing counts when downloading messages for offline (Milan Crha)
+	I#4 - Incorrectly says signature from KMail is invalid (Milan Crha)
+
+Miscellaneous:
+	Address some of the clang warnings (Milan Crha)
+	Correct some public headers in libedataserverui (Milan Crha)
+	Address some of the compiler and static analyzers warnings (Milan Crha)
+	[module-secret-monitor] Correct runtime warning from secret_service_search_sync() (Milan Crha)
+	Check for ICAL_STATUS_DELETED status enum value (Milan Crha)
+	Correct find_program() for python with multiple names (Milan Crha)
+	Silently skip empty lines when reading autoconfig-variables (Milan Crha)
+	Update bug URL and switch to https:// in the DOAP file (Milan Crha)
+	Google's "Daily Limit Exceeded" error not always propagated into UI (Milan Crha)
+	[CalDAV] Race condition on connection object (Milan Crha)
+	Correct false runtime warning from camel_folder_info_build() (Milan Crha)
+
+Translations:
+	Marek Černocký (cs)
+	Matej Urbančič (sl)
+
+Evolution-Data-Server 3.28.2 2018-05-07
+---------------------------------------
+
+Bug Fixes:
+	Bug 795108 - Trailing bracket not stripped when linkifying URL inside angle brackets (Milan Crha)
+	Bug 791475 - Incorrectly parses headers in certain case ]I[ (Milan Crha)
+	Bug 795295 - Fails to compile after icu 61.1 upgrade (icu::UnicodeString) (Hussam Al-Tayeb)
+	Bug 795414 - Errors on delete of a detached instance (Milan Crha)
+	Bug 794727 - [IMAPx] False unsubscribed signal emitted when LSUB is required (Milan Crha)
+
+Miscellaneous:
+	Link WebKitGTK+ only with libedataserverui when OAuth2 is enabled (Milan Crha)
+	Stale connection used after resume (Milan Crha)
+
+Translations:
+	Balázs Meskó (hu)
+	Mario Blättermann (de)
+	Muhammet Kara (tr)
+	Kukuh Syafaat (id)
+
+Evolution-Data-Server 3.28.1 2018-04-09
+---------------------------------------
+
+Bug Fixes:
+	Bug 767683 - Crash when updating Maildir 'changes' structure (Milan Crha)
+	Bug 725295 - Crash in e_cal_backend_remove_view() (Milan Crha)
+	Bug 794434 - [EWebDAVDiscover] The .well-known addresses not tried after first failure (Milan Crha)
+	Bug 794534 - Runtime warning when Content-Type header is invalid (Milan Crha)
+	Bug 794628 - Don't preload timezones on libical 3.0.2+ (Dan Nicholson)
+	Bug 793601 - [IMAPx] Asks for password when server is unavailable (Milan Crha)
+	Bug 794639 - Sender/signer address comparison should not be case sensitive (Milan Crha)
+	Bug 794879 - GOA-configured Google account has set wrong authentication method (Milan Crha)
+
+Miscellaneous:
+	[ECalMetaBackend] Doesn't store custom time zones permanently (Milan Crha)
+	Correct typo in config.h.in (Milan Crha)
+	Update POTFILES.in (Piotr Drąg)
+
+Translations:
+	Piotr Drąg (pl)
+	Anders Jonsson (sv)
+	Rafael Fontenelle (pt_BR)
+	Gianvito Cavasoli (it)
+	Rūdolfs Mazurs (lv)
+	Aurimas Černius (lt)
+	Hannie Dumoleyn (nl)
+
+Evolution-Data-Server 3.28.0 2018-03-12
+---------------------------------------
+
+Translations:
+	Guillaume Bernard (fr)
+	Gianvito Cavasoli (it)
+	Alan Mortensen (da)
+	Rūdolfs Mazurs (lv)
+	Fabio Tomat (fur)
+	Efstathios Iosifidis (el)
+	Милош Поповић (sr@latin)
+	Anders Jonsson (sv)
+
+Evolution-Data-Server 3.27.92 2018-03-05
+----------------------------------------
+
+Bug Fixes:
+	Bug 793491 - Enable C++11 and C++14 when available (Ting-Wei Lan)
+	Bug 793476 - [IMAPx] Message download interleave when synchronizing for offline (Milan Crha)
+	Bug 793504 - Links containing Cyrillic characters are not highlighted properly (Milan Crha)
+	Bug 793673 - Crash on failure of e_cal_cache_search_ids() (Milan Crha)
+	Bug 793031 - Decrease memory usage by disabling backend-per-process by default (Milan Crha)
+	Bug 793728 - Correct typo in description of 'oauth2-services-hint' GSettings key (Milan Crha)
+	Bug 793852 - Remove unused code after changes for bug 793466 (Lubomir Rintel)
+	Bug 791475 - Incorrectly parses headers in certain case ][ (Milan Crha)
+	Bug 793759 - categories.xml keeps changing on disk (Milan Crha)
+	Bug 793779 - Forward slash in UID breaks CardDAV backend (Milan Crha)
+
+Miscellaneous:
+	[IMAPx] Enhance processing of server IDLE notifications (Milan Crha)
+	No more '.libs' directory in the build directory (Milan Crha)
+	Meta backend tests required system-running evolution-source-registry (Milan Crha)
+	Google calendar stopped reporting user email (Milan Crha)
+
+Translations:
+	Милош Поповић (sr)
+	Милош Поповић (sr@latin)
+	Jordi Mas (ca)
+	Justin van Steijn (nl)
+	Piotr Drąg (pl)
+	Balázs Úr (hu)
+	Fabio Tomat (fur)
+	Efstathios Iosifidis (el)
+	Nathan Follens (nl)
+	Mario Blättermann (de)
+	Марко Костић (sr)
+	Emin Tufan Çetin (tr)
+	Muhammet Kara (tr)
+	Changwoo Ryu (ko)
+	Rafael Fontenelle (pt_BR)
+	Baurzhan Muftakhidinov (kk)
+	Aurimas Černius (lt)
+	Kukuh Syafaat (id)
+	Fran Dieguez (gl)
+	Marek Černocký (cs)
+	Bruce Cowan (en_GB)
+	Jiri Grönroos (fi)
+
+Evolution-Data-Server 3.27.91 2018-02-19
+----------------------------------------
+
+Bug Fixes:
+	Bug 793104 - COMPLETED in libical 3.0+ is DATE-TIME only (Milan Crha)
+	Bug 793368 - Install AppStream metadata to /usr/share/metainfo/ (Jeremy Bicha)
+	Bug 792746 - Fails to build with ENABLE_SMIME set to OFF (Milan Crha)
+	Bug 793465 - [NNTP] Fix division by zero when folder is empty (Fatih Akca)
+	Bug 793466 - [evolution-source-registry] Empty .source file causes high CPU usage (Milan Crha)
+
+Miscellaneous:
+	Correct return value of e_oauth2_service_get_access_token_sync() (Milan Crha)
+	Write also message UID in Junk filter debug logs (Milan Crha)
+	build: favor python3 as interpreter (Dominique Leuenberger)
+
+Translations:
+	Claude Paroz (fr)
+	Emin Tufan Çetin (tr)
+	Fran Dieguez (gl)
+	Piotr Drąg (pl)
+	Fabio Tomat (fur)
+	Mario Blättermann (de)
+	Rafael Fontenelle (pt_BR)
+	Aurimas Černius (lt)
+
+Evolution-Data-Server 3.27.90 2018-02-05
+----------------------------------------
+
+Bug Fixes:
+	Bug 792302 - CMake build fails to include iconv-detect.h (Milan Crha)
+	Bug 792610 - [GPG] Consider alternate signer emails in sender address verification (Milan Crha)
+	Bug 792513 - [IMAPx] Deadlock after deleting messages (with real Trash) (Milan Crha)
+	Bug 789522 - Decode of empty base64 encoded part causes runtime warnings (Milan Crha)
+
+Miscellaneous:
+	[devel-doc] Rename api-index IDs, to not clash with gtk-doc generated IDs (Milan Crha)
+	Prevent early free of an ESource when it has pending operations (Milan Crha)
+	[IMAPx] Select destination mailbox only when permanentflags not known yet (Milan Crha)
+	Change how built-in OAuth2 authentication works (Milan Crha)
+	Add a debug print for OAUTH2_DEBUG=1 when obtaining authentication token (Milan Crha)
+	Correct OAuth2 mail accounts configured in GNOME Online Accounts (Milan Crha)
+	Miscellaneous changes related to built-in OAuth2 services (Milan Crha)
+	Add missed default implementation for EOAuth2Service::get_authentication_policy() (Milan Crha)
+	Introduce e_oauth2_service_get_redirect_uri() (Milan Crha)
+	[SMTP] Change how the list of available authentication methods is constructed (Milan Crha)
+	Add OAuth2 authentication for Outlook.com IMAP and SMTP (Milan Crha)
+	Correct "may be used uninitialized" warning in imapx_query_auth_types_sync() (Milan Crha)
+	Correct developer documentation in e-oauth2-service/s (Milan Crha)
+	Prevent passing NULL ldap handle into LDAP functions ][ (Milan Crha)
+	[IMAPx] Sort array of UIDs before syncing changes to the server (Milan Crha)
+	Address some issues reported by Undefined Behavior Sanitizer (Milan Crha)
+	Replace e_cal_recur_nth array with e_cal_recur_get_localized_nth() (Milan Crha)
+	Add book/calendar-factory argument to override backend-per-process compile-time option (Milan Crha)
+	Correct return value of e_soup_session_get_authentication_requires_credentials() (Milan Crha)
+	Provide associated ESource to more EOAuth2Service virtual methods (Milan Crha)
+
+Translations:
+	Marcos Lans (gl)
+	Balázs Úr (hu)
+	Daniel Mustieles (es)
+	Rafael Fontenelle (pt_BR)
+	Andika Triwidada (id)
+
+Evolution-Data-Server 3.27.4 2018-01-08
+---------------------------------------
+
+Bug Fixes:
+	Bug 791475 - Incorrectly parses headers in certain case (Milan Crha)
+	Bug 791282 - Sanitize RFC2047 encoded strings to avoid exploits (Milan Crha)
+
+Miscellaneous:
+	Prevent passing NULL ldap handle into LDAP functions (Milan Crha)
+	[Maildir] Correct double free when the source message file doesn't exist (Milan Crha)
+
+Translations:
+	Daniel Mustieles (es)
+	Fabio Tomat (fur)
+	Marek Černocký (cs)
+	Tim Sabsch (de)
+
+Evolution-Data-Server 3.27.3 2017-12-11
+---------------------------------------
+
+Bug Fixes:
+	Bug 790032 - Google Contacts ESource recreated every start of source-registry (Milan Crha)
+	Bug 789549 - [IMAPx] Runtime warning after message copy/move (Milan Crha)
+	Bug 790267 - Expired Google OAuth2 token not refreshed (Milan Crha)
+	Bug 790759 - Proxies are ignored in EWebDAVDiscover and Google OAuth2 token refresh (Eloi Vanderbeken)
+	Bug 790020 - Use original location when composing new message in Search Folder (Milan Crha)
+	Bug 790887 - [IMAPx] Folder '[Gmail]' hidden after start (Milan Crha)
+	Bug 790635 - Slow start with 10+ mail accounts enabled (Milan Crha)
+	Bug 791016 - [Camel] Fix a compiler warning at folder_summary_update_counts_by_flags() (Philip Withnall)
+	Bug 790987 - [IMAPx] Also copy/move locally cached message on COPY/MOVE command (Milan Crha)
+	Bug 791327 - Adapt to gweather_info_new() API change (Milan Crha)
+
+Miscellaneous:
+	Extend workaround for bug 674885 (type initialisation deadlock in GObject) (Milan Crha)
+	[SMTP] Recognize rejected credentials during SASL authentication (Milan Crha)
+	[OAuth2] Enhance how expired or invalid access tokens are handled (Milan Crha)
+	Merge duplicated code around EGDataOAuth2Authorizer (Milan Crha)
+	[File Calendar] Include detailed information in Free/Busy response (Milan Crha)
+	[CalDAV/CardDAV] Always set error on failed connection attempt (Milan Crha)
+	Correct introspection code build without libgdata (Milan Crha)
+	Correct typo in libgweather include directory variable (Milan Crha)
+	Show feedback on message download for offline after going online (Milan Crha)
+	Correct a failure condition in cal_client_init_in_dbus_thread() (Milan Crha)
+
+Translations:
+	Kjartan Maraas (nb)
+	Kukuh Syafaat (id)
+	Hanifi Çakmak (tr)
+
+Evolution-Data-Server 3.27.2 2017-11-13
+---------------------------------------
+
+Bug Fixes:
+	Bug 696047 - [alarm-notify] Busy loop on midnight and DST change (Milan Crha)
+	Bug 789169 - [CalDAV] Ask for credentials when PUT fails with Unauthorized (Milan Crha)
+	Bug 742167 - Stuck when going online (Milan Crha)
+	Bug 789132 - Different TZID of RECURRENCE-ID fails to match instances (Milan Crha)
+	Bug 789677 - [ECalClient] Incorrect free call in process_detached_instances() (Jan Alexander Steffens (heftig))
+	Bug 789555 - "Synchronize for offline" works on opened folders only (Milan Crha)
+	Bug 789147 - [IMAPx] Slow message move with UID MOVE (Milan Crha)
+
+Miscellaneous:
+	Return hash-like IDs from camel_header_msgid_generate() (Milan Crha)
+	[CalDAV/CardDAV] Append ending slash to URL when missing (Milan Crha)
+	[IMAPx] Show progress of message body download only (Milan Crha)
+	[IMAPx] Prevent deadlock under camel_imapx_server_copy_message_sync() (Milan Crha)
+	[google-backend] Limit for what sources authentication method is changed (Milan Crha)
+	Add missed API indexes into developer documentation (Milan Crha)
+	[CamelOfflineStore] Incorrect disconnect when going online (Milan Crha)
+
+Translations:
+	Matej Urbančič (sl)
+	Anders Jonsson (sv)
+	Mario Blättermann (de)
+	Marek Cernocky (cs)
+	Kjartan Maraas (nb)
+
+Evolution-Data-Server 3.27.1 2017-10-16
+---------------------------------------
+
+Bug Fixes:
+	Bug 787266 - Failure in installed tests (Milan Crha)
+	Bug 787341 - [IMAPx] Report message download progress (Milan Crha)
+	Bug 769834 - [IMAPx] Minimize bandwidth usage on metered networks (Milan Crha)
+	Bug 786982 - After pressing "NOT JUNK" mail stays in the Junk folder (Milan Crha)
+	Bug 787445 - Add message to Unmatched only if still exists (Milan Crha)
+	Bug 787542 - Fix search for exact phrase in body of mail on Gmail (Milan Crha)
+	Bug 787713 - Can overwrite GError under camel_imapx_conn_manager_sync_changes_sync() (Milan Crha)
+	Bug 787514 - [IMAPx] Overaggressive folder change saving after filtering (Milan Crha)
+	Bug 787935 - Handle Redirection in ESoupSession (Milan Crha)
+	Bug 788048 - Junk/filtering preferences change requires restart (Milan Crha)
+	Bug 788051 - Junk messages moved to a real folder are considered seen (Milan Crha)
+	Bug 787656 - Do not use Transfer-Encoding:chunked for CalDAV/CardDAV PUT (Milan Crha)
+	Bug 786208 - Already opened message box doesn’t show new emails (Milan Crha)
+	Bug 781645 - Skip GSettings schema compile when DESTDIR is set (Milan Crha)
+	Bug 788371 - Correct reuse of _have_headers in FindSMIME.cmake (Дилян Палаузов)
+	Bug 788430 - More corrections to FindSMIME.cmake (Дилян Палаузов)
+	Bug 788686 - Google Tasks not shown in To Do-list after restart of Evolution (Milan Crha)
+	Bug 788848 - [IMAPx] Enhance which folders are refreshed on NOTIFY notices (Milan Crha)
+
+Miscellaneous:
+	e_module_load_all_in_directory: Use g_debug() instead of g_warning() (Milan Crha)
+	Ignore "timed out" error from goa_account_call_ensure_credentials_sync() (Milan Crha)
+	[EGoaPasswordBased] Reuse GoaClient object between password lookup calls (Milan Crha)
+	Misleading error for Google collection account without Calendar part (Milan Crha)
+	[IMAPx] Wait for IDLE stop up to 10 seconds, then give up (Milan Crha)
+	Fix some issues found by Coverity Scan (Milan Crha)
+	Initialize libxml2 global memory in the main() (Milan Crha)
+	Use icaltime_is_utc() instead of icaltimetype::is_utc (Milan Crha)
+	Mute a compiler warning from e_collator_generate_key() (Milan Crha)
+	e-cal-recur.c:ensure_timezone(): Unset icaltimetype::zone only if not UTC (Milan Crha)
+	Crash under e-data-cal-view.c:pending_flush_timeout_cb() (Milan Crha)
+	[CamelFolderSearch] The 'header-exists' misuses message info structure (Milan Crha)
+	[Camel] Speed up message filtering on headers (Milan Crha)
+	Internal Google OAuth2 token not refreshed on calendar open (Milan Crha)
+	[IMAPx] Prevent crash in imapx_update_store_summary() (Milan Crha)
+	Extend a developer comment of camel_message_info_property_lock() (Milan Crha)
+	[ESoupSession] Special-case Daily Limit errors and propagate them to the caller (Milan Crha)
+	[CalDAV/CardDAV] Improve logic for object load from the server (Milan Crha)
+	[GTasks] Remember when timed query resulted in '400 Bad Request' (Milan Crha)
+	Prevent crash when an On The Web calendar has set incorrect URI (Milan Crha)
+
+Translations:
+	hanniedu (nl)
+	Kristjan SCHMIDT (eo)
+	Dušan Kazik (sk)
+	Xavi Ivars (ca@valencia)
+
+Evolution-Data-Server 3.26.0 2017-09-11
+---------------------------------------
+
+Translations:
+	Pawan Chitrakar (ne)
+	Jordi Mas (ca)
+	Inaki Larranaga Murgoitio (eu)
+	Ask Hjorth Larsen (da)
+	Emin Tufan Çetin (tr)
+	Muhammet Kara (tr)
+	Anders Jonsson (sv)
+	Gianvito Cavasoli (it)
+
+Evolution-Data-Server 3.25.92 2017-09-04
+----------------------------------------
+
+Bug Fixes:
+	Bug 785952 - Google Tasks refresh fails with Bad Request (Milan Crha)
+	Bug 786362 - Keep changed messages in Search Folder view until refreshed (Milan Crha)
+	Bug 553770 - e_time_get_d_fmt_with_4digit_year: Correct %y replacement (Milan Crha)
+	Bug 548814 - [On The Web] Cannot read multiple VCALENDAR objects in single file (Milan Crha)
+	Bug 563602 - Detached recurrence ignored after import until EDS is restarted (Milan Crha)
+
+Miscellaneous:
+	[ESoupSession] Treat G_TLS_ERROR_BAD_CERTIFICATE as SOUP_STATUS_SSL_FAILED (Milan Crha)
+	[CalDAV/CardDAV] Check for TLS/authentication errors on refresh (Milan Crha)
+	[IMAPx] Not all local changes saved to the server (Milan Crha)
+	camel_store_get_inbox_folder() can fail for IMAPx stores (Milan Crha)
+	[EWebDAVDiscoverWidget] Minor changes to error label (Milan Crha)
+	[ECalMetaBackend] Removing detached instance doesn't set EXDATE (Milan Crha)
+	[IMAPx] Handle gracefully when service is unavailable for get_folder_info() (Milan Crha)
+	Merge a cmake/modules change from Evolution (Milan Crha)
+
+Translations:
+	Fabio Tomat (fur)
+	Ask Hjorth Larsen (da)
+	Piotr Drąg (pl)
+	Rūdolfs Mazurs (lv)
+	Милош Поповић (sr)
+	Милош Поповић (sr@latin)
+	Rafael Fontenelle (pt_BR)
+	Jordi Mas (ca)
+	Wolfgang Stöggl (de)
+	Jiri Grönroos (fi)
+	Changwoo Ryu (ko)
+	Dušan Kazik (sk)
+
+Evolution-Data-Server 3.25.91 2017-08-21
+----------------------------------------
+
+Bug Fixes:
+	Bug 781901 - [CamelOperation] Do not use g_cancellable_connect/disconnect() (Milan Crha)
+	Bug 786366 - Convert C source files to UTF-8 (Jan Alexander Steffens (heftig))
+
+Miscellaneous:
+	Add new developer documentation file into evolution-data-server-docs.sgml.in (Milan Crha)
+
+Translations:
+	Kukuh Syafaat (id)
+	Fabio Tomat (fur)
+	Fran Dieguez (gl)
+	Gianvito Cavasoli (it)
+	Aurimas Černius (lt)
+	Pawan Chitrakar (ne)
+	Gábor Kelemen (hu)
+	Marek Cernocky (cs)
+	Anish Sheela (ml)
+
+Evolution-Data-Server 3.25.90 2017-08-07
+----------------------------------------
+
+Bug Fixes:
+	Bug 785136 - Summary changes can be lost on folder leave (Milan Crha)
+	Bug 785188 - Do not add LIB_INSTALL_DIR into RPATH (Milan Crha)
+	Bug 785212 - Quit with a large vFolder causes load of each message info (Milan Crha)
+	Bug 785284 - Add asynchronous variant for camel_offline_store_set_online_sync() (Milan Crha)
+	Bug 785340 - Change "IMAP+" server type to "IMAP" in GUI (Milan Crha)
+	Bug 785393 - [ESourceRefresh] Let zero Refresh interval mean 'No periodic update' (Milan Crha)
+	Bug 785629 - Document the CamelStoreGetFolderFlags (Corentin Noël)
+	Bug 785647 - Fix some warnings within the documentation (Corentin Noël)
+	Bug 785718 - Optimize Maildir sync/check to not load whole summary (Milan Crha)
+
+Miscellaneous:
+	Make EWebDAVSession soft-depend on ESourceWebdav extension (Milan Crha)
+	Introduce EWebDAVCollectionBackend to be used for WebDAV-discovered collections (Milan Crha)
+	Workaround issue with badRequest/invalid format for Google address book (Milan Crha)
+	Deadlock on exit under e-categories.c:finalize_categories() (Milan Crha)
+	[EWebDAVDiscover] Correct href sets reading (Milan Crha)
+	[Vala] Fix a warning with a virtual method being the same name as another method (Corentin Noël)
+	Rename owncloud-backend module to webdav-backend (Milan Crha)
+	Add calendar and contacts URLs into ESourceCollection extension (Milan Crha)
+
+Translations:
+	Andika Triwidada (id)
+	Daniel Mustieles (es)
+	Marek Cernocky (cs)
+	Baurzhan Muftakhidinov (kk)
+	Pawan Chitrakar (ne)
+	Matej Urbančič (sl)
+
+Evolution-Data-Server 3.25.4 2017-07-17
+---------------------------------------
+
+Bug Fixes:
+	Bug 493801 - [IMAPx] Locally cached files not deleted after message remove (Milan Crha)
+	Bug 343904 - [POP3] Local cache keeps stored orphaned files (Milan Crha)
+	Bug 779753 - [NNTP] Removed messages from server kept in local cache (Milan Crha)
+	Bug 338649 - [NNTP] Add option to limit message download count (Milan Crha)
+	Bug 784116 - Preserve header's folding misbehaves for folded boundary parameter (James Bottomley)
+	Bug 784182 - Change how code snippets are marked in developer comments (Ting-Wei Lan)
+	Bug 779156 - [IMAPx] Not listening for changes after resume from suspend ][ (Milan Crha)
+	Bug 784183 - tests/libedata-cal/test-cal-cache-utils.c needs sys/wait.h (Ting-Wei Lan)
+	Bug 784218 - [Camel] Document some variables to make them available in the introspection (Corentin Noël)
+	Bug 772572 - Allow creating Receive-only mail accounts (Milan Crha)
+	Bug 781744 - Support not storing sent messages (Milan Crha)
+	Bug 782844 - Folder changes not always saved (Milan Crha)
+	Bug 781790 - Configure signature and start cursor position per account (Milan Crha)
+	Bug 784548 - Collection credentials used for different SMTP server (Milan Crha)
+	Bug 784746 - Remove version number from gettext package name (Jeremy Bicha)
+
+Miscellaneous:
+	Better react on connection lost in EBookMetaBackend/ECalMetaBackend (Milan Crha)
+	Introduce 'list-sources' tool (Milan Crha)
+	Use the fancy Unicode apostrophes in the “list-sources” tool (Piotr Drąg)
+	Change --module-dir for gtkdoc-fixxref call (Milan Crha)
+	Warn and set default when sendmail not found during the build (Milan Crha)
+	Expose D-Bus service names in evolution-data-server pkg-config file (Milan Crha)
+	Correct localization of external tools (Milan Crha)
+
+Translations:
+	Daniel Mustieles (es)
+	Piotr Drąg (pl)
+	Rafael Fontenelle (pt_BR)
+	Anders Jonsson (sv)
+	Kukuh Syafaat (id)
+	Gábor Kelemen (hu)
+	Mario Blättermann (de)
+
+Evolution-Data-Server 3.25.3 2017-06-19
+---------------------------------------
+
+Bug Fixes:
+	Bug 782096 - Folder unread count sometimes doesn't update properly (Milan Crha)
+	Bug 770476 - Crash on exit in object_bag_notify() (Milan Crha)
+	Bug 783385 - Prefer SSL over STARTTLS for mail when both are set in GOA (Milan Crha)
+
+Miscellaneous:
+	Prevent busy-loop opening Google calendar configured in GOA (Milan Crha)
+	Rename "WebDAV" books group to "CardDAV" (Milan Crha)
+	Make some EBookMetaBackend/ECalMetaBackend private functions public (Milan Crha)
+	Deprecate e_uid_new() in favor of e_util_generate_uid() (Milan Crha)
+	[ESoupSession] Prefer request's URI when setting OAuth2 authorizer (Milan Crha)
+	[EBookCache/ECalCache] Understand '#t' search expression as 'list all' (Milan Crha)
+	Prevent GError override in e_cal_backend_sync_get_timezone() (Milan Crha)
+	Publicize immediate refresh function for EBookMetaBackend/ECalMetaBackend (Milan Crha)
+	Fix few memory leaks (Milan Crha)
+	Correct ECalMetaBackend::get_object_sync() implementation (Milan Crha)
+	Be able to get all UID/id-s from book/cal cache with certain 'extra' data (Milan Crha)
+	Fix a crash under e_webdav_discover_traverse_propfind_response_cb() (Milan Crha)
+	Introduce ESourceRegistryWatcher (Milan Crha)
+	Update ESource's connection-status in EBookMetaBackend/ECalMetaBackend (Milan Crha)
+	Allow overwrite of CMAKE_SKIP_RPATH variable (Milan Crha)
+
+Translations:
+	Mario Blättermann (de)
+	Kukuh Syafaat (id)
+	Daniel Mustieles (es)
+	Jordi Mas (ca)
+	Fabio Tomat (fur)
+	Kjartan Maraas (nb)
+	Baurzhan Muftakhidinov (kk)
+
+Evolution-Data-Server 3.25.2 2017-05-22
+---------------------------------------
+
+Bug Fixes:
+	Bug 781833 - Do not set '-Wl,--no-undefined' on BSD (Antoine Jacoutot)
+	Bug 779749 - [NNTP] Add exclusive usage locking for underlying stream (Milan Crha)
+	Bug 782360 - Remove src/addressbook/docs/ from git and releases (Milan Crha)
+	Bug 782362 - csv2vcard not marked as executable (Milan Crha)
+	Bug 782377 - ESourceWebdav overrides ESourceAuthentication::method (Milan Crha)
+	Bug 782745 - Build failure of vapi bindings (xmlDocPtr ~> xmlDoc *) (Milan Crha)
+	Bug 782799 - On The Web calendar update incorrectly cancelled (Milan Crha)
+	Bug 782847 - Some fixes to the developer documentation (Corentin Noël)
+
+Miscellaneous:
+	Remove forgotten debug print (Milan Crha)
+	Add CamelWeakRefGroup to camel-docs.sgml (Milan Crha)
+	Merge offline-cache changes into master (Milan Crha)
+	Unicode typography fixes (Piotr Drąg)
+	Bump libical dependency to 2.0 for ICAL_FILENAME_PARAMETER (Milan Crha)
+	Fix possible use of uninitialized variables in the new code (Milan Crha)
+	Correct some developer code comments and annotations (Milan Crha)
+	Introduce e_util_generate_uid() (Milan Crha)
+	Re-apply missed change for bug 781543 after the offline-cache code merge (Milan Crha)
+	Mis-filters emails with Mailing List rule in certain situations (Milan Crha)
+	On The Web calendars don't work when the server doesn't return ETag header (Milan Crha)
+
+Translations:
+	Kukuh Syafaat (id)
+	Daniel Mustieles (es)
+
+Evolution-Data-Server 3.25.1 2017-04-24
+---------------------------------------
+
+Bug Fixes:
+	Bug 780617 - [IMAPx] Allow FETCH response split into multiple lines (Milan Crha)
+	Bug 777161 - [CalDAV] Deadlock after refresh of OAuth2 token (Milan Crha)
+	Bug 777042 - [NNTP] Offline access not working when server service unreachable (Milan Crha)
+	Bug 656635 - Use-after-free when setting summary for component with alarms (Milan Crha)
+	Bug 781376 - [LDAP] Search in supported fields only (Milan Crha)
+	Bug 781465 - Add db4_load and db_load-4 to DB_LOAD NAMES (Antoine Jacoutot)
+	Bug 781543 - Provide all Google Task lists (Milan Crha)
+	Bug 781549 - [IMAPx] Treat UID as unsigned integer (Milan Crha)
+
+Miscellaneous:
+	Revert "Disable support for all POP3 extensions by default" (Milan Crha)
+	Fix maybe-used-uninitialized compiler warning from camel-pop3-folder.c (Milan Crha)
+	Fix few Coverity scan issues (Milan Crha)
+	Correct two libecal/client tests (Milan Crha)
+	[IMAPx] Unsubscribed folders shown after refresh (Milan Crha)
+	[IMAPx] Fix a memory leak of CamelIMAPXServer (Milan Crha)
+
+Translations:
+	Ask Hjorth Larsen (da)
+	Piotr Drąg (pl)
+	Rūdolfs Mazurs (lv)
+	Cédric Valmary (oc)
+
+Evolution-Data-Server 3.24.0 2017-03-20
+---------------------------------------
+
+Translations:
+	Jordi Mas (ca)
+	Rūdolfs Mazurs (lv)
+	Andika Triwidada (id)
+	Piotr Drąg (pl)
+	Dušan Kazik (sk)
+	Gianvito Cavasoli (it)
+
+Evolution-Data-Server 3.23.92 2017-03-13
+----------------------------------------
+
+Bug Fixes:
 	Bug 779156 - [IMAPx] Not listening for changes after resume from suspend (Milan Crha)
 	Bug 779161 - [Google Auth] Asks for re-sign when cannot reach server to refresh token (Milan Crha)
 	Bug 779761 - Duplicate parenthesis in LDAP schema file (Milan Crha)
@@ -19,106 +605,238 @@ Bug Fixes:
 
 Miscellaneous:
 	Disable support for all POP3 extensions by default (Milan Crha)
+	Skip outdated Camel tests in 'make check' (Milan Crha)
+	[Camel] Extend filter debug logging (Milan Crha)
 
 Translations:
-	Tong Hui (zh_CN)
-	Anders Jonsson (sv)
+	Daniel Mustieles (es)
+	Ask Hjorth Larsen (da)
+	Fran Dieguez (gl)
+	Changwoo Ryu (ko)
 
-Evolution-Data-Server 3.22.5 2017-02-13
----------------------------------------
+Evolution-Data-Server 3.23.91 2017-02-27
+----------------------------------------
 
 Bug Fixes:
+	Bug 778775 - Add carddav scope to google-contacts.service for Ubuntu online accounts (Khurshid Alam)
+	Bug 778768 - Fails to modify contact with Yandex CardDAV server (Milan Crha)
+	Bug 778235 - [IMAPx] Ignore truncated COPYUID server response (Milan Crha)
+	Bug 775699 - Only latest 100 tasks downloaded from the Google ][ (Milan Crha)
+
+Miscellaneous:
+	Fix a performance issue caused by GWeakRef usage in CamelMessageInfo (Milan Crha)
+	[IMAPx] Declare summary to use when cloning message info after message append (Milan Crha)
+	Correct how data for installed tests are searched for (Milan Crha)
+
+Translations:
+	Inaki Larranaga Murgoitio (eu)
+	Ask Hjorth Larsen (da)
+	Mingye Wang (Arthur2e5) (zh_CN)
+	Chao-Hsiung Liao (zh_TW)
+	Anders Jonsson (sv)
+	Jiri Grönroos (fi)
+	Kjartan Maraas (nb)
+	Claude Paroz (fr)
+	Balazs Mesko (hu)
+	Mario Blättermann (de)
+	Rafael Fontenelle (pt_BR)
+	Мирослав Николић (sr)
+	Мирослав Николић (sr@latin)
+
+Evolution-Data-Server 3.23.90 2017-02-13
+----------------------------------------
+
+Bug Fixes:
+	Bug 777207 - Allow e-mail address change for GOA configured accounts (Milan Crha)
 	Bug 777431 - [IMAPx] Gmail's BODY search returns only whole word matches (Milan Crha)
+	Bug 771289 - Memory leaks in test-contact-types.c (Milan Crha)
 	Bug 777695 - [ECalClient] Produce CRLF line endings in iCalendar string (Tim Ruffing)
 	Bug 777781 - Unfold header values before comparing them (Milan Crha)
 	Bug 778222 - Fix a build break with gperf 3.1 (Milan Crha)
 	Bug 778069 - UI not updated after IMAP NOTIFY notifications (Milan Crha)
+	Bug 777660 - Strange sentence in gschema string (Milan Crha)
 	Bug 778265 - Serialize access to underlying NNTP stream (Milan Crha)
 
 Miscellaneous:
 	Ignore errors when getting message for a body-contains search (Milan Crha)
+	Correct config.h inclusion in some recent Camel source files (Milan Crha)
+	Fix a CamelVeeMessageInfo memory leak (Milan Crha)
 	Fix a ref/unref imbalance of CamelIMAPXStoreInfo (Milan Crha)
 	Fix a memory leak in camel_imapx_server_append_message_sync() (Milan Crha)
 	Unable to add additional Google calendar (Milan Crha)
+	Avoid local message cache expiry clean up when being offline (Milan Crha)
 	[IMAPx] Avoid unneeded full flags folder update when no changes made (Milan Crha)
 
-Evolution-Data-Server 3.22.4 2017-01-16
+Translations:
+	Daniel Mustieles (es)
+	Fabio Tomat (fur)
+	Piotr Drąg (pl)
+	Dušan Kazik (sk)
+	Mario Blättermann (de)
+	Aurimas Černius (lt)
+	Marek Černocký (cs)
+	Kjartan Maraas (nb)
+
+Evolution-Data-Server 3.23.4 2017-01-16
 ---------------------------------------
 
 Bug Fixes:
+	Bug 773419 - Age limit for offline message download (Milan Crha)
+	Bug 775640 - Autoconfig: Use GSettings keys for folders and variables (Milan Crha)
 	Bug 776152 - Cannot search for WebDAV/CalDAV sources (Milan Crha)
+	Bug 776127 - Replies sometimes not grouped by thread (Milan Crha)
+	Bug 776254 - Introspection for libedataserverui (Corentin Noël)
+	Bug 776258 - Make CamelFolderThread a boxed type (Corentin Noël)
+	Bug 776194 - [Gpg] Better encrypt error message when no key for recipient (Milan Crha)
+	Bug 775643 - Autoconfig: Support also Signature sources (Milan Crha)
+	Bug 776328 - Set the provider field in CamelService as boxed (Corentin Noël)
+	Bug 776365 - Correct vapi build dependencies (Milan Crha)
 	Bug 774304 - Cover relative path in /etc/localtime symlink (Milan Crha)
 	Bug 777085 - vCard empty value could break next parameter name parsing (Milan Crha)
 
 Miscellaneous:
+	vala: libedataserver-1.2 depends on camel-1.2 (Michael Catanzaro)
+	[Vala] Add Posix dependency to camel-1.2 (Corentin Noël)
+	[Camel] Fix some introspection annotations (Corentin Noël)
+	Use a Unicode apostrophe in a new translatable string (Piotr Drąg)
 	Correct new module detection when installed by file rename (Milan Crha)
+	[Camel] Fix CamelStore annotations (Corentin Noël)
+	Various clean-ups of evolution-source-registry-autoconfig.c (Milan Crha)
+	Build vala bindings of libedataserverui only if it's built as well (Milan Crha)
 	camel-stream-process: Avoid call of g_debug() in the fork process (Milan Crha)
 	Replace deprecated icalproperty_remove_parameter() with icalproperty_remove_parameter_by_kind() (Milan Crha)
 	Replace deprecated icaltime_from_timet() with icaltime_from_timet_with_zone() (Milan Crha)
 	[IMAPx] Fix a memory leak (Milan Crha)
+	Fix a build with libphonenumber (Milan Crha)
 
-Evolution-Data-Server 3.22.3 2016-12-12
+Translations:
+	Daniel Mustieles (es)
+	Marek Černocký (cs)
+	Balázs Meskó (hu)
+	Fabio Tomat (fur)
+	Rafael Fontenelle (pt_BR)
+
+Evolution-Data-Server 3.23.3 2016-12-12
 ---------------------------------------
 
 Bug Fixes:
-	Bug 774180 - Don't use --no-undefined on Darwin (Philip Chimento)
-	Bug 774103 - GOA mail account doesn't inherit GoaMail::name (Milan Crha)
+	Bug 774331 - Use Unicode in translatable strings (Piotr Drąg)
 	Bug 774698 - [Camel] Do not drop leftover 'Deletes' table on open (Milan Crha)
 	Bug 772292 - [IMAPx] New mail not shown in UI until folder refresh (Milan Crha)
 	Bug 774496 - [POP3] Downloads messages multiple times with auto-fetch (Milan Crha)
+	Bug 774666 - Tell users how to keep messages on POP server indefinitely (Milan Crha)
+	Bug 775363 - Fails to build with minimum CMake version (Milan Crha)
+	Bug 775395 - Allow to override some (most) of the RPATH related settings (Dominique Leuenberger)
 	Bug 774841 - [EWebDAVDiscover] One part failure caused credentials reject (Milan Crha)
+	Bug 773156 - Allow system-wide ESource configurations (Autoconfig) (Iago López Galeiras)
+	Bug 775597 - Add -L flags set in LDFLAGS to g-ir-scanner command line (Ting-Wei Lan)
 	Bug 775618 - Contacts on Google does not accept a second address line (Milan Crha)
 	Bug 775699 - Only latest 100 tasks downloaded from the Google (Milan Crha)
 
 Miscellaneous:
+	Set also HAVE_KRB5 when found Kerberos 5 with pkg-config (Milan Crha)
+	[Camel] Consider NULL and empty arrays/sets equal (Milan Crha)
+	Correct const/no-const argument of the camel_message_info_set_dirty() (Milan Crha)
+	Do not propagate only folder-flagged flag change in CamelVeeMessageInfo (Milan Crha)
+	[IMAPx] Save also server user flags and tags into the folder summary (Milan Crha)
+	[IMAPx] Unnecessary local summary rewrites after folder update (Milan Crha)
 	[IMAPx] Local flag changes could be missed and left unsaved on the server (Milan Crha)
+	[Camel] Introduce camel_operation_new_proxy() (Milan Crha)
 	[IMAPx] Notify about new messages early during folder update (Milan Crha)
+	Fix a possible uninitialized variable use in a Camel test (Milan Crha)
+	Fix some of the gtk-doc warnings in Camel (Milan Crha)
 	Fix possible use-after-free in CamelVeeFolder with parent_vee_store (Milan Crha)
 	Test for parent_store availability around camel_folder_changed() (Milan Crha)
+	Let Camel build its .typelib for the introspection (Milan Crha)
+	Fix a vapigen warning from EDataServer-1.2.metadata (Milan Crha)
+	Make glib_mkenums() files depend on the source enum file (Milan Crha)
 
-Evolution-Data-Server 3.22.2 2016-11-07
+Translations:
+	Mario Blättermann (de)
+	Piotr Drąg (pl)
+	Marek Cernocky (cs)
+	Daniel Mustieles (es)
+	Gábor Kelemen (hu)
+	Baurzhan Muftakhidinov (kk)
+
+Evolution-Data-Server 3.23.2 2016-11-21
 ---------------------------------------
+
+Bug Fixes:
+	Bug 773360 - Prefer in-tree libraries when scanning introspection data (Milan Crha)
+	Bug 773363 - Do not use alloca() in camel-folder-thread.c (Glen Whitney)
+	Bug 769573 - Allow also time part set for Tasks, not only date part (Milan Crha)
+	Bug 773656 - Fix various g-ir-scanner failures after switching to cmake (Ting-Wei Lan)
+	Bug 773659 - Don't set CFLAGS returned by pkg-config as CMAKE_REQUIRED_FLAGS (Milan Crha)
+	Bug 773723 - Fix a few annotations in libecal (Corentin Noël)
+	Bug 773427 - Do not run gobject-introspection in the source directory (Milan Crha)
+	Bug 773657 - Fix JHBuild issues on FreeBSD after switching to cmake (Ting-Wei Lan)
+	Bug 764065 - [Camel] Port more classes to GObject (Corentin Noël)
+	Bug 767821 - Recognize X-GM-EXT-1 as SPECIAL-USE for Gmail IMAP (Zisu Andrei)
+	Bug 772947 - Global junk test option doesn't respect account settings (Milan Crha)
+	Bug 774103 - GOA mail account doesn't inherit GoaMail::name (Milan Crha)
+	Bug 774234 - Unset INSTALL_RPATH for libs not linking libedbus-private (Dominique Leuenberger)
+	Bug 774522 - Translator comments are missing in the .pot/.po files (Piotr Drąg)
+
+Miscellaneous:
+	[IMAPx] Avoid crash when untagged response doesn't have a token (Milan Crha)
+	Correct WITH_LIBDB configure option processing (Milan Crha)
+	Correct typo in the output name of camel tests (Milan Crha)
+	Mute/fix some of the libedataserver annotation warnings (Milan Crha)
+	Correct ENABLE_BACKTRACES configure option handling (Milan Crha)
+	Correct gtkdoc-scan --ignore-headers argument value (Milan Crha)
+	Update gtk-doc sgml input files (Milan Crha)
+	Fix some of the gtk-doc warnings (Milan Crha)
+	Split e-source-calendar.h/.c into three separate files (Milan Crha)
+	Correct how private enums (for gtk-doc) are defined (Milan Crha)
+	SetupBuildFlags.cmake: Check C++ flags only if C++ is enabled (Milan Crha)
+	Ensure CMAKE_SKIP_RPATH is OFF, the RPATH is used here (Milan Crha)
+
+Translations:
+	Marek Černocký (cs)
+	Mario Blättermann (de)
+
+Evolution-Data-Server 3.23.1 2016-10-24
+---------------------------------------
+
+* Evolution-Data-Server uses CMake instead of autotools now. At the end
+  of the configure phase are printed all the available options and their
+  values. These can be used for the cmake command to tweak the build.
 
 Bug Fixes:
 	Bug 772095 - Don't check available sources for disabled accounts (Google/ownCloud) (Milan Crha)
 	Bug 772347 - [IMAPx] NOTIFY responses stuck in stream until read from it (Milan Crha)
+	Bug 605416 - Add aliases for accounts (Milan Crha)
 	Bug 767807 - Inline non-text/image attachments hidden in message list (Milan Crha)
+	Bug 773188 - Fix some warnings in the GObject Annotations (Corentin Noël)
 	Bug 773248 - [CalDAV] Google OAuth authentication can fail on refresh (Milan Crha)
-	Bug 773363 - Do not use alloca() in camel-folder-thread.c (Glen Whitney)
+	Bug 773309 - Export the C compiler for introspection (Emmanuele Bassi)
 
 Miscellaneous:
-	[IMAPx] Avoid crash when untagged response doesn't have a token (Milan Crha)
-
-Translations:
-	Fran Dieguez (gl)
-	Dušan Kazik (sk)
-	Kjartan Maraas (nb)
-	Aurimas Černius (lt)
-	Piotr Drąg (pl)
-	Benjamin Steinwender (de)
-	Anders Jonsson (sv)
-	Мирослав Николић (sr)
-	Мирослав Николић (sr@latin)
-
-Evolution-Data-Server 3.22.1 2016-10-10
----------------------------------------
-
-Bug Fixes:
-	Bug 771547 - Internal Google OAuth2 authentication fails with expired token (Milan Crha)
-
-Miscellaneous:
-	Fix console runtime warnings from vFolder/vStore code on application quit (Milan Crha)
-	Fix build with --disable-google-auth (Owen W. Taylor)
+	Convert from autotools to CMake (Milan Crha)
+	Require as hard dependency some dependencies (Milan Crha)
+	Extend error messages in FindLDAP.cmake (Milan Crha)
+	Reorganize directory structure (Milan Crha)
+	Add a helper script for a 'dist' target (Milan Crha)
+	Correct typos/overlooks in a build script (Milan Crha)
+	Rename SHARE_INSTALL_DIR to SHARE_INSTALL_PREFIX (Milan Crha)
+	Do not quote compiler/linker flags and fix g-ir-scanner cflags (Milan Crha)
+	ENABLE_DOT_LOCKING not properly propagated into config.h (Milan Crha)
+	Hard-break `make dist` when there are uncommitted changes (Milan Crha)
 
 Translations:
 	Peter Mráz (sk)
 	Gianvito Cavasoli (it)
-	gogo (hr)
 	Rafael Fontenelle (pt_BR)
 	Marek Černocký (cs)
 	Balázs Meskó (hu)
 	Rūdolfs Mazurs (lv)
 	Ask Hjorth Larsen (da)
+	Dušan Kazik (sk)
+	Aurimas Černius (lt)
+	Piotr Drąg (pl)
+	Benjamin Steinwender (de)
+	Anders Jonsson (sv)
 
 Evolution-Data-Server 3.22.0 2016-09-19
 ---------------------------------------

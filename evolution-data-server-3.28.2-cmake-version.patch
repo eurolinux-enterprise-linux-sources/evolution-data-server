@@ -1,0 +1,62 @@
+diff -up evolution-data-server-3.28.2/CMakeLists.txt.cmake-version evolution-data-server-3.28.2/CMakeLists.txt
+--- evolution-data-server-3.28.2/CMakeLists.txt.cmake-version	2018-05-07 04:03:27.000000000 -0400
++++ evolution-data-server-3.28.2/CMakeLists.txt	2018-06-01 02:47:48.476438577 -0400
+@@ -1,12 +1,16 @@
+ # Evolution-Data-Server build script
+ 
+-cmake_minimum_required(VERSION 3.1)
+-cmake_policy(VERSION 3.1)
++cmake_minimum_required(VERSION 2.8)
++cmake_policy(VERSION 2.8)
+ 
+-project(evolution-data-server
+-	VERSION 3.28.5
+-	LANGUAGES C CXX)
+-set(CMAKE_CXX_STANDARD 14)
++project(evolution-data-server C CXX)
++set(PROJECT_VERSION_MAJOR 3)
++set(PROJECT_VERSION_MINOR 28)
++set(PROJECT_VERSION_PATCH 5)
++set(PROJECT_VERSION_TWEAK 0)
++set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
++
++#set(CMAKE_CXX_STANDARD 14)
+ set(PROJECT_BUGREPORT "https://gitlab.gnome.org/GNOME/evolution-data-server/issues/")
+ 
+ # Base Version: This is for API/version tracking for things like
+diff -up evolution-data-server-3.28.2/cmake/modules/FindIntltool.cmake.cmake-version evolution-data-server-3.28.2/cmake/modules/FindIntltool.cmake
+--- evolution-data-server-3.28.2/cmake/modules/FindIntltool.cmake.cmake-version	2018-06-01 02:55:49.695451836 -0400
++++ evolution-data-server-3.28.2/cmake/modules/FindIntltool.cmake	2018-06-01 02:56:39.955247217 -0400
+@@ -92,7 +92,7 @@ macro(intltool_add_pot_file_target)
+ 	endif(NOT CMAKE_CURRENT_SOURCE_DIR STREQUAL GETTEXT_PO_DIR)
+ 
+ 	add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${GETTEXT_PACKAGE}.pot
+-		COMMAND ${CMAKE_COMMAND} -E env INTLTOOL_EXTRACT="${INTLTOOL_EXTRACT}" XGETTEXT="${XGETTEXT}" srcdir=${CMAKE_CURRENT_SOURCE_DIR} ${INTLTOOL_UPDATE} --gettext-package ${GETTEXT_PACKAGE} --pot
++		COMMAND env INTLTOOL_EXTRACT="${INTLTOOL_EXTRACT}" XGETTEXT="${XGETTEXT}" srcdir=${CMAKE_CURRENT_SOURCE_DIR} ${INTLTOOL_UPDATE} --gettext-package ${GETTEXT_PACKAGE} --pot
+ 	)
+ 
+ 	add_custom_target(pot-file
+diff -up evolution-data-server-3.28.2/cmake/modules/GObjectIntrospection.cmake.cmake-version evolution-data-server-3.28.2/cmake/modules/GObjectIntrospection.cmake
+--- evolution-data-server-3.28.2/cmake/modules/GObjectIntrospection.cmake.cmake-version	2018-05-07 04:03:27.000000000 -0400
++++ evolution-data-server-3.28.2/cmake/modules/GObjectIntrospection.cmake	2018-06-01 02:58:26.538809013 -0400
+@@ -116,7 +116,7 @@ macro(gir_add_introspection gir)
+ 		file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${_gir_name}_files "${_gir_files}")
+ 
+ 		add_custom_command(
+-			COMMAND ${CMAKE_COMMAND} -E env "CC='${CMAKE_C_COMPILER}'" LDFLAGS=
++			COMMAND env "CC='${CMAKE_C_COMPILER}'" LDFLAGS=
+ 				${INTROSPECTION_SCANNER_ENV}
+ 				${G_IR_SCANNER}
+ 				${INTROSPECTION_SCANNER_ARGS}
+diff -up evolution-data-server-3.28.2/cmake/modules/GtkDoc.cmake.cmake-version evolution-data-server-3.28.2/cmake/modules/GtkDoc.cmake
+--- evolution-data-server-3.28.2/cmake/modules/GtkDoc.cmake.cmake-version	2018-06-01 02:55:38.599497013 -0400
++++ evolution-data-server-3.28.2/cmake/modules/GtkDoc.cmake	2018-06-01 02:56:22.587317927 -0400
+@@ -60,7 +60,7 @@ macro(add_gtkdoc _module _namespace _dep
+ 
+ 	set(_mkhtml_prefix "")
+ 	if(APPLE)
+-		set(_mkhtml_prefix "${CMAKE_COMMAND} -E env XML_CATALOG_FILES=\"/usr/local/etc/xml/catalog\"")
++		set(_mkhtml_prefix "env XML_CATALOG_FILES=\"/usr/local/etc/xml/catalog\"")
+ 	endif(APPLE)
+ 
+ 	add_custom_command(OUTPUT html/index.html

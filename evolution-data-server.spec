@@ -1,29 +1,26 @@
 %define ldap_support 1
 %define static_ldap 0
 %define krb5_support 1
-%define nntp_support 1
 %define largefile_support 1
 
 # Coverity scan can override this to 0, to skip checking in gtk-doc generated code
 %{!?with_docs: %global with_docs 1}
 
-%define glib2_version 2.50.3
-%define gtk3_version 3.22.9
+%define glib2_version 2.46.0
+%define gtk3_version 3.10.0
 %define gcr_version 3.4
 %define gtk_doc_version 1.9
 %define goa_version 3.8
-%define intltool_version 0.50.2-7
-%define libsecret_version 0.18.5
-%define libgdata_version 0.17.7
-%define libgweather_version 3.20.4
-%define libical_version 0.46
+%define intltool_version 0.35.5
+%define libsecret_version 0.5
+%define libgdata_version 0.10.0
+%define libgweather_version 3.5.0
+%define libical_version 2.0
 %define libsoup_version 2.42
 %define nss_version 3.14
 %define sqlite_version 3.5
-%define webkit2gtk_version 2.14.5
-%define json_glib_version 1.2.2
-
-%define eds_base_version 3.22
+%define webkit2gtk_version 2.11.91
+%define json_glib_version 1.0.4
 
 %define credential_modules_dir %{_libdir}/evolution-data-server/credential-modules
 %define camel_provider_dir %{_libdir}/evolution-data-server/camel-providers
@@ -34,17 +31,19 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.22.7
-Release: 8%{?dist}
+Version: 3.28.5
+Release: 1%{?dist}
 Group: System Environment/Libraries
 Summary: Backend data server for Evolution
 License: LGPLv2+
 URL: https://wiki.gnome.org/Apps/Evolution
-BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-Source: http://download.gnome.org/sources/%{name}/3.22/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.28/%{name}-%{version}.tar.xz
 
 Provides: evolution-webcal = %{version}
 Obsoletes: evolution-webcal < 2.24.0
+
+# RH-bug #1362477
+Requires: pinentry-gtk
 
 %if 0%{?fedora}
 # From rhughes-f20-gnome-3-12 copr
@@ -53,50 +52,29 @@ Obsoletes: compat-evolution-data-server310-libcamel < 3.12
 
 ### Patches ###
 
-# RH bug #243296
-Patch01: evolution-data-server-1.11.5-fix-64bit-acinclude.patch
-
-Patch02: evolution-data-server-3.22.6-maybe-uninitialized-variable.patch
-Patch03: evolution-data-server-3.22.6-coverity-scan-issues.patch
-
-# RH bug #1440643
-Patch04: evolution-data-server-3.22.7-caldav-oauth2-refresh-deadlock.patch
-
-Patch05: evolution-data-server-3.22.7-correct-libecal-tests.patch
-
-# RH bug #1441608
-Patch06: evolution-data-server-3.22.7-use-after-free-component-summary-set.patch
-
-# RH bug #1439590
-Patch07: evolution-data-server-3.22.7-imapx-subscriptions.patch
-
-# RH bug #1444075
-Patch08: evolution-data-server-3.22.7-imapx-idle-server-leak.patch
-
-# RH bug #1504071
-Patch09: evolution-data-server-3.22.7-goa-prefer-ssl.patch
-
-# RH bug #1476329
-Patch10: evolution-data-server-3.22.7-deadlock-categories-finalize.patch
-
-# RH bug #1512860
-Patch11: evolution-data-server-3.22.7-gtype-init-workaround.patch
+Patch02: evolution-data-server-3.28.2-cmake-version.patch
+Patch03: evolution-data-server-3.28.2-sqlite-deterministic.patch
 
 ### Dependencies ###
 
 Requires: dconf
+Requires: %{name}-langpacks = %{version}-%{release}
 
 ### Build Dependencies ###
 
+BuildRequires: cmake
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: gettext
-BuildRequires: gnome-common
 BuildRequires: gperf
 BuildRequires: gtk-doc >= %{gtk_doc_version}
 BuildRequires: intltool >= %{intltool_version}
 BuildRequires: libdb-devel
-BuildRequires: libtool
+BuildRequires: perl
+BuildRequires: python
 BuildRequires: vala
 BuildRequires: vala-tools
+BuildRequires: sendmail
 BuildRequires: systemd
 
 BuildRequires: pkgconfig(gcr-3)  >= %{gcr_version}
@@ -120,11 +98,9 @@ BuildRequires: pkgconfig(webkit2gtk-4.0) >= %{webkit2gtk_version}
 BuildRequires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 
 %if %{ldap_support}
-%if %{static_ldap}
-BuildRequires: openldap-devel%{?_isa}
-BuildRequires: pkgconfig(openssl)
-%else
 BuildRequires: openldap-devel >= 2.0.11
+%if %{static_ldap}
+BuildRequires: pkgconfig(openssl)
 %endif
 %endif
 
@@ -156,6 +132,14 @@ Requires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 
 %description devel
 Development files needed for building things which link against %{name}.
+
+%package langpacks
+Summary: Translations for %{name}
+BuildArch: noarch
+Requires: %{name} = %{version}-%{release}
+
+%description langpacks
+This package contains translations for %{name}.
 
 %if %{with_docs}
 
@@ -190,23 +174,18 @@ the functionality of the installed %{name} package.
 %prep
 %setup -q
 
-%patch01 -p1 -b .fix-64bit-acinclude
-%patch02 -p1 -b .maybe-uninitialized-variable
-%patch03 -p1 -b .coverity-scan-issues
-%patch04 -p1 -b .caldav-oauth2-refresh-deadlock
-%patch05 -p1 -b .correct-libecal-tests
-%patch06 -p1 -b .use-after-free-component-summary-set
-%patch07 -p1 -b .imapx-subscriptions
-%patch08 -p1 -b .imapx-idle-server-leak
-%patch09 -p1 -b .goa-prefer-ssl
-%patch10 -p1 -b .deadlock-categories-finalize
-%patch11 -p1 -b .gtype-init-workaround
+%patch02 -p1 -b .cmake-version
+%patch03 -p1 -b .sqlite-deterministic
 
 %build
+
+mkdir -p _build
+cd _build
+
 %if %{ldap_support}
 
 %if %{static_ldap}
-%define ldap_flags --with-openldap=yes --with-static-ldap
+%define ldap_flags -DWITH_OPENLDAP=ON -DWITH_STATIC_LDAP=ON
 # Set LIBS so that configure will be able to link with static LDAP libraries,
 # which depend on Cyrus SASL and OpenSSL.  XXX Is the "else" clause necessary?
 if pkg-config openssl ; then
@@ -222,37 +201,31 @@ else
     export LIBS="$LIBS -lssl3 -lsmime3 -lnss3 -lnssutil3 -lplds4 -lplc4 -lnspr4"
 fi
 %else
-%define ldap_flags --with-openldap=yes
+%define ldap_flags -DWITH_OPENLDAP=ON
 %endif
 
 %else
-%define ldap_flags --without-openldap
+%define ldap_flags -DWITH_OPENLDAP=OFF
 %endif
 
 %if %{krb5_support}
-%define krb5_flags --with-krb5
+%define krb5_flags -DWITH_KRB5=ON
 %else
-%define krb5_flags --without-krb5
-%endif
-
-%if %{nntp_support}
-%define nntp_flags --enable-nntp=yes
-%else
-%define nntp_flags --enable-nntp=no
+%define krb5_flags -DWITH_KRB5=OFF
 %endif
 
 %if %{largefile_support}
-%define largefile_flags --enable-largefile
+%define largefile_flags -DENABLE_LARGEFILE=ON
 %else
-%define largefile_flags --disable-largefile
+%define largefile_flags -DENABLE_LARGEFILE=OFF
 %endif
 
-%define ssl_flags --enable-smime=yes
+%define ssl_flags -DENABLE_SMIME=ON
 
 %if %{with_docs}
-%define gtkdoc_flags --enable-gtk-doc
+%define gtkdoc_flags -DENABLE_GTK_DOC=ON
 %else
-%define gtkdoc_flags --disable-gtk-doc
+%define gtkdoc_flags -DENABLE_GTK_DOC=OFF
 %endif
 
 if ! pkg-config --exists nss; then
@@ -263,54 +236,34 @@ fi
 export CPPFLAGS="-I%{_includedir}/et"
 export CFLAGS="$RPM_OPT_FLAGS -DLDAP_DEPRECATED -fPIC -I%{_includedir}/et -Wno-deprecated-declarations"
 
-# Regenerate configure to pick up configure.in and acinclude.m4 changes..
-aclocal -I m4
-autoheader
-automake --add-missing
-libtoolize
-intltoolize --force
-autoconf
-
 # See Ross Burton's blog entry for why we want --with-libdb.
 # http://www.burtonini.com/blog//computers/eds-libdb-2006-07-18-10-40
 
-%configure \
-	--disable-maintainer-mode \
-	--disable-uoa \
-	--with-libdb=/usr \
-	--enable-file-locking=fcntl \
-	--enable-dot-locking=no \
-	--enable-introspection=yes \
-	--enable-vala-bindings \
-	--enable-installed-tests \
-	%ldap_flags %krb5_flags %nntp_flags %ssl_flags \
-	%largefile_flags %gtkdoc_flags
-export tagname=CC
+%cmake -G "Unix Makefiles" \
+	-DENABLE_MAINTAINER_MODE=OFF \
+	-DENABLE_UOA=OFF \
+	-DWITH_LIBDB=/usr \
+	-DENABLE_FILE_LOCKING=fcntl \
+	-DENABLE_DOT_LOCKING=OFF \
+	-DENABLE_INTROSPECTION=ON \
+	-DENABLE_VALA_BINDINGS=ON \
+	-DENABLE_INSTALLED_TESTS=ON \
+	%ldap_flags %krb5_flags %ssl_flags \
+	%largefile_flags %gtkdoc_flags \
+	..
 
-make %{?_smp_mflags} LIBTOOL=/usr/bin/libtool
+make %{?_smp_mflags}
 
 %install
+cd _build
 rm -rf $RPM_BUILD_ROOT
-export tagname=CC
-make DESTDIR=$RPM_BUILD_ROOT LIBTOOL=/usr/bin/libtool install
 
-# remove libtool archives for importers and the like
-find $RPM_BUILD_ROOT/%{_libdir} -name '*.la' -exec rm {} \;
-rm -f $RPM_BUILD_ROOT/%{_libdir}/*.a
-rm -f $RPM_BUILD_ROOT/%{_libdir}/evolution-data-server/*.a
-rm -f $RPM_BUILD_ROOT/%{credential_modules_dir}/*.a
-rm -f $RPM_BUILD_ROOT/%{camel_provider_dir}/*.a
-rm -f $RPM_BUILD_ROOT/%{ebook_backends_dir}/*.a
-rm -f $RPM_BUILD_ROOT/%{ecal_backends_dir}/*.a
-rm -f $RPM_BUILD_ROOT/%{modules_dir}/*.a
+make DESTDIR=$RPM_BUILD_ROOT install
 
 # give the libraries some executable bits
 find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 
-%find_lang %{name}-%{eds_base_version}
-
-%clean
-rm -rf $RPM_BUILD_ROOT
+%find_lang %{name}
 
 %post -p /sbin/ldconfig
 
@@ -323,8 +276,9 @@ fi
 %posttrans
 glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 
-%files -f %{name}-%{eds_base_version}.lang
-%doc README COPYING ChangeLog NEWS
+%files
+%license COPYING
+%doc README ChangeLog NEWS
 %{_libdir}/libcamel-1.2.so.*
 %{_libdir}/libebackend-1.2.so.*
 %{_libdir}/libebook-1.2.so.*
@@ -335,9 +289,11 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_libdir}/libedataserver-1.2.so.*
 %{_libdir}/libedataserverui-1.2.so.*
 
+%{_libdir}/girepository-1.0/Camel-1.2.typelib
 %{_libdir}/girepository-1.0/EBook-1.2.typelib
 %{_libdir}/girepository-1.0/EBookContacts-1.2.typelib
 %{_libdir}/girepository-1.0/EDataServer-1.2.typelib
+%{_libdir}/girepository-1.0/EDataServerUI-1.2.typelib
 
 %{_libexecdir}/camel-gpg-photo-saver
 %{_libexecdir}/camel-index-control-1.2
@@ -350,7 +306,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_libexecdir}/evolution-source-registry
 %{_libexecdir}/evolution-user-prompter
 
+%dir %{_libexecdir}/evolution-data-server
 %{_libexecdir}/evolution-data-server/addressbook-export
+%{_libexecdir}/evolution-data-server/list-sources
 
 # GSettings schemas:
 %{_datadir}/GConf/gsettings/evolution-data-server.convert
@@ -416,10 +374,11 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{modules_dir}/module-cache-reaper.so
 %{modules_dir}/module-google-backend.so
 %{modules_dir}/module-gnome-online-accounts.so
+%{modules_dir}/module-oauth2-services.so
 %{modules_dir}/module-outlook-backend.so
-%{modules_dir}/module-owncloud-backend.so
 %{modules_dir}/module-secret-monitor.so
 %{modules_dir}/module-trust-prompt.so
+%{modules_dir}/module-webdav-backend.so
 %{modules_dir}/module-yahoo-backend.so
 
 %files devel
@@ -447,6 +406,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_datadir}/gir-1.0/EBook-1.2.gir
 %{_datadir}/gir-1.0/EBookContacts-1.2.gir
 %{_datadir}/gir-1.0/EDataServer-1.2.gir
+%{_datadir}/gir-1.0/EDataServerUI-1.2.gir
 %{_datadir}/vala/vapi/camel-1.2.deps
 %{_datadir}/vala/vapi/camel-1.2.vapi
 %{_datadir}/vala/vapi/libebook-1.2.deps
@@ -455,6 +415,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_datadir}/vala/vapi/libebook-contacts-1.2.vapi
 %{_datadir}/vala/vapi/libedataserver-1.2.deps
 %{_datadir}/vala/vapi/libedataserver-1.2.vapi
+%{_datadir}/vala/vapi/libedataserverui-1.2.deps
+%{_datadir}/vala/vapi/libedataserverui-1.2.vapi
+
+%files langpacks -f _build/%{name}.lang
 
 %if %{with_docs}
 
@@ -473,6 +437,25 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Mon Jul 30 2018 Milan Crha <mcrha@redhat.com> - 3.28.5-1
+- Update to 3.28.5
+
+* Mon Jul 16 2018 Milan Crha <mcrha@redhat.com> - 3.28.4-1
+- Update to 3.28.4
+- Remove patch for GNOME bug #796174 (fixed upstream)
+
+* Tue Jun 19 2018 Milan Crha <mcrha@redhat.com> - 3.28.3-2
+- Add patch for GNOME bug #796174 (strcat() considered unsafe for buffer overflow)
+
+* Mon Jun 18 2018 Milan Crha <mcrha@redhat.com> - 3.28.3-1
+- Update to 3.28.3
+- Remove patch for GNOME bug #795997 (fixed upstream)
+
+* Wed May 30 2018 Milan Crha <mcrha@redhat.com> - 3.28.2-1
+- Update to 3.28.2
+- Add patch for GNOME bug #795997 (Fails to parse Google OAuth2 authorization code)
+- Resolves: #1575495
+
 * Thu Nov 16 2017 Milan Crha <mcrha@redhat.com> - 3.22.7-8
 - Add patch for RH bug #1512860 (Add workaround for glib type init deadlock)
 

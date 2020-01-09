@@ -1,0 +1,20 @@
+diff -up evolution-data-server-3.28.3/src/calendar/libedata-cal/e-cal-cache.c.sqlite-deterministic evolution-data-server-3.28.3/src/calendar/libedata-cal/e-cal-cache.c
+--- evolution-data-server-3.28.3/src/calendar/libedata-cal/e-cal-cache.c.sqlite-deterministic	2018-06-18 10:48:43.000000000 +0200
++++ evolution-data-server-3.28.3/src/calendar/libedata-cal/e-cal-cache.c	2018-06-18 12:24:16.018228889 +0200
+@@ -1730,14 +1730,14 @@ ecc_init_sqlite_functions (ECalCache *ca
+ 
+ 	/* check_sexp(sexp_id, icalstring) */
+ 	ret = sqlite3_create_function (sqlitedb,
+-		"check_sexp", 2, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
++		"check_sexp", 2, SQLITE_UTF8 /*| SQLITE_DETERMINISTIC*/,
+ 		cal_cache, ecc_check_sexp_func,
+ 		NULL, NULL);
+ 
+ 	if (ret == SQLITE_OK) {
+ 		/* negate(x) */
+ 		ret = sqlite3_create_function (sqlitedb,
+-			"negate", 1, SQLITE_UTF8 | SQLITE_DETERMINISTIC,
++			"negate", 1, SQLITE_UTF8 /*| SQLITE_DETERMINISTIC*/,
+ 			NULL, ecc_negate_func,
+ 			NULL, NULL);
+ 	}
