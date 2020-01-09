@@ -1,17 +1,17 @@
 /*
  * camel-imapx-mailbox.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -175,9 +175,12 @@ void		camel_imapx_mailbox_handle_status_response
 					(CamelIMAPXMailbox *mailbox,
 					 CamelIMAPXStatusResponse *response);
 
-void		camel_imapx_mailbox_lock_update
+gint		camel_imapx_mailbox_get_update_count
 					(CamelIMAPXMailbox *mailbox);
-void		camel_imapx_mailbox_unlock_update
+void		camel_imapx_mailbox_inc_update_count
+					(CamelIMAPXMailbox *mailbox,
+					 gint inc);
+gint		camel_imapx_mailbox_get_change_stamp
 					(CamelIMAPXMailbox *mailbox);
 
 G_END_DECLS

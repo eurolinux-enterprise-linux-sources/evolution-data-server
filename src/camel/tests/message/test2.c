@@ -1,3 +1,17 @@
+/*
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "camel-test.h"
 #include "messages.h"
 #include "addresses.h"
@@ -13,12 +27,12 @@
 
 static gchar *convert (const gchar *in, const gchar *from, const gchar *to)
 {
-	iconv_t ic = iconv_open (to, from);
+	GIConv ic = g_iconv_open (to, from);
 	gchar *out, *outp;
 	const gchar *inp;
 	gsize inlen, outlen;
 
-	if (ic == (iconv_t) - 1)
+	if (ic == (GIConv) -1)
 		return g_strdup (in);
 
 	inlen = strlen (in);
@@ -29,17 +43,17 @@ static gchar *convert (const gchar *in, const gchar *from, const gchar *to)
 
 	if (iconv (ic, &inp, &inlen, &outp, &outlen) == -1) {
 		test_free (out);
-		iconv_close (ic);
+		g_iconv_close (ic);
 		return g_strdup (in);
 	}
 
 	if (iconv (ic, NULL, 0, &outp, &outlen) == -1) {
 		test_free (out);
-		iconv_close (ic);
+		g_iconv_close (ic);
 		return g_strdup (in);
 	}
 
-	iconv_close (ic);
+	g_iconv_close (ic);
 
 	*outp = 0;
 
@@ -47,9 +61,9 @@ static gchar *convert (const gchar *in, const gchar *from, const gchar *to)
 	/* lets see if we can convert back again? */
 	{
 		gchar *nout, *noutp;
-		iconv_t ic = iconv_open (from, to);
+		GIConv ic = iconv_open (from, to);
 
-		if (ic == (iconv_t) - 1)
+		if (ic == (GIConv) -1)
 			goto fail;
 
 		inp = out;

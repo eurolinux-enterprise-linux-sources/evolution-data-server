@@ -1,21 +1,20 @@
 /*
  * e-book-client.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * Copyright (C) 2011 Red Hat, Inc. (www.redhat.com)
+ * Copyright (C) 2012 Intel Corporation
+ *
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Copyright (C) 2011 Red Hat, Inc. (www.redhat.com)
- * Copyright (C) 2012 Intel Corporation
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -103,9 +102,11 @@ struct _EBookClientClass {
 
 GType		e_book_client_get_type		(void) G_GNUC_CONST;
 EClient *	e_book_client_connect_sync	(ESource *source,
+						 guint32 wait_for_connected_seconds,
 						 GCancellable *cancellable,
 						 GError **error);
 void		e_book_client_connect		(ESource *source,
+						 guint32 wait_for_connected_seconds,
 						 GCancellable *cancellable,
 						 GAsyncReadyCallback callback,
 						 gpointer user_data);
@@ -114,9 +115,11 @@ EClient *	e_book_client_connect_finish	(GAsyncResult *result,
 EClient *	e_book_client_connect_direct_sync
 						(ESourceRegistry *registry,
 						 ESource *source,
+						 guint32 wait_for_connected_seconds,
 						 GCancellable *cancellable,
 						 GError **error);
 void		e_book_client_connect_direct	(ESource *source,
+						 guint32 wait_for_connected_seconds,
 						 GCancellable *cancellable,
 						 GAsyncReadyCallback callback,
 						 gpointer user_data);

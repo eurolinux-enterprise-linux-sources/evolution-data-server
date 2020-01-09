@@ -1,17 +1,17 @@
 /*
  * e-source.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -23,6 +23,8 @@
 #define E_SOURCE_H
 
 #include <gio/gio.h>
+#include <libedataserver/e-data-server-util.h>
+#include <libedataserver/e-source-enums.h>
 
 /* Standard GObject macros */
 #define E_TYPE_SOURCE \
@@ -54,6 +56,49 @@
  **/
 #define E_SOURCE_PARAM_SETTING (1 << G_PARAM_USER_SHIFT)
 
+/**
+ * E_SOURCE_CREDENTIAL_USERNAME:
+ *
+ * A name of the named parameter used for usernames in credentials,
+ * used to authenticate users with e_source_invoke_authenticate_sync()
+ * and e_source_invoke_authenticate(). The named parameter is optional,
+ * different authentication methods can use different names.
+ *
+ * Since: 3.16
+ **/
+#define E_SOURCE_CREDENTIAL_USERNAME "username"
+
+/**
+ * E_SOURCE_CREDENTIAL_PASSWORD:
+ *
+ * A name of the named parameter used for passwords in credentials,
+ * used to authenticate users with e_source_invoke_authenticate_sync()
+ * and e_source_invoke_authenticate(). The named parameter is optional,
+ * different authentication methods can use different names.
+ *
+ * Since: 3.16
+ **/
+#define E_SOURCE_CREDENTIAL_PASSWORD "password"
+
+/**
+ * E_SOURCE_CREDENTIAL_SSL_TRUST:
+ *
+ * A name of the named parameter used for SSL/TLS trust in credentials,
+ * used to authenticate users with e_source_invoke_authenticate_sync()
+ * and e_source_invoke_authenticate(). The named parameter is optional.
+ * Its value corresponds to current ESourceWebdav::ssl-trust property,
+ * in case the ESource has that extension available. This is required
+ * to have up-to-date data on the server side, when the client side
+ * just saved the SSL trust change, which might not be propagated
+ * into the server (factory) side quickly enough. The key is added into
+ * the credentials in invoke_authneticate() automatically, if the
+ * corresponding ESource contain a WebDAV extension and the key
+ * is not part of the credentials already.
+ *
+ * Since: 3.16
+ **/
+#define E_SOURCE_CREDENTIAL_SSL_TRUST "ssl-trust"
+
 G_BEGIN_DECLS
 
 typedef struct _ESource ESource;
@@ -78,6 +123,13 @@ struct _ESourceClass {
 
 	/* Signals */
 	void		(*changed)		(ESource *source);
+	void		(*credentials_required)	(ESource *source,
+						 ESourceCredentialsReason reason,
+						 const gchar *certificate_pem,
+						 GTlsCertificateFlags certificate_errors,
+						 const GError *op_error);
+	void		(* authenticate)	(ESource *source,
+						 const ENamedParameters *credentials);
 
 	/* Methods */
 	gboolean	(*remove_sync)		(ESource *source,
@@ -139,9 +191,29 @@ struct _ESourceClass {
 						 gchar **out_access_token,
 						 gint *out_expires_in,
 						 GError **error);
+	gboolean	(*invoke_credentials_required_impl)
+						(ESource *source,
+						 gpointer dbus_source, /* EDBusSource * */
+						 const gchar *arg_reason,
+						 const gchar *arg_certificate_pem,
+						 const gchar *arg_certificate_errors,
+						 const gchar *arg_dbus_error_name,
+						 const gchar *arg_dbus_error_message,
+						 GCancellable *cancellable,
+						 GError **error);
+	gboolean	(*invoke_authenticate_impl)
+						(ESource *source,
+						 gpointer dbus_source, /* EDBusSource * */
+						 const gchar * const *arg_credentials,
+						 GCancellable *cancellable,
+						 GError **error);
+	gboolean	(*unset_last_credentials_required_arguments_impl)
+						(ESource *source,
+						 GCancellable *cancellable,
+						 GError **error);
 
 	/* Reserved slots. */
-	gpointer reserved[7];
+	gpointer reserved[6];
 };
 
 GType		e_source_get_type		(void) G_GNUC_CONST;
@@ -185,6 +257,10 @@ gint		e_source_compare_by_display_name
 gchar *		e_source_to_string		(ESource *source,
 						 gsize *length);
 gchar *		e_source_parameter_to_key	(const gchar *param_name);
+ESourceConnectionStatus
+		e_source_get_connection_status	(ESource *source);
+void		e_source_set_connection_status	(ESource *source,
+						 ESourceConnectionStatus connection_status);
 gboolean	e_source_remove_sync		(ESource *source,
 						 GCancellable *cancellable,
 						 GError **error);
@@ -280,6 +356,81 @@ void		e_source_delete_password	(ESource *source,
 						 GAsyncReadyCallback callback,
 						 gpointer user_data);
 gboolean	e_source_delete_password_finish	(ESource *source,
+						 GAsyncResult *result,
+						 GError **error);
+gboolean	e_source_invoke_credentials_required_sync
+						(ESource *source,
+						 ESourceCredentialsReason reason,
+						 const gchar *certificate_pem,
+						 GTlsCertificateFlags certificate_errors,
+						 const GError *op_error,
+						 GCancellable *cancellable,
+						 GError **error);
+void		e_source_invoke_credentials_required
+						(ESource *source,
+						 ESourceCredentialsReason reason,
+						 const gchar *certificate_pem,
+						 GTlsCertificateFlags certificate_errors,
+						 const GError *op_error,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+gboolean	e_source_invoke_credentials_required_finish
+						(ESource *source,
+						 GAsyncResult *result,
+						 GError **error);
+gboolean	e_source_invoke_authenticate_sync
+						(ESource *source,
+						 const ENamedParameters *credentials,
+						 GCancellable *cancellable,
+						 GError **error);
+void		e_source_invoke_authenticate	(ESource *source,
+						 const ENamedParameters *credentials,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+gboolean	e_source_invoke_authenticate_finish
+						(ESource *source,
+						 GAsyncResult *result,
+						 GError **error);
+void		e_source_emit_credentials_required
+						(ESource *source,
+						 ESourceCredentialsReason reason,
+						 const gchar *certificate_pem,
+						 GTlsCertificateFlags certificate_errors,
+						 const GError *op_error);
+gboolean	e_source_get_last_credentials_required_arguments_sync
+						(ESource *source,
+						 ESourceCredentialsReason *out_reason,
+						 gchar **out_certificate_pem,
+						 GTlsCertificateFlags *out_certificate_errors,
+						 GError **out_op_error,
+						 GCancellable *cancellable,
+						 GError **error);
+void		e_source_get_last_credentials_required_arguments
+						(ESource *source,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+gboolean	e_source_get_last_credentials_required_arguments_finish
+						(ESource *source,
+						 GAsyncResult *result,
+						 ESourceCredentialsReason *out_reason,
+						 gchar **out_certificate_pem,
+						 GTlsCertificateFlags *out_certificate_errors,
+						 GError **out_op_error,
+						 GError **error);
+gboolean	e_source_unset_last_credentials_required_arguments_sync
+						(ESource *source,
+						 GCancellable *cancellable,
+						 GError **error);
+void		e_source_unset_last_credentials_required_arguments
+						(ESource *source,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+gboolean	e_source_unset_last_credentials_required_arguments_finish
+						(ESource *source,
 						 GAsyncResult *result,
 						 GError **error);
 

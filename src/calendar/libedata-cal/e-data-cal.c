@@ -1,17 +1,17 @@
 /*
  * e-data-cal.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -217,6 +217,14 @@ static void
 data_cal_convert_to_client_error (GError *error)
 {
 	g_return_if_fail (error != NULL);
+
+	/* Data-Factory returns common error for unknown/broken ESource-s */
+	if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND)) {
+		error->domain = E_CAL_CLIENT_ERROR;
+		error->code = E_CAL_CLIENT_ERROR_NO_SUCH_CALENDAR;
+
+		return;
+	}
 
 	if (error->domain != E_DATA_CAL_ERROR)
 		return;
@@ -489,6 +497,94 @@ e_data_cal_create_error_fmt (EDataCalCallStatus status,
 	return error;
 }
 
+static GPtrArray *
+data_cal_encode_properties (EDBusCalendar *dbus_interface)
+{
+	GPtrArray *properties_array;
+
+	g_warn_if_fail (E_DBUS_IS_CALENDAR (dbus_interface));
+
+	properties_array = g_ptr_array_new_with_free_func (g_free);
+
+	if (dbus_interface) {
+		GParamSpec **properties;
+		guint ii, n_properties = 0;
+
+		properties = g_object_class_list_properties (G_OBJECT_GET_CLASS (dbus_interface), &n_properties);
+
+		for (ii = 0; ii < n_properties; ii++) {
+			gboolean can_process =
+				g_type_is_a (properties[ii]->value_type, G_TYPE_BOOLEAN) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_STRING) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_STRV) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_UCHAR) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_INT) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_UINT) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_INT64) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_UINT64) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_DOUBLE);
+
+			if (can_process) {
+				GValue value = G_VALUE_INIT;
+				GVariant *stored = NULL;
+
+				g_value_init (&value, properties[ii]->value_type);
+				g_object_get_property ((GObject *) dbus_interface, properties[ii]->name, &value);
+
+				#define WORKOUT(gvl, gvr) \
+					if (g_type_is_a (properties[ii]->value_type, G_TYPE_ ## gvl)) \
+						stored = g_dbus_gvalue_to_gvariant (&value, G_VARIANT_TYPE_ ## gvr);
+
+				WORKOUT (BOOLEAN, BOOLEAN);
+				WORKOUT (STRING, STRING);
+				WORKOUT (STRV, STRING_ARRAY);
+				WORKOUT (UCHAR, BYTE);
+				WORKOUT (INT, INT32);
+				WORKOUT (UINT, UINT32);
+				WORKOUT (INT64, INT64);
+				WORKOUT (UINT64, UINT64);
+				WORKOUT (DOUBLE, DOUBLE);
+
+				#undef WORKOUT
+
+				g_value_unset (&value);
+
+				if (stored) {
+					g_ptr_array_add (properties_array, g_strdup (properties[ii]->name));
+					g_ptr_array_add (properties_array, g_variant_print (stored, TRUE));
+
+					g_variant_unref (stored);
+				}
+			}
+		}
+
+		g_free (properties);
+	}
+
+	g_ptr_array_add (properties_array, NULL);
+
+	return properties_array;
+}
+
+static gboolean
+data_cal_handle_retrieve_properties_cb (EDBusCalendar *dbus_interface,
+					GDBusMethodInvocation *invocation,
+					EDataCal *data_cal)
+{
+	GPtrArray *properties_array;
+
+	properties_array = data_cal_encode_properties (dbus_interface);
+
+	e_dbus_calendar_complete_retrieve_properties (
+		dbus_interface,
+		invocation,
+		(const gchar * const *) properties_array->pdata);
+
+	g_ptr_array_free (properties_array, TRUE);
+
+	return TRUE;
+}
+
 static void
 data_cal_complete_open_cb (GObject *source_object,
                            GAsyncResult *result,
@@ -501,9 +597,16 @@ data_cal_complete_open_cb (GObject *source_object,
 		E_CAL_BACKEND (source_object), result, &error);
 
 	if (error == NULL) {
+		GPtrArray *properties_array;
+
+		properties_array = data_cal_encode_properties (async_context->dbus_interface);
+
 		e_dbus_calendar_complete_open (
 			async_context->dbus_interface,
-			async_context->invocation);
+			async_context->invocation,
+			(const gchar * const *) properties_array->pdata);
+
+		g_ptr_array_free (properties_array, TRUE);
 	} else {
 		data_cal_convert_to_client_error (error);
 		g_dbus_method_invocation_take_error (
@@ -730,21 +833,38 @@ data_cal_complete_get_free_busy_cb (GObject *source_object,
                                     gpointer user_data)
 {
 	AsyncContext *async_context = user_data;
+	GSList *out_freebusy = NULL;
 	GError *error = NULL;
 
 	e_cal_backend_get_free_busy_finish (
-		E_CAL_BACKEND (source_object), result, &error);
+		E_CAL_BACKEND (source_object), result, &out_freebusy, &error);
 
 	if (error == NULL) {
+		gchar **strv;
+		gint ii = 0;
+		GSList *link;
+
+		strv = g_new0 (gchar *, g_slist_length (out_freebusy) + 1);
+
+		for (link = out_freebusy; link; link = g_slist_next (link)) {
+			gchar *ical_freebusy = link->data;
+
+			strv[ii++] = e_util_utf8_make_valid (ical_freebusy);
+		}
+
 		e_dbus_calendar_complete_get_free_busy (
 			async_context->dbus_interface,
-			async_context->invocation);
+			async_context->invocation,
+			(const gchar * const *) strv);
+
+		g_strfreev (strv);
 	} else {
 		data_cal_convert_to_client_error (error);
 		g_dbus_method_invocation_take_error (
 			async_context->invocation, error);
 	}
 
+	g_slist_free_full (out_freebusy, g_free);
 	async_context_free (async_context);
 }
 
@@ -1450,12 +1570,30 @@ data_cal_handle_add_timezone_cb (EDBusCalendar *dbus_interface,
 	return TRUE;
 }
 
+static void
+data_cal_source_unset_last_credentials_required_arguments_cb (GObject *source_object,
+							      GAsyncResult *result,
+							      gpointer user_data)
+{
+	GError *local_error = NULL;
+
+	g_return_if_fail (E_IS_SOURCE (source_object));
+
+	e_source_unset_last_credentials_required_arguments_finish (E_SOURCE (source_object), result, &local_error);
+
+	if (local_error)
+		g_debug ("%s: Call failed: %s", G_STRFUNC, local_error->message);
+
+	g_clear_error (&local_error);
+}
+
 static gboolean
 data_cal_handle_close_cb (EDBusCalendar *dbus_interface,
                           GDBusMethodInvocation *invocation,
                           EDataCal *data_cal)
 {
 	ECalBackend *backend;
+	ESource *source;
 	const gchar *sender;
 
 	/* G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED should be set on
@@ -1465,6 +1603,10 @@ data_cal_handle_close_cb (EDBusCalendar *dbus_interface,
 
 	backend = e_data_cal_ref_backend (data_cal);
 	g_return_val_if_fail (backend != NULL, FALSE);
+
+	source = e_backend_get_source (E_BACKEND (backend));
+	e_source_unset_last_credentials_required_arguments (source, NULL,
+		data_cal_source_unset_last_credentials_required_arguments_cb, NULL);
 
 	sender = g_dbus_method_invocation_get_sender (invocation);
 	g_signal_emit_by_name (backend, "closed", sender);
@@ -1658,33 +1800,46 @@ e_data_cal_respond_get_object_list (EDataCal *cal,
  * e_data_cal_respond_get_free_busy:
  * @cal: A calendar client interface.
  * @error: Operation error, if any, automatically freed if passed it.
+ * @freebusy: a #GSList of iCalendar strings with all gathered free/busy components.
  *
  * Notifies listeners of the completion of the get_free_busy method call.
- * To pass actual free/busy objects to the client use e_data_cal_report_free_busy_data().
+ * To pass actual free/busy objects to the client asynchronously
+ * use e_data_cal_report_free_busy_data(), but the @freebusy should contain
+ * all the objects being used in e_data_cal_report_free_busy_data().
  *
  * Since: 3.2
  */
 void
 e_data_cal_respond_get_free_busy (EDataCal *cal,
                                   guint32 opid,
-                                  GError *error)
+                                  GError *error,
+				  const GSList *freebusy)
 {
 	ECalBackend *backend;
 	GSimpleAsyncResult *simple;
+	GQueue *queue = NULL;
+	const GSList *link;
 
 	g_return_if_fail (E_IS_DATA_CAL (cal));
 
 	backend = e_data_cal_ref_backend (cal);
 	g_return_if_fail (backend != NULL);
 
-	simple = e_cal_backend_prepare_for_completion (backend, opid, NULL);
+	simple = e_cal_backend_prepare_for_completion (backend, opid, &queue);
 	g_return_if_fail (simple != NULL);
 
 	/* Translators: This is prefix to a detailed error message */
 	g_prefix_error (&error, "%s", _("Cannot retrieve calendar free/busy list: "));
 
-	if (error != NULL)
+	if (error != NULL) {
 		g_simple_async_result_take_error (simple, error);
+	} else {
+		for (link = freebusy; link; link = g_slist_next (link)) {
+			const gchar *ical_freebusy = link->data;
+
+			g_queue_push_tail (queue, g_strdup (ical_freebusy));
+		}
+	}
 
 	g_simple_async_result_complete_in_idle (simple);
 
@@ -2431,17 +2586,17 @@ data_cal_constructed (GObject *object)
 	/* Attach ourselves to the ECalBackend. */
 	e_cal_backend_set_data_cal (backend, cal);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		backend, "cache-dir",
 		cal->priv->dbus_interface, "cache-dir",
 		G_BINDING_SYNC_CREATE);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		backend, "online",
 		cal->priv->dbus_interface, "online",
 		G_BINDING_SYNC_CREATE);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		backend, "writable",
 		cal->priv->dbus_interface, "writable",
 		G_BINDING_SYNC_CREATE);
@@ -2575,6 +2730,9 @@ e_data_cal_init (EDataCal *data_cal)
 		(GDestroyNotify) g_free,
 		(GDestroyNotify) g_ptr_array_unref);
 
+	g_signal_connect (
+		dbus_interface, "handle-retrieve-properties",
+		G_CALLBACK (data_cal_handle_retrieve_properties_cb), data_cal);
 	g_signal_connect (
 		dbus_interface, "handle-open",
 		G_CALLBACK (data_cal_handle_open_cb), data_cal);

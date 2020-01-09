@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelFilterDriver</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelFilterDriver: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Filters.html" title="Filters">
 <link rel="prev" href="Filters.html" title="Filters">
 <link rel="next" href="camel-camel-filter-search.html" title="camel-filter-search">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelFilterDriver.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -46,6 +46,38 @@
 </td>
 <td class="function_name">
 <span class="c_punctuation">(</span><a class="link" href="CamelFilterDriver.html#CamelFilterGetFolderFunc" title="CamelFilterGetFolderFunc ()">*CamelFilterGetFolderFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="CamelFilterDriver.html#CamelFilterStatusFunc" title="CamelFilterStatusFunc ()">*CamelFilterStatusFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="CamelFilterDriver.html#CamelFilterShellFunc" title="CamelFilterShellFunc ()">*CamelFilterShellFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="CamelFilterDriver.html#CamelFilterPlaySoundFunc" title="CamelFilterPlaySoundFunc ()">*CamelFilterPlaySoundFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="CamelFilterDriver.html#CamelFilterSystemBeepFunc" title="CamelFilterSystemBeepFunc ()">*CamelFilterSystemBeepFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
@@ -122,7 +154,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelFilterDriver.html#camel-filter-driver-remove-rule-by-name" title="camel_filter_driver_remove_rule_by_name ()">camel_filter_driver_remove_rule_by_name</a> <span class="c_punctuation">()</span>
@@ -138,7 +170,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelFilterDriver.html#camel-filter-driver-filter-message" title="camel_filter_driver_filter_message ()">camel_filter_driver_filter_message</a> <span class="c_punctuation">()</span>
@@ -146,7 +178,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelFilterDriver.html#camel-filter-driver-filter-mbox" title="camel_filter_driver_filter_mbox ()">camel_filter_driver_filter_mbox</a> <span class="c_punctuation">()</span>
@@ -154,7 +186,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelFilterDriver.html#camel-filter-driver-filter-folder" title="camel_filter_driver_filter_folder ()">camel_filter_driver_filter_folder</a> <span class="c_punctuation">()</span>
@@ -165,20 +197,20 @@
 </div>
 <div class="refsect1">
 <a name="CamelFilterDriver.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
 </colgroup>
 <tbody><tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelFilterDriver.html#CamelFilterDriver-struct" title="struct CamelFilterDriver">CamelFilterDriver</a></td>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="CamelFilterDriver.html#camel-filter-status-t" title="enum camel_filter_status_t">camel_filter_status_t</a></td>
 </tr></tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelFilterDriver.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> CamelFilterDriver
 </pre>
 </div>
@@ -191,19 +223,67 @@
 <a name="CamelFilterGetFolderFunc"></a><h3>CamelFilterGetFolderFunc ()</h3>
 <pre class="programlisting"><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="returnvalue">CamelFolder</span></a> *
 <span class="c_punctuation">(</span>*CamelFilterGetFolderFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *driver</code></em>,
-                             <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>,
-                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
-                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelFilterStatusFunc"></a><h3>CamelFilterStatusFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*CamelFilterStatusFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *driver</code></em>,
+                          <em class="parameter"><code><span class="type">enum camel_filter_status_t</span> status</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> pc</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *desc</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelFilterShellFunc"></a><h3>CamelFilterShellFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*CamelFilterShellFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *driver</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> argc</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **argv</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelFilterPlaySoundFunc"></a><h3>CamelFilterPlaySoundFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*CamelFilterPlaySoundFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *driver</code></em>,
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelFilterSystemBeepFunc"></a><h3>CamelFilterSystemBeepFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*CamelFilterSystemBeepFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *driver</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-filter-driver-new"></a><h3>camel_filter_driver_new ()</h3>
 <pre class="programlisting"><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="returnvalue">CamelFilterDriver</span></a> *
-camel_filter_driver_new (<em class="parameter"><code><span class="type">struct _CamelSession</span> *Param1</code></em>);</pre>
+camel_filter_driver_new (<em class="parameter"><code><span class="type">struct _CamelSession</span> *session</code></em>);</pre>
 <div class="refsect3">
-<a name="id-1.2.6.2.7.3.4"></a><h4>Returns</h4>
+<a name="camel-filter-driver-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> CamelSession]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="camel-filter-driver-new.returns"></a><h4>Returns</h4>
 <p> A new CamelFilterDriver object</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -218,16 +298,46 @@ camel_filter_driver_set_logfile (<em class="parameter"><code><a class="link" hre
 <a name="camel-filter-driver-set-status-func"></a><h3>camel_filter_driver_set_status_func ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_filter_driver_set_status_func (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *d</code></em>,
-                                     <em class="parameter"><code><span class="type">CamelFilterStatusFunc</span> *func</code></em>,
-                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+                                     <em class="parameter"><code><a class="link" href="CamelFilterDriver.html#CamelFilterStatusFunc" title="CamelFilterStatusFunc ()"><span class="type">CamelFilterStatusFunc</span></a> func</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-filter-driver-set-status-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-filter-driver-set-shell-func"></a><h3>camel_filter_driver_set_shell_func ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_filter_driver_set_shell_func (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *d</code></em>,
-                                    <em class="parameter"><code><span class="type">CamelFilterShellFunc</span> *func</code></em>,
-                                    <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+                                    <em class="parameter"><code><a class="link" href="CamelFilterDriver.html#CamelFilterShellFunc" title="CamelFilterShellFunc ()"><span class="type">CamelFilterShellFunc</span></a> func</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-filter-driver-set-shell-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
 </div>
 <hr>
 <div class="refsect2">
@@ -235,8 +345,23 @@ camel_filter_driver_set_shell_func (<em class="parameter"><code><a class="link" 
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_filter_driver_set_play_sound_func
                                (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *d</code></em>,
-                                <em class="parameter"><code><span class="type">CamelFilterPlaySoundFunc</span> *func</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+                                <em class="parameter"><code><a class="link" href="CamelFilterDriver.html#CamelFilterPlaySoundFunc" title="CamelFilterPlaySoundFunc ()"><span class="type">CamelFilterPlaySoundFunc</span></a> func</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-filter-driver-set-play-sound-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
 </div>
 <hr>
 <div class="refsect2">
@@ -244,16 +369,46 @@ camel_filter_driver_set_play_sound_func
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_filter_driver_set_system_beep_func
                                (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *d</code></em>,
-                                <em class="parameter"><code><span class="type">CamelFilterSystemBeepFunc</span> *func</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+                                <em class="parameter"><code><a class="link" href="CamelFilterDriver.html#CamelFilterSystemBeepFunc" title="CamelFilterSystemBeepFunc ()"><span class="type">CamelFilterSystemBeepFunc</span></a> func</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-filter-driver-set-system-beep-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-filter-driver-set-folder-func"></a><h3>camel_filter_driver_set_folder_func ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_filter_driver_set_folder_func (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *d</code></em>,
-                                     <em class="parameter"><code><a class="link" href="CamelFilterDriver.html#CamelFilterGetFolderFunc" title="CamelFilterGetFolderFunc ()"><span class="type">CamelFilterGetFolderFunc</span></a> fetcher</code></em>,
-                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+                                     <em class="parameter"><code><a class="link" href="CamelFilterDriver.html#CamelFilterGetFolderFunc" title="CamelFilterGetFolderFunc ()"><span class="type">CamelFilterGetFolderFunc</span></a> get_folder</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-filter-driver-set-folder-func.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>get_folder</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
 </div>
 <hr>
 <div class="refsect2">
@@ -268,28 +423,28 @@ camel_filter_driver_set_default_folder
 <a name="camel-filter-driver-add-rule"></a><h3>camel_filter_driver_add_rule ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_filter_driver_add_rule (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *d</code></em>,
-                              <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
-                              <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *match</code></em>,
-                              <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *action</code></em>);</pre>
+                              <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                              <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *match</code></em>,
+                              <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *action</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-filter-driver-remove-rule-by-name"></a><h3>camel_filter_driver_remove_rule_by_name ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_filter_driver_remove_rule_by_name
                                (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *d</code></em>,
-                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-filter-driver-flush"></a><h3>camel_filter_driver_flush ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_filter_driver_flush (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *driver</code></em>,
-                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Flush all of the only-once filter actions.</p>
 <div class="refsect3">
-<a name="id-1.2.6.2.7.13.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-filter-driver-flush.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -297,7 +452,7 @@ camel_filter_driver_flush (<em class="parameter"><code><a class="link" href="Cam
 </colgroup>
 <tbody><tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr></tbody>
 </table></div>
@@ -306,16 +461,16 @@ camel_filter_driver_flush (<em class="parameter"><code><a class="link" href="Cam
 <hr>
 <div class="refsect2">
 <a name="camel-filter-driver-filter-message"></a><h3>camel_filter_driver_filter_message ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_filter_driver_filter_message (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *driver</code></em>,
                                     <em class="parameter"><code><a class="link" href="CamelMimeMessage.html" title="CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> *message</code></em>,
-                                    <em class="parameter"><code><a class="link" href="CamelFolderSummary.html#CamelMessageInfo" title="struct CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *info</code></em>,
-                                    <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                    <em class="parameter"><code><a class="link" href="CamelFolderSummary.html#CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *info</code></em>,
+                                    <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
                                     <em class="parameter"><code><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="type">CamelFolder</span></a> *source</code></em>,
-                                    <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *store_uid</code></em>,
-                                    <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *original_store_uid</code></em>,
-                                    <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                                    <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                                    <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *store_uid</code></em>,
+                                    <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *original_store_uid</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Filters a message based on rules defined in the FilterDriver
 object. If the source folder (<em class="parameter"><code>source</code></em>
 ) and the uid (<em class="parameter"><code>uid</code></em>
@@ -324,8 +479,8 @@ provided, the filter will operate on the CamelFolder (which in
 certain cases is more efficient than using the default
 <a class="link" href="CamelFolder.html#camel-folder-append-message" title="camel_folder_append_message ()"><code class="function">camel_folder_append_message()</code></a> function).</p>
 <div class="refsect3">
-<a name="id-1.2.6.2.7.14.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-filter-driver-filter-message.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -359,49 +514,48 @@ certain cases is more efficient than using the default
 </tr>
 <tr>
 <td class="parameter_name"><p>store_uid</p></td>
-<td class="parameter_description"><p>UID of source store, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>UID of source store, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>original_store_uid</p></td>
-<td class="parameter_description"><p>UID of source store (pre-movemail), or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>UID of source store (pre-movemail), or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.6.2.7.14.6"></a><h4>Returns</h4>
+<a name="camel-filter-driver-filter-message.returns"></a><h4>Returns</h4>
 <p> -1 if errors were encountered during filtering,
 otherwise returns 0.</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-filter-driver-filter-mbox"></a><h3>camel_filter_driver_filter_mbox ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_filter_driver_filter_mbox (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *driver</code></em>,
-                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *mbox</code></em>,
-                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *original_source_url</code></em>,
-                                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *mbox</code></em>,
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *original_source_url</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Filters an mbox file based on rules defined in the FilterDriver
 object. Is more efficient as it doesn't need to open the folder
 through Camel directly.</p>
 <div class="refsect3">
-<a name="id-1.2.6.2.7.15.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-filter-driver-filter-mbox.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -420,40 +574,39 @@ through Camel directly.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.6.2.7.15.6"></a><h4>Returns</h4>
+<a name="camel-filter-driver-filter-mbox.returns"></a><h4>Returns</h4>
 <p> -1 if errors were encountered during filtering,
 otherwise returns 0.</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-filter-driver-filter-folder"></a><h3>camel_filter_driver_filter_folder ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_filter_driver_filter_folder (<em class="parameter"><code><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="type">CamelFilterDriver</span></a> *driver</code></em>,
                                    <em class="parameter"><code><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="type">CamelFolder</span></a> *folder</code></em>,
                                    <em class="parameter"><code><a class="link" href="camel-camel-uid-cache.html#CamelUIDCache" title="CamelUIDCache"><span class="type">CamelUIDCache</span></a> *cache</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *uids</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> remove</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *uids</code></em>,
+                                   <em class="parameter"><code><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a> remove</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Filters a folder based on rules defined in the FilterDriver
 object.</p>
 <div class="refsect3">
-<a name="id-1.2.6.2.7.16.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-filter-driver-filter-folder.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -477,9 +630,9 @@ object.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>uids</p></td>
-<td class="parameter_description"><p>message uids to be filtered or NULL (as a shortcut to filter
-all messages)</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> message uids to be filtered or NULL (as a
+shortcut to filter all messages). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>remove</p></td>
@@ -488,35 +641,69 @@ all messages)</p></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.6.2.7.16.6"></a><h4>Returns</h4>
+<a name="camel-filter-driver-filter-folder.returns"></a><h4>Returns</h4>
 <p> -1 if errors were encountered during filtering,
 otherwise returns 0.</p>
-<p></p>
 </div>
 </div>
 </div>
 <div class="refsect1">
 <a name="CamelFilterDriver.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
-<a name="CamelFilterDriver-struct"></a><h3>struct CamelFilterDriver</h3>
-<pre class="programlisting">struct CamelFilterDriver;</pre>
+<a name="camel-filter-status-t"></a><h3>enum camel_filter_status_t</h3>
+<div class="refsect3">
+<a name="camel-filter-status-t.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="CAMEL-FILTER-STATUS-NONE:CAPS"></a>CAMEL_FILTER_STATUS_NONE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="CAMEL-FILTER-STATUS-START:CAPS"></a>CAMEL_FILTER_STATUS_START</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="CAMEL-FILTER-STATUS-ACTION:CAPS"></a>CAMEL_FILTER_STATUS_ACTION</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="CAMEL-FILTER-STATUS-PROGRESS:CAPS"></a>CAMEL_FILTER_STATUS_PROGRESS</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="CAMEL-FILTER-STATUS-END:CAPS"></a>CAMEL_FILTER_STATUS_END</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

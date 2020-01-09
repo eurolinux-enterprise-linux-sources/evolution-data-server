@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CamelIMAPXConnManager: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Camel Reference Manual">
+<link rel="up" href="IMAP.html" title="IMAP Service">
+<link rel="prev" href="camel-camel-imapx-command.html" title="camel-imapx-command">
+<link rel="next" href="CamelIMAPXFolder.html" title="CamelIMAPXFolder">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXConnManager.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXConnManager.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXConnManager.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXConnManager.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="IMAP.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="camel-camel-imapx-command.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="CamelIMAPXFolder.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="CamelIMAPXConnManager"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CamelIMAPXConnManager.top_of_page"></a>CamelIMAPXConnManager</span></h2>
+<p>CamelIMAPXConnManager</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="CamelIMAPXConnManager.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="returnvalue">CamelIMAPXConnManager</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-new" title="camel_imapx_conn_manager_new ()">camel_imapx_conn_manager_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">struct <a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="returnvalue">_CamelIMAPXStore</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-ref-store" title="camel_imapx_conn_manager_ref_store ()">camel_imapx_conn_manager_ref_store</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-connect-sync" title="camel_imapx_conn_manager_connect_sync ()">camel_imapx_conn_manager_connect_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-disconnect-sync" title="camel_imapx_conn_manager_disconnect_sync ()">camel_imapx_conn_manager_disconnect_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-run-job-sync" title="camel_imapx_conn_manager_run_job_sync ()">camel_imapx_conn_manager_run_job_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-noop-sync" title="camel_imapx_conn_manager_noop_sync ()">camel_imapx_conn_manager_noop_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-list-sync" title="camel_imapx_conn_manager_list_sync ()">camel_imapx_conn_manager_list_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-refresh-info-sync" title="camel_imapx_conn_manager_refresh_info_sync ()">camel_imapx_conn_manager_refresh_info_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-sync-changes-sync" title="camel_imapx_conn_manager_sync_changes_sync ()">camel_imapx_conn_manager_sync_changes_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-expunge-sync" title="camel_imapx_conn_manager_expunge_sync ()">camel_imapx_conn_manager_expunge_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelStream.html" title="CamelStream"><span class="returnvalue">CamelStream</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-get-message-sync" title="camel_imapx_conn_manager_get_message_sync ()">camel_imapx_conn_manager_get_message_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-copy-message-sync" title="camel_imapx_conn_manager_copy_message_sync ()">camel_imapx_conn_manager_copy_message_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-append-message-sync" title="camel_imapx_conn_manager_append_message_sync ()">camel_imapx_conn_manager_append_message_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-sync-message-sync" title="camel_imapx_conn_manager_sync_message_sync ()">camel_imapx_conn_manager_sync_message_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-create-mailbox-sync" title="camel_imapx_conn_manager_create_mailbox_sync ()">camel_imapx_conn_manager_create_mailbox_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-delete-mailbox-sync" title="camel_imapx_conn_manager_delete_mailbox_sync ()">camel_imapx_conn_manager_delete_mailbox_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-rename-mailbox-sync" title="camel_imapx_conn_manager_rename_mailbox_sync ()">camel_imapx_conn_manager_rename_mailbox_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-subscribe-mailbox-sync" title="camel_imapx_conn_manager_subscribe_mailbox_sync ()">camel_imapx_conn_manager_subscribe_mailbox_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-unsubscribe-mailbox-sync" title="camel_imapx_conn_manager_unsubscribe_mailbox_sync ()">camel_imapx_conn_manager_unsubscribe_mailbox_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-update-quota-info-sync" title="camel_imapx_conn_manager_update_quota_info_sync ()">camel_imapx_conn_manager_update_quota_info_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-uid-search-sync" title="camel_imapx_conn_manager_uid_search_sync ()">camel_imapx_conn_manager_uid_search_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXConnManager.html#camel-imapx-conn-manager-dump-queue-status" title="camel_imapx_conn_manager_dump_queue_status ()">camel_imapx_conn_manager_dump_queue_status</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXConnManager.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type">
+<a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a> *</td>
+<td class="property_name"><a class="link" href="CamelIMAPXConnManager.html#CamelIMAPXConnManager--store" title="The “store” property">store</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXConnManager.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="CamelIMAPXConnManager.html#CamelIMAPXConnManager-connection-created" title="The “connection-created” signal">connection-created</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXConnManager.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> CamelIMAPXConnManager
+</pre>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXConnManager.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXConnManager.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-new"></a><h3>camel_imapx_conn_manager_new ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="returnvalue">CamelIMAPXConnManager</span></a> *
+camel_imapx_conn_manager_new (<em class="parameter"><code><a class="link" href="CamelStore.html" title="CamelStore"><span class="type">CamelStore</span></a> *store</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-ref-store"></a><h3>camel_imapx_conn_manager_ref_store ()</h3>
+<pre class="programlisting">struct <a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="returnvalue">_CamelIMAPXStore</span></a> *
+camel_imapx_conn_manager_ref_store (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-connect-sync"></a><h3>camel_imapx_conn_manager_connect_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_connect_sync (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-disconnect-sync"></a><h3>camel_imapx_conn_manager_disconnect_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_disconnect_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-run-job-sync"></a><h3>camel_imapx_conn_manager_run_job_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_run_job_sync (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                       <em class="parameter"><code><a class="link" href="camel-camel-imapx-job.html#CamelIMAPXJob" title="CamelIMAPXJob"><span class="type">CamelIMAPXJob</span></a> *job</code></em>,
+                                       <em class="parameter"><code><a class="link" href="camel-camel-imapx-job.html#CamelIMAPXJobMatchesFunc" title="CamelIMAPXJobMatchesFunc ()"><span class="type">CamelIMAPXJobMatchesFunc</span></a> finish_before_job</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-noop-sync"></a><h3>camel_imapx_conn_manager_noop_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_noop_sync (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                    <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-list-sync"></a><h3>camel_imapx_conn_manager_list_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_list_sync (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                    <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *pattern</code></em>,
+                                    <em class="parameter"><code><a class="link" href="camel-camel-enums.html#CamelStoreGetFolderInfoFlags" title="enum CamelStoreGetFolderInfoFlags"><span class="type">CamelStoreGetFolderInfoFlags</span></a> flags</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-refresh-info-sync"></a><h3>camel_imapx_conn_manager_refresh_info_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_refresh_info_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-sync-changes-sync"></a><h3>camel_imapx_conn_manager_sync_changes_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_sync_changes_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-expunge-sync"></a><h3>camel_imapx_conn_manager_expunge_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_expunge_sync (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                       <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-get-message-sync"></a><h3>camel_imapx_conn_manager_get_message_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelStream.html" title="CamelStream"><span class="returnvalue">CamelStream</span></a> *
+camel_imapx_conn_manager_get_message_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelFolderSummary.html" title="CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelDataCache.html" title="CamelDataCache"><span class="type">CamelDataCache</span></a> *message_cache</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message_uid</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-copy-message-sync"></a><h3>camel_imapx_conn_manager_copy_message_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_copy_message_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *destination</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *uids</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a> delete_originals</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a> remove_deleted_flags</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-append-message-sync"></a><h3>camel_imapx_conn_manager_append_message_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_append_message_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelFolderSummary.html" title="CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelDataCache.html" title="CamelDataCache"><span class="type">CamelDataCache</span></a> *message_cache</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelMimeMessage.html" title="CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> *message</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="CamelFolderSummary.html#CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **append_uid</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-sync-message-sync"></a><h3>camel_imapx_conn_manager_sync_message_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_sync_message_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelFolderSummary.html" title="CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelDataCache.html" title="CamelDataCache"><span class="type">CamelDataCache</span></a> *message_cache</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message_uid</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-create-mailbox-sync"></a><h3>camel_imapx_conn_manager_create_mailbox_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_create_mailbox_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *mailbox_name</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-delete-mailbox-sync"></a><h3>camel_imapx_conn_manager_delete_mailbox_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_delete_mailbox_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-rename-mailbox-sync"></a><h3>camel_imapx_conn_manager_rename_mailbox_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_rename_mailbox_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *new_mailbox_name</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-subscribe-mailbox-sync"></a><h3>camel_imapx_conn_manager_subscribe_mailbox_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_subscribe_mailbox_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-unsubscribe-mailbox-sync"></a><h3>camel_imapx_conn_manager_unsubscribe_mailbox_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_unsubscribe_mailbox_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-update-quota-info-sync"></a><h3>camel_imapx_conn_manager_update_quota_info_sync ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_imapx_conn_manager_update_quota_info_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-uid-search-sync"></a><h3>camel_imapx_conn_manager_uid_search_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *
+camel_imapx_conn_manager_uid_search_sync
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *criteria_prefix</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *search_key</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *words</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-conn-manager-dump-queue-status"></a><h3>camel_imapx_conn_manager_dump_queue_status ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+camel_imapx_conn_manager_dump_queue_status
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *conn_man</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXConnManager.other_details"></a><h2>Types and Values</h2>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXConnManager.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="CamelIMAPXConnManager--store"></a><h3>The <code class="literal">“store”</code> property</h3>
+<pre class="programlisting">  “store”                    <a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a> *</pre>
+<p>The CamelIMAPXStore to which we belong.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXConnManager.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="CamelIMAPXConnManager-connection-created"></a><h3>The <code class="literal">“connection-created”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager"><span class="type">CamelIMAPXConnManager</span></a> *camelimapxconnmanager,
+               <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a>      *arg1,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>               user_data)</pre>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-FIRST:CAPS">Run First</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

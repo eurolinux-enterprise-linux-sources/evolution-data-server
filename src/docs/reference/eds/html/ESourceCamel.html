@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceCamel: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch02.html" title="Data Source Extensions">
+<link rel="prev" href="ESourceTaskList.html" title="ESourceTaskList">
+<link rel="next" href="ESourceCollection.html" title="ESourceCollection">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#ESourceCamel.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#ESourceCamel.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ESourceTaskList.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ESourceCollection.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="ESourceCamel"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceCamel.top_of_page"></a>ESourceCamel</span></h2>
+<p>ESourceCamel — <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> extension for <span class="type">CamelSettings</span></p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="ESourceCamel.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceCamel.html#e-source-camel-register-types" title="e_source_camel_register_types ()">e_source_camel_register_types</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceCamel.html#e-source-camel-generate-subtype" title="e_source_camel_generate_subtype ()">e_source_camel_generate_subtype</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">CamelSettings</span> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceCamel.html#e-source-camel-get-settings" title="e_source_camel_get_settings ()">e_source_camel_get_settings</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceCamel.html#e-source-camel-get-type-name" title="e_source_camel_get_type_name ()">e_source_camel_get_type_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceCamel.html#e-source-camel-get-extension-name" title="e_source_camel_get_extension_name ()">e_source_camel_get_extension_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceCamel.html#e-source-camel-configure-service" title="e_source_camel_configure_service ()">e_source_camel_configure_service</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ESourceCamel.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="ESourceCamel.html#ESourceCamel-struct" title="struct ESourceCamel">ESourceCamel</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ESourceCamel.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="ESourceExtension.html" title="ESourceExtension">ESourceExtension</a>
+        <span class="lineart">╰──</span> ESourceCamel
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceCamel.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedataserver/libedataserver.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceCamel.description"></a><h2>Description</h2>
+<p><a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> itself is abstract.  Its sole function is to
+bridge <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a> properties from the <span class="type">CamelSettings</span> framework to the
+<a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> framework.  It does this by procedurally registering an
+<a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> subtype for each available <span class="type">CamelService</span> subtype,
+and then registering <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a> properties to proxy the properties in the
+corresponding <span class="type">CamelSettings</span> subtype.  The <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> owns an
+instance of the appropriate <span class="type">CamelSettings</span> subtype, and redirects all
+get/set operations on its own <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a> properties to its <span class="type">CamelSettings</span>
+instance.  The <span class="type">CamelSettings</span> instance, now fully initialized from a key
+file, can then be inserted into a new <span class="type">CamelService</span> instance using
+<code class="function">camel_service_set_settings()</code>.</p>
+<p>Ultimately, this is all just implementation detail for glueing two
+unrelated class hierarchies together.  If you need to access provider
+specific settings, use the <span class="type">CamelSettings</span> API, not this.</p>
+</div>
+<div class="refsect1">
+<a name="ESourceCamel.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-source-camel-register-types"></a><h3>e_source_camel_register_types ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_camel_register_types (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates and registers subclasses of <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> for each available
+<span class="type">CamelProvider</span>.  This function should be called once during application
+or library initialization.</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-camel-generate-subtype"></a><h3>e_source_camel_generate_subtype ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+e_source_camel_generate_subtype (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *protocol</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a> settings_type</code></em>);</pre>
+<p>Generates a custom <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> subtype for <em class="parameter"><code>protocol</code></em>
+.  Instances of the
+new subtype will contain a <span class="type">CamelSettings</span> instance of type <em class="parameter"><code>settings_type</code></em>
+.</p>
+<p>This function is called as part of <a class="link" href="ESourceCamel.html#e-source-camel-register-types" title="e_source_camel_register_types ()"><code class="function">e_source_camel_register_types()</code></a> and
+should not be called explicitly, except by some groupware packages that
+need to share package-specific settings across their mail, calendar and
+address book components.  In that case the groupware package may choose
+to subclass <span class="type">CamelSettings</span> rather than <a class="link" href="ESourceExtension.html" title="ESourceExtension"><span class="type">ESourceExtension</span></a> since libcamel
+is the lowest common denominator across all components.  This function
+provides a way for the calendar and address book components of such a
+package to generate an <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> subtype for its <span class="type">CamelSettings</span>
+subtype without having to load all available <span class="type">CamelProvider</span> modules.</p>
+<div class="refsect3">
+<a name="e-source-camel-generate-subtype.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>protocol</p></td>
+<td class="parameter_description"><p>a <span class="type">CamelProvider</span> protocol</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>settings_type</p></td>
+<td class="parameter_description"><p>a subtype of <span class="type">CamelSettings</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-camel-generate-subtype.returns"></a><h4>Returns</h4>
+<p> the <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a> of the generated <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> subtype</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-camel-get-settings"></a><h3>e_source_camel_get_settings ()</h3>
+<pre class="programlisting"><span class="returnvalue">CamelSettings</span> *
+e_source_camel_get_settings (<em class="parameter"><code><a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> *extension</code></em>);</pre>
+<p>Returns <em class="parameter"><code>extension</code></em>
+'s <span class="type">“settings”</span> instance, pre-configured
+from the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> to which <em class="parameter"><code>extension</code></em>
+ belongs.  Changes to the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+will automatically propagate to the <span class="type">“settings”</span> instance and
+vice versa.</p>
+<p>This is essentially the glue that binds <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> to <span class="type">CamelService</span>.
+See <a class="link" href="ESourceCamel.html#e-source-camel-configure-service" title="e_source_camel_configure_service ()"><code class="function">e_source_camel_configure_service()</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-camel-get-settings.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-camel-get-settings.returns"></a><h4>Returns</h4>
+<p> a configured <span class="type">CamelSettings</span> instance</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-camel-get-type-name"></a><h3>e_source_camel_get_type_name ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_camel_get_type_name (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *protocol</code></em>);</pre>
+<p>Returns the <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a> name of the registered <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> subtype for
+<em class="parameter"><code>protocol</code></em>
+.</p>
+<p>For example, given a protocol named "imap" the function would return
+"ESourceCamelImap".</p>
+<div class="refsect3">
+<a name="e-source-camel-get-type-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>protocol</p></td>
+<td class="parameter_description"><p>a <span class="type">CamelProvider</span> protocol</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-camel-get-type-name.returns"></a><h4>Returns</h4>
+<p> the <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> type name for <em class="parameter"><code>protocol</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-camel-get-extension-name"></a><h3>e_source_camel_get_extension_name ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_camel_get_extension_name (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *protocol</code></em>);</pre>
+<p>Returns the extension name for the <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> subtype for <em class="parameter"><code>protocol</code></em>
+.
+The extension name can then be passed to <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a> to
+obtain an instance of the <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> subtype.</p>
+<p>For example, given a protocol named "imap" the function would return
+"Imap Backend".</p>
+<div class="refsect3">
+<a name="e-source-camel-get-extension-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>protocol</p></td>
+<td class="parameter_description"><p>a <span class="type">CamelProvider</span> protocol</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-camel-get-extension-name.returns"></a><h4>Returns</h4>
+<p> the <a class="link" href="ESourceCamel.html" title="ESourceCamel"><span class="type">ESourceCamel</span></a> extension name for <em class="parameter"><code>protocol</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-camel-configure-service"></a><h3>e_source_camel_configure_service ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_camel_configure_service (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                  <em class="parameter"><code><span class="type">CamelService</span> *service</code></em>);</pre>
+<p>This function essentially glues together <em class="parameter"><code>source</code></em>
+ and <em class="parameter"><code>serivce</code></em>
+ so their
+configuration settings stay synchronized.  The glue itself is a shared
+<span class="type">CamelSettings</span> instance.</p>
+<p>Call this function immediately after creating a new <span class="type">CamelService</span> with
+<code class="function">camel_session_add_service()</code>.</p>
+<div class="refsect3">
+<a name="e-source-camel-configure-service.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>service</p></td>
+<td class="parameter_description"><p>a <span class="type">CamelService</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceCamel.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="ESourceCamel-struct"></a><h3>struct ESourceCamel</h3>
+<pre class="programlisting">struct ESourceCamel;</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

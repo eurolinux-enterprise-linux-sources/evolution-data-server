@@ -1,0 +1,658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EBookClientView: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch04.html" title="Addressbook">
+<link rel="prev" href="EBookClient.html" title="EBookClient">
+<link rel="next" href="EBookClientCursor.html" title="EBookClientCursor">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#EBookClientView.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#EBookClientView.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#EBookClientView.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#EBookClientView.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#EBookClientView.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="EBookClient.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="EBookClientCursor.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="EBookClientView"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EBookClientView.top_of_page"></a>EBookClientView</span></h2>
+<p>EBookClientView — Recieving change notifications on addressbooks</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="EBookClientView.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">struct <a class="link" href="EBookClient.html" title="EBookClient"><span class="returnvalue">_EBookClient</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientView.html#e-book-client-view-ref-client" title="e_book_client_view_ref_client ()">e_book_client_view_ref_client</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="returnvalue">GDBusConnection</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientView.html#e-book-client-view-get-connection" title="e_book_client_view_get_connection ()">e_book_client_view_get_connection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientView.html#e-book-client-view-get-object-path" title="e_book_client_view_get_object_path ()">e_book_client_view_get_object_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientView.html#e-book-client-view-is-running" title="e_book_client_view_is_running ()">e_book_client_view_is_running</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientView.html#e-book-client-view-set-fields-of-interest" title="e_book_client_view_set_fields_of_interest ()">e_book_client_view_set_fields_of_interest</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientView.html#e-book-client-view-start" title="e_book_client_view_start ()">e_book_client_view_start</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientView.html#e-book-client-view-stop" title="e_book_client_view_stop ()">e_book_client_view_stop</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientView.html#e-book-client-view-set-flags" title="e_book_client_view_set_flags ()">e_book_client_view_set_flags</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">struct <a class="link" href="EBookClient.html" title="EBookClient"><span class="returnvalue">_EBookClient</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientView.html#e-book-client-view-get-client" title="e_book_client_view_get_client ()">e_book_client_view_get_client</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type">
+<a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> *</td>
+<td class="property_name"><a class="link" href="EBookClientView.html#EBookClientView--client" title="The “client” property">client</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> *</td>
+<td class="property_name"><a class="link" href="EBookClientView.html#EBookClientView--connection" title="The “connection” property">connection</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *</td>
+<td class="property_name"><a class="link" href="EBookClientView.html#EBookClientView--direct-backend" title="The “direct-backend” property">direct-backend</a></td>
+<td class="property_flags">Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="EBookClientView.html#EBookClientView--object-path" title="The “object-path” property">object-path</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="EBookClientView.html#EBookClientView-complete" title="The “complete” signal">complete</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="EBookClientView.html#EBookClientView-objects-added" title="The “objects-added” signal">objects-added</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="EBookClientView.html#EBookClientView-objects-modified" title="The “objects-modified” signal">objects-modified</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="EBookClientView.html#EBookClientView-objects-removed" title="The “objects-removed” signal">objects-removed</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="EBookClientView.html#EBookClientView-progress" title="The “progress” signal">progress</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EBookClientView.html#EBookClientView-struct" title="struct EBookClientView">EBookClientView</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EBookClientView.html#EBookClientViewClass" title="struct EBookClientViewClass">EBookClientViewClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> EBookClientView
+</pre>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+EBookClientView implements
+ <a href="/usr/share/gtk-doc/html/gioGInitable.html#GInitable-struct">GInitable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libebook/libebook.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.description"></a><h2>Description</h2>
+<p>This class provides functionality for watching for changes on a
+given addressbook opened with an <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a>. Use <a class="link" href="EBookClient.html#e-book-client-get-view" title="e_book_client_get_view ()"><code class="function">e_book_client_get_view()</code></a>
+to create an <a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a>.</p>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-book-client-view-ref-client"></a><h3>e_book_client_view_ref_client ()</h3>
+<pre class="programlisting">struct <a class="link" href="EBookClient.html" title="EBookClient"><span class="returnvalue">_EBookClient</span></a> *
+e_book_client_view_ref_client (<em class="parameter"><code><a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *client_view</code></em>);</pre>
+<p>Returns the <a class="link" href="EBookClientView.html#EBookClientView--client" title="The “client” property"><span class="type">“client”</span></a> associated with <em class="parameter"><code>client_view</code></em>
+.</p>
+<p>The returned <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> is referenced for thread-safety.  Unreference
+the <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+<div class="refsect3">
+<a name="e-book-client-view-ref-client.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client_view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-view-ref-client.returns"></a><h4>Returns</h4>
+<p> an <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.10.html" title="Index of new symbols in 3.10">3.10</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-view-get-connection"></a><h3>e_book_client_view_get_connection ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="returnvalue">GDBusConnection</span></a> *
+e_book_client_view_get_connection (<em class="parameter"><code><a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *client_view</code></em>);</pre>
+<p>Returns the <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> used to create the D-Bus proxy.</p>
+<div class="refsect3">
+<a name="e-book-client-view-get-connection.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client_view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-view-get-connection.returns"></a><h4>Returns</h4>
+<p> the <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-view-get-object-path"></a><h3>e_book_client_view_get_object_path ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_book_client_view_get_object_path (<em class="parameter"><code><a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *client_view</code></em>);</pre>
+<p>Returns the object path used to create the D-Bus proxy.</p>
+<div class="refsect3">
+<a name="e-book-client-view-get-object-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client_view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-view-get-object-path.returns"></a><h4>Returns</h4>
+<p> the object path</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-view-is-running"></a><h3>e_book_client_view_is_running ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_client_view_is_running (<em class="parameter"><code><a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *client_view</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-view-set-fields-of-interest"></a><h3>e_book_client_view_set_fields_of_interest ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_client_view_set_fields_of_interest
+                               (<em class="parameter"><code><a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *client_view</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *fields_of_interest</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Client can instruct server to which fields it is interested in only, thus
+the server can return less data over the wire. The server can still return
+complete objects, this is just a hint to it that the listed fields will
+be used only. The UID field is returned always. Initial views has no fields
+of interest and using <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> for <em class="parameter"><code>fields_of_interest</code></em>
+ will unset any previous
+changes.</p>
+<p>Some backends can use summary information of its cache to create artifical
+objects, which will omit stored object parsing. If this cannot be done then
+it will simply return object as is stored in the cache.</p>
+<div class="refsect3">
+<a name="e-book-client-view-set-fields-of-interest.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client_view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>fields_of_interest</p></td>
+<td class="parameter_description"><p> List of field names in which
+the client is interested. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-view-start"></a><h3>e_book_client_view_start ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_client_view_start (<em class="parameter"><code><a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *client_view</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Tells <em class="parameter"><code>client_view</code></em>
+ to start processing events.</p>
+<div class="refsect3">
+<a name="e-book-client-view-start.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client_view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-view-stop"></a><h3>e_book_client_view_stop ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_client_view_stop (<em class="parameter"><code><a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *client_view</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Tells <em class="parameter"><code>client_view</code></em>
+ to stop processing events.</p>
+<div class="refsect3">
+<a name="e-book-client-view-stop.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client_view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-view-set-flags"></a><h3>e_book_client_view_set_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_client_view_set_flags (<em class="parameter"><code><a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *client_view</code></em>,
+                              <em class="parameter"><code><a class="link" href="eds-e-book-contacts-types.html#EBookClientViewFlags" title="enum EBookClientViewFlags"><span class="type">EBookClientViewFlags</span></a> flags</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Sets the <em class="parameter"><code>flags</code></em>
+ which control the behaviour of <em class="parameter"><code>client_view</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-client-view-set-flags.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client_view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>the <a class="link" href="eds-e-book-contacts-types.html#EBookClientViewFlags" title="enum EBookClientViewFlags"><span class="type">EBookClientViewFlags</span></a> for <em class="parameter"><code>client_view</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-view-get-client"></a><h3>e_book_client_view_get_client ()</h3>
+<pre class="programlisting">struct <a class="link" href="EBookClient.html" title="EBookClient"><span class="returnvalue">_EBookClient</span></a> *
+e_book_client_view_get_client (<em class="parameter"><code><a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *client_view</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_book_client_view_get_client</code> has been deprecated since version 3.10 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="EBookClientView.html#e-book-client-view-ref-client" title="e_book_client_view_ref_client ()"><code class="function">e_book_client_view_ref_client()</code></a> instead.</p>
+</div>
+<p>Returns the <a class="link" href="EBookClientView.html#EBookClientView--client" title="The “client” property"><span class="type">“client”</span></a> associated with <em class="parameter"><code>client_view</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-client-view-get-client.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client_view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-view-get-client.returns"></a><h4>Returns</h4>
+<p> an <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EBookClientView-struct"></a><h3>struct EBookClientView</h3>
+<pre class="programlisting">struct EBookClientView;</pre>
+<p>Contains only private data the should be read and manipulated using the
+functions below.</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientViewClass"></a><h3>struct EBookClientViewClass</h3>
+<pre class="programlisting">struct EBookClientViewClass {
+	/* Signals */
+	void		(*objects_added) (EBookClientView *client_view,
+						 const GSList *objects);
+	void		(*objects_modified) (EBookClientView *client_view,
+						 const GSList *objects);
+	void		(*objects_removed) (EBookClientView *client_view,
+						 const GSList *uids);
+	void		(*progress)		(EBookClientView *client_view,
+						 guint percent,
+						 const gchar *message);
+	void		(*complete)		(EBookClientView *client_view,
+						 const GError *error);
+};
+</pre>
+<p>Class structure for the <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> class.</p>
+<div class="refsect3">
+<a name="EBookClientViewClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="EBookClientViewClass.objects-added"></a>objects_added</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when contacts are added in the view</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="EBookClientViewClass.objects-modified"></a>objects_modified</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when contacts in the view are modified</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="EBookClientViewClass.objects-removed"></a>objects_removed</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted when contacts are removed from the view</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="EBookClientViewClass.progress"></a>progress</code></em> ()</p></td>
+<td class="struct_member_description"><p>Signal emitted intermittently while loading a view after calling <a class="link" href="EBookClientView.html#e-book-client-view-start" title="e_book_client_view_start ()"><code class="function">e_book_client_view_start()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="EBookClientViewClass.complete"></a>complete</code></em> ()</p></td>
+<td class="struct_member_description"><p>Notification that loading a view has completed, after calling <a class="link" href="EBookClientView.html#e-book-client-view-start" title="e_book_client_view_start ()"><code class="function">e_book_client_view_start()</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="EBookClientView--client"></a><h3>The <code class="literal">“client”</code> property</h3>
+<pre class="programlisting">  “client”                   <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> *</pre>
+<p>The EBookClient for the view.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientView--connection"></a><h3>The <code class="literal">“connection”</code> property</h3>
+<pre class="programlisting">  “connection”               <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> *</pre>
+<p>The GDBusConnection used to create the D-Bus proxy.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientView--direct-backend"></a><h3>The <code class="literal">“direct-backend”</code> property</h3>
+<pre class="programlisting">  “direct-backend”           <a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *</pre>
+<p>The EBookBackend to fetch contact data from, if direct read access is enabled.</p>
+<p>Flags: Write / Construct Only</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientView--object-path"></a><h3>The <code class="literal">“object-path”</code> property</h3>
+<pre class="programlisting">  “object-path”              <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>The object path used to create the D-Bus proxy.</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p>Default value: NULL</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EBookClientView.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="EBookClientView-complete"></a><h3>The <code class="literal">“complete”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *ebookclientview,
+               <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>          *arg1,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)</pre>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientView-objects-added"></a><h3>The <code class="literal">“objects-added”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *ebookclientview,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         arg1,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)</pre>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientView-objects-modified"></a><h3>The <code class="literal">“objects-modified”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *ebookclientview,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         arg1,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)</pre>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientView-objects-removed"></a><h3>The <code class="literal">“objects-removed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *ebookclientview,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         arg1,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)</pre>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientView-progress"></a><h3>The <code class="literal">“progress”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> *ebookclientview,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a>            arg1,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>           *arg2,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>         user_data)</pre>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

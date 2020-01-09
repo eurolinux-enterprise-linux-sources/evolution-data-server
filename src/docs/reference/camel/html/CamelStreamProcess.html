@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelStreamProcess</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelStreamProcess: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Streams.html" title="Streams">
 <link rel="prev" href="CamelStreamNull.html" title="CamelStreamNull">
 <link rel="next" href="CamelFilterInputStream.html" title="CamelFilterInputStream">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -16,8 +16,7 @@
 <td width="100%" align="left" class="shortcuts">
 <a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
                   <a href="#CamelStreamProcess.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
-                  <a href="#CamelStreamProcess.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
-                  <a href="#CamelStreamProcess.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+                  <a href="#CamelStreamProcess.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
 </td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
 <td><a accesskey="u" href="Streams.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
@@ -35,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelStreamProcess.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -51,7 +50,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelStreamProcess.html#camel-stream-process-connect" title="camel_stream_process_connect ()">camel_stream_process_connect</a> <span class="c_punctuation">()</span>
@@ -61,30 +60,11 @@
 </table></div>
 </div>
 <div class="refsect1">
-<a name="CamelStreamProcess.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody><tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelStreamProcess.html#CamelStreamProcess-struct" title="struct CamelStreamProcess">CamelStreamProcess</a></td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect1">
 <a name="CamelStreamProcess.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelStream.html" title="CamelStream">CamelStream</a>
         <span class="lineart">╰──</span> CamelStreamProcess
 </pre>
-</div>
-<div class="refsect1">
-<a name="CamelStreamProcess.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
-<p>
-CamelStreamProcess implements
- <a href="https://developer.gnome.org/gio/unstable/GSeekable.html">GSeekable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="CamelStreamProcess.description"></a><h2>Description</h2>
@@ -97,31 +77,25 @@ CamelStreamProcess implements
 camel_stream_process_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>Returns a PROCESS stream.</p>
 <div class="refsect3">
-<a name="id-1.2.3.8.8.2.5"></a><h4>Returns</h4>
+<a name="camel-stream-process-new.returns"></a><h4>Returns</h4>
 <p> the stream</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-stream-process-connect"></a><h3>camel_stream_process_connect ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_stream_process_connect (<em class="parameter"><code><a class="link" href="CamelStreamProcess.html" title="CamelStreamProcess"><span class="type">CamelStreamProcess</span></a> *stream</code></em>,
-                              <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *command</code></em>,
-                              <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **env</code></em>,
-                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                              <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *command</code></em>,
+                              <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **env</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 </div>
 </div>
 <div class="refsect1">
 <a name="CamelStreamProcess.other_details"></a><h2>Types and Values</h2>
-<div class="refsect2">
-<a name="CamelStreamProcess-struct"></a><h3>struct CamelStreamProcess</h3>
-<pre class="programlisting">struct CamelStreamProcess;</pre>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

@@ -1,17 +1,17 @@
 /*
  * e-source-registry-server.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -23,9 +23,8 @@
  * The #ESourceRegistryServer is the heart of the registry D-Bus service.
  * Acting as a global singleton store for all #EServerSideSource instances,
  * its responsibilities include loading data source content from key files,
- * exporting data sources to clients over D-Bus, handling authentication
- * and content change requests from clients, and saving content changes
- * back to key files.
+ * exporting data sources to clients over D-Bus, handling content change
+ * requests from clients, and saving content changes back to key files.
  *
  * It also hosts any number of built-in or 3rd party data source collection
  * backends, which coordinate with #ESourceRegistryServer to automatically
@@ -42,9 +41,8 @@
 #include <e-dbus-source.h>
 #include <e-dbus-source-manager.h>
 
-#include <libebackend/e-authentication-mediator.h>
-#include <libebackend/e-authentication-session.h>
-#include <libebackend/e-server-side-source.h>
+#include "e-server-side-source.h"
+#include "e-server-side-source-credentials-provider.h"
 
 #define E_SOURCE_REGISTRY_SERVER_GET_PRIVATE(obj) \
 	(G_TYPE_INSTANCE_GET_PRIVATE \
@@ -53,8 +51,6 @@
 /* Collection backends get tacked on to
  * sources with a [Collection] extension. */
 #define BACKEND_DATA_KEY "__e_collection_backend__"
-
-typedef struct _AuthRequest AuthRequest;
 
 struct _ESourceRegistryServerPrivate {
 	GMainContext *main_context;
@@ -69,32 +65,11 @@ struct _ESourceRegistryServerPrivate {
 	GMutex sources_lock;
 	GMutex orphans_lock;
 
-	/* In pseudo-Python notation:
-	 *
-	 * running_auths = { UID : AuthRequest }
-	 * waiting_auths = { UID : [ AuthRequest, ... ] }
-	 *
-	 * We process all authenticators for a given source UID at once.
-	 * The thought being after the first authenticator for a given UID
-	 * completes (the first being most likely to trigger a user prompt),
-	 * then any other authenticators for that same UID should complete
-	 * quickly, hopefully without having to reprompt.  That is unless
-	 * the user decides not to cache the secret at all, in which case
-	 * he gets what he asked for: lots of annoying prompts.
-	 */
-	GMutex auth_lock;
-	GHashTable *running_auths;
-	GHashTable *waiting_auths;
+	ESourceCredentialsProvider *credentials_provider;
 
-	guint authentication_count;
-};
-
-struct _AuthRequest {
-	volatile gint ref_count;
-	EAuthenticationSession *session;
-	GSimpleAsyncResult *simple;
-	ESource *source;  /* may be NULL */
-	GCancellable *cancellable;
+	GMutex file_monitor_lock;
+	GHashTable *file_monitor_events; /* gchar *uid ~> FileEventData * */
+	GSource *file_monitor_source;
 };
 
 enum {
@@ -106,76 +81,12 @@ enum {
 	LAST_SIGNAL
 };
 
-/* Forward Declarations */
-static void	source_registry_server_maybe_start_auth_session
-						(ESourceRegistryServer *server,
-						 const gchar *uid);
-
 static guint signals[LAST_SIGNAL];
 
 G_DEFINE_TYPE (
 	ESourceRegistryServer,
 	e_source_registry_server,
 	E_TYPE_DATA_FACTORY)
-
-static AuthRequest *
-auth_request_new (EAuthenticationSession *session,
-                  GSimpleAsyncResult *simple,
-                  GCancellable *cancellable)
-{
-	ESourceRegistryServer *server;
-	AuthRequest *request;
-	const gchar *uid;
-
-	server = e_authentication_session_get_server (session);
-	uid = e_authentication_session_get_source_uid (session);
-
-	request = g_slice_new0 (AuthRequest);
-	request->ref_count = 1;
-	request->session = g_object_ref (session);
-	request->simple = g_object_ref (simple);
-
-	/* This will return NULL if the authenticating data source
-	 * has not yet been submitted to the D-Bus registry server. */
-	request->source = e_source_registry_server_ref_source (server, uid);
-
-	if (G_IS_CANCELLABLE (cancellable))
-		request->cancellable = g_object_ref (cancellable);
-
-	return request;
-}
-
-static AuthRequest *
-auth_request_ref (AuthRequest *request)
-{
-	g_return_val_if_fail (request != NULL, NULL);
-	g_return_val_if_fail (request->ref_count > 0, NULL);
-
-	g_atomic_int_inc (&request->ref_count);
-
-	return request;
-}
-
-static void
-auth_request_unref (AuthRequest *request)
-{
-	g_return_if_fail (request != NULL);
-	g_return_if_fail (request->ref_count > 0);
-
-	if (g_atomic_int_dec_and_test (&request->ref_count)) {
-
-		g_object_unref (request->session);
-		g_object_unref (request->simple);
-
-		if (request->source != NULL)
-			g_object_unref (request->source);
-
-		if (request->cancellable != NULL)
-			g_object_unref (request->cancellable);
-
-		g_slice_free (AuthRequest, request);
-	}
-}
 
 /* GDestroyNotify callback for 'sources' values */
 static void
@@ -184,17 +95,6 @@ unref_data_source (ESource *source)
 	/* The breaks the reference cycle with ECollectionBackend. */
 	g_object_set_data (G_OBJECT (source), BACKEND_DATA_KEY, NULL);
 	g_object_unref (source);
-}
-
-/* GDestroyNotify callback for 'waiting_auths' values */
-static void
-free_auth_queue (GQueue *queue)
-{
-	/* XXX g_queue_clear_full() would be nice here. */
-	while (!g_queue_is_empty (queue))
-		g_object_unref (g_queue_pop_head (queue));
-
-	g_queue_free (queue);
 }
 
 static void
@@ -369,387 +269,6 @@ source_registry_server_orphans_steal (ESourceRegistryServer *server,
 	return array;
 }
 
-static void
-source_request_server_auth_request_cancel_all (ESourceRegistryServer *server)
-{
-	GHashTableIter iter;
-	gpointer value;
-
-	g_mutex_lock (&server->priv->auth_lock);
-
-	g_hash_table_iter_init (&iter, server->priv->waiting_auths);
-
-	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		GQueue *queue = value;
-		GList *list, *link;
-
-		list = g_queue_peek_head_link (queue);
-
-		for (link = list; link != NULL; link = g_list_next (link)) {
-			AuthRequest *request = link->data;
-			g_cancellable_cancel (request->cancellable);
-		}
-	}
-
-	g_hash_table_iter_init (&iter, server->priv->running_auths);
-
-	while (g_hash_table_iter_next (&iter, NULL, &value)) {
-		AuthRequest *request = value;
-		g_cancellable_cancel (request->cancellable);
-	}
-
-	g_mutex_unlock (&server->priv->auth_lock);
-}
-
-static void
-source_registry_server_auth_request_push (ESourceRegistryServer *server,
-                                          const gchar *uid,
-                                          AuthRequest *request)
-{
-	GQueue *queue;
-
-	g_return_if_fail (uid != NULL);
-
-	g_mutex_lock (&server->priv->auth_lock);
-
-	queue = g_hash_table_lookup (server->priv->waiting_auths, uid);
-
-	if (queue == NULL) {
-		queue = g_queue_new ();
-		g_hash_table_insert (
-			server->priv->waiting_auths,
-			g_strdup (uid), queue);
-	}
-
-	g_queue_push_tail (queue, auth_request_ref (request));
-
-	g_mutex_unlock (&server->priv->auth_lock);
-}
-
-static AuthRequest *
-source_registry_server_auth_request_next (ESourceRegistryServer *server,
-                                          const gchar *uid)
-{
-	AuthRequest *request = NULL;
-
-	g_return_val_if_fail (uid != NULL, NULL);
-
-	g_mutex_lock (&server->priv->auth_lock);
-
-	/* If we're already busy processing an authentication request
-	 * for this UID, the next request will have to wait in line. */
-	if (!g_hash_table_contains (server->priv->running_auths, uid)) {
-		GQueue *queue;
-
-		queue = g_hash_table_lookup (
-			server->priv->waiting_auths, uid);
-
-		if (queue != NULL)
-			request = g_queue_pop_head (queue);
-
-		if (request != NULL)
-			g_hash_table_insert (
-				server->priv->running_auths,
-				g_strdup (uid),
-				auth_request_ref (request));
-	}
-
-	g_mutex_unlock (&server->priv->auth_lock);
-
-	return request;
-}
-
-static void
-source_registry_server_auth_request_done (ESourceRegistryServer *server,
-                                          const gchar *uid)
-{
-	g_return_if_fail (uid != NULL);
-
-	g_mutex_lock (&server->priv->auth_lock);
-
-	g_hash_table_remove (server->priv->running_auths, uid);
-
-	g_mutex_unlock (&server->priv->auth_lock);
-}
-
-static void
-source_registry_server_auth_session_cb (GObject *source_object,
-                                        GAsyncResult *result,
-                                        gpointer user_data)
-{
-	ESourceRegistryServer *server;
-	EAuthenticationSession *session;
-	EAuthenticationSessionResult auth_result;
-	AuthRequest *request;
-	const gchar *uid;
-	GError *error = NULL;
-
-	session = E_AUTHENTICATION_SESSION (source_object);
-	request = (AuthRequest *) user_data;
-
-	auth_result = e_authentication_session_execute_finish (
-		session, result, &error);
-
-	if (error != NULL) {
-		ESourceAuthenticator *authenticator;
-
-		g_warn_if_fail (auth_result == E_AUTHENTICATION_SESSION_ERROR);
-		g_simple_async_result_take_error (request->simple, error);
-
-		/* If the authenticator is an EAuthenticationMediator,
-		 * have it emit a "server-error" signal to the client. */
-		authenticator =
-			e_authentication_session_get_authenticator (session);
-		if (E_IS_AUTHENTICATION_MEDIATOR (authenticator))
-			e_authentication_mediator_server_error (
-				E_AUTHENTICATION_MEDIATOR (authenticator),
-				error);
-	}
-
-	/* Authentication dismissals require additional handling. */
-	if (auth_result == E_AUTHENTICATION_SESSION_DISMISSED) {
-		ESourceAuthenticator *authenticator;
-
-		/* If the authenticator is an EAuthenticationMediator,
-		 * have it emit a "dismissed" signal to the client. */
-		authenticator =
-			e_authentication_session_get_authenticator (session);
-		if (E_IS_AUTHENTICATION_MEDIATOR (authenticator))
-			e_authentication_mediator_dismiss (
-				E_AUTHENTICATION_MEDIATOR (authenticator));
-
-		/* Prevent further user interruptions. */
-		if (request->source != NULL)
-			e_server_side_source_set_allow_auth_prompt (
-				E_SERVER_SIDE_SOURCE (request->source), FALSE);
-
-		/* e_source_registry_server_authenticate_finish() should
-		 * return an error since authentication did not complete. */
-		g_simple_async_result_set_error (
-			request->simple,
-			G_IO_ERROR, G_IO_ERROR_CANCELLED,
-			_("The user declined to authenticate"));
-	}
-
-	g_simple_async_result_complete_in_idle (request->simple);
-
-	server = e_authentication_session_get_server (session);
-	uid = e_authentication_session_get_source_uid (session);
-
-	source_registry_server_auth_request_done (server, uid);
-	source_registry_server_maybe_start_auth_session (server, uid);
-
-	auth_request_unref (request);
-}
-
-static gboolean
-source_registry_server_start_auth_session_idle_cb (gpointer user_data)
-{
-	AuthRequest *request = user_data;
-
-	/* Execute the new active auth session.  This signals it to
-	 * respond with a cached secret in the keyring if it can, or
-	 * else show an authentication prompt and wait for input. */
-	e_authentication_session_execute (
-		request->session,
-		G_PRIORITY_DEFAULT,
-		request->cancellable,
-		source_registry_server_auth_session_cb,
-		auth_request_ref (request));
-
-	return FALSE;
-}
-
-static void
-source_registry_server_maybe_start_auth_session (ESourceRegistryServer *server,
-                                                 const gchar *uid)
-{
-	AuthRequest *request;
-
-	/* We own the returned reference, unless we get NULL. */
-	request = source_registry_server_auth_request_next (server, uid);
-
-	if (request != NULL) {
-		GSource *idle_source;
-
-		/* Process the next AuthRequest from an idle callback
-		 * on our own GMainContext, since the current thread-
-		 * default GMainContext may only be temporary. */
-		idle_source = g_idle_source_new ();
-		g_source_set_callback (
-			idle_source,
-			source_registry_server_start_auth_session_idle_cb,
-			auth_request_ref (request),
-			(GDestroyNotify) auth_request_unref);
-		g_source_attach (idle_source, server->priv->main_context);
-		g_source_unref (idle_source);
-
-		auth_request_unref (request);
-	}
-}
-
-static void
-source_registry_server_authenticate_done_cb (GObject *source_object,
-                                             GAsyncResult *result,
-                                             gpointer user_data)
-{
-	GError *error = NULL;
-
-	e_source_registry_server_authenticate_finish (
-		E_SOURCE_REGISTRY_SERVER (source_object), result, &error);
-
-	/* Ignore cancellations. */
-	if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
-		g_error_free (error);
-
-	} else if (error != NULL) {
-		g_warning ("%s: %s", G_STRFUNC, error->message);
-		g_error_free (error);
-	}
-}
-
-static void
-source_registry_server_wait_for_client_cb (GObject *source_object,
-                                           GAsyncResult *result,
-                                           gpointer user_data)
-{
-	EAuthenticationMediator *mediator;
-	EAuthenticationSession *session;
-	GError *error = NULL;
-
-	mediator = E_AUTHENTICATION_MEDIATOR (source_object);
-	session = E_AUTHENTICATION_SESSION (user_data);
-
-	e_authentication_mediator_wait_for_client_finish (
-		mediator, result, &error);
-
-	if (error == NULL) {
-		ESourceRegistryServer *server;
-
-		server = e_authentication_session_get_server (session);
-
-		/* Client is ready and waiting to test passwords, so
-		 * execute the authentication session as soon as all
-		 * other authentication sessions for this same data
-		 * source are finished.
-		 *
-		 * XXX Note this asynchronous operation is not cancellable
-		 *     but it does time out on its own after a few minutes. */
-		e_source_registry_server_authenticate (
-			server, session, NULL,
-			source_registry_server_authenticate_done_cb, NULL);
-
-	} else {
-		/* Most likely the client went dark and the operation
-		 * timed out.  Emit a dismissed signal anyway just in
-		 * case the client is still alive and listening. */
-		e_authentication_mediator_dismiss (mediator);
-		g_warning ("%s: %s", G_STRFUNC, error->message);
-		g_error_free (error);
-	}
-
-	g_object_unref (session);
-}
-
-static gboolean
-source_registry_server_allow_auth_prompt_all_cb (EDBusSourceManager *dbus_interface,
-                                                 GDBusMethodInvocation *invocation,
-                                                 ESourceRegistryServer *server)
-{
-	GList *list, *link;
-
-	list = e_source_registry_server_list_sources (server, NULL);
-
-	for (link = list; link != NULL; link = g_list_next (link))
-		e_server_side_source_set_allow_auth_prompt (
-			E_SERVER_SIDE_SOURCE (link->data), TRUE);
-
-	g_list_free_full (list, (GDestroyNotify) g_object_unref);
-
-	e_dbus_source_manager_complete_allow_auth_prompt_all (
-		dbus_interface, invocation);
-
-	return TRUE;
-}
-
-static gboolean
-source_registry_server_authenticate_cb (EDBusSourceManager *dbus_interface,
-                                        GDBusMethodInvocation *invocation,
-                                        const gchar *source_uid,
-                                        const gchar *prompt_title,
-                                        const gchar *prompt_message,
-                                        const gchar *prompt_description,
-                                        ESourceRegistryServer *server)
-{
-	GDBusConnection *connection;
-	EAuthenticationSession *session;
-	ESourceAuthenticator *authenticator;
-	const gchar *base_object_path;
-	const gchar *sender;
-	gchar *auth_object_path;
-	GError *error = NULL;
-
-	/* Export the D-Bus interface to a unique object path.  This
-	 * effectively starts a new authentication session with the
-	 * method caller. */
-
-	base_object_path = E_SOURCE_REGISTRY_SERVER_OBJECT_PATH;
-	connection = g_dbus_method_invocation_get_connection (invocation);
-	sender = g_dbus_method_invocation_get_sender (invocation);
-
-	auth_object_path = g_strdup_printf (
-		"%s/auth_%u", base_object_path,
-		server->priv->authentication_count++);
-
-	authenticator = e_authentication_mediator_new (
-		connection, auth_object_path, sender, &error);
-
-	if (error != NULL) {
-		g_warn_if_fail (authenticator == NULL);
-		g_dbus_method_invocation_take_error (invocation, error);
-		g_free (auth_object_path);
-		return TRUE;
-	}
-
-	g_return_val_if_fail (
-		E_IS_SOURCE_AUTHENTICATOR (authenticator), FALSE);
-
-	/* Create the authentication session. */
-	session = e_source_registry_server_new_auth_session (
-		server, authenticator, source_uid);
-
-	/* Configure the authentication session. */
-	g_object_set (
-		session,
-		"prompt-title", prompt_title,
-		"prompt-message", prompt_message,
-		"prompt-description", prompt_description,
-		NULL);
-
-	/* Before adding the authentication session to the server we
-	 * must handshake with the client requesting authentication.
-	 * We do this by returning the object path of the exported
-	 * Authenticator interface and then waiting for the client to
-	 * acknowledge by calling the Ready() method on the interface.
-	 * This indicates the client is ready to receive signals.
-	 *
-	 * XXX Note this asynchronous operation is not cancellable
-	 *     but it does time out on its own after a few minutes. */
-	e_authentication_mediator_wait_for_client (
-		E_AUTHENTICATION_MEDIATOR (authenticator),
-		NULL, source_registry_server_wait_for_client_cb,
-		g_object_ref (session));
-
-	e_dbus_source_manager_complete_authenticate (
-		dbus_interface, invocation, auth_object_path);
-
-	g_object_unref (authenticator);
-	g_object_unref (session);
-	g_free (auth_object_path);
-
-	return TRUE;
-}
-
 static gboolean
 source_registry_server_create_source (ESourceRegistryServer *server,
                                       const gchar *uid,
@@ -899,50 +418,122 @@ source_registry_server_reload_cb (EDBusSourceManager *dbus_interface,
 	return TRUE;
 }
 
-static void
-source_registry_server_monitor_changed_cb (GFileMonitor *monitor,
-                                           GFile *file,
-                                           GFile *other_file,
-                                           GFileMonitorEvent event_type,
-                                           ESourceRegistryServer *server)
+typedef struct _FileEventData {
+	GFile *file;
+	GFileMonitorEvent event_type;
+} FileEventData;
+
+static FileEventData *
+file_event_data_new (GFile *file,
+		     GFileMonitorEvent event_type)
 {
+	FileEventData *fed;
+
+	fed = g_new0 (FileEventData, 1);
+	fed->file = g_object_ref (file);
+	fed->event_type = event_type;
+
+	return fed;
+}
+
+static void
+file_event_data_free (gpointer ptr)
+{
+	FileEventData *fed = ptr;
+
+	if (fed) {
+		g_clear_object (&fed->file);
+		g_free (fed);
+	}
+}
+
+static void
+source_registry_server_process_file_monitor_event (gpointer key,
+						   gpointer value,
+						   gpointer user_data)
+{
+	const gchar *uid = key;
+	const FileEventData *fed = value;
+	ESourceRegistryServer *server = user_data;
+	GFileMonitorEvent event_type;
+
+	g_return_if_fail (uid != NULL);
+	g_return_if_fail (fed != NULL);
+
+	event_type = fed->event_type;
+
+	if (e_source_registry_debug_enabled ()) {
+		e_source_registry_debug_print ("Processing file monitor event %s (%u) for UID: %s\n",
+			event_type == G_FILE_MONITOR_EVENT_CHANGED ? "CHANGED" :
+			event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT ? "CHANGES_DONE_HINT" :
+			event_type == G_FILE_MONITOR_EVENT_DELETED ? "DELETED" :
+			event_type == G_FILE_MONITOR_EVENT_CREATED ? "CREATED" :
+			event_type == G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED ? "ATTRIBUTE_CHANGED" :
+			event_type == G_FILE_MONITOR_EVENT_PRE_UNMOUNT ? "PRE_UNMOUNT" :
+			event_type == G_FILE_MONITOR_EVENT_UNMOUNTED ? "UNMOUNTED" :
+			event_type == G_FILE_MONITOR_EVENT_MOVED ? "MOVED" : "???",
+			event_type,
+			uid);
+	}
+
+	if (event_type == G_FILE_MONITOR_EVENT_CHANGED ||
+	    event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT) {
+		ESource *source;
+		GError *error = NULL;
+
+		source = e_source_registry_server_ref_source (server, uid);
+
+		/* If the source does not exist, create it; parsing may have
+		 * failed when the file was originally created. This can happen
+		 * if the file is created (empty), then e-source-registry-server
+		 * detects it, then it’s populated and made valid.
+		 *
+		 * Otherwise, reload the file since it has changed. */
+		if (source == NULL) {
+			event_type = G_FILE_MONITOR_EVENT_CREATED;
+		} else if (!e_server_side_source_load (E_SERVER_SIDE_SOURCE (source), NULL, &error)) {
+			g_warning ("Error reloading source ‘%s’: %s", uid, error->message);
+
+			g_error_free (error);
+			g_object_unref (source);
+
+			return;
+		}
+
+		g_clear_object (&source);
+	}
+
 	if (event_type == G_FILE_MONITOR_EVENT_CREATED) {
 		ESource *source;
 		GError *error = NULL;
 
-		/* it can return NULL source for hidden files */
-		source = e_server_side_source_new (server, file, &error);
+		source = e_source_registry_server_ref_source (server, uid);
+
+		if (!source) {
+			/* it can return NULL source for hidden files */
+			source = e_server_side_source_new (server, fed->file, &error);
+		}
 
 		if (!error && source) {
 			/* File monitors are only placed on directories
 			 * where data sources are writable and removable,
 			 * so it should be safe to assume these flags. */
-			e_server_side_source_set_writable (
-				E_SERVER_SIDE_SOURCE (source), TRUE);
-			e_server_side_source_set_removable (
-				E_SERVER_SIDE_SOURCE (source), TRUE);
+			e_server_side_source_set_writable (E_SERVER_SIDE_SOURCE (source), TRUE);
+			e_server_side_source_set_removable (E_SERVER_SIDE_SOURCE (source), TRUE);
 
 			e_source_registry_server_add_source (server, source);
-			g_object_unref (source);
 		} else if (error) {
-			e_source_registry_server_load_error (
-				server, file, error);
+			e_source_registry_server_load_error (server, fed->file, error);
 			g_error_free (error);
 		}
+
+		g_clear_object (&source);
 	}
 
 	if (event_type == G_FILE_MONITOR_EVENT_DELETED) {
 		ESource *source;
-		gchar *uid;
-
-		uid = e_server_side_source_uid_from_file (file, NULL);
-
-		if (uid == NULL)
-			return;
 
 		source = e_source_registry_server_ref_source (server, uid);
-
-		g_free (uid);
 
 		if (source == NULL)
 			return;
@@ -954,6 +545,87 @@ source_registry_server_monitor_changed_cb (GFileMonitor *monitor,
 			e_source_registry_server_remove_source (server, source);
 
 		g_object_unref (source);
+	}
+}
+
+static gboolean
+source_registry_server_process_file_monitor_events_cb (gpointer user_data)
+{
+	ESourceRegistryServer *server = user_data;
+	GHashTable *events;
+
+	if (g_source_is_destroyed (g_main_current_source ()))
+		return FALSE;
+
+	g_return_val_if_fail (E_IS_SOURCE_REGISTRY_SERVER (server), FALSE);
+
+	g_mutex_lock (&server->priv->file_monitor_lock);
+	events = server->priv->file_monitor_events;
+	server->priv->file_monitor_events = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, file_event_data_free);
+	g_mutex_unlock (&server->priv->file_monitor_lock);
+
+	g_hash_table_foreach (events, source_registry_server_process_file_monitor_event, server);
+	g_hash_table_destroy (events);
+
+	return FALSE;
+}
+
+static void
+source_registry_server_monitor_changed_cb (GFileMonitor *monitor,
+                                           GFile *file,
+                                           GFile *other_file,
+                                           GFileMonitorEvent event_type,
+                                           ESourceRegistryServer *server)
+{
+	if (e_source_registry_debug_enabled ()) {
+		gchar *uri;
+
+		uri = g_file_get_uri (file);
+		e_source_registry_debug_print ("Handling file monitor event %s (%u) for URI: %s\n",
+			event_type == G_FILE_MONITOR_EVENT_CHANGED ? "CHANGED" :
+			event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT ? "CHANGES_DONE_HINT" :
+			event_type == G_FILE_MONITOR_EVENT_DELETED ? "DELETED" :
+			event_type == G_FILE_MONITOR_EVENT_CREATED ? "CREATED" :
+			event_type == G_FILE_MONITOR_EVENT_ATTRIBUTE_CHANGED ? "ATTRIBUTE_CHANGED" :
+			event_type == G_FILE_MONITOR_EVENT_PRE_UNMOUNT ? "PRE_UNMOUNT" :
+			event_type == G_FILE_MONITOR_EVENT_UNMOUNTED ? "UNMOUNTED" :
+			event_type == G_FILE_MONITOR_EVENT_MOVED ? "MOVED" : "???",
+			event_type,
+			uri);
+		g_free (uri);
+	}
+
+	if (event_type == G_FILE_MONITOR_EVENT_CHANGED ||
+	    event_type == G_FILE_MONITOR_EVENT_CHANGES_DONE_HINT ||
+	    event_type == G_FILE_MONITOR_EVENT_CREATED ||
+	    event_type == G_FILE_MONITOR_EVENT_DELETED) {
+		gchar *uid;
+
+		uid = e_server_side_source_uid_from_file (file, NULL);
+
+		if (uid == NULL)
+			return;
+
+		g_mutex_lock (&server->priv->file_monitor_lock);
+		/* This overwrites any previous events, aka the last wins
+		   (overwrite can be DELETE + CREATE, which handles it correctly). */
+		g_hash_table_insert (server->priv->file_monitor_events, uid, file_event_data_new (file, event_type));
+
+		if (server->priv->file_monitor_source) {
+			g_source_destroy (server->priv->file_monitor_source);
+			g_source_unref (server->priv->file_monitor_source);
+		}
+
+		server->priv->file_monitor_source = g_timeout_source_new_seconds (3);
+		g_source_set_callback (
+			server->priv->file_monitor_source,
+			source_registry_server_process_file_monitor_events_cb,
+			server, NULL);
+		g_source_attach (
+			server->priv->file_monitor_source,
+			server->priv->main_context);
+
+		g_mutex_unlock (&server->priv->file_monitor_lock);
 	}
 }
 
@@ -1041,33 +713,46 @@ source_registry_server_adopt_orphans (ESourceRegistryServer *server,
 }
 
 static void
+source_registry_server_constructed (GObject *object)
+{
+	ESourceRegistryServer *server;
+
+	server = E_SOURCE_REGISTRY_SERVER (object);
+
+	/* Chain up to parent's method. */
+	G_OBJECT_CLASS (e_source_registry_server_parent_class)->constructed (object);
+
+	server->priv->credentials_provider = e_server_side_source_credentials_provider_new (server);
+}
+
+static void
 source_registry_server_dispose (GObject *object)
 {
 	ESourceRegistryServerPrivate *priv;
 
 	priv = E_SOURCE_REGISTRY_SERVER_GET_PRIVATE (object);
 
+	g_mutex_lock (&priv->file_monitor_lock);
+	if (priv->file_monitor_source) {
+		g_source_destroy (priv->file_monitor_source);
+		g_source_unref (priv->file_monitor_source);
+		priv->file_monitor_source = NULL;
+	}
+	g_mutex_unlock (&priv->file_monitor_lock);
+
 	if (priv->main_context != NULL) {
 		g_main_context_unref (priv->main_context);
 		priv->main_context = NULL;
 	}
 
-	if (priv->object_manager != NULL) {
-		g_object_unref (priv->object_manager);
-		priv->object_manager = NULL;
-	}
-
-	if (priv->source_manager != NULL) {
-		g_object_unref (priv->source_manager);
-		priv->source_manager = NULL;
-	}
+	g_clear_object (&priv->object_manager);
+	g_clear_object (&priv->source_manager);
+	g_clear_object (&priv->credentials_provider);
 
 	g_hash_table_remove_all (priv->sources);
 	g_hash_table_remove_all (priv->orphans);
 	g_hash_table_remove_all (priv->monitors);
-
-	g_hash_table_remove_all (priv->running_auths);
-	g_hash_table_remove_all (priv->waiting_auths);
+	g_hash_table_remove_all (priv->file_monitor_events);
 
 	/* Chain up to parent's dispose() method. */
 	G_OBJECT_CLASS (e_source_registry_server_parent_class)->
@@ -1084,13 +769,11 @@ source_registry_server_finalize (GObject *object)
 	g_hash_table_destroy (priv->sources);
 	g_hash_table_destroy (priv->orphans);
 	g_hash_table_destroy (priv->monitors);
+	g_hash_table_destroy (priv->file_monitor_events);
 
 	g_mutex_clear (&priv->sources_lock);
 	g_mutex_clear (&priv->orphans_lock);
-
-	g_mutex_clear (&priv->auth_lock);
-	g_hash_table_destroy (priv->running_auths);
-	g_hash_table_destroy (priv->waiting_auths);
+	g_mutex_clear (&priv->file_monitor_lock);
 
 	/* Chain up to parent's finalize() method. */
 	G_OBJECT_CLASS (e_source_registry_server_parent_class)->
@@ -1102,23 +785,11 @@ source_registry_server_bus_acquired (EDBusServer *server,
                                      GDBusConnection *connection)
 {
 	ESourceRegistryServerPrivate *priv;
-	GError *error = NULL;
 
 	priv = E_SOURCE_REGISTRY_SERVER_GET_PRIVATE (server);
 
 	g_dbus_object_manager_server_set_connection (
 		priv->object_manager, connection);
-
-	g_dbus_interface_skeleton_export (
-		G_DBUS_INTERFACE_SKELETON (priv->source_manager),
-		connection, E_SOURCE_REGISTRY_SERVER_OBJECT_PATH, &error);
-
-	/* Terminate the server if we can't export the interface. */
-	if (error != NULL) {
-		g_warning ("%s: %s", G_STRFUNC, error->message);
-		e_dbus_server_quit (server, E_DBUS_SERVER_EXIT_NORMAL);
-		g_error_free (error);
-	}
 
 	/* Chain up to parent's bus_acquired() method. */
 	E_DBUS_SERVER_CLASS (e_source_registry_server_parent_class)->
@@ -1133,15 +804,9 @@ source_registry_server_quit_server (EDBusServer *server,
 
 	priv = E_SOURCE_REGISTRY_SERVER_GET_PRIVATE (server);
 
-	source_request_server_auth_request_cancel_all (
-		E_SOURCE_REGISTRY_SERVER (server));
-
 	/* This makes the object manager unexport all objects. */
 	g_dbus_object_manager_server_set_connection (
 		priv->object_manager, NULL);
-
-	g_dbus_interface_skeleton_unexport (
-		G_DBUS_INTERFACE_SKELETON (priv->source_manager));
 
 	/* Chain up to parent's quit_server() method. */
 	E_DBUS_SERVER_CLASS (e_source_registry_server_parent_class)->
@@ -1166,9 +831,11 @@ source_registry_server_source_added (ESourceRegistryServer *server,
 
 	extension_name = E_SOURCE_EXTENSION_COLLECTION;
 	if (e_source_has_extension (source, extension_name)) {
-		EBackend *backend;
+		EBackend *backend = NULL;
+		ECollectionBackendFactory *backend_factory;
 		ESourceBackend *extension;
 		const gchar *backend_name;
+		GError *error = NULL;
 
 		extension = e_source_get_extension (source, extension_name);
 		backend_name = e_source_backend_get_backend_name (extension);
@@ -1177,8 +844,18 @@ source_registry_server_source_added (ESourceRegistryServer *server,
 		 * itself, which creates a reference cycle.  The cycle is
 		 * explicitly broken when the ESource is removed from the
 		 * 'sources' hash table (see unref_data_source() above). */
-		backend = e_data_factory_ref_backend (
-			E_DATA_FACTORY (server), backend_name, source);
+		backend_factory = e_source_registry_server_ref_backend_factory (server, source);
+		backend = e_backend_factory_new_backend (E_BACKEND_FACTORY (backend_factory), source);
+
+		if (G_IS_INITABLE (backend)) {
+			GInitable *initable = G_INITABLE (backend);
+
+			if (!g_initable_init (initable, NULL, &error))
+				g_clear_object (&backend);
+		}
+
+		g_object_unref (backend_factory);
+
 		if (backend != NULL) {
 			g_object_set_data_full (
 				G_OBJECT (source),
@@ -1186,8 +863,11 @@ source_registry_server_source_added (ESourceRegistryServer *server,
 				(GDestroyNotify) g_object_unref);
 		} else {
 			g_warning (
-				"No collection backend '%s' for %s",
-				backend_name, e_source_get_uid (source));
+				"No collection backend '%s' for %s: %s",
+				backend_name, e_source_get_uid (source),
+				error ? error->message : "Unknown error");
+
+			g_clear_error (&error);
 		}
 	}
 
@@ -1207,7 +887,7 @@ source_registry_server_source_added (ESourceRegistryServer *server,
 	object_path = g_dbus_object_get_object_path (g_dbus_object);
 	object_name = strrchr (object_path, '/') + 1;
 
-	g_debug ("Adding %s ('%s')\n", uid, object_name);
+	g_debug ("Adding %s ('%s')", uid, object_name);
 
 	g_object_unref (dbus_object);
 }
@@ -1250,6 +930,16 @@ source_registry_server_any_true (GSignalInvocationHint *ihint,
 	return TRUE;
 }
 
+static GDBusInterfaceSkeleton *
+source_registry_server_get_dbus_interface_skeleton (EDBusServer *server)
+{
+	ESourceRegistryServerPrivate *priv;
+
+	priv = E_SOURCE_REGISTRY_SERVER_GET_PRIVATE (server);
+
+	return G_DBUS_INTERFACE_SKELETON (priv->source_manager);
+}
+
 static void
 e_source_registry_server_class_init (ESourceRegistryServerClass *class)
 {
@@ -1268,6 +958,7 @@ e_source_registry_server_class_init (ESourceRegistryServerClass *class)
 	g_type_class_add_private (class, sizeof (ESourceRegistryServerPrivate));
 
 	object_class = G_OBJECT_CLASS (class);
+	object_class->constructed = source_registry_server_constructed;
 	object_class->dispose = source_registry_server_dispose;
 	object_class->finalize = source_registry_server_finalize;
 
@@ -1276,10 +967,12 @@ e_source_registry_server_class_init (ESourceRegistryServerClass *class)
 	dbus_server_class->module_directory = modules_directory;
 	dbus_server_class->bus_acquired = source_registry_server_bus_acquired;
 	dbus_server_class->quit_server = source_registry_server_quit_server;
-
 	data_factory_class = E_DATA_FACTORY_CLASS (class);
 	backend_factory_type = E_TYPE_COLLECTION_BACKEND_FACTORY;
 	data_factory_class->backend_factory_type = backend_factory_type;
+	data_factory_class->factory_object_path = E_SOURCE_REGISTRY_SERVER_OBJECT_PATH;
+	data_factory_class->data_object_path_prefix = E_SOURCE_REGISTRY_SERVER_OBJECT_PATH;
+	data_factory_class->get_dbus_interface_skeleton = source_registry_server_get_dbus_interface_skeleton;
 
 	class->source_added = source_registry_server_source_added;
 	class->source_removed = source_registry_server_source_removed;
@@ -1393,8 +1086,6 @@ e_source_registry_server_init (ESourceRegistryServer *server)
 	GHashTable *sources;
 	GHashTable *orphans;
 	GHashTable *monitors;
-	GHashTable *running_auths;
-	GHashTable *waiting_auths;
 	const gchar *object_path;
 
 	object_path = E_SOURCE_REGISTRY_SERVER_OBJECT_PATH;
@@ -1422,18 +1113,6 @@ e_source_registry_server_init (ESourceRegistryServer *server)
 		(GDestroyNotify) g_object_unref,
 		(GDestroyNotify) g_object_unref);
 
-	running_auths = g_hash_table_new_full (
-		(GHashFunc) g_str_hash,
-		(GEqualFunc) g_str_equal,
-		(GDestroyNotify) g_free,
-		(GDestroyNotify) auth_request_unref);
-
-	waiting_auths = g_hash_table_new_full (
-		(GHashFunc) g_str_hash,
-		(GEqualFunc) g_str_equal,
-		(GDestroyNotify) g_free,
-		(GDestroyNotify) free_auth_queue);
-
 	server->priv = E_SOURCE_REGISTRY_SERVER_GET_PRIVATE (server);
 	server->priv->main_context = g_main_context_ref_thread_default ();
 	server->priv->object_manager = object_manager;
@@ -1443,19 +1122,10 @@ e_source_registry_server_init (ESourceRegistryServer *server)
 	server->priv->monitors = monitors;
 	g_mutex_init (&server->priv->sources_lock);
 	g_mutex_init (&server->priv->orphans_lock);
-	g_mutex_init (&server->priv->auth_lock);
-	server->priv->waiting_auths = waiting_auths;
-	server->priv->running_auths = running_auths;
+	g_mutex_init (&server->priv->file_monitor_lock);
 
-	g_signal_connect (
-		source_manager, "handle-allow-auth-prompt-all",
-		G_CALLBACK (source_registry_server_allow_auth_prompt_all_cb),
-		server);
-
-	g_signal_connect (
-		source_manager, "handle-authenticate",
-		G_CALLBACK (source_registry_server_authenticate_cb),
-		server);
+	server->priv->file_monitor_source = NULL;
+	server->priv->file_monitor_events = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, file_event_data_free);
 
 	g_signal_connect (
 		source_manager, "handle-create-sources",
@@ -1480,7 +1150,26 @@ e_source_registry_server_init (ESourceRegistryServer *server)
 EDBusServer *
 e_source_registry_server_new (void)
 {
-	return g_object_new (E_TYPE_SOURCE_REGISTRY_SERVER, NULL);
+	return g_object_new (E_TYPE_SOURCE_REGISTRY_SERVER, "reload-supported", TRUE, NULL);
+}
+
+/**
+ * e_source_registry_server_ref_credentials_provider:
+ * @server: an #ESourceRegistryServer
+ *
+ * Returns a referenced #ESourceRegistryCredentialsProvider.
+ *
+ * Returns: A referenced #ESourceRegistryCredentialsProvider. Unref it with
+ *    g_object_unref(), when no longer needed.
+ *
+ * Since: 3.16
+ **/
+ESourceCredentialsProvider *
+e_source_registry_server_ref_credentials_provider (ESourceRegistryServer *server)
+{
+	g_return_val_if_fail (E_IS_SOURCE_REGISTRY_SERVER (server), NULL);
+
+	return g_object_ref (server->priv->credentials_provider);
 }
 
 /**
@@ -2304,7 +1993,7 @@ e_source_registry_server_ref_backend_factory (ESourceRegistryServer *server,
 	backend_name = e_source_backend_get_backend_name (extension);
 
 	factory = e_data_factory_ref_backend_factory (
-		E_DATA_FACTORY (server), backend_name);
+		E_DATA_FACTORY (server), backend_name, extension_name);
 
 	if (factory == NULL)
 		return NULL;
@@ -2312,188 +2001,4 @@ e_source_registry_server_ref_backend_factory (ESourceRegistryServer *server,
 	/* The factory *should* be an ECollectionBackendFactory.
 	 * We specify this in source_registry_server_class_init(). */
 	return E_COLLECTION_BACKEND_FACTORY (factory);
-}
-
-/**
- * e_source_registry_server_new_auth_session:
- * @server: an #ESourceRegistryServer
- * @authenticator: an #ESourceAuthenticator
- * @source_uid: a data source identifier
- *
- * Convenience function instantiates an appropriate authentication
- * session type for @source_uid.
- *
- * If @server has an #EServerSideSource instance for @source_uid, then
- * its #EServerSideSource:auth-session-type is used to instantiate a new
- * authentication session.  Otherwise a plain #EAuthenticationSession is
- * instantiated.
- *
- * Unreference the returned #EAuthenticationSession with g_object_unref()
- * when finished with it.
- *
- * Returns: a new #EAuthenticationSession for @source_uid
- *
- * Since: 3.8
- **/
-EAuthenticationSession *
-e_source_registry_server_new_auth_session (ESourceRegistryServer *server,
-                                           ESourceAuthenticator *authenticator,
-                                           const gchar *source_uid)
-{
-	GType auth_session_type = E_TYPE_AUTHENTICATION_SESSION;
-	ESource *source;
-
-	g_return_val_if_fail (E_IS_SOURCE_REGISTRY_SERVER (server), NULL);
-	g_return_val_if_fail (E_IS_SOURCE_AUTHENTICATOR (authenticator), NULL);
-	g_return_val_if_fail (source_uid != NULL, NULL);
-
-	source = e_source_registry_server_ref_source (server, source_uid);
-	if (source != NULL) {
-		auth_session_type =
-			e_server_side_source_get_auth_session_type (
-			E_SERVER_SIDE_SOURCE (source));
-		g_object_unref (source);
-	}
-
-	g_return_val_if_fail (
-		g_type_is_a (
-			auth_session_type,
-			E_TYPE_AUTHENTICATION_SESSION), NULL);
-
-	return g_object_new (
-		auth_session_type,
-		"server", server,
-		"authenticator", authenticator,
-		"source-uid", source_uid, NULL);
-}
-
-/**
- * e_source_registry_server_authenticate_sync:
- * @server: an #ESourceRegistryServer
- * @session: an #EAuthenticationSession
- * @cancellable: optional #GCancellable object, or %NULL
- * @error: return location for a #GError, or %NULL
- *
- * Queues the @session behind any ongoing or pending authentication
- * sessions for the same data source, and eventually executes @session
- * (see e_authentication_session_execute_sync() for more details).
- *
- * This function blocks until @session is finished executing.  For a
- * non-blocking variation see e_source_registry_server_authenticate().
- *
- * If an error occurs, the function sets @error and returns %FALSE.
- *
- * Returns: %TRUE on success, %FALSE on failure
- *
- * Since: 3.6
- **/
-gboolean
-e_source_registry_server_authenticate_sync (ESourceRegistryServer *server,
-                                            EAuthenticationSession *session,
-                                            GCancellable *cancellable,
-                                            GError **error)
-{
-	EAsyncClosure *closure;
-	GAsyncResult *result;
-	gboolean success;
-
-	g_return_val_if_fail (E_IS_SOURCE_REGISTRY_SERVER (server), FALSE);
-	g_return_val_if_fail (E_IS_AUTHENTICATION_SESSION (session), FALSE);
-
-	closure = e_async_closure_new ();
-
-	e_source_registry_server_authenticate (
-		server, session, cancellable,
-		e_async_closure_callback, closure);
-
-	result = e_async_closure_wait (closure);
-
-	success = e_source_registry_server_authenticate_finish (
-		server, result, error);
-
-	e_async_closure_free (closure);
-
-	return success;
-}
-
-/**
- * e_source_registry_server_authenticate:
- * @server: an #ESourceRegistryServer
- * @session: an #EAuthenticationSession
- * @cancellable: optional #GCancellable object, or %NULL
- * @callback: a #GAsyncReadyCallback to call when the request is satisfied
- * @user_data: data to pass to the callback function
- *
- * Queues the @session behind any ongoing or pending authentication
- * sessions for the same data source, and eventually executes @session
- * (see e_authentication_session_execute_sync() for more details).
- *
- * This function returns immediately after enqueuing @session.  When
- * @session is finished executing, @callback will be called.  You can
- * then call e_source_registry_server_authenticate_finish() to get the
- * result of the operation.
- *
- * Since: 3.6
- **/
-void
-e_source_registry_server_authenticate (ESourceRegistryServer *server,
-                                       EAuthenticationSession *session,
-                                       GCancellable *cancellable,
-                                       GAsyncReadyCallback callback,
-                                       gpointer user_data)
-{
-	GSimpleAsyncResult *simple;
-	AuthRequest *request;
-	const gchar *uid;
-
-	g_return_if_fail (E_IS_SOURCE_REGISTRY_SERVER (server));
-	g_return_if_fail (E_IS_AUTHENTICATION_SESSION (session));
-
-	uid = e_authentication_session_get_source_uid (session);
-	g_return_if_fail (uid != NULL);
-
-	simple = g_simple_async_result_new (
-		G_OBJECT (server), callback, user_data,
-		e_source_registry_server_authenticate);
-
-	g_simple_async_result_set_check_cancellable (simple, cancellable);
-
-	request = auth_request_new (session, simple, cancellable);
-	source_registry_server_auth_request_push (server, uid, request);
-	auth_request_unref (request);
-
-	source_registry_server_maybe_start_auth_session (server, uid);
-
-	g_object_unref (simple);
-}
-
-/**
- * e_source_registry_server_authenticate_finish:
- * @server: an #ESourceRegistryServer
- * @result: a #GAsyncResult
- * @error: return location for a #GError, or %NULL
- *
- * Finishes the operation started with e_source_registry_server_authenticate().
- * If an error occurred, the function will set @error and return %FALSE.
- *
- * Returns: %TRUE on success, %FALSE on failure
- *
- * Since: 3.6
- **/
-gboolean
-e_source_registry_server_authenticate_finish (ESourceRegistryServer *server,
-                                              GAsyncResult *result,
-                                              GError **error)
-{
-	GSimpleAsyncResult *simple;
-
-	g_return_val_if_fail (
-		g_simple_async_result_is_valid (
-		result, G_OBJECT (server),
-		e_source_registry_server_authenticate), FALSE);
-
-	simple = G_SIMPLE_ASYNC_RESULT (result);
-
-	/* Assume success unless a GError is set. */
-	return !g_simple_async_result_propagate_error (simple, error);
 }

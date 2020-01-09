@@ -1,21 +1,20 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8; fill-column: 160 -*-
- *
- * Author:
- *  Michael Zucchi <notzed@ximian.com>
- *
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8; fill-column: 160 -*- */
+/*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -67,6 +66,9 @@ pop3_engine_finalize (GObject *object)
 	g_list_free (engine->auth);
 	g_free (engine->apop);
 
+	g_mutex_clear (&engine->busy_lock);
+	g_cond_clear (&engine->busy_cond);
+
 	/* Chain up to parent's finalize() method. */
 	G_OBJECT_CLASS (camel_pop3_engine_parent_class)->finalize (object);
 }
@@ -87,12 +89,16 @@ camel_pop3_engine_init (CamelPOP3Engine *engine)
 	g_queue_init (&engine->active);
 	g_queue_init (&engine->queue);
 	g_queue_init (&engine->done);
+	g_mutex_init (&engine->busy_lock);
+	g_cond_init (&engine->busy_cond);
+	engine->is_busy = FALSE;
 	engine->state = CAMEL_POP3_ENGINE_DISCONNECT;
 }
 
 static gint
 read_greeting (CamelPOP3Engine *pe,
-               GCancellable *cancellable)
+               GCancellable *cancellable,
+	       GError **error)
 {
 	guchar *line, *apop, *apopend;
 	guint len;
@@ -100,7 +106,7 @@ read_greeting (CamelPOP3Engine *pe,
 	g_return_val_if_fail (pe != NULL, -1);
 
 	/* first, read the greeting */
-	if (camel_pop3_stream_line (pe->stream, &line, &len, cancellable, NULL) == -1
+	if (camel_pop3_stream_line (pe->stream, &line, &len, cancellable, error) == -1
 	    || strncmp ((gchar *) line, "+OK", 3) != 0)
 		return -1;
 
@@ -143,7 +149,7 @@ camel_pop3_engine_new (CamelStream *source,
 	pe->state = CAMEL_POP3_ENGINE_AUTH;
 	pe->flags = flags;
 
-	if (read_greeting (pe, cancellable) == -1 ||
+	if (read_greeting (pe, cancellable, error) == -1 ||
 	    !get_capabilities (pe, cancellable, error)) {
 		g_object_unref (pe);
 		return NULL;
@@ -240,12 +246,15 @@ get_capabilities (CamelPOP3Engine *pe,
 	g_return_val_if_fail (pe != NULL, FALSE);
 
 	if (!(pe->flags & CAMEL_POP3_ENGINE_DISABLE_EXTENSIONS)) {
-		pc = camel_pop3_engine_command_new (pe, CAMEL_POP3_COMMAND_MULTI, cmd_capa, NULL, cancellable, NULL, "CAPA\r\n");
-		while (camel_pop3_engine_iterate (pe, pc, cancellable, NULL) > 0)
+		if (!camel_pop3_engine_busy_lock (pe, cancellable, error))
+			return FALSE;
+
+		pc = camel_pop3_engine_command_new (pe, CAMEL_POP3_COMMAND_MULTI, cmd_capa, NULL, cancellable, &local_error, "CAPA\r\n");
+		while (camel_pop3_engine_iterate (pe, pc, cancellable, &local_error) > 0)
 			;
 		camel_pop3_engine_command_free (pe, pc);
 
-		if (pe->state == CAMEL_POP3_ENGINE_TRANSACTION && !(pe->capa & CAMEL_POP3_CAP_UIDL)) {
+		if (!local_error && pe->state == CAMEL_POP3_ENGINE_TRANSACTION && !(pe->capa & CAMEL_POP3_CAP_UIDL)) {
 			/* check for UIDL support manually */
 			pc = camel_pop3_engine_command_new (pe, CAMEL_POP3_COMMAND_SIMPLE, NULL, NULL, cancellable, &local_error, "UIDL 1\r\n");
 			while (camel_pop3_engine_iterate (pe, pc, cancellable, &local_error) > 0)
@@ -256,6 +265,8 @@ get_capabilities (CamelPOP3Engine *pe,
 
 			camel_pop3_engine_command_free (pe, pc);
 		}
+
+		camel_pop3_engine_busy_unlock (pe);
 	}
 
 	if (local_error) {
@@ -331,16 +342,30 @@ camel_pop3_engine_iterate (CamelPOP3Engine *pe,
 	case '+':
 		dd (printf ("Got + response\n"));
 		if (pc->flags & CAMEL_POP3_COMMAND_MULTI) {
+			gint fret;
+
 			pc->state = CAMEL_POP3_COMMAND_DATA;
 			camel_pop3_stream_set_mode (pe->stream, CAMEL_POP3_STREAM_DATA);
 
-			if (pc->func)
-				pc->func (pe, pe->stream, cancellable, error, pc->func_data);
+			if (pc->func) {
+				GError *local_error = NULL;
+
+				pc->func (pe, pe->stream, cancellable, &local_error, pc->func_data);
+				if (local_error) {
+					pc->state = CAMEL_POP3_COMMAND_ERR;
+					pc->error_str = g_strdup (local_error->message);
+					g_propagate_error (error, local_error);
+					goto ioerror;
+				}
+			}
 
 			/* Make sure we get all data before going back to command mode */
-			while (camel_pop3_stream_getd (pe->stream, &p, &len, cancellable, error) > 0)
+			while (fret = camel_pop3_stream_getd (pe->stream, &p, &len, cancellable, error), fret > 0)
 				;
 			camel_pop3_stream_set_mode (pe->stream, CAMEL_POP3_STREAM_LINE);
+
+			if (fret < 0)
+				goto ioerror;
 		} else {
 			pc->state = CAMEL_POP3_COMMAND_OK;
 		}
@@ -361,7 +386,7 @@ camel_pop3_engine_iterate (CamelPOP3Engine *pe,
 	}
 
 	g_queue_push_tail (&pe->done, pc);
-	pe->sentlen -= strlen (pc->data);
+	pe->sentlen -= pc->data ? strlen (pc->data) : 0;
 
 	/* Set next command */
 	pe->current = g_queue_pop_head (&pe->active);
@@ -372,14 +397,14 @@ camel_pop3_engine_iterate (CamelPOP3Engine *pe,
 	while (link != NULL) {
 		pc = (CamelPOP3Command *) link->data;
 
-		if (((pe->capa & CAMEL_POP3_CAP_PIPE) == 0 || (pe->sentlen + strlen (pc->data)) > CAMEL_POP3_SEND_LIMIT)
+		if (((pe->capa & CAMEL_POP3_CAP_PIPE) == 0 || (pe->sentlen + (pc->data ? strlen (pc->data) : 0)) > CAMEL_POP3_SEND_LIMIT)
 		    && pe->current != NULL)
 			break;
 
-		if (camel_stream_write ((CamelStream *) pe->stream, pc->data, strlen (pc->data), cancellable, error) == -1)
+		if (camel_stream_write ((CamelStream *) pe->stream, pc->data, pc->data ? strlen (pc->data) : 0, cancellable, error) == -1)
 			goto ioerror;
 
-		pe->sentlen += strlen (pc->data);
+		pe->sentlen += (pc->data ? strlen (pc->data) : 0);
 		pc->state = CAMEL_POP3_COMMAND_DISPATCHED;
 
 		if (pe->current == NULL)
@@ -418,6 +443,73 @@ ioerror:
 	}
 
 	return -1;
+}
+
+static void
+camel_pop3_engine_wait_cancelled_cb (GCancellable *cancellable,
+				     gpointer user_data)
+{
+	CamelPOP3Engine *pe = user_data;
+
+	g_return_if_fail (CAMEL_IS_POP3_ENGINE (pe));
+
+	g_mutex_lock (&pe->busy_lock);
+	g_cond_broadcast (&pe->busy_cond);
+	g_mutex_unlock (&pe->busy_lock);
+}
+
+/* Returns whether received the busy lock; if TRUE, then release it
+   with camel_pop3_engine_busy_unlock() when done with it. */
+gboolean
+camel_pop3_engine_busy_lock (CamelPOP3Engine *pe,
+			     GCancellable *cancellable,
+			     GError **error)
+{
+	gulong handler_id = 0;
+	gboolean got_lock = FALSE;
+
+	g_return_val_if_fail (CAMEL_IS_POP3_ENGINE (pe), FALSE);
+
+	if (g_cancellable_set_error_if_cancelled (cancellable, error))
+		return FALSE;
+
+	if (cancellable)
+		handler_id = g_cancellable_connect (cancellable, G_CALLBACK (camel_pop3_engine_wait_cancelled_cb), pe, NULL);
+
+	g_mutex_lock (&pe->busy_lock);
+	while (pe->is_busy) {
+		if (g_cancellable_set_error_if_cancelled (cancellable, error))
+			break;
+
+		g_cond_wait (&pe->busy_cond, &pe->busy_lock);
+	}
+
+	if (!pe->is_busy && !g_cancellable_is_cancelled (cancellable)) {
+		pe->is_busy = TRUE;
+		got_lock = TRUE;
+	}
+
+	g_mutex_unlock (&pe->busy_lock);
+
+	if (handler_id)
+		g_cancellable_disconnect (cancellable, handler_id);
+
+	return got_lock;
+}
+
+void
+camel_pop3_engine_busy_unlock (CamelPOP3Engine *pe)
+{
+	g_return_if_fail (CAMEL_IS_POP3_ENGINE (pe));
+
+	g_mutex_lock (&pe->busy_lock);
+
+	g_warn_if_fail (pe->is_busy);
+	pe->is_busy = FALSE;
+
+	g_cond_broadcast (&pe->busy_cond);
+
+	g_mutex_unlock (&pe->busy_lock);
 }
 
 CamelPOP3Command *

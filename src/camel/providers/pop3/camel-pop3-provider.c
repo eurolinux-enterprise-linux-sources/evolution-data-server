@@ -1,24 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-pop3-provider.c: pop3 provider registration code */
-
-/*
- * Authors :
- *   Dan Winship <danw@ximian.com>
- *   Michael Zucchi <notzed@ximian.com>
+/* camel-pop3-provider.c: pop3 provider registration code
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors :
+ *   Dan Winship <danw@ximian.com>
+ *   Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -36,7 +35,7 @@ static CamelProviderConfEntry pop3_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "storage", NULL,
 	  N_("Message Storage") },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "keep-on-server", NULL,
-	  N_("_Leave messages on server"), "0" },
+	  N_("_Leave messages on server"), "1" },
 	{ CAMEL_PROVIDER_CONF_CHECKSPIN, "delete-after-days", "keep-on-server",
 	  /* Translators: '%s' is replaced with a widget, where user can
 	   * select how many days can be message left on the server. */
@@ -51,7 +50,7 @@ static CamelProviderConfEntry pop3_conf_entries[] = {
 
 CamelProviderPortEntry pop3_port_entries[] = {
 	{ 110, N_("Default POP3 port"), FALSE },
-	{ 995, N_("POP3 over SSL"), TRUE },
+	{ 995, N_("POP3 over TLS"), TRUE },
 	{ 0, NULL, 0 }
 };
 

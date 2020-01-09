@@ -1,17 +1,17 @@
 /*
  * e-source-authentication.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -43,13 +43,13 @@
 	((obj), E_TYPE_SOURCE_AUTHENTICATION, ESourceAuthenticationPrivate))
 
 struct _ESourceAuthenticationPrivate {
-	GMutex property_lock;
 	gchar *host;
 	gchar *method;
 	guint16 port;
 	gchar *proxy_uid;
 	gboolean remember_password;
 	gchar *user;
+	gchar *credential_name;
 
 	/* GNetworkAddress caches data internally, so we maintain the
 	 * instance to preserve the cache as opposed to just creating
@@ -65,7 +65,8 @@ enum {
 	PROP_PORT,
 	PROP_PROXY_UID,
 	PROP_REMEMBER_PASSWORD,
-	PROP_USER
+	PROP_USER,
+	PROP_CREDENTIAL_NAME
 };
 
 G_DEFINE_TYPE (
@@ -135,6 +136,12 @@ source_authentication_set_property (GObject *object,
 				E_SOURCE_AUTHENTICATION (object),
 				g_value_get_string (value));
 			return;
+
+		case PROP_CREDENTIAL_NAME:
+			e_source_authentication_set_credential_name (
+				E_SOURCE_AUTHENTICATION (object),
+				g_value_get_string (value));
+			return;
 	}
 
 	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -195,6 +202,13 @@ source_authentication_get_property (GObject *object,
 				e_source_authentication_dup_user (
 				E_SOURCE_AUTHENTICATION (object)));
 			return;
+
+		case PROP_CREDENTIAL_NAME:
+			g_value_take_string (
+				value,
+				e_source_authentication_dup_credential_name (
+				E_SOURCE_AUTHENTICATION (object)));
+			return;
 	}
 
 	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -219,8 +233,6 @@ source_authentication_finalize (GObject *object)
 	ESourceAuthenticationPrivate *priv;
 
 	priv = E_SOURCE_AUTHENTICATION_GET_PRIVATE (object);
-
-	g_mutex_clear (&priv->property_lock);
 
 	g_free (priv->host);
 	g_free (priv->method);
@@ -338,13 +350,27 @@ e_source_authentication_class_init (ESourceAuthenticationClass *class)
 			G_PARAM_CONSTRUCT |
 			G_PARAM_STATIC_STRINGS |
 			E_SOURCE_PARAM_SETTING));
+
+	/* An empty string or NULL means to use E_SOURCE_CREDENTIAL_PASSWORD to pass
+	   the stored "password" into the backend with e_source_invoke_authenticate()/_sync() */
+	g_object_class_install_property (
+		object_class,
+		PROP_CREDENTIAL_NAME,
+		g_param_spec_string (
+			"credential-name",
+			"Credential Name",
+			"What name to use for the authentication method in credentials for authentication",
+			NULL,
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT |
+			G_PARAM_STATIC_STRINGS |
+			E_SOURCE_PARAM_SETTING));
 }
 
 static void
 e_source_authentication_init (ESourceAuthentication *extension)
 {
 	extension->priv = E_SOURCE_AUTHENTICATION_GET_PRIVATE (extension);
-	g_mutex_init (&extension->priv->property_lock);
 }
 
 /**
@@ -395,12 +421,12 @@ e_source_authentication_ref_connectable (ESourceAuthentication *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_AUTHENTICATION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (extension->priv->connectable != NULL)
 		connectable = g_object_ref (extension->priv->connectable);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return connectable;
 }
@@ -444,12 +470,12 @@ e_source_authentication_dup_host (ESourceAuthentication *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_AUTHENTICATION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_authentication_get_host (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -473,10 +499,10 @@ e_source_authentication_set_host (ESourceAuthentication *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_AUTHENTICATION (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->host, host) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
@@ -485,7 +511,7 @@ e_source_authentication_set_host (ESourceAuthentication *extension,
 
 	source_authentication_update_connectable (extension);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "host");
 
@@ -535,12 +561,12 @@ e_source_authentication_dup_method (ESourceAuthentication *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_AUTHENTICATION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_authentication_get_method (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -565,10 +591,10 @@ e_source_authentication_set_method (ESourceAuthentication *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_AUTHENTICATION (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->method, method) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
@@ -578,7 +604,7 @@ e_source_authentication_set_method (ESourceAuthentication *extension,
 	if (extension->priv->method == NULL)
 		extension->priv->method = g_strdup ("none");
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "method");
 }
@@ -616,10 +642,10 @@ e_source_authentication_set_port (ESourceAuthentication *extension,
 {
 	g_return_if_fail (E_SOURCE_AUTHENTICATION (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (extension->priv->port == port) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
@@ -627,7 +653,7 @@ e_source_authentication_set_port (ESourceAuthentication *extension,
 
 	source_authentication_update_connectable (extension);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "port");
 
@@ -675,12 +701,12 @@ e_source_authentication_dup_proxy_uid (ESourceAuthentication *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_AUTHENTICATION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_authentication_get_proxy_uid (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -702,17 +728,17 @@ e_source_authentication_set_proxy_uid (ESourceAuthentication *extension,
 	g_return_if_fail (E_IS_SOURCE_AUTHENTICATION (extension));
 	g_return_if_fail (proxy_uid != NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (proxy_uid, extension->priv->proxy_uid) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->proxy_uid);
 	extension->priv->proxy_uid = g_strdup (proxy_uid);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "proxy-uid");
 }
@@ -801,12 +827,12 @@ e_source_authentication_dup_user (ESourceAuthentication *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_AUTHENTICATION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_authentication_get_user (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -830,17 +856,106 @@ e_source_authentication_set_user (ESourceAuthentication *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_AUTHENTICATION (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->user, user) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->user);
 	extension->priv->user = e_util_strdup_strip (user);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "user");
+}
+
+/**
+ * e_source_authentication_get_credential_name:
+ * @extension: an #ESourceAuthentication
+ *
+ * Returns the credential name used to pass the stored or gathered credential
+ * (like password) into the e_source_invoke_authenticate(). This is
+ * a counterpart of the authentication method. The %NULL means to use
+ * the default name, which is #E_SOURCE_CREDENTIAL_PASSWORD.
+ *
+ * Returns: the credential name to use for authentication, or %NULL
+ *
+ * Since: 3.16
+ **/
+const gchar *
+e_source_authentication_get_credential_name (ESourceAuthentication *extension)
+{
+	g_return_val_if_fail (E_IS_SOURCE_AUTHENTICATION (extension), NULL);
+
+	return extension->priv->credential_name;
+}
+
+/**
+ * e_source_authentication_dup_credential_name:
+ * @extension: an #ESourceAuthentication
+ *
+ * Thread-safe variation of e_source_authentication_get_credential_name().
+ * Use this function when accessing @extension from multiple threads.
+ *
+ * The returned string should be freed with g_free() when no longer needed.
+ *
+ * Returns: a newly-allocated copy of #ESourceAuthentication:credential-name
+ *
+ * Since: 3.16
+ **/
+gchar *
+e_source_authentication_dup_credential_name (ESourceAuthentication *extension)
+{
+	const gchar *protected;
+	gchar *duplicate;
+
+	g_return_val_if_fail (E_IS_SOURCE_AUTHENTICATION (extension), NULL);
+
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
+
+	protected = e_source_authentication_get_credential_name (extension);
+	duplicate = g_strdup (protected);
+
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
+
+	return duplicate;
+}
+
+/**
+ * e_source_authentication_set_credential_name:
+ * @extension: an #ESourceAuthentication
+ * @credential_name: (allow-none): a credential name, or %NULL
+ *
+ * Sets the credential name used to pass the stored or gathered credential
+ * (like password) into the e_source_invoke_authenticate(). This is
+ * a counterpart of the authentication method. The %NULL means to use
+ * the default name, which is #E_SOURCE_CREDENTIAL_PASSWORD.
+ *
+ * The internal copy of @credential_name is automatically stripped
+ * of leading and trailing whitespace. If the resulting string is
+ * empty, %NULL is set instead.
+ *
+ * Since: 3.16
+ **/
+void
+e_source_authentication_set_credential_name (ESourceAuthentication *extension,
+					     const gchar *credential_name)
+{
+	g_return_if_fail (E_IS_SOURCE_AUTHENTICATION (extension));
+
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
+
+	if (g_strcmp0 (extension->priv->credential_name, credential_name) == 0) {
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
+		return;
+	}
+
+	g_free (extension->priv->credential_name);
+	extension->priv->credential_name = e_util_strdup_strip (credential_name);
+
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
+
+	g_object_notify (G_OBJECT (extension), "credential-name");
 }

@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Evolution-Data-Server Reference Manual: Part IV. Miscellaneous Utilities</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>Part IV. Miscellaneous Utilities: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
 <link rel="up" href="index.html" title="Evolution-Data-Server Reference Manual">
-<link rel="prev" href="eds-EDataCalView.html" title="EDataCalView">
+<link rel="prev" href="ESubprocessCalFactory.html" title="ESubprocessCalFactory">
 <link rel="next" href="ch10.html" title="Available for clients and backends">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -16,7 +16,7 @@
 <td width="100%" align="left" class="shortcuts"></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
 <td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
-<td><a accesskey="p" href="eds-EDataCalView.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="ESubprocessCalFactory.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
 <td><a accesskey="n" href="ch10.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
 </tr></table>
 <div class="part">
@@ -28,113 +28,163 @@
 <dt><span class="chapter"><a href="ch10.html">Available for clients and backends</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-Main-Utility-Toolbox.html">Main Utility Toolbox</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-data-server-util.html">e-data-server-util</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECategories.html">ECategories</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-categories.html">e-categories</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECollator.html">ECollator</a></span><span class="refpurpose"> — Collation services for locale sensitive sorting</span>
+<span class="refentrytitle"><a href="eds-Cancellable-Locks.html">Cancellable Locks</a></span><span class="refpurpose"> — locks, which can listen for a <span class="type">GCancellable</span> during lock call</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Debug-logging.html">Debug logging</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-cache-reaper.html">e-cache-reaper</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EFlag.html">EFlag</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-cache-reaper-utils.html">e-cache-reaper-utils</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EMemChunk.html">EMemChunk</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-collator.html">e-collator</a></span><span class="refpurpose"> — Collation services for locale sensitive sorting</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EOperationPool.html">EOperationPool</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-debug-log.html">e-debug-log</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ESExp.html">ESExp</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-error.html">e-error</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Time-parsing-and-formatting.html">Time parsing and formatting</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-flag.html">e-flag</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Unique-identifiers.html">Unique identifiers</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-free-form-exp.html">e-free-form-exp</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EXmlHash.html">EXmlHash</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="EGdbusAsyncOpKeeper.html">EGdbusAsyncOpKeeper</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Version-Checking.html">Version Checking</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-memory.html">e-memory</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="ENetworkMonitor.html">ENetworkMonitor</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-e-operation-pool.html">e-operation-pool</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-e-secret-store.html">e-secret-store</a></span><span class="refpurpose"> — Interface to store secrets</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="ESExp.html">ESExp</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-e-soup-ssl-trust.html">e-soup-ssl-trust</a></span><span class="refpurpose"> — SSL certificate trust handling for WebDAV sources</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-e-time-utils.html">e-time-utils</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-e-uid.html">e-uid</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-e-webdav-discover.html">e-webdav-discover</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-e-xml-hash-utils.html">e-xml-hash-utils</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-e-xml-utils.html">e-xml-utils</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-eds-version.html">eds-version</a></span><span class="refpurpose"></span>
 </dt>
 </dl></dd>
 <dt><span class="chapter"><a href="ch11.html">Available only for backends</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-EFileCache.html">EFileCache</a></span><span class="refpurpose"> — Simple file-based hash table for strings</span>
+<span class="refentrytitle"><a href="EFileCache.html">EFileCache</a></span><span class="refpurpose"> — Simple file-based hash table for strings</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Berkeley-DB-utilities.html">Berkeley DB utilities</a></span><span class="refpurpose"> — Utilities for Berkeley DB databases</span>
+<span class="refentrytitle"><a href="eds-e-db3-utils.html">e-db3-utils</a></span><span class="refpurpose"> — Utilities for Berkeley DB databases</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ESoupAuthBearer.html">ESoupAuthBearer</a></span><span class="refpurpose"> — OAuth 2.0 support for libsoup</span>
+<span class="refentrytitle"><a href="ESoupAuthBearer.html">ESoupAuthBearer</a></span><span class="refpurpose"> — OAuth 2.0 support for libsoup</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-SQLite-vfs.html">SQLite vfs</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-sqlite3-vfs.html">e-sqlite3-vfs</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EUserPrompter.html">EUserPrompter</a></span><span class="refpurpose"> — Manages user prompts over DBus</span>
+<span class="refentrytitle"><a href="EUserPrompter.html">EUserPrompter</a></span><span class="refpurpose"> — Manages user prompts over DBus</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EUserPrompterServer.html">EUserPrompterServer</a></span><span class="refpurpose"> — Server-side user prompter</span>
+<span class="refentrytitle"><a href="EUserPrompterServer.html">EUserPrompterServer</a></span><span class="refpurpose"> — Server-side user prompter</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EUserPrompterServerExtension.html">EUserPrompterServerExtension</a></span><span class="refpurpose"> — Extension for a server-side user prompter</span>
+<span class="refentrytitle"><a href="EUserPrompterServerExtension.html">EUserPrompterServerExtension</a></span><span class="refpurpose"> — Extension for a server-side user prompter</span>
 </dt>
 </dl></dd>
 <dt><span class="chapter"><a href="ch12.html">Addressbook related utilities</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-Addressbook-related-types.html">Addressbook related types</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-book-contacts-types.html">e-book-contacts-types</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDestination.html">EDestination</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="EDestination.html">EDestination</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EAddressWestern.html">EAddressWestern</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-address-western.html">e-address-western</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ENameWestern.html">ENameWestern</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-name-western.html">e-name-western</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EPhoneNumber.html">EPhoneNumber</a></span><span class="refpurpose"> — Phone number support</span>
+<span class="refentrytitle"><a href="eds-e-phone-number.html">e-phone-number</a></span><span class="refpurpose"> — Phone number support</span>
 </dt>
 </dl></dd>
 <dt><span class="chapter"><a href="ch13.html">Calendar related utilities</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-Calendar-recurrences.html">Calendar recurrences</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-cal-recur.html">e-cal-recur</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Calendar-time-utilities.html">Calendar time utilities</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-cal-time-util.html">e-cal-time-util</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Calendar-utilities.html">Calendar utilities</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-cal-util.html">e-cal-util</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Calendar-system-timezone.html">Calendar system timezone</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-cal-system-timezone.html">e-cal-system-timezone</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Calendar-timezones.html">Calendar timezones</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-cal-check-timezones.html">e-cal-check-timezones</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ETimezoneCache.html">ETimezoneCache</a></span><span class="refpurpose"> — An interface for caching time zone data</span>
+<span class="refentrytitle"><a href="ETimezoneCache.html">ETimezoneCache</a></span><span class="refpurpose"> — An interface for caching time zone data</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Calendar-Backend-Utilities.html">Calendar Backend Utilities</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-cal-backend-util.html">e-cal-backend-util</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-e-cal-types.html">e-cal-types</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="ch14.html">Credentials</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="ESourceCredentialsProvider.html">ESourceCredentialsProvider</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="ESourceCredentialsProviderImpl.html">ESourceCredentialsProviderImpl</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="ESourceCredentialsProviderImplPassword.html">ESourceCredentialsProviderImplPassword</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="ESourceCredentialsProviderImplGoogle.html">ESourceCredentialsProviderImplGoogle</a></span><span class="refpurpose"></span>
 </dt>
 </dl></dd>
 </dl>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

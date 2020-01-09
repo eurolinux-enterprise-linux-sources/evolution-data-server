@@ -18,8 +18,7 @@ BUILT_SOURCES = $(ENUM_GENERATED)
 lib_LTLIBRARIES = libedataserver-1.2.la
 noinst_LTLIBRARIES = libedataserver-private.la
 
-libedataserver_1_2_la_CPPFLAGS = \
-	$(AM_CPPFLAGS) \
+SHARED_COMPILER_FLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/private \
 	-I$(top_builddir) \
@@ -30,6 +29,7 @@ libedataserver_1_2_la_CPPFLAGS = \
 	-DE_DATA_SERVER_LOCALEDIR=\""$(localedir)"\" \
 	-DE_DATA_SERVER_EXTENSIONDIR=\"$(extensiondir)\" \
 	-DE_DATA_SERVER_IMAGESDIR=\"$(imagesdir)\" \
+	-DE_DATA_SERVER_CREDENTIALMODULEDIR=\"$(credentialmoduledir)\" \
 	-DE_DATA_SERVER_PRIVDATADIR=\"$(privdatadir)\" \
 	-DE_DATA_SERVER_UI_UIDIR=\""$(uidir)"\" \
 	$(E_DATA_SERVER_CFLAGS) \
@@ -38,7 +38,12 @@ libedataserver_1_2_la_CPPFLAGS = \
 	$(SOUP_CFLAGS) \
 	$(CODE_COVERAGE_CFLAGS) \
 	$(ICU_CFLAGS) \
+	$(GOOGLE_AUTH_CFLAGS) \
 	$(NULL)
+
+libedataserver_1_2_la_CPPFLAGS = \
+	$(AM_CPPFLAGS) \
+	$(SHARED_COMPILER_FLAGS)
 
 libedataserver_1_2_la_SOURCES = \
 	$(BUILT_SOURCES) \
@@ -49,27 +54,41 @@ libedataserver_1_2_la_SOURCES = \
 	e-client-private.h \
 	e-collator.c \
 	e-credentials.c \
+	e-extensible.c \
+	e-extension.c \
 	e-flag.c \
+	e-free-form-exp.c \
 	e-gdbus-templates.c \
 	e-iterator.c \
 	e-list.c \
 	e-list-iterator.c \
 	e-memory.c \
+	e-module.c \
+	e-network-monitor.c \
 	e-operation-pool.c \
 	e-proxy.c \
+	e-secret-store.c \
 	e-sexp.c \
+	e-soup-auth-bearer.c \
+	e-soup-ssl-trust.c \
 	e-source.c \
 	e-source-extension.c \
 	e-source-address-book.c \
 	e-source-alarms.c \
 	e-source-authentication.c \
-	e-source-authenticator.c \
 	e-source-autocomplete.c \
 	e-source-backend.c \
 	e-source-calendar.c \
 	e-source-camel.c \
 	e-source-collection.c \
+	e-source-contacts.c \
+	e-source-credentials-provider.c \
+	e-source-credentials-provider-impl.c \
+	e-source-credentials-provider-impl-google.c \
+	e-source-credentials-provider-impl-password.c \
 	e-source-goa.c \
+	e-source-ldap.c \
+	e-source-local.c \
 	e-source-mail-account.c \
 	e-source-mail-composition.c \
 	e-source-mail-identity.c \
@@ -88,12 +107,14 @@ libedataserver_1_2_la_SOURCES = \
 	e-source-selectable.c \
 	e-source-smime.c \
 	e-source-uoa.c \
+	e-source-weather.c \
 	e-source-webdav.c \
 	e-debug-log.c \
 	e-time-utils.c \
 	e-transliterator-private.h \
 	e-uid.c \
 	e-url.c \
+	e-webdav-discover.c \
 	e-data-server-util.c \
 	e-xml-utils.c \
 	e-xml-hash-utils.c \
@@ -111,6 +132,7 @@ libedataserver_1_2_la_LIBADD = \
 	$(SOCKET_LIBS) \
 	$(SOUP_LIBS) \
 	$(ICU_LIBS) \
+	$(GOOGLE_AUTH_LIBS) \
 	$(NULL)
 
 libedataserver_1_2_la_LDFLAGS = \
@@ -127,29 +149,43 @@ libedataserverinclude_HEADERS = \
 	e-client.h \
 	e-collator.h \
 	e-credentials.h \
+	e-extensible.h \
+	e-extension.h \
 	e-flag.h \
+	e-free-form-exp.h \
 	e-gdbus-templates.h \
 	e-iterator.h \
 	e-list.h \
 	e-list-iterator.h \
 	e-memory.h \
+	e-module.h \
+	e-network-monitor.h \
 	e-operation-pool.h \
 	e-proxy.h \
+	e-secret-store.h \
 	e-sexp.h \
+	e-soup-auth-bearer.h \
+	e-soup-ssl-trust.h \
 	e-source.h \
 	e-source-address-book.h \
 	e-source-alarms.h \
 	e-source-authentication.h \
-	e-source-authenticator.h \
 	e-source-autocomplete.h \
 	e-source-backend.h \
 	e-source-calendar.h \
 	e-source-camel.h \
 	e-source-collection.h \
+	e-source-contacts.h \
+	e-source-credentials-provider.h \
+	e-source-credentials-provider-impl.h \
+	e-source-credentials-provider-impl-google.h \
+	e-source-credentials-provider-impl-password.h \
 	e-source-enums.h \
 	e-source-enumtypes.h \
 	e-source-extension.h \
 	e-source-goa.h \
+	e-source-ldap.h \
+	e-source-local.h \
 	e-source-mail-account.h \
 	e-source-mail-composition.h \
 	e-source-mail-identity.h \
@@ -168,11 +204,13 @@ libedataserverinclude_HEADERS = \
 	e-source-selectable.h \
 	e-source-smime.h \
 	e-source-uoa.h \
+	e-source-weather.h \
 	e-source-webdav.h \
 	e-debug-log.h \
 	e-time-utils.h \
 	e-uid.h \
 	e-url.h \
+	e-webdav-discover.h \
 	e-data-server-util.h \
 	e-xml-utils.h \
 	e-xml-hash-utils.h \
@@ -185,7 +223,10 @@ libedataserver_private_la_SOURCES = \
 	e-alphabet-index-private.cpp \
 	e-transliterator-private.cpp \
 	$(NULL)
-libedataserver_private_la_CPPFLAGS = $(libedataserver_1_2_la_CPPFLAGS)
+libedataserver_private_la_CPPFLAGS = \
+	$(AM_CXXFLAGS) \
+	$(SHARED_COMPILER_FLAGS)
+
 if OS_WIN32
 libedataserver_1_2_la_LIBADD += libedataserver-private.la -lstdc++
 else
@@ -229,7 +270,7 @@ introspection_sources = \
 	$(NULL)
 
 EDataServer-1.2.gir: libedataserver-1.2.la
-EDataServer_1_2_gir_INCLUDES = GObject-2.0 libxml2-2.0 Gio-2.0
+EDataServer_1_2_gir_INCLUDES = GObject-2.0 libxml2-2.0 Gio-2.0 Soup-2.4
 EDataServer_1_2_gir_CFLAGS = \
 	-I$(top_srcdir) \
 	-I$(top_builddir) \

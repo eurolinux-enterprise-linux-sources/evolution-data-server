@@ -2,17 +2,17 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -376,7 +376,7 @@ matches_text_list (GSList *text_list,
 		ECalComponentText *text;
 
 		text = l->data;
-		g_assert (text->value != NULL);
+		g_return_val_if_fail (text->value != NULL, FALSE);
 
 		if (e_util_utf8_strstrcasedecomp (text->value, str) != NULL) {
 			matches = TRUE;
@@ -1102,7 +1102,7 @@ cal_backend_sexp_finalize (GObject *object)
 
 	priv = E_CAL_BACKEND_SEXP_GET_PRIVATE (object);
 
-	e_sexp_unref (priv->search_sexp);
+	g_object_unref (priv->search_sexp);
 	g_free (priv->text);
 	g_free (priv->search_context);
 	g_mutex_clear (&priv->search_context_lock);
@@ -1203,7 +1203,7 @@ e_cal_backend_sexp_new (const gchar *text)
 	if (e_sexp_parse (sexp->priv->search_sexp) == -1) {
 		g_warning (
 			"%s: Error in parsing: %s",
-			G_STRFUNC, sexp->priv->search_sexp->error);
+			G_STRFUNC, e_sexp_get_error (sexp->priv->search_sexp));
 		g_object_unref (sexp);
 		sexp = NULL;
 	}
@@ -1579,6 +1579,8 @@ e_cal_backend_sexp_func_time_day_end (ESExp *esexp,
  * @end: End of the time window will be stored here.
  *
  * Determines biggest time window given by expressions "occur-in-range" in sexp.
+ *
+ * Returns: %TRUE on success, %FALSE otherwise
  *
  * Since: 2.32
  */

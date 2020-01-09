@@ -1,24 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-session.h : Abstract class for an email session */
-
-/*
- *
- * Author :
- *  Bertrand Guiheneuf <bertrand@helixcode.com>
+/* camel-session.h : Abstract class for an email session
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
  */
 
 #if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
@@ -155,6 +152,12 @@ GMainContext *	camel_session_ref_main_context	(CamelSession *session);
 const gchar *	camel_session_get_user_data_dir	(CamelSession *session);
 const gchar *	camel_session_get_user_cache_dir
 						(CamelSession *session);
+void		camel_session_set_network_monitor
+						(CamelSession *session,
+						 GNetworkMonitor *network_monitor);
+GNetworkMonitor *
+		camel_session_ref_network_monitor
+						(CamelSession *session);
 CamelService *	camel_session_add_service	(CamelSession *session,
 						 const gchar *uid,
 						 const gchar *protocol,
@@ -205,6 +208,7 @@ guint		camel_session_idle_add		(CamelSession *session,
 						 gpointer data,
 						 GDestroyNotify notify);
 void		camel_session_submit_job	(CamelSession *session,
+						 const gchar *description,
 						 CamelSessionCallback callback,
 						 gpointer user_data,
 						 GDestroyNotify notify);

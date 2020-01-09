@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EDataFactory: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch06.html" title="Abstract Classes for Backends">
+<link rel="prev" href="EBackendFactory.html" title="EBackendFactory">
+<link rel="next" href="EDBusServer.html" title="EDBusServer">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#EDataFactory.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#EDataFactory.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#EDataFactory.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="EBackendFactory.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="EDBusServer.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="EDataFactory"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EDataFactory.top_of_page"></a>EDataFactory</span></h2>
+<p>EDataFactory — An abstract base class for a backend-based server</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="EDataFactory.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="EBackendFactory.html" title="EBackendFactory"><span class="returnvalue">EBackendFactory</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDataFactory.html#e-data-factory-ref-backend-factory" title="e_data_factory_ref_backend_factory ()">e_data_factory_ref_backend_factory</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="returnvalue">ESourceRegistry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDataFactory.html#e-data-factory-get-registry" title="e_data_factory_get_registry ()">e_data_factory_get_registry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDataFactory.html#e-data-factory-construct-path" title="e_data_factory_construct_path ()">e_data_factory_construct_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDataFactory.html#e-data-factory-spawn-subprocess-backend" title="e_data_factory_spawn_subprocess_backend ()">e_data_factory_spawn_subprocess_backend</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EDataFactory.html#e-data-factory-get-reload-supported" title="e_data_factory_get_reload_supported ()">e_data_factory_get_reload_supported</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EDataFactory.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDataFactory.html#EDataFactory-struct" title="struct EDataFactory">EDataFactory</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EDataFactory.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="EDBusServer.html" title="EDBusServer">EDBusServer</a>
+        <span class="lineart">╰──</span> EDataFactory
+            <span class="lineart">├──</span> <a class="link" href="EDataBookFactory.html" title="EDataBookFactory">EDataBookFactory</a>
+            <span class="lineart">├──</span> <a class="link" href="EDataCalFactory.html" title="EDataCalFactory">EDataCalFactory</a>
+            <span class="lineart">╰──</span> <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer">ESourceRegistryServer</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="EDataFactory.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+EDataFactory implements
+ <a href="/usr/share/gtk-doc/html/gioGInitable.html#GInitable-struct">GInitable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="EDataFactory.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libebackend/libebackend.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="EDataFactory.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="EDataFactory.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-data-factory-ref-backend-factory"></a><h3>e_data_factory_ref_backend_factory ()</h3>
+<pre class="programlisting"><a class="link" href="EBackendFactory.html" title="EBackendFactory"><span class="returnvalue">EBackendFactory</span></a> *
+e_data_factory_ref_backend_factory (<em class="parameter"><code><a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a> *data_factory</code></em>,
+                                    <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *backend_name</code></em>,
+                                    <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>);</pre>
+<p>Returns the <a class="link" href="EBackendFactory.html" title="EBackendFactory"><span class="type">EBackendFactory</span></a> for "<em class="parameter"><code>backend_name</code></em>
+:<em class="parameter"><code>extension_name</code></em>
+", or
+<a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if no such factory is registered.</p>
+<p>The returned <a class="link" href="EBackendFactory.html" title="EBackendFactory"><span class="type">EBackendFactory</span></a> is referenced for thread-safety.
+Unreference the <a class="link" href="EBackendFactory.html" title="EBackendFactory"><span class="type">EBackendFactory</span></a> with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
+with it.</p>
+<div class="refsect3">
+<a name="e-data-factory-ref-backend-factory.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>data_factory</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>backend_name</p></td>
+<td class="parameter_description"><p>a backend name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>extension_name</p></td>
+<td class="parameter_description"><p>an extension name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-data-factory-ref-backend-factory.returns"></a><h4>Returns</h4>
+<p> the <a class="link" href="EBackendFactory.html" title="EBackendFactory"><span class="type">EBackendFactory</span></a> for <em class="parameter"><code>hash_key</code></em>
+, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-factory-get-registry"></a><h3>e_data_factory_get_registry ()</h3>
+<pre class="programlisting"><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="returnvalue">ESourceRegistry</span></a> *
+e_data_factory_get_registry (<em class="parameter"><code><a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a> *data_factory</code></em>);</pre>
+<p>Returns the <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> owned by <em class="parameter"><code>data_factory</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-data-factory-get-registry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>data_factory</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-data-factory-get-registry.returns"></a><h4>Returns</h4>
+<p> the <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-factory-construct-path"></a><h3>e_data_factory_construct_path ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_data_factory_construct_path (<em class="parameter"><code><a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a> *data_factory</code></em>);</pre>
+<p>Returns a new and unique object path for a D-Bus interface based
+in the data object path prefix of the <em class="parameter"><code>data_factory</code></em>
+</p>
+<div class="refsect3">
+<a name="e-data-factory-construct-path.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>data_factory</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-data-factory-construct-path.returns"></a><h4>Returns</h4>
+<p> a newly allocated string, representing the object path for
+the D-Bus interface.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-factory-spawn-subprocess-backend"></a><h3>e_data_factory_spawn_subprocess_backend ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_factory_spawn_subprocess_backend
+                               (<em class="parameter"><code><a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a> *data_factory</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#GDBusMethodInvocation-struct"><span class="type">GDBusMethodInvocation</span></a> *invocation</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extension_name</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *subprocess_path</code></em>);</pre>
+<p>Spawns a new subprocess for a backend type and returns the object path
+of the new subprocess to the client, in the way the client can talk
+directly to the running backend. If the backend already has a subprocess
+running, the used object path is returned to the client.</p>
+<div class="refsect3">
+<a name="e-data-factory-spawn-subprocess-backend.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>data_factory</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>invocation</p></td>
+<td class="parameter_description"><p>a <span class="type">GDBusMethodInvcation</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> UID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>extension_name</p></td>
+<td class="parameter_description"><p>an extension name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>subprocess_path</p></td>
+<td class="parameter_description"><p>a path of an executable responsible for running the subprocess</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-factory-get-reload-supported"></a><h3>e_data_factory_get_reload_supported ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_data_factory_get_reload_supported (<em class="parameter"><code><a class="link" href="EDataFactory.html" title="EDataFactory"><span class="type">EDataFactory</span></a> *data_factory</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="EDataFactory.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EDataFactory-struct"></a><h3>struct EDataFactory</h3>
+<pre class="programlisting">struct EDataFactory;</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

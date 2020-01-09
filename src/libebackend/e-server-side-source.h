@@ -1,17 +1,17 @@
 /*
  * e-server-side-source.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -21,8 +21,6 @@
 
 #ifndef E_SERVER_SIDE_SOURCE_H
 #define E_SERVER_SIDE_SOURCE_H
-
-#include <libedataserver/libedataserver.h>
 
 #include <libebackend/e-oauth2-support.h>
 #include <libebackend/e-source-registry-server.h>
@@ -91,16 +89,6 @@ GFile *		e_server_side_source_get_file	(EServerSideSource *source);
 GNode *		e_server_side_source_get_node	(EServerSideSource *source);
 ESourceRegistryServer *
 		e_server_side_source_get_server	(EServerSideSource *source);
-gboolean	e_server_side_source_get_allow_auth_prompt
-						(EServerSideSource *source);
-void		e_server_side_source_set_allow_auth_prompt
-						(EServerSideSource *source,
-						 gboolean allow_auth_prompt);
-GType		e_server_side_source_get_auth_session_type
-						(EServerSideSource *source);
-void		e_server_side_source_set_auth_session_type
-						(EServerSideSource *source,
-						 GType auth_session_type);
 gboolean	e_server_side_source_get_exported
 						(EServerSideSource *source);
 const gchar *	e_server_side_source_get_write_directory

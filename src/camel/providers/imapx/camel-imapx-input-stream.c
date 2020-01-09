@@ -1,17 +1,17 @@
 /*
  * camel-imapx-input-stream.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -67,8 +67,16 @@ imapx_input_stream_fill (CamelIMAPXInputStream *is,
 	GInputStream *base_stream;
 	gint left = 0;
 
+	if (g_cancellable_is_cancelled (cancellable))
+		return -1;
+
 	base_stream = g_filter_input_stream_get_base_stream (
 		G_FILTER_INPUT_STREAM (is));
+
+	if (error && *error) {
+		g_warning ("%s: Avoiding GIO call with a filled error '%s'", G_STRFUNC, (*error)->message);
+		error = NULL;
+	}
 
 	left = is->priv->end - is->priv->ptr;
 	memcpy (is->priv->buf, is->priv->ptr, left);
@@ -136,6 +144,11 @@ imapx_input_stream_read (GInputStream *stream,
 		memcpy (buffer, priv->ptr, max);
 		priv->ptr += max;
 	} else {
+		if (error && *error) {
+			g_warning ("%s: Avoiding GIO call with a filled error '%s'", G_STRFUNC, (*error)->message);
+			error = NULL;
+		}
+
 		max = MIN (priv->literal, count);
 		max = g_input_stream_read (
 			base_stream, buffer, max, cancellable, error);
@@ -201,6 +214,11 @@ imapx_input_stream_read_nonblocking (GPollableInputStream *pollable_stream,
 		G_FILTER_INPUT_STREAM (pollable_stream));
 
 	pollable_stream = G_POLLABLE_INPUT_STREAM (base_stream);
+
+	if (error && *error) {
+		g_warning ("%s: Avoiding GIO call with a filled error '%s'", G_STRFUNC, (*error)->message);
+		error = NULL;
+	}
 
 	/* XXX The function takes a GCancellable but the class method
 	 *     does not.  Should be okay to pass NULL here since this
@@ -344,7 +362,7 @@ camel_imapx_input_stream_atom (CamelIMAPXInputStream *is,
 
 		default:
 			g_set_error (
-				error, CAMEL_IMAPX_ERROR, 1,
+				error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 				"expecting atom");
 			return FALSE;
 	}
@@ -451,7 +469,7 @@ camel_imapx_input_stream_astring (CamelIMAPXInputStream *is,
 
 		default:
 			g_set_error (
-				error, CAMEL_IMAPX_ERROR, 1,
+				error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 				"expecting astring");
 			return FALSE;
 	}
@@ -511,7 +529,7 @@ camel_imapx_input_stream_nstring (CamelIMAPXInputStream *is,
 
 		default:
 			g_set_error (
-				error, CAMEL_IMAPX_ERROR, 1,
+				error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 				"expecting nstring");
 			return FALSE;
 	}
@@ -579,7 +597,7 @@ camel_imapx_input_stream_nstring_bytes (CamelIMAPXInputStream *is,
 
 		default:
 			g_set_error (
-				error, CAMEL_IMAPX_ERROR, 1,
+				error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 				"nstring: token not string");
 			return FALSE;
 	}
@@ -611,7 +629,7 @@ camel_imapx_input_stream_number (CamelIMAPXInputStream *is,
 
 		default:
 			g_set_error (
-				error, CAMEL_IMAPX_ERROR, 1,
+				error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 				"expecting number");
 			return FALSE;
 	}
@@ -692,7 +710,10 @@ camel_imapx_input_stream_token (CamelIMAPXInputStream *is,
 		return is->priv->unget_tok;
 	}
 
-	if (is->priv->literal > 0)
+	*data = NULL;
+	*len = 0;
+
+	if (is->priv->literal > 0 && !g_cancellable_is_cancelled (cancellable))
 		g_warning (
 			"stream_token called with literal %d",
 			is->priv->literal);
@@ -859,7 +880,7 @@ protocol_error:
 	else
 		is->priv->ptr = p;
 
-	g_set_error (error, CAMEL_IMAPX_ERROR, 1, "protocol error");
+	g_set_error (error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED, "protocol error");
 
 	return IMAPX_TOK_ERROR;
 }

@@ -5,24 +5,27 @@
 %define largefile_support 1
 
 # Coverity scan can override this to 0, to skip checking in gtk-doc generated code
-%{!?with_docs: %define with_docs 1}
+%{!?with_docs: %global with_docs 1}
 
-%define glib2_version 2.36.0
-%define gtk3_version 3.4.0
+%define glib2_version 2.50.3
+%define gtk3_version 3.22.9
 %define gcr_version 3.4
 %define gtk_doc_version 1.9
 %define goa_version 3.8
-%define intltool_version 0.35.5
-%define libsecret_version 0.5
-%define libgdata_version 0.16.0
-%define libgweather_version 3.5.0
-%define libical_version 1.0
-%define libsoup_version 2.40.3
-%define sqlite_version 3.5
+%define intltool_version 0.50.2-7
+%define libsecret_version 0.18.5
+%define libgdata_version 0.17.7
+%define libgweather_version 3.20.4
+%define libical_version 0.46
+%define libsoup_version 2.42
 %define nss_version 3.14
+%define sqlite_version 3.5
+%define webkit2gtk_version 2.14.5
+%define json_glib_version 1.2.2
 
-%define eds_base_version 3.12
+%define eds_base_version 3.22
 
+%define credential_modules_dir %{_libdir}/evolution-data-server/credential-modules
 %define camel_provider_dir %{_libdir}/evolution-data-server/camel-providers
 %define ebook_backends_dir %{_libdir}/evolution-data-server/addressbook-backends
 %define ecal_backends_dir %{_libdir}/evolution-data-server/calendar-backends
@@ -31,114 +34,47 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.12.11
-Release: 37%{?dist}
+Version: 3.22.7
+Release: 6%{?dist}
 Group: System Environment/Libraries
 Summary: Backend data server for Evolution
 License: LGPLv2+
 URL: https://wiki.gnome.org/Apps/Evolution
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-Source: http://download.gnome.org/sources/%{name}/3.12/%{name}-%{version}.tar.xz
+Source: http://download.gnome.org/sources/%{name}/3.22/%{name}-%{version}.tar.xz
 
 Provides: evolution-webcal = %{version}
 Obsoletes: evolution-webcal < 2.24.0
+
+%if 0%{?fedora}
+# From rhughes-f20-gnome-3-12 copr
+Obsoletes: compat-evolution-data-server310-libcamel < 3.12
+%endif
 
 ### Patches ###
 
 # RH bug #243296
 Patch01: evolution-data-server-1.11.5-fix-64bit-acinclude.patch
 
-# RH bug #1202372
-Patch02: evolution-data-server-3.12.11-google-calendar-discover.patch
+Patch02: evolution-data-server-3.22.6-maybe-uninitialized-variable.patch
+Patch03: evolution-data-server-3.22.6-coverity-scan-issues.patch
 
-# RH bug #1211355
-Patch03: evolution-data-server-3.12.11-implement-webdav-refresh.patch
+# RH bug #1440643
+Patch04: evolution-data-server-3.22.7-caldav-oauth2-refresh-deadlock.patch
 
-# RH bug #1211542
-Patch04: evolution-data-server-3.12.11-foreign-key-constraint-failed.patch
+Patch05: evolution-data-server-3.22.7-correct-libecal-tests.patch
 
-# related to RH bug #1202372
-Patch05: evolution-data-server-3.12.11-goa-sources-auth-method.patch
+# RH bug #1441608
+Patch06: evolution-data-server-3.22.7-use-after-free-component-summary-set.patch
 
-# RH bug #1223479
-Patch06: evolution-data-server-3.12.11-imapx-expunge-processing.patch
+# RH bug #1439590
+Patch07: evolution-data-server-3.22.7-imapx-subscriptions.patch
 
-# RH bug #1170647
-Patch07: evolution-data-server-3.12.11-weather-calendar-merge-day-forecasts.patch
-
-# Coverity Scan issues
-Patch08: evolution-data-server-3.12.11-coverity-scan.patch
-
-# RH bug #1224901
-Patch09: evolution-data-server-3.12.11-smtp-timeout-change.patch
-
-# RH bug #1224736
-Patch10: evolution-data-server-3.12.11-camel-tohtml-extra-cr.patch
-
-# RH bug #1101476
-Patch11: evolution-data-server-3.12.11-imapx-empty-cache-file-temp-workaround.patch
-
-# RH bug #1111600
-Patch12: evolution-data-server-3.12.11-imapx-msg-download-indefinite-wait.patch
-
-# RH bug #1225981
-Patch13: evolution-data-server-3.12.11-truly-disable-gtk-doc.patch
-
-# RH bug #1226318
-Patch14: evolution-data-server-3.12.11-camel-maildir-migration.patch
-
-# RH bug #1226924
-Patch15: evolution-data-server-3.12.11-async-closures-thread-safety.patch
-
-# RH bug #1229812
-Patch16: evolution-data-server-3.12.11-goa-preserve-ews-host.patch
-
-# RH bug #1232767
-Patch17: evolution-data-server-3.12.11-book-sqlite-left-outer-join.patch
-
-# RH bug #1091353
-Patch18: evolution-data-server-3.12.11-time-parse-am-pm.patch
-
-# RH bug #1174414
-Patch19: evolution-data-server-3.12.11-camel-imapx-folder-removed-on-refresh.patch
-
-# RH bug #1254199
-Patch20: evolution-data-server-3.12.11-goa-source-change-removed.patch
-
-# RH bug #1229377
-Patch21: evolution-data-server-3.12.11-caldav-password-ask-for-oauth.patch
-
-# RH bug #1260501
-Patch22: evolution-data-server-3.12.11-camel-vfoler-message-delete-freeze.patch
-
-# RH bug #1264957
-Patch23: evolution-data-server-3.12.11-weather-update-units.patch
-
-# RH bug #1204373
-Patch24: evolution-data-server-3.12.11-camel-session-no-gtask.patch
-
-# RH bug #1265684 (3.21.90/commit 8d07e3f)
-Patch25: evolution-data-server-3.12.11-imapx-update-to-upstream.patch
-
-# RH bug #1304309
-Patch26: evolution-data-server-3.12.11-translations.patch
-
-# RH bug #1305515 glib2 rebase
-Patch27: evolution-data-server-3.12.11-glib2-rebase-fix.patch
-
-# RH bug #1326634
-Patch28: evolution-data-server-3.12.11-goa-google-calendar-auth-method.patch
-
-# RH bug #1337259
-Patch29: evolution-data-server-3.12.11-imapx-disable-and-hide-qresync.patch
-
-# RH bug #1346179
-Patch30: evolution-data-server-3.12.11-camel-connect-timeout.patch
-
-# RH bug #1362674
-Patch31: evolution-data-server-3.12.11-caldav-daily-limit-exceeded.patch
+# RH bug #1444075
+Patch08: evolution-data-server-3.22.7-imapx-idle-server-leak.patch
 
 ### Dependencies ###
+
 Requires: dconf
 
 ### Build Dependencies ###
@@ -152,6 +88,7 @@ BuildRequires: libdb-devel
 BuildRequires: libtool
 BuildRequires: vala
 BuildRequires: vala-tools
+BuildRequires: systemd
 
 BuildRequires: pkgconfig(gcr-3)  >= %{gcr_version}
 BuildRequires: pkgconfig(gcr-base-3)  >= %{gcr_version}
@@ -170,17 +107,19 @@ BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(nspr)
 BuildRequires: pkgconfig(nss) >= %{nss_version}
 BuildRequires: pkgconfig(sqlite3) >= %{sqlite_version}
+BuildRequires: pkgconfig(webkit2gtk-4.0) >= %{webkit2gtk_version}
+BuildRequires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 
 %if %{ldap_support}
 %if %{static_ldap}
 BuildRequires: openldap-devel%{?_isa}
 BuildRequires: pkgconfig(openssl)
 %else
-BuildRequires: openldap-devel >= 2.0.11 
+BuildRequires: openldap-devel >= 2.0.11
 %endif
 %endif
 
-%if %{krb5_support} 
+%if %{krb5_support}
 BuildRequires: krb5-devel >= 1.11
 %endif
 
@@ -194,7 +133,7 @@ by other packages.
 %package devel
 Summary: Development files for building against %{name}
 Group: Development/Libraries
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 Requires: pkgconfig(goa-1.0) >= %{goa_version}
 Requires: pkgconfig(libgdata) >= %{libgdata_version}
@@ -203,6 +142,8 @@ Requires: pkgconfig(libical) >= %{libical_version}
 Requires: pkgconfig(libsecret-unstable) >= %{libsecret_version}
 Requires: pkgconfig(libsoup-2.4) >= %{libsoup_version}
 Requires: pkgconfig(sqlite3) >= %{sqlite_version}
+Requires: pkgconfig(webkit2gtk-4.0) >= %{webkit2gtk_version}
+Requires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 
 %description devel
 Development files needed for building things which link against %{name}.
@@ -217,43 +158,37 @@ BuildArch: noarch
 %description doc
 This package contains developer documentation for %{name}.
 
-# %{with_docs}
+# %%{with_docs}
 %endif
+
+%package perl
+Group: Applications/Productivity
+Summary: Supplemental utilities that require Perl
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description perl
+This package contains supplemental utilities for %{name} that require Perl.
+
+%package tests
+Summary: Tests for the %{name} package
+Group: Development/Libraries
+Requires: %{name}%{?_isa} = %{version}-%{release}
+
+%description tests
+The %{name}-tests package contains tests that can be used to verify
+the functionality of the installed %{name} package.
 
 %prep
 %setup -q
 
 %patch01 -p1 -b .fix-64bit-acinclude
-%patch02 -p1 -b .google-calendar-discover
-%patch03 -p1 -b .implement-webdav-refresh
-%patch04 -p1 -b .foreign-key-constraint-failed
-%patch05 -p1 -b .goa-sources-auth-method
-%patch06 -p1 -b .imapx-expunge-processing
-%patch07 -p1 -b .weather-calendar-merge-day-forecasts
-%patch08 -p1 -b .coverity-scan
-%patch09 -p1 -b .smtp-timeout-change
-%patch10 -p1 -b .camel-tohtml-extra-cr
-%patch11 -p1 -b .imapx-empty-cache-file-temp-workaround
-%patch12 -p1 -b .imapx-msg-download-indefinite-wait
-%patch13 -p1 -b .truly-disable-gtk-doc
-%patch14 -p1 -b .camel-maildir-migration
-%patch15 -p1 -b .async-closures-thread-safety
-%patch16 -p1 -b .goa-preserve-ews-host
-%patch17 -p1 -b .book-sqlite-left-outer-join
-%patch18 -p1 -b .time-parse-am-pm
-%patch19 -p1 -b .camel-imapx-folder-removed-on-refresh
-%patch20 -p1 -b .goa-source-change-removed
-%patch21 -p1 -b .caldav-password-ask-for-oauth
-%patch22 -p1 -b .camel-vfoler-message-delete-freeze
-%patch23 -p1 -b .weather-update-units
-%patch24 -p1 -b .camel-session-no-gtask
-%patch25 -p1 -b .imapx-update-to-upstream
-%patch26 -p1 -b .translations
-%patch27 -p1 -b .glib2-rebase-fix
-%patch28 -p1 -b .goa-google-calendar-auth-method
-%patch29 -p1 -b .imapx-disable-and-hide-qresync
-%patch30 -p1 -b .camel-connect-timeout
-%patch31 -p1 -b .caldav-daily-limit-exceeded
+%patch02 -p1 -b .maybe-uninitialized-variable
+%patch03 -p1 -b .coverity-scan-issues
+%patch04 -p1 -b .caldav-oauth2-refresh-deadlock
+%patch05 -p1 -b .correct-libecal-tests
+%patch06 -p1 -b .use-after-free-component-summary-set
+%patch07 -p1 -b .imapx-subscriptions
+%patch08 -p1 -b .imapx-idle-server-leak
 
 %build
 %if %{ldap_support}
@@ -308,7 +243,7 @@ fi
 %define gtkdoc_flags --disable-gtk-doc
 %endif
 
-if ! pkg-config --exists nss; then 
+if ! pkg-config --exists nss; then
   echo "Unable to find suitable version of nss to use!"
   exit 1
 fi
@@ -330,12 +265,12 @@ autoconf
 %configure \
 	--disable-maintainer-mode \
 	--disable-uoa \
-	--disable-examples \
 	--with-libdb=/usr \
 	--enable-file-locking=fcntl \
 	--enable-dot-locking=no \
 	--enable-introspection=yes \
 	--enable-vala-bindings \
+	--enable-installed-tests \
 	%ldap_flags %krb5_flags %nntp_flags %ssl_flags \
 	%largefile_flags %gtkdoc_flags
 export tagname=CC
@@ -350,12 +285,14 @@ make DESTDIR=$RPM_BUILD_ROOT LIBTOOL=/usr/bin/libtool install
 # remove libtool archives for importers and the like
 find $RPM_BUILD_ROOT/%{_libdir} -name '*.la' -exec rm {} \;
 rm -f $RPM_BUILD_ROOT/%{_libdir}/*.a
-rm -f $RPM_BUILD_ROOT/%{_libdir}/evolution-data-server/camel-providers/*.a
-rm -f $RPM_BUILD_ROOT/%{_libdir}/evolution-data-server/addressbook-backends/*.a
-rm -f $RPM_BUILD_ROOT/%{_libdir}/evolution-data-server/calendar-backends/*.a
-rm -f $RPM_BUILD_ROOT/%{_libdir}/evolution-data-server/registry-modules/*.a
+rm -f $RPM_BUILD_ROOT/%{_libdir}/evolution-data-server/*.a
+rm -f $RPM_BUILD_ROOT/%{credential_modules_dir}/*.a
+rm -f $RPM_BUILD_ROOT/%{camel_provider_dir}/*.a
+rm -f $RPM_BUILD_ROOT/%{ebook_backends_dir}/*.a
+rm -f $RPM_BUILD_ROOT/%{ecal_backends_dir}/*.a
+rm -f $RPM_BUILD_ROOT/%{modules_dir}/*.a
 
-# give the libraries some executable bits 
+# give the libraries some executable bits
 find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 
 %find_lang %{name}-%{eds_base_version}
@@ -375,7 +312,6 @@ fi
 glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 
 %files -f %{name}-%{eds_base_version}.lang
-%defattr(-,root,root,-)
 %doc README COPYING ChangeLog NEWS
 %{_libdir}/libcamel-1.2.so.*
 %{_libdir}/libebackend-1.2.so.*
@@ -385,22 +321,29 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_libdir}/libedata-book-1.2.so.*
 %{_libdir}/libedata-cal-1.2.so.*
 %{_libdir}/libedataserver-1.2.so.*
+%{_libdir}/libedataserverui-1.2.so.*
 
 %{_libdir}/girepository-1.0/EBook-1.2.typelib
 %{_libdir}/girepository-1.0/EBookContacts-1.2.typelib
 %{_libdir}/girepository-1.0/EDataServer-1.2.typelib
 
+%{_libexecdir}/camel-gpg-photo-saver
 %{_libexecdir}/camel-index-control-1.2
 %{_libexecdir}/camel-lock-helper-1.2
 %{_libexecdir}/evolution-addressbook-factory
+%{_libexecdir}/evolution-addressbook-factory-subprocess
 %{_libexecdir}/evolution-calendar-factory
+%{_libexecdir}/evolution-calendar-factory-subprocess
 %{_libexecdir}/evolution-scan-gconf-tree-xml
 %{_libexecdir}/evolution-source-registry
 %{_libexecdir}/evolution-user-prompter
 
+%{_libexecdir}/evolution-data-server/addressbook-export
+
 # GSettings schemas:
 %{_datadir}/GConf/gsettings/evolution-data-server.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.Evolution.DefaultSources.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.gnome.evolution-data-server.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.evolution-data-server.addressbook.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.evolution-data-server.calendar.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.evolution.eds-shell.gschema.xml
@@ -413,11 +356,19 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_datadir}/dbus-1/services/org.gnome.evolution.dataserver.UserPrompter.service
 %{_datadir}/pixmaps/evolution-data-server
 
+%{_userunitdir}/evolution-addressbook-factory.service
+%{_userunitdir}/evolution-calendar-factory.service
+%{_userunitdir}/evolution-source-registry.service
+%{_userunitdir}/evolution-user-prompter.service
+
 %dir %{_libdir}/evolution-data-server
+%dir %{credential_modules_dir}
 %dir %{camel_provider_dir}
 %dir %{ebook_backends_dir}
 %dir %{ecal_backends_dir}
 %dir %{modules_dir}
+
+%{_libdir}/evolution-data-server/libedbus-private.so
 
 # Camel providers:
 %{camel_provider_dir}/libcamelimapx.so
@@ -439,6 +390,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{camel_provider_dir}/libcamelsmtp.urls
 
 # e-d-s extensions:
+%{credential_modules_dir}/module-credentials-goa.so
 %{ebook_backends_dir}/libebookbackendfile.so
 %{ebook_backends_dir}/libebookbackendgoogle.so
 %{ebook_backends_dir}/libebookbackendldap.so
@@ -459,7 +411,6 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{modules_dir}/module-yahoo-backend.so
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/evolution-data-server
 %{_libdir}/libcamel-1.2.so
 %{_libdir}/libebackend-1.2.so
@@ -469,6 +420,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_libdir}/libedata-book-1.2.so
 %{_libdir}/libedata-cal-1.2.so
 %{_libdir}/libedataserver-1.2.so
+%{_libdir}/libedataserverui-1.2.so
 %{_libdir}/pkgconfig/camel-1.2.pc
 %{_libdir}/pkgconfig/evolution-data-server-1.2.pc
 %{_libdir}/pkgconfig/libebackend-1.2.pc
@@ -478,9 +430,13 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_libdir}/pkgconfig/libedata-book-1.2.pc
 %{_libdir}/pkgconfig/libedata-cal-1.2.pc
 %{_libdir}/pkgconfig/libedataserver-1.2.pc
+%{_libdir}/pkgconfig/libedataserverui-1.2.pc
+%{_datadir}/gir-1.0/Camel-1.2.gir
 %{_datadir}/gir-1.0/EBook-1.2.gir
 %{_datadir}/gir-1.0/EBookContacts-1.2.gir
 %{_datadir}/gir-1.0/EDataServer-1.2.gir
+%{_datadir}/vala/vapi/camel-1.2.deps
+%{_datadir}/vala/vapi/camel-1.2.vapi
 %{_datadir}/vala/vapi/libebook-1.2.deps
 %{_datadir}/vala/vapi/libebook-1.2.vapi
 %{_datadir}/vala/vapi/libebook-contacts-1.2.deps
@@ -491,13 +447,60 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %if %{with_docs}
 
 %files doc
-%defattr(-,root,root,-)
 %{_datadir}/gtk-doc/html/*
 
-# %{with_docs}
 %endif
 
+%files perl
+%{_libexecdir}/evolution-data-server/csv2vcard
+
+%files tests
+%{_libdir}/libetestserverutils.so
+%{_libdir}/libetestserverutils.so.*
+%{_libexecdir}/%{name}/installed-tests
+%{_datadir}/installed-tests
+
 %changelog
+* Mon Jun 05 2017 Milan Crha <mcrha@redhat.com> - 3.22.7-6
+- Add patch for RH bug #1444075 ([IMAPx] Fix a memory leak of CamelIMAPXServer)
+
+* Wed Apr 26 2017 Milan Crha <mcrha@redhat.com> - 3.22.7-5
+- Rebuild against updated webkitgtk4
+
+* Wed Apr 12 2017 Milan Crha <mcrha@redhat.com> - 3.22.7-4
+- Add patch for RH bug #1441608 (Use-after-free when setting summary for component with alarms)
+- Add patch for RH bug #1439590 ([IMAPx] Unsubscribed folders shown after refresh)
+
+* Tue Apr 11 2017 Milan Crha <mcrha@redhat.com> - 3.22.7-3
+- Add patch to correct two libecal tests
+
+* Mon Apr 10 2017 Milan Crha <mcrha@redhat.com> - 3.22.7-2
+- Add patch for RH bug #1440643 ([CalDAV] Deadlock after refresh of OAuth2 token)
+
+* Mon Mar 20 2017 Milan Crha <mcrha@redhat.com> - 3.22.7-1
+- Update to 3.22.7 upstream release
+
+* Wed Mar 15 2017 Milan Crha <mcrha@redhat.com> - 3.22.6-4
+- Add missing nss_version variable into the .spec file
+
+* Wed Mar 15 2017 Milan Crha <mcrha@redhat.com> - 3.22.6-3
+- Add patch to address some of the Coverity scan issues
+
+* Tue Mar 14 2017 Milan Crha <mcrha@redhat.com> - 3.22.6-2
+- Add patch for a -Wmaybe-uninitialized variable use in POP3 folder
+
+* Mon Mar 13 2017 Milan Crha <mcrha@redhat.com> - 3.22.6-1
+- Update to 3.22.6 upstream release
+
+* Thu Feb 16 2017 Kalev Lember <klember@redhat.com> - 3.22.5-3
+- Drop previous workaround now that intltool is fixed
+
+* Thu Feb 16 2017 Milan Crha <mcrha@redhat.com> - 3.22.5-2
+- Rebuild with a workaround for RH-bug #1422632
+
+* Wed Feb 15 2017 Milan Crha <mcrha@redhat.com> - 3.22.5-1
+- Rebase to 3.22.5
+
 * Tue Sep 06 2016 Milan Crha <mcrha@redhat.com> - 3.12.11-37
 - Update patch for RH bug #1362674 (CalDAV fails to recognize "Daily Limit Exceeded" error from Google/GOA)
 

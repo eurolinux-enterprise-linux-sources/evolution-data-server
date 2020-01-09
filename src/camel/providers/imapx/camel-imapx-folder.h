@@ -1,22 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-imap-folder.h : Class for a IMAP folder */
-
-/*
- * Authors: Michael Zucchi <notzed@ximian.com>
+/* camel-imap-folder.h : Class for a IMAP folder
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifndef CAMEL_IMAPX_FOLDER_H
@@ -92,6 +91,17 @@ void		camel_imapx_folder_add_move_to_real_trash
 void		camel_imapx_folder_invalidate_local_cache
 						(CamelIMAPXFolder *folder,
 						 guint64 new_uidvalidity);
+gboolean	camel_imapx_folder_get_check_folder
+						(CamelIMAPXFolder *folder);
+void		camel_imapx_folder_set_check_folder
+						(CamelIMAPXFolder *folder,
+						 gboolean check_folder);
+void		camel_imapx_folder_claim_move_to_real_junk_uids
+						(CamelIMAPXFolder *folder,
+						 GPtrArray *out_uids_to_copy);
+void		camel_imapx_folder_claim_move_to_real_trash_uids
+						(CamelIMAPXFolder *folder,
+						 GPtrArray *out_uids_to_copy);
 
 G_END_DECLS
 

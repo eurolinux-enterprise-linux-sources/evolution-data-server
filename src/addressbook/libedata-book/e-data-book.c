@@ -1,17 +1,17 @@
 /*
  * e-data-book.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -235,6 +235,14 @@ data_book_convert_to_client_error (GError *error)
 {
 	g_return_if_fail (error != NULL);
 
+	/* Data-Factory returns common error for unknown/broken ESource-s */
+	if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND)) {
+		error->domain = E_BOOK_CLIENT_ERROR;
+		error->code = E_BOOK_CLIENT_ERROR_NO_SUCH_BOOK;
+
+		return;
+	}
+
 	if (error->domain != E_DATA_BOOK_ERROR)
 		return;
 
@@ -353,6 +361,11 @@ data_book_convert_to_client_error (GError *error)
 
 /**
  * e_data_book_status_to_string:
+ * @status: an #EDataBookStatus
+ *
+ * Get localized human readable description of the given status code.
+ *
+ * Returns: Localized human readable description of the given status code
  *
  * Since: 2.32
  **/
@@ -469,9 +482,16 @@ e_data_book_create_error (EDataBookStatus status,
 
 /**
  * e_data_book_create_error_fmt:
+ * @status: an #EDataBookStatus
+ * @custom_msg_fmt: Custom message to use for the error. When NULL,
+ *   then uses a default message based on the @status code.
+ * @...: arguments for the @custom_msg_fmt
  *
  * Similar as e_data_book_create_error(), only here, instead of custom_msg,
  * is used a printf() format to create a custom_msg for the error.
+ *
+ * Returns: (transfer full): a new #GError populated with the values
+ *   from the parameters.
  *
  * Since: 2.32
  **/
@@ -500,9 +520,12 @@ e_data_book_create_error_fmt (EDataBookStatus status,
 
 /**
  * e_data_book_string_slist_to_comma_string:
+ * @strings: (element-type gchar *): a list of gchar *
  *
  * Takes a list of strings and converts it to a comma-separated string of
  * values; free returned pointer with g_free()
+ *
+ * Returns: (transfer full): comma-separated newly allocated text of @strings
  *
  * Since: 3.2
  **/
@@ -537,6 +560,94 @@ e_data_book_string_slist_to_comma_string (const GSList *strings)
 	return res;
 }
 
+static GPtrArray *
+data_book_encode_properties (EDBusAddressBook *dbus_interface)
+{
+	GPtrArray *properties_array;
+
+	g_warn_if_fail (E_DBUS_IS_ADDRESS_BOOK (dbus_interface));
+
+	properties_array = g_ptr_array_new_with_free_func (g_free);
+
+	if (dbus_interface) {
+		GParamSpec **properties;
+		guint ii, n_properties = 0;
+
+		properties = g_object_class_list_properties (G_OBJECT_GET_CLASS (dbus_interface), &n_properties);
+
+		for (ii = 0; ii < n_properties; ii++) {
+			gboolean can_process =
+				g_type_is_a (properties[ii]->value_type, G_TYPE_BOOLEAN) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_STRING) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_STRV) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_UCHAR) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_INT) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_UINT) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_INT64) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_UINT64) ||
+				g_type_is_a (properties[ii]->value_type, G_TYPE_DOUBLE);
+
+			if (can_process) {
+				GValue value = G_VALUE_INIT;
+				GVariant *stored = NULL;
+
+				g_value_init (&value, properties[ii]->value_type);
+				g_object_get_property ((GObject *) dbus_interface, properties[ii]->name, &value);
+
+				#define WORKOUT(gvl, gvr) \
+					if (g_type_is_a (properties[ii]->value_type, G_TYPE_ ## gvl)) \
+						stored = g_dbus_gvalue_to_gvariant (&value, G_VARIANT_TYPE_ ## gvr);
+
+				WORKOUT (BOOLEAN, BOOLEAN);
+				WORKOUT (STRING, STRING);
+				WORKOUT (STRV, STRING_ARRAY);
+				WORKOUT (UCHAR, BYTE);
+				WORKOUT (INT, INT32);
+				WORKOUT (UINT, UINT32);
+				WORKOUT (INT64, INT64);
+				WORKOUT (UINT64, UINT64);
+				WORKOUT (DOUBLE, DOUBLE);
+
+				#undef WORKOUT
+
+				g_value_unset (&value);
+
+				if (stored) {
+					g_ptr_array_add (properties_array, g_strdup (properties[ii]->name));
+					g_ptr_array_add (properties_array, g_variant_print (stored, TRUE));
+
+					g_variant_unref (stored);
+				}
+			}
+		}
+
+		g_free (properties);
+	}
+
+	g_ptr_array_add (properties_array, NULL);
+
+	return properties_array;
+}
+
+static gboolean
+data_book_handle_retrieve_properties_cb (EDBusAddressBook *dbus_interface,
+					 GDBusMethodInvocation *invocation,
+					 EDataBook *data_book)
+{
+	GPtrArray *properties_array;
+
+	properties_array = data_book_encode_properties (dbus_interface);
+
+	e_dbus_address_book_complete_retrieve_properties (
+		dbus_interface,
+		invocation,
+		(const gchar * const *) properties_array->pdata);
+
+	g_ptr_array_free (properties_array, TRUE);
+
+	return TRUE;
+}
+
 static void
 data_book_complete_open_cb (GObject *source_object,
                             GAsyncResult *result,
@@ -549,9 +660,16 @@ data_book_complete_open_cb (GObject *source_object,
 		E_BOOK_BACKEND (source_object), result, &error);
 
 	if (error == NULL) {
+		GPtrArray *properties_array;
+
+		properties_array = data_book_encode_properties (async_context->dbus_interface);
+
 		e_dbus_address_book_complete_open (
 			async_context->dbus_interface,
-			async_context->invocation);
+			async_context->invocation,
+			(const gchar * const *) properties_array->pdata);
+
+		g_ptr_array_free (properties_array, TRUE);
 	} else {
 		data_book_convert_to_client_error (error);
 		g_dbus_method_invocation_take_error (
@@ -1228,12 +1346,30 @@ data_book_handle_get_cursor_cb (EDBusAddressBook *dbus_interface,
 	return TRUE;
 }
 
+static void
+data_book_source_unset_last_credentials_required_arguments_cb (GObject *source_object,
+							       GAsyncResult *result,
+							       gpointer user_data)
+{
+	GError *local_error = NULL;
+
+	g_return_if_fail (E_IS_SOURCE (source_object));
+
+	e_source_unset_last_credentials_required_arguments_finish (E_SOURCE (source_object), result, &local_error);
+
+	if (local_error)
+		g_debug ("%s: Call failed: %s", G_STRFUNC, local_error->message);
+
+	g_clear_error (&local_error);
+}
+
 static gboolean
 data_book_handle_close_cb (EDBusAddressBook *dbus_interface,
                            GDBusMethodInvocation *invocation,
                            EDataBook *data_book)
 {
 	EBookBackend *backend;
+	ESource *source;
 	const gchar *sender;
 
 	/* G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED should be set on
@@ -1244,6 +1380,10 @@ data_book_handle_close_cb (EDBusAddressBook *dbus_interface,
 	backend = e_data_book_ref_backend (data_book);
 	g_return_val_if_fail (backend != NULL, FALSE);
 
+	source = e_backend_get_source (E_BACKEND (backend));
+	e_source_unset_last_credentials_required_arguments (source, NULL,
+		data_book_source_unset_last_credentials_required_arguments_cb, NULL);
+
 	sender = g_dbus_method_invocation_get_sender (invocation);
 	g_signal_emit_by_name (backend, "closed", sender);
 
@@ -1252,6 +1392,14 @@ data_book_handle_close_cb (EDBusAddressBook *dbus_interface,
 	return TRUE;
 }
 
+/**
+ * e_data_book_respond_open:
+ * @book: An #EDataBook
+ * @opid: An operation ID
+ * @error: Operation error, if any, automatically freed if passed it
+ *
+ * Notifies listeners of the completion of the open method call.
+ **/
 void
 e_data_book_respond_open (EDataBook *book,
                           guint opid,
@@ -1282,8 +1430,9 @@ e_data_book_respond_open (EDataBook *book,
 
 /**
  * e_data_book_respond_refresh:
- * @book: An addressbook client interface.
- * @error: Operation error, if any, automatically freed if passed it.
+ * @book: An #EDataBook
+ * @opid: An operation ID
+ * @error: Operation error, if any, automatically freed if passed it
  *
  * Notifies listeners of the completion of the refresh method call.
  *
@@ -1317,6 +1466,14 @@ e_data_book_respond_refresh (EDataBook *book,
 	g_object_unref (backend);
 }
 
+/**
+ * e_data_book_respond_get_contact:
+ * @book: An #EDataBook
+ * @opid: An operation ID
+ * @error: Operation error, if any, automatically freed if passed it
+ *
+ * Notifies listeners of the completion of the get_contact method call.
+ */
 void
 e_data_book_respond_get_contact (EDataBook *book,
                                  guint32 opid,
@@ -1355,6 +1512,17 @@ e_data_book_respond_get_contact (EDataBook *book,
 	g_object_unref (backend);
 }
 
+/**
+ * e_data_book_respond_get_contact_list:
+ * @book: An #EDataBook
+ * @opid: An operation ID
+ * @error: Operation error, if any, automatically freed if passed it
+ * @cards: (allow-none) (element-type gchar *): A list of vCard strings, or %NULL on error
+ *
+ * Finishes a call to get list of vCards which satisfy certain criteria.
+ *
+ * Since: 3.2
+ **/
 void
 e_data_book_respond_get_contact_list (EDataBook *book,
                                       guint32 opid,
@@ -1402,8 +1570,12 @@ e_data_book_respond_get_contact_list (EDataBook *book,
 
 /**
  * e_data_book_respond_get_contact_list_uids:
+ * @book: An #EDataBook
+ * @opid: An operation ID
+ * @error: Operation error, if any, automatically freed if passed it
+ * @uids: (allow-none) (element-type gchar *): A list of picked UIDs, or %NULL on error
  *
- * FIXME: Document me.
+ * Finishes a call to get list of UIDs which satisfy certain criteria.
  *
  * Since: 3.2
  **/
@@ -1449,8 +1621,12 @@ e_data_book_respond_get_contact_list_uids (EDataBook *book,
 
 /**
  * e_data_book_respond_create_contacts:
+ * @book: An #EDataBook
+ * @opid: An operation ID
+ * @error: Operation error, if any, automatically freed if passed it
+ * @contacts: (allow-none) (element-type EContact): A list of created #EContact-s, or %NULL on error
  *
- * FIXME: Document me!
+ * Finishes a call to create a list contacts.
  *
  * Since: 3.4
  **/
@@ -1498,8 +1674,12 @@ e_data_book_respond_create_contacts (EDataBook *book,
 
 /**
  * e_data_book_respond_modify_contacts:
+ * @book: An #EDataBook
+ * @opid: An operation ID
+ * @error: Operation error, if any, automatically freed if passed it
+ * @contacts: (allow-none) (element-type EContact): A list of modified #EContact-s, or %NULL on error
  *
- * FIXME: Document me!
+ * Finishes a call to modify a list of contacts.
  *
  * Since: 3.4
  **/
@@ -1545,6 +1725,17 @@ e_data_book_respond_modify_contacts (EDataBook *book,
 	g_object_unref (backend);
 }
 
+/**
+ * e_data_book_respond_remove_contacts:
+ * @book: An #EDataBook
+ * @opid: An operation ID
+ * @error: Operation error, if any, automatically freed if passed it
+ * @ids: (allow-none) (element-type gchar *): A list of removed contact UID-s, or %NULL on error
+ *
+ * Finishes a call to remove a list of contacts.
+ *
+ * Since: 3.4
+ **/
 void
 e_data_book_respond_remove_contacts (EDataBook *book,
                                      guint32 opid,
@@ -1587,8 +1778,10 @@ e_data_book_respond_remove_contacts (EDataBook *book,
 
 /**
  * e_data_book_report_error:
+ * @book: An #EDataBook
+ * @message: An error message
  *
- * FIXME: Document me.
+ * Notifies the clients about an error, which happened out of any client-initiate operation.
  *
  * Since: 3.2
  **/
@@ -1604,8 +1797,11 @@ e_data_book_report_error (EDataBook *book,
 
 /**
  * e_data_book_report_backend_property_changed:
+ * @book: An #EDataBook
+ * @prop_name: Property name which changed
+ * @prop_value: The new property value
  *
- * FIXME: Document me.
+ * Notifies the clients about a property change.
  *
  * Since: 3.2
  **/
@@ -1817,17 +2013,17 @@ data_book_constructed (GObject *object)
 	/* Attach ourselves to the EBookBackend. */
 	e_book_backend_set_data_book (backend, book);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		backend, "cache-dir",
 		book->priv->dbus_interface, "cache-dir",
 		G_BINDING_SYNC_CREATE);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		backend, "online",
 		book->priv->dbus_interface, "online",
 		G_BINDING_SYNC_CREATE);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		backend, "writable",
 		book->priv->dbus_interface, "writable",
 		G_BINDING_SYNC_CREATE);
@@ -1997,6 +2193,10 @@ e_data_book_init (EDataBook *data_book)
 		(GDestroyNotify) g_free,
 		(GDestroyNotify) g_ptr_array_unref);
 
+	g_signal_connect (
+		dbus_interface, "handle-retrieve-properties",
+		G_CALLBACK (data_book_handle_retrieve_properties_cb),
+		data_book);
 	g_signal_connect (
 		dbus_interface, "handle-open",
 		G_CALLBACK (data_book_handle_open_cb),

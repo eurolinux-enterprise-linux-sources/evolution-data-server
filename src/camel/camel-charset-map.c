@@ -1,23 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8; -*- */
 /*
- * Authors:
- *   Michael Zucchi <notzed@ximian.com>
- *   Jeffrey Stedfast <fejj@ximian.com>
- *   Dan Winship <danw@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
+ *          Dan Winship <danw@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -134,11 +133,11 @@ gint main (gint argc, gchar **argv)
 	gchar in[128];
 	gint i, j, k;
 	gint bytes;
-	iconv_t cd;
+	GIConv cd;
 
 	/* dont count the terminator */
 	bytes = (G_N_ELEMENTS (tables) + 7 - 1) / 8;
-	g_assert (bytes <= 4);
+	g_return_val_if_fail (bytes <= 4, -1);
 
 	for (i = 0; i < 128; i++)
 		in[i] = i + 128;
@@ -175,7 +174,7 @@ gint main (gint argc, gchar **argv)
 	/* Mutibyte tables */
 	for (; tables[j].name && tables[j].multibyte; j++) {
 		cd = iconv_open (tables[j].name, UCS);
-		if (cd == (iconv_t) -1)
+		if (cd == (GIConv) -1)
 			continue;
 
 		for (c = 128, i = 0; c < 65535 && i < 65535; c++) {

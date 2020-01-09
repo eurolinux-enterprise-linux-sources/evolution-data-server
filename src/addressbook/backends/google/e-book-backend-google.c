@@ -3,20 +3,20 @@
  * Copyright (C) 2008 Joergen Scheibengruber
  * Copyright (C) 2010, 2011 Philip Withnall
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Author: Joergen Scheibengruber <joergen.scheibengruber AT googlemail.com>
- *         Philip Withnall <philip@tecnocode.co.uk>
+ * Authors: Joergen Scheibengruber <joergen.scheibengruber AT googlemail.com>
+ *          Philip Withnall <philip@tecnocode.co.uk>
  */
 
 #include <config.h>
@@ -44,17 +44,7 @@
 #define GDATA_CHECK_VERSION(major,minor,micro) 0
 #endif
 
-/* Forward Declarations */
-static void	e_book_backend_google_source_authenticator_init
-				(ESourceAuthenticatorInterface *iface);
-
-G_DEFINE_TYPE_WITH_CODE (
-	EBookBackendGoogle,
-	e_book_backend_google,
-	E_TYPE_BOOK_BACKEND,
-	G_IMPLEMENT_INTERFACE (
-		E_TYPE_SOURCE_AUTHENTICATOR,
-		e_book_backend_google_source_authenticator_init))
+G_DEFINE_TYPE (EBookBackendGoogle, e_book_backend_google, E_TYPE_BOOK_BACKEND)
 
 struct _EBookBackendGooglePrivate {
 	EBookBackendCache *cache;
@@ -94,40 +84,7 @@ data_book_error_from_gdata_error (GError **error,
 	g_return_if_fail (gdata_error != NULL);
 
 	/* Authentication errors */
-	if (gdata_error->domain == GDATA_CLIENT_LOGIN_AUTHORIZER_ERROR) {
-		switch (gdata_error->code) {
-		case GDATA_CLIENT_LOGIN_AUTHORIZER_ERROR_BAD_AUTHENTICATION:
-			g_set_error_literal (
-				error, E_CLIENT_ERROR,
-				E_CLIENT_ERROR_AUTHENTICATION_FAILED,
-				e_client_error_to_string (
-				E_CLIENT_ERROR_AUTHENTICATION_FAILED));
-			break;
-		case GDATA_CLIENT_LOGIN_AUTHORIZER_ERROR_NOT_VERIFIED:
-		case GDATA_CLIENT_LOGIN_AUTHORIZER_ERROR_TERMS_NOT_AGREED:
-		case GDATA_CLIENT_LOGIN_AUTHORIZER_ERROR_CAPTCHA_REQUIRED:
-		case GDATA_CLIENT_LOGIN_AUTHORIZER_ERROR_ACCOUNT_DELETED:
-		case GDATA_CLIENT_LOGIN_AUTHORIZER_ERROR_ACCOUNT_DISABLED:
-			g_set_error_literal (
-				error, E_CLIENT_ERROR,
-				E_CLIENT_ERROR_PERMISSION_DENIED,
-				e_client_error_to_string (
-				E_CLIENT_ERROR_PERMISSION_DENIED));
-			break;
-		case GDATA_CLIENT_LOGIN_AUTHORIZER_ERROR_SERVICE_DISABLED:
-			g_set_error_literal (
-				error, E_CLIENT_ERROR,
-				E_CLIENT_ERROR_REPOSITORY_OFFLINE,
-				e_client_error_to_string (
-				E_CLIENT_ERROR_REPOSITORY_OFFLINE));
-			break;
-		default:
-			use_fallback = TRUE;
-			break;
-		}
-
-	/* General service errors */
-	} else if (gdata_error->domain == GDATA_SERVICE_ERROR) {
+	if (gdata_error->domain == GDATA_SERVICE_ERROR) {
 		switch (gdata_error->code) {
 		case GDATA_SERVICE_ERROR_UNAVAILABLE:
 			g_set_error_literal (
@@ -209,10 +166,10 @@ migrate_cache (EBookBackendCache *cache)
 	g_return_if_fail (cache != NULL);
 
 	version = e_file_cache_get_object (E_FILE_CACHE (cache), version_key);
-	if (!version || atoi (version) < 1) {
-		/* not versioned yet, dump the cache and reload it from a server */
+	if (!version || atoi (version) < 2) {
+		/* not versioned yet or too old, dump the cache and reload it from the server */
 		e_file_cache_clean (E_FILE_CACHE (cache));
-		e_file_cache_add_object (E_FILE_CACHE (cache), version_key, "1");
+		e_file_cache_add_object (E_FILE_CACHE (cache), version_key, "2");
 	}
 }
 
@@ -545,21 +502,15 @@ process_contact_finish (EBookBackend *backend,
                         GDataEntry *entry)
 {
 	EContact *new_contact;
-	gboolean was_cached;
 
 	g_debug (G_STRFUNC);
 
-	was_cached = cache_has_contact (backend, gdata_entry_get_id (entry));
 	new_contact = cache_add_contact (backend, entry);
 
 	if (!new_contact)
 		return;
 
-	if (was_cached == TRUE) {
-		e_book_backend_notify_update (backend, new_contact);
-	} else {
-		e_book_backend_notify_update (backend, new_contact);
-	}
+	e_book_backend_notify_update (backend, new_contact);
 
 	g_object_unref (new_contact);
 }
@@ -782,6 +733,8 @@ get_new_contacts_cb (GDataService *service,
 		GTimeVal current_time;
 		g_get_current_time (&current_time);
 		cache_set_last_update (backend, &current_time);
+
+		e_backend_ensure_source_status_connected (E_BACKEND (backend));
 	}
 
 	/* Thaw the cache again */
@@ -811,7 +764,7 @@ get_new_contacts (EBookBackend *backend)
 
 	/* Sort out update times */
 	last_updated = cache_get_last_update (backend);
-	g_assert (last_updated == NULL || g_time_val_from_iso8601 (last_updated, &updated) == TRUE);
+	g_return_if_fail (last_updated == NULL || g_time_val_from_iso8601 (last_updated, &updated) == TRUE);
 	g_free (last_updated);
 
 	/* Prevent the cache writing each change to disk individually (thawed in get_new_contacts_cb()) */
@@ -942,6 +895,8 @@ get_groups_cb (GDataService *service,
 		g_rec_mutex_lock (&priv->groups_lock);
 		g_get_current_time (&(priv->groups_last_update));
 		g_rec_mutex_unlock (&priv->groups_lock);
+
+		e_backend_ensure_source_status_connected (E_BACKEND (backend));
 	}
 
 	finish_operation (backend, -2, gdata_error);
@@ -1024,7 +979,8 @@ get_groups (EBookBackend *backend,
 
 static void
 get_groups_sync (EBookBackend *backend,
-                 GCancellable *cancellable)
+                 GCancellable *cancellable,
+		 GError **error)
 {
 	EBookBackendGooglePrivate *priv;
 	GDataQuery *query;
@@ -1045,7 +1001,7 @@ get_groups_sync (EBookBackend *backend,
 		cancellable,
 		(GDataQueryProgressCallback) process_group,
 		backend,
-		NULL);
+		error);
 
 	if (feed)
 		g_object_unref (feed);
@@ -1209,42 +1165,30 @@ fallback_set_proxy_uri (EBookBackend *backend)
 #endif
 
 static gboolean
-request_authorization (EBookBackend *backend,
-                       GCancellable *cancellable,
-                       GError **error)
+connect_without_password (EBookBackend *backend,
+			  GCancellable *cancellable,
+			  GError **error)
 {
+	ESource *source;
+	ESourceAuthentication *extension;
+	EGDataOAuth2Authorizer *authorizer;
+	gchar *method;
+	gboolean is_oauth2_method;
 	EBookBackendGooglePrivate *priv;
 
 	priv = E_BOOK_BACKEND_GOOGLE_GET_PRIVATE (backend);
+
+	source = e_backend_get_source (E_BACKEND (backend));
+	extension = e_source_get_extension (source, E_SOURCE_EXTENSION_AUTHENTICATION);
+	method = e_source_authentication_dup_method (extension);
+	is_oauth2_method = g_strcmp0 (method, "OAuth2") == 0;
+	g_free (method);
 
 	/* Make sure we have the GDataService configured
 	 * before requesting authorization. */
 
 	if (priv->authorizer == NULL) {
-		ESource *source;
-		ESourceAuthentication *extension;
-		EGDataOAuth2Authorizer *authorizer;
-		const gchar *extension_name;
-		gchar *method;
-
-		extension_name = E_SOURCE_EXTENSION_AUTHENTICATION;
-		source = e_backend_get_source (E_BACKEND (backend));
-		extension = e_source_get_extension (source, extension_name);
-		method = e_source_authentication_dup_method (extension);
-
-		if (g_strcmp0 (method, "OAuth2") == 0) {
-			authorizer = e_gdata_oauth2_authorizer_new (source);
-			priv->authorizer = GDATA_AUTHORIZER (authorizer);
-		}
-
-		g_free (method);
-	}
-
-	if (priv->authorizer == NULL) {
-		GDataClientLoginAuthorizer *authorizer;
-
-		authorizer = gdata_client_login_authorizer_new (
-			CLIENT_ID, GDATA_TYPE_CONTACTS_SERVICE);
+		authorizer = e_gdata_oauth2_authorizer_new (source);
 		priv->authorizer = GDATA_AUTHORIZER (authorizer);
 	}
 
@@ -1258,7 +1202,7 @@ request_authorization (EBookBackend *backend,
 #if GDATA_CHECK_VERSION(0,15,0)
 		/* proxy-resolver was added in 0.15.0.
 		 * (https://bugzilla.gnome.org/709758) */
-		g_object_bind_property (
+		e_binding_bind_property (
 			backend, "proxy-resolver",
 			priv->service, "proxy-resolver",
 			G_BINDING_SYNC_CREATE);
@@ -1273,14 +1217,11 @@ request_authorization (EBookBackend *backend,
 	/* If we're using OAuth tokens, then as far as the backend
 	 * is concerned it's always authorized.  The GDataAuthorizer
 	 * will take care of everything in the background. */
-	if (!GDATA_IS_CLIENT_LOGIN_AUTHORIZER (priv->authorizer))
+	if (is_oauth2_method)
 		return TRUE;
 
-	/* Otherwise it's up to us to obtain a login secret. */
-	return e_backend_authenticate_sync (
-		E_BACKEND (backend),
-		E_SOURCE_AUTHENTICATOR (backend),
-		cancellable, error);
+	/* Otherwise it's up to us to obtain an OAuth 2 token. */
+	return FALSE;
 }
 
 typedef enum {
@@ -1421,6 +1362,7 @@ e_book_backend_google_notify_online_cb (EBookBackend *backend,
                                         GParamSpec *pspec)
 {
 	EBookBackendGooglePrivate *priv;
+	ESource *source;
 	gboolean is_online;
 
 	priv = E_BOOK_BACKEND_GOOGLE_GET_PRIVATE (backend);
@@ -1428,11 +1370,22 @@ e_book_backend_google_notify_online_cb (EBookBackend *backend,
 	g_debug (G_STRFUNC);
 
 	is_online = e_backend_get_online (E_BACKEND (backend));
+	source = e_backend_get_source (E_BACKEND (backend));
 
 	if (is_online && e_book_backend_is_opened (backend)) {
-		request_authorization (backend, NULL, NULL);
-		if (backend_is_authorized (backend))
+		e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_CONNECTING);
+
+		if (connect_without_password (backend, NULL, NULL)) {
+			e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_CONNECTED);
+
 			e_book_backend_set_writable (backend, TRUE);
+			cache_refresh_if_needed (backend);
+		} else {
+			e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_DISCONNECTED);
+
+			e_backend_schedule_credentials_required (E_BACKEND (backend), E_SOURCE_CREDENTIALS_REASON_REQUIRED,
+				NULL, 0, NULL, NULL, G_STRFUNC);
+		}
 	} else {
 		/* Going offline, so cancel all running operations */
 		google_cancel_all_operations (backend);
@@ -1442,6 +1395,9 @@ e_book_backend_google_notify_online_cb (EBookBackend *backend,
 		 * e_book_backend_google_authenticate_user() will mark us
 		 * as writeable again once the user's authenticated again. */
 		e_book_backend_set_writable (backend, FALSE);
+
+		if (e_source_get_connection_status (source) != E_SOURCE_CONNECTION_STATUS_DISCONNECTED)
+			e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_DISCONNECTED);
 
 		/* We can free our service. */
 		g_clear_object (&priv->service);
@@ -1516,6 +1472,8 @@ book_backend_google_get_backend_property (EBookBackend *backend,
 	} else if (g_str_equal (prop_name, BOOK_BACKEND_PROPERTY_SUPPORTED_FIELDS)) {
 		return g_strjoin (
 			",",
+			e_contact_field_name (E_CONTACT_UID),
+			e_contact_field_name (E_CONTACT_REV),
 			e_contact_field_name (E_CONTACT_FULL_NAME),
 
 			e_contact_field_name (E_CONTACT_EMAIL_1),
@@ -1711,19 +1669,52 @@ book_backend_google_open_sync (EBookBackend *backend,
 	e_book_backend_set_writable (backend, FALSE);
 
 	if (is_online) {
-		success = request_authorization (backend, cancellable, error);
+		ESource *source = e_backend_get_source (E_BACKEND (backend));
+
+		e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_CONNECTING);
+
+		success = connect_without_password (backend, cancellable, error);
 		if (success) {
+			GError *local_error = NULL;
+
 			/* Refresh the authorizer.  This may block. */
 			success = gdata_authorizer_refresh_authorization (
-				priv->authorizer, cancellable, error);
+				priv->authorizer, cancellable, &local_error);
+
+			if (success) {
+				e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_CONNECTED);
+			} else {
+				GError *local_error2 = NULL;
+
+				e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_DISCONNECTED);
+
+				if (local_error && !e_backend_credentials_required_sync (E_BACKEND (backend), E_SOURCE_CREDENTIALS_REASON_ERROR,
+					NULL, 0, local_error, cancellable, &local_error2)) {
+					g_warning ("%s: Failed to call credentials required: %s", G_STRFUNC, local_error2 ? local_error2->message : "Unknown error");
+				}
+
+				g_clear_error (&local_error2);
+
+				if (local_error)
+					g_propagate_error (error, local_error);
+			}
+		} else {
+			GError *local_error = NULL;
+
+			e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_DISCONNECTED);
+
+			if (!e_backend_credentials_required_sync (E_BACKEND (backend), E_SOURCE_CREDENTIALS_REASON_REQUIRED,
+				NULL, 0, NULL, cancellable, &local_error)) {
+				g_warning ("%s: Failed to call credentials required: %s", G_STRFUNC, local_error ? local_error->message : "Unknown error");
+			}
+
+			g_clear_error (&local_error);
 		}
 	}
 
-	if (!is_online || backend_is_authorized (backend)) {
-		if (is_online) {
-			e_book_backend_set_writable (backend, TRUE);
-			cache_refresh_if_needed (backend);
-		}
+	if (is_online && backend_is_authorized (backend)) {
+		e_book_backend_set_writable (backend, TRUE);
+		cache_refresh_if_needed (backend);
 	}
 
 	return success;
@@ -1777,7 +1768,7 @@ book_backend_google_create_contacts_sync (EBookBackend *backend,
 
 	/* Ensure the system groups have been fetched. */
 	if (g_hash_table_size (priv->system_groups_by_id) == 0)
-		get_groups_sync (backend, cancellable);
+		get_groups_sync (backend, cancellable, NULL);
 
 	/* Build the GDataEntry from the vCard */
 	contact = e_contact_new_from_vcard (vcards[0]);
@@ -1868,6 +1859,8 @@ exit:
 		g_warn_if_fail (success == FALSE);
 		data_book_error_from_gdata_error (error, gdata_error);
 		g_error_free (gdata_error);
+	} else {
+		e_backend_ensure_source_status_connected (E_BACKEND (backend));
 	}
 
 	return success;
@@ -1950,7 +1943,7 @@ book_backend_google_modify_contacts_sync (EBookBackend *backend,
 
 	/* Ensure the system groups have been fetched. */
 	if (g_hash_table_size (priv->system_groups_by_id) == 0)
-		get_groups_sync (backend, cancellable);
+		get_groups_sync (backend, cancellable, NULL);
 
 	/* Update the old GDataEntry from the new contact. */
 	gdata_entry_update_from_e_contact (
@@ -2084,6 +2077,8 @@ exit:
 		g_warn_if_fail (success == FALSE);
 		data_book_error_from_gdata_error (error, gdata_error);
 		g_error_free (gdata_error);
+	} else {
+		e_backend_ensure_source_status_connected (E_BACKEND (backend));
 	}
 
 	return success;
@@ -2159,6 +2154,8 @@ book_backend_google_remove_contacts_sync (EBookBackend *backend,
 		g_warn_if_fail (success == FALSE);
 		data_book_error_from_gdata_error (error, gdata_error);
 		g_error_free (gdata_error);
+	} else {
+		e_backend_ensure_source_status_connected (E_BACKEND (backend));
 	}
 
 	return success;
@@ -2267,70 +2264,60 @@ book_backend_google_stop_view (EBookBackend *backend,
 	g_debug (G_STRFUNC);
 }
 
-static void
-book_backend_google_refresh (EBookBackend *backend,
-                             EDataBook *book,
-                             guint32 opid,
-                             GCancellable *cancellable)
+static gboolean
+book_backend_google_refresh_sync (EBookBackend *backend,
+				  GCancellable *cancellable,
+				  GError **error)
 {
-	g_return_if_fail (E_IS_BOOK_BACKEND_GOOGLE (backend));
-
-	/* stop immediately, nothing to report here */
-	e_data_book_respond_refresh (book, opid, NULL);
+	g_return_val_if_fail (E_IS_BOOK_BACKEND_GOOGLE (backend), FALSE);
 
 	/* get only changes, it's not needed to redownload whole cache */
 	get_new_contacts (backend);
+
+	return TRUE;
 }
 
 static ESourceAuthenticationResult
-book_backend_google_try_password_sync (ESourceAuthenticator *authenticator,
-                                       const GString *password,
-                                       GCancellable *cancellable,
-                                       GError **error)
+book_backend_google_authenticate_sync (EBackend *backend,
+				       const ENamedParameters *credentials,
+				       gchar **out_certificate_pem,
+				       GTlsCertificateFlags *out_certificate_errors,
+				       GCancellable *cancellable,
+				       GError **error)
 {
+	EBookBackend *book_backend = E_BOOK_BACKEND (backend);
 	EBookBackendGooglePrivate *priv;
-	ESourceAuthentication *auth_extension;
 	ESourceAuthenticationResult result;
-	ESource *source;
-	const gchar *extension_name;
-	gchar *user;
+	EGDataOAuth2Authorizer *authorizer;
 	GError *local_error = NULL;
 
 	g_debug (G_STRFUNC);
 
 	/* We should not have gotten here if we're offline. */
-	g_return_val_if_fail (
-		e_backend_get_online (E_BACKEND (authenticator)),
-		E_SOURCE_AUTHENTICATION_ERROR);
+	g_return_val_if_fail (e_backend_get_online (backend), E_SOURCE_AUTHENTICATION_ERROR);
 
-	/* Nor should we have gotten here if we're already authorized. */
-	g_return_val_if_fail (
-		!backend_is_authorized (E_BOOK_BACKEND (authenticator)),
-		E_SOURCE_AUTHENTICATION_ERROR);
+	priv = E_BOOK_BACKEND_GOOGLE (backend)->priv;
 
-	priv = E_BOOK_BACKEND_GOOGLE (authenticator)->priv;
+	g_return_val_if_fail (E_IS_GDATA_OAUTH2_AUTHORIZER (priv->authorizer), E_SOURCE_AUTHENTICATION_ERROR);
 
-	source = e_backend_get_source (E_BACKEND (authenticator));
-	extension_name = E_SOURCE_EXTENSION_AUTHENTICATION;
-	auth_extension = e_source_get_extension (source, extension_name);
-	user = e_source_authentication_dup_user (auth_extension);
+	authorizer = E_GDATA_OAUTH2_AUTHORIZER (priv->authorizer);
+	e_gdata_oauth2_authorizer_set_credentials (authorizer, credentials);
 
-	gdata_client_login_authorizer_authenticate (
-		GDATA_CLIENT_LOGIN_AUTHORIZER (priv->authorizer),
-		user, password->str, cancellable, &local_error);
-
-	g_free (user);
+	get_groups_sync (E_BOOK_BACKEND (backend), cancellable, &local_error);
 
 	if (local_error == NULL) {
 		result = E_SOURCE_AUTHENTICATION_ACCEPTED;
 
-	} else if (g_error_matches (
-		local_error, GDATA_CLIENT_LOGIN_AUTHORIZER_ERROR,
-		GDATA_CLIENT_LOGIN_AUTHORIZER_ERROR_BAD_AUTHENTICATION)) {
-
+		if (backend_is_authorized (book_backend)) {
+			e_book_backend_set_writable (book_backend, TRUE);
+			cache_refresh_if_needed (book_backend);
+		}
+	} else if (g_error_matches (local_error, GDATA_SERVICE_ERROR, GDATA_SERVICE_ERROR_AUTHENTICATION_REQUIRED)) {
+		if (!e_named_parameters_get (credentials, E_SOURCE_CREDENTIAL_PASSWORD))
+			result = E_SOURCE_AUTHENTICATION_REQUIRED;
+		else
+			result = E_SOURCE_AUTHENTICATION_REJECTED;
 		g_clear_error (&local_error);
-		result = E_SOURCE_AUTHENTICATION_REJECTED;
-
 	} else {
 		g_propagate_error (error, local_error);
 		result = E_SOURCE_AUTHENTICATION_ERROR;
@@ -2343,7 +2330,8 @@ static void
 e_book_backend_google_class_init (EBookBackendGoogleClass *class)
 {
 	GObjectClass *object_class;
-	EBookBackendClass *backend_class;
+	EBackendClass *backend_class;
+	EBookBackendClass *book_backend_class;
 
 	g_type_class_add_private (class, sizeof (EBookBackendGooglePrivate));
 
@@ -2351,23 +2339,20 @@ e_book_backend_google_class_init (EBookBackendGoogleClass *class)
 	object_class->dispose = book_backend_google_dispose;
 	object_class->finalize = book_backend_google_finalize;
 
-	backend_class = E_BOOK_BACKEND_CLASS (class);
-	backend_class->get_backend_property = book_backend_google_get_backend_property;
-	backend_class->open_sync = book_backend_google_open_sync;
-	backend_class->create_contacts_sync = book_backend_google_create_contacts_sync;
-	backend_class->modify_contacts_sync = book_backend_google_modify_contacts_sync;
-	backend_class->remove_contacts_sync = book_backend_google_remove_contacts_sync;
-	backend_class->get_contact_sync = book_backend_google_get_contact_sync;
-	backend_class->get_contact_list_sync = book_backend_google_get_contact_list_sync;
-	backend_class->start_view = book_backend_google_start_view;
-	backend_class->stop_view = book_backend_google_stop_view;
-	backend_class->refresh = book_backend_google_refresh;
-}
+	backend_class = E_BACKEND_CLASS (class);
+	backend_class->authenticate_sync = book_backend_google_authenticate_sync;
 
-static void
-e_book_backend_google_source_authenticator_init (ESourceAuthenticatorInterface *iface)
-{
-	iface->try_password_sync = book_backend_google_try_password_sync;
+	book_backend_class = E_BOOK_BACKEND_CLASS (class);
+	book_backend_class->get_backend_property = book_backend_google_get_backend_property;
+	book_backend_class->open_sync = book_backend_google_open_sync;
+	book_backend_class->create_contacts_sync = book_backend_google_create_contacts_sync;
+	book_backend_class->modify_contacts_sync = book_backend_google_modify_contacts_sync;
+	book_backend_class->remove_contacts_sync = book_backend_google_remove_contacts_sync;
+	book_backend_class->get_contact_sync = book_backend_google_get_contact_sync;
+	book_backend_class->get_contact_list_sync = book_backend_google_get_contact_list_sync;
+	book_backend_class->start_view = book_backend_google_start_view;
+	book_backend_class->stop_view = book_backend_google_stop_view;
+	book_backend_class->refresh_sync = book_backend_google_refresh_sync;
 }
 
 static void

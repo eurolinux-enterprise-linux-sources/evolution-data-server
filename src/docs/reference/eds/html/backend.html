@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Evolution-Data-Server Reference Manual: Part III. Backend Programming Interfaces</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>Part III. Backend Programming Interfaces: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
 <link rel="up" href="index.html" title="Evolution-Data-Server Reference Manual">
-<link rel="prev" href="eds-ECalComponent.html" title="ECalComponent">
+<link rel="prev" href="ECalComponent.html" title="ECalComponent">
 <link rel="next" href="ch06.html" title="Abstract Classes for Backends">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -16,7 +16,7 @@
 <td width="100%" align="left" class="shortcuts"></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
 <td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
-<td><a accesskey="p" href="eds-ECalComponent.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="ECalComponent.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
 <td><a accesskey="n" href="ch06.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
 </tr></table>
 <div class="part">
@@ -28,123 +28,131 @@
 <dt><span class="chapter"><a href="ch06.html">Abstract Classes for Backends</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-EBackend.html">EBackend</a></span><span class="refpurpose"> — An abstract base class for backends</span>
+<span class="refentrytitle"><a href="EBackend.html">EBackend</a></span><span class="refpurpose"> — An abstract base class for backends</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EBackendFactory.html">EBackendFactory</a></span><span class="refpurpose"> — An abstract base class for backend factories</span>
+<span class="refentrytitle"><a href="eds-e-backend-enums.html">e-backend-enums</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataFactory.html">EDataFactory</a></span><span class="refpurpose"> — An abstract base class for a backend-based server</span>
+<span class="refentrytitle"><a href="EBackendFactory.html">EBackendFactory</a></span><span class="refpurpose"> — An abstract base class for backend factories</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDBusServer.html">EDBusServer</a></span><span class="refpurpose"> — An abstract base class for a D-Bus server</span>
+<span class="refentrytitle"><a href="EDataFactory.html">EDataFactory</a></span><span class="refpurpose"> — An abstract base class for a backend-based server</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EExtensible.html">EExtensible</a></span><span class="refpurpose"> — An interface for extending objects</span>
+<span class="refentrytitle"><a href="EDBusServer.html">EDBusServer</a></span><span class="refpurpose"> — An abstract base class for a D-Bus server</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EExtension.html">EExtension</a></span><span class="refpurpose"> — An abstract base class for extensions</span>
+<span class="refentrytitle"><a href="EExtensible.html">EExtensible</a></span><span class="refpurpose"> — An interface for extending objects</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EModule.html">EModule</a></span><span class="refpurpose"> — A module loader</span>
+<span class="refentrytitle"><a href="EExtension.html">EExtension</a></span><span class="refpurpose"> — An abstract base class for extensions</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="EModule.html">EModule</a></span><span class="refpurpose"> — A module loader</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="ESubprocessFactory.html">ESubprocessFactory</a></span><span class="refpurpose"> — An abstract base class for a backend-subprocess server</span>
 </dt>
 </dl></dd>
 <dt><span class="chapter"><a href="ch07.html">Registry Service Classes</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-EAuthenticationMediator.html">EAuthenticationMediator</a></span><span class="refpurpose"> — Authenticator proxy for remote clients</span>
+<span class="refentrytitle"><a href="ECollectionBackend.html">ECollectionBackend</a></span><span class="refpurpose"> — A base class for a data source collection backend</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EAuthenticationSession.html">EAuthenticationSession</a></span><span class="refpurpose"> — Centralized authentication management</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="eds-ECollectionBackend.html">ECollectionBackend</a></span><span class="refpurpose"> — A base class for a data source collection backend</span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="eds-ECollectionBackendFactory.html">ECollectionBackendFactory</a></span><span class="refpurpose"> — A base class for a data source collection
+<span class="refentrytitle"><a href="ECollectionBackendFactory.html">ECollectionBackendFactory</a></span><span class="refpurpose"> — A base class for a data source collection
                     backend factory</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EOAuth2Support.html">EOAuth2Support</a></span><span class="refpurpose"> — An interface for OAuth 2.0 support</span>
+<span class="refentrytitle"><a href="EOAuth2Support.html">EOAuth2Support</a></span><span class="refpurpose"> — An interface for OAuth 2.0 support</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EServerSideSource.html">EServerSideSource</a></span><span class="refpurpose"> — A server-side data source</span>
+<span class="refentrytitle"><a href="EServerSideSource.html">EServerSideSource</a></span><span class="refpurpose"> — A server-side data source</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ESourceRegistryServer.html">ESourceRegistryServer</a></span><span class="refpurpose"> — Server-side repository for data sources</span>
+<span class="refentrytitle"><a href="EServerSideSourceCredentialsProvider.html">EServerSideSourceCredentialsProvider</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="ESourceRegistryServer.html">ESourceRegistryServer</a></span><span class="refpurpose"> — Server-side repository for data sources</span>
 </dt>
 </dl></dd>
 <dt><span class="chapter"><a href="ch08.html">Addressbook Backend Classes</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-EBookBackend.html">EBookBackend</a></span><span class="refpurpose"> — An abstract class for implementing addressbook backends</span>
+<span class="refentrytitle"><a href="EBookBackend.html">EBookBackend</a></span><span class="refpurpose"> — An abstract class for implementing addressbook backends</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EBookBackendFactory.html">EBookBackendFactory</a></span><span class="refpurpose"> — The factory for creating new addressbooks</span>
+<span class="refentrytitle"><a href="EBookBackendFactory.html">EBookBackendFactory</a></span><span class="refpurpose"> — The factory for creating new addressbooks</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EBookBackendSExp.html">EBookBackendSExp</a></span><span class="refpurpose">A utility for comparing <span class="type">EContacts</span> or vcards with search expressions.</span>
+<span class="refentrytitle"><a href="EBookBackendSExp.html">EBookBackendSExp</a></span><span class="refpurpose"> — A utility for comparing <span class="type">EContacts</span> or vcards with search expressions.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EBookSqlite.html">EBookSqlite</a></span><span class="refpurpose"> — An SQLite storage facility for addressbooks</span>
+<span class="refentrytitle"><a href="EBookSqlite.html">EBookSqlite</a></span><span class="refpurpose"> — An SQLite storage facility for addressbooks</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataBook.html">EDataBook</a></span><span class="refpurpose"> — Server side D-Bus layer to communicate with addressbooks</span>
+<span class="refentrytitle"><a href="EDataBook.html">EDataBook</a></span><span class="refpurpose"> — Server side D-Bus layer to communicate with addressbooks</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataBookDirect.html">EDataBookDirect</a></span><span class="refpurpose"> — An interface for implementing Direct Read Access</span>
+<span class="refentrytitle"><a href="EDataBookDirect.html">EDataBookDirect</a></span><span class="refpurpose"> — An interface for implementing Direct Read Access</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataBookCursor.html">EDataBookCursor</a></span><span class="refpurpose"> — The abstract cursor API</span>
+<span class="refentrytitle"><a href="EDataBookCursor.html">EDataBookCursor</a></span><span class="refpurpose"> — The abstract cursor API</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataBookCursorSqlite.html">EDataBookCursorSqlite</a></span><span class="refpurpose"> — The SQLite cursor implementation</span>
+<span class="refentrytitle"><a href="EDataBookCursorSqlite.html">EDataBookCursorSqlite</a></span><span class="refpurpose"> — The SQLite cursor implementation</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataBookFactory.html">EDataBookFactory</a></span><span class="refpurpose"> — The main addressbook server object</span>
+<span class="refentrytitle"><a href="EDataBookFactory.html">EDataBookFactory</a></span><span class="refpurpose"> — The main addressbook server object</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataBookView.html">EDataBookView</a></span><span class="refpurpose"> — A server side object for issuing view notifications</span>
+<span class="refentrytitle"><a href="EDataBookView.html">EDataBookView</a></span><span class="refpurpose"> — A server side object for issuing view notifications</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="ESubprocessBookFactory.html">ESubprocessBookFactory</a></span><span class="refpurpose"></span>
 </dt>
 </dl></dd>
 <dt><span class="chapter"><a href="ch09.html">Calendar Backend Classes</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackend.html">ECalBackend</a></span><span class="refpurpose"> — An abstract class for implementing calendar backends</span>
+<span class="refentrytitle"><a href="ECalBackend.html">ECalBackend</a></span><span class="refpurpose"> — An abstract class for implementing calendar backends</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackendCache.html">ECalBackendCache</a></span><span class="refpurpose"> — A helper class for caching calendar components</span>
+<span class="refentrytitle"><a href="ECalBackendCache.html">ECalBackendCache</a></span><span class="refpurpose"> — A helper class for caching calendar components</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackendFactory.html">ECalBackendFactory</a></span><span class="refpurpose"> — The factory for creating new calendars</span>
+<span class="refentrytitle"><a href="ECalBackendFactory.html">ECalBackendFactory</a></span><span class="refpurpose"> — The factory for creating new calendars</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackendSExp.html">ECalBackendSExp</a></span><span class="refpurpose">A utility for comparing <span class="type">ECalComponents</span> with search expressions.</span>
+<span class="refentrytitle"><a href="ECalBackendSExp.html">ECalBackendSExp</a></span><span class="refpurpose"> — A utility for comparing <span class="type">ECalComponents</span> with search expressions.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackendStore.html">ECalBackendStore</a></span><span class="refpurpose"> — A helper class for storing calendar components</span>
+<span class="refentrytitle"><a href="ECalBackendStore.html">ECalBackendStore</a></span><span class="refpurpose"> — A helper class for storing calendar components</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackendSync.html">ECalBackendSync</a></span><span class="refpurpose">A convenience subclass of <span class="type">ECalBackend</span></span>
+<span class="refentrytitle"><a href="ECalBackendSync.html">ECalBackendSync</a></span><span class="refpurpose"> — A convenience subclass of <span class="type">ECalBackend</span></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EIntervalTree.html">EIntervalTree</a></span><span class="refpurpose"> — A utility for calculating intervals and recurrances</span>
+<span class="refentrytitle"><a href="EIntervalTree.html">EIntervalTree</a></span><span class="refpurpose"> — A utility for calculating intervals and recurrances</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataCal.html">EDataCal</a></span><span class="refpurpose"> — Server side D-Bus layer to communicate with calendars</span>
+<span class="refentrytitle"><a href="EDataCal.html">EDataCal</a></span><span class="refpurpose"> — Server side D-Bus layer to communicate with calendars</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataCalFactory.html">EDataCalFactory</a></span><span class="refpurpose"> — The main calendar server object</span>
+<span class="refentrytitle"><a href="EDataCalFactory.html">EDataCalFactory</a></span><span class="refpurpose"> — The main calendar server object</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataCalView.html">EDataCalView</a></span><span class="refpurpose"> — A server side object for issuing view notifications</span>
+<span class="refentrytitle"><a href="EDataCalView.html">EDataCalView</a></span><span class="refpurpose"> — A server side object for issuing view notifications</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="ESubprocessCalFactory.html">ESubprocessCalFactory</a></span><span class="refpurpose"></span>
 </dt>
 </dl></dd>
 </dl>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

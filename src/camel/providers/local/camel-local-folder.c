@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -105,23 +104,19 @@ local_folder_dispose (GObject *object)
 	folder = CAMEL_FOLDER (object);
 	local_folder = CAMEL_LOCAL_FOLDER (object);
 
-	if (folder->summary != NULL) {
-		camel_local_summary_sync (
-			CAMEL_LOCAL_SUMMARY (folder->summary),
-			FALSE, local_folder->changes, NULL, NULL);
-		g_object_unref (folder->summary);
-		folder->summary = NULL;
+	if (folder->summary) {
+		/* Something can hold the reference to the folder longer than
+		   the parent store is alive, thus count with it. */
+		if (camel_folder_get_parent_store (folder)) {
+			camel_local_summary_sync (
+				CAMEL_LOCAL_SUMMARY (folder->summary),
+				FALSE, local_folder->changes, NULL, NULL);
+		}
 	}
 
-	if (local_folder->search != NULL) {
-		g_object_unref (local_folder->search);
-		local_folder->search = NULL;
-	}
-
-	if (local_folder->index != NULL) {
-		g_object_unref (local_folder->index);
-		local_folder->index = NULL;
-	}
+	g_clear_object (&folder->summary);
+	g_clear_object (&local_folder->search);
+	g_clear_object (&local_folder->index);
 
 	/* Chain up to parent's dispose() method. */
 	G_OBJECT_CLASS (camel_local_folder_parent_class)->dispose (object);
@@ -539,7 +534,6 @@ camel_local_folder_construct (CamelLocalFolder *lf,
 #else
 	gchar folder_path[PATH_MAX];
 #endif
-	struct stat st;
 #endif
 	gint forceindex;
 	CamelLocalStore *ls;
@@ -585,11 +579,10 @@ camel_local_folder_construct (CamelLocalFolder *lf,
 	 */
 #ifndef G_OS_WIN32
 	/* follow any symlinks to the mailbox */
-	if (g_lstat (lf->folder_path, &st) != -1 && S_ISLNK (st.st_mode) &&
 #ifdef __GLIBC__
-	    (folder_path = realpath (lf->folder_path, NULL)) != NULL) {
+	if ((folder_path = realpath (lf->folder_path, NULL)) != NULL) {
 #else
-	    realpath (lf->folder_path, folder_path) != NULL) {
+	if (realpath (lf->folder_path, folder_path) != NULL) {
 #endif
 		g_free (lf->folder_path);
 		lf->folder_path = g_strdup (folder_path);
@@ -691,7 +684,7 @@ camel_local_folder_lock (CamelLocalFolder *lf,
 {
 	if (lf->locked > 0) {
 		/* lets be anal here - its important the code knows what its doing */
-		g_assert (lf->locktype == type || lf->locktype == CAMEL_LOCK_WRITE);
+		g_return_val_if_fail (lf->locktype == type || lf->locktype == CAMEL_LOCK_WRITE, -1);
 	} else {
 		if (CAMEL_LOCAL_FOLDER_GET_CLASS (lf)->lock (lf, type, error) == -1)
 			return -1;
@@ -707,7 +700,7 @@ camel_local_folder_lock (CamelLocalFolder *lf,
 gint
 camel_local_folder_unlock (CamelLocalFolder *lf)
 {
-	g_assert (lf->locked > 0);
+	g_return_val_if_fail (lf->locked > 0, -1);
 	lf->locked--;
 	if (lf->locked == 0)
 		CAMEL_LOCAL_FOLDER_GET_CLASS (lf)->unlock (lf);

@@ -1,17 +1,17 @@
 /*
  * module-secret-monitor.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -129,6 +129,10 @@ secret_monitor_scan_secrets_thread (gpointer user_data)
 
 		/* No UID attribute?  Best leave it alone. */
 		if (uid == NULL)
+			continue;
+
+		/* These are special keys, not referencing any real ESource */
+		if (g_str_has_prefix (uid, "OAuth2::"))
 			continue;
 
 		source = e_source_registry_server_ref_source (server, uid);

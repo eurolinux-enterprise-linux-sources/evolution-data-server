@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Jeffrey Stedfast <fejj@novell.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Jeffrey Stedfast <fejj@novell.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -64,8 +63,8 @@ offline_store_constructed (GObject *object)
 	G_OBJECT_CLASS (camel_offline_store_parent_class)->constructed (object);
 
 	session = camel_service_ref_session (CAMEL_SERVICE (object));
-	priv->online = camel_session_get_online (session);
-	g_object_unref (session);
+	priv->online = session && camel_session_get_online (session);
+	g_clear_object (&session);
 }
 
 static void
@@ -172,16 +171,14 @@ camel_offline_store_set_online_sync (CamelOfflineStore *store,
                                      GError **error)
 {
 	CamelService *service;
-	CamelSettings *settings;
 	CamelServiceConnectionStatus status;
 	gboolean host_reachable = TRUE;
 	gboolean store_is_online;
-	gboolean sync_store;
 	gboolean success = TRUE;
 
 	g_return_val_if_fail (CAMEL_IS_OFFLINE_STORE (store), FALSE);
 
-	if (store->priv->online == online)
+	if (camel_offline_store_get_online (store) == online)
 		return TRUE;
 
 	service = CAMEL_SERVICE (store);
@@ -204,13 +201,6 @@ camel_offline_store_set_online_sync (CamelOfflineStore *store,
 
 	store_is_online = camel_offline_store_get_online (store);
 
-	settings = camel_service_ref_settings (service);
-
-	sync_store = camel_offline_settings_get_stay_synchronized (
-		CAMEL_OFFLINE_SETTINGS (settings));
-
-	g_object_unref (settings);
-
 	/* Returning to online mode is the simpler case. */
 	if (!store_is_online) {
 		store->priv->online = online;
@@ -227,7 +217,7 @@ camel_offline_store_set_online_sync (CamelOfflineStore *store,
 		CamelSession *session;
 
 		session = camel_service_ref_session (service);
-		host_reachable = camel_session_get_online (session);
+		host_reachable = session && camel_session_get_online (session);
 		g_clear_object (&session);
 	}
 
@@ -240,19 +230,15 @@ camel_offline_store_set_online_sync (CamelOfflineStore *store,
 
 		for (ii = 0; ii < folders->len; ii++) {
 			CamelFolder *folder = folders->pdata[ii];
-			gboolean sync_folder;
+			CamelOfflineFolder *offline_folder;
 
 			if (!CAMEL_IS_OFFLINE_FOLDER (folder))
 				continue;
 
-			sync_folder =
-				camel_offline_folder_get_offline_sync (
-				CAMEL_OFFLINE_FOLDER (folder));
+			offline_folder = CAMEL_OFFLINE_FOLDER (folder);
 
-			if (sync_store || sync_folder)
-				camel_offline_folder_downsync_sync (
-					CAMEL_OFFLINE_FOLDER (folder),
-					NULL, cancellable, NULL);
+			if (camel_offline_folder_can_downsync (offline_folder))
+				camel_offline_folder_downsync_sync (offline_folder, NULL, cancellable, NULL);
 		}
 
 		g_ptr_array_foreach (folders, (GFunc) g_object_unref, NULL);
@@ -284,19 +270,14 @@ camel_offline_store_prepare_for_offline_sync (CamelOfflineStore *store,
                                               GCancellable *cancellable,
                                               GError **error)
 {
-	CamelService *service;
-	CamelSession *session;
-	CamelSettings *settings;
 	gboolean host_reachable = TRUE;
 	gboolean store_is_online;
-	gboolean sync_store;
 
 	g_return_val_if_fail (CAMEL_IS_OFFLINE_STORE (store), FALSE);
 
-	service = CAMEL_SERVICE (store);
-	session = camel_service_ref_session (service);
+	store_is_online = camel_offline_store_get_online (store);
 
-	if (CAMEL_IS_NETWORK_SERVICE (store)) {
+	if (store_is_online && CAMEL_IS_NETWORK_SERVICE (store)) {
 		/* Check with up-to-date value. The cached value is updated with
 		   few seconds timeout, thus it can be stale here. */
 		host_reachable =
@@ -304,17 +285,6 @@ camel_offline_store_prepare_for_offline_sync (CamelOfflineStore *store,
 			CAMEL_NETWORK_SERVICE (store),
 			cancellable, NULL);
 	}
-
-	store_is_online = camel_offline_store_get_online (store);
-
-	settings = camel_service_ref_settings (service);
-
-	sync_store = camel_offline_settings_get_stay_synchronized (
-		CAMEL_OFFLINE_SETTINGS (settings));
-
-	g_object_unref (settings);
-
-	g_object_unref (session);
 
 	if (host_reachable && store_is_online) {
 		GPtrArray *folders;
@@ -325,20 +295,15 @@ camel_offline_store_prepare_for_offline_sync (CamelOfflineStore *store,
 
 		for (ii = 0; ii < folders->len; ii++) {
 			CamelFolder *folder = folders->pdata[ii];
-			gboolean sync_folder;
+			CamelOfflineFolder *offline_folder;
 
 			if (!CAMEL_IS_OFFLINE_FOLDER (folder))
 				continue;
 
-			sync_folder =
-				camel_offline_folder_get_offline_sync (
-				CAMEL_OFFLINE_FOLDER (folder));
+			offline_folder = CAMEL_OFFLINE_FOLDER (folder);
 
-			if (sync_store || sync_folder) {
-				camel_offline_folder_downsync_sync (
-					CAMEL_OFFLINE_FOLDER (folder),
-					NULL, cancellable, NULL);
-			}
+			if (camel_offline_folder_can_downsync (offline_folder))
+				camel_offline_folder_downsync_sync (offline_folder, NULL, cancellable, NULL);
 		}
 
 		g_ptr_array_foreach (folders, (GFunc) g_object_unref, NULL);
@@ -367,15 +332,11 @@ camel_offline_store_prepare_for_offline_sync (CamelOfflineStore *store,
 gboolean
 camel_offline_store_requires_downsync (CamelOfflineStore *store)
 {
-	CamelService *service;
-	CamelSettings *settings;
 	gboolean host_reachable = TRUE;
 	gboolean store_is_online;
-	gboolean sync_store;
+	gboolean sync_any_folder = FALSE;
 
 	g_return_val_if_fail (CAMEL_IS_OFFLINE_STORE (store), FALSE);
-
-	service = CAMEL_SERVICE (store);
 
 	if (CAMEL_IS_NETWORK_SERVICE (store)) {
 		host_reachable =
@@ -388,42 +349,33 @@ camel_offline_store_requires_downsync (CamelOfflineStore *store)
 	if (!store_is_online)
 		return FALSE;
 
-	settings = camel_service_ref_settings (service);
-
-	sync_store = camel_offline_settings_get_stay_synchronized (
-		CAMEL_OFFLINE_SETTINGS (settings));
-
-	g_object_unref (settings);
-
 	if (host_reachable) {
 		CamelSession *session;
 
-		session = camel_service_ref_session (service);
-		host_reachable = camel_session_get_online (session);
+		session = camel_service_ref_session (CAMEL_SERVICE (store));
+		host_reachable = session && camel_session_get_online (session);
 		g_clear_object (&session);
 	}
 
-	if (host_reachable && !sync_store) {
+	if (host_reachable) {
 		GPtrArray *folders;
 		guint ii;
 
 		folders = camel_object_bag_list (
 			CAMEL_STORE (store)->folders);
 
-		for (ii = 0; ii < folders->len && !sync_store; ii++) {
+		for (ii = 0; ii < folders->len && !sync_any_folder; ii++) {
 			CamelFolder *folder = folders->pdata[ii];
 
 			if (!CAMEL_IS_OFFLINE_FOLDER (folder))
 				continue;
 
-			sync_store = sync_store ||
-				camel_offline_folder_get_offline_sync (
-				CAMEL_OFFLINE_FOLDER (folder));
+			sync_any_folder = camel_offline_folder_can_downsync (CAMEL_OFFLINE_FOLDER (folder));
 		}
 
 		g_ptr_array_foreach (folders, (GFunc) g_object_unref, NULL);
 		g_ptr_array_free (folders, TRUE);
 	}
 
-	return sync_store && host_reachable;
+	return sync_any_folder && host_reachable;
 }

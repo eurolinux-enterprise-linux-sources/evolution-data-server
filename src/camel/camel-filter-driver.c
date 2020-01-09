@@ -2,20 +2,20 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *           Jeffrey Stedfast <fejj@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -79,16 +79,16 @@ struct _CamelFilterDriverPrivate {
 
 	CamelFolder *defaultfolder;        /* defualt folder */
 
-	CamelFilterStatusFunc *statusfunc; /* status callback */
+	CamelFilterStatusFunc statusfunc; /* status callback */
 	gpointer statusdata;                  /* status callback data */
 
-	CamelFilterShellFunc *shellfunc;    /* execute shell command callback */
+	CamelFilterShellFunc shellfunc;    /* execute shell command callback */
 	gpointer shelldata;                    /* execute shell command callback data */
 
-	CamelFilterPlaySoundFunc *playfunc; /* play-sound command callback */
+	CamelFilterPlaySoundFunc playfunc; /* play-sound command callback */
 	gpointer playdata;                     /* play-sound command callback data */
 
-	CamelFilterSystemBeepFunc *beep;    /* system beep callback */
+	CamelFilterSystemBeepFunc beep;    /* system beep callback */
 	gpointer beepdata;                     /* system beep callback data */
 
 	/* for callback */
@@ -289,6 +289,7 @@ camel_filter_driver_init (CamelFilterDriver *filter_driver)
 
 /**
  * camel_filter_driver_new:
+ * @session: (type CamelSession):
  *
  * Returns: A new CamelFilterDriver object
  **/
@@ -303,13 +304,17 @@ camel_filter_driver_new (CamelSession *session)
 	return d;
 }
 
+/**
+ * camel_filter_driver_set_folder_func:
+ * @get_folder: (scope call):
+ **/
 void
 camel_filter_driver_set_folder_func (CamelFilterDriver *d,
                                      CamelFilterGetFolderFunc get_folder,
-                                     gpointer data)
+                                     gpointer user_data)
 {
 	d->priv->get_folder = get_folder;
-	d->priv->data = data;
+	d->priv->data = user_data;
 }
 
 void
@@ -319,40 +324,56 @@ camel_filter_driver_set_logfile (CamelFilterDriver *d,
 	d->priv->logfile = logfile;
 }
 
+/**
+ * camel_filter_driver_set_status_func:
+ * @func: (scope call):
+ **/
 void
 camel_filter_driver_set_status_func (CamelFilterDriver *d,
-                                     CamelFilterStatusFunc *func,
-                                     gpointer data)
+                                     CamelFilterStatusFunc func,
+                                     gpointer user_data)
 {
 	d->priv->statusfunc = func;
-	d->priv->statusdata = data;
+	d->priv->statusdata = user_data;
 }
 
+/**
+ * camel_filter_driver_set_shell_func:
+ * @func: (scope call):
+ **/
 void
 camel_filter_driver_set_shell_func (CamelFilterDriver *d,
-                                    CamelFilterShellFunc *func,
-                                    gpointer data)
+                                    CamelFilterShellFunc func,
+                                    gpointer user_data)
 {
 	d->priv->shellfunc = func;
-	d->priv->shelldata = data;
+	d->priv->shelldata = user_data;
 }
 
+/**
+ * camel_filter_driver_set_play_sound_func:
+ * @func: (scope call):
+ **/
 void
 camel_filter_driver_set_play_sound_func (CamelFilterDriver *d,
-                                         CamelFilterPlaySoundFunc *func,
-                                         gpointer data)
+                                         CamelFilterPlaySoundFunc func,
+                                         gpointer user_data)
 {
 	d->priv->playfunc = func;
-	d->priv->playdata = data;
+	d->priv->playdata = user_data;
 }
 
+/**
+ * camel_filter_driver_set_system_beep_func:
+ * @func: (scope call):
+ **/
 void
 camel_filter_driver_set_system_beep_func (CamelFilterDriver *d,
-                                          CamelFilterSystemBeepFunc *func,
-                                          gpointer data)
+                                          CamelFilterSystemBeepFunc func,
+                                          gpointer user_data)
 {
 	d->priv->beep = func;
-	d->priv->beepdata = data;
+	d->priv->beepdata = user_data;
 }
 
 void
@@ -765,7 +786,7 @@ do_adjust_score (struct _CamelSExp *f,
 		gchar *value;
 		gint old;
 
-		value = (gchar *) camel_message_info_user_tag (driver->priv->info, "score");
+		value = (gchar *) camel_message_info_get_user_tag (driver->priv->info, "score");
 		old = value ? atoi (value) : 0;
 		value = g_strdup_printf ("%d", old + argv[0]->value.number);
 		camel_message_info_set_user_tag (driver->priv->info, "score", value);
@@ -849,9 +870,9 @@ typedef struct {
 static void
 child_watch (GPid pid,
              gint status,
-             gpointer data)
+             gpointer user_data)
 {
-	child_watch_data_t *child_watch_data = data;
+	child_watch_data_t *child_watch_data = user_data;
 
 	g_spawn_close_pid (pid);
 
@@ -1223,8 +1244,8 @@ camel_filter_driver_log (CamelFilterDriver *driver,
 
 			/* FIXME: does this need locking?  Probably */
 
-			from = camel_message_info_from (driver->priv->info);
-			subject = camel_message_info_subject (driver->priv->info);
+			from = camel_message_info_get_from (driver->priv->info);
+			subject = camel_message_info_get_subject (driver->priv->info);
 
 			time (&t);
 			strftime (date, 49, "%a, %d %b %Y %H:%M:%S", localtime (&t));
@@ -1260,18 +1281,18 @@ struct _run_only_once {
 static gboolean
 run_only_once (gpointer key,
                gchar *action,
-               struct _run_only_once *data)
+               struct _run_only_once *user_data)
 {
-	CamelFilterDriver *driver = data->driver;
+	CamelFilterDriver *driver = user_data->driver;
 	CamelSExpResult *r;
 
 	d (printf ("evaluating: %s\n\n", action));
 
 	camel_sexp_input_text (driver->priv->eval, action, strlen (action));
 	if (camel_sexp_parse (driver->priv->eval) == -1) {
-		if (data->error == NULL)
+		if (user_data->error == NULL)
 			g_set_error (
-				&data->error,
+				&user_data->error,
 				CAMEL_ERROR, CAMEL_ERROR_GENERIC,
 				_("Error parsing filter: %s: %s"),
 				camel_sexp_error (driver->priv->eval), action);
@@ -1280,9 +1301,9 @@ run_only_once (gpointer key,
 
 	r = camel_sexp_eval (driver->priv->eval);
 	if (r == NULL) {
-		if (data->error == NULL)
+		if (user_data->error == NULL)
 			g_set_error (
-				&data->error,
+				&user_data->error,
 				CAMEL_ERROR, CAMEL_ERROR_GENERIC,
 				_("Error executing filter: %s: %s"),
 				camel_sexp_error (driver->priv->eval), action);
@@ -1488,8 +1509,8 @@ fail:
  * @driver: CamelFilterDriver
  * @folder: CamelFolder to be filtered
  * @cache: UID cache (needed for POP folders)
- * @uids: message uids to be filtered or NULL (as a shortcut to filter
- *        all messages)
+ * @uids: (element-type utf8): message uids to be filtered or NULL (as a
+ *        shortcut to filter all messages)
  * @remove: TRUE to mark filtered messages as deleted
  * @cancellable: optional #GCancellable object, or %NULL
  * @error: return location for a #GError, or %NULL
@@ -1602,6 +1623,7 @@ struct _get_message {
 
 static CamelMimeMessage *
 get_message_cb (gpointer data,
+		GCancellable *cancellable,
                 GError **error)
 {
 	struct _get_message *msgdata = data;
@@ -1615,11 +1637,10 @@ get_message_cb (gpointer data,
 		if (msgdata->priv->uid != NULL)
 			uid = msgdata->priv->uid;
 		else
-			uid = camel_message_info_uid (msgdata->priv->info);
+			uid = camel_message_info_get_uid (msgdata->priv->info);
 
-		/* FIXME Pass a GCancellable */
 		message = camel_folder_get_message_sync (
-			msgdata->priv->source, uid, NULL, error);
+			msgdata->priv->source, uid, cancellable, error);
 	}
 
 	if (message != NULL && camel_mime_message_get_source (message) == NULL)
@@ -1668,11 +1689,7 @@ camel_filter_driver_filter_message (CamelFilterDriver *driver,
 	GList *list, *link;
 	gint result;
 
-	/* FIXME: make me into a g_return_if_fail/g_assert or whatever... */
-	if (message == NULL && (source == NULL || uid == NULL)) {
-		g_warning ("there is no way to fetch the message using the information provided...");
-		return -1;
-	}
+	g_return_val_if_fail (message != NULL || (source != NULL && uid != NULL), -1);
 
 	if (info == NULL) {
 		struct _camel_header_raw *h;
@@ -1690,10 +1707,10 @@ camel_filter_driver_filter_message (CamelFilterDriver *driver,
 		info = camel_message_info_new_from_header (NULL, h);
 		freeinfo = TRUE;
 	} else {
-		if (camel_message_info_flags (info) & CAMEL_MESSAGE_DELETED)
+		if (camel_message_info_get_flags (info) & CAMEL_MESSAGE_DELETED)
 			return 0;
 
-		uid = camel_message_info_uid (info);
+		uid = camel_message_info_get_uid (info);
 
 		if (message)
 			g_object_ref (message);
@@ -1731,6 +1748,9 @@ camel_filter_driver_filter_message (CamelFilterDriver *driver,
 		if (driver->priv->terminated)
 			break;
 
+		if (g_cancellable_set_error_if_cancelled (cancellable, &driver->priv->error))
+			goto error;
+
 		d (printf ("applying rule %s\naction %s\n", rule->match, rule->action));
 
 		data.priv = p;
@@ -1741,7 +1761,7 @@ camel_filter_driver_filter_message (CamelFilterDriver *driver,
 
 		result = camel_filter_search_match (
 			driver->priv->session, get_message_cb, &data, driver->priv->info,
-			original_store_uid, rule->match, &driver->priv->error);
+			original_store_uid, source, rule->match, cancellable, &driver->priv->error);
 
 		switch (result) {
 		case CAMEL_SEARCH_ERROR:

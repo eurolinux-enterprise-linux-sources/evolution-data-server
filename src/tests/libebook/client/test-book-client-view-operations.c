@@ -1,4 +1,18 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*
+ * This program is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 #include <stdlib.h>
 #include <locale.h>
@@ -99,6 +113,7 @@ finish_thread_test (ThreadData *data)
 	g_thread_join (data->thread);
 	g_mutex_clear (&data->complete_mutex);
 	g_cond_clear (&data->complete_cond);
+	g_clear_object (&data->view);
 	g_slice_free (ThreadData, data);
 }
 
@@ -184,7 +199,7 @@ test_view_thread_async (ThreadData *data)
 	if (data->closure->type == E_TEST_SERVER_DIRECT_ADDRESS_BOOK) {
 		/* There is no Async API to open a direct book for now, let's stick with the sync API
 		 */
-		data->client = (EBookClient *) e_book_client_connect_direct_sync (registry, source, NULL, &error);
+		data->client = (EBookClient *) e_book_client_connect_direct_sync (registry, source, (guint32) -1, NULL, &error);
 
 		if (!data->client)
 			g_error ("Unable to create EBookClient for uid '%s': %s", data->book_uid, error->message);
@@ -194,7 +209,7 @@ test_view_thread_async (ThreadData *data)
 
 	} else {
 		/* Connect asynchronously */
-		e_book_client_connect (source, NULL, connect_ready, data);
+		e_book_client_connect (source, (guint32) -1, NULL, connect_ready, data);
 	}
 
 	g_main_loop_run (data->loop);
@@ -266,9 +281,9 @@ test_view_thread_sync (ThreadData *data)
 		g_error ("Unable to fetch source uid '%s' from the registry", data->book_uid);
 
 	if (data->closure->type == E_TEST_SERVER_DIRECT_ADDRESS_BOOK)
-		data->client = (EBookClient *) e_book_client_connect_direct_sync (registry, source, NULL, &error);
+		data->client = (EBookClient *) e_book_client_connect_direct_sync (registry, source, (guint32) -1, NULL, &error);
 	else
-		data->client = (EBookClient *) e_book_client_connect_sync (source, NULL, &error);
+		data->client = (EBookClient *) e_book_client_connect_sync (source, (guint32) -1, NULL, &error);
 
 	if (!data->client)
 		g_error ("Unable to create EBookClient for uid '%s': %s", data->book_uid, error->message);

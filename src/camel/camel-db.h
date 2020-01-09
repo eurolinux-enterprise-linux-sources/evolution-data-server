@@ -1,4 +1,21 @@
-/* Srinivasa Ragavan - <sragavan@novell.com> - GPL v2 or later */
+/*
+ * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Sankar P <psankar@novell.com>
+ *          Srinivasa Ragavan <sragavan@novell.com>
+ */
 
 #if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
 #error "Only <camel/camel.h> can be included directly."
@@ -49,7 +66,7 @@ typedef struct _CamelDBPrivate CamelDBPrivate;
  *
  * Since: 2.24
  **/
-typedef gint (*CamelDBCollate)(gpointer, gint, gconstpointer, gint, gconstpointer );
+typedef gint (*CamelDBCollate)(gpointer enc, gint length1, gconstpointer data1, gint length2, gconstpointer data2);
 
 /**
  * CamelDB:
@@ -277,7 +294,7 @@ gint camel_db_delete_uid (CamelDB *cdb, const gchar *folder, const gchar *uid, G
 gint camel_db_delete_uids (CamelDB *cdb, const gchar * folder_name, GList *uids, GError **error);
 
 gint camel_db_create_folders_table (CamelDB *cdb, GError **error);
-gint camel_db_select (CamelDB *cdb, const gchar * stmt, CamelDBSelectCB callback, gpointer data, GError **error);
+gint camel_db_select (CamelDB *cdb, const gchar * stmt, CamelDBSelectCB callback, gpointer user_data, GError **error);
 
 gint camel_db_write_folder_info_record (CamelDB *cdb, CamelFIRecord *record, GError **error);
 gint camel_db_read_folder_info_record (CamelDB *cdb, const gchar *folder_name, CamelFIRecord *record, GError **error);
@@ -286,8 +303,8 @@ gint camel_db_prepare_message_info_table (CamelDB *cdb, const gchar *folder_name
 
 gint camel_db_write_message_info_record (CamelDB *cdb, const gchar *folder_name, CamelMIRecord *record, GError **error);
 gint camel_db_write_fresh_message_info_record (CamelDB *cdb, const gchar *folder_name, CamelMIRecord *record, GError **error);
-gint camel_db_read_message_info_records (CamelDB *cdb, const gchar *folder_name, gpointer p, CamelDBSelectCB read_mir_callback, GError **error);
-gint camel_db_read_message_info_record_with_uid (CamelDB *cdb, const gchar *folder_name, const gchar *uid, gpointer p, CamelDBSelectCB read_mir_callback, GError **error);
+gint camel_db_read_message_info_records (CamelDB *cdb, const gchar *folder_name, gpointer user_data, CamelDBSelectCB read_mir_callback, GError **error);
+gint camel_db_read_message_info_record_with_uid (CamelDB *cdb, const gchar *folder_name, const gchar *uid, gpointer user_data, CamelDBSelectCB read_mir_callback, GError **error);
 
 gint camel_db_count_junk_message_info (CamelDB *cdb, const gchar *table_name, guint32 *count, GError **error);
 gint camel_db_count_unread_message_info (CamelDB *cdb, const gchar *table_name, guint32 *count, GError **error);
@@ -321,6 +338,8 @@ gint camel_db_write_preview_record (CamelDB *db, const gchar *folder_name, const
 
 gint
 camel_db_reset_folder_version (CamelDB *cdb, const gchar *folder_name, gint reset_version, GError **error);
+
+gboolean camel_db_maybe_run_maintenance (CamelDB *cdb, GError **error);
 
 G_END_DECLS
 

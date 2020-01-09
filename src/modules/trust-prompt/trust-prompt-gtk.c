@@ -1,17 +1,17 @@
 /*
  * trust-prompt-gtk.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -125,7 +125,6 @@ trust_prompt_show (EUserPrompterServerExtension *extension,
 	widget = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
 
 	gtk_window_set_icon_name (GTK_WINDOW (dialog), "evolution");
-	gtk_dialog_set_default_response (GTK_DIALOG (dialog), GTK_RESPONSE_YES);
 	gtk_container_set_border_width (GTK_CONTAINER (dialog), 5);
 
 	grid = g_object_new (
@@ -157,7 +156,7 @@ trust_prompt_show (EUserPrompterServerExtension *extension,
 		gchar *bhost;
 
 		bhost = g_strconcat ("<b>", host, "</b>", NULL);
-		tmp = g_strdup_printf (_("SSL certificate for '%s' is not trusted. Do you wish to accept it?"), bhost);
+		tmp = g_strdup_printf (_("SSL/TLS certificate for '%s' is not trusted. Do you wish to accept it?"), bhost);
 		g_free (bhost);
 
 		markup = tmp;

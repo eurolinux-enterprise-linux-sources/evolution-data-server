@@ -1,23 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-stream.c : abstract class for a stream */
-
-/*
- * Author:
- *  Bertrand Guiheneuf <bertrand@helixcode.com>
+/* camel-stream.c : abstract class for a stream
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
  */
 
 #include "camel-stream.h"
@@ -149,20 +147,25 @@ stream_write (CamelStream *stream,
               GError **error)
 {
 	GIOStream *base_stream;
-	gssize n_bytes_written = (gssize) n;
+	gssize n_bytes_written = -1;
 
 	base_stream = camel_stream_ref_base_stream (stream);
 
 	if (base_stream != NULL) {
 		GOutputStream *output_stream;
+		gsize n_written = 0;
 
 		output_stream = g_io_stream_get_output_stream (base_stream);
 		stream->eos = FALSE;
 
-		n_bytes_written = g_output_stream_write (
-			output_stream, buffer, n, cancellable, error);
+		if (g_output_stream_write_all (output_stream, buffer, n, &n_written, cancellable, error))
+			n_bytes_written = (gssize) n_written;
+		else
+			n_bytes_written = -1;
 
 		g_object_unref (base_stream);
+	} else {
+		g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_FAILED, _("Cannot write with no base stream"));
 	}
 
 	return n_bytes_written;
@@ -423,7 +426,7 @@ camel_stream_new (GIOStream *base_stream)
  * The returned #GIOStream is referenced for thread-safety and should be
  * unreferenced with g_object_unref() when finished with it.
  *
- * Returns: a #GIOStream, or %NULL
+ * Returns: (transfer full) (nullable): a #GIOStream, or %NULL
  *
  * Since: 3.12
  **/

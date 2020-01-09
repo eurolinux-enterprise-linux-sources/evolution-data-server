@@ -1,25 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-session.c : Abstract class for an email session */
-
-/*
- * Authors:
- *  Dan Winship <danw@ximian.com>
- *  Jeffrey Stedfast <fejj@ximian.com>
- *  Bertrand Guiheneuf <bertrand@helixcode.com>
+/* camel-session.c : Abstract class for an email session
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Dan Winship <danw@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
+ *          Bertrand Guiheneuf <bertrand@helixcode.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -72,6 +70,9 @@ struct _CamelSessionPrivate {
 
 	GMainContext *main_context;
 
+	GMutex property_lock;
+	GNetworkMonitor *network_monitor;
+
 	guint online : 1;
 };
 
@@ -96,12 +97,15 @@ struct _JobData {
 	CamelSessionCallback callback;
 	gpointer user_data;
 	GDestroyNotify notify;
+	GMainContext *main_context;
+	GError *error;
 };
 
 enum {
 	PROP_0,
 	PROP_JUNK_FILTER,
 	PROP_MAIN_CONTEXT,
+	PROP_NETWORK_MONITOR,
 	PROP_ONLINE,
 	PROP_USER_DATA_DIR,
 	PROP_USER_CACHE_DIR
@@ -152,8 +156,14 @@ signal_closure_free (SignalClosure *signal_closure)
 static void
 job_data_free (JobData *job_data)
 {
+	camel_operation_pop_message (job_data->cancellable);
+
 	g_object_unref (job_data->session);
 	g_object_unref (job_data->cancellable);
+	g_clear_error (&job_data->error);
+
+	if (job_data->main_context)
+		g_main_context_unref (job_data->main_context);
 
 	if (job_data->notify != NULL)
 		job_data->notify (job_data->user_data);
@@ -161,74 +171,65 @@ job_data_free (JobData *job_data)
 	g_slice_free (JobData, job_data);
 }
 
-static void
-session_finish_job_cb (GObject *source_object,
-                       GAsyncResult *result,
-                       gpointer unused)
+static gboolean
+session_finish_job_cb (gpointer user_data)
 {
-	GCancellable *cancellable;
-	GError *local_error = NULL;
+	JobData *job_data = (JobData *) user_data;
 
-	cancellable = g_task_get_cancellable (G_TASK (result));
-
-	/* XXX Ignore the return value, this is just
-	 *     to extract the GError if there is one. */
-	g_task_propagate_boolean (G_TASK (result), &local_error);
+	g_return_val_if_fail (job_data != NULL, FALSE);
 
 	g_signal_emit (
-		CAMEL_SESSION (source_object),
+		job_data->session,
 		signals[JOB_FINISHED], 0,
-		cancellable, local_error);
+		job_data->cancellable, job_data->error);
 
-	g_clear_error (&local_error);
+	return FALSE;
 }
 
 static void
-session_do_job_cb (GTask *task,
-                   gpointer source_object,
-                   gpointer task_data,
-                   GCancellable *cancellable)
+session_job_thread (gpointer data,
+		    gpointer user_data)
 {
-	JobData *job_data;
-	GError *local_error = NULL;
+	JobData *job_data = (JobData *) data;
+	GSource *source;
 
-	job_data = (JobData *) task_data;
+	g_return_if_fail (job_data != NULL);
 
 	job_data->callback (
-		CAMEL_SESSION (source_object),
-		cancellable,
+		job_data->session,
+		job_data->cancellable,
 		job_data->user_data,
-		&local_error);
+		&job_data->error);
 
-	if (local_error != NULL) {
-		g_task_return_error (task, local_error);
-	} else {
-		g_task_return_boolean (task, TRUE);
-	}
+	source = g_idle_source_new ();
+	g_source_set_priority (source, G_PRIORITY_DEFAULT);
+	g_source_set_callback (source, session_finish_job_cb, job_data, (GDestroyNotify) job_data_free);
+	g_source_attach (source, job_data->main_context);
+	g_source_unref (source);
 }
 
 static gboolean
 session_start_job_cb (gpointer user_data)
 {
+	static GThreadPool *job_pool = NULL;
+	static GMutex job_pool_mutex;
 	JobData *job_data = user_data;
-	GTask *task;
 
 	g_signal_emit (
 		job_data->session,
 		signals[JOB_STARTED], 0,
 		job_data->cancellable);
 
-	task = g_task_new (
-		job_data->session,
-		job_data->cancellable,
-		session_finish_job_cb, NULL);
+	g_mutex_lock (&job_pool_mutex);
 
-	g_task_set_task_data (
-		task, job_data, (GDestroyNotify) job_data_free);
+	if (!job_pool)
+		job_pool = g_thread_pool_new (session_job_thread, NULL, 20, FALSE, NULL);
 
-	g_task_run_in_thread (task, session_do_job_cb);
+	job_data->main_context = g_main_context_ref_thread_default ();
 
-	g_object_unref (task);
+	g_thread_pool_push (job_pool, job_data, NULL);
+
+	g_mutex_unlock (&job_pool_mutex);
 
 	return FALSE;
 }
@@ -287,6 +288,12 @@ session_set_property (GObject *object,
 				g_value_get_object (value));
 			return;
 
+		case PROP_NETWORK_MONITOR:
+			camel_session_set_network_monitor (
+				CAMEL_SESSION (object),
+				g_value_get_object (value));
+			return;
+
 		case PROP_ONLINE:
 			camel_session_set_online (
 				CAMEL_SESSION (object),
@@ -328,6 +335,12 @@ session_get_property (GObject *object,
 				CAMEL_SESSION (object)));
 			return;
 
+		case PROP_NETWORK_MONITOR:
+			g_value_take_object (
+				value, camel_session_ref_network_monitor (
+				CAMEL_SESSION (object)));
+			return;
+
 		case PROP_ONLINE:
 			g_value_set_boolean (
 				value, camel_session_get_online (
@@ -359,10 +372,8 @@ session_dispose (GObject *object)
 
 	g_hash_table_remove_all (priv->services);
 
-	if (priv->junk_filter != NULL) {
-		g_object_unref (priv->junk_filter);
-		priv->junk_filter = NULL;
-	}
+	g_clear_object (&priv->junk_filter);
+	g_clear_object (&priv->network_monitor);
 
 	/* Chain up to parent's dispose() method. */
 	G_OBJECT_CLASS (camel_session_parent_class)->dispose (object);
@@ -384,6 +395,7 @@ session_finalize (GObject *object)
 		g_main_context_unref (priv->main_context);
 
 	g_mutex_clear (&priv->services_lock);
+	g_mutex_clear (&priv->property_lock);
 
 	if (priv->junk_headers) {
 		g_hash_table_remove_all (priv->junk_headers);
@@ -632,6 +644,17 @@ camel_session_class_init (CamelSessionClass *class)
 
 	g_object_class_install_property (
 		object_class,
+		PROP_NETWORK_MONITOR,
+		g_param_spec_object (
+			"network-monitor",
+			"Network Monitor",
+			NULL,
+			G_TYPE_NETWORK_MONITOR,
+			G_PARAM_READWRITE |
+			G_PARAM_STATIC_STRINGS));
+
+	g_object_class_install_property (
+		object_class,
 		PROP_ONLINE,
 		g_param_spec_boolean (
 			"online",
@@ -723,6 +746,7 @@ camel_session_init (CamelSession *session)
 
 	session->priv->services = services;
 	g_mutex_init (&session->priv->services_lock);
+	g_mutex_init (&session->priv->property_lock);
 	session->priv->junk_headers = NULL;
 
 	session->priv->main_context = g_main_context_ref_thread_default ();
@@ -784,6 +808,74 @@ camel_session_get_user_cache_dir (CamelSession *session)
 }
 
 /**
+ * camel_session_set_network_monitor:
+ * @session: a #CamelSession
+ * @network_monitor: (nullable): a #GNetworkMonitor or %NULL
+ *
+ * Sets a network monitor instance for the @session. This can be used
+ * to override which #GNetworkMonitor should be used to check network
+ * availability and whether a server is reachable.
+ *
+ * Since: 3.22
+ **/
+void
+camel_session_set_network_monitor (CamelSession *session,
+				   GNetworkMonitor *network_monitor)
+{
+	gboolean changed = FALSE;
+
+	g_return_if_fail (CAMEL_IS_SESSION (session));
+	if (network_monitor)
+		g_return_if_fail (G_IS_NETWORK_MONITOR (network_monitor));
+
+	g_mutex_lock (&session->priv->property_lock);
+
+	if (network_monitor != session->priv->network_monitor) {
+		g_clear_object (&session->priv->network_monitor);
+		session->priv->network_monitor = network_monitor ? g_object_ref (network_monitor) : NULL;
+
+		changed = TRUE;
+	}
+
+	g_mutex_unlock (&session->priv->property_lock);
+
+	if (changed)
+		g_object_notify (G_OBJECT (session), "network-monitor");
+}
+
+/**
+ * camel_session_ref_network_monitor:
+ * @session: a #CamelSession
+ *
+ * References a #GNetworkMonitor instance, which had been previously set
+ * by camel_session_set_network_monitor(). If none is set, then the default
+ * #GNetworkMonitor is returned, as provided by g_network_monitor_get_default().
+ * The returned pointer is referenced for thread safety, unref it with
+ * g_object_unref() when no longer needed.
+ *
+ * Returns: (transfer full): A referenced #GNetworkMonitor instance to use
+ *   for network availability tests.
+ *
+ * Since:3.22
+ **/
+GNetworkMonitor *
+camel_session_ref_network_monitor (CamelSession *session)
+{
+	GNetworkMonitor *network_monitor;
+
+	g_return_val_if_fail (CAMEL_IS_SESSION (session), NULL);
+
+	g_mutex_lock (&session->priv->property_lock);
+
+	network_monitor = g_object_ref (session->priv->network_monitor ?
+		session->priv->network_monitor : g_network_monitor_get_default ());
+
+	g_mutex_unlock (&session->priv->property_lock);
+
+	return network_monitor;
+}
+
+/**
  * camel_session_add_service:
  * @session: a #CamelSession
  * @uid: a unique identifier string
@@ -807,7 +899,7 @@ camel_session_get_user_cache_dir (CamelSession *session)
  * The returned #CamelService is referenced for thread-safety and must be
  * unreferenced with g_object_unref() when finished with it.
  *
- * Returns: a #CamelService instance, or %NULL
+ * Returns: (transfer full): a #CamelService instance, or %NULL
  *
  * Since: 3.2
  **/
@@ -869,7 +961,7 @@ camel_session_remove_service (CamelSession *session,
  * The returned #CamelService is referenced for thread-safety and must be
  * unreferenced with g_object_unref() when finished with it.
  *
- * Returns: a #CamelService instance, or %NULL
+ * Returns: (transfer full): a #CamelService instance, or %NULL
  *
  * Since: 3.6
  **/
@@ -910,7 +1002,7 @@ camel_session_ref_service (CamelSession *session,
  *
  * Note this function is significantly slower than camel_session_ref_service().
  *
- * Returns: a #CamelService instance, or %NULL
+ * Returns: (transfer full): a #CamelService instance, or %NULL
  *
  * Since: 3.6
  **/
@@ -989,7 +1081,7 @@ camel_session_ref_service_by_url (CamelSession *session,
  *   g_list_free_full (list, g_object_unref);
  * ]|
  *
- * Returns: an unsorted list of #CamelService objects
+ * Returns: (element-type CamelService) (transfer full): an unsorted list of #CamelService objects
  *
  * Since: 3.2
  **/
@@ -1273,7 +1365,7 @@ camel_session_set_online (CamelSession *session,
  * @type: the type of filter (eg, "incoming")
  * @error: return location for a #GError, or %NULL
  *
- * Returns: a filter driver, loaded with applicable rules
+ * Returns:(transfer none): a filter driver, loaded with applicable rules
  **/
 CamelFilterDriver *
 camel_session_get_filter_driver (CamelSession *session,
@@ -1306,7 +1398,7 @@ camel_session_get_filter_driver (CamelSession *session,
  * must implement the interface and install a #CamelJunkFilter instance for
  * junk filtering to take place.
  *
- * Returns: a #CamelJunkFilter, or %NULL
+ * Returns: (transfer none): a #CamelJunkFilter, or %NULL
  *
  * Since: 3.2
  **/
@@ -1409,6 +1501,7 @@ camel_session_idle_add (CamelSession *session,
 /**
  * camel_session_submit_job:
  * @session: a #CamelSession
+ * @description: human readable description of the job, shown to a user
  * @callback: a #CamelSessionCallback
  * @user_data: user data passed to the callback
  * @notify: a #GDestroyNotify function
@@ -1435,6 +1528,7 @@ camel_session_idle_add (CamelSession *session,
  **/
 void
 camel_session_submit_job (CamelSession *session,
+			  const gchar *description,
                           CamelSessionCallback callback,
                           gpointer user_data,
                           GDestroyNotify notify)
@@ -1442,6 +1536,7 @@ camel_session_submit_job (CamelSession *session,
 	JobData *job_data;
 
 	g_return_if_fail (CAMEL_IS_SESSION (session));
+	g_return_if_fail (description != NULL);
 	g_return_if_fail (callback != NULL);
 
 	job_data = g_slice_new0 (JobData);
@@ -1450,6 +1545,10 @@ camel_session_submit_job (CamelSession *session,
 	job_data->callback = callback;
 	job_data->user_data = user_data;
 	job_data->notify = notify;
+	job_data->main_context = NULL;
+	job_data->error = NULL;
+
+	camel_operation_push_message (job_data->cancellable, "%s", description);
 
 	camel_session_idle_add (
 		session, JOB_PRIORITY,
@@ -1459,6 +1558,10 @@ camel_session_submit_job (CamelSession *session,
 
 /**
  * camel_session_set_junk_headers:
+ * @session: a #CamelSession
+ * @headers: (array length=len):
+ * @values: (array):
+ * @len: the length of the headers and values arrays
  *
  * Since: 2.22
  **/
@@ -1488,6 +1591,7 @@ camel_session_set_junk_headers (CamelSession *session,
  * camel_session_get_junk_headers:
  *
  * Since: 2.22
+ * Returns: (element-type utf8 utf8) (transfer none):
  **/
 const GHashTable *
 camel_session_get_junk_headers (CamelSession *session)
@@ -1501,7 +1605,7 @@ camel_session_get_junk_headers (CamelSession *session)
  * camel_session_authenticate_sync:
  * @session: a #CamelSession
  * @service: a #CamelService
- * @mechanism: a SASL mechanism name, or %NULL
+ * @mechanism: (nullable): a SASL mechanism name, or %NULL
  * @cancellable: optional #GCancellable object, or %NULL
  * @error: return location for a #GError, or %NULL
  *
@@ -1571,7 +1675,7 @@ session_authenticate_thread (GTask *task,
  * camel_session_authenticate:
  * @session: a #CamelSession
  * @service: a #CamelService
- * @mechanism: a SASL mechanism name, or %NULL
+ * @mechanism: (nullable): a SASL mechanism name, or %NULL
  * @io_priority: the I/O priority for the request
  * @cancellable: optional #GCancellable object, or %NULL
  * @callback: a #GAsyncReadyCallback to call when the request is satisfied

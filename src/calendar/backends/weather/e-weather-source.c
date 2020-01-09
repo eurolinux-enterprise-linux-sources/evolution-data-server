@@ -2,19 +2,19 @@
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: David Trowbridge <trowbrds@cs.colorado.edu>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: David Trowbridge <trowbrds@cs.colorado.edu>
  */
 
 #include "e-weather-source.h"
@@ -121,7 +121,7 @@ e_weather_source_new (const gchar *location)
 	if (location == NULL)
 		return NULL;
 
-	world = gweather_location_new_world (FALSE);
+	world = gweather_location_get_world ();
 
 	if (strncmp (location, "ccf/", 4) == 0)
 		location += 4;
@@ -144,7 +144,6 @@ e_weather_source_new (const gchar *location)
 	if (glocation != NULL)
 		gweather_location_ref (glocation);
 
-	gweather_location_unref (world);
 	g_strfreev (tokens);
 
 	if (glocation == NULL)

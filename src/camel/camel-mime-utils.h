@@ -2,20 +2,20 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *           Jeffrey Stedfast <fejj@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
@@ -27,6 +27,7 @@
 
 #include <time.h>
 #include <glib.h>
+#include <glib-object.h>
 #include <camel/camel-enums.h>
 
 /* maximum recommended size of a line from camel_header_fold() */
@@ -34,24 +35,21 @@
 /* maximum hard size of a line from camel_header_fold() */
 #define CAMEL_FOLD_MAX_SIZE (998)
 
-#define CAMEL_UUDECODE_STATE_INIT   (0)
-#define CAMEL_UUDECODE_STATE_BEGIN  (1 << 16)
-#define CAMEL_UUDECODE_STATE_END    (1 << 17)
+typedef enum {
+	CAMEL_UUDECODE_STATE_INIT = 0,
+	CAMEL_UUDECODE_STATE_BEGIN = (1 << 16),
+	CAMEL_UUDECODE_STATE_END = (1 << 17)
+} CamelUUDecodeState;
+
 #define CAMEL_UUDECODE_STATE_MASK   (CAMEL_UUDECODE_STATE_BEGIN | CAMEL_UUDECODE_STATE_END)
 
 G_BEGIN_DECLS
 
-/* a list of references for this message */
-struct _camel_header_references {
-	struct _camel_header_references *next;
-	gchar *id;
-};
-
-struct _camel_header_param {
+typedef struct _camel_header_param {
 	struct _camel_header_param *next;
 	gchar *name;
 	gchar *value;
-};
+} CamelHeaderParam;
 
 /* describes a content-type */
 typedef struct {
@@ -80,24 +78,18 @@ typedef enum _camel_header_address_t {
 	CAMEL_HEADER_ADDRESS_NONE,	/* uninitialised */
 	CAMEL_HEADER_ADDRESS_NAME,
 	CAMEL_HEADER_ADDRESS_GROUP
-} camel_header_address_t;
+} CamelHeaderAddressType;
 
-struct _camel_header_address {
+typedef struct _camel_header_address {
 	struct _camel_header_address *next;
-	camel_header_address_t type;
+	CamelHeaderAddressType type;
 	gchar *name;
 	union {
 		gchar *addr;
 		struct _camel_header_address *members;
 	} v;
 	guint refcount;
-};
-
-struct _camel_header_newsgroup {
-	struct _camel_header_newsgroup *next;
-
-	gchar *newsgroup;
-};
+} CamelHeaderAddress;
 
 /* Time utilities */
 time_t		camel_mktime_utc		(struct tm *tm);
@@ -106,25 +98,26 @@ void		camel_localtime_with_offset	(time_t tt,
 						 gint *offset);
 
 /* Address lists */
-struct _camel_header_address *camel_header_address_new (void);
-struct _camel_header_address *camel_header_address_new_name (const gchar *name, const gchar *addr);
-struct _camel_header_address *camel_header_address_new_group (const gchar *name);
-void camel_header_address_ref (struct _camel_header_address *addrlist);
-void camel_header_address_unref (struct _camel_header_address *addrlist);
-void camel_header_address_set_name (struct _camel_header_address *addrlist, const gchar *name);
-void camel_header_address_set_addr (struct _camel_header_address *addrlist, const gchar *addr);
-void camel_header_address_set_members (struct _camel_header_address *addrlist, struct _camel_header_address *group);
-void camel_header_address_add_member (struct _camel_header_address *addrlist, struct _camel_header_address *member);
-void camel_header_address_list_append_list (struct _camel_header_address **addrlistp, struct _camel_header_address **addrs);
-void camel_header_address_list_append (struct _camel_header_address **addrlistp, struct _camel_header_address *addr);
-void camel_header_address_list_clear (struct _camel_header_address **addrlistp);
+GType camel_header_address_get_type (void) G_GNUC_CONST;
+CamelHeaderAddress *camel_header_address_new (void);
+CamelHeaderAddress *camel_header_address_new_name (const gchar *name, const gchar *addr);
+CamelHeaderAddress *camel_header_address_new_group (const gchar *name);
+CamelHeaderAddress *camel_header_address_ref (CamelHeaderAddress *addrlist);
+void camel_header_address_unref (CamelHeaderAddress *addrlist);
+void camel_header_address_set_name (CamelHeaderAddress *addrlist, const gchar *name);
+void camel_header_address_set_addr (CamelHeaderAddress *addrlist, const gchar *addr);
+void camel_header_address_set_members (CamelHeaderAddress *addrlist, CamelHeaderAddress *group);
+void camel_header_address_add_member (CamelHeaderAddress *addrlist, CamelHeaderAddress *member);
+void camel_header_address_list_append_list (CamelHeaderAddress **addrlistp, CamelHeaderAddress **addrs);
+void camel_header_address_list_append (CamelHeaderAddress **addrlistp, CamelHeaderAddress *addr);
+void camel_header_address_list_clear (CamelHeaderAddress **addrlistp);
 
-struct _camel_header_address *camel_header_address_decode (const gchar *in, const gchar *charset);
-struct _camel_header_address *camel_header_mailbox_decode (const gchar *in, const gchar *charset);
+CamelHeaderAddress *camel_header_address_decode (const gchar *in, const gchar *charset);
+CamelHeaderAddress *camel_header_mailbox_decode (const gchar *in, const gchar *charset);
 /* for mailing */
-gchar *camel_header_address_list_encode (struct _camel_header_address *addrlist);
+gchar *camel_header_address_list_encode (CamelHeaderAddress *addrlist);
 /* for display */
-gchar *camel_header_address_list_format (struct _camel_header_address *addrlist);
+gchar *camel_header_address_list_format (CamelHeaderAddress *addrlist);
 
 /* structured header prameters */
 struct _camel_header_param *camel_header_param_list_decode (const gchar *in);
@@ -135,10 +128,11 @@ gchar *camel_header_param_list_format (struct _camel_header_param *params);
 void camel_header_param_list_free (struct _camel_header_param *params);
 
 /* Content-Type header */
+GType camel_content_type_get_type (void) G_GNUC_CONST;
 CamelContentType *camel_content_type_new (const gchar *type, const gchar *subtype);
 CamelContentType *camel_content_type_decode (const gchar *in);
 void camel_content_type_unref (CamelContentType *content_type);
-void camel_content_type_ref (CamelContentType *content_type);
+CamelContentType *camel_content_type_ref (CamelContentType *content_type);
 const gchar *camel_content_type_param (CamelContentType *content_type, const gchar *name);
 void camel_content_type_set_param (CamelContentType *content_type, const gchar *name, const gchar *value);
 gint camel_content_type_is (CamelContentType *content_type, const gchar *type, const gchar *subtype);
@@ -149,8 +143,9 @@ gchar *camel_content_type_simple (CamelContentType *content_type);
 void camel_content_type_dump (CamelContentType *content_type);
 
 /* Content-Disposition header */
+GType camel_content_disposition_get_type (void) G_GNUC_CONST;
 CamelContentDisposition *camel_content_disposition_decode (const gchar *in);
-void camel_content_disposition_ref (CamelContentDisposition *disposition);
+CamelContentDisposition *camel_content_disposition_ref (CamelContentDisposition *disposition);
 void camel_content_disposition_unref (CamelContentDisposition *disposition);
 gchar *camel_content_disposition_format (CamelContentDisposition *disposition);
 
@@ -201,22 +196,16 @@ gchar *camel_header_msgid_decode (const gchar *in);
 gchar *camel_header_contentid_decode (const gchar *in);
 
 /* generate msg id */
-gchar *camel_header_msgid_generate (void);
+gchar *camel_header_msgid_generate (const gchar *domain);
 
 /* decode a References or In-Reply-To header */
-struct _camel_header_references *camel_header_references_inreplyto_decode (const gchar *in);
-struct _camel_header_references *camel_header_references_decode (const gchar *in);
-void camel_header_references_list_clear (struct _camel_header_references **list);
-void camel_header_references_list_append_asis (struct _camel_header_references **list, gchar *ref);
-gint camel_header_references_list_size (struct _camel_header_references **list);
-struct _camel_header_references *camel_header_references_dup (const struct _camel_header_references *list);
+GSList *camel_header_references_decode (const gchar *in);
 
 /* decode content-location */
 gchar *camel_header_location_decode (const gchar *in);
 
 /* nntp stuff */
-struct _camel_header_newsgroup *camel_header_newsgroups_decode (const gchar *in);
-void camel_header_newsgroups_free (struct _camel_header_newsgroup *ng);
+GSList *camel_header_newsgroups_decode (const gchar *in);
 
 const gchar *camel_transfer_encoding_to_string (CamelTransferEncoding encoding);
 CamelTransferEncoding camel_transfer_encoding_from_string (const gchar *string);

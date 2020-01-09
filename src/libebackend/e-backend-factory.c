@@ -1,17 +1,17 @@
 /*
  * e-backend-factory.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -36,6 +36,8 @@
 #include "e-backend-factory.h"
 
 #include <config.h>
+
+#include <libedataserver/libedataserver.h>
 
 #include <libebackend/e-data-factory.h>
 
@@ -106,4 +108,52 @@ e_backend_factory_new_backend (EBackendFactory *factory,
 	g_return_val_if_fail (class->new_backend != NULL, NULL);
 
 	return class->new_backend (factory, source);
+}
+
+/**
+ * e_backend_factory_get_module_filename:
+ * @factory: an #EBackendFactory
+ *
+ * Returns the filename of the shared library for the module used
+ * to load the backends provided by @factory.
+ *
+ * Returns: the filename for the module associated to the @factory
+ *
+ * Since: 3.16
+ **/
+const gchar *
+e_backend_factory_get_module_filename (EBackendFactory *factory)
+{
+	EBackendFactoryClass *class;
+
+	g_return_val_if_fail (E_IS_BACKEND_FACTORY (factory), NULL);
+
+	class = E_BACKEND_FACTORY_GET_CLASS (factory);
+	g_return_val_if_fail (class->e_module != NULL, NULL);
+
+	return e_module_get_filename (class->e_module);
+}
+
+/**
+ * e_backend_factory_share_subprocess:
+ * @factory: an #EBackendFactory
+ *
+ * Returns TRUE if the @factory wants to share the subprocess
+ * for all backends provided by itself. Otherwise, returns FALSE.
+ *
+ * Returns: TRUE if the @factory shares the subprocess for all its
+ *          backends. Otherwise, FALSE.
+ *
+ * Since: 3.16
+ **/
+gboolean
+e_backend_factory_share_subprocess (EBackendFactory *factory)
+{
+	EBackendFactoryClass *class;
+
+	g_return_val_if_fail (E_IS_BACKEND_FACTORY (factory), FALSE);
+
+	class = E_BACKEND_FACTORY_GET_CLASS (factory);
+
+	return class->share_subprocess;
 }

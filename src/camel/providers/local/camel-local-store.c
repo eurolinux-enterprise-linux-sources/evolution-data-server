@@ -1,20 +1,20 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
- *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -58,7 +58,6 @@ xrename (const gchar *oldp,
          gint missingok,
          GError **error)
 {
-	struct stat st;
 	gchar *old, *new;
 	gchar *basename;
 	gint ret = -1;
@@ -74,19 +73,12 @@ xrename (const gchar *oldp,
 
 	d (printf ("renaming %s%s to %s%s\n", oldp, suffix, newp, suffix));
 
-	if (g_stat (old, &st) == -1) {
-		if (missingok && errno == ENOENT) {
-			ret = 0;
-		} else {
-			err = errno;
-			ret = -1;
-		}
-	} else if ((!g_file_test (new, G_FILE_TEST_EXISTS) || g_remove (new) == 0) &&
-		   g_rename (old, new) == 0) {
-		ret = 0;
-	} else {
+	if (g_rename (old, new) == -1 &&
+	    !(errno == ENOENT && missingok)) {
 		err = errno;
 		ret = -1;
+	} else {
+		ret = 0;
 	}
 
 	if (ret == -1) {

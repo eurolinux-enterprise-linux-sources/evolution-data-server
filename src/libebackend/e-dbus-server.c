@@ -1,17 +1,17 @@
 /*
  * e-dbus-server.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -31,8 +31,6 @@
 
 #include <libedataserver/libedataserver.h>
 
-#include <libebackend/e-module.h>
-#include <libebackend/e-extensible.h>
 #include <libebackend/e-backend-enumtypes.h>
 
 #define E_DBUS_SERVER_GET_PRIVATE(obj) \
@@ -51,6 +49,10 @@ struct _EDBusServerPrivate {
 	guint use_count;
 	gboolean wait_for_client;
 	EDBusServerExitCode exit_code;
+
+	GMutex property_lock;
+
+	GFileMonitor *directory_monitor;
 };
 
 enum {
@@ -64,8 +66,8 @@ enum {
 
 static guint signals[LAST_SIGNAL];
 
-static GHashTable *directories_loaded;
-G_LOCK_DEFINE_STATIC (directories_loaded);
+static GHashTable *loaded_modules;
+G_LOCK_DEFINE_STATIC (loaded_modules);
 
 G_DEFINE_ABSTRACT_TYPE_WITH_CODE (
 	EDBusServer, e_dbus_server, G_TYPE_OBJECT,
@@ -150,8 +152,21 @@ dbus_server_finalize (GObject *object)
 	if (priv->inactivity_timeout_id > 0)
 		g_source_remove (priv->inactivity_timeout_id);
 
+	g_mutex_clear (&priv->property_lock);
+
 	/* Chain up to parent's finalize() method. */
 	G_OBJECT_CLASS (e_dbus_server_parent_class)->finalize (object);
+}
+
+static void
+dbus_server_dispose (GObject *object)
+{
+	EDBusServer *server = E_DBUS_SERVER (object);
+
+	g_clear_object (&server->priv->directory_monitor);
+
+	/* Chain up to parent's method. */
+	G_OBJECT_CLASS (e_dbus_server_parent_class)->dispose (object);
 }
 
 static void
@@ -239,8 +254,10 @@ dbus_server_quit_server (EDBusServer *server,
 	/* If we're reloading, voluntarily relinquish our bus
 	 * name to avoid triggering a "bus-name-lost" signal. */
 	if (code == E_DBUS_SERVER_EXIT_RELOAD) {
-		g_bus_unown_name (server->priv->bus_owner_id);
-		server->priv->bus_owner_id = 0;
+		if (server->priv->bus_owner_id) {
+			g_bus_unown_name (server->priv->bus_owner_id);
+			server->priv->bus_owner_id = 0;
+		}
 	}
 
 	server->priv->exit_code = code;
@@ -271,6 +288,7 @@ e_dbus_server_class_init (EDBusServerClass *class)
 
 	object_class = G_OBJECT_CLASS (class);
 	object_class->finalize = dbus_server_finalize;
+	object_class->dispose = dbus_server_dispose;
 	object_class->constructed = dbus_server_constructed;
 
 	class->bus_acquired = dbus_server_bus_acquired;
@@ -373,6 +391,8 @@ e_dbus_server_init (EDBusServer *server)
 	server->priv->main_loop = g_main_loop_new (NULL, FALSE);
 	server->priv->wait_for_client = FALSE;
 
+	g_mutex_init (&server->priv->property_lock);
+
 #ifdef G_OS_UNIX
 	server->priv->hang_up_id = g_unix_signal_add (
 		SIGHUP, dbus_server_hang_up_cb, server);
@@ -458,12 +478,16 @@ e_dbus_server_hold (EDBusServer *server)
 {
 	g_return_if_fail (E_IS_DBUS_SERVER (server));
 
+	g_mutex_lock (&server->priv->property_lock);
+
 	if (server->priv->inactivity_timeout_id > 0) {
 		g_source_remove (server->priv->inactivity_timeout_id);
 		server->priv->inactivity_timeout_id = 0;
 	}
 
 	server->priv->use_count++;
+
+	g_mutex_unlock (&server->priv->property_lock);
 }
 
 /**
@@ -485,6 +509,8 @@ e_dbus_server_release (EDBusServer *server)
 	g_return_if_fail (E_IS_DBUS_SERVER (server));
 	g_return_if_fail (server->priv->use_count > 0);
 
+	g_mutex_lock (&server->priv->property_lock);
+
 	server->priv->use_count--;
 
 	if (server->priv->use_count == 0) {
@@ -493,6 +519,71 @@ e_dbus_server_release (EDBusServer *server)
 				INACTIVITY_TIMEOUT, (GSourceFunc)
 				dbus_server_inactivity_timeout_cb,
 				server);
+	}
+
+	g_mutex_unlock (&server->priv->property_lock);
+}
+
+static void
+dbus_server_module_directory_changed_cb (GFileMonitor *monitor,
+					 GFile *file,
+					 GFile *other_file,
+					 GFileMonitorEvent event_type,
+					 gpointer user_data)
+{
+	EDBusServer *server;
+
+	g_return_if_fail (E_IS_DBUS_SERVER (user_data));
+
+	server = E_DBUS_SERVER (user_data);
+
+	if (event_type == G_FILE_MONITOR_EVENT_CREATED ||
+	    event_type == G_FILE_MONITOR_EVENT_DELETED ||
+	    event_type == G_FILE_MONITOR_EVENT_MOVED_IN ||
+	    event_type == G_FILE_MONITOR_EVENT_MOVED_OUT ||
+	    event_type == G_FILE_MONITOR_EVENT_RENAMED) {
+		gchar *filename;
+
+		filename = g_file_get_path (file);
+
+		if (event_type == G_FILE_MONITOR_EVENT_RENAMED && other_file) {
+			G_LOCK (loaded_modules);
+			if (!g_hash_table_contains (loaded_modules, filename)) {
+				g_free (filename);
+				filename = g_file_get_path (other_file);
+				event_type = G_FILE_MONITOR_EVENT_CREATED;
+			}
+			G_UNLOCK (loaded_modules);
+		}
+
+		if (filename && g_str_has_suffix (filename, "." G_MODULE_SUFFIX)) {
+			gboolean any_loaded = FALSE;
+
+			if (event_type == G_FILE_MONITOR_EVENT_CREATED ||
+			    event_type == G_FILE_MONITOR_EVENT_MOVED_IN) {
+				G_LOCK (loaded_modules);
+
+				if (!g_hash_table_contains (loaded_modules, filename)) {
+					EModule *module;
+
+					g_hash_table_add (loaded_modules, g_strdup (filename));
+
+					module = e_module_load_file (filename);
+					if (module) {
+						any_loaded = TRUE;
+
+						g_type_module_unuse ((GTypeModule *) module);
+					}
+				}
+
+				G_UNLOCK (loaded_modules);
+			}
+
+			if (any_loaded)
+				e_dbus_server_quit (server, E_DBUS_SERVER_EXIT_RELOAD);
+		}
+
+		g_free (filename);
 	}
 }
 
@@ -510,8 +601,7 @@ e_dbus_server_load_modules (EDBusServer *server)
 {
 	EDBusServerClass *class;
 	gboolean already_loaded;
-	const gchar *directory;
-	GList *list;
+	GList *list, *link;
 
 	g_return_if_fail (E_IS_DBUS_SERVER (server));
 
@@ -519,17 +609,43 @@ e_dbus_server_load_modules (EDBusServer *server)
 	g_return_if_fail (class->module_directory != NULL);
 
 	/* This ensures a module directory is only loaded once. */
-	G_LOCK (directories_loaded);
-	if (directories_loaded == NULL)
-		directories_loaded = g_hash_table_new (NULL, NULL);
-	directory = g_intern_string (class->module_directory);
-	already_loaded = g_hash_table_contains (directories_loaded, directory);
-	g_hash_table_add (directories_loaded, (gpointer) directory);
-	G_UNLOCK (directories_loaded);
+	G_LOCK (loaded_modules);
+	if (loaded_modules == NULL)
+		loaded_modules = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+	already_loaded = g_hash_table_contains (loaded_modules, class->module_directory);
+	if (!already_loaded)
+		g_hash_table_add (loaded_modules, g_strdup (class->module_directory));
+	G_UNLOCK (loaded_modules);
+
+	if (!server->priv->directory_monitor) {
+		GFile *dir_file;
+
+		dir_file = g_file_new_for_path (class->module_directory);
+		server->priv->directory_monitor = g_file_monitor_directory (dir_file, G_FILE_MONITOR_WATCH_MOVES, NULL, NULL);
+		g_clear_object (&dir_file);
+
+		if (server->priv->directory_monitor) {
+			g_signal_connect (server->priv->directory_monitor, "changed",
+				G_CALLBACK (dbus_server_module_directory_changed_cb), server);
+		}
+	}
 
 	if (already_loaded)
 		return;
 
+	G_LOCK (loaded_modules);
+
 	list = e_module_load_all_in_directory (class->module_directory);
+	for (link = list; link; link = g_list_next (link)) {
+		EModule *module = link->data;
+
+		if (!module || !e_module_get_filename (module))
+			continue;
+
+		g_hash_table_add (loaded_modules, g_strdup (e_module_get_filename (module)));
+	}
+
+	G_UNLOCK (loaded_modules);
+
 	g_list_free_full (list, (GDestroyNotify) g_type_module_unuse);
 }

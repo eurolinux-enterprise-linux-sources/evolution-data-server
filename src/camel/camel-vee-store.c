@@ -1,19 +1,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -149,14 +149,26 @@ vee_store_get_property (GObject *object,
 }
 
 static void
+vee_store_dispose (GObject *object)
+{
+	CamelVeeStorePrivate *priv;
+
+	priv = CAMEL_VEE_STORE_GET_PRIVATE (object);
+
+	g_clear_object (&priv->vee_data_cache);
+	g_clear_object (&priv->unmatched_folder);
+
+	/* Chain up to parent's method. */
+	G_OBJECT_CLASS (camel_vee_store_parent_class)->dispose (object);
+}
+
+static void
 vee_store_finalize (GObject *object)
 {
 	CamelVeeStorePrivate *priv;
 
 	priv = CAMEL_VEE_STORE_GET_PRIVATE (object);
 
-	g_object_unref (priv->unmatched_folder);
-	g_object_unref (priv->vee_data_cache);
 	g_hash_table_destroy (priv->subfolder_usage_counts);
 	g_hash_table_destroy (priv->vuid_usage_counts);
 	g_mutex_clear (&priv->sf_counts_mutex);
@@ -510,6 +522,7 @@ camel_vee_store_class_init (CamelVeeStoreClass *class)
 	object_class = G_OBJECT_CLASS (class);
 	object_class->set_property = vee_store_set_property;
 	object_class->get_property = vee_store_get_property;
+	object_class->dispose = vee_store_dispose;
 	object_class->finalize = vee_store_finalize;
 	object_class->constructed = vee_store_constructed;
 
@@ -566,6 +579,8 @@ camel_vee_store_new (void)
  *
  * FIXME Document me!
  *
+ * Returns: (transfer none):
+ *
  * Since: 3.6
  **/
 CamelVeeDataCache *
@@ -580,6 +595,8 @@ camel_vee_store_get_vee_data_cache (CamelVeeStore *vstore)
  * camel_vee_store_get_unmatched_folder:
  *
  * FIXME Document me!
+ *
+ * Returns: (transfer none):
  *
  * Since: 3.6
  **/
@@ -1021,13 +1038,15 @@ camel_vee_store_rebuild_unmatched_folder (CamelVeeStore *vstore,
 		service = CAMEL_SERVICE (vstore);
 		session = camel_service_ref_session (service);
 
-		camel_session_submit_job (
-			session, (CamelSessionCallback)
-			vee_store_rebuild_unmatched_folder,
-			g_object_ref (vstore),
-			g_object_unref);
+		if (session) {
+			camel_session_submit_job (
+				session, _("Updating Unmatched search folder"), (CamelSessionCallback)
+				vee_store_rebuild_unmatched_folder,
+				g_object_ref (vstore),
+				g_object_unref);
 
-		g_object_unref (session);
+			g_object_unref (session);
+		}
 	} else {
 		vee_store_rebuild_unmatched_folder (NULL, cancellable, vstore, error);
 	}

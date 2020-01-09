@@ -2,17 +2,17 @@
 /*
  * Copyright (C) 2013 Intel Corporation
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
- * This library is distributed in the hope that it will be useful, but
+ * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  * Authors: Tristan Van Berkom <tristanvb@openismus.com>
  */
@@ -130,7 +130,7 @@ source_added (ESourceRegistry *registry,
 
 	/* Open the address book */
 #if EDS_CHECK_VERSION(3,8,0)
-	added_data->book = (EBookClient *) e_book_client_connect_sync (source, NULL, &error);
+	added_data->book = (EBookClient *) e_book_client_connect_sync (source, (guint32) -1, NULL, &error);
 #else
 	/* With 3.6 it's a bit more tricky */
 	added_data->book = e_book_client_new (source, &error);
@@ -197,7 +197,7 @@ create_book (const gchar *book_id)
 		g_main_loop_run (data.loop);
 
 		/* By now we aborted or we have an addressbook created */
-		g_assert (data.book != NULL);
+		g_warn_if_fail (data.book != NULL);
 	}
 
 	g_main_loop_unref (data.loop);

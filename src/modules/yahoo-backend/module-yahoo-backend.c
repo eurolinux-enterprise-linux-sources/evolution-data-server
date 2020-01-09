@@ -1,17 +1,17 @@
 /*
  * module-yahoo-backend.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -142,7 +142,7 @@ yahoo_backend_config_calendar_child (ECollectionBackend *backend,
 		E_SOURCE_AUTHENTICATION (extension),
 		YAHOO_CALENDAR_HOST);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		collection_extension, "identity",
 		extension, "user",
 		G_BINDING_SYNC_CREATE);
@@ -282,6 +282,10 @@ yahoo_backend_child_added (ECollectionBackend *backend,
 	const gchar *extension_name;
 	gboolean is_mail = FALSE;
 
+	/* Chain up to parent's child_added() method. */
+	E_COLLECTION_BACKEND_CLASS (e_yahoo_backend_parent_class)->
+		child_added (backend, child_source);
+
 	yahoo_backend = E_YAHOO_BACKEND (backend);
 	collection_source = e_backend_get_source (E_BACKEND (backend));
 
@@ -330,10 +334,6 @@ yahoo_backend_child_added (ECollectionBackend *backend,
 				auth_child_extension,
 				collection_identity);
 	}
-
-	/* Chain up to parent's child_added() method. */
-	E_COLLECTION_BACKEND_CLASS (e_yahoo_backend_parent_class)->
-		child_added (backend, child_source);
 }
 
 static void

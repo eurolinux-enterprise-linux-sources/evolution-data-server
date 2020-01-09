@@ -1,21 +1,21 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
- * camel-multipart.c : Abstract class for a multipart
- *
- * Authors: Michael Zucchi <notzed@ximian.com>
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* camel-multipart.c : Abstract class for a multipart
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -674,7 +674,7 @@ multipart_signed_construct_from_parser (CamelMultipart *multipart,
 
 	/* we *must not* be in multipart state, otherwise the mime parser will
 	 * parse the headers which is a no no @#$@# stupid multipart/signed spec */
-	g_assert (camel_mime_parser_state (mp) == CAMEL_MIME_PARSER_STATE_HEADER);
+	g_return_val_if_fail (camel_mime_parser_state (mp) == CAMEL_MIME_PARSER_STATE_HEADER, -1);
 
 	/* All we do is copy it to a memstream */
 	content_type = camel_mime_parser_content_type (mp);
@@ -782,7 +782,7 @@ camel_multipart_signed_new (void)
  * Get the raw signed content stream of the multipart/signed MIME part
  * suitable for use with verification of the signature.
  *
- * Returns: the signed content stream
+ * Returns: (transfer full): the signed content stream
  **/
 CamelStream *
 camel_multipart_signed_get_content_stream (CamelMultipartSigned *mps,

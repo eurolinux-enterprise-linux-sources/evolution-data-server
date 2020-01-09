@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelPOP3Store</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelPOP3Store: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="POP.html" title="POP3 Service">
 <link rel="prev" href="CamelPOP3Settings.html" title="CamelPOP3Settings">
 <link rel="next" href="CamelPOP3Stream.html" title="CamelPOP3Stream">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -16,8 +16,7 @@
 <td width="100%" align="left" class="shortcuts">
 <a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
                   <a href="#CamelPOP3Store.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
-                  <a href="#CamelPOP3Store.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
-                  <a href="#CamelPOP3Store.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+                  <a href="#CamelPOP3Store.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
 </td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
 <td><a accesskey="u" href="POP.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
@@ -35,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelPOP3Store.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -59,7 +58,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelPOP3Store.html#camel-pop3-store-expunge" title="camel_pop3_store_expunge ()">camel_pop3_store_expunge</a> <span class="c_punctuation">()</span>
@@ -83,7 +82,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelPOP3Store.html#camel-pop3-store-cache-has" title="camel_pop3_store_cache_has ()">camel_pop3_store_cache_has</a> <span class="c_punctuation">()</span>
@@ -93,32 +92,13 @@
 </table></div>
 </div>
 <div class="refsect1">
-<a name="CamelPOP3Store.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody><tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelPOP3Store.html#CamelPOP3Store-struct" title="struct CamelPOP3Store">CamelPOP3Store</a></td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect1">
 <a name="CamelPOP3Store.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelObject.html" title="CamelObject">CamelObject</a>
         <span class="lineart">╰──</span> <a class="link" href="CamelService.html" title="CamelService">CamelService</a>
             <span class="lineart">╰──</span> <a class="link" href="CamelStore.html" title="CamelStore">CamelStore</a>
                 <span class="lineart">╰──</span> CamelPOP3Store
 </pre>
-</div>
-<div class="refsect1">
-<a name="CamelPOP3Store.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
-<p>
-CamelPOP3Store implements
- <a href="https://developer.gnome.org/gio/unstable/GInitable.html">GInitable</a> and  <a class="link" href="CamelNetworkService.html" title="CamelNetworkService">CamelNetworkService</a>.</p>
 </div>
 <div class="refsect1">
 <a name="CamelPOP3Store.description"></a><h2>Description</h2>
@@ -132,10 +112,10 @@ camel_pop3_store_ref_cache (<em class="parameter"><code><a class="link" href="Ca
 <p>Returns the <a class="link" href="CamelDataCache.html" title="CamelDataCache"><span class="type">CamelDataCache</span></a> for <em class="parameter"><code>store</code></em>
 .</p>
 <p>The returned <a class="link" href="CamelDataCache.html" title="CamelDataCache"><span class="type">CamelDataCache</span></a> is referenced for thread-safety and must be
-unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.2.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-pop3-store-ref-cache.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -149,9 +129,8 @@ unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.2.7"></a><h4>Returns</h4>
+<a name="camel-pop3-store-ref-cache.returns"></a><h4>Returns</h4>
 <p> a <a class="link" href="CamelDataCache.html" title="CamelDataCache"><span class="type">CamelDataCache</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -162,10 +141,10 @@ camel_pop3_store_ref_engine (<em class="parameter"><code><a class="link" href="C
 <p>Returns the <a class="link" href="CamelPOP3Engine.html" title="CamelPOP3Engine"><span class="type">CamelPOP3Engine</span></a> for <em class="parameter"><code>store</code></em>
 .</p>
 <p>The returned <a class="link" href="CamelPOP3Engine.html" title="CamelPOP3Engine"><span class="type">CamelPOP3Engine</span></a> is referenced for thread-safety and must be
-unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.3.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-pop3-store-ref-engine.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -179,24 +158,23 @@ unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.3.7"></a><h4>Returns</h4>
+<a name="camel-pop3-store-ref-engine.returns"></a><h4>Returns</h4>
 <p> a <a class="link" href="CamelPOP3Store.html" title="CamelPOP3Store"><span class="type">CamelPOP3Store</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-pop3-store-expunge"></a><h3>camel_pop3_store_expunge ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_pop3_store_expunge (<em class="parameter"><code><a class="link" href="CamelPOP3Store.html" title="CamelPOP3Store"><span class="type">CamelPOP3Store</span></a> *store</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Expunge messages from the store. This will result in the connection
 being closed, which may cause later commands to fail if they can't
 reconnect.</p>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.4.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-pop3-store-expunge.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -210,12 +188,12 @@ reconnect.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
@@ -227,19 +205,19 @@ reconnect.</p>
 <a name="camel-pop3-store-cache-add"></a><h3>camel_pop3_store_cache_add ()</h3>
 <pre class="programlisting"><a class="link" href="CamelStream.html" title="CamelStream"><span class="returnvalue">CamelStream</span></a> *
 camel_pop3_store_cache_add (<em class="parameter"><code><a class="link" href="CamelPOP3Store.html" title="CamelPOP3Store"><span class="type">CamelPOP3Store</span></a> *store</code></em>,
-                            <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Creates a cache file for <em class="parameter"><code>uid</code></em>
  in <em class="parameter"><code>store</code></em>
  and returns a <a class="link" href="CamelStream.html" title="CamelStream"><span class="type">CamelStream</span></a> for it.
 If an error occurs in opening the cache file, the function sets <em class="parameter"><code>error</code></em>
  and
-returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
 <p>The returned <a class="link" href="CamelStream.html" title="CamelStream"><span class="type">CamelStream</span></a> is referenced for thread-safety and must be
 unreferenced when finished with it.</p>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.5.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-pop3-store-cache-add.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -258,16 +236,15 @@ unreferenced when finished with it.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.5.7"></a><h4>Returns</h4>
-<p> a <a class="link" href="CamelStream.html" title="CamelStream"><span class="type">CamelStream</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
-<p></p>
+<a name="camel-pop3-store-cache-add.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="CamelStream.html" title="CamelStream"><span class="type">CamelStream</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
 </div>
 </div>
 <hr>
@@ -275,20 +252,20 @@ unreferenced when finished with it.</p>
 <a name="camel-pop3-store-cache-get"></a><h3>camel_pop3_store_cache_get ()</h3>
 <pre class="programlisting"><a class="link" href="CamelStream.html" title="CamelStream"><span class="returnvalue">CamelStream</span></a> *
 camel_pop3_store_cache_get (<em class="parameter"><code><a class="link" href="CamelPOP3Store.html" title="CamelPOP3Store"><span class="type">CamelPOP3Store</span></a> *store</code></em>,
-                            <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Opens the cache file for <em class="parameter"><code>uid</code></em>
  in <em class="parameter"><code>store</code></em>
  and returns a <a class="link" href="CamelStream.html" title="CamelStream"><span class="type">CamelStream</span></a> for it.
-If no matching cache file exists, the function returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.  If an error
+If no matching cache file exists, the function returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.  If an error
 occurs in opening the cache file, the function sets <em class="parameter"><code>error</code></em>
  and returns
-<a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
 <p>The returned <a class="link" href="CamelStream.html" title="CamelStream"><span class="type">CamelStream</span></a> is referenced for thread-safety and must be
 unreferenced when finished with it.</p>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.6.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-pop3-store-cache-get.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -307,30 +284,29 @@ unreferenced when finished with it.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.6.7"></a><h4>Returns</h4>
-<p> a <a class="link" href="CamelStream.html" title="CamelStream"><span class="type">CamelStream</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
-<p></p>
+<a name="camel-pop3-store-cache-get.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="CamelStream.html" title="CamelStream"><span class="type">CamelStream</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-pop3-store-cache-has"></a><h3>camel_pop3_store_cache_has ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_pop3_store_cache_has (<em class="parameter"><code><a class="link" href="CamelPOP3Store.html" title="CamelPOP3Store"><span class="type">CamelPOP3Store</span></a> *store</code></em>,
-                            <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
 <p>Returns whether <em class="parameter"><code>store</code></em>
  has a cached message for <em class="parameter"><code>uid</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.7.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-pop3-store-cache-has.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -351,23 +327,17 @@ camel_pop3_store_cache_has (<em class="parameter"><code><a class="link" href="Ca
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.5.5.8.7.6"></a><h4>Returns</h4>
+<a name="camel-pop3-store-cache-has.returns"></a><h4>Returns</h4>
 <p> whether <em class="parameter"><code>uid</code></em>
 is cached</p>
-<p></p>
 </div>
 </div>
 </div>
 <div class="refsect1">
 <a name="CamelPOP3Store.other_details"></a><h2>Types and Values</h2>
-<div class="refsect2">
-<a name="CamelPOP3Store-struct"></a><h3>struct CamelPOP3Store</h3>
-<pre class="programlisting">struct CamelPOP3Store;</pre>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

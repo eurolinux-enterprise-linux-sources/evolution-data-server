@@ -1,24 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8; fill-column: 160 -*- */
-/* camelMimePart.c : Abstract class for a mime_part */
-
-/*
- * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
- *	    Michael Zucchi <notzed@ximian.com>
- *          Jeffrey Stedfast <fejj@ximian.com>
+/* camelMimePart.c : Abstract class for a mime_part
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
+ *	    Michael Zucchi <notzed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -171,26 +170,32 @@ write_references (gpointer stream,
 	if (!isspace (value[0]))
 		g_string_append_c (buffer, ' ');
 
-	len = buffer->len;
+	/* Fold only when not folded already */
+	if (!strchr (value, '\n')) {
+		len = buffer->len;
 
-	while (*value) {
-		ids = value;
-		ide = strchr (ids + 1, '>');
-		if (ide)
-			value = ++ide;
-		else
-			ide = value = strlen (ids) + ids;
+		while (*value) {
+			ids = value;
+			ide = strchr (ids + 1, '>');
+			if (ide)
+				value = ++ide;
+			else
+				ide = value = strlen (ids) + ids;
 
-		if (len > 0 && len + (ide - ids) >= CAMEL_FOLD_SIZE) {
-			g_string_append_len (buffer, "\n\t", 2);
-			len = 0;
+			if (len > 0 && len + (ide - ids) >= CAMEL_FOLD_SIZE) {
+				g_string_append_len (buffer, "\n\t", 2);
+				len = 0;
+			}
+
+			g_string_append_len (buffer, ids, ide - ids);
+			len += (ide - ids);
 		}
-
-		g_string_append_len (buffer, ids, ide - ids);
-		len += (ide - ids);
+	} else {
+		g_string_append (buffer, value);
 	}
 
-	g_string_append_c (buffer, '\n');
+	if (buffer->len > 0 && buffer->str[buffer->len - 1] != '\n')
+		g_string_append_c (buffer, '\n');
 
 	/* XXX For now we handle both types of streams. */
 
@@ -1129,9 +1134,9 @@ camel_mime_part_new (void)
 /**
  * camel_mime_part_set_content:
  * @mime_part: a #CamelMimePart
- * @data: data to put into the part
+ * @data: (array length=length) (nullable): data to put into the part
  * @length: length of @data
- * @type: Content-Type of the data
+ * @type: (nullable): Content-Type of the data
  *
  * Utility function used to set the content of a mime part object to
  * be the provided data. If @length is 0, this routine can be used as
@@ -1218,7 +1223,7 @@ camel_mime_part_set_content_id (CamelMimePart *mime_part,
 	if (contentid)
 		id = g_strstrip (g_strdup (contentid));
 	else
-		id = camel_header_msgid_generate ();
+		id = camel_header_msgid_generate (NULL);
 
 	cid = g_strdup_printf ("<%s>", id);
 	camel_medium_set_header (medium, "Content-ID", cid);
@@ -1310,7 +1315,7 @@ camel_mime_part_set_content_md5 (CamelMimePart *mime_part,
  *
  * Get the Content-Languages set on the MIME part.
  *
- * Returns: a #GList of languages
+ * Returns: (element-type utf8) (transfer none): a #GList of languages
  **/
 const GList *
 camel_mime_part_get_content_languages (CamelMimePart *mime_part)
@@ -1323,7 +1328,7 @@ camel_mime_part_get_content_languages (CamelMimePart *mime_part)
 /**
  * camel_mime_part_set_content_languages:
  * @mime_part: a #CamelMimePart
- * @content_languages: list of languages
+ * @content_languages: (element-type utf8): list of languages
  *
  * Set the Content-Languages field of a MIME part.
  **/
@@ -1348,7 +1353,7 @@ camel_mime_part_set_content_languages (CamelMimePart *mime_part,
  *
  * Get the Content-Type of a MIME part.
  *
- * Returns: the parsed #CamelContentType of the MIME part
+ * Returns: (transfer none): the parsed #CamelContentType of the MIME part
  **/
 CamelContentType *
 camel_mime_part_get_content_type (CamelMimePart *mime_part)

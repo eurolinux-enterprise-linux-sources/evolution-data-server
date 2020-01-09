@@ -1,22 +1,20 @@
-/*
+/* A simple, extensible s-exp evaluation engine.
+ *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * A simple, extensible s-exp evaluation engine.
- *
- * Author :
- *  Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 /*
@@ -230,7 +228,7 @@ camel_sexp_result_free (CamelSExp *sexp,
 	case CAMEL_SEXP_RES_UNDEFINED:
 		break;
 	default:
-		g_assert_not_reached ();
+		g_return_if_reached ();
 	}
 	camel_memchunk_free (sexp->result_chunks, term);
 }
@@ -910,7 +908,7 @@ parse_dump_term (CamelSExpTerm *term,
 }
 #endif
 
-const gchar *time_functions[] = {
+static const gchar *time_functions[] = {
 	"time-now",
 	"make-time",
 	"time-add-day",
@@ -979,8 +977,6 @@ static const struct {
 	{"has-alarms-in-range?", binary_generator},
 	{"completed-before?", unary_generator},
 };
-
-const gint generators_count = sizeof (generators) / sizeof (generators[0]);
 
 static gboolean
 or_operator (gint argc,
@@ -1063,8 +1059,6 @@ static const struct {
 	{"or", or_operator},
 	{"and", and_operator}
 };
-
-const gint operators_count = sizeof (operators) / sizeof (operators[0]);
 
 static CamelSOperatorFunc *
 get_operator_function (const gchar *fname)
@@ -1263,8 +1257,8 @@ parse_values (CamelSExp *sexp,
 	terms = g_malloc (size * sizeof (*terms));
 	l = list;
 	for (i = size - 1; i >= 0; i--) {
-		g_assert (l);
-		g_assert (l->data);
+		g_return_val_if_fail (l, NULL);
+		g_return_val_if_fail (l->data, NULL);
 		terms[i] = l->data;
 		l = g_slist_next (l);
 	}
@@ -1339,7 +1333,7 @@ parse_value (CamelSExp *sexp)
 
 		str = g_scanner_cur_value (gs).v_identifier;
 
-		g_assert (str != NULL);
+		g_return_val_if_fail (str != NULL, NULL);
 		if (!(strlen (str) == 1 && (str[0] == 't' || str[0] == 'f'))) {
 			camel_sexp_fatal_error (sexp, "Invalid format for a boolean value");
 			return NULL;
@@ -1465,6 +1459,9 @@ camel_sexp_finalize (GObject *object)
 	g_scanner_scope_foreach_symbol (sexp->scanner, 0, free_symbol, NULL);
 	g_scanner_destroy (sexp->scanner);
 
+	g_free (sexp->error);
+	sexp->error = NULL;
+
 	/* Chain up to parent's finalize() method. */
 	G_OBJECT_CLASS (camel_sexp_parent_class)->finalize (object);
 }
@@ -1538,6 +1535,7 @@ camel_sexp_new (void)
 
 /**
  * camel_sexp_add_function:
+ * @func: (scope call):
  *
  * Since: 3.4
  **/
@@ -1546,7 +1544,7 @@ camel_sexp_add_function (CamelSExp *sexp,
                          guint scope,
                          const gchar *name,
                          CamelSExpFunc func,
-                         gpointer data)
+                         gpointer user_data)
 {
 	CamelSExpSymbol *sym;
 
@@ -1559,13 +1557,14 @@ camel_sexp_add_function (CamelSExp *sexp,
 	sym->name = g_strdup (name);
 	sym->f.func = func;
 	sym->type = CAMEL_SEXP_TERM_FUNC;
-	sym->data = data;
+	sym->data = user_data;
 
 	g_scanner_scope_add_symbol (sexp->scanner, scope, sym->name, sym);
 }
 
 /**
  * camel_sexp_add_ifunction:
+ * @func: (scope call):
  *
  * Since: 3.4
  **/
@@ -1574,7 +1573,7 @@ camel_sexp_add_ifunction (CamelSExp *sexp,
                           guint scope,
                           const gchar *name,
                           CamelSExpIFunc ifunc,
-                          gpointer data)
+                          gpointer user_data)
 {
 	CamelSExpSymbol *sym;
 
@@ -1587,7 +1586,7 @@ camel_sexp_add_ifunction (CamelSExp *sexp,
 	sym->name = g_strdup (name);
 	sym->f.ifunc = ifunc;
 	sym->type = CAMEL_SEXP_TERM_IFUNC;
-	sym->data = data;
+	sym->data = user_data;
 
 	g_scanner_scope_add_symbol (sexp->scanner, scope, sym->name, sym);
 }

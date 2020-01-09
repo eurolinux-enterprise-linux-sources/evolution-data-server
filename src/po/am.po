@@ -12,6 +12,7 @@ msgstr ""
 "PO-Revision-Date: 2003-02-07 17:46+EDT\n"
 "Last-Translator: Ge'ez Frontier Foundation <locales@geez.org>\n"
 "Language-Team: Amharic <locales@geez.org>\n"
+"Language: am\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6143,41 +6144,8 @@ msgstr ""
 #~ msgid "Remember this password"
 #~ msgstr "ይህንን ሚስጢራዊ ቃል አስታውሱ"
 
-#~ msgid "%a %m/%d/%Y %I:%M %p"
-#~ msgstr "d"
-
-#~ msgid "%a %m/%d/%Y %H:%M"
-#~ msgstr "d"
-
-#~ msgid "%a %m/%d/%Y %I %p"
-#~ msgstr "d"
-
-#~ msgid "%a %m/%d/%Y %H"
-#~ msgstr "d"
-
-#~ msgid "%m/%d/%Y %I:%M %p"
-#~ msgstr "d"
-
-#~ msgid "%m/%d/%Y %H:%M"
-#~ msgstr "d"
-
-#~ msgid "%m/%d/%Y %I %p"
-#~ msgstr "d"
-
-#~ msgid "%m/%d/%Y %H"
-#~ msgstr "d"
-
-#~ msgid "%I:%M:%S %p"
-#~ msgstr "i p,"
-
 #~ msgid "%H:%M:%S"
 #~ msgstr "%H:%M:%S"
-
-#~ msgid "%I:%M %p"
-#~ msgstr "i p,"
-
-#~ msgid "%H:%M"
-#~ msgstr "h"
 
 #~ msgid "%I %p"
 #~ msgstr "%I %p"

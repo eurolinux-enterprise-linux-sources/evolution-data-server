@@ -1,19 +1,19 @@
 /*
  * Copyright (C) 2012 Red Hat, Inc. (www.redhat.com)
  *
- * Authors: Milan Crha <mcrha@redhat.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Milan Crha <mcrha@redhat.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -156,6 +156,8 @@ camel_vee_subfolder_data_new (CamelFolder *folder)
  *
  * FIXME Document me!
  *
+ * Returns: (transfer none):
+ *
  * Since: 3.6
  **/
 CamelFolder *
@@ -281,6 +283,8 @@ camel_vee_message_info_data_new (CamelVeeSubfolderData *subfolder_data,
  * camel_vee_message_info_data_get_subfolder_data:
  *
  * FIXME Document me!
+ *
+ * Returns: (transfer none):
  *
  * Since: 3.6
  **/
@@ -575,6 +579,8 @@ camel_vee_data_cache_remove_subfolder (CamelVeeDataCache *data_cache,
  *
  * FIXME Document me!
  *
+ * Returns: (transfer full):
+ *
  * Since: 3.6
  **/
 CamelVeeSubfolderData *
@@ -643,6 +649,8 @@ camel_vee_data_cache_contains_message_info_data (CamelVeeDataCache *data_cache,
  *
  * FIXME Document me!
  *
+ * Returns: (transfer full):
+ *
  * Since: 3.6
  **/
 CamelVeeMessageInfoData *
@@ -705,6 +713,8 @@ camel_vee_data_cache_get_message_info_data (CamelVeeDataCache *data_cache,
  *
  * FIXME Document me!
  *
+ * Returns: (transfer full):
+ *
  * Since: 3.6
  **/
 CamelVeeMessageInfoData *
@@ -735,9 +745,7 @@ camel_vee_data_cache_get_message_info_data_by_vuid (CamelVeeDataCache *data_cach
 
 struct ForeachMiData {
 	CamelFolder *fromfolder;
-	void (* func) (CamelVeeMessageInfoData *mi_data,
-			CamelFolder *subfolder,
-			gpointer user_data);
+	CamelForeachInfoData func;
 	gpointer user_data;
 };
 
@@ -760,7 +768,7 @@ cvdc_foreach_mi_data_cb (gpointer key,
 
 /**
  * camel_vee_data_cache_foreach_message_info_data:
- *
+ * @func: (scope call) (closure user_data):
  * FIXME Document me!
  *
  * Since: 3.6
@@ -768,9 +776,7 @@ cvdc_foreach_mi_data_cb (gpointer key,
 void
 camel_vee_data_cache_foreach_message_info_data (CamelVeeDataCache *data_cache,
                                                 CamelFolder *fromfolder,
-                                                void (* func) (CamelVeeMessageInfoData *mi_data,
-                                                                CamelFolder *subfolder,
-                                                                gpointer user_data),
+                                                CamelForeachInfoData func,
                                                 gpointer user_data)
 {
 	struct ForeachMiData fmd;

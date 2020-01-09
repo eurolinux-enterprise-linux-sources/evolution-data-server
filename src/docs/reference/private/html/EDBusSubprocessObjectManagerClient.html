@@ -1,0 +1,2274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EDBusSubprocessObjectManagerClient: Evolution-Data-Server Manual: Private</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Private">
+<link rel="up" href="ch01.html" title="D-Bus API Reference">
+<link rel="prev" href="EDBusObjectManagerClient.html" title="EDBusObjectManagerClient">
+<link rel="next" href="EDBusUserPrompterSkeleton.html" title="EDBusUserPrompterSkeleton">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#EDBusSubprocessObjectManagerClient.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#EDBusSubprocessObjectManagerClient.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#EDBusSubprocessObjectManagerClient.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_prerequisites">  <span class="dim">|</span> 
+                  <a href="#EDBusSubprocessObjectManagerClient.prerequisites" class="shortcut">Prerequisites</a></span><span id="nav_implementations">  <span class="dim">|</span> 
+                  <a href="#EDBusSubprocessObjectManagerClient.implementations" class="shortcut">Known Implementations</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#EDBusSubprocessObjectManagerClient.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#EDBusSubprocessObjectManagerClient.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="EDBusObjectManagerClient.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="EDBusUserPrompterSkeleton.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="EDBusSubprocessObjectManagerClient"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EDBusSubprocessObjectManagerClient.top_of_page"></a>EDBusSubprocessObjectManagerClient</span></h2>
+<p>EDBusSubprocessObjectManagerClient</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/giogio-D-Bus-Introspection-Data.html#GDBusInterfaceInfo-struct"><span class="returnvalue">GDBusInterfaceInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-interface-info" title="e_dbus_subprocess_backend_interface_info ()">e_dbus_subprocess_backend_interface_info</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-override-properties" title="e_dbus_subprocess_backend_override_properties ()">e_dbus_subprocess_backend_override_properties</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-complete-create" title="e_dbus_subprocess_backend_complete_create ()">e_dbus_subprocess_backend_complete_create</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-complete-close" title="e_dbus_subprocess_backend_complete_close ()">e_dbus_subprocess_backend_complete_close</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-emit-backend-closed" title="e_dbus_subprocess_backend_emit_backend_closed ()">e_dbus_subprocess_backend_emit_backend_closed</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-create" title="e_dbus_subprocess_backend_call_create ()">e_dbus_subprocess_backend_call_create</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-create-finish" title="e_dbus_subprocess_backend_call_create_finish ()">e_dbus_subprocess_backend_call_create_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-create-sync" title="e_dbus_subprocess_backend_call_create_sync ()">e_dbus_subprocess_backend_call_create_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-close" title="e_dbus_subprocess_backend_call_close ()">e_dbus_subprocess_backend_call_close</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-close-finish" title="e_dbus_subprocess_backend_call_close_finish ()">e_dbus_subprocess_backend_call_close_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-close-sync" title="e_dbus_subprocess_backend_call_close_sync ()">e_dbus_subprocess_backend_call_close_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new" title="e_dbus_subprocess_backend_proxy_new ()">e_dbus_subprocess_backend_proxy_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-finish" title="e_dbus_subprocess_backend_proxy_new_finish ()">e_dbus_subprocess_backend_proxy_new_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-sync" title="e_dbus_subprocess_backend_proxy_new_sync ()">e_dbus_subprocess_backend_proxy_new_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-for-bus" title="e_dbus_subprocess_backend_proxy_new_for_bus ()">e_dbus_subprocess_backend_proxy_new_for_bus</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-for-bus-finish" title="e_dbus_subprocess_backend_proxy_new_for_bus_finish ()">e_dbus_subprocess_backend_proxy_new_for_bus_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-for-bus-sync" title="e_dbus_subprocess_backend_proxy_new_for_bus_sync ()">e_dbus_subprocess_backend_proxy_new_for_bus_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-skeleton-new" title="e_dbus_subprocess_backend_skeleton_new ()">e_dbus_subprocess_backend_skeleton_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-get-backend" title="e_dbus_subprocess_object_get_backend ()">e_dbus_subprocess_object_get_backend</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-peek-backend" title="e_dbus_subprocess_object_peek_backend ()">e_dbus_subprocess_object_peek_backend</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectProxy"><span class="returnvalue">EDBusSubprocessObjectProxy</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-proxy-new" title="e_dbus_subprocess_object_proxy_new ()">e_dbus_subprocess_object_proxy_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectSkeleton"><span class="returnvalue">EDBusSubprocessObjectSkeleton</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-skeleton-new" title="e_dbus_subprocess_object_skeleton_new ()">e_dbus_subprocess_object_skeleton_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-skeleton-set-backend" title="e_dbus_subprocess_object_skeleton_set_backend ()">e_dbus_subprocess_object_skeleton_set_backend</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-get-proxy-type" title="e_dbus_subprocess_object_manager_client_get_proxy_type ()">e_dbus_subprocess_object_manager_client_get_proxy_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new" title="e_dbus_subprocess_object_manager_client_new ()">e_dbus_subprocess_object_manager_client_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gioGDBusObjectManager.html#GDBusObjectManager-struct"><span class="returnvalue">GDBusObjectManager</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-finish" title="e_dbus_subprocess_object_manager_client_new_finish ()">e_dbus_subprocess_object_manager_client_new_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gioGDBusObjectManager.html#GDBusObjectManager-struct"><span class="returnvalue">GDBusObjectManager</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-sync" title="e_dbus_subprocess_object_manager_client_new_sync ()">e_dbus_subprocess_object_manager_client_new_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-for-bus" title="e_dbus_subprocess_object_manager_client_new_for_bus ()">e_dbus_subprocess_object_manager_client_new_for_bus</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gioGDBusObjectManager.html#GDBusObjectManager-struct"><span class="returnvalue">GDBusObjectManager</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-for-bus-finish" title="e_dbus_subprocess_object_manager_client_new_for_bus_finish ()">e_dbus_subprocess_object_manager_client_new_for_bus_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gioGDBusObjectManager.html#GDBusObjectManager-struct"><span class="returnvalue">GDBusObjectManager</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-for-bus-sync" title="e_dbus_subprocess_object_manager_client_new_for_bus_sync ()">e_dbus_subprocess_object_manager_client_new_for_bus_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type">
+<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *</td>
+<td class="property_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObject--backend" title="The “backend” property">backend</a></td>
+<td class="property_flags">Read / Write</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend-backend-closed" title="The “backend-closed” signal">backend-closed</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a></td>
+<td class="signal_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend-handle-close" title="The “handle-close” signal">handle-close</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a></td>
+<td class="signal_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend-handle-create" title="The “handle-create” signal">handle-create</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="EDBusSubprocessBackendProxy"></a><a name="EDBusSubprocessBackendSkeleton"></a><a name="EDBusSubprocessObjectProxy"></a><a name="EDBusSubprocessObjectSkeleton"></a><a name="EDBusSubprocessBackend"></a><a name="EDBusSubprocessObject"></a><div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendIface" title="struct EDBusSubprocessBackendIface">EDBusSubprocessBackendIface</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxy-struct" title="struct EDBusSubprocessBackendProxy">EDBusSubprocessBackendProxy</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxyClass" title="struct EDBusSubprocessBackendProxyClass">EDBusSubprocessBackendProxyClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendSkeleton-struct" title="struct EDBusSubprocessBackendSkeleton">EDBusSubprocessBackendSkeleton</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendSkeletonClass" title="struct EDBusSubprocessBackendSkeletonClass">EDBusSubprocessBackendSkeletonClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectIface" title="struct EDBusSubprocessObjectIface">EDBusSubprocessObjectIface</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectProxy-struct" title="struct EDBusSubprocessObjectProxy">EDBusSubprocessObjectProxy</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectProxyClass" title="struct EDBusSubprocessObjectProxyClass">EDBusSubprocessObjectProxyClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectSkeleton-struct" title="struct EDBusSubprocessObjectSkeleton">EDBusSubprocessObjectSkeleton</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectSkeletonClass" title="struct EDBusSubprocessObjectSkeletonClass">EDBusSubprocessObjectSkeletonClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectManagerClient-struct" title="struct EDBusSubprocessObjectManagerClient">EDBusSubprocessObjectManagerClient</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectManagerClientClass" title="struct EDBusSubprocessObjectManagerClientClass">EDBusSubprocessObjectManagerClientClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend-struct" title="EDBusSubprocessBackend">EDBusSubprocessBackend</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxyPrivate" title="EDBusSubprocessBackendProxyPrivate">EDBusSubprocessBackendProxyPrivate</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendSkeletonPrivate" title="EDBusSubprocessBackendSkeletonPrivate">EDBusSubprocessBackendSkeletonPrivate</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObject-struct" title="EDBusSubprocessObject">EDBusSubprocessObject</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectManagerClientPrivate" title="EDBusSubprocessObjectManagerClientPrivate">EDBusSubprocessObjectManagerClientPrivate</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectProxyPrivate" title="EDBusSubprocessObjectProxyPrivate">EDBusSubprocessObjectProxyPrivate</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectSkeletonPrivate" title="EDBusSubprocessObjectSkeletonPrivate">EDBusSubprocessObjectSkeletonPrivate</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/GTypeModule.html">GInterface</a>
+    <span class="lineart">├──</span> EDBusSubprocessBackend
+    <span class="lineart">╰──</span> EDBusSubprocessObject
+    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">├──</span> <a href="/usr/share/gtk-doc/html/gioGDBusInterfaceSkeleton.html#GDBusInterfaceSkeleton-struct">GDBusInterfaceSkeleton</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> EDBusSubprocessBackendSkeleton
+    <span class="lineart">├──</span> <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClient-struct">GDBusObjectManagerClient</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> EDBusSubprocessObjectManagerClient
+    <span class="lineart">├──</span> <a href="/usr/share/gtk-doc/html/gioGDBusObjectProxy.html#GDBusObjectProxy-struct">GDBusObjectProxy</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> EDBusSubprocessObjectProxy
+    <span class="lineart">├──</span> <a href="/usr/share/gtk-doc/html/gioGDBusObjectSkeleton.html#GDBusObjectSkeleton-struct">GDBusObjectSkeleton</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> EDBusSubprocessObjectSkeleton
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxy-struct">GDBusProxy</a>
+        <span class="lineart">╰──</span> EDBusSubprocessBackendProxy
+</pre>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+EDBusSubprocessBackend requires
+ <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>.</p>
+<p>
+EDBusSubprocessObject requires
+ <a href="/usr/share/gtk-doc/html/gioGDBusObject.html#GDBusObject-struct">GDBusObject</a> and  <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>.</p>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+EDBusSubprocessBackendProxy implements
+ <a href="/usr/share/gtk-doc/html/gioGDBusInterface.html#GDBusInterface-struct">GDBusInterface</a>,  <a href="/usr/share/gtk-doc/html/gioGInitable.html#GInitable-struct">GInitable</a>,  <a href="/usr/share/gtk-doc/html/gioGAsyncInitable.html#GAsyncInitable-struct">GAsyncInitable</a> and  <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend">EDBusSubprocessBackend</a>.</p>
+<p>
+EDBusSubprocessBackendSkeleton implements
+ <a href="/usr/share/gtk-doc/html/gioGDBusInterface.html#GDBusInterface-struct">GDBusInterface</a> and  <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend">EDBusSubprocessBackend</a>.</p>
+<p>
+EDBusSubprocessObjectProxy implements
+ <a href="/usr/share/gtk-doc/html/gioGDBusObject.html#GDBusObject-struct">GDBusObject</a> and  <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObject">EDBusSubprocessObject</a>.</p>
+<p>
+EDBusSubprocessObjectSkeleton implements
+ <a href="/usr/share/gtk-doc/html/gioGDBusObject.html#GDBusObject-struct">GDBusObject</a> and  <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObject">EDBusSubprocessObject</a>.</p>
+<p>
+EDBusSubprocessObjectManagerClient implements
+ <a href="/usr/share/gtk-doc/html/gioGInitable.html#GInitable-struct">GInitable</a>,  <a href="/usr/share/gtk-doc/html/gioGAsyncInitable.html#GAsyncInitable-struct">GAsyncInitable</a> and  <a href="/usr/share/gtk-doc/html/gioGDBusObjectManager.html#GDBusObjectManager-struct">GDBusObjectManager</a>.</p>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.implementations"></a><h2>Known Implementations</h2>
+<p>
+EDBusSubprocessBackend is implemented by
+ <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxy">EDBusSubprocessBackendProxy</a> and  <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendSkeleton">EDBusSubprocessBackendSkeleton</a>.</p>
+<p>
+EDBusSubprocessObject is implemented by
+ <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectProxy">EDBusSubprocessObjectProxy</a> and  <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectSkeleton">EDBusSubprocessObjectSkeleton</a>.</p>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-interface-info"></a><h3>e_dbus_subprocess_backend_interface_info ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/giogio-D-Bus-Introspection-Data.html#GDBusInterfaceInfo-struct"><span class="returnvalue">GDBusInterfaceInfo</span></a> *
+e_dbus_subprocess_backend_interface_info
+                               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Gets a machine-readable description of the org.gnome.evolution.dataserver.Subprocess.Backend D-Bus interface.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-interface-info.returns"></a><h4>Returns</h4>
+<p> A <a href="/usr/share/gtk-doc/html/giogio-D-Bus-Introspection-Data.html#GDBusInterfaceInfo-struct"><span class="type">GDBusInterfaceInfo</span></a>. Do not free. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-override-properties"></a><h3>e_dbus_subprocess_backend_override_properties ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+e_dbus_subprocess_backend_override_properties
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObjectClass"><span class="type">GObjectClass</span></a> *klass</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> property_id_begin</code></em>);</pre>
+<p>Overrides all <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a> properties in the <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> interface for a concrete class.
+The properties are overridden in the order they are defined.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-override-properties.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>klass</p></td>
+<td class="parameter_description"><p>The class structure for a <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a>-derived class.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>property_id_begin</p></td>
+<td class="parameter_description"><p>The property id to assign to the first overridden property.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-override-properties.returns"></a><h4>Returns</h4>
+<p> The last property id.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-complete-create"></a><h3>e_dbus_subprocess_backend_complete_create ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_dbus_subprocess_backend_complete_create
+                               (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *object</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#GDBusMethodInvocation-struct"><span class="type">GDBusMethodInvocation</span></a> *invocation</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>);</pre>
+<p>Helper function used in service implementations to finish handling invocations of the <GTKDOCLINK HREF="Create"><code class="function">Create()</code></GTKDOCLINK> D-Bus method. If you instead want to finish handling an invocation by returning an error, use <a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#g-dbus-method-invocation-return-error"><code class="function">g_dbus_method_invocation_return_error()</code></a> or similar.</p>
+<p>This method will free <em class="parameter"><code>invocation</code></em>
+, you cannot use it afterwards.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-complete-create.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>invocation</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#GDBusMethodInvocation-struct"><span class="type">GDBusMethodInvocation</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>Parameter to return.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-complete-close"></a><h3>e_dbus_subprocess_backend_complete_close ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_dbus_subprocess_backend_complete_close
+                               (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *object</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#GDBusMethodInvocation-struct"><span class="type">GDBusMethodInvocation</span></a> *invocation</code></em>);</pre>
+<p>Helper function used in service implementations to finish handling invocations of the <GTKDOCLINK HREF="Close"><code class="function">Close()</code></GTKDOCLINK> D-Bus method. If you instead want to finish handling an invocation by returning an error, use <a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#g-dbus-method-invocation-return-error"><code class="function">g_dbus_method_invocation_return_error()</code></a> or similar.</p>
+<p>This method will free <em class="parameter"><code>invocation</code></em>
+, you cannot use it afterwards.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-complete-close.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>invocation</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#GDBusMethodInvocation-struct"><span class="type">GDBusMethodInvocation</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-emit-backend-closed"></a><h3>e_dbus_subprocess_backend_emit_backend_closed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_dbus_subprocess_backend_emit_backend_closed
+                               (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *object</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_sender</code></em>);</pre>
+<p>Emits the "BackendClosed" D-Bus signal.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-emit-backend-closed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_sender</p></td>
+<td class="parameter_description"><p>Argument to pass with the signal.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-call-create"></a><h3>e_dbus_subprocess_backend_call_create ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_dbus_subprocess_backend_call_create (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *proxy</code></em>,
+                                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_source_id</code></em>,
+                                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_backend_factory_type_name</code></em>,
+                                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_module_filename</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Asynchronously invokes the <GTKDOCLINK HREF="Create"><code class="function">Create()</code></GTKDOCLINK> D-Bus method on <em class="parameter"><code>proxy</code></em>
+.
+When the operation is finished, <em class="parameter"><code>callback</code></em>
+ will be invoked in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#g-main-context-push-thread-default">thread-default main loop</a> of the thread you are calling this method from.
+You can then call <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-create-finish" title="e_dbus_subprocess_backend_call_create_finish ()"><code class="function">e_dbus_subprocess_backend_call_create_finish()</code></a> to get the result of the operation.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-create-sync" title="e_dbus_subprocess_backend_call_create_sync ()"><code class="function">e_dbus_subprocess_backend_call_create_sync()</code></a> for the synchronous, blocking version of this method.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-call-create.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>proxy</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxy"><span class="type">EDBusSubprocessBackendProxy</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_source_id</p></td>
+<td class="parameter_description"><p>Argument to pass with the method invocation.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_backend_factory_type_name</p></td>
+<td class="parameter_description"><p>Argument to pass with the method invocation.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_module_filename</p></td>
+<td class="parameter_description"><p>Argument to pass with the method invocation.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>User data to pass to <em class="parameter"><code>callback</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-call-create-finish"></a><h3>e_dbus_subprocess_backend_call_create_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_dbus_subprocess_backend_call_create_finish
+                               (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *proxy</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_object_path</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *res</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes an operation started with <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-create" title="e_dbus_subprocess_backend_call_create ()"><code class="function">e_dbus_subprocess_backend_call_create()</code></a>.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-call-create-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>proxy</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxy"><span class="type">EDBusSubprocessBackendProxy</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_object_path</p></td>
+<td class="parameter_description"><p> Return location for return parameter or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to ignore. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>The <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> obtained from the <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> passed to <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-create" title="e_dbus_subprocess_backend_call_create ()"><code class="function">e_dbus_subprocess_backend_call_create()</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-call-create-finish.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the call succeded, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-call-create-sync"></a><h3>e_dbus_subprocess_backend_call_create_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_dbus_subprocess_backend_call_create_sync
+                               (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *proxy</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_source_id</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_backend_factory_type_name</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *arg_module_filename</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_object_path</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Synchronously invokes the <GTKDOCLINK HREF="Create"><code class="function">Create()</code></GTKDOCLINK> D-Bus method on <em class="parameter"><code>proxy</code></em>
+. The calling thread is blocked until a reply is received.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-create" title="e_dbus_subprocess_backend_call_create ()"><code class="function">e_dbus_subprocess_backend_call_create()</code></a> for the asynchronous version of this method.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-call-create-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>proxy</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxy"><span class="type">EDBusSubprocessBackendProxy</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_source_id</p></td>
+<td class="parameter_description"><p>Argument to pass with the method invocation.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_backend_factory_type_name</p></td>
+<td class="parameter_description"><p>Argument to pass with the method invocation.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_module_filename</p></td>
+<td class="parameter_description"><p>Argument to pass with the method invocation.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_object_path</p></td>
+<td class="parameter_description"><p> Return location for return parameter or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to ignore. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-call-create-sync.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the call succeded, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-call-close"></a><h3>e_dbus_subprocess_backend_call_close ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_dbus_subprocess_backend_call_close (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *proxy</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Asynchronously invokes the <GTKDOCLINK HREF="Close"><code class="function">Close()</code></GTKDOCLINK> D-Bus method on <em class="parameter"><code>proxy</code></em>
+.
+When the operation is finished, <em class="parameter"><code>callback</code></em>
+ will be invoked in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#g-main-context-push-thread-default">thread-default main loop</a> of the thread you are calling this method from.
+You can then call <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-close-finish" title="e_dbus_subprocess_backend_call_close_finish ()"><code class="function">e_dbus_subprocess_backend_call_close_finish()</code></a> to get the result of the operation.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-close-sync" title="e_dbus_subprocess_backend_call_close_sync ()"><code class="function">e_dbus_subprocess_backend_call_close_sync()</code></a> for the synchronous, blocking version of this method.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-call-close.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>proxy</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxy"><span class="type">EDBusSubprocessBackendProxy</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>User data to pass to <em class="parameter"><code>callback</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-call-close-finish"></a><h3>e_dbus_subprocess_backend_call_close_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_dbus_subprocess_backend_call_close_finish
+                               (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *proxy</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *res</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes an operation started with <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-close" title="e_dbus_subprocess_backend_call_close ()"><code class="function">e_dbus_subprocess_backend_call_close()</code></a>.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-call-close-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>proxy</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxy"><span class="type">EDBusSubprocessBackendProxy</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>The <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> obtained from the <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> passed to <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-close" title="e_dbus_subprocess_backend_call_close ()"><code class="function">e_dbus_subprocess_backend_call_close()</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-call-close-finish.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the call succeded, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-call-close-sync"></a><h3>e_dbus_subprocess_backend_call_close_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_dbus_subprocess_backend_call_close_sync
+                               (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *proxy</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Synchronously invokes the <GTKDOCLINK HREF="Close"><code class="function">Close()</code></GTKDOCLINK> D-Bus method on <em class="parameter"><code>proxy</code></em>
+. The calling thread is blocked until a reply is received.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-call-close" title="e_dbus_subprocess_backend_call_close ()"><code class="function">e_dbus_subprocess_backend_call_close()</code></a> for the asynchronous version of this method.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-call-close-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>proxy</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxy"><span class="type">EDBusSubprocessBackendProxy</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-call-close-sync.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the call succeded, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-proxy-new"></a><h3>e_dbus_subprocess_backend_proxy_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_dbus_subprocess_backend_proxy_new (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxyFlags"><span class="type">GDBusProxyFlags</span></a> flags</code></em>,
+                                     <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                     <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Asynchronously creates a proxy for the D-Bus interface org.gnome.evolution.dataserver.Subprocess.Backend. See <a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#g-dbus-proxy-new"><code class="function">g_dbus_proxy_new()</code></a> for more details.</p>
+<p>When the operation is finished, <em class="parameter"><code>callback</code></em>
+ will be invoked in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#g-main-context-push-thread-default">thread-default main loop</a> of the thread you are calling this method from.
+You can then call <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-finish" title="e_dbus_subprocess_backend_proxy_new_finish ()"><code class="function">e_dbus_subprocess_backend_proxy_new_finish()</code></a> to get the result of the operation.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-sync" title="e_dbus_subprocess_backend_proxy_new_sync ()"><code class="function">e_dbus_subprocess_backend_proxy_new_sync()</code></a> for the synchronous, blocking version of this constructor.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-proxy-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>connection</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>Flags from the <a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxyFlags"><span class="type">GDBusProxyFlags</span></a> enumeration.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p> A bus name (well-known or unique) or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>connection</code></em>
+is not a message bus connection. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>An object path.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>User data to pass to <em class="parameter"><code>callback</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-proxy-new-finish"></a><h3>e_dbus_subprocess_backend_proxy_new_finish ()</h3>
+<pre class="programlisting"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+e_dbus_subprocess_backend_proxy_new_finish
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *res</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes an operation started with <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new" title="e_dbus_subprocess_backend_proxy_new ()"><code class="function">e_dbus_subprocess_backend_proxy_new()</code></a>.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-proxy-new-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>The <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> obtained from the <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> passed to <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new" title="e_dbus_subprocess_backend_proxy_new ()"><code class="function">e_dbus_subprocess_backend_proxy_new()</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-proxy-new-finish.returns"></a><h4>Returns</h4>
+<p> The constructed proxy object or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> EDBusSubprocessBackendProxy]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-proxy-new-sync"></a><h3>e_dbus_subprocess_backend_proxy_new_sync ()</h3>
+<pre class="programlisting"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+e_dbus_subprocess_backend_proxy_new_sync
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxyFlags"><span class="type">GDBusProxyFlags</span></a> flags</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Synchronously creates a proxy for the D-Bus interface org.gnome.evolution.dataserver.Subprocess.Backend. See <a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#g-dbus-proxy-new-sync"><code class="function">g_dbus_proxy_new_sync()</code></a> for more details.</p>
+<p>The calling thread is blocked until a reply is received.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new" title="e_dbus_subprocess_backend_proxy_new ()"><code class="function">e_dbus_subprocess_backend_proxy_new()</code></a> for the asynchronous version of this constructor.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-proxy-new-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>connection</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>Flags from the <a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxyFlags"><span class="type">GDBusProxyFlags</span></a> enumeration.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p> A bus name (well-known or unique) or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>connection</code></em>
+is not a message bus connection. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>An object path.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-proxy-new-sync.returns"></a><h4>Returns</h4>
+<p> The constructed proxy object or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> EDBusSubprocessBackendProxy]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-proxy-new-for-bus"></a><h3>e_dbus_subprocess_backend_proxy_new_for_bus ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_dbus_subprocess_backend_proxy_new_for_bus
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a> bus_type</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxyFlags"><span class="type">GDBusProxyFlags</span></a> flags</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Like <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new" title="e_dbus_subprocess_backend_proxy_new ()"><code class="function">e_dbus_subprocess_backend_proxy_new()</code></a> but takes a <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a> instead of a <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a>.</p>
+<p>When the operation is finished, <em class="parameter"><code>callback</code></em>
+ will be invoked in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#g-main-context-push-thread-default">thread-default main loop</a> of the thread you are calling this method from.
+You can then call <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-for-bus-finish" title="e_dbus_subprocess_backend_proxy_new_for_bus_finish ()"><code class="function">e_dbus_subprocess_backend_proxy_new_for_bus_finish()</code></a> to get the result of the operation.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-for-bus-sync" title="e_dbus_subprocess_backend_proxy_new_for_bus_sync ()"><code class="function">e_dbus_subprocess_backend_proxy_new_for_bus_sync()</code></a> for the synchronous, blocking version of this constructor.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-proxy-new-for-bus.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bus_type</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>Flags from the <a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxyFlags"><span class="type">GDBusProxyFlags</span></a> enumeration.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>A bus name (well-known or unique).</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>An object path.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>User data to pass to <em class="parameter"><code>callback</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-proxy-new-for-bus-finish"></a><h3>e_dbus_subprocess_backend_proxy_new_for_bus_finish ()</h3>
+<pre class="programlisting"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+e_dbus_subprocess_backend_proxy_new_for_bus_finish
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *res</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes an operation started with <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-for-bus" title="e_dbus_subprocess_backend_proxy_new_for_bus ()"><code class="function">e_dbus_subprocess_backend_proxy_new_for_bus()</code></a>.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-proxy-new-for-bus-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>The <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> obtained from the <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> passed to <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-for-bus" title="e_dbus_subprocess_backend_proxy_new_for_bus ()"><code class="function">e_dbus_subprocess_backend_proxy_new_for_bus()</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-proxy-new-for-bus-finish.returns"></a><h4>Returns</h4>
+<p> The constructed proxy object or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> EDBusSubprocessBackendProxy]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-proxy-new-for-bus-sync"></a><h3>e_dbus_subprocess_backend_proxy_new_for_bus_sync ()</h3>
+<pre class="programlisting"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+e_dbus_subprocess_backend_proxy_new_for_bus_sync
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a> bus_type</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxyFlags"><span class="type">GDBusProxyFlags</span></a> flags</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Like <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-sync" title="e_dbus_subprocess_backend_proxy_new_sync ()"><code class="function">e_dbus_subprocess_backend_proxy_new_sync()</code></a> but takes a <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a> instead of a <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a>.</p>
+<p>The calling thread is blocked until a reply is received.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-proxy-new-for-bus" title="e_dbus_subprocess_backend_proxy_new_for_bus ()"><code class="function">e_dbus_subprocess_backend_proxy_new_for_bus()</code></a> for the asynchronous version of this constructor.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-proxy-new-for-bus-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bus_type</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>Flags from the <a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxyFlags"><span class="type">GDBusProxyFlags</span></a> enumeration.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>A bus name (well-known or unique).</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>An object path.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-proxy-new-for-bus-sync.returns"></a><h4>Returns</h4>
+<p> The constructed proxy object or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> EDBusSubprocessBackendProxy]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-backend-skeleton-new"></a><h3>e_dbus_subprocess_backend_skeleton_new ()</h3>
+<pre class="programlisting"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+e_dbus_subprocess_backend_skeleton_new
+                               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a skeleton object for the D-Bus interface org.gnome.evolution.dataserver.Subprocess.Backend.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-backend-skeleton-new.returns"></a><h4>Returns</h4>
+<p> The skeleton object. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> EDBusSubprocessBackendSkeleton]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-get-backend"></a><h3>e_dbus_subprocess_object_get_backend ()</h3>
+<pre class="programlisting"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+e_dbus_subprocess_object_get_backend (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObject"><span class="type">EDBusSubprocessObject</span></a> *object</code></em>);</pre>
+<p>Gets the <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> instance for the D-Bus interface org.gnome.evolution.dataserver.Subprocess.Backend on <em class="parameter"><code>object</code></em>
+, if any.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-get-backend.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObject"><span class="type">EDBusSubprocessObject</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-get-backend.returns"></a><h4>Returns</h4>
+<p> A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> that must be freed with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>object</code></em>
+does not implement the interface. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-peek-backend"></a><h3>e_dbus_subprocess_object_peek_backend ()</h3>
+<pre class="programlisting"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="returnvalue">EDBusSubprocessBackend</span></a> *
+e_dbus_subprocess_object_peek_backend (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObject"><span class="type">EDBusSubprocessObject</span></a> *object</code></em>);</pre>
+<p>Like <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-get-backend" title="e_dbus_subprocess_object_get_backend ()"><code class="function">e_dbus_subprocess_object_get_backend()</code></a> but doesn't increase the reference count on the returned object.</p>
+<div class="warning">It is not safe to use the returned object if you are on another thread than the one where the <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClient-struct"><span class="type">GDBusObjectManagerClient</span></a> or <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerServer.html#GDBusObjectManagerServer-struct"><span class="type">GDBusObjectManagerServer</span></a> for <em class="parameter"><code>object</code></em> is running.</div>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-peek-backend.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObject"><span class="type">EDBusSubprocessObject</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-peek-backend.returns"></a><h4>Returns</h4>
+<p> A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>object</code></em>
+does not implement the interface. Do not free the returned object, it is owned by <em class="parameter"><code>object</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-proxy-new"></a><h3>e_dbus_subprocess_object_proxy_new ()</h3>
+<pre class="programlisting"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectProxy"><span class="returnvalue">EDBusSubprocessObjectProxy</span></a> *
+e_dbus_subprocess_object_proxy_new (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                    <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>);</pre>
+<p>Creates a new proxy object.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-proxy-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>connection</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>An object path.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-proxy-new.returns"></a><h4>Returns</h4>
+<p> The proxy object. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-skeleton-new"></a><h3>e_dbus_subprocess_object_skeleton_new ()</h3>
+<pre class="programlisting"><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectSkeleton"><span class="returnvalue">EDBusSubprocessObjectSkeleton</span></a> *
+e_dbus_subprocess_object_skeleton_new (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>);</pre>
+<p>Creates a new skeleton object.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-skeleton-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>An object path.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-skeleton-new.returns"></a><h4>Returns</h4>
+<p> The skeleton object. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-skeleton-set-backend"></a><h3>e_dbus_subprocess_object_skeleton_set_backend ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_dbus_subprocess_object_skeleton_set_backend
+                               (<em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectSkeleton"><span class="type">EDBusSubprocessObjectSkeleton</span></a> *object</code></em>,
+                                <em class="parameter"><code><a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *interface_</code></em>);</pre>
+<p>Sets the <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> instance for the D-Bus interface org.gnome.evolution.dataserver.Subprocess.Backend on <em class="parameter"><code>object</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-skeleton-set-backend.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectSkeleton"><span class="type">EDBusSubprocessObjectSkeleton</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>interface_</p></td>
+<td class="parameter_description"><p> A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to clear the interface. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-manager-client-get-proxy-type"></a><h3>e_dbus_subprocess_object_manager_client_get_proxy_type ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+e_dbus_subprocess_object_manager_client_get_proxy_type
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClient-struct"><span class="type">GDBusObjectManagerClient</span></a> *manager</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *interface_name</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>A <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusProxyTypeFunc"><span class="type">GDBusProxyTypeFunc</span></a> that maps <em class="parameter"><code>interface_name</code></em>
+ to the generated <a href="/usr/share/gtk-doc/html/gioGDBusObjectProxy.html#GDBusObjectProxy-struct"><span class="type">GDBusObjectProxy</span></a>- and <a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxy-struct"><span class="type">GDBusProxy</span></a>-derived types.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-get-proxy-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>manager</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClient-struct"><span class="type">GDBusObjectManagerClient</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>The object path of the remote object (unused).</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>interface_name</p></td>
+<td class="parameter_description"><p> Interface name of the remote object or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to get the object proxy <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>User data (unused).</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-get-proxy-type.returns"></a><h4>Returns</h4>
+<p> A <a href="/usr/share/gtk-doc/html/gioGDBusProxy.html#GDBusProxy-struct"><span class="type">GDBusProxy</span></a>-derived <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a> if <em class="parameter"><code>interface_name</code></em>
+is not <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, otherwise the <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a> for <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectProxy"><span class="type">EDBusSubprocessObjectProxy</span></a>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-manager-client-new"></a><h3>e_dbus_subprocess_object_manager_client_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_dbus_subprocess_object_manager_client_new
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClientFlags"><span class="type">GDBusObjectManagerClientFlags</span></a> flags</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Asynchronously creates <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClient-struct"><span class="type">GDBusObjectManagerClient</span></a> using <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-get-proxy-type" title="e_dbus_subprocess_object_manager_client_get_proxy_type ()"><code class="function">e_dbus_subprocess_object_manager_client_get_proxy_type()</code></a> as the <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusProxyTypeFunc"><span class="type">GDBusProxyTypeFunc</span></a>. See <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#g-dbus-object-manager-client-new"><code class="function">g_dbus_object_manager_client_new()</code></a> for more details.</p>
+<p>When the operation is finished, <em class="parameter"><code>callback</code></em>
+ will be invoked in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#g-main-context-push-thread-default">thread-default main loop</a> of the thread you are calling this method from.
+You can then call <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-finish" title="e_dbus_subprocess_object_manager_client_new_finish ()"><code class="function">e_dbus_subprocess_object_manager_client_new_finish()</code></a> to get the result of the operation.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-sync" title="e_dbus_subprocess_object_manager_client_new_sync ()"><code class="function">e_dbus_subprocess_object_manager_client_new_sync()</code></a> for the synchronous, blocking version of this constructor.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>connection</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>Flags from the <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClientFlags"><span class="type">GDBusObjectManagerClientFlags</span></a> enumeration.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p> A bus name (well-known or unique) or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>connection</code></em>
+is not a message bus connection. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>An object path.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>User data to pass to <em class="parameter"><code>callback</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-manager-client-new-finish"></a><h3>e_dbus_subprocess_object_manager_client_new_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGDBusObjectManager.html#GDBusObjectManager-struct"><span class="returnvalue">GDBusObjectManager</span></a> *
+e_dbus_subprocess_object_manager_client_new_finish
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *res</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes an operation started with <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new" title="e_dbus_subprocess_object_manager_client_new ()"><code class="function">e_dbus_subprocess_object_manager_client_new()</code></a>.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-new-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>The <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> obtained from the <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> passed to <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new" title="e_dbus_subprocess_object_manager_client_new ()"><code class="function">e_dbus_subprocess_object_manager_client_new()</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-new-finish.returns"></a><h4>Returns</h4>
+<p> The constructed object manager client or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> EDBusSubprocessObjectManagerClient]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-manager-client-new-sync"></a><h3>e_dbus_subprocess_object_manager_client_new_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGDBusObjectManager.html#GDBusObjectManager-struct"><span class="returnvalue">GDBusObjectManager</span></a> *
+e_dbus_subprocess_object_manager_client_new_sync
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClientFlags"><span class="type">GDBusObjectManagerClientFlags</span></a> flags</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Synchronously creates <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClient-struct"><span class="type">GDBusObjectManagerClient</span></a> using <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-get-proxy-type" title="e_dbus_subprocess_object_manager_client_get_proxy_type ()"><code class="function">e_dbus_subprocess_object_manager_client_get_proxy_type()</code></a> as the <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusProxyTypeFunc"><span class="type">GDBusProxyTypeFunc</span></a>. See <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#g-dbus-object-manager-client-new-sync"><code class="function">g_dbus_object_manager_client_new_sync()</code></a> for more details.</p>
+<p>The calling thread is blocked until a reply is received.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new" title="e_dbus_subprocess_object_manager_client_new ()"><code class="function">e_dbus_subprocess_object_manager_client_new()</code></a> for the asynchronous version of this constructor.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-new-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>connection</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>Flags from the <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClientFlags"><span class="type">GDBusObjectManagerClientFlags</span></a> enumeration.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p> A bus name (well-known or unique) or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>connection</code></em>
+is not a message bus connection. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>An object path.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-new-sync.returns"></a><h4>Returns</h4>
+<p> The constructed object manager client or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> EDBusSubprocessObjectManagerClient]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-manager-client-new-for-bus"></a><h3>e_dbus_subprocess_object_manager_client_new_for_bus ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_dbus_subprocess_object_manager_client_new_for_bus
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a> bus_type</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClientFlags"><span class="type">GDBusObjectManagerClientFlags</span></a> flags</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Like <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new" title="e_dbus_subprocess_object_manager_client_new ()"><code class="function">e_dbus_subprocess_object_manager_client_new()</code></a> but takes a <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a> instead of a <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a>.</p>
+<p>When the operation is finished, <em class="parameter"><code>callback</code></em>
+ will be invoked in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#g-main-context-push-thread-default">thread-default main loop</a> of the thread you are calling this method from.
+You can then call <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-for-bus-finish" title="e_dbus_subprocess_object_manager_client_new_for_bus_finish ()"><code class="function">e_dbus_subprocess_object_manager_client_new_for_bus_finish()</code></a> to get the result of the operation.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-for-bus-sync" title="e_dbus_subprocess_object_manager_client_new_for_bus_sync ()"><code class="function">e_dbus_subprocess_object_manager_client_new_for_bus_sync()</code></a> for the synchronous, blocking version of this constructor.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-new-for-bus.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bus_type</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>Flags from the <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClientFlags"><span class="type">GDBusObjectManagerClientFlags</span></a> enumeration.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>A bus name (well-known or unique).</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>An object path.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>User data to pass to <em class="parameter"><code>callback</code></em>
+.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-manager-client-new-for-bus-finish"></a><h3>e_dbus_subprocess_object_manager_client_new_for_bus_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGDBusObjectManager.html#GDBusObjectManager-struct"><span class="returnvalue">GDBusObjectManager</span></a> *
+e_dbus_subprocess_object_manager_client_new_for_bus_finish
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *res</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes an operation started with <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-for-bus" title="e_dbus_subprocess_object_manager_client_new_for_bus ()"><code class="function">e_dbus_subprocess_object_manager_client_new_for_bus()</code></a>.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-new-for-bus-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>res</p></td>
+<td class="parameter_description"><p>The <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> obtained from the <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> passed to <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-for-bus" title="e_dbus_subprocess_object_manager_client_new_for_bus ()"><code class="function">e_dbus_subprocess_object_manager_client_new_for_bus()</code></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-new-for-bus-finish.returns"></a><h4>Returns</h4>
+<p> The constructed object manager client or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> EDBusSubprocessObjectManagerClient]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-dbus-subprocess-object-manager-client-new-for-bus-sync"></a><h3>e_dbus_subprocess_object_manager_client_new_for_bus_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGDBusObjectManager.html#GDBusObjectManager-struct"><span class="returnvalue">GDBusObjectManager</span></a> *
+e_dbus_subprocess_object_manager_client_new_for_bus_sync
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a> bus_type</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClientFlags"><span class="type">GDBusObjectManagerClientFlags</span></a> flags</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Like <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-sync" title="e_dbus_subprocess_object_manager_client_new_sync ()"><code class="function">e_dbus_subprocess_object_manager_client_new_sync()</code></a> but takes a <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a> instead of a <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a>.</p>
+<p>The calling thread is blocked until a reply is received.</p>
+<p>See <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-object-manager-client-new-for-bus" title="e_dbus_subprocess_object_manager_client_new_for_bus ()"><code class="function">e_dbus_subprocess_object_manager_client_new_for_bus()</code></a> for the asynchronous version of this constructor.</p>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-new-for-bus-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>bus_type</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GBusType"><span class="type">GBusType</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>Flags from the <a href="/usr/share/gtk-doc/html/gioGDBusObjectManagerClient.html#GDBusObjectManagerClientFlags"><span class="type">GDBusObjectManagerClientFlags</span></a> enumeration.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>A bus name (well-known or unique).</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>An object path.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Return location for error or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-dbus-subprocess-object-manager-client-new-for-bus-sync.returns"></a><h4>Returns</h4>
+<p> The constructed object manager client or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>error</code></em>
+is set. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Override the parsed C type with given type."><span class="acronym">type</span></acronym> EDBusSubprocessObjectManagerClient]</span></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EDBusSubprocessBackendIface"></a><h3>struct EDBusSubprocessBackendIface</h3>
+<pre class="programlisting">struct EDBusSubprocessBackendIface {
+  GTypeInterface parent_iface;
+
+
+  gboolean (*handle_close) (
+    EDBusSubprocessBackend *object,
+    GDBusMethodInvocation *invocation);
+
+  gboolean (*handle_create) (
+    EDBusSubprocessBackend *object,
+    GDBusMethodInvocation *invocation,
+    const gchar *arg_source_id,
+    const gchar *arg_backend_factory_type_name,
+    const gchar *arg_module_filename);
+
+  void (*backend_closed) (
+    EDBusSubprocessBackend *object,
+    const gchar *arg_sender);
+};
+</pre>
+<p>Virtual table for the D-Bus interface org.gnome.evolution.dataserver.Subprocess.Backend.</p>
+<div class="refsect3">
+<a name="EDBusSubprocessBackendIface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GTypeInterface"><span class="type">GTypeInterface</span></a> <em class="structfield"><code><a name="EDBusSubprocessBackendIface.parent-iface"></a>parent_iface</code></em>;</p></td>
+<td class="struct_member_description"><p>The parent interface.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="EDBusSubprocessBackendIface.handle-close"></a>handle_close</code></em> ()</p></td>
+<td class="struct_member_description"><p>Handler for the <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend-handle-close" title="The “handle-close” signal"><span class="type">“handle-close”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="EDBusSubprocessBackendIface.handle-create"></a>handle_create</code></em> ()</p></td>
+<td class="struct_member_description"><p>Handler for the <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend-handle-create" title="The “handle-create” signal"><span class="type">“handle-create”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="EDBusSubprocessBackendIface.backend-closed"></a>backend_closed</code></em> ()</p></td>
+<td class="struct_member_description"><p>Handler for the <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend-backend-closed" title="The “backend-closed” signal"><span class="type">“backend-closed”</span></a> signal.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessBackendProxy-struct"></a><h3>struct EDBusSubprocessBackendProxy</h3>
+<pre class="programlisting">struct EDBusSubprocessBackendProxy;</pre>
+<p>The <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxy"><span class="type">EDBusSubprocessBackendProxy</span></a> structure contains only private data and should only be accessed using the provided API.</p>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessBackendProxyClass"></a><h3>struct EDBusSubprocessBackendProxyClass</h3>
+<pre class="programlisting">struct EDBusSubprocessBackendProxyClass {
+  GDBusProxyClass parent_class;
+};
+</pre>
+<p>Class structure for <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendProxy"><span class="type">EDBusSubprocessBackendProxy</span></a>.</p>
+<div class="refsect3">
+<a name="EDBusSubprocessBackendProxyClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessBackendSkeleton-struct"></a><h3>struct EDBusSubprocessBackendSkeleton</h3>
+<pre class="programlisting">struct EDBusSubprocessBackendSkeleton;</pre>
+<p>The <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendSkeleton"><span class="type">EDBusSubprocessBackendSkeleton</span></a> structure contains only private data and should only be accessed using the provided API.</p>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessBackendSkeletonClass"></a><h3>struct EDBusSubprocessBackendSkeletonClass</h3>
+<pre class="programlisting">struct EDBusSubprocessBackendSkeletonClass {
+  GDBusInterfaceSkeletonClass parent_class;
+};
+</pre>
+<p>Class structure for <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackendSkeleton"><span class="type">EDBusSubprocessBackendSkeleton</span></a>.</p>
+<div class="refsect3">
+<a name="EDBusSubprocessBackendSkeletonClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObjectIface"></a><h3>struct EDBusSubprocessObjectIface</h3>
+<pre class="programlisting">struct EDBusSubprocessObjectIface {
+  GTypeInterface parent_iface;
+};
+</pre>
+<p>Virtual table for the <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObject"><span class="type">EDBusSubprocessObject</span></a> interface.</p>
+<div class="refsect3">
+<a name="EDBusSubprocessObjectIface.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GTypeInterface"><span class="type">GTypeInterface</span></a> <em class="structfield"><code><a name="EDBusSubprocessObjectIface.parent-iface"></a>parent_iface</code></em>;</p></td>
+<td class="struct_member_description"><p>The parent interface.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObjectProxy-struct"></a><h3>struct EDBusSubprocessObjectProxy</h3>
+<pre class="programlisting">struct EDBusSubprocessObjectProxy;</pre>
+<p>The <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectProxy"><span class="type">EDBusSubprocessObjectProxy</span></a> structure contains only private data and should only be accessed using the provided API.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObjectProxyClass"></a><h3>struct EDBusSubprocessObjectProxyClass</h3>
+<pre class="programlisting">struct EDBusSubprocessObjectProxyClass {
+  GDBusObjectProxyClass parent_class;
+};
+</pre>
+<p>Class structure for <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectProxy"><span class="type">EDBusSubprocessObjectProxy</span></a>.</p>
+<div class="refsect3">
+<a name="EDBusSubprocessObjectProxyClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObjectSkeleton-struct"></a><h3>struct EDBusSubprocessObjectSkeleton</h3>
+<pre class="programlisting">struct EDBusSubprocessObjectSkeleton;</pre>
+<p>The <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectSkeleton"><span class="type">EDBusSubprocessObjectSkeleton</span></a> structure contains only private data and should only be accessed using the provided API.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObjectSkeletonClass"></a><h3>struct EDBusSubprocessObjectSkeletonClass</h3>
+<pre class="programlisting">struct EDBusSubprocessObjectSkeletonClass {
+  GDBusObjectSkeletonClass parent_class;
+};
+</pre>
+<p>Class structure for <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObjectSkeleton"><span class="type">EDBusSubprocessObjectSkeleton</span></a>.</p>
+<div class="refsect3">
+<a name="EDBusSubprocessObjectSkeletonClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObjectManagerClient-struct"></a><h3>struct EDBusSubprocessObjectManagerClient</h3>
+<pre class="programlisting">struct EDBusSubprocessObjectManagerClient;</pre>
+<p>The <a class="link" href="EDBusSubprocessObjectManagerClient.html" title="EDBusSubprocessObjectManagerClient"><span class="type">EDBusSubprocessObjectManagerClient</span></a> structure contains only private data and should only be accessed using the provided API.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObjectManagerClientClass"></a><h3>struct EDBusSubprocessObjectManagerClientClass</h3>
+<pre class="programlisting">struct EDBusSubprocessObjectManagerClientClass {
+  GDBusObjectManagerClientClass parent_class;
+};
+</pre>
+<p>Class structure for <a class="link" href="EDBusSubprocessObjectManagerClient.html" title="EDBusSubprocessObjectManagerClient"><span class="type">EDBusSubprocessObjectManagerClient</span></a>.</p>
+<div class="refsect3">
+<a name="EDBusSubprocessObjectManagerClientClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessBackend-struct"></a><h3>EDBusSubprocessBackend</h3>
+<pre class="programlisting">typedef struct _EDBusSubprocessBackend EDBusSubprocessBackend;</pre>
+<p>Abstract interface type for the D-Bus interface org.gnome.evolution.dataserver.Subprocess.Backend.</p>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessBackendProxyPrivate"></a><h3>EDBusSubprocessBackendProxyPrivate</h3>
+<pre class="programlisting">typedef struct _EDBusSubprocessBackendProxyPrivate EDBusSubprocessBackendProxyPrivate;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessBackendSkeletonPrivate"></a><h3>EDBusSubprocessBackendSkeletonPrivate</h3>
+<pre class="programlisting">typedef struct _EDBusSubprocessBackendSkeletonPrivate EDBusSubprocessBackendSkeletonPrivate;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObject-struct"></a><h3>EDBusSubprocessObject</h3>
+<pre class="programlisting">typedef struct _EDBusSubprocessObject EDBusSubprocessObject;</pre>
+<p>The <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessObject"><span class="type">EDBusSubprocessObject</span></a> type is a specialized container of interfaces.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObjectManagerClientPrivate"></a><h3>EDBusSubprocessObjectManagerClientPrivate</h3>
+<pre class="programlisting">typedef struct _EDBusSubprocessObjectManagerClientPrivate EDBusSubprocessObjectManagerClientPrivate;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObjectProxyPrivate"></a><h3>EDBusSubprocessObjectProxyPrivate</h3>
+<pre class="programlisting">typedef struct _EDBusSubprocessObjectProxyPrivate EDBusSubprocessObjectProxyPrivate;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessObjectSkeletonPrivate"></a><h3>EDBusSubprocessObjectSkeletonPrivate</h3>
+<pre class="programlisting">typedef struct _EDBusSubprocessObjectSkeletonPrivate EDBusSubprocessObjectSkeletonPrivate;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="EDBusSubprocessObject--backend"></a><h3>The <code class="literal">“backend”</code> property</h3>
+<pre class="programlisting">  “backend”                  <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *</pre>
+<p>The <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> instance corresponding to the D-Bus interface org.gnome.evolution.dataserver.Subprocess.Backend, if any.</p>
+<p>Connect to the <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-notify"><span class="type">“notify”</span></a> signal to get informed of property changes.</p>
+<p>Flags: Read / Write</p>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EDBusSubprocessObjectManagerClient.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="EDBusSubprocessBackend-backend-closed"></a><h3>The <code class="literal">“backend-closed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *object,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                  *arg_sender,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                user_data)</pre>
+<p>On the client-side, this signal is emitted whenever the D-Bus signal "BackendClosed" is received.</p>
+<p>On the service-side, this signal can be used with e.g. <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#g-signal-emit-by-name"><code class="function">g_signal_emit_by_name()</code></a> to make the object emit the D-Bus signal.</p>
+<div class="refsect3">
+<a name="EDBusSubprocessBackend-backend-closed.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_sender</p></td>
+<td class="parameter_description"><p>Argument.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessBackend-handle-close"></a><h3>The <code class="literal">“handle-close”</code> signal</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+user_function (<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *object,
+               <a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#GDBusMethodInvocation-struct"><span class="type">GDBusMethodInvocation</span></a>  *invocation,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                user_data)</pre>
+<p>Signal emitted when a remote caller is invoking the <GTKDOCLINK HREF="Close"><code class="function">Close()</code></GTKDOCLINK> D-Bus method.</p>
+<p>If a signal handler returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, it means the signal handler will handle the invocation (e.g. take a reference to <em class="parameter"><code>invocation</code></em>
+ and eventually call <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-complete-close" title="e_dbus_subprocess_backend_complete_close ()"><code class="function">e_dbus_subprocess_backend_complete_close()</code></a> or e.g. <a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#g-dbus-method-invocation-return-error"><code class="function">g_dbus_method_invocation_return_error()</code></a> on it) and no order signal handlers will run. If no signal handler handles the invocation, the <a href="/usr/share/gtk-doc/html/giogio-GDBusError.html#G-DBUS-ERROR-UNKNOWN-METHOD:CAPS"><code class="literal">G_DBUS_ERROR_UNKNOWN_METHOD</code></a> error is returned.</p>
+<div class="refsect3">
+<a name="EDBusSubprocessBackend-handle-close.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>invocation</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#GDBusMethodInvocation-struct"><span class="type">GDBusMethodInvocation</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="EDBusSubprocessBackend-handle-close.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the invocation was handled, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> to let other signal handlers run.</p>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDBusSubprocessBackend-handle-create"></a><h3>The <code class="literal">“handle-create”</code> signal</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+user_function (<a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a> *object,
+               <a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#GDBusMethodInvocation-struct"><span class="type">GDBusMethodInvocation</span></a>  *invocation,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                  *arg_source_id,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                  *arg_backend_factory_type_name,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                  *arg_module_filename,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>                user_data)</pre>
+<p>Signal emitted when a remote caller is invoking the <GTKDOCLINK HREF="Create"><code class="function">Create()</code></GTKDOCLINK> D-Bus method.</p>
+<p>If a signal handler returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, it means the signal handler will handle the invocation (e.g. take a reference to <em class="parameter"><code>invocation</code></em>
+ and eventually call <a class="link" href="EDBusSubprocessObjectManagerClient.html#e-dbus-subprocess-backend-complete-create" title="e_dbus_subprocess_backend_complete_create ()"><code class="function">e_dbus_subprocess_backend_complete_create()</code></a> or e.g. <a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#g-dbus-method-invocation-return-error"><code class="function">g_dbus_method_invocation_return_error()</code></a> on it) and no order signal handlers will run. If no signal handler handles the invocation, the <a href="/usr/share/gtk-doc/html/giogio-GDBusError.html#G-DBUS-ERROR-UNKNOWN-METHOD:CAPS"><code class="literal">G_DBUS_ERROR_UNKNOWN_METHOD</code></a> error is returned.</p>
+<div class="refsect3">
+<a name="EDBusSubprocessBackend-handle-create.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>A <a class="link" href="EDBusSubprocessObjectManagerClient.html#EDBusSubprocessBackend"><span class="type">EDBusSubprocessBackend</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>invocation</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/gioGDBusMethodInvocation.html#GDBusMethodInvocation-struct"><span class="type">GDBusMethodInvocation</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_source_id</p></td>
+<td class="parameter_description"><p>Argument passed by remote caller.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_backend_factory_type_name</p></td>
+<td class="parameter_description"><p>Argument passed by remote caller.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>arg_module_filename</p></td>
+<td class="parameter_description"><p>Argument passed by remote caller.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="EDBusSubprocessBackend-handle-create.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the invocation was handled, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> to let other signal handlers run.</p>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

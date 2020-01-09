@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelVeeFolder</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelVeeFolder: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Virtual-Folders.html" title='Virtual ("Search") Folders'>
 <link rel="prev" href="Virtual-Folders.html" title='Virtual ("Search") Folders'>
 <link rel="next" href="CamelVeeStore.html" title="CamelVeeStore">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -35,7 +35,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelVeeFolder.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -83,7 +83,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelVeeFolder.html#camel-vee-folder-get-auto-update" title="camel_vee_folder_get_auto_update ()">camel_vee_folder_get_auto_update</a> <span class="c_punctuation">()</span>
@@ -146,7 +146,7 @@
 </td>
 </tr>
 <tr>
-<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelVeeFolder.html#camel-vee-folder-get-expression" title="camel_vee_folder_get_expression ()">camel_vee_folder_get_expression</a> <span class="c_punctuation">()</span>
@@ -173,14 +173,14 @@
 </div>
 <div class="refsect1">
 <a name="CamelVeeFolder.properties"></a><h2>Properties</h2>
-<div class="informaltable"><table border="0">
+<div class="informaltable"><table class="informaltable" border="0">
 <colgroup>
 <col width="150px" class="properties_type">
 <col width="300px" class="properties_name">
 <col width="200px" class="properties_flags">
 </colgroup>
 <tbody><tr>
-<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_type"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a></td>
 <td class="property_name"><a class="link" href="CamelVeeFolder.html#CamelVeeFolder--auto-update" title="The “auto-update” property">auto-update</a></td>
 <td class="property_flags">Read / Write</td>
 </tr></tbody>
@@ -188,26 +188,20 @@
 </div>
 <div class="refsect1">
 <a name="CamelVeeFolder.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
 </colgroup>
-<tbody>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelVeeFolder.html#CamelVeeFolder-struct" title="struct CamelVeeFolder">CamelVeeFolder</a></td>
-</tr>
-<tr>
+<tbody><tr>
 <td class="define_keyword">#define</td>
 <td class="function_name"><a class="link" href="CamelVeeFolder.html#CAMEL-UNMATCHED-NAME:CAPS" title="CAMEL_UNMATCHED_NAME">CAMEL_UNMATCHED_NAME</a></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelVeeFolder.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelObject.html" title="CamelObject">CamelObject</a>
         <span class="lineart">╰──</span> <a class="link" href="CamelFolder.html" title="CamelFolder">CamelFolder</a>
             <span class="lineart">╰──</span> CamelVeeFolder
@@ -223,12 +217,12 @@
 <a name="camel-vee-folder-new"></a><h3>camel_vee_folder_new ()</h3>
 <pre class="programlisting"><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="returnvalue">CamelFolder</span></a> *
 camel_vee_folder_new (<em class="parameter"><code><a class="link" href="CamelStore.html" title="CamelStore"><span class="type">CamelStore</span></a> *parent_store</code></em>,
-                      <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *full</code></em>,
-                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> flags</code></em>);</pre>
+                      <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *full</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint32"><span class="type">guint32</span></a> flags</code></em>);</pre>
 <p>Create a new CamelVeeFolder object.</p>
 <div class="refsect3">
-<a name="id-1.2.8.2.8.2.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-vee-folder-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -254,9 +248,8 @@ camel_vee_folder_new (<em class="parameter"><code><a class="link" href="CamelSto
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.8.2.8.2.6"></a><h4>Returns</h4>
+<a name="camel-vee-folder-new.returns"></a><h4>Returns</h4>
 <p> A new CamelVeeFolder widget.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -264,7 +257,7 @@ camel_vee_folder_new (<em class="parameter"><code><a class="link" href="CamelSto
 <a name="camel-vee-folder-construct"></a><h3>camel_vee_folder_construct ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_vee_folder_construct (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vf</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> flags</code></em>);</pre>
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint32"><span class="type">guint32</span></a> flags</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
@@ -272,11 +265,11 @@ camel_vee_folder_construct (<em class="parameter"><code><a class="link" href="Ca
 <pre class="programlisting"><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="returnvalue">CamelFolder</span></a> *
 camel_vee_folder_get_location (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vf</code></em>,
                                <em class="parameter"><code>const <span class="type">struct _CamelVeeMessageInfo</span> *vinfo</code></em>,
-                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **realuid</code></em>);</pre>
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **realuid</code></em>);</pre>
 <p>Find the real folder (and uid)</p>
 <div class="refsect3">
-<a name="id-1.2.8.2.8.4.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-vee-folder-get-location.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -291,8 +284,9 @@ g_free'd by caller.</p></td>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.8.2.8.4.6"></a><h4>Returns</h4>
-<p></p>
+<a name="camel-vee-folder-get-location.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
 </div>
 <hr>
@@ -300,26 +294,31 @@ g_free'd by caller.</p></td>
 <a name="camel-vee-folder-get-vee-uid-folder"></a><h3>camel_vee_folder_get_vee_uid_folder ()</h3>
 <pre class="programlisting"><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="returnvalue">CamelFolder</span></a> *
 camel_vee_folder_get_vee_uid_folder (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vf</code></em>,
-                                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vee_message_uid</code></em>);</pre>
+                                     <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vee_message_uid</code></em>);</pre>
 <p>FIXME Document me!</p>
-<p class="since">Since 3.6</p>
+<div class="refsect3">
+<a name="camel-vee-folder-get-vee-uid-folder.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-vee-folder-set-auto-update"></a><h3>camel_vee_folder_set_auto_update ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_vee_folder_set_auto_update (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vfolder</code></em>,
-                                  <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> auto_update</code></em>);</pre>
+                                  <em class="parameter"><code><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a> auto_update</code></em>);</pre>
 <p>FIXME Document me!</p>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-vee-folder-get-auto-update"></a><h3>camel_vee_folder_get_auto_update ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_vee_folder_get_auto_update (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vfolder</code></em>);</pre>
 <p>FIXME Document me!</p>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -327,13 +326,13 @@ camel_vee_folder_get_auto_update (<em class="parameter"><code><a class="link" hr
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_vee_folder_add_folder (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vfolder</code></em>,
                              <em class="parameter"><code><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="type">CamelFolder</span></a> *subfolder</code></em>,
-                             <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>);</pre>
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>);</pre>
 <p>Adds <em class="parameter"><code>subfolder</code></em>
  as a source folder to <em class="parameter"><code>vfolder</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.8.2.8.8.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-vee-folder-add-folder.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -361,13 +360,13 @@ camel_vee_folder_add_folder (<em class="parameter"><code><a class="link" href="C
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_vee_folder_remove_folder (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vfolder</code></em>,
                                 <em class="parameter"><code><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="type">CamelFolder</span></a> *subfolder</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>);</pre>
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>);</pre>
 <p>Removed the source folder, <em class="parameter"><code>subfolder</code></em>
 , from the virtual folder, <em class="parameter"><code>vfolder</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.8.2.8.9.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-vee-folder-remove-folder.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -394,9 +393,24 @@ camel_vee_folder_remove_folder (<em class="parameter"><code><a class="link" href
 <a name="camel-vee-folder-set-folders"></a><h3>camel_vee_folder_set_folders ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_vee_folder_set_folders (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vf</code></em>,
-                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *folders</code></em>,
-                              <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>);</pre>
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *folders</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>);</pre>
 <p>Set the whole list of folder sources on a vee folder.</p>
+<div class="refsect3">
+<a name="camel-vee-folder-set-folders.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>folders</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> CamelFolder][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
 </div>
 <hr>
 <div class="refsect2">
@@ -406,7 +420,7 @@ camel_vee_folder_add_vuid (<em class="parameter"><code><a class="link" href="Cam
                            <em class="parameter"><code><span class="type">struct _CamelVeeMessageInfoData</span> *mi_data</code></em>,
                            <em class="parameter"><code><a class="link" href="CamelFolder.html#CamelFolderChangeInfo" title="struct CamelFolderChangeInfo"><span class="type">CamelFolderChangeInfo</span></a> *changes</code></em>);</pre>
 <p>FIXME Document me!</p>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -416,7 +430,7 @@ camel_vee_folder_remove_vuid (<em class="parameter"><code><a class="link" href="
                               <em class="parameter"><code><span class="type">struct _CamelVeeMessageInfoData</span> *mi_data</code></em>,
                               <em class="parameter"><code><a class="link" href="CamelFolder.html#CamelFolderChangeInfo" title="struct CamelFolderChangeInfo"><span class="type">CamelFolderChangeInfo</span></a> *changes</code></em>);</pre>
 <p>FIXME Document me!</p>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -424,12 +438,12 @@ camel_vee_folder_remove_vuid (<em class="parameter"><code><a class="link" href="
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_vee_folder_rebuild_folder (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vfolder</code></em>,
                                  <em class="parameter"><code><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="type">CamelFolder</span></a> *subfolder</code></em>,
-                                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>);</pre>
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>);</pre>
 <p>Rebuild the folder <em class="parameter"><code>subfolder</code></em>
 , if it should be.</p>
 <div class="refsect3">
-<a name="id-1.2.8.2.8.13.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-vee-folder-rebuild-folder.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -456,15 +470,15 @@ camel_vee_folder_rebuild_folder (<em class="parameter"><code><a class="link" hre
 <a name="camel-vee-folder-set-expression"></a><h3>camel_vee_folder_set_expression ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_vee_folder_set_expression (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vfolder</code></em>,
-                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *expr</code></em>);</pre>
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *expr</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-vee-folder-get-expression"></a><h3>camel_vee_folder_get_expression ()</h3>
-<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_vee_folder_get_expression (<em class="parameter"><code><a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder"><span class="type">CamelVeeFolder</span></a> *vfolder</code></em>);</pre>
 <p>FIXME Document me!</p>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -481,8 +495,8 @@ removals of messages which don't satisfy search criteria anymore,
 which could be done on asynchronous delivery of folder's 'changed' signal.
 These ignored changes are accumulated and used on folder refresh.</p>
 <div class="refsect3">
-<a name="id-1.2.8.2.8.16.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-vee-folder-ignore-next-changed-event.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -502,7 +516,7 @@ These ignored changes are accumulated and used on folder refresh.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -517,8 +531,8 @@ This is a counter-part function of <a class="link" href="CamelVeeFolder.html#cam
 when there was expected a change, which did not happen, to take back the previous
 ignore event request.</p>
 <div class="refsect3">
-<a name="id-1.2.8.2.8.17.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-vee-folder-remove-from-ignore-changed-event.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -538,16 +552,11 @@ ignore event request.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.12</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
 </div>
 </div>
 <div class="refsect1">
 <a name="CamelVeeFolder.other_details"></a><h2>Types and Values</h2>
-<div class="refsect2">
-<a name="CamelVeeFolder-struct"></a><h3>struct CamelVeeFolder</h3>
-<pre class="programlisting">struct CamelVeeFolder;</pre>
-</div>
-<hr>
 <div class="refsect2">
 <a name="CAMEL-UNMATCHED-NAME:CAPS"></a><h3>CAMEL_UNMATCHED_NAME</h3>
 <pre class="programlisting">#define CAMEL_UNMATCHED_NAME "UNMATCHED"
@@ -558,7 +567,7 @@ ignore event request.</p>
 <a name="CamelVeeFolder.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="CamelVeeFolder--auto-update"></a><h3>The <code class="literal">“auto-update”</code> property</h3>
-<pre class="programlisting">  “auto-update”              <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<pre class="programlisting">  “auto-update”              <a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a></pre>
 <p>Automatically _update on change in source folders.</p>
 <p>Flags: Read / Write</p>
 <p>Default value: TRUE</p>
@@ -566,7 +575,6 @@ ignore event request.</p>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

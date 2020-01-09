@@ -3,20 +3,20 @@
  * Copyright (C) 2008 Joergen Scheibengruber
  * Copyright (C) 2010, 2011, 2012 Philip Withnall
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Author: Joergen Scheibengruber <joergen.scheibengruber AT googlemail.com>
- *         Philip Withnall <philip@tecnocode.co.uk>
+ * Authors: Joergen Scheibengruber <joergen.scheibengruber AT googlemail.com>
+ *          Philip Withnall <philip@tecnocode.co.uk>
  */
 
 #include <config.h>
@@ -599,6 +599,28 @@ e_contact_new_from_gdata_entry (GDataEntry *entry,
 	/* UID */
 	attr = e_vcard_attribute_new (NULL, EVC_UID);
 	e_vcard_add_attribute_with_value (vcard, attr, uid);
+
+	/* REV */
+	attr = e_vcard_attribute_new (NULL, EVC_REV);
+	if (gdata_entry_get_etag (entry)) {
+		e_vcard_add_attribute_with_value (vcard, attr, gdata_entry_get_etag (entry));
+	} else {
+		GDateTime *dt;
+		gchar *rev = NULL;
+
+		dt = g_date_time_new_from_unix_utc (gdata_entry_get_updated (entry));
+		if (dt) {
+			rev = g_date_time_format (dt, "%Y-%m-%dT%H:%M:%S");
+			g_date_time_unref (dt);
+		}
+
+		if (!rev)
+			rev = g_strdup_printf ("%" G_GINT64_FORMAT, gdata_entry_get_updated (entry));
+
+		e_vcard_add_attribute_with_value (vcard, attr, rev);
+
+		g_free (rev);
+	}
 
 	/* FN, N */
 	name = gdata_contacts_contact_get_name (GDATA_CONTACTS_CONTACT (entry));
@@ -1502,11 +1524,27 @@ gdata_gd_postal_address_from_attribute (EVCardAttribute *attr,
 		value = value->next;
 		if (!value)
 			return address;
-		gdata_gd_postal_address_set_house_name (address, (*((gchar *) value->data) != '\0') ? value->data : NULL);
+		label = (*((gchar *) value->data) != '\0') ? value->data : NULL;
 		value = value->next;
-		if (!value)
+		if (!value) {
+			gdata_gd_postal_address_set_street (address, label);
 			return address;
-		gdata_gd_postal_address_set_street (address, (*((gchar *) value->data) != '\0') ? value->data : NULL);
+		}
+		if (label) {
+			const gchar *value_str = (*((gchar *) value->data) != '\0') ? value->data : NULL;
+
+			if (value_str) {
+				gchar *tmp;
+
+				tmp = g_strconcat (value_str, "\n", label, NULL);
+				gdata_gd_postal_address_set_street (address, tmp);
+				g_free (tmp);
+			} else {
+				gdata_gd_postal_address_set_street (address, label);
+			}
+		} else {
+			gdata_gd_postal_address_set_street (address, (*((gchar *) value->data) != '\0') ? value->data : NULL);
+		}
 		value = value->next;
 		if (!value)
 			return address;

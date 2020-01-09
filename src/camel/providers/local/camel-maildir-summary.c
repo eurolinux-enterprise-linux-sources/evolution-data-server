@@ -1,19 +1,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Not Zed <notzed@lostzed.mmc.com.au>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Not Zed <notzed@lostzed.mmc.com.au>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -216,9 +216,9 @@ gchar *camel_maildir_summary_info_to_name (const CamelMaildirMessageInfo *info)
 	gchar *p, *buf;
 	gint i;
 
-	uid = camel_message_info_uid (info);
-	buf = g_alloca (strlen (uid) + strlen (":2,") + G_N_ELEMENTS (flagbits) + 1);
-	p = buf + sprintf (buf, "%s:2,", uid);
+	uid = camel_message_info_get_uid (info);
+	buf = g_alloca (strlen (uid) + strlen (CAMEL_MAILDIR_FLAG_SEP_S "2,") + G_N_ELEMENTS (flagbits) + 1);
+	p = buf + sprintf (buf, "%s" CAMEL_MAILDIR_FLAG_SEP_S "2,", uid);
 	for (i = 0; i < G_N_ELEMENTS (flagbits); i++) {
 		if (info->info.info.flags & flagbits[i].flagbit)
 			*p++ = flagbits[i].flag;
@@ -237,7 +237,7 @@ gint camel_maildir_summary_name_to_info (CamelMaildirMessageInfo *info, const gc
 	/*guint32 all = 0;*/	/* all flags */
 	gint i;
 
-	p = strstr (name, ":2,");
+	p = strstr (name, CAMEL_MAILDIR_FLAG_SEP_S "2,");
 
 	if (p) {
 		p+=3;
@@ -296,6 +296,15 @@ maildir_summary_add (CamelLocalSummary *cls,
 		if (info) {
 			camel_maildir_info_set_filename (mi, camel_maildir_summary_info_to_name (mi));
 			d (printf ("Setting filename to %s\n", camel_maildir_info_filename (mi)));
+
+			/* Inherit the Received date from the passed-in info only if it is set and
+			   the new message info doesn't have it set or it's set to the default
+			   value, derived from the message UID. */
+			if (camel_message_info_get_date_received (info) > 0 &&
+			    (camel_message_info_get_date_received (mi) <= 0 ||
+			    (camel_message_info_get_uid (mi) &&
+			     camel_message_info_get_date_received (mi) == strtoul (camel_message_info_get_uid (mi), NULL, 10))))
+				mi->info.info.date_received = camel_message_info_get_date_received (info);
 		}
 	}
 
@@ -316,7 +325,7 @@ message_info_new_from_header (CamelFolderSummary *s,
 	if (mi) {
 		mdi = (CamelMaildirMessageInfo *) mi;
 
-		uid = camel_message_info_uid (mi);
+		uid = camel_message_info_get_uid (mi);
 		if (uid == NULL || uid[0] == 0)
 			mdi->info.info.uid = camel_pstring_add (camel_folder_summary_next_uid_string (s), TRUE);
 
@@ -328,8 +337,10 @@ message_info_new_from_header (CamelFolderSummary *s,
 			mdi = (CamelMaildirMessageInfo *)(mi = info);
 		}
 
-		/* with maildir we know the real received date, from the filename */
-		mdi->info.info.date_received = strtoul (camel_message_info_uid (mi), NULL, 10);
+		if (mdi->info.info.date_received <= 0) {
+			/* with maildir we know the real received date, from the filename */
+			mdi->info.info.date_received = strtoul (camel_message_info_get_uid (mi), NULL, 10);
+		}
 
 		if (mds->priv->current_file) {
 #if 0
@@ -403,7 +414,7 @@ static gchar *maildir_summary_next_uid_string (CamelFolderSummary *s)
 	if (mds->priv->current_file) {
 		gchar *cln;
 
-		cln = strchr (mds->priv->current_file, ':');
+		cln = strchr (mds->priv->current_file, CAMEL_MAILDIR_FLAG_SEP);
 		if (cln)
 			return g_strndup (mds->priv->current_file, cln - mds->priv->current_file);
 		else
@@ -476,7 +487,7 @@ maildir_summary_load (CamelLocalSummary *cls,
 			continue;
 
 		/* map the filename -> uid */
-		uid = strchr (d->d_name, ':');
+		uid = strchr (d->d_name, CAMEL_MAILDIR_FLAG_SEP);
 		if (uid) {
 			gint len = uid - d->d_name;
 			uid = camel_mempool_alloc (pool, len + 1);
@@ -558,7 +569,7 @@ remove_summary (gchar *key,
 {
 	d (printf ("removing message %s from summary\n", key));
 	if (rd->cls->index)
-		camel_index_delete_name (rd->cls->index, camel_message_info_uid (info));
+		camel_index_delete_name (rd->cls->index, camel_message_info_get_uid (info));
 	if (rd->changes)
 		camel_folder_change_info_remove_uid (rd->changes, key);
 	camel_folder_summary_remove ((CamelFolderSummary *) rd->cls, info);
@@ -619,7 +630,7 @@ maildir_summary_check (CamelLocalSummary *cls,
 	for (i = 0; known_uids && i < known_uids->len; i++) {
 		info = camel_folder_summary_get ((CamelFolderSummary *) cls, g_ptr_array_index (known_uids, i));
 		if (info) {
-			g_hash_table_insert (left, (gchar *) camel_message_info_uid (info), info);
+			g_hash_table_insert (left, (gchar *) camel_message_info_get_uid (info), info);
 		}
 	}
 
@@ -631,7 +642,14 @@ maildir_summary_check (CamelLocalSummary *cls,
 	rewinddir (dir);
 
 	while ((d = readdir (dir))) {
-		gint pc = count * 100 / total;
+		gint pc;
+
+		/* Avoid a potential division by zero if the first loop
+		 * (to calculate total) is executed on an empty
+		 * directory, then the directory is populated before
+		 * this loop is executed. */
+		total = MAX (total, count + 1);
+		pc = (total > 0) ? count * 100 / total : 0;
 
 		camel_operation_progress (cancellable, pc);
 		count++;
@@ -642,7 +660,7 @@ maildir_summary_check (CamelLocalSummary *cls,
 			continue;
 
 		/* map the filename -> uid */
-		uid = strchr (d->d_name, ':');
+		uid = strchr (d->d_name, CAMEL_MAILDIR_FLAG_SEP);
 		if (uid)
 			uid = g_strndup (d->d_name, uid - d->d_name);
 		else
@@ -650,8 +668,8 @@ maildir_summary_check (CamelLocalSummary *cls,
 
 		info = g_hash_table_lookup (left, uid);
 		if (info) {
-			camel_message_info_unref (info);
 			g_hash_table_remove (left, uid);
+			camel_message_info_unref (info);
 		}
 
 		info = camel_folder_summary_get ((CamelFolderSummary *) cls, uid);
@@ -723,7 +741,7 @@ maildir_summary_check (CamelLocalSummary *cls,
 			} else {
 				gchar *nm;
 				newname = g_strdup (name);
-				nm =strrchr (newname, ':');
+				nm =strrchr (newname, CAMEL_MAILDIR_FLAG_SEP);
 				if (nm)
 					*nm = '\0';
 				destname = newname;
@@ -731,7 +749,7 @@ maildir_summary_check (CamelLocalSummary *cls,
 
 			/* copy this to the destination folder, use 'standard' semantics for maildir info field */
 			src = g_strdup_printf ("%s/%s", new, name);
-			destfilename = g_strdup_printf ("%s:2,", destname);
+			destfilename = g_strdup_printf ("%s" CAMEL_MAILDIR_FLAG_SEP_S "2,", destname);
 			dest = g_strdup_printf ("%s/%s", cur, destfilename);
 
 			/* FIXME: This should probably use link/unlink */
@@ -779,6 +797,7 @@ maildir_summary_sync (CamelLocalSummary *cls,
 	gint i;
 	CamelMessageInfo *info;
 	CamelMaildirMessageInfo *mdi;
+	GList *removed_uids = NULL;
 	gchar *name;
 	struct stat st;
 	GPtrArray *known_uids;
@@ -804,10 +823,10 @@ maildir_summary_sync (CamelLocalSummary *cls,
 
 				/* FIXME: put this in folder_summary::remove()? */
 				if (cls->index)
-					camel_index_delete_name (cls->index, camel_message_info_uid (info));
+					camel_index_delete_name (cls->index, camel_message_info_get_uid (info));
 
-				camel_folder_change_info_remove_uid (changes, camel_message_info_uid (info));
-				camel_folder_summary_remove ((CamelFolderSummary *) cls, info);
+				camel_folder_change_info_remove_uid (changes, camel_message_info_get_uid (info));
+				removed_uids = g_list_prepend (removed_uids, (gpointer) camel_pstring_strdup (camel_message_info_get_uid (info)));
 			}
 			g_free (name);
 		} else if (mdi && (mdi->info.info.flags & CAMEL_MESSAGE_FOLDER_FLAGGED)) {
@@ -844,6 +863,11 @@ maildir_summary_sync (CamelLocalSummary *cls,
 			mdi->info.info.flags &= 0xffff;
 		}
 		camel_message_info_unref (info);
+	}
+
+	if (removed_uids) {
+		camel_folder_summary_remove_uids (CAMEL_FOLDER_SUMMARY (cls), removed_uids);
+		g_list_free_full (removed_uids, (GDestroyNotify) camel_pstring_free);
 	}
 
 	camel_folder_summary_free_array (known_uids);

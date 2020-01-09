@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelSession</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelSession: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Services.html" title="Services">
 <link rel="prev" href="Services.html" title="Services">
 <link rel="next" href="camel-camel-provider.html" title="camel-provider">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -36,7 +36,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelSession.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -44,24 +44,48 @@
 <tbody>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="returnvalue">GMainContext</span></a> *
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="CamelSession.html#CamelSessionCallback" title="CamelSessionCallback ()">*CamelSessionCallback</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="returnvalue">GMainContext</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-ref-main-context" title="camel_session_ref_main_context ()">camel_session_ref_main_context</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-get-user-data-dir" title="camel_session_get_user_data_dir ()">camel_session_get_user_data_dir</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-get-user-cache-dir" title="camel_session_get_user_cache_dir ()">camel_session_get_user_cache_dir</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="CamelSession.html#camel-session-set-network-monitor" title="camel_session_set_network_monitor ()">camel_session_set_network_monitor</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#GNetworkMonitor-struct"><span class="returnvalue">GNetworkMonitor</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelSession.html#camel-session-ref-network-monitor" title="camel_session_ref_network_monitor ()">camel_session_ref_network_monitor</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
@@ -98,7 +122,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-list-services" title="camel_session_list_services ()">camel_session_list_services</a> <span class="c_punctuation">()</span>
@@ -114,7 +138,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-get-password" title="camel_session_get_password ()">camel_session_get_password</a> <span class="c_punctuation">()</span>
@@ -122,7 +146,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-forget-password" title="camel_session_forget_password ()">camel_session_forget_password</a> <span class="c_punctuation">()</span>
@@ -146,7 +170,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-get-online" title="camel_session_get_online ()">camel_session_get_online</a> <span class="c_punctuation">()</span>
@@ -186,18 +210,10 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-idle-add" title="camel_session_idle_add ()">camel_session_idle_add</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<span class="c_punctuation">(</span><a class="link" href="CamelSession.html#CamelSessionCallback" title="CamelSessionCallback ()">*CamelSessionCallback</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
@@ -209,7 +225,7 @@
 </td>
 </tr>
 <tr>
-<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-get-junk-headers" title="camel_session_get_junk_headers ()">camel_session_get_junk_headers</a> <span class="c_punctuation">()</span>
@@ -225,7 +241,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-lookup-addressbook" title="camel_session_lookup_addressbook ()">camel_session_lookup_addressbook</a> <span class="c_punctuation">()</span>
@@ -233,7 +249,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-authenticate-sync" title="camel_session_authenticate_sync ()">camel_session_authenticate_sync</a> <span class="c_punctuation">()</span>
@@ -249,7 +265,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-authenticate-finish" title="camel_session_authenticate_finish ()">camel_session_authenticate_finish</a> <span class="c_punctuation">()</span>
@@ -257,7 +273,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-forward-to-sync" title="camel_session_forward_to_sync ()">camel_session_forward_to_sync</a> <span class="c_punctuation">()</span>
@@ -273,7 +289,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSession.html#camel-session-forward-to-finish" title="camel_session_forward_to_finish ()">camel_session_forward_to_finish</a> <span class="c_punctuation">()</span>
@@ -284,7 +300,7 @@
 </div>
 <div class="refsect1">
 <a name="CamelSession.properties"></a><h2>Properties</h2>
-<div class="informaltable"><table border="0">
+<div class="informaltable"><table class="informaltable" border="0">
 <colgroup>
 <col width="150px" class="properties_type">
 <col width="300px" class="properties_name">
@@ -299,24 +315,30 @@
 </tr>
 <tr>
 <td class="property_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *</td>
+<a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *</td>
 <td class="property_name"><a class="link" href="CamelSession.html#CamelSession--main-context" title="The “main-context” property">main-context</a></td>
 <td class="property_flags">Read</td>
 </tr>
 <tr>
-<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<td class="property_type">
+<a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#GNetworkMonitor-struct"><span class="type">GNetworkMonitor</span></a> *</td>
+<td class="property_name"><a class="link" href="CamelSession.html#CamelSession--network-monitor" title="The “network-monitor” property">network-monitor</a></td>
+<td class="property_flags">Read / Write</td>
+</tr>
+<tr>
+<td class="property_type"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a></td>
 <td class="property_name"><a class="link" href="CamelSession.html#CamelSession--online" title="The “online” property">online</a></td>
 <td class="property_flags">Read / Write / Construct</td>
 </tr>
 <tr>
 <td class="property_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
 <td class="property_name"><a class="link" href="CamelSession.html#CamelSession--user-cache-dir" title="The “user-cache-dir” property">user-cache-dir</a></td>
 <td class="property_flags">Read / Write / Construct</td>
 </tr>
 <tr>
 <td class="property_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
 <td class="property_name"><a class="link" href="CamelSession.html#CamelSession--user-data-dir" title="The “user-data-dir” property">user-data-dir</a></td>
 <td class="property_flags">Read / Write / Construct</td>
 </tr>
@@ -325,7 +347,7 @@
 </div>
 <div class="refsect1">
 <a name="CamelSession.signals"></a><h2>Signals</h2>
-<div class="informaltable"><table border="0">
+<div class="informaltable"><table class="informaltable" border="0">
 <colgroup>
 <col width="150px" class="signals_return">
 <col width="300px" class="signals_name">
@@ -335,43 +357,24 @@
 <tr>
 <td class="signal_type"><span class="returnvalue">void</span></td>
 <td class="signal_name"><a class="link" href="CamelSession.html#CamelSession-job-finished" title="The “job-finished” signal">job-finished</a></td>
-<td class="signal_flags">Run Last</td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
 </tr>
 <tr>
 <td class="signal_type"><span class="returnvalue">void</span></td>
 <td class="signal_name"><a class="link" href="CamelSession.html#CamelSession-job-started" title="The “job-started” signal">job-started</a></td>
-<td class="signal_flags">Run Last</td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
 </tr>
 <tr>
 <td class="signal_type"><span class="returnvalue">void</span></td>
 <td class="signal_name"><a class="link" href="CamelSession.html#CamelSession-user-alert" title="The “user-alert” signal">user-alert</a></td>
-<td class="signal_flags">Run Last</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="refsect1">
-<a name="CamelSession.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelSession.html#CamelSession-struct" title="struct CamelSession">CamelSession</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">enum</td>
-<td class="function_name"><a class="link" href="CamelSession.html#CamelSessionAlertType" title="enum CamelSessionAlertType">CamelSessionAlertType</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelSession.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> CamelSession
 </pre>
 </div>
@@ -381,15 +384,61 @@
 <div class="refsect1">
 <a name="CamelSession.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
+<a name="CamelSessionCallback"></a><h3>CamelSessionCallback ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*CamelSessionCallback<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>This is the callback signature for jobs submitted to the CamelSession
+via <a class="link" href="CamelSession.html#camel-session-submit-job" title="camel_session_submit_job ()"><code class="function">camel_session_submit_job()</code></a>.  The <em class="parameter"><code>error</code></em>
+ pointer is always non-<a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
+so it's safe to dereference to check if a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> has been set.</p>
+<div class="refsect3">
+<a name="CamelSessionCallback.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelOperation.html" title="CamelOperation"><span class="type">CamelOperation</span></a> cast as a <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>data passed to <a class="link" href="CamelSession.html#camel-session-submit-job" title="camel_session_submit_job ()"><code class="function">camel_session_submit_job()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
 <a name="camel-session-ref-main-context"></a><h3>camel_session_ref_main_context ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="returnvalue">GMainContext</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="returnvalue">GMainContext</span></a> *
 camel_session_ref_main_context (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>);</pre>
-<p>Returns the <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> on which event sources for <em class="parameter"><code>session</code></em>
+<p>Returns the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> on which event sources for <em class="parameter"><code>session</code></em>
  are to
 be attached.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.2.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-ref-main-context.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -403,21 +452,20 @@ be attached.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.2.6"></a><h4>Returns</h4>
-<p> a <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a></p>
-<p></p>
+<a name="camel-session-ref-main-context.returns"></a><h4>Returns</h4>
+<p> a <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a></p>
 </div>
-<p class="since">Since 3.8</p>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-get-user-data-dir"></a><h3>camel_session_get_user_data_dir ()</h3>
-<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_session_get_user_data_dir (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>);</pre>
 <p>Returns the base directory under which to store user-specific mail data.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.3.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-get-user-data-dir.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -431,21 +479,20 @@ camel_session_get_user_data_dir (<em class="parameter"><code><a class="link" hre
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.3.6"></a><h4>Returns</h4>
+<a name="camel-session-get-user-data-dir.returns"></a><h4>Returns</h4>
 <p> the base directory for mail data</p>
-<p></p>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-get-user-cache-dir"></a><h3>camel_session_get_user_cache_dir ()</h3>
-<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_session_get_user_cache_dir (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>);</pre>
 <p>Returns the base directory under which to store user-specific mail cache.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.4.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-get-user-cache-dir.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -459,27 +506,93 @@ camel_session_get_user_cache_dir (<em class="parameter"><code><a class="link" hr
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.4.6"></a><h4>Returns</h4>
+<a name="camel-session-get-user-cache-dir.returns"></a><h4>Returns</h4>
 <p> the base directory for mail cache</p>
-<p></p>
 </div>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-session-set-network-monitor"></a><h3>camel_session_set_network_monitor ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+camel_session_set_network_monitor (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#GNetworkMonitor-struct"><span class="type">GNetworkMonitor</span></a> *network_monitor</code></em>);</pre>
+<p>Sets a network monitor instance for the <em class="parameter"><code>session</code></em>
+. This can be used
+to override which <a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#GNetworkMonitor-struct"><span class="type">GNetworkMonitor</span></a> should be used to check network
+availability and whether a server is reachable.</p>
+<div class="refsect3">
+<a name="camel-session-set-network-monitor.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>network_monitor</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#GNetworkMonitor-struct"><span class="type">GNetworkMonitor</span></a> or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.22.html" title="Index of new symbols in 3.22">3.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-session-ref-network-monitor"></a><h3>camel_session_ref_network_monitor ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#GNetworkMonitor-struct"><span class="returnvalue">GNetworkMonitor</span></a> *
+camel_session_ref_network_monitor (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>);</pre>
+<p>References a <a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#GNetworkMonitor-struct"><span class="type">GNetworkMonitor</span></a> instance, which had been previously set
+by <a class="link" href="CamelSession.html#camel-session-set-network-monitor" title="camel_session_set_network_monitor ()"><code class="function">camel_session_set_network_monitor()</code></a>. If none is set, then the default
+<a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#GNetworkMonitor-struct"><span class="type">GNetworkMonitor</span></a> is returned, as provided by <a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#g-network-monitor-get-default"><code class="function">g_network_monitor_get_default()</code></a>.
+The returned pointer is referenced for thread safety, unref it with
+<a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="camel-session-ref-network-monitor.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="camel-session-ref-network-monitor.returns"></a><h4>Returns</h4>
+<p> A referenced <a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#GNetworkMonitor-struct"><span class="type">GNetworkMonitor</span></a> instance to use
+for network availability tests. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.22.html" title="Index of new symbols in 3.22">3.22</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-add-service"></a><h3>camel_session_add_service ()</h3>
 <pre class="programlisting"><a class="link" href="CamelService.html" title="CamelService"><span class="returnvalue">CamelService</span></a> *
 camel_session_add_service (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                           <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
-                           <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *protocol</code></em>,
-                           <em class="parameter"><code><a class="link" href="camel-camel-provider.html#CamelProviderType" title="enum CamelProviderType"><span class="type">CamelProviderType</span></a> type</code></em>,
-                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *protocol</code></em>,
+                           <em class="parameter"><code><a class="link" href="camel-camel-enums.html#CamelProviderType" title="enum CamelProviderType"><span class="type">CamelProviderType</span></a> type</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Instantiates a new <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> for <em class="parameter"><code>session</code></em>
 .  The <em class="parameter"><code>uid</code></em>
  identifies the
 service for future lookup.  The <em class="parameter"><code>protocol</code></em>
  indicates which <a class="link" href="camel-camel-provider.html#CamelProvider" title="CamelProvider"><span class="type">CamelProvider</span></a>
-holds the <a href="https://developer.gnome.org/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> of the <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> subclass to instantiate.  The <em class="parameter"><code>type</code></em>
+holds the <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a> of the <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> subclass to instantiate.  The <em class="parameter"><code>type</code></em>
 
 explicitly designates the service as a <a class="link" href="CamelStore.html" title="CamelStore"><span class="type">CamelStore</span></a> or <a class="link" href="CamelTransport.html" title="CamelTransport"><span class="type">CamelTransport</span></a>.</p>
 <p>If the given <em class="parameter"><code>uid</code></em>
@@ -491,15 +604,15 @@ given <em class="parameter"><code>protocol</code></em>
 .</p>
 <p>If no <a class="link" href="camel-camel-provider.html#CamelProvider" title="CamelProvider"><span class="type">CamelProvider</span></a> is available to handle the given <em class="parameter"><code>protocol</code></em>
 , or
-if the <a class="link" href="camel-camel-provider.html#CamelProvider" title="CamelProvider"><span class="type">CamelProvider</span></a> does not specify a valid <a href="https://developer.gnome.org/gobject/unstable/gobject-Type-Information.html#GType"><span class="type">GType</span></a> for <em class="parameter"><code>type</code></em>
+if the <a class="link" href="camel-camel-provider.html#CamelProvider" title="CamelProvider"><span class="type">CamelProvider</span></a> does not specify a valid <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a> for <em class="parameter"><code>type</code></em>
 , the
 function sets <em class="parameter"><code>error</code></em>
- and returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+ and returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
 <p>The returned <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> is referenced for thread-safety and must be
-unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.5.8"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-add-service.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -528,18 +641,18 @@ unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.5.9"></a><h4>Returns</h4>
-<p> a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> instance, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
-<p></p>
+<a name="camel-session-add-service.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> instance, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -549,8 +662,8 @@ camel_session_remove_service (<em class="parameter"><code><a class="link" href="
                               <em class="parameter"><code><a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> *service</code></em>);</pre>
 <p>Removes a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> previously added by <a class="link" href="CamelSession.html#camel-session-add-service" title="camel_session_add_service ()"><code class="function">camel_session_add_service()</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.6.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-remove-service.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -570,21 +683,21 @@ camel_session_remove_service (<em class="parameter"><code><a class="link" href="
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-ref-service"></a><h3>camel_session_ref_service ()</h3>
 <pre class="programlisting"><a class="link" href="CamelService.html" title="CamelService"><span class="returnvalue">CamelService</span></a> *
 camel_session_ref_service (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                           <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
 <p>Looks up a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> by its unique identifier string.  The service
 must have been previously added using <a class="link" href="CamelSession.html#camel-session-add-service" title="camel_session_add_service ()"><code class="function">camel_session_add_service()</code></a>.</p>
 <p>The returned <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> is referenced for thread-safety and must be
-unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.7.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-ref-service.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -605,31 +718,31 @@ unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.7.7"></a><h4>Returns</h4>
-<p> a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> instance, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
-<p></p>
+<a name="camel-session-ref-service.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> instance, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-ref-service-by-url"></a><h3>camel_session_ref_service_by_url ()</h3>
 <pre class="programlisting"><a class="link" href="CamelService.html" title="CamelService"><span class="returnvalue">CamelService</span></a> *
 camel_session_ref_service_by_url (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                                  <em class="parameter"><code><a class="link" href="camel-camel-url.html#CamelURL" title="struct CamelURL"><span class="type">CamelURL</span></a> *url</code></em>,
-                                  <em class="parameter"><code><a class="link" href="camel-camel-provider.html#CamelProviderType" title="enum CamelProviderType"><span class="type">CamelProviderType</span></a> type</code></em>);</pre>
-<p>Looks up a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> by trying to match its <a class="link" href="camel-camel-url.html#CamelURL" title="struct CamelURL"><span class="type">CamelURL</span></a> against the
+                                  <em class="parameter"><code><a class="link" href="camel-camel-url.html#CamelURL"><span class="type">CamelURL</span></a> *url</code></em>,
+                                  <em class="parameter"><code><a class="link" href="camel-camel-enums.html#CamelProviderType" title="enum CamelProviderType"><span class="type">CamelProviderType</span></a> type</code></em>);</pre>
+<p>Looks up a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> by trying to match its <a class="link" href="camel-camel-url.html#CamelURL"><span class="type">CamelURL</span></a> against the
 given <em class="parameter"><code>url</code></em>
  and then checking that the object is of the desired <em class="parameter"><code>type</code></em>
 .
 The service must have been previously added using
 <a class="link" href="CamelSession.html#camel-session-add-service" title="camel_session_add_service ()"><code class="function">camel_session_add_service()</code></a>.</p>
 <p>The returned <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> is referenced for thread-safety and must be
-unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
 <p>Note this function is significantly slower than <a class="link" href="CamelSession.html#camel-session-ref-service" title="camel_session_ref_service ()"><code class="function">camel_session_ref_service()</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.8.7"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-ref-service-by-url.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -643,41 +756,41 @@ unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-
 </tr>
 <tr>
 <td class="parameter_name"><p>url</p></td>
-<td class="parameter_description"><p>a <a class="link" href="camel-camel-url.html#CamelURL" title="struct CamelURL"><span class="type">CamelURL</span></a></p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-camel-url.html#CamelURL"><span class="type">CamelURL</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>type</p></td>
-<td class="parameter_description"><p>a <a class="link" href="camel-camel-provider.html#CamelProviderType" title="enum CamelProviderType"><span class="type">CamelProviderType</span></a></p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-camel-enums.html#CamelProviderType" title="enum CamelProviderType"><span class="type">CamelProviderType</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.8.8"></a><h4>Returns</h4>
-<p> a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> instance, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
-<p></p>
+<a name="camel-session-ref-service-by-url.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> instance, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-list-services"></a><h3>camel_session_list_services ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
 camel_session_list_services (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>);</pre>
 <p>Returns a list of all <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> objects previously added using
 <a class="link" href="CamelSession.html#camel-session-add-service" title="camel_session_add_service ()"><code class="function">camel_session_add_service()</code></a>.</p>
 <p>The services returned in the list are referenced for thread-safety.
-They must each be unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
-with them.  Free the returned list itself with <a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.</p>
+They must each be unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
+with them.  Free the returned list itself with <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.</p>
 <p>An easy way to free the list property in one step is as follows:</p>
 <div class="informalexample">
   <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
     <tbody>
       <tr>
         <td class="listing_lines" align="right"><pre>1</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#g-list-free-full">g_list_free_full</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">,</span><span class="normal"> <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref">g_object_unref</a></span><span class="symbol">);</span></pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free-full">g_list_free_full</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">,</span><span class="normal"> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref">g_object_unref</a></span><span class="symbol">);</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -685,8 +798,8 @@ with them.  Free the returned list itself with <a href="https://developer.gnome.
 
 <p></p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.9.9"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-list-services.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -700,11 +813,11 @@ with them.  Free the returned list itself with <a href="https://developer.gnome.
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.9.10"></a><h4>Returns</h4>
-<p> an unsorted list of <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> objects</p>
-<p></p>
+<a name="camel-session-list-services.returns"></a><h4>Returns</h4>
+<p> an unsorted list of <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> objects. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> CamelService][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -716,8 +829,8 @@ camel_session_remove_services (<em class="parameter"><code><a class="link" href=
 instances are freed properly, especially since <a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> instances are
 prone to reference cycles.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.10.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-remove-services.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -730,18 +843,18 @@ prone to reference cycles.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-get-password"></a><h3>camel_session_get_password ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_session_get_password (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
                             <em class="parameter"><code><a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> *service</code></em>,
-                            <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prompt</code></em>,
-                            <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *item</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> flags</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prompt</code></em>,
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *item</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint32"><span class="type">guint32</span></a> flags</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>This function is used by a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> to ask the application and
 the user for a password or other authentication data.</p>
 <p><em class="parameter"><code>service</code></em>
@@ -756,12 +869,12 @@ is set, the user's input will not be echoed back.</p>
 will be stored statically by the caller automatically, for the current
 session.</p>
 <p>The authenticator should set <em class="parameter"><code>error</code></em>
- to <code class="literal">G_IO_ERROR_CANCELLED</code> if
-the user did not provide the information. The caller must <a href="https://developer.gnome.org/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>
+ to <a href="/usr/share/gtk-doc/html/giogio-GIOError.html#G-IO-ERROR-CANCELLED:CAPS"><code class="literal">G_IO_ERROR_CANCELLED</code></a> if
+the user did not provide the information. The caller must <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>
 the information returned when it is done with it.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.11.9"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-get-password.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -797,26 +910,25 @@ the information returned when it is done with it.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.11.10"></a><h4>Returns</h4>
-<p> the authentication information or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
-<p></p>
+<a name="camel-session-get-password.returns"></a><h4>Returns</h4>
+<p> the authentication information or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-forget-password"></a><h3>camel_session_forget_password ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_session_forget_password (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
                                <em class="parameter"><code><a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> *service</code></em>,
-                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *item</code></em>,
-                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *item</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>This function is used by a <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> to tell the application
 that the authentication information it provided via
 <a class="link" href="CamelSession.html#camel-session-get-password" title="camel_session_get_password ()"><code class="function">camel_session_get_password()</code></a> was rejected by the service. If the
@@ -827,8 +939,8 @@ and if the service asks for it again, it should ask the user.</p>
  identify the rejected authentication information,
 as with <a class="link" href="CamelSession.html#camel-session-get-password" title="camel_session_get_password ()"><code class="function">camel_session_get_password()</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.12.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-forget-password.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -852,16 +964,15 @@ as with <a class="link" href="CamelSession.html#camel-session-get-password" titl
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.12.7"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
-<p></p>
+<a name="camel-session-forget-password.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
 </div>
 </div>
 <hr>
@@ -870,8 +981,8 @@ as with <a class="link" href="CamelSession.html#camel-session-get-password" titl
 <pre class="programlisting"><a class="link" href="CamelCertDB.html#CamelCertTrust" title="enum CamelCertTrust"><span class="returnvalue">CamelCertTrust</span></a>
 camel_session_trust_prompt (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
                             <em class="parameter"><code><a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> *service</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GTlsCertificate.html"><span class="type">GTlsCertificate</span></a> *certificate</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/gio-TLS-Overview.html#GTlsCertificateFlags"><span class="type">GTlsCertificateFlags</span></a> errors</code></em>);</pre>
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGTlsCertificate.html#GTlsCertificate-struct"><span class="type">GTlsCertificate</span></a> *certificate</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/giogio-TLS-Overview.html#GTlsCertificateFlags"><span class="type">GTlsCertificateFlags</span></a> errors</code></em>);</pre>
 <p>Prompts the user whether to accept <em class="parameter"><code>certificate</code></em>
  for <em class="parameter"><code>service</code></em>
 .  The
@@ -883,8 +994,8 @@ validation.</p>
 the function returns <a class="link" href="CamelCertDB.html#CAMEL-CERT-TRUST-UNKNOWN:CAPS"><span class="type">CAMEL_CERT_TRUST_UNKNOWN</span></a> and the certificate will
 be rejected.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.13.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-trust-prompt.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -903,7 +1014,7 @@ be rejected.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>certificate</p></td>
-<td class="parameter_description"><p>the peer's <a href="https://developer.gnome.org/gio/unstable/GTlsCertificate.html"><span class="type">GTlsCertificate</span></a></p></td>
+<td class="parameter_description"><p>the peer's <a href="/usr/share/gtk-doc/html/gioGTlsCertificate.html#GTlsCertificate-struct"><span class="type">GTlsCertificate</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -916,12 +1027,11 @@ be rejected.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.13.7"></a><h4>Returns</h4>
+<a name="camel-session-trust-prompt.returns"></a><h4>Returns</h4>
 <p> the user's trust level for <em class="parameter"><code>certificate</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 3.8</p>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -929,18 +1039,18 @@ be rejected.</p>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_session_user_alert (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
                           <em class="parameter"><code><a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> *service</code></em>,
-                          <em class="parameter"><code><a class="link" href="CamelSession.html#CamelSessionAlertType" title="enum CamelSessionAlertType"><span class="type">CamelSessionAlertType</span></a> type</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);</pre>
+                          <em class="parameter"><code><a class="link" href="camel-camel-enums.html#CamelSessionAlertType" title="enum CamelSessionAlertType"><span class="type">CamelSessionAlertType</span></a> type</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);</pre>
 <p>Emits a <span class="type">“user_alert”</span> signal from an idle source on the main
-loop.  The idle source's priority is <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#G-PRIORITY-LOW:CAPS"><span class="type">G_PRIORITY_LOW</span></a>.</p>
+loop.  The idle source's priority is <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#G-PRIORITY-LOW:CAPS"><span class="type">G_PRIORITY_LOW</span></a>.</p>
 <p>The purpose of the signal is to propagate a server-issued alert message
 from <em class="parameter"><code>service</code></em>
  to a user interface.  The <em class="parameter"><code>type</code></em>
  hints at the nature of the
 alert message.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.14.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-user-alert.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -959,7 +1069,7 @@ alert message.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>type</p></td>
-<td class="parameter_description"><p>a <a class="link" href="CamelSession.html#CamelSessionAlertType" title="enum CamelSessionAlertType"><span class="type">CamelSessionAlertType</span></a></p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-camel-enums.html#CamelSessionAlertType" title="enum CamelSessionAlertType"><span class="type">CamelSessionAlertType</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -970,16 +1080,16 @@ alert message.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.12</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-get-online"></a><h3>camel_session_get_online ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_session_get_online (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>);</pre>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.15.4"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-get-online.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -993,10 +1103,9 @@ camel_session_get_online (<em class="parameter"><code><a class="link" href="Came
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.15.5"></a><h4>Returns</h4>
+<a name="camel-session-get-online.returns"></a><h4>Returns</h4>
 <p> whether or not <em class="parameter"><code>session</code></em>
 is online</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1004,13 +1113,13 @@ is online</p>
 <a name="camel-session-set-online"></a><h3>camel_session_set_online ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_session_set_online (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> online</code></em>);</pre>
+                          <em class="parameter"><code><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a> online</code></em>);</pre>
 <p>Sets the online status of <em class="parameter"><code>session</code></em>
  to <em class="parameter"><code>online</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.16.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-set-online.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1036,11 +1145,11 @@ camel_session_set_online (<em class="parameter"><code><a class="link" href="Came
 <a name="camel-session-get-filter-driver"></a><h3>camel_session_get_filter_driver ()</h3>
 <pre class="programlisting"><a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver"><span class="returnvalue">CamelFilterDriver</span></a> *
 camel_session_get_filter_driver (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
-                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.17.4"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-get-filter-driver.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1059,16 +1168,16 @@ camel_session_get_filter_driver (<em class="parameter"><code><a class="link" hre
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.17.5"></a><h4>Returns</h4>
-<p> a filter driver, loaded with applicable rules</p>
-<p></p>
+<a name="camel-session-get-filter-driver.returns"></a><h4>Returns</h4>
+<p> a filter driver, loaded with applicable rules. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
 </div>
 <hr>
@@ -1082,8 +1191,8 @@ junk or not junk during filtering.</p>
 must implement the interface and install a <a class="link" href="CamelJunkFilter.html" title="CamelJunkFilter"><span class="type">CamelJunkFilter</span></a> instance for
 junk filtering to take place.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.18.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-get-junk-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1097,11 +1206,11 @@ junk filtering to take place.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.18.7"></a><h4>Returns</h4>
-<p> a <a class="link" href="CamelJunkFilter.html" title="CamelJunkFilter"><span class="type">CamelJunkFilter</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
-<p></p>
+<a name="camel-session-get-junk-filter.returns"></a><h4>Returns</h4>
+<p> a <a class="link" href="CamelJunkFilter.html" title="CamelJunkFilter"><span class="type">CamelJunkFilter</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1115,8 +1224,8 @@ junk or not junk during filtering.</p>
 must implement the interface and install a <a class="link" href="CamelJunkFilter.html" title="CamelJunkFilter"><span class="type">CamelJunkFilter</span></a> instance for
 junk filtering to take place.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.19.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-set-junk-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1130,37 +1239,37 @@ junk filtering to take place.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>junk_filter</p></td>
-<td class="parameter_description"><p>a <a class="link" href="CamelJunkFilter.html" title="CamelJunkFilter"><span class="type">CamelJunkFilter</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelJunkFilter.html" title="CamelJunkFilter"><span class="type">CamelJunkFilter</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-idle-add"></a><h3>camel_session_idle_add ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
 camel_session_idle_add (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                        <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> priority</code></em>,
-                        <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GSourceFunc"><span class="type">GSourceFunc</span></a> function</code></em>,
-                        <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
-                        <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
+                        <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> priority</code></em>,
+                        <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GSourceFunc"><span class="type">GSourceFunc</span></a> function</code></em>,
+                        <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>,
+                        <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
 <p>Adds a function to be called whenever there are no higher priority events
 pending.  If <em class="parameter"><code>function</code></em>
- returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> it is automatically removed from the
+ returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> it is automatically removed from the
 list of event sources and will not be called again.</p>
-<p>This internally creates a main loop source using <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#g-idle-source-new"><code class="function">g_idle_source_new()</code></a>
+<p>This internally creates a main loop source using <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#g-idle-source-new"><code class="function">g_idle_source_new()</code></a>
 and attaches it to <em class="parameter"><code>session</code></em>
 's own <a class="link" href="CamelSession.html#CamelSession--main-context" title="The “main-context” property"><span class="type">“main-context”</span></a> using
-<a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#g-source-attach"><code class="function">g_source_attach()</code></a>.</p>
+<a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#g-source-attach"><code class="function">g_source_attach()</code></a>.</p>
 <p>The <em class="parameter"><code>priority</code></em>
- is typically in the range between <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#G-PRIORITY-DEFAULT-IDLE:CAPS"><code class="literal">G_PRIORITY_DEFAULT_IDLE</code></a>
-and <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#G-PRIORITY-HIGH-IDLE:CAPS"><code class="literal">G_PRIORITY_HIGH_IDLE</code></a>.</p>
+ is typically in the range between <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#G-PRIORITY-DEFAULT-IDLE:CAPS"><code class="literal">G_PRIORITY_DEFAULT_IDLE</code></a>
+and <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#G-PRIORITY-HIGH-IDLE:CAPS"><code class="literal">G_PRIORITY_HIGH_IDLE</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.20.7"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-idle-add.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1190,80 +1299,34 @@ and <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.
 </tr>
 <tr>
 <td class="parameter_name"><p>notify</p></td>
-<td class="parameter_description"><p>function to call when the idle is removed, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>function to call when the idle is removed, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.20.8"></a><h4>Returns</h4>
+<a name="camel-session-idle-add.returns"></a><h4>Returns</h4>
 <p> the ID (greater than 0) of the event source</p>
-<p></p>
 </div>
-<p class="since">Since 3.6</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CamelSessionCallback"></a><h3>CamelSessionCallback ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-<span class="c_punctuation">(</span>*CamelSessionCallback<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                         <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
-                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
-<p>This is the callback signature for jobs submitted to the CamelSession
-via <a class="link" href="CamelSession.html#camel-session-submit-job" title="camel_session_submit_job ()"><code class="function">camel_session_submit_job()</code></a>.  The <em class="parameter"><code>error</code></em>
- pointer is always non-<a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>,
-so it's safe to dereference to check if a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> has been set.</p>
-<div class="refsect3">
-<a name="id-1.2.5.2.9.21.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="150px" class="parameters_name">
-<col class="parameters_description">
-<col width="200px" class="parameters_annotations">
-</colgroup>
-<tbody>
-<tr>
-<td class="parameter_name"><p>session</p></td>
-<td class="parameter_description"><p>a <a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a></p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-<tr>
-<td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>a <a class="link" href="camel-camel-operation.html#CamelOperation"><span class="type">CamelOperation</span></a> cast as a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a></p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-<tr>
-<td class="parameter_name"><p>user_data</p></td>
-<td class="parameter_description"><p>data passed to <a class="link" href="CamelSession.html#camel-session-submit-job" title="camel_session_submit_job ()"><code class="function">camel_session_submit_job()</code></a></p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-<tr>
-<td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a></p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-submit-job"></a><h3>camel_session_submit_job ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_session_submit_job (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *description</code></em>,
                           <em class="parameter"><code><a class="link" href="CamelSession.html#CamelSessionCallback" title="CamelSessionCallback ()"><span class="type">CamelSessionCallback</span></a> callback</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
 <p>This function provides a simple mechanism for providers to initiate
 low-priority background jobs.  Jobs can be submitted from any thread,
 but execution of the jobs is always as follows:</p>
 <p>1) The <span class="type">“job-started”</span> signal is emitted from the thread
    in which <em class="parameter"><code>session</code></em>
  was created.  This is typically the same thread
-   that hosts the global default <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a>, or "main" thread.</p>
+   that hosts the global default <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a>, or "main" thread.</p>
 <p>2) The <em class="parameter"><code>callback</code></em>
  function is invoked from a different thread where
    it's safe to call synchronous functions.</p>
@@ -1277,8 +1340,8 @@ but execution of the jobs is always as follows:</p>
  so that <em class="parameter"><code>user_data</code></em>
  can be freed.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.22.9"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-submit-job.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1288,6 +1351,11 @@ but execution of the jobs is always as follows:</p>
 <tr>
 <td class="parameter_name"><p>session</p></td>
 <td class="parameter_description"><p>a <a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>description</p></td>
+<td class="parameter_description"><p>human readable description of the job, shown to a user</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -1302,48 +1370,85 @@ but execution of the jobs is always as follows:</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>notify</p></td>
-<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> function</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> function</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-get-junk-headers"></a><h3>camel_session_get_junk_headers ()</h3>
-<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *
 camel_session_get_junk_headers (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>);</pre>
-<p class="since">Since 2.22</p>
+<div class="refsect3">
+<a name="camel-session-get-junk-headers.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 utf8][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2.22.html" title="Index of new symbols in 2.22">2.22</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-set-junk-headers"></a><h3>camel_session_set_junk_headers ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_session_set_junk_headers (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **headers</code></em>,
-                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **values</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>);</pre>
-<p class="since">Since 2.22</p>
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **headers</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **values</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-session-set-junk-headers.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>session</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>headers</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>values</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>len</p></td>
+<td class="parameter_description"><p>the length of the headers and values arrays</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2.22.html" title="Index of new symbols in 2.22">2.22</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-lookup-addressbook"></a><h3>camel_session_lookup_addressbook ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_session_lookup_addressbook (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                                  <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
-<p class="since">Since 2.22</p>
+                                  <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p class="since">Since: <a class="link" href="api-index-2.22.html" title="Index of new symbols in 2.22">2.22</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-authenticate-sync"></a><h3>camel_session_authenticate_sync ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_session_authenticate_sync (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
                                  <em class="parameter"><code><a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> *service</code></em>,
-                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *mechanism</code></em>,
-                                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *mechanism</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Authenticates <em class="parameter"><code>service</code></em>
 , which may involve repeated calls to
 <a class="link" href="CamelService.html#camel-service-authenticate" title="camel_service_authenticate ()"><code class="function">camel_service_authenticate()</code></a> or <a class="link" href="CamelService.html#camel-service-authenticate-sync" title="camel_service_authenticate_sync ()"><code class="function">camel_service_authenticate_sync()</code></a>.
@@ -1352,10 +1457,10 @@ and should handle things like user prompts and secure password storage.
 These issues are out-of-scope for Camel.</p>
 <p>If an error occurs, or if authentication is aborted, the function sets
 <em class="parameter"><code>error</code></em>
- and returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+ and returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.26.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-authenticate-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1374,28 +1479,27 @@ These issues are out-of-scope for Camel.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>mechanism</p></td>
-<td class="parameter_description"><p>a SASL mechanism name, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> a SASL mechanism name, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.26.7"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
-<p></p>
+<a name="camel-session-authenticate-sync.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
 </div>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1403,11 +1507,11 @@ These issues are out-of-scope for Camel.</p>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_session_authenticate (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
                             <em class="parameter"><code><a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a> *service</code></em>,
-                            <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *mechanism</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *mechanism</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
 <p>Asynchronously authenticates <em class="parameter"><code>service</code></em>
 , which may involve repeated calls
 to <a class="link" href="CamelService.html#camel-service-authenticate" title="camel_service_authenticate ()"><code class="function">camel_service_authenticate()</code></a> or <a class="link" href="CamelService.html#camel-service-authenticate-sync" title="camel_service_authenticate_sync ()"><code class="function">camel_service_authenticate_sync()</code></a>.
@@ -1419,8 +1523,8 @@ These issues are out-of-scope for Camel.</p>
 then call <a class="link" href="CamelSession.html#camel-session-authenticate-finish" title="camel_session_authenticate_finish ()"><code class="function">camel_session_authenticate_finish()</code></a> to get the result of
 the operation.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.27.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-authenticate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1439,8 +1543,8 @@ the operation.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>mechanism</p></td>
-<td class="parameter_description"><p>a SASL mechanism name, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> a SASL mechanism name, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>io_priority</p></td>
@@ -1449,12 +1553,12 @@ the operation.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>callback</p></td>
-<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -1465,22 +1569,22 @@ the operation.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-authenticate-finish"></a><h3>camel_session_authenticate_finish ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_session_authenticate_finish (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
-                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Finishes the operation started with <a class="link" href="CamelSession.html#camel-session-authenticate" title="camel_session_authenticate ()"><code class="function">camel_session_authenticate()</code></a>.</p>
 <p>If an error occurred, or if authentication was aborted, the function
 sets <em class="parameter"><code>error</code></em>
- and returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+ and returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.28.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-authenticate-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1494,43 +1598,42 @@ sets <em class="parameter"><code>error</code></em>
 </tr>
 <tr>
 <td class="parameter_name"><p>result</p></td>
-<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.28.7"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
-<p></p>
+<a name="camel-session-authenticate-finish.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
 </div>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-forward-to-sync"></a><h3>camel_session_forward_to_sync ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_session_forward_to_sync (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
                                <em class="parameter"><code><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="type">CamelFolder</span></a> *folder</code></em>,
                                <em class="parameter"><code><a class="link" href="CamelMimeMessage.html" title="CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> *message</code></em>,
-                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *address</code></em>,
-                               <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *address</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Forwards <em class="parameter"><code>message</code></em>
  in <em class="parameter"><code>folder</code></em>
  to the email address(es) given by <em class="parameter"><code>address</code></em>
 .</p>
 <p>If an error occurs, the function sets <em class="parameter"><code>error</code></em>
- and returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+ and returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.29.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-forward-to-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1560,23 +1663,22 @@ is located</p></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.29.7"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
-<p></p>
+<a name="camel-session-forward-to-sync.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
 </div>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1585,11 +1687,11 @@ is located</p></td>
 camel_session_forward_to (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
                           <em class="parameter"><code><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="type">CamelFolder</span></a> *folder</code></em>,
                           <em class="parameter"><code><a class="link" href="CamelMimeMessage.html" title="CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> *message</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *address</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *address</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> io_priority</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
 <p>Asynchronously forwards <em class="parameter"><code>message</code></em>
  in <em class="parameter"><code>folder</code></em>
  to the email address(s)
@@ -1600,8 +1702,8 @@ given by <em class="parameter"><code>address</code></em>
 then call <a class="link" href="CamelSession.html#camel-session-forward-to-finish" title="camel_session_forward_to_finish ()"><code class="function">camel_session_forward_to_finish()</code></a> to get the result of the
 operation.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.30.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-forward-to.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1636,12 +1738,12 @@ is located</p></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>callback</p></td>
-<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -1652,21 +1754,21 @@ is located</p></td>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-session-forward-to-finish"></a><h3>camel_session_forward_to_finish ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_session_forward_to_finish (<em class="parameter"><code><a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *session</code></em>,
-                                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
-                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Finishes the operation started with <a class="link" href="CamelSession.html#camel-session-forward-to" title="camel_session_forward_to ()"><code class="function">camel_session_forward_to()</code></a>.</p>
 <p>If an error occurred, the function sets <em class="parameter"><code>error</code></em>
- and returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+ and returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.31.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-session-forward-to-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1680,62 +1782,26 @@ camel_session_forward_to_finish (<em class="parameter"><code><a class="link" hre
 </tr>
 <tr>
 <td class="parameter_name"><p>result</p></td>
-<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.2.9.31.7"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
-<p></p>
+<a name="camel-session-forward-to-finish.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
 </div>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 </div>
 <div class="refsect1">
 <a name="CamelSession.other_details"></a><h2>Types and Values</h2>
-<div class="refsect2">
-<a name="CamelSession-struct"></a><h3>struct CamelSession</h3>
-<pre class="programlisting">struct CamelSession;</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CamelSessionAlertType"></a><h3>enum CamelSessionAlertType</h3>
-<div class="refsect3">
-<a name="id-1.2.5.2.10.3.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="300px" class="enum_members_name">
-<col class="enum_members_description">
-<col width="200px" class="enum_members_annotations">
-</colgroup>
-<tbody>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-SESSION-ALERT-INFO:CAPS"></a>CAMEL_SESSION_ALERT_INFO</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-SESSION-ALERT-WARNING:CAPS"></a>CAMEL_SESSION_ALERT_WARNING</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-SESSION-ALERT-ERROR:CAPS"></a>CAMEL_SESSION_ALERT_ERROR</p></td>
-<td> </td>
-<td> </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
 </div>
 <div class="refsect1">
 <a name="CamelSession.property-details"></a><h2>Property Details</h2>
@@ -1748,14 +1814,20 @@ camel_session_forward_to_finish (<em class="parameter"><code><a class="link" hre
 <hr>
 <div class="refsect2">
 <a name="CamelSession--main-context"></a><h3>The <code class="literal">“main-context”</code> property</h3>
-<pre class="programlisting">  “main-context”             <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *</pre>
+<pre class="programlisting">  “main-context”             <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *</pre>
 <p>The main loop context on which to attach event sources.</p>
 <p>Flags: Read</p>
 </div>
 <hr>
 <div class="refsect2">
+<a name="CamelSession--network-monitor"></a><h3>The <code class="literal">“network-monitor”</code> property</h3>
+<pre class="programlisting">  “network-monitor”          <a href="/usr/share/gtk-doc/html/gioGNetworkMonitor.html#GNetworkMonitor-struct"><span class="type">GNetworkMonitor</span></a> *</pre>
+<p>Flags: Read / Write</p>
+</div>
+<hr>
+<div class="refsect2">
 <a name="CamelSession--online"></a><h3>The <code class="literal">“online”</code> property</h3>
-<pre class="programlisting">  “online”                   <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<pre class="programlisting">  “online”                   <a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a></pre>
 <p>Whether the shell is online.</p>
 <p>Flags: Read / Write / Construct</p>
 <p>Default value: TRUE</p>
@@ -1763,7 +1835,7 @@ camel_session_forward_to_finish (<em class="parameter"><code><a class="link" hre
 <hr>
 <div class="refsect2">
 <a name="CamelSession--user-cache-dir"></a><h3>The <code class="literal">“user-cache-dir”</code> property</h3>
-<pre class="programlisting">  “user-cache-dir”           <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<pre class="programlisting">  “user-cache-dir”           <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
 <p>User-specific base directory for mail cache.</p>
 <p>Flags: Read / Write / Construct</p>
 <p>Default value: NULL</p>
@@ -1771,7 +1843,7 @@ camel_session_forward_to_finish (<em class="parameter"><code><a class="link" hre
 <hr>
 <div class="refsect2">
 <a name="CamelSession--user-data-dir"></a><h3>The <code class="literal">“user-data-dir”</code> property</h3>
-<pre class="programlisting">  “user-data-dir”            <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<pre class="programlisting">  “user-data-dir”            <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
 <p>User-specific base directory for mail data.</p>
 <p>Flags: Read / Write / Construct</p>
 <p>Default value: NULL</p>
@@ -1783,19 +1855,19 @@ camel_session_forward_to_finish (<em class="parameter"><code><a class="link" hre
 <a name="CamelSession-job-finished"></a><h3>The <code class="literal">“job-finished”</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 user_function (<a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *camelsession,
-               <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *arg1,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg2,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)</pre>
-<p>Flags: Run Last</p>
+               <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *arg1,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      arg2,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)</pre>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CamelSession-job-started"></a><h3>The <code class="literal">“job-started”</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 user_function (<a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a> *camelsession,
-               <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *arg1,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)</pre>
-<p>Flags: Run Last</p>
+               <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *arg1,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)</pre>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1803,17 +1875,17 @@ user_function (<a class="link" href="CamelSession.html" title="CamelSession"><sp
 <pre class="programlisting"><span class="returnvalue">void</span>
 user_function (<a class="link" href="CamelSession.html" title="CamelSession"><span class="type">CamelSession</span></a>         *session,
                <a class="link" href="CamelService.html" title="CamelService"><span class="type">CamelService</span></a>         *service,
-               <a class="link" href="CamelSession.html#CamelSessionAlertType" title="enum CamelSessionAlertType"><span class="type">CamelSessionAlertType</span></a> type,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                *message,
-               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)</pre>
+               <a class="link" href="camel-camel-enums.html#CamelSessionAlertType" title="enum CamelSessionAlertType"><span class="type">CamelSessionAlertType</span></a> type,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>                *message,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>              user_data)</pre>
 <p>This purpose of this signal is to propagate a server-issued alert
 message from <em class="parameter"><code>service</code></em>
  to a user interface.  The <em class="parameter"><code>type</code></em>
  hints at the
 severity of the alert message.</p>
 <div class="refsect3">
-<a name="id-1.2.5.2.12.4.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="CamelSession-user-alert.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1832,7 +1904,7 @@ severity of the alert message.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>type</p></td>
-<td class="parameter_description"><p>the <a class="link" href="CamelSession.html#CamelSessionAlertType" title="enum CamelSessionAlertType"><span class="type">CamelSessionAlertType</span></a></p></td>
+<td class="parameter_description"><p>the <a class="link" href="camel-camel-enums.html#CamelSessionAlertType" title="enum CamelSessionAlertType"><span class="type">CamelSessionAlertType</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -1848,12 +1920,11 @@ severity of the alert message.</p>
 </tbody>
 </table></div>
 </div>
-<p>Flags: Run Last</p>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

@@ -2,19 +2,19 @@
 /*
  * Copyright (C) 2008 Novell, Inc. (www.novell.com)
  *
- * Author: Srinivasa Ragavan  <sragavan@novell.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Srinivasa Ragavan  <sragavan@novell.com>
  */
 
 /* This is a helper class for folders to implement the search function.
@@ -190,7 +190,25 @@ eval_eq (struct _CamelSExp *f,
 		else if (r1->type == CAMEL_SEXP_RES_STRING)
 			g_string_append_printf (str, "%s", r1->value.string);
 
-		if (!strstr (str->str, "completed-on") && !strstr (str->str, "follow-up")) {
+		if (g_str_equal (str->str, "( msgid") || g_str_equal (str->str, "( references")) {
+			gboolean is_msgid = g_str_equal (str->str, "( msgid");
+
+			g_string_assign (str, "( part LIKE ");
+			if (r2->type == CAMEL_SEXP_RES_STRING) {
+				gchar *tmp, *safe;
+
+				/* Expects CamelSummaryMessageID encoded as "%lu %lu", id.part.hi, id.part.lo.
+				   The 'msgid' is always the first, while 'references' is inside. */
+				/* Beware, the 'references' can return false positives, thus recheck returned UID-s. */
+				tmp = g_strdup_printf ("%s%s%%", is_msgid ? "" : "%", r2->value.string);
+				safe = get_db_safe_string (tmp);
+				g_string_append_printf (str, "%s", safe);
+				g_free (safe);
+				g_free (tmp);
+			} else {
+				g_warn_if_reached ();
+			}
+		} else if (!strstr (str->str, "completed-on") && !strstr (str->str, "follow-up")) {
 			gboolean ut = FALSE;
 
 			if (strstr (str->str, "usertags"))

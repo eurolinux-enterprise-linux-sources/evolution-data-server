@@ -1,23 +1,22 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
- *
- * camel-folder.h: Abstract class for an email folder
- *
- * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
- *	    Michael Zucchi <notzed@ximian.com>
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* camel-folder.h: Abstract class for an email folder
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
+ *	    Michael Zucchi <notzed@ximian.com>
  */
 
 #if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
@@ -170,7 +169,7 @@ struct _CamelFolderClass {
 						 GPtrArray *uids);
 	GPtrArray *	(*get_summary)		(CamelFolder *folder);
 	void		(*free_summary)		(CamelFolder *folder,
-						 GPtrArray *summary);
+						 GPtrArray *array);
 	gboolean	(*has_search_capability)(CamelFolder *folder);
 	GPtrArray *	(*search_by_expression)	(CamelFolder *folder,
 						 const gchar *expression,
@@ -188,7 +187,7 @@ struct _CamelFolderClass {
 						 const gchar *uid);
 	void		(*delete_)		(CamelFolder *folder);
 	void		(*rename)		(CamelFolder *folder,
-						 const gchar *newname);
+						 const gchar *new_name);
 	void		(*freeze)		(CamelFolder *folder);
 	void		(*thaw)			(CamelFolder *folder);
 	gboolean	(*is_frozen)		(CamelFolder *folder);
@@ -252,13 +251,15 @@ struct _CamelFolderClass {
 						 GPtrArray **transferred_uids,
 						 GCancellable *cancellable,
 						 GError **error);
+	void		(*prepare_content_refresh)
+						(CamelFolder *folder);
 
 	/* Reserved slots for methods. */
-	gpointer reserved_for_methods[20];
+	gpointer reserved_for_methods[19];
 
 	/* Signals */
 	void		(*changed)		(CamelFolder *folder,
-						 CamelFolderChangeInfo *info);
+						 CamelFolderChangeInfo *changes);
 	void		(*deleted)		(CamelFolder *folder);
 	void		(*renamed)		(CamelFolder *folder,
 						 const gchar *old_name);
@@ -344,11 +345,11 @@ void		camel_folder_sort_uids		(CamelFolder *folder,
 						 GPtrArray *uids);
 GPtrArray *	camel_folder_search_by_expression
 						(CamelFolder *folder,
-						 const gchar *expr,
+						 const gchar *expression,
 						 GCancellable *cancellable,
 						 GError **error);
 GPtrArray *	camel_folder_search_by_uids	(CamelFolder *folder,
-						 const gchar *expr,
+						 const gchar *expression,
 						 GPtrArray *uids,
 						 GCancellable *cancellable,
 						 GError **error);
@@ -370,6 +371,8 @@ void		camel_folder_freeze		(CamelFolder *folder);
 void		camel_folder_thaw		(CamelFolder *folder);
 gboolean	camel_folder_is_frozen		(CamelFolder *folder);
 gint		camel_folder_get_frozen_count	(CamelFolder *folder);
+
+GType		camel_folder_quota_info_get_type	(void) G_GNUC_CONST;
 CamelFolderQuotaInfo *
 		camel_folder_quota_info_new	(const gchar *name,
 						 guint64 used,
@@ -434,6 +437,10 @@ CamelMimeMessage *
 		camel_folder_get_message_finish	(CamelFolder *folder,
 						 GAsyncResult *result,
 						 GError **error);
+CamelMimeMessage *
+		camel_folder_get_message_cached	(CamelFolder *folder,
+						 const gchar *message_uid,
+						 GCancellable *cancellable);
 CamelFolderQuotaInfo *
 		camel_folder_get_quota_info_sync
 						(CamelFolder *folder,
@@ -530,6 +537,8 @@ gboolean	camel_folder_transfer_messages_to_finish
 						 GAsyncResult *result,
 						 GPtrArray **transferred_uids,
 						 GError **error);
+void		camel_folder_prepare_content_refresh
+						(CamelFolder *folder);
 
 /* update functions for change info */
 CamelFolderChangeInfo *

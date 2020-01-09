@@ -1,17 +1,17 @@
 /*
  * e-collection-backend-factory.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -24,6 +24,8 @@
  * #ECollectionBackendFactory is a type of #EBackendFactory for creating
  * #ECollectionBackend instances.
  **/
+
+#include <string.h>
 
 #include "e-collection-backend-factory.h"
 
@@ -51,11 +53,23 @@ static const gchar *
 collection_backend_factory_get_hash_key (EBackendFactory *factory)
 {
 	ECollectionBackendFactoryClass *class;
+	const gchar *component_name;
+	gchar *hash_key;
+	gsize length;
 
 	class = E_COLLECTION_BACKEND_FACTORY_GET_CLASS (factory);
 	g_return_val_if_fail (class->factory_name != NULL, NULL);
 
-	return class->factory_name;
+	component_name = E_SOURCE_EXTENSION_COLLECTION;
+
+	/* Hash key: FACTORY ´:' COMPONENT_NAME */
+	length = strlen (class->factory_name) + strlen (component_name) + 2;
+	hash_key = g_alloca (length);
+	g_snprintf (
+		hash_key, length, "%s:%s",
+		class->factory_name, component_name);
+
+	return g_intern_string (hash_key);
 }
 
 static EBackend *

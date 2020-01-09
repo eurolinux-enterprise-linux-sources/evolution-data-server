@@ -2,19 +2,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -215,8 +215,8 @@ text_index_finalize (GObject *object)
 
 	priv = CAMEL_TEXT_INDEX_GET_PRIVATE (object);
 
-	g_assert (g_queue_is_empty (&priv->word_cache));
-	g_assert (g_hash_table_size (priv->words) == 0);
+	g_warn_if_fail (g_queue_is_empty (&priv->word_cache));
+	g_warn_if_fail (g_hash_table_size (priv->words) == 0);
 
 	g_hash_table_destroy (priv->words);
 
@@ -392,7 +392,7 @@ text_index_sync (CamelIndex *idx)
 			ret = text_index_compress_nosync (idx);
 	}
 
-	ret = camel_block_file_sync (p->blocks);
+	ret = ret == -1 ? ret : camel_block_file_sync (p->blocks);
 
 	CAMEL_TEXT_INDEX_UNLOCK (idx, lock);
 
@@ -1679,6 +1679,9 @@ text_index_cursor_next (CamelIndexCursor *idc)
 		}
 
 		g_free (p->current);
+		p->current = NULL;
+		flags = 0;
+
 		camel_key_table_lookup (
 			tip->name_index, p->records[p->record_index],
 			&p->current, &flags);
@@ -1963,7 +1966,7 @@ main (gint argc,
 		data = camel_key_table_lookup (ki, keyid, &key, &flags);
 		m (printf (" word = '%s' %d %04x\n", key, data, flags));
 
-		g_assert (data == index && strcmp (key, line) == 0);
+		g_return_val_if_fail (data == index && strcmp (key, line) == 0, -1);
 
 		g_free (key);
 
@@ -1983,7 +1986,7 @@ main (gint argc,
 		data = camel_key_table_lookup (ki, keyid, &key, &flags);
 		m (printf (" word = '%s' %d\n", key, data));
 
-		g_assert (data == index && strcmp (key, line) == 0);
+		g_return_val_if_fail (data == index && strcmp (key, line) == 0, -1);
 
 		g_free (key);
 

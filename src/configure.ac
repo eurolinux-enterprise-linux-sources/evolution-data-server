@@ -1,8 +1,8 @@
 
 dnl Evolution-Data-Server version
 m4_define([eds_major_version], [3])
-m4_define([eds_minor_version], [12])
-m4_define([eds_micro_version], [11])
+m4_define([eds_minor_version], [22])
+m4_define([eds_micro_version], [7])
 
 m4_define([eds_version],
 	[eds_major_version.eds_minor_version.eds_micro_version])
@@ -11,8 +11,8 @@ dnl Base Version: This is for API/version tracking for things like
 dnl Bonobo server files.  This should always be the major/minor of
 dnl the stable version or stable version to be.  Note, this is set
 dnl the way it is so that GETTEXT_PACKAGE will be parsed correctly.
-BASE_VERSION=3.12
-m4_define([base_version], [3.12])
+BASE_VERSION=3.22
+m4_define([base_version], [3.22])
 
 dnl This number is meaningless, but we're now stuck with it in our
 dnl library names for backward compatibility.
@@ -35,12 +35,12 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 dnl Required Package Versions
 
 dnl Keep these two definitions in agreement.
-m4_define([glib_minimum_version], [2.36])
-m4_define([glib_encoded_version], [GLIB_VERSION_2_36])
+m4_define([glib_minimum_version], [2.46])
+m4_define([glib_encoded_version], [GLIB_VERSION_2_46])
 
 dnl Keep these two definitions in agreement.
-m4_define([gdk_minimum_version], [3.2])
-m4_define([gdk_encoded_version], [GDK_VERSION_3_2])
+m4_define([gdk_minimum_version], [3.10])
+m4_define([gdk_encoded_version], [GDK_VERSION_3_10])
 
 dnl Keep these two definitions in agreement.
 m4_define([soup_minimum_version], [2.42])
@@ -50,14 +50,16 @@ m4_define([gcr_minimum_version], [3.4])
 m4_define([libsecret_minimum_version], [0.5])
 m4_define([libxml_minimum_version], [2.0.0])		dnl XXX Just a Guess
 m4_define([libgdata_minimum_version], [0.10])
-m4_define([sqlite_minimum_version], [3.5])
+m4_define([sqlite_minimum_version], [3.7.17])
 m4_define([libical_minimum_version], [0.43])
 
 dnl Optional Packages
 m4_define([goa_minimum_version], [3.8])
-m4_define([gweather_minimum_version], [3.8])
+m4_define([gweather_minimum_version], [3.10])
 m4_define([libaccounts_glib_minimum_version], [1.4])
 m4_define([libsignon_glib_minimum_version], [1.8])
+m4_define([webkit2gtk_minimum_version], [2.11.91])
+m4_define([json_glib_minimum_version], [1.0.4])
 
 AC_SUBST([BASE_VERSION],[base_version])
 AC_SUBST([API_VERSION],[api_version])
@@ -73,9 +75,9 @@ GLIB_GSETTINGS
 dnl ******************************
 dnl D-Bus versioning
 dnl ******************************
-ADDRESS_BOOK_DBUS_SERVICE_NAME="org.gnome.evolution.dataserver.AddressBook6"
-CALENDAR_DBUS_SERVICE_NAME="org.gnome.evolution.dataserver.Calendar4"
-SOURCES_DBUS_SERVICE_NAME="org.gnome.evolution.dataserver.Sources3"
+ADDRESS_BOOK_DBUS_SERVICE_NAME="org.gnome.evolution.dataserver.AddressBook9"
+CALENDAR_DBUS_SERVICE_NAME="org.gnome.evolution.dataserver.Calendar7"
+SOURCES_DBUS_SERVICE_NAME="org.gnome.evolution.dataserver.Sources5"
 USER_PROMPTER_DBUS_SERVICE_NAME="org.gnome.evolution.dataserver.UserPrompter0"
 
 AC_DEFINE_UNQUOTED(
@@ -106,35 +108,39 @@ AC_SUBST(USER_PROMPTER_DBUS_SERVICE_NAME)
 dnl ******************************
 dnl Libtool versioning
 dnl ******************************
-LIBEDATASERVER_CURRENT=18
+LIBEDATASERVER_CURRENT=22
 LIBEDATASERVER_REVISION=0
 LIBEDATASERVER_AGE=0
 
-LIBECAL_CURRENT=16
+LIBEDATASERVERUI_CURRENT=1
+LIBEDATASERVERUI_REVISION=0
+LIBEDATASERVERUI_AGE=0
+
+LIBECAL_CURRENT=19
 LIBECAL_REVISION=0
 LIBECAL_AGE=0
 
-LIBEDATACAL_CURRENT=23
+LIBEDATACAL_CURRENT=28
 LIBEDATACAL_REVISION=0
 LIBEDATACAL_AGE=0
 
-LIBEDATABOOK_CURRENT=20
+LIBEDATABOOK_CURRENT=25
 LIBEDATABOOK_REVISION=0
 LIBEDATABOOK_AGE=0
 
-LIBEBOOK_CURRENT=17
+LIBEBOOK_CURRENT=19
 LIBEBOOK_REVISION=1
 LIBEBOOK_AGE=3
 
-LIBEBOOK_CONTACTS_CURRENT=0
+LIBEBOOK_CONTACTS_CURRENT=2
 LIBEBOOK_CONTACTS_REVISION=0
 LIBEBOOK_CONTACTS_AGE=0
 
-LIBCAMEL_CURRENT=49
+LIBCAMEL_CURRENT=59
 LIBCAMEL_REVISION=0
 LIBCAMEL_AGE=0
 
-LIBEBACKEND_CURRENT=7
+LIBEBACKEND_CURRENT=10
 LIBEBACKEND_REVISION=0
 LIBEBACKEND_AGE=0
 
@@ -144,6 +150,9 @@ AC_SUBST(EDS_MICRO_VERSION)
 AC_SUBST(LIBEDATASERVER_CURRENT)
 AC_SUBST(LIBEDATASERVER_REVISION)
 AC_SUBST(LIBEDATASERVER_AGE)
+AC_SUBST(LIBEDATASERVERUI_CURRENT)
+AC_SUBST(LIBEDATASERVERUI_REVISION)
+AC_SUBST(LIBEDATASERVERUI_AGE)
 AC_SUBST(LIBECAL_CURRENT)
 AC_SUBST(LIBECAL_REVISION)
 AC_SUBST(LIBECAL_AGE)
@@ -178,22 +187,44 @@ dnl *********************************************
 EVO_PHONENUMBER_ARGS
 
 dnl ******************************
+dnl Initialize maintainer mode
+dnl ******************************
+AM_MAINTAINER_MODE([enable])
+
+if test "x$enable_maintainer_mode" = "xyes" ; then
+	AC_DEFINE(ENABLE_MAINTAINER_MODE, 1, [Configured with enabled maintainer mode])
+fi
+
+dnl ******************************
 dnl Compiler Warning Flags
 dnl ******************************
-proposed_warning_flags="-Wall -Wextra
-	-Wdeprecated-declarations
-	-Werror-implicit-function-declaration
-	-Wformat-security -Winit-self
-	-Wmissing-declarations -Wmissing-include-dirs
-	-Wmissing-noreturn -Wpointer-arith
-	-Wredundant-decls -Wundef -Wwrite-strings"
+proposed_warning_flags=
+append_c_warning_flags=
+
+if test "x$enable_maintainer_mode" = "xyes" ; then
+	proposed_warning_flags="-Wall -Wextra -Wdeprecated-declarations"
+else
+	proposed_warning_flags="-Wno-deprecated-declarations"
+fi
+
+if test "$CC" = "clang" ; then
+	append_c_warning_flags="-Wno-parentheses-equality -Wno-format-nonliteral"
+fi
+
+proposed_warning_flags="$proposed_warning_flags
+		-Werror-implicit-function-declaration
+		-Wformat -Wformat-security -Winit-self
+		-Wmissing-declarations -Wmissing-include-dirs
+		-Wmissing-noreturn -Wpointer-arith
+		-Wredundant-decls -Wundef -Wwrite-strings"
 
 proposed_c_warning_flags="$proposed_warning_flags
 	-Wdeclaration-after-statement
 	-Wno-missing-field-initializers
 	-Wno-sign-compare
 	-Wno-unused-parameter
-	-Wnested-externs"
+	-Wnested-externs
+	$append_c_warning_flags"
 
 proposed_cxx_warning_flags="$proposed_warning_flags
 	-Wabi -Wnoexcept"
@@ -227,7 +258,7 @@ dnl Permits linking of C++ based libraries using the C linker if needed.
 AC_SUBST([predeps_CXX])
 AC_SUBST([postdeps_CXX])
 
-AM_CPPFLAGS=
+AM_CPPFLAGS="$WARNING_FLAGS -fno-strict-aliasing"
 
 dnl Warn about API usage that violates our minimum requirements.
 AM_CPPFLAGS="$AM_CPPFLAGS -DGLIB_VERSION_MAX_ALLOWED=glib_encoded_version"
@@ -244,15 +275,6 @@ AM_CPPFLAGS="$AM_CPPFLAGS -DSOUP_VERSION_MIN_REQUIRED=soup_encoded_version"
 
 AC_SUBST(AM_CPPFLAGS)
 
-dnl ******************************
-dnl Initialize maintainer mode
-dnl ******************************
-AM_MAINTAINER_MODE([enable])
-
-if test "x$enable_maintainer_mode" = "xyes" ; then
-	AC_DEFINE(ENABLE_MAINTAINER_MODE, 1, [Configured with enabled maintainer mode])
-fi
-
 AC_PROG_CC
 AC_PROG_CPP
 AC_C_INLINE
@@ -260,6 +282,8 @@ AM_PROG_CC_C_O
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
+AC_PATH_PROG([PERL], [perl])
+AC_SUBST(PERL)
 
 dnl For gen-western-table.py
 AM_PATH_PYTHON
@@ -314,8 +338,8 @@ AM_CONDITIONAL(WITH_PRIVATE_DOCS, [test x$with_private_docs = xyes])
 
 dnl This must appear after AC_CANONICAL_HOST, which defines $host.
 case "$host" in
-*openbsd*|*freebsd*)
-	dnl Do not set '-Wl,--no-undefined' on freebsd/openbsd
+*openbsd*|*freebsd*|*darwin*)
+	dnl Do not set '-Wl,--no-undefined' on freebsd/openbsd/darwin
 	;;
 *)
 	LDFLAGS="$LDFLAGS -Wl,--no-undefined"
@@ -457,6 +481,42 @@ if test "x$enable_gtk" = xyes; then
 fi
 AM_CONDITIONAL(HAVE_GTK, [test x$enable_gtk = xyes])
 
+dnl **********************************
+dnl Check for WebKitGTK+ and json-glib
+dnl **********************************
+AC_ARG_ENABLE([google-auth],
+	[AS_HELP_STRING([--enable-google-auth],
+	[enable Google authentication (default=yes)])],
+	[enable_google_auth=$enableval], [enable_google_auth=yes])
+AC_MSG_CHECKING([if Google authentication support is enabled])
+AC_MSG_RESULT([$enable_google_auth])
+if test "x$enable_google_auth" = "xyes"; then
+	PKG_CHECK_MODULES(
+		[GOOGLE_AUTH], [webkit2gtk-4.0 >= webkit2gtk_minimum_version
+				json-glib-1.0 >= json_glib_minimum_version],,
+		[AC_MSG_ERROR([
+
+	Libraries to support Google authentication prompts not found,
+	or versions not new enough.
+
+	If you want to disable Google authentication support,
+	please append --disable-google-auth to configure.
+
+	])])
+
+	AC_DEFINE(ENABLE_GOOGLE_AUTH, 1, [Define to 1 if Google autentication support is enabled.])
+	AC_ARG_WITH(google-client-id, [AS_HELP_STRING([--with-google-client-id], [Google OAuth 2.0 client id])], [], [])
+	if test "x$with_google_client_id" = "x"; then
+		with_google_client_id=590402290962-2i0b7rqma8b9nmtfrcp7fa06g6cf7g74.apps.googleusercontent.com
+	fi
+	AC_ARG_WITH(google-client-secret, [AS_HELP_STRING([--with-google-client-secret], [Google OAuth 2.0 client secret])], [], [])
+	if test "x$with_google_client_secret" = "x"; then
+		with_google_client_secret=mtfUe5W8Aal9DcgVipOY1T9G
+	fi
+	AC_DEFINE_UNQUOTED(GOOGLE_CLIENT_ID, ["$with_google_client_id"], [Define Google OAuth 2.0 Client ID to use])
+	AC_DEFINE_UNQUOTED(GOOGLE_CLIENT_SECRET, ["$with_google_client_secret"], [Define Google OAuth 2.0 Client Secret to use])
+fi
+AM_CONDITIONAL(ENABLE_GOOGLE_AUTH, [test x$enable_google_auth = xyes])
 
 dnl ******************************************
 dnl Check whether to build examples/demos
@@ -567,6 +627,20 @@ if test "x$enable_uoa" = xyes; then
 fi
 AM_CONDITIONAL(HAVE_UOA, [test x$enable_uoa = xyes])
 
+dnl **********************************************
+dnl Check if backend per process should be enabled
+dnl **********************************************
+AC_ARG_ENABLE([backend-per-process],
+	[AS_HELP_STRING([--enable-backend-per-process],
+	[enable backend per process support (default=yes)])],
+	[enable_backend_per_process=$enableval], [enable_backend_per_process=yes])
+AC_MSG_CHECKING([if backend per process is enabled])
+AC_MSG_RESULT([$enable_backend_per_process])
+if test "x$enable_backend_per_process" = xyes; then
+	AC_DEFINE(ENABLE_BACKEND_PER_PROCESS, 1, [If backend-per-process is enabled])
+fi
+AM_CONDITIONAL(ENABLE_BACKEND_PER_PROCESS, [test x$enable_backend_per_process = xyes])
+
 dnl ***********************************
 dnl Check for GNOME Keyring.
 dnl ***********************************
@@ -606,18 +680,18 @@ AC_ARG_WITH([libdb],
 
 if test "x$with_libdb" != "xno" ; then
 	if test "x$with_libdb" != "xyes" ; then
-		DB_CFLAGS="-I$with_libdb/include"
-		DB_LIBS="-L$with_libdb/lib -ldb"
+		DB_CFLAGS="$CFLAGS -I$with_libdb/include"
+		DB_LIBS="$LIBS -L$with_libdb/lib -ldb"
 	else
 		if test -z "$DB_CFLAGS" -a -z "$DB_LIBS"; then
-			DB_CFLAGS=""
-			DB_LIBS="-ldb"
+			DB_CFLAGS="$CFLAGS"
+			DB_LIBS="$LIBS -ldb"
 		fi
 	fi
 
 	AC_MSG_CHECKING([Berkeley DB])
-	save_cflags=$CFLAGS; CFLAGS=$DB_CFLAGS
-	save_libs=$LIBS; LIBS="$DB_LIBS"
+	save_cflags=$CFLAGS; CFLAGS="$CFLAGS $DB_CFLAGS"
+	save_libs=$LIBS; LIBS="$LIBS $DB_LIBS"
 	AC_LINK_IFELSE([AC_LANG_PROGRAM(
 		[[#include <db.h>]],
 		[[db_create(NULL, NULL, 0)]])],
@@ -720,7 +794,8 @@ if test "x$have_iconv" = "xno"; then
 fi
 AC_SUBST(ICONV_LIBS)
 
-CFLAGS="$CFLAGS -I$srcdir"
+CFLAGS="$CFLAGS -I$srcdir $GNOME_PLATFORM_CFLAGS"
+LIBS="$LIBS $ICONV_LIBS $GNOME_PLATFORM_LIBS"
 
 AC_MSG_CHECKING([preferred charset name formats for system iconv])
 AC_RUN_IFELSE([AC_LANG_SOURCE([[
@@ -1467,6 +1542,10 @@ dnl evolution-calendar flags
 dnl ******************************
 EVOLUTION_CALENDAR_DEPS="gio-2.0 libical >= libical_minimum_version libsoup-2.4 libxml-2.0 libsecret-1"
 
+if `$PKG_CONFIG --atleast-version=2.0 libical`; then
+	AC_DEFINE(HAVE_LIBICAL_2_0, 1, [Define if compiled with libical 2.0])
+fi
+
 dnl *****
 dnl libical.pc from libical-0.43 has a bug in it's CFlags.
 dnl It wants apps to include <libical/ical*.h> but it's CFlags make it difficult
@@ -1483,19 +1562,33 @@ dnl *****
 	AC_SUBST(EVOLUTION_CALENDAR_CFLAGS)
 	AC_SUBST(EVOLUTION_CALENDAR_LIBS)
 
-	dnl ****************************
-	dnl Check for ical_set_unknown_token_handling_setting function
-	dnl ****************************
-	AC_MSG_CHECKING([ical_set_unknown_token_handling_setting function])
-	save_cflags=$CFLAGS; CFLAGS=$EVOLUTION_CALENDAR_CFLAGS
-	save_libs=$LIBS; LIBS="$EVOLUTION_CALENDAR_LIBS"
-	AC_LINK_IFELSE([AC_LANG_PROGRAM(
-		[[#include <libical/ical.h>]],
-		[[ical_set_unknown_token_handling_setting (ICAL_DISCARD_TOKEN)]])],
-		[AC_DEFINE(HAVE_ICAL_UNKNOWN_TOKEN_HANDLING, 1, [libical provides ical_set_unknown_token_handling_setting function]) ac_cv_have_iuth=yes],[ac_cv_have_iuth=no])
-	CFLAGS=$save_cflags
-	LIBS=$save_libs
-	AC_MSG_RESULT([$ac_cv_have_iuth])
+dnl ****************************
+dnl Check for ical_set_unknown_token_handling_setting function
+dnl ****************************
+AC_MSG_CHECKING([ical_set_unknown_token_handling_setting function])
+save_cflags=$CFLAGS; CFLAGS=$EVOLUTION_CALENDAR_CFLAGS
+save_libs=$LIBS; LIBS="$EVOLUTION_CALENDAR_LIBS"
+AC_LINK_IFELSE([AC_LANG_PROGRAM(
+	[[#include <libical/ical.h>]],
+	[[ical_set_unknown_token_handling_setting (ICAL_DISCARD_TOKEN)]])],
+	[AC_DEFINE(HAVE_ICAL_UNKNOWN_TOKEN_HANDLING, 1, [libical provides ical_set_unknown_token_handling_setting function]) ac_cv_have_iuth=yes],[ac_cv_have_iuth=no])
+CFLAGS=$save_cflags
+LIBS=$save_libs
+AC_MSG_RESULT([$ac_cv_have_iuth])
+
+dnl ****************************
+dnl Check for icaltzutil_set_exact_vtimezones_support function
+dnl ****************************
+AC_MSG_CHECKING([icaltzutil_set_exact_vtimezones_support function])
+save_cflags=$CFLAGS; CFLAGS="$EVOLUTION_CALENDAR_CFLAGS"
+save_libs=$LIBS; LIBS="$EVOLUTION_CALENDAR_LIBS"
+AC_LINK_IFELSE([AC_LANG_PROGRAM(
+	[[#include <libical/ical.h>]],
+	[[icaltzutil_set_exact_vtimezones_support (0)]])],
+	[AC_DEFINE(HAVE_ICALTZUTIL_SET_EXACT_VTIMEZONES_SUPPORT, 1, [libical provides icaltzutil_set_exact_vtimezones_support function]) ac_cv_have_isevs=yes],[ac_cv_have_isevs=no])
+CFLAGS=$save_cflags
+LIBS=$save_libs
+AC_MSG_RESULT([$ac_cv_have_isevs])
 
 dnl ******************************
 dnl Google flags
@@ -1519,6 +1612,17 @@ if test "x$enable_google" = xyes; then
 	if `$PKG_CONFIG --atleast-version=0.15.1 libgdata`; then
 		have_gdata_0_15_1=yes
 	fi
+
+	AC_MSG_CHECKING([for libgdata GTasks pagination functions])
+	save_cflags=$CFLAGS; CFLAGS="$GDATA_CFLAGS"
+	save_libs=$LIBS; LIBS="$GDATA_LIBS"
+	AC_LINK_IFELSE([AC_LANG_PROGRAM(
+		[[#include <gdata/gdata.h>]],
+		[[gdata_feed_get_next_page_token (NULL); gdata_query_next_page (NULL);]])],
+		[AC_DEFINE(HAVE_LIBGDATA_TASKS_PAGINATION_FUNCTIONS, 1, [Define to 1 when the libgdata provides GTasks pagination functions]) ac_cv_have_gdgtpf=yes],[ac_cv_have_gdgtpf=no])
+	CFLAGS=$save_cflags
+	LIBS=$save_libs
+	AC_MSG_RESULT([$ac_cv_have_gdgtpf])
 fi
 AM_CONDITIONAL(HAVE_GOOGLE, [test x$enable_google = xyes])
 AM_CONDITIONAL(HAVE_GDATA_0_15_1, [test x$have_gdata_0_15_1 = xyes])
@@ -1615,11 +1719,27 @@ AC_SUBST(privincludedir)
 privlibdir='${libdir}'/evolution-data-server
 AC_SUBST(privlibdir)
 
+privlibexecdir='${libexecdir}'/evolution-data-server
+AC_SUBST(privlibexecdir)
+
+if test "$os_win32" = yes; then
+	dnl On Win32 there is no "rpath" mechanism. We install the private
+	dnl shared libraries in $libdir, meaning the DLLs will actually be in
+	dnl $bindir. This means just having $bindir in PATH will be enough.
+	privsolibdir=$libdir
+else
+	privsolibdir=$privlibdir
+fi
+AC_SUBST(privsolibdir)
+
 imagesdir='${datadir}'/pixmaps/evolution-data-server
 AC_SUBST(imagesdir)
 
 moduledir='${privlibdir}'/registry-modules
 AC_SUBST(moduledir)
+
+credentialmoduledir='${privlibdir}'/credential-modules
+AC_SUBST(credentialmoduledir)
 
 ebook_backenddir='${privlibdir}'/addressbook-backends
 AC_SUBST(ebook_backenddir)
@@ -1645,9 +1765,37 @@ AC_SUBST(camel_providerdir)
 dnl *******************
 dnl D-BUS service stuff
 dnl *******************
+servicelibexecdir=${libexecdir}
+if test x$os_win32 = xyes -a "x$WIN32_SERVICELIBEXECDIR" != "x" ; then
+	dnl
+	dnl D-Bus requires Windows full path, not Unix-like, like the one provided by MSYS
+	dnl
+	AC_SUBST(WIN32_SERVICELIBEXECDIR)
+	servicelibexecdir="$WIN32_SERVICELIBEXECDIR"
+fi
+AC_SUBST(servicelibexecdir)
 m4_pattern_allow([AM_V_GEN])
-EVO_SUBST_SERVICE_RULE='%.service: %.service.in Makefile ; $(AM_V_GEN) sed -e "s|\@libexecdir\@|$(libexecdir)|" -e s"|\@ADDRESS_BOOK_DBUS_SERVICE_NAME\@|$(ADDRESS_BOOK_DBUS_SERVICE_NAME)|" -e "s|\@CALENDAR_DBUS_SERVICE_NAME\@|$(CALENDAR_DBUS_SERVICE_NAME)|" -e "s|\@SOURCES_DBUS_SERVICE_NAME\@|$(SOURCES_DBUS_SERVICE_NAME)|" -e "s|\@USER_PROMPTER_DBUS_SERVICE_NAME\@|$(USER_PROMPTER_DBUS_SERVICE_NAME)|" $< > $@'
+EVO_SUBST_SERVICE_RULE='%.service: %.service.in Makefile ; $(AM_V_GEN) sed -e "s|\@libexecdir\@|$(servicelibexecdir)|" -e s"|\@ADDRESS_BOOK_DBUS_SERVICE_NAME\@|$(ADDRESS_BOOK_DBUS_SERVICE_NAME)|" -e "s|\@CALENDAR_DBUS_SERVICE_NAME\@|$(CALENDAR_DBUS_SERVICE_NAME)|" -e "s|\@SOURCES_DBUS_SERVICE_NAME\@|$(SOURCES_DBUS_SERVICE_NAME)|" -e "s|\@USER_PROMPTER_DBUS_SERVICE_NAME\@|$(USER_PROMPTER_DBUS_SERVICE_NAME)|" $< > $@'
 AC_SUBST(EVO_SUBST_SERVICE_RULE)
+
+AC_ARG_WITH([dbus-service-dir],
+	AS_HELP_STRING([--with-dbus-service-dir=PATH],
+	[Set directory for D-Bus service files]
+	[[default=${datadir}/dbus-1/services]]),
+	[dbus_servicedir="$withval"],
+	[dbus_servicedir='${datadir}/dbus-1/services'])
+AC_SUBST([dbus_servicedir])
+
+# It is correct for this to be in ${prefix}/lib, even on systems where that
+# does not match ${libdir}. This is what systemd uses on such platforms.
+AC_ARG_WITH([systemduserunitdir],
+	AS_HELP_STRING([--with-systemduserunitdir=PATH],
+	[Set directory for systemd user units, or 'no' to disable]
+	[[default=${prefix}/lib/systemd/user]]),
+	[systemd_userdir="$withval"],
+	[systemd_userdir='${prefix}/lib/systemd/user'])
+AC_SUBST([systemd_userdir])
+AM_CONDITIONAL([WITH_SYSTEMD_USER_UNITS], [test "x$systemd_userdir" != "xno"])
 
 dnl ******************************
 dnl GLib stuff
@@ -1758,6 +1906,8 @@ libebackend/libebackend.pc
 libedataserver/Makefile
 libedataserver/eds-version.h
 libedataserver/libedataserver.pc
+libedataserverui/Makefile
+libedataserverui/libedataserverui.pc
 modules/Makefile
 modules/cache-reaper/Makefile
 modules/gnome-online-accounts/Makefile
@@ -1785,6 +1935,9 @@ services/evolution-addressbook-factory/Makefile
 services/evolution-calendar-factory/Makefile
 services/evolution-source-registry/Makefile
 services/evolution-user-prompter/Makefile
+tools/Makefile
+tools/addressbook-export/Makefile
+tools/addressbook-export/csv2vcard
 tests/Makefile
 tests/libedata-book/Makefile
 tests/libebook/Makefile
@@ -1832,10 +1985,12 @@ echo "
 	Vala bindings:		$enable_vala_bindings
 	GNOME Online Accounts	$enable_goa
 	Ubuntu Online Accounts	$enable_uoa
+	Google Authentication	$enable_google_auth
 	Google Contacts		$enable_google
 	Google Tasks		$have_gdata_0_15_1
 	GTK+:  			$enable_gtk
 	Examples:  		$enable_examples
 	Code coverage (gcov):	$enable_code_coverage
 	Installed tests:        $enable_installed_tests
+	Backend per process	$enable_backend_per_process
 "

@@ -1,19 +1,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #include <string.h>
@@ -201,12 +201,12 @@ filter_run (CamelMimeFilter *f,
 /**
  * camel_mime_filter_filter:
  * @filter: a #CamelMimeFilter object
- * @in: input buffer
+ * @in: (array length=len): input buffer
  * @len: length of @in
  * @prespace: amount of prespace
- * @out: pointer to the output buffer (to be set)
- * @outlen: pointer to the length of the output buffer (to be set)
- * @outprespace: pointer to the output prespace length (to be set)
+ * @out: (out) (array length=outlen): pointer to the output buffer (to be set)
+ * @outlen: (out): pointer to the length of the output buffer (to be set)
+ * @outprespace: (out): pointer to the output prespace length (to be set)
  *
  * Passes the input buffer, @in, through @filter and generates an
  * output buffer, @out.
@@ -236,12 +236,12 @@ camel_mime_filter_filter (CamelMimeFilter *filter,
 /**
  * camel_mime_filter_complete:
  * @filter: a #CamelMimeFilter object
- * @in: input buffer
+ * @in: (array length=len): input buffer
  * @len: length of @in
  * @prespace: amount of prespace
- * @out: pointer to the output buffer (to be set)
- * @outlen: pointer to the length of the output buffer (to be set)
- * @outprespace: pointer to the output prespace length (to be set)
+ * @out: (out) (array length=outlen): pointer to the output buffer (to be set)
+ * @outlen: (out): pointer to the length of the output buffer (to be set)
+ * @outprespace: (out): pointer to the output prespace length (to be set)
  *
  * Passes the input buffer, @in, through @filter and generates an
  * output buffer, @out and makes sure that all data is flushed to the
@@ -296,7 +296,7 @@ camel_mime_filter_reset (CamelMimeFilter *filter)
 /**
  * camel_mime_filter_backup:
  * @filter: a #CamelMimeFilter object
- * @data: data buffer to backup
+ * @data (array length=length): data buffer to backup
  * @length: length of @data
  *
  * Saves @data to be used as prespace input data to the next call to

@@ -1,17 +1,17 @@
 /*
  * module-ubuntu-online-accounts.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -21,7 +21,6 @@
 #include <libaccounts-glib/accounts-glib.h>
 
 #include "uoa-utils.h"
-#include "e-signon-session-password.h"
 
 /* Standard GObject macros */
 #define E_TYPE_UBUNTU_ONLINE_ACCOUNTS \
@@ -151,7 +150,40 @@ ubuntu_online_accounts_ref_account_service (EUbuntuOnlineAccounts *extension,
 	const gchar *extension_name;
 	const gchar *service_type;
 
-	service_type = e_source_get_ag_service_type (source);
+	if (e_source_has_extension (source, E_SOURCE_EXTENSION_COLLECTION)) {
+		/* Asking for credentials on the main (collection) source, which
+		   doesn't belong to any particular service, thus try to pick any
+		   enabled service, expecting the same password/token being
+		   used for all other services. */
+		service_type = NULL;
+		account_services = g_object_get_data (G_OBJECT (source), "ag-account-services");
+		g_warn_if_fail (account_services != NULL);
+		if (account_services) {
+			AgAccountService *ag_service;
+
+			ag_service = g_hash_table_lookup (account_services, E_AG_SERVICE_TYPE_CALENDAR);
+			if (ag_service && ag_account_service_get_enabled (ag_service))
+				service_type = E_AG_SERVICE_TYPE_CALENDAR;
+
+			if (!service_type) {
+				ag_service = g_hash_table_lookup (account_services, E_AG_SERVICE_TYPE_CONTACTS);
+				if (ag_service && ag_account_service_get_enabled (ag_service))
+					service_type = E_AG_SERVICE_TYPE_CONTACTS;
+			}
+
+			if (!service_type) {
+				ag_service = g_hash_table_lookup (account_services, E_AG_SERVICE_TYPE_MAIL);
+				if (ag_service && ag_account_service_get_enabled (ag_service))
+					service_type = E_AG_SERVICE_TYPE_MAIL;
+			}
+
+			if (!service_type)
+				return NULL;
+		}
+	} else {
+		service_type = e_source_get_ag_service_type (source);
+	}
+
 	g_return_val_if_fail (service_type != NULL, NULL);
 
 	extension_name = E_SOURCE_EXTENSION_UOA;
@@ -292,12 +324,12 @@ ubuntu_online_accounts_config_collection (EUbuntuOnlineAccounts *extension,
 	gboolean supports_oauth2 = FALSE;
 	const gchar *extension_name;
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		ag_account, "display-name",
 		source, "display-name",
 		G_BINDING_SYNC_CREATE);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		ag_account, "enabled",
 		source, "enabled",
 		G_BINDING_SYNC_CREATE);
@@ -305,7 +337,7 @@ ubuntu_online_accounts_config_collection (EUbuntuOnlineAccounts *extension,
 	extension_name = E_SOURCE_EXTENSION_UOA;
 	source_extension = e_source_get_extension (source, extension_name);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		ag_account, "id",
 		source_extension, "account-id",
 		G_BINDING_SYNC_CREATE);
@@ -313,7 +345,7 @@ ubuntu_online_accounts_config_collection (EUbuntuOnlineAccounts *extension,
 	extension_name = E_SOURCE_EXTENSION_COLLECTION;
 	source_extension = e_source_get_extension (source, extension_name);
 
-	g_object_bind_property_full (
+	e_binding_bind_property_full (
 		ag_account, "provider",
 		source_extension, "backend-name",
 		G_BINDING_SYNC_CREATE,
@@ -329,7 +361,7 @@ ubuntu_online_accounts_config_collection (EUbuntuOnlineAccounts *extension,
 	ag_account_service = g_hash_table_lookup (
 		account_services, E_AG_SERVICE_TYPE_MAIL);
 	if (ag_account_service != NULL) {
-		g_object_bind_property (
+		e_binding_bind_property (
 			ag_account_service , "enabled",
 			source_extension, "mail-enabled",
 			G_BINDING_SYNC_CREATE);
@@ -341,7 +373,7 @@ ubuntu_online_accounts_config_collection (EUbuntuOnlineAccounts *extension,
 	ag_account_service = g_hash_table_lookup (
 		account_services, E_AG_SERVICE_TYPE_CALENDAR);
 	if (ag_account_service != NULL) {
-		g_object_bind_property (
+		e_binding_bind_property (
 			ag_account_service, "enabled",
 			source_extension, "calendar-enabled",
 			G_BINDING_SYNC_CREATE);
@@ -353,7 +385,7 @@ ubuntu_online_accounts_config_collection (EUbuntuOnlineAccounts *extension,
 	ag_account_service = g_hash_table_lookup (
 		account_services, E_AG_SERVICE_TYPE_CONTACTS);
 	if (ag_account_service != NULL) {
-		g_object_bind_property (
+		e_binding_bind_property (
 			ag_account_service, "enabled",
 			source_extension, "contacts-enabled",
 			G_BINDING_SYNC_CREATE);
@@ -371,14 +403,10 @@ ubuntu_online_accounts_config_collection (EUbuntuOnlineAccounts *extension,
 		g_hash_table_ref (account_services),
 		(GDestroyNotify) g_hash_table_unref);
 
-	/* The data source should not be removable by clients. */
-	e_server_side_source_set_removable (
-		E_SERVER_SIDE_SOURCE (source), FALSE);
+	e_server_side_source_set_writable (E_SERVER_SIDE_SOURCE (source), TRUE);
 
-	/* Obtain passwords from the signond service. */
-	e_server_side_source_set_auth_session_type (
-		E_SERVER_SIDE_SOURCE (source),
-		E_TYPE_SIGNON_SESSION_PASSWORD);
+	/* The data source should not be removable by clients. */
+	e_server_side_source_set_removable (E_SERVER_SIDE_SOURCE (source), FALSE);
 
 	if (supports_oauth2) {
 		/* This module provides OAuth 2.0 support to the collection.
@@ -424,6 +452,9 @@ ubuntu_online_accounts_config_mail_identity (EUbuntuOnlineAccounts *extension,
                                              const gchar *email_address)
 {
 	EServerSideSource *server_side_source;
+	ESourceMailSubmission *mail_submission;
+	ESourceMailComposition *mail_composition;
+	gchar *tmp;
 
 	if (email_address != NULL) {
 		ESourceMailIdentity *source_extension;
@@ -433,6 +464,20 @@ ubuntu_online_accounts_config_mail_identity (EUbuntuOnlineAccounts *extension,
 		e_source_mail_identity_set_address (
 			source_extension, email_address);
 	}
+
+	/* Set default Sent folder to the On This Computer/Sent */
+	mail_submission = e_source_get_extension (source, E_SOURCE_EXTENSION_MAIL_SUBMISSION);
+	tmp = e_source_mail_submission_dup_sent_folder (mail_submission);
+	if (!tmp || !*tmp)
+		e_source_mail_submission_set_sent_folder (mail_submission, "folder://local/Sent");
+	g_free (tmp);
+
+	/* Set default Drafts folder to the On This Computer/Drafts */
+	mail_composition = e_source_get_extension (source, E_SOURCE_EXTENSION_MAIL_COMPOSITION);
+	tmp = e_source_mail_composition_dup_drafts_folder (mail_composition);
+	if (!tmp || !*tmp)
+		e_source_mail_composition_set_drafts_folder (mail_composition, "folder://local/Drafts");
+	g_free (tmp);
 
 	/* Clients may change the source but may not remove it. */
 	server_side_source = E_SERVER_SIDE_SOURCE (source);
@@ -707,7 +752,7 @@ ubuntu_online_accounts_account_created_cb (AgManager *ag_manager,
 
 	if (source_uid == NULL && backend_name != NULL)
 		backend_factory = e_data_factory_ref_backend_factory (
-			E_DATA_FACTORY (server), backend_name);
+			E_DATA_FACTORY (server), backend_name, E_SOURCE_EXTENSION_COLLECTION);
 
 	if (backend_factory != NULL) {
 		ubuntu_online_accounts_collect_userinfo (
@@ -774,6 +819,13 @@ ubuntu_online_accounts_populate_accounts_table (EUbuntuOnlineAccounts *extension
 
 		if (ag_account_id == 0)
 			continue;
+
+		if (g_hash_table_lookup (extension->uoa_to_eds, GUINT_TO_POINTER (ag_account_id))) {
+			/* There are more ESource-s referencing the same UOA account;
+			   delete the later. */
+			g_queue_push_tail (&trash, source);
+			continue;
+		}
 
 		/* Verify the UOA account still exists. */
 		match = g_list_find (
@@ -1139,7 +1191,6 @@ G_MODULE_EXPORT void
 e_module_load (GTypeModule *type_module)
 {
 	e_ubuntu_online_accounts_register_type (type_module);
-	e_signon_session_password_type_register (type_module);
 }
 
 G_MODULE_EXPORT void

@@ -2,19 +2,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
@@ -76,7 +76,7 @@ typedef enum _camel_mime_parser_state_t {
 	CAMEL_MIME_PARSER_STATE_BODY_END,       /* end of message */
 	CAMEL_MIME_PARSER_STATE_MULTIPART_END,  /* end of multipart  */
 	CAMEL_MIME_PARSER_STATE_MESSAGE_END     /* end of message */
-} camel_mime_parser_state_t;
+} CamelMimeParserState;
 
 struct _CamelMimeParser {
 	GObject parent;
@@ -113,14 +113,14 @@ void camel_mime_parser_scan_pre_from (CamelMimeParser *parser, gboolean scan_pre
 gint camel_mime_parser_set_header_regex (CamelMimeParser *parser, gchar *matchstr);
 
 /* normal interface */
-camel_mime_parser_state_t camel_mime_parser_step (CamelMimeParser *parser, gchar **databuffer, gsize *datalength);
+CamelMimeParserState camel_mime_parser_step (CamelMimeParser *parser, gchar **databuffer, gsize *datalength);
 void camel_mime_parser_unstep (CamelMimeParser *parser);
 void camel_mime_parser_drop_step (CamelMimeParser *parser);
-camel_mime_parser_state_t camel_mime_parser_state (CamelMimeParser *parser);
-void camel_mime_parser_push_state (CamelMimeParser *mp, camel_mime_parser_state_t newstate, const gchar *boundary);
+CamelMimeParserState camel_mime_parser_state (CamelMimeParser *parser);
+void camel_mime_parser_push_state (CamelMimeParser *mp, CamelMimeParserState newstate, const gchar *boundary);
 
 /* read through the parser */
-gint camel_mime_parser_read (CamelMimeParser *parser, const gchar **databuffer, gint len, GError **error);
+gssize camel_mime_parser_read (CamelMimeParser *parser, const gchar **databuffer, gssize len, GError **error);
 
 /* get content type for the current part/header */
 CamelContentType *camel_mime_parser_content_type (CamelMimeParser *parser);

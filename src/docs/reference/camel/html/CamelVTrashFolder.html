@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelVTrashFolder</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelVTrashFolder: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Virtual-Folders.html" title='Virtual ("Search") Folders'>
 <link rel="prev" href="CamelVeeSummary.html" title="CamelVeeSummary">
 <link rel="next" href="CamelVeeDataCache.html" title="CamelVeeDataCache">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelVTrashFolder.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -51,7 +51,7 @@
 </div>
 <div class="refsect1">
 <a name="CamelVTrashFolder.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
@@ -66,19 +66,15 @@
 <td class="function_name"><a class="link" href="CamelVTrashFolder.html#CAMEL-VJUNK-NAME:CAPS" title="CAMEL_VJUNK_NAME">CAMEL_VJUNK_NAME</a></td>
 </tr>
 <tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelVTrashFolder.html#CamelVTrashFolder-struct" title="struct CamelVTrashFolder">CamelVTrashFolder</a></td>
-</tr>
-<tr>
 <td class="datatype_keyword">enum</td>
-<td class="function_name"><a class="link" href="CamelVTrashFolder.html#camel-vtrash-folder-t" title="enum camel_vtrash_folder_t">camel_vtrash_folder_t</a></td>
+<td class="function_name"><a class="link" href="CamelVTrashFolder.html#CamelVTrashFolderType" title="enum CamelVTrashFolderType">CamelVTrashFolderType</a></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelVTrashFolder.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelObject.html" title="CamelObject">CamelObject</a>
         <span class="lineart">╰──</span> <a class="link" href="CamelFolder.html" title="CamelFolder">CamelFolder</a>
             <span class="lineart">╰──</span> <a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder">CamelVeeFolder</a>
@@ -94,11 +90,11 @@
 <a name="camel-vtrash-folder-new"></a><h3>camel_vtrash_folder_new ()</h3>
 <pre class="programlisting"><a class="link" href="CamelFolder.html" title="CamelFolder"><span class="returnvalue">CamelFolder</span></a> *
 camel_vtrash_folder_new (<em class="parameter"><code><a class="link" href="CamelStore.html" title="CamelStore"><span class="type">CamelStore</span></a> *parent_store</code></em>,
-                         <em class="parameter"><code><a class="link" href="CamelVTrashFolder.html#camel-vtrash-folder-t" title="enum camel_vtrash_folder_t"><span class="type">camel_vtrash_folder_t</span></a> type</code></em>);</pre>
+                         <em class="parameter"><code><a class="link" href="CamelVTrashFolder.html#CamelVTrashFolderType" title="enum CamelVTrashFolderType"><span class="type">CamelVTrashFolderType</span></a> type</code></em>);</pre>
 <p>Create a new CamelVTrashFolder object.</p>
 <div class="refsect3">
-<a name="id-1.2.8.5.7.2.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-vtrash-folder-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -120,9 +116,8 @@ camel_vtrash_folder_new (<em class="parameter"><code><a class="link" href="Camel
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.8.5.7.2.6"></a><h4>Returns</h4>
+<a name="camel-vtrash-folder-new.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="CamelVTrashFolder.html" title="CamelVTrashFolder"><span class="type">CamelVTrashFolder</span></a> object</p>
-<p></p>
 </div>
 </div>
 </div>
@@ -141,15 +136,10 @@ camel_vtrash_folder_new (<em class="parameter"><code><a class="link" href="Camel
 </div>
 <hr>
 <div class="refsect2">
-<a name="CamelVTrashFolder-struct"></a><h3>struct CamelVTrashFolder</h3>
-<pre class="programlisting">struct CamelVTrashFolder;</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="camel-vtrash-folder-t"></a><h3>enum camel_vtrash_folder_t</h3>
+<a name="CamelVTrashFolderType"></a><h3>enum CamelVTrashFolderType</h3>
 <div class="refsect3">
-<a name="id-1.2.8.5.8.5.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="CamelVTrashFolderType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="300px" class="enum_members_name">
 <col class="enum_members_description">
@@ -178,7 +168,6 @@ camel_vtrash_folder_new (<em class="parameter"><code><a class="link" href="Camel
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

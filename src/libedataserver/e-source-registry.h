@@ -1,17 +1,17 @@
 /*
  * e-source-registry.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -23,7 +23,6 @@
 #define E_SOURCE_REGISTRY_H
 
 #include <libedataserver/e-source.h>
-#include <libedataserver/e-source-authenticator.h>
 
 /* Standard GObject macros */
 #define E_TYPE_SOURCE_REGISTRY \
@@ -77,6 +76,12 @@ struct _ESourceRegistryClass {
 						 ESource *source);
 	void		(*source_disabled)	(ESourceRegistry *registry,
 						 ESource *source);
+	void		(*credentials_required)	(ESourceRegistry *registry,
+						 ESource *source,
+						 ESourceCredentialsReason reason,
+						 const gchar *certificate_pem,
+						 GTlsCertificateFlags certificate_errors,
+						 const GError *op_error);
 };
 
 GType		e_source_registry_get_type	(void) G_GNUC_CONST;
@@ -88,22 +93,6 @@ void		e_source_registry_new		(GCancellable *cancellable,
 						 gpointer user_data);
 ESourceRegistry *
 		e_source_registry_new_finish	(GAsyncResult *result,
-						 GError **error);
-gboolean	e_source_registry_authenticate_sync
-						(ESourceRegistry *registry,
-						 ESource *source,
-						 ESourceAuthenticator *auth,
-						 GCancellable *cancellable,
-						 GError **error);
-void		e_source_registry_authenticate	(ESourceRegistry *registry,
-						 ESource *source,
-						 ESourceAuthenticator *auth,
-						 GCancellable *cancellable,
-						 GAsyncReadyCallback callback,
-						 gpointer user_data);
-gboolean	e_source_registry_authenticate_finish
-						(ESourceRegistry *registry,
-						 GAsyncResult *result,
 						 GError **error);
 gboolean	e_source_registry_commit_source_sync
 						(ESourceRegistry *registry,

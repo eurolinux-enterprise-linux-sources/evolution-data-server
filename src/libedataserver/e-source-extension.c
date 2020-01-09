@@ -1,17 +1,17 @@
 /*
  * e-source-extension.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -36,6 +36,7 @@
 
 struct _ESourceExtensionPrivate {
 	GWeakRef source;
+	GRecMutex property_lock;
 };
 
 enum {
@@ -112,6 +113,7 @@ source_extension_finalize (GObject *object)
 	priv = E_SOURCE_EXTENSION_GET_PRIVATE (object);
 
 	g_weak_ref_clear (&priv->source);
+	g_rec_mutex_clear (&priv->property_lock);
 
 	/* Chain up to parent's finalize() method. */
 	G_OBJECT_CLASS (e_source_extension_parent_class)->finalize (object);
@@ -166,6 +168,7 @@ e_source_extension_init (ESourceExtension *extension)
 {
 	extension->priv = E_SOURCE_EXTENSION_GET_PRIVATE (extension);
 	g_weak_ref_init (&extension->priv->source, NULL);
+	g_rec_mutex_init (&extension->priv->property_lock);
 }
 
 /**
@@ -177,7 +180,7 @@ e_source_extension_init (ESourceExtension *extension)
  * The returned #ESource is referenced for thread-safety.  Unreference
  * the #ESource with g_object_unref() when finished with it.
  *
- * Returns: the #ESource instance
+ * Returns: (transfer full): the #ESource instance
  *
  * Since: 3.8
  **/
@@ -222,3 +225,36 @@ e_source_extension_get_source (ESourceExtension *extension)
 	return source;
 }
 
+/**
+ * e_source_extension_property_lock:
+ * @extension: an #ESourceExtension
+ *
+ * Acquires a property lock, thus no other thread can change properties
+ * of the @extension until the lock is released.
+ *
+ * Since: 3.18
+ **/
+void
+e_source_extension_property_lock (ESourceExtension *extension)
+{
+	g_return_if_fail (E_IS_SOURCE_EXTENSION (extension));
+
+	g_rec_mutex_lock (&extension->priv->property_lock);
+}
+
+/**
+ * e_source_extension_property_unlock:
+ * @extension: an #ESourceExtension
+ *
+ * Releases a property lock, previously acquired with e_source_extension_property_lock(),
+ * thus other threads can change properties of the @extension.
+ *
+ * Since: 3.18
+ **/
+void
+e_source_extension_property_unlock (ESourceExtension *extension)
+{
+	g_return_if_fail (E_IS_SOURCE_EXTENSION (extension));
+
+	g_rec_mutex_unlock (&extension->priv->property_lock);
+}

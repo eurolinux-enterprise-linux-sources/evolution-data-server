@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Stanislav Slusny <slusnys@gmail.com>
- *
  * Copyright 2008
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Stanislav Slusny <slusnys@gmail.com>
  */
 
 /**
@@ -229,7 +228,7 @@ static void
 fixup_min_max_fields (EIntervalTree *tree,
                       EIntervalNode *node)
 {
-	while (node != tree->priv->root) {
+	while (node && node != tree->priv->root) {
 		node->max = MAX (node->end, MAX (node->left->max, node->right->max));
 		node->min = MIN (node->start, node->left->min);
 
@@ -320,6 +319,9 @@ intervaltree_fixup_deletion (EIntervalTree *tree,
 	EIntervalNode *w;
 
 	while ((!x->red) && (root != x)) {
+		if (!x->parent)
+			break;
+
 		if (x == x->parent->left) {
 			w = x->parent->right;
 

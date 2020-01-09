@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelCertDB</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelCertDB: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Storage.html" title="Metadata Storage">
 <link rel="prev" href="CamelKeyFile.html" title="CamelKeyFile">
 <link rel="next" href="CamelDataCache.html" title="CamelDataCache">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelCertDB.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -42,7 +42,7 @@
 <tbody>
 <tr>
 <td class="function_type">
-<a class="link" href="CamelCertDB.html#CamelCert" title="CamelCert"><span class="returnvalue">CamelCert</span></a> *
+<a class="link" href="CamelCertDB.html#CamelCert"><span class="returnvalue">CamelCert</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelCertDB.html#camel-cert-new" title="camel_cert_new ()">camel_cert_new</a> <span class="c_punctuation">()</span>
@@ -50,7 +50,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<span class="returnvalue">void</span>
+<a class="link" href="CamelCertDB.html#CamelCert"><span class="returnvalue">CamelCert</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelCertDB.html#camel-cert-ref" title="camel_cert_ref ()">camel_cert_ref</a> <span class="c_punctuation">()</span>
@@ -62,6 +62,22 @@
 </td>
 <td class="function_name">
 <a class="link" href="CamelCertDB.html#camel-cert-unref" title="camel_cert_unref ()">camel_cert_unref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelCertDB.html#camel-cert-load-cert-file" title="camel_cert_load_cert_file ()">camel_cert_load_cert_file</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelCertDB.html#camel-cert-save-cert-file" title="camel_cert_save_cert_file ()">camel_cert_save_cert_file</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
@@ -98,7 +114,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelCertDB.html#camel-certdb-load" title="camel_certdb_load ()">camel_certdb_load</a> <span class="c_punctuation">()</span>
@@ -106,7 +122,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelCertDB.html#camel-certdb-save" title="camel_certdb_save ()">camel_certdb_save</a> <span class="c_punctuation">()</span>
@@ -122,7 +138,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a class="link" href="CamelCertDB.html#CamelCert" title="CamelCert"><span class="returnvalue">CamelCert</span></a> *
+<a class="link" href="CamelCertDB.html#CamelCert"><span class="returnvalue">CamelCert</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelCertDB.html#camel-certdb-get-host" title="camel_certdb_get_host ()">camel_certdb_get_host</a> <span class="c_punctuation">()</span>
@@ -152,35 +168,35 @@
 <a class="link" href="CamelCertDB.html#camel-certdb-clear" title="camel_certdb_clear ()">camel_certdb_clear</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelCertDB.html#camel-certdb-list-certs" title="camel_certdb_list_certs ()">camel_certdb_list_certs</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
 </tbody>
 </table></div>
 </div>
-<div class="refsect1">
+<a name="CamelCert"></a><div class="refsect1">
 <a name="CamelCertDB.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
 </colgroup>
-<tbody>
-<tr>
+<tbody><tr>
 <td class="datatype_keyword">enum</td>
 <td class="function_name"><a class="link" href="CamelCertDB.html#CamelCertTrust" title="enum CamelCertTrust">CamelCertTrust</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword"> </td>
-<td class="function_name"><a class="link" href="CamelCertDB.html#CamelCert" title="CamelCert">CamelCert</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelCertDB.html#CamelCertDB-struct" title="struct CamelCertDB">CamelCertDB</a></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelCertDB.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html">GBoxed</a>
+    <span class="lineart">╰──</span> CamelCert
+    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> CamelCertDB
 </pre>
 </div>
@@ -191,20 +207,35 @@
 <a name="CamelCertDB.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
 <a name="camel-cert-new"></a><h3>camel_cert_new ()</h3>
-<pre class="programlisting"><a class="link" href="CamelCertDB.html#CamelCert" title="CamelCert"><span class="returnvalue">CamelCert</span></a> *
+<pre class="programlisting"><a class="link" href="CamelCertDB.html#CamelCert"><span class="returnvalue">CamelCert</span></a> *
 camel_cert_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-cert-ref"></a><h3>camel_cert_ref ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-camel_cert_ref (<em class="parameter"><code><a class="link" href="CamelCertDB.html#CamelCert" title="CamelCert"><span class="type">CamelCert</span></a> *cert</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="CamelCertDB.html#CamelCert"><span class="returnvalue">CamelCert</span></a> *
+camel_cert_ref (<em class="parameter"><code><a class="link" href="CamelCertDB.html#CamelCert"><span class="type">CamelCert</span></a> *cert</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-cert-unref"></a><h3>camel_cert_unref ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_cert_unref (<em class="parameter"><code><a class="link" href="CamelCertDB.html#CamelCert" title="CamelCert"><span class="type">CamelCert</span></a> *cert</code></em>);</pre>
+camel_cert_unref (<em class="parameter"><code><a class="link" href="CamelCertDB.html#CamelCert"><span class="type">CamelCert</span></a> *cert</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-cert-load-cert-file"></a><h3>camel_cert_load_cert_file ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_cert_load_cert_file (<em class="parameter"><code><a class="link" href="CamelCertDB.html#CamelCert"><span class="type">CamelCert</span></a> *cert</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-cert-save-cert-file"></a><h3>camel_cert_save_cert_file ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
+camel_cert_save_cert_file (<em class="parameter"><code><a class="link" href="CamelCertDB.html#CamelCert"><span class="type">CamelCert</span></a> *cert</code></em>,
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> *der_data</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
@@ -223,24 +254,30 @@ camel_certdb_set_default (<em class="parameter"><code><a class="link" href="Came
 <a name="camel-certdb-get-default"></a><h3>camel_certdb_get_default ()</h3>
 <pre class="programlisting"><a class="link" href="CamelCertDB.html" title="CamelCertDB"><span class="returnvalue">CamelCertDB</span></a> *
 camel_certdb_get_default (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>FIXME Document me!</p>
+<div class="refsect3">
+<a name="camel-certdb-get-default.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-certdb-set-filename"></a><h3>camel_certdb_set_filename ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_certdb_set_filename (<em class="parameter"><code><a class="link" href="CamelCertDB.html" title="CamelCertDB"><span class="type">CamelCertDB</span></a> *certdb</code></em>,
-                           <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-certdb-load"></a><h3>camel_certdb_load ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_certdb_load (<em class="parameter"><code><a class="link" href="CamelCertDB.html" title="CamelCertDB"><span class="type">CamelCertDB</span></a> *certdb</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-certdb-save"></a><h3>camel_certdb_save ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_certdb_save (<em class="parameter"><code><a class="link" href="CamelCertDB.html" title="CamelCertDB"><span class="type">CamelCertDB</span></a> *certdb</code></em>);</pre>
 </div>
 <hr>
@@ -252,31 +289,31 @@ camel_certdb_touch (<em class="parameter"><code><a class="link" href="CamelCertD
 <hr>
 <div class="refsect2">
 <a name="camel-certdb-get-host"></a><h3>camel_certdb_get_host ()</h3>
-<pre class="programlisting"><a class="link" href="CamelCertDB.html#CamelCert" title="CamelCert"><span class="returnvalue">CamelCert</span></a> *
+<pre class="programlisting"><a class="link" href="CamelCertDB.html#CamelCert"><span class="returnvalue">CamelCert</span></a> *
 camel_certdb_get_host (<em class="parameter"><code><a class="link" href="CamelCertDB.html" title="CamelCertDB"><span class="type">CamelCertDB</span></a> *certdb</code></em>,
-                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *hostname</code></em>,
-                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *fingerprint</code></em>);</pre>
+                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *hostname</code></em>,
+                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *fingerprint</code></em>);</pre>
 <p>FIXME Document me!</p>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-certdb-put"></a><h3>camel_certdb_put ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_certdb_put (<em class="parameter"><code><a class="link" href="CamelCertDB.html" title="CamelCertDB"><span class="type">CamelCertDB</span></a> *certdb</code></em>,
-                  <em class="parameter"><code><a class="link" href="CamelCertDB.html#CamelCert" title="CamelCert"><span class="type">CamelCert</span></a> *cert</code></em>);</pre>
+                  <em class="parameter"><code><a class="link" href="CamelCertDB.html#CamelCert"><span class="type">CamelCert</span></a> *cert</code></em>);</pre>
 <p>FIXME Document me!</p>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-certdb-remove-host"></a><h3>camel_certdb_remove_host ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_certdb_remove_host (<em class="parameter"><code><a class="link" href="CamelCertDB.html" title="CamelCertDB"><span class="type">CamelCertDB</span></a> *certdb</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *hostname</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *fingerprint</code></em>);</pre>
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *hostname</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *fingerprint</code></em>);</pre>
 <p>FIXME Document me!</p>
-<p class="since">Since 3.6</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -284,14 +321,46 @@ camel_certdb_remove_host (<em class="parameter"><code><a class="link" href="Came
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_certdb_clear (<em class="parameter"><code><a class="link" href="CamelCertDB.html" title="CamelCertDB"><span class="type">CamelCertDB</span></a> *certdb</code></em>);</pre>
 </div>
+<hr>
+<div class="refsect2">
+<a name="camel-certdb-list-certs"></a><h3>camel_certdb_list_certs ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+camel_certdb_list_certs (<em class="parameter"><code><a class="link" href="CamelCertDB.html" title="CamelCertDB"><span class="type">CamelCertDB</span></a> *certdb</code></em>);</pre>
+<p>Gathers a list of known certificates. Each certificate in the returned <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a>
+is referenced, thus unref it with <a class="link" href="CamelCertDB.html#camel-cert-unref" title="camel_cert_unref ()"><code class="function">camel_cert_unref()</code></a> when done with it, the same
+as free the list itself.</p>
+<div class="refsect3">
+<a name="camel-certdb-list-certs.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>certdb</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelCertDB.html" title="CamelCertDB"><span class="type">CamelCertDB</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="camel-certdb-list-certs.returns"></a><h4>Returns</h4>
+<p> Newly allocated list of
+referenced CamelCert-s, which are stored in the <em class="parameter"><code>certdb</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> CamelCert]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
 </div>
 <div class="refsect1">
 <a name="CamelCertDB.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
 <a name="CamelCertTrust"></a><h3>enum CamelCertTrust</h3>
 <div class="refsect3">
-<a name="id-1.2.12.3.8.2.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="CamelCertTrust.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="300px" class="enum_members_name">
 <col class="enum_members_description">
@@ -332,31 +401,9 @@ camel_certdb_clear (<em class="parameter"><code><a class="link" href="CamelCertD
 </table></div>
 </div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="CamelCert"></a><h3>CamelCert</h3>
-<pre class="programlisting">typedef struct {
-	volatile gint refcount;
-
-	gchar *issuer;
-	gchar *subject;
-	gchar *hostname;
-	gchar *fingerprint;
-
-	CamelCertTrust trust;
-	GBytes *rawcert;
-} CamelCert;
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CamelCertDB-struct"></a><h3>struct CamelCertDB</h3>
-<pre class="programlisting">struct CamelCertDB;</pre>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

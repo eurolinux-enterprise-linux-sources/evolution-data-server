@@ -2,19 +2,19 @@
 /*
  * Copyright (C) 2013 Intel Corporation
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Author: Tristan Van Berkom <tristanvb@openismus.com>
+ * Authors: Tristan Van Berkom <tristanvb@openismus.com>
  */
 
 /**
@@ -1103,17 +1103,22 @@ book_client_cursor_initable_init (GInitable *initable,
 	EBookClientCursor        *cursor = E_BOOK_CLIENT_CURSOR (initable);
 	EBookClientCursorPrivate *priv = cursor->priv;
 	EDBusAddressBookCursor   *proxy;
+	gchar                    *bus_name;
 
 	/* We only need a proxy for regular access, no need in DRA mode */
 	if (priv->direct_cursor)
 		return TRUE;
 
+	bus_name = e_client_dup_bus_name (E_CLIENT (priv->client));
+
 	proxy = e_dbus_address_book_cursor_proxy_new_sync (
 		priv->connection,
 		G_DBUS_PROXY_FLAGS_NONE,
-		ADDRESS_BOOK_DBUS_SERVICE_NAME,
+		bus_name,
 		priv->object_path,
 		cancellable, error);
+
+	g_free (bus_name);
 
 	if (!proxy)
 		return FALSE;

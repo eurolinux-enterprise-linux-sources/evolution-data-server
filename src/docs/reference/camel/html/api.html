@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: Part I. API Reference</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>Part I. API Reference: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="index.html" title="Camel Reference Manual">
 <link rel="prev" href="index.html" title="Camel Reference Manual">
 <link rel="next" href="Fundamentals.html" title="Fundamentals">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,10 +34,16 @@
 <span class="refentrytitle"><a href="camel-camel-debug.html">camel-debug</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
+<span class="refentrytitle"><a href="camel-camel-enums.html">camel-enums</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
 <span class="refentrytitle"><a href="CamelObject.html">CamelObject</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="camel-camel-operation.html">camel-operation</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="camel-camel-object-bag.html">camel-object-bag</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="CamelOperation.html">CamelOperation</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="camel-camel-url.html">camel-url</a></span><span class="refpurpose"></span>
@@ -222,12 +228,6 @@
 <dt>
 <span class="refentrytitle"><a href="CamelVeeDataCache.html">CamelVeeDataCache</a></span><span class="refpurpose"></span>
 </dt>
-<dt>
-<span class="refentrytitle"><a href="CamelVeeMessageInfoData.html">CamelVeeMessageInfoData</a></span><span class="refpurpose"></span>
-</dt>
-<dt>
-<span class="refentrytitle"><a href="CamelVeeSubfolderData.html">CamelVeeSubfolderData</a></span><span class="refpurpose"></span>
-</dt>
 </dl></dd>
 <dt><span class="chapter"><a href="Addresses.html">Addresses</a></span></dt>
 <dd><dl>
@@ -319,7 +319,7 @@
 <span class="refentrytitle"><a href="CamelDataCache.html">CamelDataCache</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="camel-CamelDB.html">CamelDB</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="camel-camel-db.html">camel-db</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="CamelIndex.html">CamelIndex</a></span><span class="refpurpose"></span>
@@ -328,19 +328,22 @@
 <span class="refentrytitle"><a href="CamelKeyTable.html">CamelKeyTable</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="CamelTextIndexName.html">CamelTextIndexName</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="CamelTextIndex.html">CamelTextIndex</a></span><span class="refpurpose"></span>
 </dt>
 </dl></dd>
 <dt><span class="chapter"><a href="Utilities.html">Utilities</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="camel-CamelAsyncClosure.html">CamelAsyncClosure</a></span><span class="refpurpose"> — Run asynchronous functions synchronously</span>
+<span class="refentrytitle"><a href="camel-camel-async-closure.html">camel-async-closure</a></span><span class="refpurpose"> — Run asynchronous functions synchronously</span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="camel-camel-charset-map.html">camel-charset-map</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="camel-camel-file-utils.html">camel-file-utils</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="CamelHTMLParser.html">CamelHTMLParser</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="camel-camel-iconv.html">camel-iconv</a></span><span class="refpurpose"></span>
@@ -352,6 +355,9 @@
 <span class="refentrytitle"><a href="camel-camel-lock-client.html">camel-lock-client</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
+<span class="refentrytitle"><a href="camel-camel-lock-helper.html">camel-lock-helper</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
 <span class="refentrytitle"><a href="camel-camel-memchunk.html">camel-memchunk</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
@@ -361,10 +367,13 @@
 <span class="refentrytitle"><a href="camel-camel-mime-utils.html">camel-mime-utils</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
+<span class="refentrytitle"><a href="camel-camel-mime-part-utils.html">camel-mime-part-utils</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
 <span class="refentrytitle"><a href="camel-camel-movemail.html">camel-movemail</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="camel-CamelMsgPort.html">CamelMsgPort</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="camel-camel-msgport.html">camel-msgport</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
 <span class="refentrytitle"><a href="camel-camel-net-utils.html">camel-net-utils</a></span><span class="refpurpose"></span>
@@ -395,7 +404,6 @@
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

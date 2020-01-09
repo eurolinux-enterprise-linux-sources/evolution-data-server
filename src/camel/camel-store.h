@@ -1,25 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-store.h : Abstract class for an email store */
-
-/*
- *
- * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
- *          Michael Zucchi <NotZed@ximian.com>
- *          Jeffrey Stedfast <fejj@ximian.com>
+/* camel-store.h : Abstract class for an email store
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
+ *          Michael Zucchi <NotZed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
@@ -62,6 +60,33 @@
  **/
 #define CAMEL_STORE_ERROR \
 	(camel_store_error_quark ())
+
+/**
+ * CAMEL_STORE_SETUP
+ * @CAMEL_STORE_SETUP_ARCHIVE_FOLDER: Name of an Archive folder key
+ * @CAMEL_STORE_SETUP_DRAFTS_FOLDER: Name of a Drafts folder key
+ * @CAMEL_STORE_SETUP_SENT_FOLDER: Name of a Sent folder key
+ * @CAMEL_STORE_SETUP_TEMPLATES_FOLDER: Name of a Templates folder key
+ *
+ * Key names to a hash table with values to preset for the account used
+ * as in the camel_store_initial_setup_sync() function.
+ *
+ * The key name consists of up to four parts: Source:Extension:Property[:Type]
+ * Source can be 'Collection', 'Account', 'Submission', 'Transport', 'Backend'.
+ * Extension is any extension name; it's up to the key creator to make sure
+ * the extension belongs to that particular Source.
+ * Property is a property name in the Extension.
+ * Type is an optional letter describing the type of the value; if not set, then
+ * string is used. Available values are: 'b' for boolean, 'i' for integer,
+ * 's' for string, 'f' for folder full path.
+ * All the part values are case sensitive.
+ *
+ * Since: 3.20
+ **/
+#define CAMEL_STORE_SETUP_ARCHIVE_FOLDER	"Account:Mail Account:archive-folder:f"
+#define CAMEL_STORE_SETUP_DRAFTS_FOLDER		"Submission:Mail Composition:drafts-folder:f"
+#define CAMEL_STORE_SETUP_SENT_FOLDER		"Submission:Mail Submission:sent-folder:f"
+#define CAMEL_STORE_SETUP_TEMPLATES_FOLDER	"Submission:Mail Composition:templates-folder:f"
 
 G_BEGIN_DECLS
 
@@ -178,9 +203,13 @@ struct _CamelStoreClass {
 						 gboolean expunge,
 						 GCancellable *cancellable,
 						 GError **error);
+	gboolean	(*initial_setup_sync)	(CamelStore *store,
+						 GHashTable *out_save_setup,
+						 GCancellable *cancellable,
+						 GError **error);
 
 	/* Reserved slots for methods. */
-	gpointer reserved_for_methods[21];
+	gpointer reserved_for_methods[20];
 
 	/* Signals */
 	void		(*folder_created)	(CamelStore *store,
@@ -207,6 +236,7 @@ void		camel_store_folder_renamed	(CamelStore *store,
 						 const gchar *old_name,
 						 CamelFolderInfo *folder_info);
 void		camel_store_folder_info_stale	(CamelStore *store);
+GType		camel_folder_info_get_type		(void);
 CamelFolderInfo *
 		camel_folder_info_new		(void);
 void		camel_folder_info_free		(CamelFolderInfo *fi);
@@ -356,6 +386,23 @@ void		camel_store_synchronize		(CamelStore *store,
 						 gpointer user_data);
 gboolean	camel_store_synchronize_finish	(CamelStore *store,
 						 GAsyncResult *result,
+						 GError **error);
+gboolean	camel_store_initial_setup_sync	(CamelStore *store,
+						 GHashTable **out_save_setup,
+						 GCancellable *cancellable,
+						 GError **error);
+void		camel_store_initial_setup	(CamelStore *store,
+						 gint io_priority,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+gboolean	camel_store_initial_setup_finish
+						(CamelStore *store,
+						 GAsyncResult *result,
+						 GHashTable **out_save_setup,
+						 GError **error);
+gboolean	camel_store_maybe_run_db_maintenance
+						(CamelStore *store,
 						 GError **error);
 
 G_END_DECLS

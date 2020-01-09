@@ -1,17 +1,17 @@
 /*
  * e-source-openpgp.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -43,13 +43,14 @@
 	((obj), E_TYPE_SOURCE_OPENPGP, ESourceOpenPGPPrivate))
 
 struct _ESourceOpenPGPPrivate {
-	GMutex property_lock;
 	gchar *key_id;
 	gchar *signing_algorithm;
 
 	gboolean always_trust;
 	gboolean encrypt_to_self;
 	gboolean sign_by_default;
+	gboolean encrypt_by_default;
+	gboolean prefer_inline;
 };
 
 enum {
@@ -58,7 +59,9 @@ enum {
 	PROP_ENCRYPT_TO_SELF,
 	PROP_KEY_ID,
 	PROP_SIGNING_ALGORITHM,
-	PROP_SIGN_BY_DEFAULT
+	PROP_SIGN_BY_DEFAULT,
+	PROP_ENCRYPT_BY_DEFAULT,
+	PROP_PREFER_INLINE
 };
 
 G_DEFINE_TYPE (
@@ -99,6 +102,18 @@ source_openpgp_set_property (GObject *object,
 
 		case PROP_SIGN_BY_DEFAULT:
 			e_source_openpgp_set_sign_by_default (
+				E_SOURCE_OPENPGP (object),
+				g_value_get_boolean (value));
+			return;
+
+		case PROP_ENCRYPT_BY_DEFAULT:
+			e_source_openpgp_set_encrypt_by_default (
+				E_SOURCE_OPENPGP (object),
+				g_value_get_boolean (value));
+			return;
+
+		case PROP_PREFER_INLINE:
+			e_source_openpgp_set_prefer_inline (
 				E_SOURCE_OPENPGP (object),
 				g_value_get_boolean (value));
 			return;
@@ -148,6 +163,20 @@ source_openpgp_get_property (GObject *object,
 				e_source_openpgp_get_sign_by_default (
 				E_SOURCE_OPENPGP (object)));
 			return;
+
+		case PROP_ENCRYPT_BY_DEFAULT:
+			g_value_set_boolean (
+				value,
+				e_source_openpgp_get_encrypt_by_default (
+				E_SOURCE_OPENPGP (object)));
+			return;
+
+		case PROP_PREFER_INLINE:
+			g_value_set_boolean (
+				value,
+				e_source_openpgp_get_prefer_inline (
+				E_SOURCE_OPENPGP (object)));
+			return;
 	}
 
 	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -159,8 +188,6 @@ source_openpgp_finalize (GObject *object)
 	ESourceOpenPGPPrivate *priv;
 
 	priv = E_SOURCE_OPENPGP_GET_PRIVATE (object);
-
-	g_mutex_clear (&priv->property_lock);
 
 	g_free (priv->key_id);
 	g_free (priv->signing_algorithm);
@@ -249,13 +276,38 @@ e_source_openpgp_class_init (ESourceOpenPGPClass *class)
 			G_PARAM_CONSTRUCT |
 			G_PARAM_STATIC_STRINGS |
 			E_SOURCE_PARAM_SETTING));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_ENCRYPT_BY_DEFAULT,
+		g_param_spec_boolean (
+			"encrypt-by-default",
+			"Encrypt By Default",
+			"Encrypt outgoing messages by default",
+			FALSE,
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT |
+			G_PARAM_STATIC_STRINGS |
+			E_SOURCE_PARAM_SETTING));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_PREFER_INLINE,
+		g_param_spec_boolean (
+			"prefer-inline",
+			"Prefer inline",
+			"Prefer inline sign/encrypt",
+			FALSE,
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT |
+			G_PARAM_STATIC_STRINGS |
+			E_SOURCE_PARAM_SETTING));
 }
 
 static void
 e_source_openpgp_init (ESourceOpenPGP *extension)
 {
 	extension->priv = E_SOURCE_OPENPGP_GET_PRIVATE (extension);
-	g_mutex_init (&extension->priv->property_lock);
 }
 
 /**
@@ -381,12 +433,12 @@ e_source_openpgp_dup_key_id (ESourceOpenPGP *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_OPENPGP (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_openpgp_get_key_id (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -410,17 +462,17 @@ e_source_openpgp_set_key_id (ESourceOpenPGP *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_OPENPGP (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->key_id, key_id) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->key_id);
 	extension->priv->key_id = e_util_strdup_strip (key_id);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "key-id");
 }
@@ -465,12 +517,12 @@ e_source_openpgp_dup_signing_algorithm (ESourceOpenPGP *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_OPENPGP (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_openpgp_get_signing_algorithm (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -495,10 +547,10 @@ e_source_openpgp_set_signing_algorithm (ESourceOpenPGP *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_OPENPGP (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->signing_algorithm, signing_algorithm) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
@@ -506,7 +558,7 @@ e_source_openpgp_set_signing_algorithm (ESourceOpenPGP *extension,
 	extension->priv->signing_algorithm =
 		e_util_strdup_strip (signing_algorithm);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "signing-algorithm");
 }
@@ -554,3 +606,86 @@ e_source_openpgp_set_sign_by_default (ESourceOpenPGP *extension,
 	g_object_notify (G_OBJECT (extension), "sign-by-default");
 }
 
+/**
+ * e_source_openpgp_get_encrypt_by_default:
+ * @extension: an #ESourceOpenPGP
+ *
+ * Returns whether to digitally encrypt outgoing messages by default using
+ * OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).
+ *
+ * Returns: whether to encrypt outgoing messages by default
+ *
+ * Since: 3.18
+ **/
+gboolean
+e_source_openpgp_get_encrypt_by_default (ESourceOpenPGP *extension)
+{
+	g_return_val_if_fail (E_IS_SOURCE_OPENPGP (extension), FALSE);
+
+	return extension->priv->encrypt_by_default;
+}
+
+/**
+ * e_source_openpgp_set_encrypt_by_default:
+ * @extension: an #ESourceOpenPGP
+ * @encrypt_by_default: whether to encrypt outgoing messages by default
+ *
+ * Sets whether to digitally encrypt outgoing messages by default using
+ * OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).
+ *
+ * Since: 3.18
+ **/
+void
+e_source_openpgp_set_encrypt_by_default (ESourceOpenPGP *extension,
+                                         gboolean encrypt_by_default)
+{
+	g_return_if_fail (E_IS_SOURCE_OPENPGP (extension));
+
+	if (extension->priv->encrypt_by_default == encrypt_by_default)
+		return;
+
+	extension->priv->encrypt_by_default = encrypt_by_default;
+
+	g_object_notify (G_OBJECT (extension), "encrypt-by-default");
+}
+
+/**
+ * e_source_openpgp_get_prefer_inline:
+ * @extension: an #ESourceOpenPGP
+ *
+ * Returns whether to prefer inline sign/encrypt of the text/plain messages.
+ *
+ * Returns: whether to prefer inline sign/encrypt of the text/plain messages
+ *
+ * Since: 3.20
+ **/
+gboolean
+e_source_openpgp_get_prefer_inline (ESourceOpenPGP *extension)
+{
+	g_return_val_if_fail (E_IS_SOURCE_OPENPGP (extension), FALSE);
+
+	return extension->priv->prefer_inline;
+}
+
+/**
+ * e_source_openpgp_set_prefer_inline:
+ * @extension: an #ESourceOpenPGP
+ * @prefer_inline: whether to prefer inline sign/encrypt of the text/plain messages
+ *
+ * Sets whether to prefer inline sign/encrypt of the text/plain messages.
+ *
+ * Since: 3.20
+ **/
+void
+e_source_openpgp_set_prefer_inline (ESourceOpenPGP *extension,
+				    gboolean prefer_inline)
+{
+	g_return_if_fail (E_IS_SOURCE_OPENPGP (extension));
+
+	if (extension->priv->prefer_inline == prefer_inline)
+		return;
+
+	extension->priv->prefer_inline = prefer_inline;
+
+	g_object_notify (G_OBJECT (extension), "prefer-inline");
+}

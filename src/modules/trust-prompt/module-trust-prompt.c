@@ -1,17 +1,17 @@
 /*
  * module-trust-prompt.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -58,7 +58,7 @@ G_DEFINE_DYNAMIC_TYPE (
 /* ETrustPrompt::trust-prompt
  * The dialog expects these parameters:
  *    "host" - host from which the certificate is received
- *    "markup" - markup for the trust prompt, if not set, then "SSL certificate for '<b>host</b>' is not trusted. Do you wish to accept it?" is used
+ *    "markup" - markup for the trust prompt, if not set, then "SSL/TLS certificate for '<b>host</b>' is not trusted. Do you wish to accept it?" is used
  *    "certificate" - a base64-encoded DER certificate, for which ask on trust
  *    "certificate-errors" - a hexa-decimal integer (as string) corresponding to GTlsCertificateFlags
  *

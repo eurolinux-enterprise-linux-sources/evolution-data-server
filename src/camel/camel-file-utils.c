@@ -1,23 +1,22 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
- *
- * Authors:
- *   Michael Zucchi <notzed@ximian.com>
- *   Jeffrey Stedfast <fejj@ximian.com>
- *   Dan Winship <danw@ximian.com>
- *
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
+ *          Dan Winship <danw@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -274,7 +273,7 @@ camel_file_util_encode_string (FILE *out,
 
 	if (camel_file_util_encode_uint32 (out, len + 1) == -1)
 		return -1;
-	if (len == 0 || fwrite (str, len, 1, out) == 1)
+	if (len == 0 || fwrite (str, sizeof (gchar), len, out) == len)
 		return 0;
 	return -1;
 }
@@ -307,7 +306,7 @@ camel_file_util_decode_string (FILE *in,
 	}
 
 	ret = g_malloc (len + 1);
-	if (len > 0 && fread (ret, len, 1, in) != 1) {
+	if (len > 0 && fread (ret, sizeof (gchar), len, in) != len) {
 		g_free (ret);
 		*str = NULL;
 		return -1;
@@ -348,7 +347,7 @@ camel_file_util_encode_fixed_string (FILE *out,
 		buf = g_malloc0 (len);
 		g_strlcpy (buf, str, len);
 
-		if (fwrite (buf, len, 1, out) == len)
+		if (fwrite (buf, sizeof (gchar), len, out) == len)
 			retval = 0;
 
 		g_free (buf);
@@ -380,7 +379,7 @@ camel_file_util_decode_fixed_string (FILE *in,
 	}
 
 	ret = g_malloc (len + 1);
-	if (len > 0 && fread (ret, len, 1, in) != 1) {
+	if (len > 0 && fread (ret, sizeof (gchar), len, in) != len) {
 		g_free (ret);
 		*str = NULL;
 		return -1;

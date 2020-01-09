@@ -3,21 +3,20 @@
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  * Copyright (C) 2012 Intel Corporation
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors:
- *    Rodrigo Moya <rodrigo@ximian.com>
- *    Tristan Van Berkom <tristanvb@openismus.com>
+ * Authors: Rodrigo Moya <rodrigo@ximian.com>
+ *          Tristan Van Berkom <tristanvb@openismus.com>
  */
 
 #if !defined (__LIBEDATASERVER_H_INSIDE__) && !defined (LIBEDATASERVER_COMPILATION)
@@ -30,9 +29,13 @@
 #include <sys/types.h>
 #include <gio/gio.h>
 
+#include <libedataserver/e-source-enums.h>
+
 G_BEGIN_DECLS
 
 struct tm;
+struct _ESource;
+struct _ESourceRegistry;
 
 const gchar *	e_get_user_cache_dir		(void);
 const gchar *	e_get_user_config_dir		(void);
@@ -78,6 +81,8 @@ gchar **	e_util_slist_to_strv		(const GSList *strings);
 GSList *	e_util_strv_to_slist		(const gchar * const *strv);
 void		e_util_free_nullable_object_slist
 						(GSList *objects);
+void		e_util_safe_free_string		(gchar *str);
+
 void		e_queue_transfer		(GQueue *src_queue,
 						 GQueue *dst_queue);
 GWeakRef *	e_weak_ref_new			(gpointer object);
@@ -95,6 +100,28 @@ gboolean	e_file_recursive_delete_finish	(GFile *file,
 						 GAsyncResult *result,
 						 GError **error);
 
+GBinding *	e_binding_bind_property		(gpointer source,
+						 const gchar *source_property,
+						 gpointer target,
+						 const gchar *target_property,
+						 GBindingFlags flags);
+GBinding *	e_binding_bind_property_full	(gpointer source,
+						 const gchar *source_property,
+						 gpointer target,
+						 const gchar *target_property,
+						 GBindingFlags flags,
+						 GBindingTransformFunc transform_to,
+						 GBindingTransformFunc transform_from,
+						 gpointer user_data,
+						 GDestroyNotify notify);
+GBinding *	e_binding_bind_property_with_closures
+						(gpointer source,
+						 const gchar *source_property,
+						 gpointer target,
+						 const gchar *target_property,
+						 GBindingFlags flags,
+						 GClosure *transform_to,
+						 GClosure *transform_from);
 /* Useful GBinding transform functions */
 gboolean	e_binding_transform_enum_value_to_nick
 						(GBinding *binding,
@@ -129,6 +156,7 @@ const gchar *	e_util_get_localedir		(void) G_GNUC_CONST;
 gchar *		e_util_replace_prefix		(const gchar *configure_time_prefix,
 						 const gchar *runtime_prefix,
 						 const gchar *configure_time_path);
+void		e_util_win32_initialize		(void);
 #endif
 
 /* utility functions for easier processing of named parameters */
@@ -141,11 +169,17 @@ gchar *		e_util_replace_prefix		(const gchar *configure_time_prefix,
 struct _ENamedParameters;
 typedef struct _ENamedParameters ENamedParameters;
 
+#define E_TYPE_NAMED_PARAMETERS (e_named_parameters_get_type ())
+
 GType           e_named_parameters_get_type     (void) G_GNUC_CONST;
 ENamedParameters *
 		e_named_parameters_new		(void);
 ENamedParameters *
 		e_named_parameters_new_strv	(const gchar * const *strv);
+ENamedParameters *
+		e_named_parameters_new_string	(const gchar *str);
+ENamedParameters *
+		e_named_parameters_new_clone	(const ENamedParameters *parameters);
 void		e_named_parameters_free		(ENamedParameters *parameters);
 void		e_named_parameters_clear	(ENamedParameters *parameters);
 void		e_named_parameters_assign	(ENamedParameters *parameters,
@@ -156,10 +190,16 @@ void		e_named_parameters_set		(ENamedParameters *parameters,
 const gchar *	e_named_parameters_get		(const ENamedParameters *parameters,
 						 const gchar *name);
 gchar **	e_named_parameters_to_strv	(const ENamedParameters *parameters);
+gchar *		e_named_parameters_to_string	(const ENamedParameters *parameters);
 gboolean	e_named_parameters_test		(const ENamedParameters *parameters,
 						 const gchar *name,
 						 const gchar *value,
 						 gboolean case_sensitively);
+gboolean	e_named_parameters_exists	(const ENamedParameters *parameters,
+						 const gchar *name);
+guint		e_named_parameters_count	(const ENamedParameters *parameters);
+gchar *		e_named_parameters_get_name	(const ENamedParameters *parameters,
+						 gint index);
 
 #define e_named_timeout_add(interval, function, data) \
 	(e_timeout_add_with_name ( \
@@ -216,6 +256,30 @@ gboolean	e_source_registry_debug_enabled	(void);
 void		e_source_registry_debug_print	(const gchar *format,
 						 ...) G_GNUC_PRINTF (1, 2);
 
+/**
+ * ETypeFunc:
+ * @type: a #GType
+ * @user_data: user data passed to e_type_traverse()
+ *
+ * Specifies the type of functions passed to e_type_traverse().
+ *
+ * Since: 3.4
+ **/
+typedef void	(*ETypeFunc)			(GType type,
+						 gpointer user_data);
+void		e_type_traverse			(GType parent_type,
+						 ETypeFunc func,
+						 gpointer user_data);
+
+gchar *		e_util_get_source_full_name	(struct _ESourceRegistry *registry,
+						 struct _ESource *source);
+gboolean	e_util_get_source_oauth2_access_token_sync
+						(struct _ESource *source,
+						 const ENamedParameters *credentials,
+						 gchar **out_access_token,
+						 gint *out_expires_in_seconds,
+						 GCancellable *cancellable,
+						 GError **error);
 G_END_DECLS
 
 #endif /* E_DATA_SERVER_UTIL_H */

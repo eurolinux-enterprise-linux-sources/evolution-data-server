@@ -1,22 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8; fill-column: 160 -*- */
-
 /* camel-stream-buffer.c : Buffer any other other stream
- *
- * Authors: Michael Zucchi <notzed@ximian.com>
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -403,7 +402,7 @@ camel_stream_buffer_new (CamelStream *stream,
 /**
  * camel_stream_buffer_gets:
  * @sbf: a #CamelStreamBuffer object
- * @buf: Memory to write the string to.
+ * @buf: (out) (array): Memory to write the string to.
  * @max: Maxmimum number of characters to store.
  * @cancellable: optional #GCancellable object, or %NULL
  * @error: return location for a #GError, or %NULL
@@ -481,7 +480,7 @@ camel_stream_buffer_gets (CamelStreamBuffer *sbf,
  * and returns it in allocated memory. The trailing newline (and carriage
  * return if any) are not included in the returned string.
  *
- * Returns: the line read, which the caller must free when done with,
+ * Returns: (nullable): the line read, which the caller must free when done with,
  * or %NULL on eof. If an error occurs, @error will be set.
  **/
 gchar *
@@ -499,7 +498,7 @@ camel_stream_buffer_read_line (CamelStreamBuffer *sbf,
 		nread = camel_stream_buffer_gets (
 			sbf, (gchar *) p, sbf->priv->linesize -
 			(p - sbf->priv->linebuf), cancellable, &local_error);
-		if (nread <=0) {
+		if (nread <= 0) {
 			if (p > sbf->priv->linebuf)
 				break;
 			if (local_error)

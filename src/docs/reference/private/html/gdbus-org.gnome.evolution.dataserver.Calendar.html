@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Evolution-Data-Server Manual: Private: org.gnome.evolution.dataserver.Calendar</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>org.gnome.evolution.dataserver.Calendar: Evolution-Data-Server Manual: Private</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Private">
 <link rel="up" href="ch02.html" title="D-Bus Interfaces">
 <link rel="prev" href="gdbus-org.gnome.evolution.dataserver.AddressBookFactory.html" title="org.gnome.evolution.dataserver.AddressBookFactory">
 <link rel="next" href="gdbus-org.gnome.evolution.dataserver.CalendarFactory.html" title="org.gnome.evolution.dataserver.CalendarFactory">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -36,38 +36,40 @@
 <div class="refsynopsisdiv">
 <h2>Methods</h2>
 <pre class="synopsis">
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Open" title="The Open() method">Open</a>              ();
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Close" title="The Close() method">Close</a>             ();
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Refresh" title="The Refresh() method">Refresh</a>           ();
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.CreateObjects" title="The CreateObjects() method">CreateObjects</a>     (IN  as    ics_objects,
-                   OUT as    uids);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.ModifyObjects" title="The ModifyObjects() method">ModifyObjects</a>     (IN  as    ics_objects,
-                   IN  s     mod_type);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.RemoveObjects" title="The RemoveObjects() method">RemoveObjects</a>     (IN  a(ss) uid_rid_array,
-                   IN  s     mod_type);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.ReceiveObjects" title="The ReceiveObjects() method">ReceiveObjects</a>    (IN  s     ics_object);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.SendObjects" title="The SendObjects() method">SendObjects</a>       (IN  s     ics_object,
-                   OUT as    users,
-                   OUT s     out_ics_object);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetObject" title="The GetObject() method">GetObject</a>         (IN  s     uid,
-                   IN  s     rid,
-                   OUT s     ics_object);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetObjectList" title="The GetObjectList() method">GetObjectList</a>     (IN  s     query,
-                   OUT as    ics_objects);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetFreeBusy" title="The GetFreeBusy() method">GetFreeBusy</a>       (IN  x     start,
-                   IN  x     end,
-                   IN  as    users);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetAttachmentUris" title="The GetAttachmentUris() method">GetAttachmentUris</a> (IN  s     uid,
-                   IN  s     rid,
-                   OUT as    uris);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.DiscardAlarm" title="The DiscardAlarm() method">DiscardAlarm</a>      (IN  s     uid,
-                   IN  s     rid,
-                   IN  s     alarm_uid);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetTimezone" title="The GetTimezone() method">GetTimezone</a>       (IN  s     tz_id,
-                   OUT s     tz_object);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.AddTimezone" title="The AddTimezone() method">AddTimezone</a>       (IN  s     tz_object);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetView" title="The GetView() method">GetView</a>           (IN  s     query,
-                   OUT o     object_path);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.RetrieveProperties" title="The RetrieveProperties() method">RetrieveProperties</a> (OUT as    properties);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Open" title="The Open() method">Open</a>               (OUT as    properties);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Close" title="The Close() method">Close</a>              ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Refresh" title="The Refresh() method">Refresh</a>            ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.CreateObjects" title="The CreateObjects() method">CreateObjects</a>      (IN  as    ics_objects,
+                    OUT as    uids);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.ModifyObjects" title="The ModifyObjects() method">ModifyObjects</a>      (IN  as    ics_objects,
+                    IN  s     mod_type);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.RemoveObjects" title="The RemoveObjects() method">RemoveObjects</a>      (IN  a(ss) uid_rid_array,
+                    IN  s     mod_type);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.ReceiveObjects" title="The ReceiveObjects() method">ReceiveObjects</a>     (IN  s     ics_object);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.SendObjects" title="The SendObjects() method">SendObjects</a>        (IN  s     ics_object,
+                    OUT as    users,
+                    OUT s     out_ics_object);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetObject" title="The GetObject() method">GetObject</a>          (IN  s     uid,
+                    IN  s     rid,
+                    OUT s     ics_object);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetObjectList" title="The GetObjectList() method">GetObjectList</a>      (IN  s     query,
+                    OUT as    ics_objects);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetFreeBusy" title="The GetFreeBusy() method">GetFreeBusy</a>        (IN  x     start,
+                    IN  x     end,
+                    IN  as    users,
+                    OUT as    freebusy);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetAttachmentUris" title="The GetAttachmentUris() method">GetAttachmentUris</a>  (IN  s     uid,
+                    IN  s     rid,
+                    OUT as    uris);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.DiscardAlarm" title="The DiscardAlarm() method">DiscardAlarm</a>       (IN  s     uid,
+                    IN  s     rid,
+                    IN  s     alarm_uid);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetTimezone" title="The GetTimezone() method">GetTimezone</a>        (IN  s     tz_id,
+                    OUT s     tz_object);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.AddTimezone" title="The AddTimezone() method">AddTimezone</a>        (IN  s     tz_object);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetView" title="The GetView() method">GetView</a>            (IN  s     query,
+                    OUT o     object_path);
 </pre>
 </div>
 <div class="refsect1">
@@ -99,11 +101,40 @@
 <div class="refsect1">
 <a name="gdbus-methods-org.gnome.evolution.dataserver.Calendar"></a><h2>Method Details</h2>
 <div class="refsect2">
-<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.Open"></a><h3>The Open() method</h3>
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.RetrieveProperties"></a><h3>The RetrieveProperties() method</h3>
 <pre class="programlisting">
-Open ();
+RetrieveProperties (OUT as properties);
 </pre>
 <p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><code class="literal">OUT as <em class="parameter"><code>properties</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.Open"></a><h3>The Open() method</h3>
+<pre class="programlisting">
+Open (OUT as properties);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><code class="literal">OUT as <em class="parameter"><code>properties</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr></tbody>
+</table></div>
 <p class="since">Since 3.8</p>
 </div>
 <hr>
@@ -315,7 +346,8 @@ GetObjectList (IN  s  query,
 <pre class="programlisting">
 GetFreeBusy (IN  x  start,
              IN  x  end,
-             IN  as users);
+             IN  as users,
+             OUT as freebusy);
 </pre>
 <p></p>
 <div class="variablelist"><table border="0" class="variablelist">
@@ -334,6 +366,10 @@ GetFreeBusy (IN  x  start,
 </tr>
 <tr>
 <td><p><span class="term"><code class="literal">IN as <em class="parameter"><code>users</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT as <em class="parameter"><code>freebusy</code></em></code>:</span></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -590,7 +626,6 @@ AlarmEmailAddress  readable   s
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

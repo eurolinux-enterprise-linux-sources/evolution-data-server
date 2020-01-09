@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Evolution-Data-Server Reference Manual: Calendar Backend Classes</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>Calendar Backend Classes: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
 <link rel="up" href="backend.html" title="Part III. Backend Programming Interfaces">
-<link rel="prev" href="eds-EDataBookView.html" title="EDataBookView">
-<link rel="next" href="eds-ECalBackend.html" title="ECalBackend">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="prev" href="ESubprocessBookFactory.html" title="ESubprocessBookFactory">
+<link rel="next" href="ECalBackend.html" title="ECalBackend">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -16,47 +16,49 @@
 <td width="100%" align="left" class="shortcuts"></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
 <td><a accesskey="u" href="backend.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
-<td><a accesskey="p" href="eds-EDataBookView.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
-<td><a accesskey="n" href="eds-ECalBackend.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+<td><a accesskey="p" href="ESubprocessBookFactory.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ECalBackend.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
 </tr></table>
 <div class="chapter">
 <div class="titlepage"><div><div><h2 class="title">
 <a name="id-1.4.5"></a>Calendar Backend Classes</h2></div></div></div>
 <div class="toc"><dl class="toc">
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackend.html">ECalBackend</a></span><span class="refpurpose"> — An abstract class for implementing calendar backends</span>
+<span class="refentrytitle"><a href="ECalBackend.html">ECalBackend</a></span><span class="refpurpose"> — An abstract class for implementing calendar backends</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackendCache.html">ECalBackendCache</a></span><span class="refpurpose"> — A helper class for caching calendar components</span>
+<span class="refentrytitle"><a href="ECalBackendCache.html">ECalBackendCache</a></span><span class="refpurpose"> — A helper class for caching calendar components</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackendFactory.html">ECalBackendFactory</a></span><span class="refpurpose"> — The factory for creating new calendars</span>
+<span class="refentrytitle"><a href="ECalBackendFactory.html">ECalBackendFactory</a></span><span class="refpurpose"> — The factory for creating new calendars</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackendSExp.html">ECalBackendSExp</a></span><span class="refpurpose">A utility for comparing <span class="type">ECalComponents</span> with search expressions.</span>
+<span class="refentrytitle"><a href="ECalBackendSExp.html">ECalBackendSExp</a></span><span class="refpurpose"> — A utility for comparing <span class="type">ECalComponents</span> with search expressions.</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackendStore.html">ECalBackendStore</a></span><span class="refpurpose"> — A helper class for storing calendar components</span>
+<span class="refentrytitle"><a href="ECalBackendStore.html">ECalBackendStore</a></span><span class="refpurpose"> — A helper class for storing calendar components</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalBackendSync.html">ECalBackendSync</a></span><span class="refpurpose">A convenience subclass of <span class="type">ECalBackend</span></span>
+<span class="refentrytitle"><a href="ECalBackendSync.html">ECalBackendSync</a></span><span class="refpurpose"> — A convenience subclass of <span class="type">ECalBackend</span></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EIntervalTree.html">EIntervalTree</a></span><span class="refpurpose"> — A utility for calculating intervals and recurrances</span>
+<span class="refentrytitle"><a href="EIntervalTree.html">EIntervalTree</a></span><span class="refpurpose"> — A utility for calculating intervals and recurrances</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataCal.html">EDataCal</a></span><span class="refpurpose"> — Server side D-Bus layer to communicate with calendars</span>
+<span class="refentrytitle"><a href="EDataCal.html">EDataCal</a></span><span class="refpurpose"> — Server side D-Bus layer to communicate with calendars</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataCalFactory.html">EDataCalFactory</a></span><span class="refpurpose"> — The main calendar server object</span>
+<span class="refentrytitle"><a href="EDataCalFactory.html">EDataCalFactory</a></span><span class="refpurpose"> — The main calendar server object</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EDataCalView.html">EDataCalView</a></span><span class="refpurpose"> — A server side object for issuing view notifications</span>
+<span class="refentrytitle"><a href="EDataCalView.html">EDataCalView</a></span><span class="refpurpose"> — A server side object for issuing view notifications</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="ESubprocessCalFactory.html">ESubprocessCalFactory</a></span><span class="refpurpose"></span>
 </dt>
 </dl></div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

@@ -1,17 +1,17 @@
 /*
  * e-source-webdav.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -22,6 +22,7 @@
 #ifndef E_SOURCE_WEBDAV_H
 #define E_SOURCE_WEBDAV_H
 
+#include <gio/gio.h>
 #include <libsoup/soup.h>
 #include <libedataserver/e-source-enums.h>
 #include <libedataserver/e-source-extension.h>
@@ -128,32 +129,19 @@ void		e_source_webdav_set_ssl_trust	(ESourceWebdav *extension,
 SoupURI *	e_source_webdav_dup_soup_uri	(ESourceWebdav *extension);
 void		e_source_webdav_set_soup_uri	(ESourceWebdav *extension,
 						 SoupURI *soup_uri);
-ETrustPromptResponse
-		e_source_webdav_prepare_ssl_trust_prompt
+void		e_source_webdav_update_ssl_trust
 						(ESourceWebdav *extension,
-						 SoupMessage *message,
-						 struct _ESourceRegistry *registry,
-						 struct _ENamedParameters *parameters);
-ETrustPromptResponse
-		e_source_webdav_prepare_ssl_trust_prompt_with_parent
-						(ESourceWebdav *extension,
-						 SoupMessage *message,
-						 ESource *parent_source,
-						 struct _ENamedParameters *parameters);
-void		e_source_webdav_store_ssl_trust_prompt
-						(ESourceWebdav *extension,
-						 SoupMessage *message,
+						 const gchar *host,
+						 GTlsCertificate *cert,
 						 ETrustPromptResponse response);
+ETrustPromptResponse
+		e_source_webdav_verify_ssl_trust
+						(ESourceWebdav *extension,
+						 const gchar *host,
+						 GTlsCertificate *cert,
+						 GTlsCertificateFlags cert_errors);
 void		e_source_webdav_unset_temporary_ssl_trust
 						(ESourceWebdav *extension);
-
-#ifndef EDS_DISABLE_DEPRECATED
-gboolean	e_source_webdav_get_ignore_invalid_cert
-						(ESourceWebdav *extension);
-void		e_source_webdav_set_ignore_invalid_cert
-						(ESourceWebdav *extension,
-						 gboolean ignore_invalid_cert);
-#endif /* EDS_DISABLE_DEPRECATED */
 
 G_END_DECLS
 

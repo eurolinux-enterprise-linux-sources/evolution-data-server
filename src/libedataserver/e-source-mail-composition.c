@@ -1,17 +1,17 @@
 /*
  * e-source-mail-composition.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -34,21 +34,26 @@
  * ]|
  **/
 
-#include "e-source-mail-composition.h"
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #include <libedataserver/e-data-server-util.h>
+
+#include "e-source-enumtypes.h"
+#include "e-source-mail-composition.h"
 
 #define E_SOURCE_MAIL_COMPOSITION_GET_PRIVATE(obj) \
 	(G_TYPE_INSTANCE_GET_PRIVATE \
 	((obj), E_TYPE_SOURCE_MAIL_COMPOSITION, ESourceMailCompositionPrivate))
 
 struct _ESourceMailCompositionPrivate {
-	GMutex property_lock;
 	gchar **bcc;
 	gchar **cc;
 	gchar *drafts_folder;
 	gchar *templates_folder;
 	gboolean sign_imip;
+	ESourceMailCompositionReplyStyle reply_style;
 };
 
 enum {
@@ -56,6 +61,7 @@ enum {
 	PROP_BCC,
 	PROP_CC,
 	PROP_DRAFTS_FOLDER,
+	PROP_REPLY_STYLE,
 	PROP_SIGN_IMIP,
 	PROP_TEMPLATES_FOLDER
 };
@@ -88,6 +94,12 @@ source_mail_composition_set_property (GObject *object,
 			e_source_mail_composition_set_drafts_folder (
 				E_SOURCE_MAIL_COMPOSITION (object),
 				g_value_get_string (value));
+			return;
+
+		case PROP_REPLY_STYLE:
+			e_source_mail_composition_set_reply_style (
+				E_SOURCE_MAIL_COMPOSITION (object),
+				g_value_get_enum (value));
 			return;
 
 		case PROP_SIGN_IMIP:
@@ -134,6 +146,13 @@ source_mail_composition_get_property (GObject *object,
 				E_SOURCE_MAIL_COMPOSITION (object)));
 			return;
 
+		case PROP_REPLY_STYLE:
+			g_value_set_enum (
+				value,
+				e_source_mail_composition_get_reply_style (
+				E_SOURCE_MAIL_COMPOSITION (object)));
+			return;
+
 		case PROP_SIGN_IMIP:
 			g_value_set_boolean (
 				value,
@@ -158,8 +177,6 @@ source_mail_composition_finalize (GObject *object)
 	ESourceMailCompositionPrivate *priv;
 
 	priv = E_SOURCE_MAIL_COMPOSITION_GET_PRIVATE (object);
-
-	g_mutex_clear (&priv->property_lock);
 
 	g_strfreev (priv->bcc);
 	g_strfreev (priv->cc);
@@ -229,6 +246,20 @@ e_source_mail_composition_class_init (ESourceMailCompositionClass *class)
 
 	g_object_class_install_property (
 		object_class,
+		PROP_REPLY_STYLE,
+		g_param_spec_enum (
+			"reply-style",
+			"Reply Style",
+			"What reply style to prefer",
+			E_TYPE_SOURCE_MAIL_COMPOSITION_REPLY_STYLE,
+			E_SOURCE_MAIL_COMPOSITION_REPLY_STYLE_DEFAULT,
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT |
+			G_PARAM_STATIC_STRINGS |
+			E_SOURCE_PARAM_SETTING));
+
+	g_object_class_install_property (
+		object_class,
 		PROP_SIGN_IMIP,
 		g_param_spec_boolean (
 			"sign-imip",
@@ -258,7 +289,6 @@ static void
 e_source_mail_composition_init (ESourceMailComposition *extension)
 {
 	extension->priv = E_SOURCE_MAIL_COMPOSITION_GET_PRIVATE (extension);
-	g_mutex_init (&extension->priv->property_lock);
 }
 
 /**
@@ -306,12 +336,12 @@ e_source_mail_composition_dup_bcc (ESourceMailComposition *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_COMPOSITION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_composition_get_bcc (extension);
 	duplicate = g_strdupv ((gchar **) protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -333,17 +363,17 @@ e_source_mail_composition_set_bcc (ESourceMailComposition *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_COMPOSITION (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (e_util_strv_equal (bcc, extension->priv->bcc)) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_strfreev (extension->priv->bcc);
 	extension->priv->bcc = g_strdupv ((gchar **) bcc);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "bcc");
 }
@@ -393,12 +423,12 @@ e_source_mail_composition_dup_cc (ESourceMailComposition *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_COMPOSITION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_composition_get_cc (extension);
 	duplicate = g_strdupv ((gchar **) protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -420,17 +450,17 @@ e_source_mail_composition_set_cc (ESourceMailComposition *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_COMPOSITION (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (e_util_strv_equal (cc, extension->priv->cc)) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_strfreev (extension->priv->cc);
 	extension->priv->cc = g_strdupv ((gchar **) cc);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "cc");
 }
@@ -475,12 +505,12 @@ e_source_mail_composition_dup_drafts_folder (ESourceMailComposition *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_COMPOSITION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_composition_get_drafts_folder (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -506,17 +536,17 @@ e_source_mail_composition_set_drafts_folder (ESourceMailComposition *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_COMPOSITION (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->drafts_folder, drafts_folder) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->drafts_folder);
 	extension->priv->drafts_folder = e_util_strdup_strip (drafts_folder);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "drafts-folder");
 }
@@ -606,12 +636,12 @@ e_source_mail_composition_dup_templates_folder (ESourceMailComposition *extensio
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_COMPOSITION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_composition_get_templates_folder (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -637,18 +667,63 @@ e_source_mail_composition_set_templates_folder (ESourceMailComposition *extensio
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_COMPOSITION (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->templates_folder, templates_folder) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->templates_folder);
 	extension->priv->templates_folder = e_util_strdup_strip (templates_folder);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "templates-folder");
 }
 
+/**
+ * e_source_mail_composition_get_reply_style:
+ * @extension: an #ESourceMailComposition
+ *
+ * Returns preferred reply style to be used when replying
+ * using the associated account. If no preference is set,
+ * the %E_SOURCE_MAIL_COMPOSITION_REPLY_STYLE_DEFAULT is returned.
+ *
+ * Returns: reply style preference
+ *
+ * Since: 3.20
+ **/
+ESourceMailCompositionReplyStyle
+e_source_mail_composition_get_reply_style (ESourceMailComposition *extension)
+{
+	g_return_val_if_fail (E_IS_SOURCE_MAIL_COMPOSITION (extension),
+		E_SOURCE_MAIL_COMPOSITION_REPLY_STYLE_DEFAULT);
+
+	return extension->priv->reply_style;
+}
+
+/**
+ * e_source_mail_composition_set_reply_style:
+ * @extension: an #ESourceMailComposition
+ * @reply_style: an #ESourceMailCompositionReplyStyle
+ *
+ * Sets preferred reply style to be used when replying
+ * using the associated account. To unset the preference,
+ * use the %E_SOURCE_MAIL_COMPOSITION_REPLY_STYLE_DEFAULT.
+ *
+ * Since: 3.20
+ **/
+void
+e_source_mail_composition_set_reply_style (ESourceMailComposition *extension,
+					   ESourceMailCompositionReplyStyle reply_style)
+{
+	g_return_if_fail (E_IS_SOURCE_MAIL_COMPOSITION (extension));
+
+	if (extension->priv->reply_style == reply_style)
+		return;
+
+	extension->priv->reply_style = reply_style;
+
+	g_object_notify (G_OBJECT (extension), "reply-style");
+}

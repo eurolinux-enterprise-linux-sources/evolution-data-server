@@ -1,17 +1,17 @@
 /*
  * e-data-factory.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -68,27 +68,42 @@ struct _EDataFactoryClass {
 
 	GType backend_factory_type;
 
-	/* Signals */
-	void		(*backend_created)	(EDataFactory *data_factory,
-						 EBackend *backend);
+	const gchar *factory_object_path;
+	const gchar *data_object_path_prefix;
+	const gchar *subprocess_object_path_prefix;
+	const gchar *subprocess_bus_name_prefix;
+
+	/* Virtual methods */
+	GDBusInterfaceSkeleton *
+			(*get_dbus_interface_skeleton)
+						(EDBusServer *server);
+	const gchar *	(*get_factory_name)	(EBackendFactory *backend_factory);
+	void		(*complete_open)	(EDataFactory *data_factory,
+						 GDBusMethodInvocation *invocation,
+						 const gchar *object_path,
+						 const gchar *bus_name,
+						 const gchar *extension_name);
 
 	gpointer reserved[15];
 };
 
 GType		e_data_factory_get_type		(void) G_GNUC_CONST;
-EBackend *	e_data_factory_ref_backend	(EDataFactory *data_factory,
-						 const gchar *hash_key,
-						 ESource *source);
-EBackend *	e_data_factory_ref_initable_backend
-						(EDataFactory *data_factory,
-						 const gchar *hash_key,
-						 ESource *source,
-						 GCancellable *cancellable,
-						 GError **error);
 EBackendFactory *
 		e_data_factory_ref_backend_factory
 						(EDataFactory *data_factory,
-						 const gchar *hash_key);
+						 const gchar *backend_name,
+						 const gchar *extension_name);
+ESourceRegistry *
+		e_data_factory_get_registry	(EDataFactory *data_factory);
+gchar *		e_data_factory_construct_path	(EDataFactory *data_factory);
+void		e_data_factory_spawn_subprocess_backend
+						(EDataFactory *data_factory,
+						 GDBusMethodInvocation *invocation,
+						 const gchar *uid,
+						 const gchar *extension_name,
+						 const gchar *subprocess_path);
+gboolean	e_data_factory_get_reload_supported
+						(EDataFactory *data_factory);
 
 G_END_DECLS
 

@@ -3,21 +3,20 @@
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  * Copyright (C) 2012 Intel Corporation
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors:
- *    Rodrigo Moya <rodrigo@ximian.com>
- *    Tristan Van Berkom <tristanvb@openismus.com>
+ * Authors: Rodrigo Moya <rodrigo@ximian.com>
+ *          Tristan Van Berkom <tristanvb@openismus.com>
  */
 
 #include "config.h"
@@ -32,6 +31,13 @@
 #endif
 
 #include <glib-object.h>
+
+#include "e-source.h"
+#include "e-source-authentication.h"
+#include "e-source-credentials-provider-impl-google.h"
+#include "e-source-enumtypes.h"
+#include "e-source-registry.h"
+#include "camel/camel.h"
 
 #include "e-data-server-util.h"
 
@@ -286,7 +292,8 @@ e_util_utf8_strstrcase (const gchar *haystack,
 		nuni[nlen++] = g_unichar_tolower (unival);
 	}
 	/* NULL means there was illegal utf-8 sequence */
-	if (!p) return NULL;
+	if (!p || !nlen)
+		return NULL;
 
 	o = haystack;
 	for (p = e_util_unicode_get_utf8 (o, &unival);
@@ -1091,6 +1098,27 @@ e_util_free_nullable_object_slist (GSList *objects)
 }
 
 /**
+ * e_util_safe_free_string:
+ * @str: a string to free
+ *
+ * Calls g_free() on @string, but before it rewrites its content with zeros.
+ * This is suitable to free strings with passwords.
+ *
+ * Since: 3.16
+ **/
+void
+e_util_safe_free_string (gchar *str)
+{
+	if (!str)
+		return;
+
+	if (*str)
+		memset (str, 0, sizeof (gchar) * strlen (str));
+
+	g_free (str);
+}
+
+/**
  * e_queue_transfer:
  * @src_queue: a source #GQueue
  * @dst_queue: a destination #GQueue
@@ -1124,7 +1152,7 @@ e_queue_transfer (GQueue *src_queue,
  *
  * Free the returned #GWeakRef with e_weak_ref_free().
  *
- * Returns: a new #GWeakRef
+ * Returns: (transfer full): a new #GWeakRef
  *
  * Since: 3.10
  **/
@@ -1304,7 +1332,7 @@ e_file_recursive_delete (GFile *file,
 /**
  * e_file_recursive_delete_finish:
  * @file: a #GFile to delete
- * @result: a #GAsyncResult
+ * @result: (transfer full): a #GAsyncResult
  * @error: return location for a #GError, or %NULL
  *
  * Finishes the operation started with e_file_recursive_delete().
@@ -1331,6 +1359,100 @@ e_file_recursive_delete_finish (GFile *file,
 
 	/* Assume success unless a GError is set. */
 	return !g_simple_async_result_propagate_error (simple, error);
+}
+
+/**
+ * e_binding_bind_property:
+ *
+ * Thread safe variant of g_object_bind_property(). See its documentation
+ * for more information on arguments and return value.
+ *
+ * Returns: (transfer none):
+ *
+ * Since: 3.16
+ **/
+GBinding *
+e_binding_bind_property (gpointer source,
+			 const gchar *source_property,
+			 gpointer target,
+			 const gchar *target_property,
+			 GBindingFlags flags)
+{
+	return camel_binding_bind_property (source, source_property, target, target_property, flags);
+}
+
+/**
+ * e_binding_bind_property_full:
+ * @source: (type GObject.Object): the source #GObject
+ * @source_property: the property on @source to bind
+ * @target: (type GObject.Object): the target #GObject
+ * @target_property: the property on @target to bind
+ * @flags: flags to pass to #GBinding
+ * @transform_to: (scope notified) (allow-none): the transformation function
+ *   from the @source to the @target, or %NULL to use the default
+ * @transform_from: (scope notified) (allow-none): the transformation function
+ *   from the @target to the @source, or %NULL to use the default
+ * @user_data: custom data to be passed to the transformation functions,
+ *   or %NULL
+ * @notify: function to be called when disposing the binding, to free the
+ *   resources used by the transformation functions
+ *
+ * Thread safe variant of g_object_bind_property_full(). See its documentation
+ * for more information on arguments and return value.
+ *
+ * Return value: (transfer none): the #GBinding instance representing the
+ *   binding between the two #GObject instances. The binding is released
+ *   whenever the #GBinding reference count reaches zero.
+ *
+ * Since: 3.16
+ **/
+GBinding *
+e_binding_bind_property_full (gpointer source,
+			      const gchar *source_property,
+			      gpointer target,
+			      const gchar *target_property,
+			      GBindingFlags flags,
+			      GBindingTransformFunc transform_to,
+			      GBindingTransformFunc transform_from,
+			      gpointer user_data,
+			      GDestroyNotify notify)
+{
+	return camel_binding_bind_property_full (source, source_property, target, target_property, flags,
+		transform_to, transform_from, user_data, notify);
+}
+
+/**
+ * e_binding_bind_property_with_closures: (rename-to e_binding_bind_property_full)
+ * @source: (type GObject.Object): the source #GObject
+ * @source_property: the property on @source to bind
+ * @target: (type GObject.Object): the target #GObject
+ * @target_property: the property on @target to bind
+ * @flags: flags to pass to #GBinding
+ * @transform_to: a #GClosure wrapping the transformation function
+ *   from the @source to the @target, or %NULL to use the default
+ * @transform_from: a #GClosure wrapping the transformation function
+ *   from the @target to the @source, or %NULL to use the default
+ *
+ * Thread safe variant of g_object_bind_property_with_closures(). See its
+ * documentation for more information on arguments and return value.
+ *
+ * Return value: (transfer none): the #GBinding instance representing the
+ *   binding between the two #GObject instances. The binding is released
+ *   whenever the #GBinding reference count reaches zero.
+ *
+ * Since: 3.16
+ **/
+GBinding *
+e_binding_bind_property_with_closures (gpointer source,
+				       const gchar *source_property,
+				       gpointer target,
+				       const gchar *target_property,
+				       GBindingFlags flags,
+				       GClosure *transform_to,
+				       GClosure *transform_from)
+{
+	return camel_binding_bind_property_with_closures (source, source_property, target, target_property, flags,
+		transform_to, transform_from);
 }
 
 /**
@@ -1523,6 +1645,8 @@ struct _EAsyncClosure {
 	GMainLoop *loop;
 	GMainContext *context;
 	GAsyncResult *result;
+	gboolean finished;
+	GMutex lock;
 };
 
 /**
@@ -1542,10 +1666,24 @@ e_async_closure_new (void)
 	closure = g_slice_new0 (EAsyncClosure);
 	closure->context = g_main_context_new ();
 	closure->loop = g_main_loop_new (closure->context, FALSE);
+	closure->finished = FALSE;
+	g_mutex_init (&closure->lock);
 
 	g_main_context_push_thread_default (closure->context);
 
 	return closure;
+}
+
+static gboolean
+e_async_closure_unlock_mutex_cb (gpointer user_data)
+{
+	EAsyncClosure *closure = user_data;
+
+	g_return_val_if_fail (closure != NULL, FALSE);
+
+	g_mutex_unlock (&closure->lock);
+
+	return FALSE;
 }
 
 /**
@@ -1568,7 +1706,22 @@ e_async_closure_wait (EAsyncClosure *closure)
 {
 	g_return_val_if_fail (closure != NULL, NULL);
 
-	g_main_loop_run (closure->loop);
+	g_mutex_lock (&closure->lock);
+	if (closure->finished) {
+		g_mutex_unlock (&closure->lock);
+	} else {
+		GSource *idle_source;
+
+		/* Unlock the closure->lock in the main loop, to ensure thread safety.
+		   It should be processed before anything else, otherwise deadlock happens. */
+		idle_source = g_idle_source_new ();
+		g_source_set_callback (idle_source, e_async_closure_unlock_mutex_cb, closure, NULL);
+		g_source_set_priority (idle_source, G_PRIORITY_HIGH * 2);
+		g_source_attach (idle_source, closure->context);
+		g_source_unref (idle_source);
+
+		g_main_loop_run (closure->loop);
+	}
 
 	return closure->result;
 }
@@ -1591,8 +1744,10 @@ e_async_closure_free (EAsyncClosure *closure)
 	g_main_loop_unref (closure->loop);
 	g_main_context_unref (closure->context);
 
-	if (closure->result != NULL)
-		g_object_unref (closure->result);
+	g_mutex_lock (&closure->lock);
+	g_clear_object (&closure->result);
+	g_mutex_unlock (&closure->lock);
+	g_mutex_clear (&closure->lock);
 
 	g_slice_free (EAsyncClosure, closure);
 }
@@ -1622,10 +1777,15 @@ e_async_closure_callback (GObject *object,
 
 	real_closure = closure;
 
+	g_mutex_lock (&real_closure->lock);
+
 	/* Replace any previous result. */
 	if (real_closure->result != NULL)
 		g_object_unref (real_closure->result);
 	real_closure->result = g_object_ref (result);
+	real_closure->finished = TRUE;
+
+	g_mutex_unlock (&real_closure->lock);
 
 	g_main_loop_quit (real_closure->loop);
 }
@@ -1633,6 +1793,16 @@ e_async_closure_callback (GObject *object,
 #ifdef G_OS_WIN32
 
 #include <windows.h>
+#include <stdio.h>
+#include <conio.h>
+#include <io.h>
+
+#ifndef PROCESS_DEP_ENABLE
+#define PROCESS_DEP_ENABLE 0x00000001
+#endif
+#ifndef PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION
+#define PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION 0x00000002
+#endif
 
 static const gchar *prefix = NULL;
 static const gchar *cp_prefix;
@@ -1641,6 +1811,7 @@ static const gchar *localedir;
 static const gchar *extensiondir;
 static const gchar *imagesdir;
 static const gchar *ui_uidir;
+static const gchar *credentialmoduledir;
 
 static HMODULE hmodule;
 G_LOCK_DEFINE_STATIC (mutex);
@@ -1675,10 +1846,38 @@ e_util_replace_prefix (const gchar *configure_time_prefix,
 	c_t_prefix_slash = g_strconcat (configure_time_prefix, "/", NULL);
 
 	if (runtime_prefix &&
+	    !g_str_has_prefix (configure_time_path, c_t_prefix_slash)) {
+		gint ii;
+		gchar *path;
+
+		path = g_strdup (configure_time_path);
+
+		for (ii = 0; ii < 3; ii++) {
+			const gchar *pos;
+			gchar *last_slash;
+
+			last_slash = strrchr (path, '/');
+			if (!last_slash)
+				break;
+
+			*last_slash = '\0';
+
+			pos = strstr (configure_time_prefix, path);
+			if (pos && pos[strlen(path)] == '/') {
+				g_free (c_t_prefix_slash);
+				c_t_prefix_slash = g_strconcat (configure_time_prefix + (pos - configure_time_prefix), "/", NULL);
+				break;
+			}
+		}
+
+		g_free (path);
+	}
+
+	if (runtime_prefix &&
 	    g_str_has_prefix (configure_time_path, c_t_prefix_slash)) {
 		retval = g_strconcat (
 			runtime_prefix,
-			configure_time_path + strlen (configure_time_prefix),
+			configure_time_path + strlen (c_t_prefix_slash) - 1,
 			NULL);
 	} else
 		retval = g_strdup (configure_time_path);
@@ -1722,6 +1921,7 @@ setup (void)
 	extensiondir = replace_prefix (prefix, E_DATA_SERVER_EXTENSIONDIR);
 	imagesdir = replace_prefix (prefix, E_DATA_SERVER_IMAGESDIR);
 	ui_uidir = replace_prefix (prefix, E_DATA_SERVER_UI_UIDIR);
+	credentialmoduledir = replace_prefix (prefix, E_DATA_SERVER_CREDENTIALMODULEDIR);
 
 	G_UNLOCK (mutex);
 }
@@ -1747,10 +1947,93 @@ e_util_get_##varbl (void) \
 PRIVATE_GETTER (extensiondir)
 PRIVATE_GETTER (imagesdir)
 PRIVATE_GETTER (ui_uidir)
+PRIVATE_GETTER (credentialmoduledir);
 
 PUBLIC_GETTER (prefix)
 PUBLIC_GETTER (cp_prefix)
 PUBLIC_GETTER (localedir)
+
+/**
+ * e_util_win32_initialize:
+ *
+ * Initializes win32 environment. This might be called in main().
+ **/
+void
+e_util_win32_initialize (void)
+{
+	gchar module_filename[2048 + 1];
+	DWORD chars;
+
+	/* Reduce risks */
+	{
+		typedef BOOL (WINAPI *t_SetDllDirectoryA) (LPCSTR lpPathName);
+		t_SetDllDirectoryA p_SetDllDirectoryA;
+
+		p_SetDllDirectoryA = GetProcAddress (
+			GetModuleHandle ("kernel32.dll"),
+			"SetDllDirectoryA");
+
+		if (p_SetDllDirectoryA != NULL)
+			p_SetDllDirectoryA ("");
+	}
+#ifndef _WIN64
+	{
+		typedef BOOL (WINAPI *t_SetProcessDEPPolicy) (DWORD dwFlags);
+		t_SetProcessDEPPolicy p_SetProcessDEPPolicy;
+
+		p_SetProcessDEPPolicy = GetProcAddress (
+			GetModuleHandle ("kernel32.dll"),
+			"SetProcessDEPPolicy");
+
+		if (p_SetProcessDEPPolicy != NULL)
+			p_SetProcessDEPPolicy (
+				PROCESS_DEP_ENABLE |
+				PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION);
+	}
+#endif
+
+	if (fileno (stdout) != -1 && _get_osfhandle (fileno (stdout)) != -1) {
+		/* stdout is fine, presumably redirected to a file or pipe */
+	} else {
+		typedef BOOL (* WINAPI AttachConsole_t) (DWORD);
+
+		AttachConsole_t p_AttachConsole =
+			(AttachConsole_t) GetProcAddress (
+			GetModuleHandle ("kernel32.dll"), "AttachConsole");
+
+		if (p_AttachConsole && p_AttachConsole (ATTACH_PARENT_PROCESS)) {
+			freopen ("CONOUT$", "w", stdout);
+			dup2 (fileno (stdout), 1);
+			freopen ("CONOUT$", "w", stderr);
+			dup2 (fileno (stderr), 2);
+		}
+	}
+
+	chars = GetModuleFileNameA (hmodule, module_filename, 2048);
+	if (chars > 0) {
+		gchar *path;
+
+		module_filename[chars] = '\0';
+
+		path = strrchr (module_filename, '\\');
+		if (path)
+			path[1] = '\0';
+
+		path = g_build_path (";", module_filename, g_getenv ("PATH"), NULL);
+
+		if (!g_setenv ("PATH", path, TRUE))
+			g_warning ("Could not set PATH for Evolution and its child processes");
+
+		g_free (path);
+	}
+
+	/* Make sure D-Bus is running. The executable makes sure the daemon
+	   is not restarted, thus it's safe to be called witn D-Bus already
+	   running. */
+	if (system ("dbus-launch.exe") != 0) {
+		/* Ignore, just to mute compiler warning */;
+	}
+}
 
 #endif	/* G_OS_WIN32 */
 
@@ -1813,7 +2096,7 @@ e_data_server_util_get_dbus_call_timeout (void)
 ENamedParameters *
 e_named_parameters_new (void)
 {
-	return (ENamedParameters *) g_ptr_array_new_with_free_func (g_free);
+	return (ENamedParameters *) g_ptr_array_new_with_free_func ((GDestroyNotify) e_util_safe_free_string);
 }
 
 /**
@@ -1846,6 +2129,73 @@ e_named_parameters_new_strv (const gchar * const *strv)
 	}
 
 	return parameters;
+}
+
+/**
+ * e_named_parameters_new_string:
+ * @str: a string to be used as a content of a newly created #ENamedParameters
+ *
+ * Creates a new instance of an #ENamedParamters, with initial content being
+ * taken from @str. This should be freed with e_named_parameters_free(),
+ * when no longer needed. Names are compared case insensitively.
+ *
+ * The @str should be created with e_named_parameters_to_string(), to be
+ * properly encoded.
+ *
+ * The structure is not thread safe, if the caller requires thread safety,
+ * then it should provide it on its own.
+ *
+ * Returns: (transfer full): newly allocated #ENamedParameters
+ *
+ * Since: 3.18
+ **/
+ENamedParameters *
+e_named_parameters_new_string (const gchar *str)
+{
+	ENamedParameters *parameters;
+	gchar **split;
+	gint ii;
+
+	g_return_val_if_fail (str != NULL, NULL);
+
+	split = g_strsplit (str, "\n", -1);
+
+	parameters = e_named_parameters_new ();
+	for (ii = 0; split && split[ii]; ii++) {
+		g_ptr_array_add ((GPtrArray *) parameters, g_strcompress (split[ii]));
+	}
+
+	g_strfreev (split);
+
+	return parameters;
+}
+
+/**
+ * e_named_parameters_new_clone:
+ * @parameters: an #ENamedParameters to be used as a content of a newly
+ *    created #ENamedParameters
+ *
+ * Creates a new instance of an #ENamedParameters, with initial content
+ * being taken from @parameters. This should be freed with e_named_parameters_free(),
+ * when no longer needed. Names are compared case insensitively.
+ *
+ * The structure is not thread safe, if the caller requires thread safety,
+ * then it should provide it on its own.
+ *
+ * Returns: newly allocated #ENamedParameters
+ *
+ * Since: 3.16
+ **/
+ENamedParameters *
+e_named_parameters_new_clone (const ENamedParameters *parameters)
+{
+	ENamedParameters *clone;
+
+	clone = e_named_parameters_new ();
+	if (parameters)
+		e_named_parameters_assign (clone, parameters);
+
+	return clone;
 }
 
 /**
@@ -1934,7 +2284,7 @@ get_parameter_index (const ENamedParameters *parameters,
 	for (ii = 0; ii < array->len; ii++) {
 		const gchar *name_and_value = g_ptr_array_index (array, ii);
 
-		if (name_and_value == NULL)
+		if (name_and_value == NULL || strlen (name_and_value) <= name_len)
 			continue;
 
 		if (name_and_value[name_len] != ':')
@@ -2086,6 +2436,102 @@ e_named_parameters_to_strv (const ENamedParameters *parameters)
 	g_ptr_array_add (ret, NULL);
 
 	return (gchar **) g_ptr_array_free (ret, FALSE);
+}
+
+/**
+ * e_named_parameters_to_string:
+ * @parameters: an #ENamedParameters
+ *
+ * Returns: (transfer full): Contents of @parameters as a string
+ *
+ * Since: 3.18
+ */
+gchar *
+e_named_parameters_to_string (const ENamedParameters *parameters)
+{
+	gchar **strv, *str;
+	gint ii;
+
+	strv = e_named_parameters_to_strv (parameters);
+	if (!strv)
+		return NULL;
+
+	for (ii = 0; strv[ii]; ii++) {
+		gchar *name_and_value = strv[ii];
+
+		strv[ii] = g_strescape (name_and_value, "");
+		g_free (name_and_value);
+	}
+
+	str = g_strjoinv ("\n", strv);
+
+	g_strfreev (strv);
+
+	return str;
+}
+
+/**
+ * e_named_parameters_exists:
+ * @parameters: an #ENamedParameters
+ * @name: name of the parameter whose existence to check
+ *
+ * Returns: Whether @parameters holds a parameter named @name
+ *
+ * Since: 3.18
+ **/
+gboolean
+e_named_parameters_exists (const ENamedParameters *parameters,
+			   const gchar *name)
+{
+	g_return_val_if_fail (parameters != NULL, FALSE);
+	g_return_val_if_fail (name != NULL, FALSE);
+
+	return get_parameter_index (parameters, name) != -1;
+}
+
+/**
+ * e_named_parameters_count:
+ * @parameters: an #ENamedParameters
+ *
+ * Returns: The number of stored named parameters in @parameters
+ *
+ * Since: 3.18
+ **/
+guint
+e_named_parameters_count (const ENamedParameters *parameters)
+{
+	g_return_val_if_fail (parameters != NULL, 0);
+
+	return ((GPtrArray *) parameters)->len;
+}
+
+/**
+ * e_named_parameters_get_name:
+ * @parameters: an #ENamedParameters
+ * @index: an index of the parameter whose name to retrieve
+ *
+ * Returns: (transfer full): The name of the parameters at index @index,
+ *    or %NULL, of the @index is out of bounds or other error. The returned
+ *    string should be freed with g_free() when done with it.
+ *
+ * Since: 3.18
+ **/
+gchar *
+e_named_parameters_get_name (const ENamedParameters *parameters,
+			     gint index)
+{
+	const gchar *name_and_value, *colon;
+
+	g_return_val_if_fail (parameters != NULL, NULL);
+	g_return_val_if_fail (index >= 0 && index < e_named_parameters_count (parameters), NULL);
+
+	name_and_value = g_ptr_array_index ((GPtrArray *) parameters, index);
+	colon = name_and_value ? strchr (name_and_value, ':') : NULL;
+
+	if (!colon || colon == name_and_value)
+		return NULL;
+
+	return g_strndup (name_and_value, colon - name_and_value);
 }
 
 static ENamedParameters *
@@ -2261,7 +2707,7 @@ e_timeout_add_seconds_with_name (gint priority,
  * Returns: Whether debugging is enabled, that is,
  * whether e_source_registry_debug_print() will produce any output.
  *
- * Since: 3.12.9
+ * Since: 3.16
  **/
 gboolean
 e_source_registry_debug_enabled (void)
@@ -2282,7 +2728,7 @@ e_source_registry_debug_enabled (void)
  * Prints the text only if a debugging is enabled with an environment
  * variable ESR_DEBUG=1.
  *
- * Since: 3.12.9
+ * Since: 3.16
  **/
 void
 e_source_registry_debug_print (const gchar *format,
@@ -2303,4 +2749,177 @@ e_source_registry_debug_print (const gchar *format,
 	g_print ("%s", str->str);
 
 	g_string_free (str, TRUE);
+}
+
+/**
+ * e_type_traverse:
+ * @parent_type: the root #GType to traverse from
+ * @func: (scope call): the function to call for each visited #GType
+ * @user_data: user data to pass to the function
+ *
+ * Calls @func for all instantiable subtypes of @parent_type.
+ *
+ * This is often useful for extending functionality by way of #EModule.
+ * A module may register a subtype of @parent_type in its e_module_load()
+ * function.  Then later on the application will call e_type_traverse()
+ * to instantiate all registered subtypes of @parent_type.
+ *
+ * Since: 3.4
+ **/
+void
+e_type_traverse (GType parent_type,
+                 ETypeFunc func,
+                 gpointer user_data)
+{
+	GType *children;
+	guint n_children, ii;
+
+	g_return_if_fail (func != NULL);
+
+	children = g_type_children (parent_type, &n_children);
+
+	for (ii = 0; ii < n_children; ii++) {
+		GType type = children[ii];
+
+		/* Recurse over the child's children. */
+		e_type_traverse (type, func, user_data);
+
+		/* Skip abstract types. */
+		if (G_TYPE_IS_ABSTRACT (type))
+			continue;
+
+		func (type, user_data);
+	}
+
+	g_free (children);
+}
+
+/**
+ * e_util_get_source_full_name:
+ * @registry: an #ESourceRegistry
+ * @source: an #ESource
+ *
+ * Constructs a full name of the @source with all of its parents
+ * of the form: "&lt;account-name&gt; : &lt;parent&gt;/&lt;source&gt;" where
+ * the "&lt;parent&gt;/" part can be repeated zero or more times, depending
+ * on the deep level of the @source.
+ *
+ * Returns: (transfer full): Full name of the @source as a newly allocated
+ *    string, which should be freed with g_free() when done with it.
+ *
+ * Since 3.18
+ **/
+gchar *
+e_util_get_source_full_name (ESourceRegistry *registry,
+			     ESource *source)
+{
+	GString *fullname;
+	GSList *parts, *link;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), NULL);
+
+	if (!registry)
+		return g_strdup (e_source_get_display_name (source));
+
+	parts = NULL;
+
+	parts = g_slist_prepend (parts, g_strdup (e_source_get_display_name (source)));
+
+	g_object_ref (source);
+	while (source) {
+		const gchar *parent_id;
+		ESource *parent;
+
+		parent_id = e_source_get_parent (source);
+		if (!parent_id || !*parent_id)
+			break;
+
+		parent = e_source_registry_ref_source (registry, parent_id);
+		g_object_unref (source);
+		source = parent;
+
+		if (source) {
+			const gchar *display_name = e_source_get_display_name (source);
+
+			if (!display_name || !*display_name)
+				break;
+
+			parts = g_slist_prepend (parts, g_strdup (display_name));
+		}
+	}
+
+	g_object_unref (source);
+
+	fullname = g_string_new ("");
+
+	for (link = parts; link; link = link->next) {
+		const gchar *part = link->data;
+
+		if (fullname->len) {
+			if (link == parts->next)
+				g_string_append (fullname, " : ");
+			else
+				g_string_append_c (fullname, '/');
+		}
+
+		g_string_append (fullname, part);
+	}
+
+	g_slist_free_full (parts, g_free);
+
+	return g_string_free (fullname, FALSE);
+}
+
+
+/**
+ * e_util_get_source_oauth2_access_token_sync:
+ * @source: an #ESource
+ * @credentials: an ENamedParameters
+ * @out_access_token: (allow-none) (out): return location for the access token,
+ *                    or %NULL
+ * @out_expires_in_seconds: (allow-none) (out): return location for the token expiry,
+ *                  or %NULL
+ * @cancellable: (allow-none): optional #GCancellable object, or %NULL
+ * @error: return location for a #GError, or %NULL
+ *
+ * Obtains the OAuth 2.0 access token for @source along with its expiry
+ * in seconds from the current time (or 0 if unknown).
+ *
+ * Free the returned access token with g_free() when finished with it.
+ * If an error occurs, the function will set @error and return %FALSE.
+ *
+ * Returns: %TRUE on success, %FALSE on error
+ **/
+gboolean
+e_util_get_source_oauth2_access_token_sync (ESource *source,
+					    const ENamedParameters *credentials,
+					    gchar **out_access_token,
+					    gint *out_expires_in_seconds,
+					    GCancellable *cancellable,
+					    GError **error)
+{
+	gchar *auth_method = NULL;
+	gboolean success = FALSE;
+
+	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
+
+	if (e_source_has_extension (source, E_SOURCE_EXTENSION_AUTHENTICATION)) {
+		ESourceAuthentication *extension;
+
+		extension = e_source_get_extension (source, E_SOURCE_EXTENSION_AUTHENTICATION);
+		auth_method = e_source_authentication_dup_method (extension);
+	}
+
+	if (g_strcmp0 (auth_method, "OAuth2") == 0) {
+		success = e_source_get_oauth2_access_token_sync (
+			source, cancellable, out_access_token,
+			out_expires_in_seconds, error);
+	} else if (g_strcmp0 (auth_method, "Google") == 0) {
+		success = e_source_credentials_google_get_access_token_sync (
+			source, credentials, out_access_token, out_expires_in_seconds, cancellable, error);
+	}
+
+	g_free (auth_method);
+
+	return success;
 }

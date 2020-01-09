@@ -1,24 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-service.c : Abstract class for an email service */
-
-/*
- *
- * Author :
- *  Bertrand Guiheneuf <bertrand@helixcode.com>
+/* camel-service.c : Abstract class for an email service
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -457,15 +454,18 @@ service_find_old_data_dir (CamelService *service)
 	}
 
 	session = camel_service_ref_session (service);
+	if (session) {
+		base_dir = camel_session_get_user_data_dir (session);
+		old_data_dir = g_build_filename (base_dir, path->str, NULL);
 
-	base_dir = camel_session_get_user_data_dir (session);
-	old_data_dir = g_build_filename (base_dir, path->str, NULL);
-
-	g_object_unref (session);
+		g_object_unref (session);
+	} else {
+		old_data_dir = NULL;
+	}
 
 	g_string_free (path, TRUE);
 
-	if (!g_file_test (old_data_dir, G_FILE_TEST_IS_DIR)) {
+	if (old_data_dir && !g_file_test (old_data_dir, G_FILE_TEST_IS_DIR)) {
 		g_free (old_data_dir);
 		old_data_dir = NULL;
 	}
@@ -925,7 +925,6 @@ service_connect_sync (CamelService *service,
                       GCancellable *cancellable,
                       GError **error)
 {
-	/* Default behavior for local storage providers. */
 	return TRUE;
 }
 
@@ -935,7 +934,10 @@ service_disconnect_sync (CamelService *service,
                          GCancellable *cancellable,
                          GError **error)
 {
-	/* Default behavior for local storage providers. */
+	if (CAMEL_IS_NETWORK_SERVICE (service))
+		camel_network_service_set_connectable (
+			CAMEL_NETWORK_SERVICE (service), NULL);
+
 	return TRUE;
 }
 
@@ -1492,7 +1494,7 @@ camel_service_get_provider (CamelService *service)
  * The returned #GProxyResolver is referenced for thread-safety and must
  * be unreferenced with g_object_unref() when finished with it.
  *
- * Returns: a #GProxyResolver, or %NULL
+ * Returns: (transfer full): a #GProxyResolver, or %NULL
  *
  * Since: 3.12
  **/
@@ -1560,14 +1562,14 @@ camel_service_set_proxy_resolver (CamelService *service,
 
 /**
  * camel_service_ref_session:
- * @service: a #CamelService
+ * @service: (type CamelService): a #CamelService
  *
  * Returns the #CamelSession associated with the service.
  *
  * The returned #CamelSession is referenced for thread-safety.  Unreference
  * the #CamelSession with g_object_unref() when finished with it.
  *
- * Returns: the #CamelSession
+ * Returns: (transfer full): the #CamelSession
  *
  * Since: 3.8
  **/
@@ -1588,7 +1590,7 @@ camel_service_ref_session (CamelService *service)
  * The returned #CamelSettings is referenced for thread-safety and must
  * be unreferenced with g_object_unref() when finished with it.
  *
- * Returns: the #CamelSettings
+ * Returns: (transfer full): the #CamelSettings
  *
  * Since: 3.6
  **/
@@ -1689,7 +1691,7 @@ camel_service_get_uid (CamelService *service)
  * camel_service_queue_task:
  * @service: a #CamelService
  * @task: a #GTask
- * @task_func: function to call when @task is dispatched
+ * @task_func: (scope async): function to call when @task is dispatched
  *
  * Adds @task to a queue of waiting tasks with the same source object.
  * Queued tasks execute one at a time in the order they were added.  When
@@ -2083,7 +2085,7 @@ camel_service_disconnect_finish (CamelService *service,
 /**
  * camel_service_authenticate_sync:
  * @service: a #CamelService
- * @mechanism: a SASL mechanism name, or %NULL
+ * @mechanism: (nullable): a SASL mechanism name, or %NULL
  * @cancellable: optional #GCancellable object, or %NULL
  * @error: return location for a #GError, or %NULL
  *
@@ -2163,7 +2165,7 @@ service_authenticate_thread (GTask *task,
 /**
  * camel_service_authenticate:
  * @service: a #CamelService
- * @mechanism: a SASL mechanism name, or %NULL
+ * @mechanism: (nullable): a SASL mechanism name, or %NULL
  * @io_priority: the I/O priority of the request
  * @cancellable: optional #GCancellable object, or %NULL
  * @callback: a #GAsyncReadyCallback to call when the request is satisfied
@@ -2272,7 +2274,7 @@ camel_service_authenticate_finish (CamelService *service,
  * Obtains a list of authentication types supported by @service.
  * Free the returned list with g_list_free().
  *
- * Returns: a list of #CamelServiceAuthType structs
+ * Returns: (element-type CamelServiceAuthType) (transfer container): a list of #CamelServiceAuthType structs
  **/
 GList *
 camel_service_query_auth_types_sync (CamelService *service,
@@ -2359,7 +2361,7 @@ camel_service_query_auth_types (CamelService *service,
  * Finishes the operation started with camel_service_query_auth_types().
  * Free the returned list with g_list_free().
  *
- * Returns: a list of #CamelServiceAuthType structs
+ * Returns: (element-type CamelServiceAuthType) (transfer container): a list of #CamelServiceAuthType structs
  *
  * Since: 3.2
  **/

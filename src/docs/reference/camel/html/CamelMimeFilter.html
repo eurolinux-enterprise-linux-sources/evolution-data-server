@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelMimeFilter</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelMimeFilter: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Stream-Filters.html" title="Stream Filters">
 <link rel="prev" href="Stream-Filters.html" title="Stream Filters">
 <link rel="next" href="CamelMimeFilterBasic.html" title="CamelMimeFilterBasic">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelMimeFilter.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -92,21 +92,8 @@
 </table></div>
 </div>
 <div class="refsect1">
-<a name="CamelMimeFilter.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody><tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelMimeFilter.html#CamelMimeFilter-struct" title="struct CamelMimeFilter">CamelMimeFilter</a></td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect1">
 <a name="CamelMimeFilter.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> CamelMimeFilter
         <span class="lineart">├──</span> <a class="link" href="CamelMimeFilterBasic.html" title="CamelMimeFilterBasic">CamelMimeFilterBasic</a>
         <span class="lineart">├──</span> <a class="link" href="CamelMimeFilterBestenc.html" title="CamelMimeFilterBestenc">CamelMimeFilterBestenc</a>
@@ -137,9 +124,8 @@
 camel_mime_filter_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>Create a new <a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="type">CamelMimeFilter</span></a> object.</p>
 <div class="refsect3">
-<a name="id-1.2.4.2.7.2.5"></a><h4>Returns</h4>
+<a name="camel-mime-filter-new.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="type">CamelMimeFilter</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -147,20 +133,20 @@ camel_mime_filter_new (<em class="parameter"><code><span class="type">void</span
 <a name="camel-mime-filter-filter"></a><h3>camel_mime_filter_filter ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_mime_filter_filter (<em class="parameter"><code><a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="type">CamelMimeFilter</span></a> *filter</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> prespace</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *outlen</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *outprespace</code></em>);</pre>
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> prespace</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *outlen</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *outprespace</code></em>);</pre>
 <p>Passes the input buffer, <em class="parameter"><code>in</code></em>
 , through <em class="parameter"><code>filter</code></em>
  and generates an
 output buffer, <em class="parameter"><code>out</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.4.2.7.3.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-filter.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -174,8 +160,8 @@ output buffer, <em class="parameter"><code>out</code></em>
 </tr>
 <tr>
 <td class="parameter_name"><p>in</p></td>
-<td class="parameter_description"><p>input buffer</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> input buffer. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>len</p></td>
@@ -190,18 +176,18 @@ output buffer, <em class="parameter"><code>out</code></em>
 </tr>
 <tr>
 <td class="parameter_name"><p>out</p></td>
-<td class="parameter_description"><p>pointer to the output buffer (to be set)</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> pointer to the output buffer (to be set). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=outlen]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>outlen</p></td>
-<td class="parameter_description"><p>pointer to the length of the output buffer (to be set)</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> pointer to the length of the output buffer (to be set). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>outprespace</p></td>
-<td class="parameter_description"><p>pointer to the output prespace length (to be set)</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> pointer to the output prespace length (to be set). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
 </tr>
 </tbody>
 </table></div>
@@ -212,12 +198,12 @@ output buffer, <em class="parameter"><code>out</code></em>
 <a name="camel-mime-filter-complete"></a><h3>camel_mime_filter_complete ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_mime_filter_complete (<em class="parameter"><code><a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="type">CamelMimeFilter</span></a> *filter</code></em>,
-                            <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> prespace</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *outlen</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *outprespace</code></em>);</pre>
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> prespace</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *outlen</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *outprespace</code></em>);</pre>
 <p>Passes the input buffer, <em class="parameter"><code>in</code></em>
 , through <em class="parameter"><code>filter</code></em>
  and generates an
@@ -229,8 +215,8 @@ further calls to <a class="link" href="CamelMimeFilter.html#camel-mime-filter-fi
 until <em class="parameter"><code>filter</code></em>
  has been reset using <a class="link" href="CamelMimeFilter.html#camel-mime-filter-reset" title="camel_mime_filter_reset ()"><code class="function">camel_mime_filter_reset()</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.4.2.7.4.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-complete.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -244,8 +230,8 @@ until <em class="parameter"><code>filter</code></em>
 </tr>
 <tr>
 <td class="parameter_name"><p>in</p></td>
-<td class="parameter_description"><p>input buffer</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> input buffer. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>len</p></td>
@@ -260,18 +246,18 @@ until <em class="parameter"><code>filter</code></em>
 </tr>
 <tr>
 <td class="parameter_name"><p>out</p></td>
-<td class="parameter_description"><p>pointer to the output buffer (to be set)</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> pointer to the output buffer (to be set). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=outlen]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>outlen</p></td>
-<td class="parameter_description"><p>pointer to the length of the output buffer (to be set)</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> pointer to the length of the output buffer (to be set). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>outprespace</p></td>
-<td class="parameter_description"><p>pointer to the output prespace length (to be set)</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> pointer to the output prespace length (to be set). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
 </tr>
 </tbody>
 </table></div>
@@ -285,8 +271,8 @@ camel_mime_filter_reset (<em class="parameter"><code><a class="link" href="Camel
 <p>Resets the state on <em class="parameter"><code>filter</code></em>
  so that it may be used again.</p>
 <div class="refsect3">
-<a name="id-1.2.4.2.7.5.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-reset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -305,15 +291,15 @@ camel_mime_filter_reset (<em class="parameter"><code><a class="link" href="Camel
 <a name="camel-mime-filter-backup"></a><h3>camel_mime_filter_backup ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_mime_filter_backup (<em class="parameter"><code><a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="type">CamelMimeFilter</span></a> *filter</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *data</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> length</code></em>);</pre>
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *data</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> length</code></em>);</pre>
 <p>Saves <em class="parameter"><code>data</code></em>
  to be used as prespace input data to the next call to
 <a class="link" href="CamelMimeFilter.html#camel-mime-filter-filter" title="camel_mime_filter_filter ()"><code class="function">camel_mime_filter_filter()</code></a> or <a class="link" href="CamelMimeFilter.html#camel-mime-filter-complete" title="camel_mime_filter_complete ()"><code class="function">camel_mime_filter_complete()</code></a>.</p>
 <p>Note: New calls replace old data.</p>
 <div class="refsect3">
-<a name="id-1.2.4.2.7.6.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-backup.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -322,12 +308,9 @@ camel_mime_filter_backup (<em class="parameter"><code><a class="link" href="Came
 <tbody>
 <tr>
 <td class="parameter_name"><p>filter</p></td>
-<td class="parameter_description"><p>a <a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="type">CamelMimeFilter</span></a> object</p></td>
-<td class="parameter_annotations"> </td>
-</tr>
-<tr>
-<td class="parameter_name"><p>data</p></td>
-<td class="parameter_description"><p>data buffer to backup</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="type">CamelMimeFilter</span></a> object
+<em class="parameter"><code>data</code></em>
+(array length=length): data buffer to backup</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -345,15 +328,15 @@ camel_mime_filter_backup (<em class="parameter"><code><a class="link" href="Came
 <a name="camel-mime-filter-set-size"></a><h3>camel_mime_filter_set_size ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_mime_filter_set_size (<em class="parameter"><code><a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="type">CamelMimeFilter</span></a> *filter</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> keep</code></em>);</pre>
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> size</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> keep</code></em>);</pre>
 <p>Ensure that <em class="parameter"><code>filter</code></em>
  has enough storage space to store <em class="parameter"><code>size</code></em>
  bytes
 for filter output.</p>
 <div class="refsect3">
-<a name="id-1.2.4.2.7.7.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-set-size.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -372,7 +355,7 @@ for filter output.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>keep</p></td>
-<td class="parameter_description"><p><a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to keep existing buffered data or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</p></td>
+<td class="parameter_description"><p><a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to keep existing buffered data or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
@@ -382,14 +365,9 @@ for filter output.</p>
 </div>
 <div class="refsect1">
 <a name="CamelMimeFilter.other_details"></a><h2>Types and Values</h2>
-<div class="refsect2">
-<a name="CamelMimeFilter-struct"></a><h3>struct CamelMimeFilter</h3>
-<pre class="programlisting">struct CamelMimeFilter;</pre>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

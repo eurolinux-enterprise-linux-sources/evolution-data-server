@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Jeffrey Stedfast <fejj@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -242,6 +241,41 @@ camel_pstring_peek (const gchar *string)
 	g_mutex_unlock (&string_pool_lock);
 
 	return interned;
+}
+
+/**
+ * camel_pstring_contains:
+ * @string: string to look up in the string pool
+ *
+ * Returns whether the @string exists in the string pool.
+ *
+ * The %NULL and empty strings are special cased to constant values.
+ *
+ * Returns: Whether the @string exists in the string pool
+ *
+ * Since: 3.22
+ **/
+gboolean
+camel_pstring_contains (const gchar *string)
+{
+	StringPoolNode static_node = { (gchar *) string, };
+	gboolean contains;
+
+	if (string == NULL)
+		return FALSE;
+
+	if (*string == '\0')
+		return FALSE;
+
+	g_mutex_lock (&string_pool_lock);
+
+	string_pool_init ();
+
+	contains = g_hash_table_contains (string_pool, &static_node);
+
+	g_mutex_unlock (&string_pool_lock);
+
+	return contains;
 }
 
 /**

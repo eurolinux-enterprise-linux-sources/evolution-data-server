@@ -1,0 +1,274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ETimezoneCache: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch13.html" title="Calendar related utilities">
+<link rel="prev" href="eds-e-cal-check-timezones.html" title="e-cal-check-timezones">
+<link rel="next" href="eds-e-cal-backend-util.html" title="e-cal-backend-util">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#ETimezoneCache.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#ETimezoneCache.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_prerequisites">  <span class="dim">|</span> 
+                  <a href="#ETimezoneCache.prerequisites" class="shortcut">Prerequisites</a></span><span id="nav_implementations">  <span class="dim">|</span> 
+                  <a href="#ETimezoneCache.implementations" class="shortcut">Known Implementations</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch13.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-e-cal-check-timezones.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-e-cal-backend-util.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="ETimezoneCache"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ETimezoneCache.top_of_page"></a>ETimezoneCache</span></h2>
+<p>ETimezoneCache — An interface for caching time zone data</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="ETimezoneCache.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ETimezoneCache.html#e-timezone-cache-add-timezone" title="e_timezone_cache_add_timezone ()">e_timezone_cache_add_timezone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">icaltimezone</span> *
+</td>
+<td class="function_name">
+<a class="link" href="ETimezoneCache.html#e-timezone-cache-get-timezone" title="e_timezone_cache_get_timezone ()">e_timezone_cache_get_timezone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ETimezoneCache.html#e-timezone-cache-list-timezones" title="e_timezone_cache_list_timezones ()">e_timezone_cache_list_timezones</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ETimezoneCache.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="ETimezoneCache.html#ETimezoneCacheInterface" title="struct ETimezoneCacheInterface">ETimezoneCacheInterface</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="ETimezoneCache.html#ETimezoneCache-struct" title="ETimezoneCache">ETimezoneCache</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ETimezoneCache.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/GTypeModule.html">GInterface</a>
+    <span class="lineart">╰──</span> ETimezoneCache
+</pre>
+</div>
+<div class="refsect1">
+<a name="ETimezoneCache.prerequisites"></a><h2>Prerequisites</h2>
+<p>
+ETimezoneCache requires
+ <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>.</p>
+</div>
+<div class="refsect1">
+<a name="ETimezoneCache.implementations"></a><h2>Known Implementations</h2>
+<p>
+ETimezoneCache is implemented by
+ <a class="link" href="ECalBackend.html" title="ECalBackend">ECalBackend</a>,  <a class="link" href="ECalBackendSync.html" title="ECalBackendSync">ECalBackendSync</a> and  <a class="link" href="ECalClient.html" title="ECalClient">ECalClient</a>.</p>
+</div>
+<div class="refsect1">
+<a name="ETimezoneCache.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libecal/libecal.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="ETimezoneCache.description"></a><h2>Description</h2>
+<p>Several classes (both client-side and server-side) cache <span class="type">icaltimezone</span>
+instances internally, indexed by their TZID strings.  Classes which do
+this should implement <a class="link" href="ETimezoneCache.html#ETimezoneCacheInterface" title="struct ETimezoneCacheInterface"><span class="type">ETimezoneCacheInterface</span></a> to provide a consistent
+API for accessing time zone data.</p>
+</div>
+<div class="refsect1">
+<a name="ETimezoneCache.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-timezone-cache-add-timezone"></a><h3>e_timezone_cache_add_timezone ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_timezone_cache_add_timezone (<em class="parameter"><code><a class="link" href="ETimezoneCache.html" title="ETimezoneCache"><span class="type">ETimezoneCache</span></a> *cache</code></em>,
+                               <em class="parameter"><code><span class="type">icaltimezone</span> *zone</code></em>);</pre>
+<p>Adds a copy of <em class="parameter"><code>zone</code></em>
+ to <em class="parameter"><code>cache</code></em>
+ and emits a
+<span class="type">“timezone-added”</span> signal.  The <em class="parameter"><code>cache</code></em>
+ will use the TZID
+string returned by <code class="function">icaltimezone_get_tzid()</code> as the lookup key, which can
+be passed to <a class="link" href="ETimezoneCache.html#e-timezone-cache-get-timezone" title="e_timezone_cache_get_timezone ()"><code class="function">e_timezone_cache_get_timezone()</code></a> to obtain <em class="parameter"><code>zone</code></em>
+ again.</p>
+<p>If the <em class="parameter"><code>cache</code></em>
+ already has an <span class="type">icaltimezone</span> with the same TZID string
+as <em class="parameter"><code>zone</code></em>
+, the <em class="parameter"><code>cache</code></em>
+ will remain unchanged to avoid invalidating any
+<span class="type">icaltimezone</span> pointers which may have already been returned through
+<a class="link" href="ETimezoneCache.html#e-timezone-cache-get-timezone" title="e_timezone_cache_get_timezone ()"><code class="function">e_timezone_cache_get_timezone()</code></a>.</p>
+<div class="refsect3">
+<a name="e-timezone-cache-add-timezone.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ETimezoneCache.html" title="ETimezoneCache"><span class="type">ETimezoneCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>zone</p></td>
+<td class="parameter_description"><p>an <span class="type">icaltimezone</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-timezone-cache-get-timezone"></a><h3>e_timezone_cache_get_timezone ()</h3>
+<pre class="programlisting"><span class="returnvalue">icaltimezone</span> *
+e_timezone_cache_get_timezone (<em class="parameter"><code><a class="link" href="ETimezoneCache.html" title="ETimezoneCache"><span class="type">ETimezoneCache</span></a> *cache</code></em>,
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);</pre>
+<p>Obtains an <span class="type">icaltimezone</span> by its TZID string.  If no match is found,
+the function returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.  The returned <span class="type">icaltimezone</span> is owned by
+the <em class="parameter"><code>cache</code></em>
+ and should not be modified or freed.</p>
+<div class="refsect3">
+<a name="e-timezone-cache-get-timezone.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ETimezoneCache.html" title="ETimezoneCache"><span class="type">ETimezoneCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tzid</p></td>
+<td class="parameter_description"><p>the TZID of a timezone</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-timezone-cache-get-timezone.returns"></a><h4>Returns</h4>
+<p> an <span class="type">icaltimezone</span>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-timezone-cache-list-timezones"></a><h3>e_timezone_cache_list_timezones ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_timezone_cache_list_timezones (<em class="parameter"><code><a class="link" href="ETimezoneCache.html" title="ETimezoneCache"><span class="type">ETimezoneCache</span></a> *cache</code></em>);</pre>
+<p>Returns a list of <span class="type">icaltimezone</span> instances that were explicitly added to
+the <em class="parameter"><code>cache</code></em>
+ through <a class="link" href="ETimezoneCache.html#e-timezone-cache-add-timezone" title="e_timezone_cache_add_timezone ()"><code class="function">e_timezone_cache_add_timezone()</code></a>.  In particular, any
+built-in time zone data that <a class="link" href="ETimezoneCache.html#e-timezone-cache-get-timezone" title="e_timezone_cache_get_timezone ()"><code class="function">e_timezone_cache_get_timezone()</code></a> may use to
+match a TZID string is excluded from the returned list.</p>
+<p>Free the returned list with <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.  The list elements are owned
+by the <em class="parameter"><code>cache</code></em>
+ and should not be modified or freed.</p>
+<div class="refsect3">
+<a name="e-timezone-cache-list-timezones.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ETimezoneCache.html" title="ETimezoneCache"><span class="type">ETimezoneCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-timezone-cache-list-timezones.returns"></a><h4>Returns</h4>
+<p> a <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of
+<span class="type">icaltimezone</span> instances. </p>
+<p><span class="annotation">[<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> icaltimezone]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ETimezoneCache.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="ETimezoneCacheInterface"></a><h3>struct ETimezoneCacheInterface</h3>
+<pre class="programlisting">struct ETimezoneCacheInterface {
+	GTypeInterface parent_interface;
+
+	/* Methods */
+	void		(*add_timezone)		(ETimezoneCache *cache,
+						 icaltimezone *zone);
+	icaltimezone * (*get_timezone)		(ETimezoneCache *cache,
+						 const gchar *tzid);
+	GList *		(*list_timezones) (ETimezoneCache *cache);
+
+	/* Signals */
+	void		(*timezone_added) (ETimezoneCache *cache,
+						 icaltimezone *zone);
+};
+</pre>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ETimezoneCache-struct"></a><h3>ETimezoneCache</h3>
+<pre class="programlisting">typedef struct _ETimezoneCache ETimezoneCache;</pre>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

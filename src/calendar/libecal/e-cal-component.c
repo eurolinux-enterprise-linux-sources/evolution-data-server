@@ -2,19 +2,19 @@
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Author: Federico Mena-Quintero <federico@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Federico Mena-Quintero <federico@ximian.com>
  */
 
 /**
@@ -48,6 +48,14 @@
 	((obj), E_TYPE_CAL_COMPONENT, ECalComponentPrivate))
 
 G_DEFINE_TYPE (ECalComponent, e_cal_component, G_TYPE_OBJECT)
+G_DEFINE_BOXED_TYPE (ECalComponentId,
+		e_cal_component_id,
+		e_cal_component_id_copy,
+		e_cal_component_free_id)
+G_DEFINE_BOXED_TYPE (ECalComponentAlarm,
+		e_cal_component_alarm,
+		e_cal_component_alarm_clone,
+		e_cal_component_alarm_free)
 
 /* Extension property for alarm components so that we can reference them by UID */
 #define EVOLUTION_ALARM_UID_PROPERTY "X-EVOLUTION-ALARM-UID"
@@ -2556,7 +2564,7 @@ set_datetime (ECalComponent *comp,
 
 	if (datetime->prop) {
 		/* make sure no VALUE property is left if not needed */
-		icalproperty_remove_parameter (datetime->prop, ICAL_VALUE_PARAMETER);
+		icalproperty_remove_parameter_by_kind (datetime->prop, ICAL_VALUE_PARAMETER);
 
 		(* prop_set_func) (datetime->prop, *dt->value);
 	} else {
@@ -2575,7 +2583,7 @@ set_datetime (ECalComponent *comp,
 			icalproperty_add_parameter (datetime->prop, datetime->tzid_param);
 		}
 	} else if (datetime->tzid_param) {
-		icalproperty_remove_parameter (datetime->prop, ICAL_TZID_PARAMETER);
+		icalproperty_remove_parameter_by_kind (datetime->prop, ICAL_TZID_PARAMETER);
 		datetime->tzid_param = NULL;
 	}
 }
@@ -3546,7 +3554,7 @@ e_cal_component_set_organizer (ECalComponent *comp,
 				priv->organizer.sentby_param);
 		}
 	} else if (priv->organizer.sentby_param) {
-		icalproperty_remove_parameter (priv->organizer.prop, ICAL_SENTBY_PARAMETER);
+		icalproperty_remove_parameter_by_kind (priv->organizer.prop, ICAL_SENTBY_PARAMETER);
 		priv->organizer.sentby_param = NULL;
 	}
 
@@ -3565,7 +3573,7 @@ e_cal_component_set_organizer (ECalComponent *comp,
 				priv->organizer.cn_param);
 		}
 	} else if (priv->organizer.cn_param) {
-		icalproperty_remove_parameter (priv->organizer.prop, ICAL_CN_PARAMETER);
+		icalproperty_remove_parameter_by_kind (priv->organizer.prop, ICAL_CN_PARAMETER);
 		priv->organizer.cn_param = NULL;
 	}
 
@@ -3584,7 +3592,7 @@ e_cal_component_set_organizer (ECalComponent *comp,
 				priv->organizer.language_param);
 		}
 	} else if (priv->organizer.language_param) {
-		icalproperty_remove_parameter (priv->organizer.prop, ICAL_LANGUAGE_PARAMETER);
+		icalproperty_remove_parameter_by_kind (priv->organizer.prop, ICAL_LANGUAGE_PARAMETER);
 		priv->organizer.language_param = NULL;
 	}
 
@@ -3641,6 +3649,11 @@ e_cal_component_get_percent (ECalComponent *comp,
 
 /**
  * e_cal_component_set_percent_as_int:
+ * @comp: an #ECalComponent
+ * @percent: a percent to set, or -1 to remove the property
+ *
+ * Sets percent complete as integer. The @percent can be between 0 and 100, inclusive.
+ * A special value -1 can be used to remove the percent complete property.
  *
  * Since: 2.28
  **/
@@ -3679,6 +3692,11 @@ e_cal_component_set_percent_as_int (ECalComponent *comp,
 
 /**
  * e_cal_component_get_percent_as_int:
+ * @comp: an #ECalComponent
+ *
+ * Get percent complete as an integer value
+ *
+ * Returns: percent complete as an integer value, -1 when the @comp doesn't have the property
  *
  * Since: 2.28
  **/
@@ -4564,7 +4582,7 @@ e_cal_component_set_summary (ECalComponent *comp,
 				priv->summary.altrep_param);
 		}
 	} else if (priv->summary.altrep_param) {
-		icalproperty_remove_parameter (priv->summary.prop, ICAL_ALTREP_PARAMETER);
+		icalproperty_remove_parameter_by_kind (priv->summary.prop, ICAL_ALTREP_PARAMETER);
 		priv->summary.altrep_param = NULL;
 	}
 

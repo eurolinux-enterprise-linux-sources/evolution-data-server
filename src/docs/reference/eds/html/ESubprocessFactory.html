@@ -1,0 +1,435 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESubprocessFactory: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch06.html" title="Abstract Classes for Backends">
+<link rel="prev" href="EModule.html" title="EModule">
+<link rel="next" href="ch07.html" title="Registry Service Classes">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#ESubprocessFactory.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#ESubprocessFactory.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#ESubprocessFactory.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="EModule.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch07.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="ESubprocessFactory"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESubprocessFactory.top_of_page"></a>ESubprocessFactory</span></h2>
+<p>ESubprocessFactory — An abstract base class for a backend-subprocess server</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="ESubprocessFactory.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="EBackend.html" title="EBackend"><span class="returnvalue">EBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESubprocessFactory.html#e-subprocess-factory-ref-initable-backend" title="e_subprocess_factory_ref_initable_backend ()">e_subprocess_factory_ref_initable_backend</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="returnvalue">ESourceRegistry</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESubprocessFactory.html#e-subprocess-factory-get-registry" title="e_subprocess_factory_get_registry ()">e_subprocess_factory_get_registry</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESubprocessFactory.html#e-subprocess-factory-open-backend" title="e_subprocess_factory_open_backend ()">e_subprocess_factory_open_backend</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESubprocessFactory.html#e-subprocess-factory-construct-path" title="e_subprocess_factory_construct_path ()">e_subprocess_factory_construct_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESubprocessFactory.html#e-subprocess-factory-set-backend-callbacks" title="e_subprocess_factory_set_backend_callbacks ()">e_subprocess_factory_set_backend_callbacks</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESubprocessFactory.html#e-subprocess-factory-call-backends-prepare-shutdown" title="e_subprocess_factory_call_backends_prepare_shutdown ()">e_subprocess_factory_call_backends_prepare_shutdown</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESubprocessFactory.html#e-subprocess-factory-get-backends-list" title="e_subprocess_factory_get_backends_list ()">e_subprocess_factory_get_backends_list</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ESubprocessFactory.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="ESubprocessFactory.html#ESubprocessFactory-struct" title="struct ESubprocessFactory">ESubprocessFactory</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ESubprocessFactory.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> ESubprocessFactory
+        <span class="lineart">├──</span> <a class="link" href="ESubprocessBookFactory.html" title="ESubprocessBookFactory">ESubprocessBookFactory</a>
+        <span class="lineart">╰──</span> <a class="link" href="ESubprocessCalFactory.html" title="ESubprocessCalFactory">ESubprocessCalFactory</a>
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESubprocessFactory.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+ESubprocessFactory implements
+ <a href="/usr/share/gtk-doc/html/gioGInitable.html#GInitable-struct">GInitable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="ESubprocessFactory.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libebackend/libebackend.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESubprocessFactory.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="ESubprocessFactory.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-subprocess-factory-ref-initable-backend"></a><h3>e_subprocess_factory_ref_initable_backend ()</h3>
+<pre class="programlisting"><a class="link" href="EBackend.html" title="EBackend"><span class="returnvalue">EBackend</span></a> *
+e_subprocess_factory_ref_initable_backend
+                               (<em class="parameter"><code><a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a> *subprocess_factory</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type_name</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *module_file_name</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Returns either a newly-created or existing <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> for <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>.
+The returned <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+<p>If the newly-created backend implements the <a href="/usr/share/gtk-doc/html/gioGInitable.html#GInitable-struct"><span class="type">GInitable</span></a> interface, then
+<a href="/usr/share/gtk-doc/html/gioGInitable.html#g-initable-init"><code class="function">g_initable_init()</code></a> is also called on it using <em class="parameter"><code>cancellable</code></em>
+ and <em class="parameter"><code>error</code></em>
+.</p>
+<p>The <em class="parameter"><code>subprocess_factory</code></em>
+ retains a strong reference to <em class="parameter"><code>backend</code></em>
+.</p>
+<p>If no suitable <a class="link" href="EBackendFactory.html" title="EBackendFactory"><span class="type">EBackendFactory</span></a> exists, or if the <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> fails to
+initialize, the function sets <em class="parameter"><code>error</code></em>
+ and returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<div class="refsect3">
+<a name="e-subprocess-factory-ref-initable-backend.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>subprocess_factory</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>UID of an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> to open</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>backend_factory_type_name</p></td>
+<td class="parameter_description"><p>the name of the backend factory type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>module_filename</p></td>
+<td class="parameter_description"><p>the name (full-path) of the backend module to be loaded</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-subprocess-factory-ref-initable-backend.returns"></a><h4>Returns</h4>
+<p> an <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> for <em class="parameter"><code>source</code></em>
+, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-subprocess-factory-get-registry"></a><h3>e_subprocess_factory_get_registry ()</h3>
+<pre class="programlisting"><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="returnvalue">ESourceRegistry</span></a> *
+e_subprocess_factory_get_registry (<em class="parameter"><code><a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a> *subprocess_factory</code></em>);</pre>
+<p>Returns the <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> owned by <em class="parameter"><code>subprocess_factory</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-subprocess-factory-get-registry.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>subprocess_factory</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-subprocess-factory-get-registry.returns"></a><h4>Returns</h4>
+<p> the <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-subprocess-factory-open-backend"></a><h3>e_subprocess_factory_open_backend ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_subprocess_factory_open_backend (<em class="parameter"><code><a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a> *subprocess_factory</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                   <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                   <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type_name</code></em>,
+                                   <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *module_file_name</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusInterfaceSkeleton.html#GDBusInterfaceSkeleton-struct"><span class="type">GDBusInterfaceSkeleton</span></a> *proxy</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Returns the <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> data D-Bus object path</p>
+<div class="refsect3">
+<a name="e-subprocess-factory-open-backend.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>subprocess_factory</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>connection</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>UID of an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> to open</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>backend_factory_type_name</p></td>
+<td class="parameter_description"><p>the name of the backend factory type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>module_filename</p></td>
+<td class="parameter_description"><p>the name (full-path) of the backend module to be loaded</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>proxy</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGDBusInterfaceSkeleton.html#GDBusInterfaceSkeleton-struct"><span class="type">GDBusInterfaceSkeleton</span></a>, used to communicate to the subprocess backend</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-subprocess-factory-open-backend.returns"></a><h4>Returns</h4>
+<p> a newly allocated string that represents the <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a>
+data D-Bus object path.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-subprocess-factory-construct-path"></a><h3>e_subprocess_factory_construct_path ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_subprocess_factory_construct_path (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Returns a new and unique object path for a D-Bus interface based
+in the data object path prefix of the <em class="parameter"><code>subprocess_factory</code></em>
+</p>
+<div class="refsect3">
+<a name="e-subprocess-factory-construct-path.returns"></a><h4>Returns</h4>
+<p> a newly allocated string, representing the object path for
+the D-Bus interface.</p>
+<p>This function is here for a lack of a better place</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-subprocess-factory-set-backend-callbacks"></a><h3>e_subprocess_factory_set_backend_callbacks ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_subprocess_factory_set_backend_callbacks
+                               (<em class="parameter"><code><a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a> *subprocess_factory</code></em>,
+                                <em class="parameter"><code><a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a> *backend</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGDBusInterfaceSkeleton.html#GDBusInterfaceSkeleton-struct"><span class="type">GDBusInterfaceSkeleton</span></a> *proxy</code></em>);</pre>
+<p>Installs a toggle reference on the backend, that can receive a signal to
+shutdown once all client connections are closed.</p>
+<div class="refsect3">
+<a name="e-subprocess-factory-set-backend-callbacks.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>subprocess_factory</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBackend.html" title="EBackend"><span class="type">EBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>proxy</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGDBusInterfaceSkeleton.html#GDBusInterfaceSkeleton-struct"><span class="type">GDBusInterfaceSkeleton</span></a>, used to communicate to the subprocess backend</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-subprocess-factory-call-backends-prepare-shutdown"></a><h3>e_subprocess_factory_call_backends_prepare_shutdown ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_subprocess_factory_call_backends_prepare_shutdown
+                               (<em class="parameter"><code><a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a> *subprocess_factory</code></em>);</pre>
+<p>Calls <a class="link" href="EBackend.html#e-backend-prepare-shutdown" title="e_backend_prepare_shutdown ()"><code class="function">e_backend_prepare_shutdown()</code></a> for the list of used backends.</p>
+<div class="refsect3">
+<a name="e-subprocess-factory-call-backends-prepare-shutdown.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>subprocess_factory</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-subprocess-factory-get-backends-list"></a><h3>e_subprocess_factory_get_backends_list ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_subprocess_factory_get_backends_list
+                               (<em class="parameter"><code><a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a> *subprocess_factory</code></em>);</pre>
+<p>Returns a list of used backends.</p>
+<div class="refsect3">
+<a name="e-subprocess-factory-get-backends-list.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>subprocess_factory</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESubprocessFactory.html" title="ESubprocessFactory"><span class="type">ESubprocessFactory</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-subprocess-factory-get-backends-list.returns"></a><h4>Returns</h4>
+<p> A <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> that contains a list of used backends. The list should be freed
+by the caller using: g_list_free_full (backends, g_object_unref).</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESubprocessFactory.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="ESubprocessFactory-struct"></a><h3>struct ESubprocessFactory</h3>
+<pre class="programlisting">struct ESubprocessFactory;</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

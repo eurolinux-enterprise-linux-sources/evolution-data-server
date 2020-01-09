@@ -1,17 +1,17 @@
 /*
  * e-source-mail-identity.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -44,7 +44,6 @@
 	((obj), E_TYPE_SOURCE_MAIL_IDENTITY, ESourceMailIdentityPrivate))
 
 struct _ESourceMailIdentityPrivate {
-	GMutex property_lock;
 	gchar *address;
 	gchar *name;
 	gchar *organization;
@@ -160,8 +159,6 @@ source_mail_identity_finalize (GObject *object)
 
 	priv = E_SOURCE_MAIL_IDENTITY_GET_PRIVATE (object);
 
-	g_mutex_clear (&priv->property_lock);
-
 	g_free (priv->address);
 	g_free (priv->name);
 	g_free (priv->organization);
@@ -258,7 +255,6 @@ static void
 e_source_mail_identity_init (ESourceMailIdentity *extension)
 {
 	extension->priv = E_SOURCE_MAIL_IDENTITY_GET_PRIVATE (extension);
-	g_mutex_init (&extension->priv->property_lock);
 }
 
 /**
@@ -301,12 +297,12 @@ e_source_mail_identity_dup_address (ESourceMailIdentity *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_IDENTITY (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_identity_get_address (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -330,17 +326,17 @@ e_source_mail_identity_set_address (ESourceMailIdentity *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_IDENTITY (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->address, address) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->address);
 	extension->priv->address = e_util_strdup_strip (address);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "address");
 }
@@ -384,12 +380,12 @@ e_source_mail_identity_dup_name (ESourceMailIdentity *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_IDENTITY (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_identity_get_name (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -402,8 +398,7 @@ e_source_mail_identity_dup_name (ESourceMailIdentity *extension)
  * Sets the sender's name for this identity.
  *
  * The internal copy of @name is automatically stripped of leading and
- * trailing whitespace.  If @name is %NULL or the resulting string is
- * empty, the result of g_get_real_name() is set instead.
+ * trailing whitespace.
  *
  * Since: 3.6
  **/
@@ -413,21 +408,18 @@ e_source_mail_identity_set_name (ESourceMailIdentity *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_IDENTITY (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (extension->priv->name != NULL &&
 	    g_strcmp0 (extension->priv->name, name) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->name);
 	extension->priv->name = e_util_strdup_strip (name);
 
-	if (extension->priv->name == NULL)
-		extension->priv->name = g_strdup (g_get_real_name ());
-
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "name");
 }
@@ -471,12 +463,12 @@ e_source_mail_identity_dup_organization (ESourceMailIdentity *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_IDENTITY (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_identity_get_organization (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -500,17 +492,17 @@ e_source_mail_identity_set_organization (ESourceMailIdentity *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_IDENTITY (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->organization, organization) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->organization);
 	extension->priv->organization = e_util_strdup_strip (organization);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "organization");
 }
@@ -555,12 +547,12 @@ e_source_mail_identity_dup_reply_to (ESourceMailIdentity *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_IDENTITY (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_identity_get_reply_to (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -585,17 +577,17 @@ e_source_mail_identity_set_reply_to (ESourceMailIdentity *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_IDENTITY (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->reply_to, reply_to) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->reply_to);
 	extension->priv->reply_to = e_util_strdup_strip (reply_to);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "reply-to");
 }
@@ -643,12 +635,12 @@ e_source_mail_identity_dup_signature_uid (ESourceMailIdentity *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_IDENTITY (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_identity_get_signature_uid (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -677,17 +669,17 @@ e_source_mail_identity_set_signature_uid (ESourceMailIdentity *extension,
 	if (signature_uid == NULL || *signature_uid == '\0')
 		signature_uid = "none";
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->signature_uid, signature_uid) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->signature_uid);
 	extension->priv->signature_uid = g_strdup (signature_uid);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "signature-uid");
 }

@@ -1,3 +1,17 @@
+/*
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
 
 #include <config.h>
 
@@ -35,18 +49,17 @@ main (gint argc,
 	camel_test_start ("references decoding");
 
 	for (i = 0; i < G_N_ELEMENTS (test1); i++) {
-		struct _camel_header_references *head, *node;
+		GSList *list;
 
 		camel_test_push ("references decoding[%d] '%s'", i, test1[i].header);
-		head = camel_header_references_decode (test1[i].header);
-		node = head;
+		list = camel_header_references_decode (test1[i].header);
 		for (j = 0; test1[i].values[j]; j++) {
-			check_msg (node != NULL, "didn't find all references");
-			check (strcmp (test1[i].values[j], node->id) == 0);
-			node = node->next;
+			check_msg (list != NULL, "didn't find all references");
+			check (strcmp (test1[i].values[j], list->data) == 0);
+			list = g_slist_next (list);
 		}
-		check_msg (node == NULL, "found more references than should have");
-		camel_header_references_list_clear (&head);
+		check_msg (list == NULL, "found more references than should have");
+		g_slist_free_full (list, g_free);
 		camel_test_pull ();
 	}
 

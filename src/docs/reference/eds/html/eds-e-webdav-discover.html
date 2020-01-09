@@ -1,0 +1,455 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>e-webdav-discover: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch10.html" title="Available for clients and backends">
+<link rel="prev" href="eds-e-uid.html" title="e-uid">
+<link rel="next" href="eds-e-xml-hash-utils.html" title="e-xml-hash-utils">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-e-webdav-discover.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch10.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-e-uid.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-e-xml-hash-utils.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-e-webdav-discover"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-e-webdav-discover.top_of_page"></a>e-webdav-discover</span></h2>
+<p>e-webdav-discover</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-e-webdav-discover.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-webdav-discover.html#e-webdav-discover-free-discovered-sources" title="e_webdav_discover_free_discovered_sources ()">e_webdav_discover_free_discovered_sources</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-webdav-discover.html#e-webdav-discover-sources" title="e_webdav_discover_sources ()">e_webdav_discover_sources</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-webdav-discover.html#e-webdav-discover-sources-finish" title="e_webdav_discover_sources_finish ()">e_webdav_discover_sources_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-webdav-discover.html#e-webdav-discover-sources-sync" title="e_webdav_discover_sources_sync ()">e_webdav_discover_sources_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-e-webdav-discover.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="eds-e-webdav-discover.html#EWebDAVDiscoverSupports" title="enum EWebDAVDiscoverSupports">EWebDAVDiscoverSupports</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="eds-e-webdav-discover.html#EWebDAVDiscoveredSource" title="EWebDAVDiscoveredSource">EWebDAVDiscoveredSource</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-e-webdav-discover.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="eds-e-webdav-discover.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-webdav-discover-free-discovered-sources"></a><h3>e_webdav_discover_free_discovered_sources ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_webdav_discover_free_discovered_sources
+                               (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *discovered_sources</code></em>);</pre>
+<p>Frees a <em class="parameter"><code>GSList</code></em>
+ of discovered sources returned from
+<a class="link" href="eds-e-webdav-discover.html#e-webdav-discover-sources-finish" title="e_webdav_discover_sources_finish ()"><code class="function">e_webdav_discover_sources_finish()</code></a> or <a class="link" href="eds-e-webdav-discover.html#e-webdav-discover-sources-sync" title="e_webdav_discover_sources_sync ()"><code class="function">e_webdav_discover_sources_sync()</code></a>.</p>
+<div class="refsect3">
+<a name="e-webdav-discover-free-discovered-sources.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>discovered_sources</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of discovered sources. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EWebDAVDiscoveredSource]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.18.html" title="Index of new symbols in 3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-webdav-discover-sources"></a><h3>e_webdav_discover_sources ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_webdav_discover_sources (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *url_use_path</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint32"><span class="type">guint32</span></a> only_supports</code></em>,
+                           <em class="parameter"><code>const <a class="link" href="eds-e-data-server-util.html#ENamedParameters"><span class="type">ENamedParameters</span></a> *credentials</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Asynchronously runs discovery of the WebDAV sources (CalDAV and CardDAV), eventually
+limited by the <em class="parameter"><code>only_supports</code></em>
+ filter, which can be <a class="link" href="eds-e-webdav-discover.html#E-WEBDAV-DISCOVER-SUPPORTS-NONE:CAPS"><code class="literal">E_WEBDAV_DISCOVER_SUPPORTS_NONE</code></a>
+to search all types. Note that the list of returned calendars can be more general,
+thus check for its actual support type for further filtering of the results.
+The <em class="parameter"><code>url_use_path</code></em>
+ can be used to override actual server path, or even complete URL,
+for the given <em class="parameter"><code>source</code></em>
+.</p>
+<p>When the operation is finished, <em class="parameter"><code>callback</code></em>
+ will be called. You can then
+call <a class="link" href="eds-e-webdav-discover.html#e-webdav-discover-sources-finish" title="e_webdav_discover_sources_finish ()"><code class="function">e_webdav_discover_sources_finish()</code></a> to get the result of the operation.</p>
+<div class="refsect3">
+<a name="e-webdav-discover-sources.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> from which to take connection details</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>url_use_path</p></td>
+<td class="parameter_description"><p> optional URL override, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>only_supports</p></td>
+<td class="parameter_description"><p>bit-or of EWebDAVDiscoverSupports, to limit what type of sources to search</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>credentials</p></td>
+<td class="parameter_description"><p> credentials to use for authentication to the server. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request
+is satisfied. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p> data to pass to the callback function. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.18.html" title="Index of new symbols in 3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-webdav-discover-sources-finish"></a><h3>e_webdav_discover_sources_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_webdav_discover_sources_finish (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_certificate_pem</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/giogio-TLS-Overview.html#GTlsCertificateFlags"><span class="type">GTlsCertificateFlags</span></a> *out_certificate_errors</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> **out_discovered_sources</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> **out_calendar_user_addresses</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes the operation started with <a class="link" href="eds-e-webdav-discover.html#e-webdav-discover-sources" title="e_webdav_discover_sources ()"><code class="function">e_webdav_discover_sources()</code></a>. If an
+error occurred, the function will set <em class="parameter"><code>error</code></em>
+ and return <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>. The function
+can return success and no discovered sources, the same as it can return failure,
+but still set some output arguments, like the certificate related output
+arguments with SOUP_STATUS_SSL_FAILED error.</p>
+<p>The return value of <em class="parameter"><code>out_certificate_pem</code></em>
+ should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>
+when no longer needed.</p>
+<p>The return value of <em class="parameter"><code>out_discovered_sources</code></em>
+ should be freed
+with <a class="link" href="eds-e-webdav-discover.html#e-webdav-discover-free-discovered-sources" title="e_webdav_discover_free_discovered_sources ()"><code class="function">e_webdav_discover_free_discovered_sources()</code></a> when no longer needed.</p>
+<p>The return value of <em class="parameter"><code>out_calendar_user_addresses</code></em>
+ should be freed
+with g_slist_free_full (calendar_user_addresses, g_free); when
+no longer needed.</p>
+<div class="refsect3">
+<a name="e-webdav-discover-sources-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> on which the operation was started</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_certificate_pem</p></td>
+<td class="parameter_description"><p> optional return location
+for a server SSL certificate in PEM format, when the operation failed
+with an SSL error. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_certificate_errors</p></td>
+<td class="parameter_description"><p> optional <a href="/usr/share/gtk-doc/html/giogio-TLS-Overview.html#GTlsCertificateFlags"><span class="type">GTlsCertificateFlags</span></a>,
+with certificate error flags when the operation failed with SSL error. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_discovered_sources</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a>
+of all discovered sources. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EWebDAVDiscoveredSource]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_calendar_user_addresses</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of
+all discovered mail addresses for calendar sources. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-webdav-discover-sources-finish.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.18.html" title="Index of new symbols in 3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-webdav-discover-sources-sync"></a><h3>e_webdav_discover_sources_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_webdav_discover_sources_sync (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *url_use_path</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint32"><span class="type">guint32</span></a> only_supports</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="eds-e-data-server-util.html#ENamedParameters"><span class="type">ENamedParameters</span></a> *credentials</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **out_certificate_pem</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/giogio-TLS-Overview.html#GTlsCertificateFlags"><span class="type">GTlsCertificateFlags</span></a> *out_certificate_errors</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> **out_discovered_sources</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> **out_calendar_user_addresses</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Synchronously runs discovery of the WebDAV sources (CalDAV and CardDAV), eventually
+limited by the <em class="parameter"><code>only_supports</code></em>
+ filter, which can be <a class="link" href="eds-e-webdav-discover.html#E-WEBDAV-DISCOVER-SUPPORTS-NONE:CAPS"><code class="literal">E_WEBDAV_DISCOVER_SUPPORTS_NONE</code></a>
+to search all types. Note that the list of returned calendars can be more general,
+thus check for its actual support type for further filtering of the results.
+The <em class="parameter"><code>url_use_path</code></em>
+ can be used to override actual server path, or even complete URL,
+for the given <em class="parameter"><code>source</code></em>
+.</p>
+<p>If an error occurred, the function will set <em class="parameter"><code>error</code></em>
+ and return <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>. The function
+can return success and no discovered sources, the same as it can return failure,
+but still set some output arguments, like the certificate related output
+arguments with SOUP_STATUS_SSL_FAILED error.</p>
+<p>The return value of <em class="parameter"><code>out_certificate_pem</code></em>
+ should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>
+when no longer needed.</p>
+<p>The return value of <em class="parameter"><code>out_discovered_sources</code></em>
+ should be freed
+with <a class="link" href="eds-e-webdav-discover.html#e-webdav-discover-free-discovered-sources" title="e_webdav_discover_free_discovered_sources ()"><code class="function">e_webdav_discover_free_discovered_sources()</code></a> when no longer needed.</p>
+<p>The return value of <em class="parameter"><code>out_calendar_user_addresses</code></em>
+ should be freed
+with g_slist_free_full (calendar_user_addresses, g_free); when
+no longer needed.</p>
+<div class="refsect3">
+<a name="e-webdav-discover-sources-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> from which to take connection details</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>url_use_path</p></td>
+<td class="parameter_description"><p> optional URL override, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>only_supports</p></td>
+<td class="parameter_description"><p>bit-or of EWebDAVDiscoverSupports, to limit what type of sources to search</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>credentials</p></td>
+<td class="parameter_description"><p> credentials to use for authentication to the server. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_certificate_pem</p></td>
+<td class="parameter_description"><p> optional return location
+for a server SSL certificate in PEM format, when the operation failed
+with an SSL error. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_certificate_errors</p></td>
+<td class="parameter_description"><p> optional <a href="/usr/share/gtk-doc/html/giogio-TLS-Overview.html#GTlsCertificateFlags"><span class="type">GTlsCertificateFlags</span></a>,
+with certificate error flags when the operation failed with SSL error. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_discovered_sources</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a>
+of all discovered sources. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EWebDAVDiscoveredSource]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_calendar_user_addresses</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of
+all discovered mail addresses for calendar sources. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-webdav-discover-sources-sync.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.18.html" title="Index of new symbols in 3.18">3.18</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-e-webdav-discover.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EWebDAVDiscoverSupports"></a><h3>enum EWebDAVDiscoverSupports</h3>
+<div class="refsect3">
+<a name="EWebDAVDiscoverSupports.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="E-WEBDAV-DISCOVER-SUPPORTS-NONE:CAPS"></a>E_WEBDAV_DISCOVER_SUPPORTS_NONE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-WEBDAV-DISCOVER-SUPPORTS-CONTACTS:CAPS"></a>E_WEBDAV_DISCOVER_SUPPORTS_CONTACTS</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-WEBDAV-DISCOVER-SUPPORTS-EVENTS:CAPS"></a>E_WEBDAV_DISCOVER_SUPPORTS_EVENTS</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-WEBDAV-DISCOVER-SUPPORTS-MEMOS:CAPS"></a>E_WEBDAV_DISCOVER_SUPPORTS_MEMOS</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-WEBDAV-DISCOVER-SUPPORTS-TASKS:CAPS"></a>E_WEBDAV_DISCOVER_SUPPORTS_TASKS</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EWebDAVDiscoveredSource"></a><h3>EWebDAVDiscoveredSource</h3>
+<pre class="programlisting">typedef struct {
+	gchar *href;
+	guint32 supports;
+	gchar *display_name;
+	gchar *description;
+	gchar *color;
+} EWebDAVDiscoveredSource;
+</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

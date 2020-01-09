@@ -1,0 +1,11 @@
+diff -up evolution-data-server-3.22.7/camel/providers/imapx/camel-imapx-server.c.imapx-idle-server-leak evolution-data-server-3.22.7/camel/providers/imapx/camel-imapx-server.c
+--- evolution-data-server-3.22.7/camel/providers/imapx/camel-imapx-server.c.imapx-idle-server-leak	2017-03-20 10:07:46.000000000 +0100
++++ evolution-data-server-3.22.7/camel/providers/imapx/camel-imapx-server.c	2017-06-05 16:08:13.983713415 +0200
+@@ -6318,6 +6318,7 @@ imapx_server_run_idle_thread_cb (gpointe
+ 	}
+ 
+ 	g_mutex_unlock (&is->priv->idle_lock);
++	g_object_unref (is);
+ 
+ 	return FALSE;
+ }

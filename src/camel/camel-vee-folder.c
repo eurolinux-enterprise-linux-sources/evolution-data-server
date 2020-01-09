@@ -2,20 +2,20 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *           Jeffrey Stedfast <fejj@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -67,7 +67,7 @@ struct _CamelVeeFolderPrivate {
 
 	/* only set-up if our parent is a vee-store, used also as a flag to
 	 * say that this folder is part of the unmatched folder */
-	CamelVeeStore *parent_vee_store;
+	gpointer parent_vee_store; /* CamelVeeStore *, weak pointer */
 
 	CamelVeeDataCache *vee_data_cache;
 };
@@ -269,6 +269,10 @@ vee_folder_merge_matching (CamelVeeFolder *vfolder,
 	g_return_if_fail (vsummary != NULL);
 
 	data_cache = vee_folder_get_data_cache (vfolder);
+	/* It can be NULL on dispose of the CamelVeeStore */
+	if (!data_cache)
+		return;
+
 	for (ii = 0; ii < match->len; ii++) {
 		const gchar *uid = match->pdata[ii];
 
@@ -385,8 +389,12 @@ vee_folder_subfolder_changed (CamelVeeFolder *vfolder,
 	}
 	g_rec_mutex_unlock (&vfolder->priv->subfolder_lock);
 
-	changes = camel_folder_change_info_new ();
 	data_cache = vee_folder_get_data_cache (vfolder);
+	/* It can be NULL on dispose of the CamelVeeStore */
+	if (!data_cache)
+		return;
+
+	changes = camel_folder_change_info_new ();
 	v_folder = CAMEL_FOLDER (vfolder);
 	vsummary = CAMEL_VEE_SUMMARY (v_folder->summary);
 
@@ -547,14 +555,14 @@ static void
 vee_folder_dispose (GObject *object)
 {
 	CamelFolder *folder;
+	CamelVeeFolder *vfolder;
 
 	folder = CAMEL_FOLDER (object);
+	vfolder = CAMEL_VEE_FOLDER (object);
 
 	/* parent's class frees summary on dispose, thus depend on it */
 	if (folder->summary) {
-		CamelVeeFolder *vfolder;
 
-		vfolder = CAMEL_VEE_FOLDER (object);
 		vfolder->priv->destroyed = TRUE;
 
 		camel_folder_freeze ((CamelFolder *) vfolder);
@@ -563,6 +571,11 @@ vee_folder_dispose (GObject *object)
 			camel_vee_folder_remove_folder (vfolder, subfolder, NULL);
 		}
 		camel_folder_thaw ((CamelFolder *) vfolder);
+	}
+
+	if (vfolder->priv->parent_vee_store) {
+		g_object_remove_weak_pointer (G_OBJECT (vfolder->priv->parent_vee_store), &vfolder->priv->parent_vee_store);
+		vfolder->priv->parent_vee_store = NULL;
 	}
 
 	/* Chain up to parent's dispose () method. */
@@ -663,8 +676,15 @@ vee_folder_propagate_skipped_changes (CamelVeeFolder *vf)
 		CamelFolder *v_folder;
 		CamelVeeDataCache *data_cache;
 
-		changes = camel_folder_change_info_new ();
 		data_cache = vee_folder_get_data_cache (vf);
+
+		/* It can be NULL on dispose of the CamelVeeStore */
+		if (!data_cache) {
+			g_rec_mutex_unlock (&vf->priv->changed_lock);
+			return;
+		}
+
+		changes = camel_folder_change_info_new ();
 		v_folder = CAMEL_FOLDER (vf);
 		vsummary = CAMEL_VEE_SUMMARY (v_folder->summary);
 
@@ -806,6 +826,7 @@ static void
 vee_folder_freeze (CamelFolder *folder)
 {
 	CamelVeeFolder *vfolder = CAMEL_VEE_FOLDER (folder);
+	GList *link;
 
 	if (vfolder->priv->parent_vee_store &&
 	    !vee_folder_is_unmatched (vfolder)) {
@@ -816,6 +837,14 @@ vee_folder_freeze (CamelFolder *folder)
 			camel_folder_freeze (CAMEL_FOLDER (unmatched_folder));
 	}
 
+	g_rec_mutex_lock (&vfolder->priv->subfolder_lock);
+	for (link = vfolder->priv->subfolders; link; link = g_list_next (link)) {
+		CamelFolder *subfolder = link->data;
+
+		camel_folder_freeze (subfolder);
+	}
+	g_rec_mutex_unlock (&vfolder->priv->subfolder_lock);
+
 	/* call parent implementation */
 	CAMEL_FOLDER_CLASS (camel_vee_folder_parent_class)->freeze (folder);
 }
@@ -824,6 +853,7 @@ static void
 vee_folder_thaw (CamelFolder *folder)
 {
 	CamelVeeFolder *vfolder = CAMEL_VEE_FOLDER (folder);
+	GList *link;
 
 	if (vfolder->priv->parent_vee_store &&
 	    !vee_folder_is_unmatched (vfolder)) {
@@ -833,6 +863,14 @@ vee_folder_thaw (CamelFolder *folder)
 		if (unmatched_folder)
 			camel_folder_thaw (CAMEL_FOLDER (unmatched_folder));
 	}
+
+	g_rec_mutex_lock (&vfolder->priv->subfolder_lock);
+	for (link = vfolder->priv->subfolders; link; link = g_list_next (link)) {
+		CamelFolder *subfolder = link->data;
+
+		camel_folder_thaw (subfolder);
+	}
+	g_rec_mutex_unlock (&vfolder->priv->subfolder_lock);
 
 	/* call parent implementation */
 	CAMEL_FOLDER_CLASS (camel_vee_folder_parent_class)->thaw (folder);
@@ -874,15 +912,20 @@ vee_folder_get_message_sync (CamelFolder *folder,
 	mi = (CamelVeeMessageInfo *) camel_folder_summary_get (folder->summary, uid);
 	if (mi) {
 		msg = camel_folder_get_message_sync (
-			camel_folder_summary_get_folder (mi->orig_summary), camel_message_info_uid (mi) + 8,
+			camel_folder_summary_get_folder (mi->orig_summary), camel_message_info_get_uid (mi) + 8,
 			cancellable, error);
 		camel_message_info_unref (mi);
 	} else {
 		g_set_error (
 			error, CAMEL_FOLDER_ERROR,
 			CAMEL_FOLDER_ERROR_INVALID_UID,
-			_("No such message %s in %s"), uid,
-			camel_folder_get_display_name (folder));
+			/* Translators: The first '%s' is replaced with a message UID, the second '%s'
+			   is replaced with an account name and the third '%s' is replaced with a full
+			   path name. The spaces around ':' are intentional, as the whole '%s : %s' is
+			   meant as an absolute identification of the folder. */
+			_("No such message %s in '%s : %s'"), uid,
+			camel_service_get_display_name (CAMEL_SERVICE (camel_folder_get_parent_store (folder))),
+			camel_folder_get_full_name (folder));
 	}
 
 	return msg;
@@ -1056,6 +1099,14 @@ vee_folder_remove_folder (CamelVeeFolder *vfolder,
 		rud.changes = changes;
 		rud.is_orig_message_uid = FALSE;
 
+		/* It can be NULL on dispose of the CamelVeeStore */
+		if (!rud.data_cache) {
+			camel_folder_thaw (v_folder);
+			camel_folder_change_info_free (changes);
+			g_hash_table_destroy (uids);
+			return;
+		}
+
 		g_hash_table_foreach (uids, vee_folder_remove_unmatched_cb, &rud);
 
 		if (vee_folder_is_unmatched (vfolder) &&
@@ -1102,6 +1153,8 @@ vee_folder_folder_changed (CamelVeeFolder *vee_folder,
 	folder = CAMEL_FOLDER (vee_folder);
 	parent_store = camel_folder_get_parent_store (folder);
 	session = camel_service_ref_session (CAMEL_SERVICE (parent_store));
+	if (!session)
+		return;
 
 	g_async_queue_lock (vee_folder->priv->change_queue);
 
@@ -1110,12 +1163,18 @@ vee_folder_folder_changed (CamelVeeFolder *vee_folder,
 	g_async_queue_push_unlocked (vee_folder->priv->change_queue, data);
 
 	if (!vee_folder->priv->change_queue_busy) {
+		gchar *description;
+
+		description = g_strdup_printf ("Updating search folder '%s'", camel_folder_get_full_name (CAMEL_FOLDER (vee_folder)));
+
 		camel_session_submit_job (
-			session, (CamelSessionCallback)
+			session, description, (CamelSessionCallback)
 			vee_folder_process_changes,
 			g_object_ref (vee_folder),
 			(GDestroyNotify) g_object_unref);
 		vee_folder->priv->change_queue_busy = TRUE;
+
+		g_free (description);
 	}
 
 	g_async_queue_unlock (vee_folder->priv->change_queue);
@@ -1223,6 +1282,8 @@ camel_vee_folder_construct (CamelVeeFolder *vf,
 		const gchar *user_data_dir;
 		gchar *state_file, *folder_name, *filename;
 
+		g_object_add_weak_pointer (G_OBJECT (vf->priv->parent_vee_store), &vf->priv->parent_vee_store);
+
 		user_data_dir = camel_service_get_user_data_dir (CAMEL_SERVICE (parent_store));
 
 		folder_name = g_uri_escape_string (camel_folder_get_full_name (folder), NULL, TRUE);
@@ -1327,7 +1388,15 @@ camel_vee_folder_add_folder (CamelVeeFolder *vfolder,
 	g_rec_mutex_lock (&vfolder->priv->subfolder_lock);
 
 	if (g_list_find (vfolder->priv->subfolders, subfolder) == NULL) {
+		gint freeze_count;
+
 		vfolder->priv->subfolders = g_list_append (vfolder->priv->subfolders, g_object_ref (subfolder));
+
+		freeze_count = camel_folder_get_frozen_count (CAMEL_FOLDER (vfolder));
+		while (freeze_count > 0) {
+			camel_folder_freeze (subfolder);
+			freeze_count--;
+		}
 	} else {
 		/* nothing to do, it's already there */
 		g_rec_mutex_unlock (&vfolder->priv->subfolder_lock);
@@ -1359,6 +1428,8 @@ camel_vee_folder_remove_folder (CamelVeeFolder *vfolder,
                                 CamelFolder *subfolder,
                                 GCancellable *cancellable)
 {
+	gint freeze_count;
+
 	g_return_if_fail (CAMEL_IS_VEE_FOLDER (vfolder));
 
 	g_rec_mutex_lock (&vfolder->priv->subfolder_lock);
@@ -1372,6 +1443,12 @@ camel_vee_folder_remove_folder (CamelVeeFolder *vfolder,
 	g_signal_handlers_disconnect_by_func (subfolder, subfolder_deleted, vfolder);
 
 	vfolder->priv->subfolders = g_list_remove (vfolder->priv->subfolders, subfolder);
+
+	freeze_count = camel_folder_get_frozen_count (CAMEL_FOLDER (vfolder));
+	while (freeze_count > 0) {
+		camel_folder_thaw (subfolder);
+		freeze_count--;
+	}
 
 	g_rec_mutex_unlock (&vfolder->priv->subfolder_lock);
 
@@ -1410,7 +1487,7 @@ remove_folders (CamelFolder *folder,
 /**
  * camel_vee_folder_set_folders:
  * @vf:
- * @folders:
+ * @folders: (element-type CamelFolder) (transfer none):
  *
  * Set the whole list of folder sources on a vee folder.
  **/
@@ -1562,7 +1639,10 @@ camel_vee_folder_remove_vuid (CamelVeeFolder *vfolder,
 
 	vsummary = CAMEL_VEE_SUMMARY (CAMEL_FOLDER (vfolder)->summary);
 	data_cache = vee_folder_get_data_cache (vfolder);
-	vee_folder_note_unmatch_uid (vfolder, vsummary, subfolder, data_cache, mi_data, changes);
+
+	/* It can be NULL on dispose of the CamelVeeStore */
+	if (data_cache)
+		vee_folder_note_unmatch_uid (vfolder, vsummary, subfolder, data_cache, mi_data, changes);
 }
 
 /**
@@ -1574,7 +1654,7 @@ camel_vee_folder_remove_vuid (CamelVeeFolder *vfolder,
  *
  * Find the real folder (and uid)
  *
- * Returns:
+ * Returns: (transfer none):
  **/
 CamelFolder *
 camel_vee_folder_get_location (CamelVeeFolder *vf,
@@ -1594,13 +1674,13 @@ camel_vee_folder_get_location (CamelVeeFolder *vf,
 		CamelFolder *res;
 		const CamelVeeMessageInfo *vfinfo;
 
-		vfinfo = (CamelVeeMessageInfo *) camel_folder_get_message_info (folder, camel_message_info_uid (vinfo) + 8);
+		vfinfo = (CamelVeeMessageInfo *) camel_folder_get_message_info (folder, camel_message_info_get_uid (vinfo) + 8);
 		res = camel_vee_folder_get_location ((CamelVeeFolder *) folder, vfinfo, realuid);
-		camel_message_info_unref ((CamelMessageInfo *) vinfo);
+		camel_message_info_unref ((CamelMessageInfo *) vfinfo);
 		return res;
 	} else {
 		if (realuid)
-			*realuid = g_strdup (camel_message_info_uid (vinfo)+8);
+			*realuid = g_strdup (camel_message_info_get_uid (vinfo)+8);
 
 		return folder;
 	}
@@ -1610,6 +1690,8 @@ camel_vee_folder_get_location (CamelVeeFolder *vf,
  * camel_vee_folder_get_vee_uid_folder:
  *
  * FIXME Document me!
+ *
+ * Returns: (transfer none):
  *
  * Since: 3.6
  **/

@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelStreamBuffer</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelStreamBuffer: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Streams.html" title="Streams">
 <link rel="prev" href="CamelStream.html" title="CamelStream">
 <link rel="next" href="CamelStreamFilter.html" title="CamelStreamFilter">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -16,8 +16,7 @@
 <td width="100%" align="left" class="shortcuts">
 <a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
                   <a href="#CamelStreamBuffer.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
-                  <a href="#CamelStreamBuffer.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
-                  <a href="#CamelStreamBuffer.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+                  <a href="#CamelStreamBuffer.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
 </td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
 <td><a accesskey="u" href="Streams.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
@@ -35,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelStreamBuffer.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -51,7 +50,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelStreamBuffer.html#camel-stream-buffer-gets" title="camel_stream_buffer_gets ()">camel_stream_buffer_gets</a> <span class="c_punctuation">()</span>
@@ -59,7 +58,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelStreamBuffer.html#camel-stream-buffer-read-line" title="camel_stream_buffer_read_line ()">camel_stream_buffer_read_line</a> <span class="c_punctuation">()</span>
@@ -70,35 +69,23 @@
 </div>
 <div class="refsect1">
 <a name="CamelStreamBuffer.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
 </colgroup>
-<tbody>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelStreamBuffer.html#CamelStreamBuffer-struct" title="struct CamelStreamBuffer">CamelStreamBuffer</a></td>
-</tr>
-<tr>
+<tbody><tr>
 <td class="datatype_keyword">enum</td>
 <td class="function_name"><a class="link" href="CamelStreamBuffer.html#CamelStreamBufferMode" title="enum CamelStreamBufferMode">CamelStreamBufferMode</a></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelStreamBuffer.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelStream.html" title="CamelStream">CamelStream</a>
         <span class="lineart">╰──</span> CamelStreamBuffer
 </pre>
-</div>
-<div class="refsect1">
-<a name="CamelStreamBuffer.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
-<p>
-CamelStreamBuffer implements
- <a href="https://developer.gnome.org/gio/unstable/GSeekable.html">GSeekable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="CamelStreamBuffer.description"></a><h2>Description</h2>
@@ -127,8 +114,8 @@ together with the buffering mode:</p>
 <p>Buffering can only be done in one direction for any
 buffer instance.</p>
 <div class="refsect3">
-<a name="id-1.2.3.3.8.2.11"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-stream-buffer-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -149,29 +136,28 @@ buffer instance.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.3.3.8.2.12"></a><h4>Returns</h4>
+<a name="camel-stream-buffer-new.returns"></a><h4>Returns</h4>
 <p> a newly created buffered stream.</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-stream-buffer-gets"></a><h3>camel_stream_buffer_gets ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_stream_buffer_gets (<em class="parameter"><code><a class="link" href="CamelStreamBuffer.html" title="CamelStreamBuffer"><span class="type">CamelStreamBuffer</span></a> *sbf</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *buf</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> max</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *buf</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> max</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Read a line of characters up to the next newline character or
 <em class="parameter"><code>max</code></em>
 -1 characters.</p>
 <p>If the newline character is encountered, then it will be
 included in the buffer <em class="parameter"><code>buf</code></em>
-.  The buffer will be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> terminated.</p>
+.  The buffer will be <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> terminated.</p>
 <div class="refsect3">
-<a name="id-1.2.3.3.8.3.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-stream-buffer-gets.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -185,8 +171,8 @@ included in the buffer <em class="parameter"><code>buf</code></em>
 </tr>
 <tr>
 <td class="parameter_name"><p>buf</p></td>
-<td class="parameter_description"><p>Memory to write the string to.</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> Memory to write the string to. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>max</p></td>
@@ -195,37 +181,36 @@ included in the buffer <em class="parameter"><code>buf</code></em>
 </tr>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.3.3.8.3.7"></a><h4>Returns</h4>
+<a name="camel-stream-buffer-gets.returns"></a><h4>Returns</h4>
 <p> the number of characters read, or <code class="literal">0</code> for end of file,
 and <code class="literal">-1</code> on error.</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-stream-buffer-read-line"></a><h3>camel_stream_buffer_read_line ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_stream_buffer_read_line (<em class="parameter"><code><a class="link" href="CamelStreamBuffer.html" title="CamelStreamBuffer"><span class="type">CamelStreamBuffer</span></a> *sbf</code></em>,
-                               <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>This function reads a complete newline-terminated line from the stream
 and returns it in allocated memory. The trailing newline (and carriage
 return if any) are not included in the returned string.</p>
 <div class="refsect3">
-<a name="id-1.2.3.3.8.4.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-stream-buffer-read-line.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -239,39 +224,34 @@ return if any) are not included in the returned string.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>optional <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> object, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
 <td class="parameter_description"><p>return location for a <em class="parameter"><code>GError</code></em>
-, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.3.3.8.4.6"></a><h4>Returns</h4>
+<a name="camel-stream-buffer-read-line.returns"></a><h4>Returns</h4>
 <p> the line read, which the caller must free when done with,
-or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on eof. If an error occurs, <em class="parameter"><code>error</code></em>
-will be set.</p>
-<p></p>
+or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on eof. If an error occurs, <em class="parameter"><code>error</code></em>
+will be set. </p>
+<p><span class="annotation">[<acronym title="NULL may be passed as the value in, out, in-out; or as a return value."><span class="acronym">nullable</span></acronym>]</span></p>
 </div>
 </div>
 </div>
 <div class="refsect1">
 <a name="CamelStreamBuffer.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
-<a name="CamelStreamBuffer-struct"></a><h3>struct CamelStreamBuffer</h3>
-<pre class="programlisting">struct CamelStreamBuffer;</pre>
-</div>
-<hr>
-<div class="refsect2">
 <a name="CamelStreamBufferMode"></a><h3>enum CamelStreamBufferMode</h3>
 <div class="refsect3">
-<a name="id-1.2.3.3.9.3.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="CamelStreamBufferMode.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="300px" class="enum_members_name">
 <col class="enum_members_description">
@@ -310,7 +290,6 @@ will be set.</p>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

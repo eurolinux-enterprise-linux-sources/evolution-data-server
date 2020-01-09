@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Evolution-Data-Server Manual: Private: org.gnome.evolution.dataserver.CalendarFactory</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>org.gnome.evolution.dataserver.CalendarFactory: Evolution-Data-Server Manual: Private</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Private">
 <link rel="up" href="ch02.html" title="D-Bus Interfaces">
 <link rel="prev" href="gdbus-org.gnome.evolution.dataserver.Calendar.html" title="org.gnome.evolution.dataserver.Calendar">
 <link rel="next" href="gdbus-org.gnome.evolution.dataserver.UserPrompter.html" title="org.gnome.evolution.dataserver.UserPrompter">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -35,11 +35,14 @@
 <h2>Methods</h2>
 <pre class="synopsis">
 <a class="link" href="gdbus-org.gnome.evolution.dataserver.CalendarFactory.html#gdbus-method-org-gnome-evolution-dataserver-CalendarFactory.OpenCalendar" title="The OpenCalendar() method">OpenCalendar</a> (IN  s source_uid,
-              OUT s object_path);
+              OUT s object_path,
+              OUT s bus_name);
 <a class="link" href="gdbus-org.gnome.evolution.dataserver.CalendarFactory.html#gdbus-method-org-gnome-evolution-dataserver-CalendarFactory.OpenTaskList" title="The OpenTaskList() method">OpenTaskList</a> (IN  s source_uid,
-              OUT s object_path);
+              OUT s object_path,
+              OUT s bus_name);
 <a class="link" href="gdbus-org.gnome.evolution.dataserver.CalendarFactory.html#gdbus-method-org-gnome-evolution-dataserver-CalendarFactory.OpenMemoList" title="The OpenMemoList() method">OpenMemoList</a> (IN  s source_uid,
-              OUT s object_path);
+              OUT s object_path,
+              OUT s bus_name);
 </pre>
 </div>
 <div class="refsect1">
@@ -54,7 +57,8 @@
 <a name="gdbus-method-org-gnome-evolution-dataserver-CalendarFactory.OpenCalendar"></a><h3>The OpenCalendar() method</h3>
 <pre class="programlisting">
 OpenCalendar (IN  s source_uid,
-              OUT s object_path);
+              OUT s object_path,
+              OUT s bus_name);
 </pre>
 <p>      Returns the object path of the calendar backend for <em class="parameter"><code>uid</code></em>.
 </p>
@@ -72,6 +76,10 @@ OpenCalendar (IN  s source_uid,
 <td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>object_path</code></em></code>:</span></p></td>
 <td><p>Object path of the calendar backend</p></td>
 </tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>bus_name</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
 </tbody>
 </table></div>
 <p class="since">Since 3.8</p>
@@ -81,7 +89,8 @@ OpenCalendar (IN  s source_uid,
 <a name="gdbus-method-org-gnome-evolution-dataserver-CalendarFactory.OpenTaskList"></a><h3>The OpenTaskList() method</h3>
 <pre class="programlisting">
 OpenTaskList (IN  s source_uid,
-              OUT s object_path);
+              OUT s object_path,
+              OUT s bus_name);
 </pre>
 <p>      Returns the object path of the task list backend for <em class="parameter"><code>uid</code></em>.
 </p>
@@ -99,6 +108,10 @@ OpenTaskList (IN  s source_uid,
 <td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>object_path</code></em></code>:</span></p></td>
 <td><p>Object path of the task list backend</p></td>
 </tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>bus_name</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
 </tbody>
 </table></div>
 <p class="since">Since 3.8</p>
@@ -108,7 +121,8 @@ OpenTaskList (IN  s source_uid,
 <a name="gdbus-method-org-gnome-evolution-dataserver-CalendarFactory.OpenMemoList"></a><h3>The OpenMemoList() method</h3>
 <pre class="programlisting">
 OpenMemoList (IN  s source_uid,
-              OUT s object_path);
+              OUT s object_path,
+              OUT s bus_name);
 </pre>
 <p>      Returns the object path of the memo list backend for <em class="parameter"><code>uid</code></em>.
 </p>
@@ -126,6 +140,10 @@ OpenMemoList (IN  s source_uid,
 <td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>object_path</code></em></code>:</span></p></td>
 <td><p>Object path of the memo list backend</p></td>
 </tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>bus_name</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
 </tbody>
 </table></div>
 <p class="since">Since 3.8</p>
@@ -133,7 +151,6 @@ OpenMemoList (IN  s source_uid,
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

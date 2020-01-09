@@ -9,21 +9,30 @@ DISTCHECK_CONFIGURE_FLAGS = \
 	--disable-examples \
 	$(NULL)
 
+if HAVE_GTK
+EDSUI_SUBDIR=libedataserverui
+endif
+
 SUBDIRS = \
 	camel \
 	data \
 	private \
 	libedataserver \
 	libebackend \
+	$(EDSUI_SUBDIR) \
 	addressbook \
 	calendar \
 	modules \
 	services \
+	tools \
 	tests \
-	docs \
 	art \
 	po \
 	$(NULL)
+
+if ENABLE_GTK_DOC
+SUBDIRS += docs
+endif
 
 if BUILD_EXAMPLES
 SUBDIRS += examples
@@ -80,6 +89,7 @@ MAINTAINERCLEANFILES = \
 	$(srcdir)/gtk-doc.make \
 	$(srcdir)/install-sh \
 	$(srcdir)/ltmain.sh \
+	$(srcdir)/test-driver \
 	$(srcdir)/m4/codeset.m4 \
 	$(srcdir)/m4/gettext.m4 \
 	$(srcdir)/m4/glibc2.m4 \

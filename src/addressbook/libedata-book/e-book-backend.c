@@ -1,24 +1,23 @@
 /*
  * e-book-backend.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
+ * Copyright (C) 2012 Intel Corporation
+ *
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors:
- *   Nat Friedman (nat@ximian.com)
- *   Tristan Van Berkom <tristanvb@openismus.com>
- *
- * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
- * Copyright (C) 2012 Intel Corporation
+ * Authors: Nat Friedman (nat@ximian.com)
+ *          Tristan Van Berkom <tristanvb@openismus.com>
  */
 
 /**
@@ -569,22 +568,23 @@ book_backend_constructed (GObject *object)
 	}
 }
 
-static gboolean
-book_backend_authenticate_sync (EBackend *backend,
-                                ESourceAuthenticator *auth,
-                                GCancellable *cancellable,
-                                GError **error)
+static void
+book_backend_prepare_shutdown (EBackend *backend)
 {
-	EBookBackend *book_backend;
-	ESourceRegistry *registry;
-	ESource *source;
+	GList *list, *l;
 
-	book_backend = E_BOOK_BACKEND (backend);
-	registry = e_book_backend_get_registry (book_backend);
-	source = e_backend_get_source (backend);
+	list = e_book_backend_list_views (E_BOOK_BACKEND (backend));
 
-	return e_source_registry_authenticate_sync (
-		registry, source, auth, cancellable, error);
+	for (l = list; l != NULL; l = g_list_next (l)) {
+		EDataBookView *view = l->data;
+
+		e_book_backend_remove_view (E_BOOK_BACKEND (backend), view);
+	}
+
+	g_list_free_full (list, g_object_unref);
+
+	/* Chain up to parent's prepare_shutdown() method. */
+	E_BACKEND_CLASS (e_book_backend_parent_class)->prepare_shutdown (backend);
 }
 
 static gchar *
@@ -703,7 +703,7 @@ e_book_backend_class_init (EBookBackendClass *class)
 	object_class->constructed = book_backend_constructed;
 
 	backend_class = E_BACKEND_CLASS (class);
-	backend_class->authenticate_sync = book_backend_authenticate_sync;
+	backend_class->prepare_shutdown = book_backend_prepare_shutdown;
 
 	class->get_backend_property = book_backend_get_backend_property;
 	class->get_contact_list_uids_sync = book_backend_get_contact_list_uids_sync;
@@ -1099,6 +1099,8 @@ book_backend_open_thread (GSimpleAsyncResult *simple,
 	if (!e_book_backend_is_opened (backend)) {
 		GError *error = NULL;
 
+		e_backend_ensure_online_state_updated (E_BACKEND (backend), cancellable);
+
 		class->open_sync (backend, cancellable, &error);
 
 		if (error != NULL)
@@ -1136,6 +1138,8 @@ book_backend_open_thread_old_style (GSimpleAsyncResult *simple,
 		guint32 opid;
 
 		opid = book_backend_stash_operation (backend, simple);
+
+		e_backend_ensure_online_state_updated (E_BACKEND (backend), cancellable);
 
 		class->open (backend, data_book, opid, cancellable, FALSE);
 	}
@@ -3337,6 +3341,9 @@ e_book_backend_set_locale (EBookBackend *backend,
  * @backend: an #EBookbackend
  *
  * Fetches a copy of the currently configured locale for the addressbook
+ *
+ * Returns: A copy of the currently configured locale for the addressbook.
+ *   Free with g_free() when done with it.
  *
  * Since: 3.12
  */

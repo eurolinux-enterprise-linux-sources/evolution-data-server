@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Evolution-Data-Server Manual: Private: org.gnome.evolution.dataserver.SourceManager</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>org.gnome.evolution.dataserver.SourceManager: Evolution-Data-Server Manual: Private</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Private">
 <link rel="up" href="ch02.html" title="D-Bus Interfaces">
 <link rel="prev" href="gdbus-org.gnome.evolution.dataserver.Source.OAuth2Support.html" title="org.gnome.evolution.dataserver.Source.OAuth2Support">
 <link rel="next" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html" title="org.gnome.evolution.dataserver.Authenticator">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,14 +34,8 @@
 <div class="refsynopsisdiv">
 <h2>Methods</h2>
 <pre class="synopsis">
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.AllowAuthPromptAll" title="The AllowAuthPromptAll() method">AllowAuthPromptAll</a> ();
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.Authenticate" title="The Authenticate() method">Authenticate</a>       (IN  s     uid,
-                    IN  s     prompt_title,
-                    IN  s     prompt_message,
-                    IN  s     prompt_description,
-                    OUT s     object_path);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.CreateSources" title="The CreateSources() method">CreateSources</a>      (IN  a{ss} array);
-<a class="link" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.Reload" title="The Reload() method">Reload</a>             ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.CreateSources" title="The CreateSources() method">CreateSources</a> (IN  a{ss} array);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.Reload" title="The Reload() method">Reload</a>        ();
 </pre>
 </div>
 <div class="refsect1">
@@ -51,65 +45,6 @@
 </div>
 <div class="refsect1">
 <a name="gdbus-methods-org.gnome.evolution.dataserver.SourceManager"></a><h2>Method Details</h2>
-<div class="refsect2">
-<a name="gdbus-method-org-gnome-evolution-dataserver-SourceManager.AllowAuthPromptAll"></a><h3>The AllowAuthPromptAll() method</h3>
-<pre class="programlisting">
-AllowAuthPromptAll ();
-</pre>
-<p>      This method is equivalent to calling AllowAuthPrompt() on each
-      managed object, but does so in a single method invocation.
-</p>
-<p class="since">Since 3.8</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="gdbus-method-org-gnome-evolution-dataserver-SourceManager.Authenticate"></a><h3>The Authenticate() method</h3>
-<pre class="programlisting">
-Authenticate (IN  s uid,
-              IN  s prompt_title,
-              IN  s prompt_message,
-              IN  s prompt_description,
-              OUT s object_path);
-</pre>
-<p>      Initiates a new authentication session at the returned object
-      path.  The client should prepare to receive Response signals
-      from the Authenticator interface at that object path, then
-      call the interface's Ready method.
-</p>
-<p>      The <em class="parameter"><code>prompt_title</code></em>, <em class="parameter"><code>prompt_message</code></em> and <em class="parameter"><code>prompt_description</code></em>
-      arguments are used to construct an authentication prompt if
-      necessary.  (See #GcrPrompt for details.)
-</p>
-<div class="variablelist"><table border="0" class="variablelist">
-<colgroup>
-<col align="left" valign="top">
-<col>
-</colgroup>
-<tbody>
-<tr>
-<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>uid</code></em></code>:</span></p></td>
-<td><p>Unique identifier for the authenticating source</p></td>
-</tr>
-<tr>
-<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>prompt_title</code></em></code>:</span></p></td>
-<td><p>The title of the prompt</p></td>
-</tr>
-<tr>
-<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>prompt_message</code></em></code>:</span></p></td>
-<td><p>The prompt message for the user</p></td>
-</tr>
-<tr>
-<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>prompt_description</code></em></code>:</span></p></td>
-<td><p>The detailed description of the prompt</p></td>
-</tr>
-<tr>
-<td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>object_path</code></em></code>:</span></p></td>
-<td><p>Object path of a new authentication session</p></td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
 <div class="refsect2">
 <a name="gdbus-method-org-gnome-evolution-dataserver-SourceManager.CreateSources"></a><h3>The CreateSources() method</h3>
 <pre class="programlisting">
@@ -151,7 +86,6 @@ Reload ();
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

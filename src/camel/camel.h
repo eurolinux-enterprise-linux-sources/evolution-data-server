@@ -1,22 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- *
- * Author :
- *  Bertrand Guiheneuf <bertrand@helixcode.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
  */
 
 #ifndef CAMEL_H
@@ -140,8 +138,33 @@
 
 G_BEGIN_DECLS
 
+extern gint camel_application_is_exiting;
+
 gint camel_init (const gchar *certdb_dir, gboolean nss_init);
 void camel_shutdown (void);
+
+GBinding *	camel_binding_bind_property	(gpointer source,
+						 const gchar *source_property,
+						 gpointer target,
+						 const gchar *target_property,
+						 GBindingFlags flags);
+GBinding *	camel_binding_bind_property_full(gpointer source,
+						 const gchar *source_property,
+						 gpointer target,
+						 const gchar *target_property,
+						 GBindingFlags flags,
+						 GBindingTransformFunc transform_to,
+						 GBindingTransformFunc transform_from,
+						 gpointer user_data,
+						 GDestroyNotify notify);
+GBinding *	camel_binding_bind_property_with_closures
+						(gpointer source,
+						 const gchar *source_property,
+						 gpointer target,
+						 const gchar *target_property,
+						 GBindingFlags flags,
+						 GClosure *transform_to,
+						 GClosure *transform_from);
 
 G_END_DECLS
 

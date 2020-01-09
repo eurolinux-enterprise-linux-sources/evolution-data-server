@@ -1,17 +1,17 @@
 /*
  * e-source-openpgp.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -103,6 +103,16 @@ gboolean	e_source_openpgp_get_sign_by_default
 void		e_source_openpgp_set_sign_by_default
 						(ESourceOpenPGP *extension,
 						 gboolean sign_by_default);
+gboolean	e_source_openpgp_get_encrypt_by_default
+						(ESourceOpenPGP *extension);
+void		e_source_openpgp_set_encrypt_by_default
+						(ESourceOpenPGP *extension,
+						 gboolean encrypt_by_default);
+gboolean	e_source_openpgp_get_prefer_inline
+						(ESourceOpenPGP *extension);
+void		e_source_openpgp_set_prefer_inline
+						(ESourceOpenPGP *extension,
+						 gboolean prefer_inline);
 
 G_END_DECLS
 

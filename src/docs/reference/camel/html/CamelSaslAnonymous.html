@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelSaslAnonymous</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelSaslAnonymous: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Crypto.html" title="Crypto Contexts">
 <link rel="prev" href="CamelSasl.html" title="CamelSasl">
 <link rel="next" href="CamelSaslCramMd5.html" title="CamelSaslCramMd5">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelSaslAnonymous.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -50,27 +50,8 @@
 </table></div>
 </div>
 <div class="refsect1">
-<a name="CamelSaslAnonymous.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelSaslAnonymous.html#CamelSaslAnonymous-struct" title="struct CamelSaslAnonymous">CamelSaslAnonymous</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">enum</td>
-<td class="function_name"><a class="link" href="CamelSaslAnonymous.html#CamelSaslAnonTraceType" title="enum CamelSaslAnonTraceType">CamelSaslAnonTraceType</a></td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="refsect1">
 <a name="CamelSaslAnonymous.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelSasl.html" title="CamelSasl">CamelSasl</a>
         <span class="lineart">╰──</span> CamelSaslAnonymous
 </pre>
@@ -83,12 +64,12 @@
 <div class="refsect2">
 <a name="camel-sasl-anonymous-new"></a><h3>camel_sasl_anonymous_new ()</h3>
 <pre class="programlisting"><a class="link" href="CamelSasl.html" title="CamelSasl"><span class="returnvalue">CamelSasl</span></a> *
-camel_sasl_anonymous_new (<em class="parameter"><code><a class="link" href="CamelSaslAnonymous.html#CamelSaslAnonTraceType" title="enum CamelSaslAnonTraceType"><span class="type">CamelSaslAnonTraceType</span></a> type</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *trace_info</code></em>);</pre>
+camel_sasl_anonymous_new (<em class="parameter"><code><a class="link" href="camel-camel-enums.html#CamelSaslAnonTraceType" title="enum CamelSaslAnonTraceType"><span class="type">CamelSaslAnonTraceType</span></a> type</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *trace_info</code></em>);</pre>
 <p>Create a new <a class="link" href="CamelSaslAnonymous.html" title="CamelSaslAnonymous"><span class="type">CamelSaslAnonymous</span></a> object.</p>
 <div class="refsect3">
-<a name="id-1.2.10.6.7.2.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-sasl-anonymous-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -109,53 +90,16 @@ camel_sasl_anonymous_new (<em class="parameter"><code><a class="link" href="Came
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.10.6.7.2.6"></a><h4>Returns</h4>
+<a name="camel-sasl-anonymous-new.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="CamelSasl.html" title="CamelSasl"><span class="type">CamelSasl</span></a> object</p>
-<p></p>
 </div>
 </div>
 </div>
 <div class="refsect1">
 <a name="CamelSaslAnonymous.other_details"></a><h2>Types and Values</h2>
-<div class="refsect2">
-<a name="CamelSaslAnonymous-struct"></a><h3>struct CamelSaslAnonymous</h3>
-<pre class="programlisting">struct CamelSaslAnonymous;</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CamelSaslAnonTraceType"></a><h3>enum CamelSaslAnonTraceType</h3>
-<div class="refsect3">
-<a name="id-1.2.10.6.8.3.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="300px" class="enum_members_name">
-<col class="enum_members_description">
-<col width="200px" class="enum_members_annotations">
-</colgroup>
-<tbody>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-SASL-ANON-TRACE-EMAIL:CAPS"></a>CAMEL_SASL_ANON_TRACE_EMAIL</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-SASL-ANON-TRACE-OPAQUE:CAPS"></a>CAMEL_SASL_ANON_TRACE_OPAQUE</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-SASL-ANON-TRACE-EMPTY:CAPS"></a>CAMEL_SASL_ANON_TRACE_EMPTY</p></td>
-<td> </td>
-<td> </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

@@ -1,10 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- *
- * Author:
- *   Chris Toshok (toshok@ximian.com)
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Chris Toshok (toshok@ximian.com)
  */
 
 /**
@@ -51,13 +61,13 @@ cal_backend_factory_get_hash_key (EBackendFactory *factory)
 
 	switch (class->component_kind) {
 		case ICAL_VEVENT_COMPONENT:
-			component_name = "VEVENT";
+			component_name = E_SOURCE_EXTENSION_CALENDAR;
 			break;
 		case ICAL_VTODO_COMPONENT:
-			component_name = "VTODO";
+			component_name = E_SOURCE_EXTENSION_TASK_LIST;
 			break;
 		case ICAL_VJOURNAL_COMPONENT:
-			component_name = "VJOURNAL";
+			component_name = E_SOURCE_EXTENSION_MEMO_LIST;
 			break;
 		default:
 			g_return_val_if_reached (NULL);
@@ -86,7 +96,7 @@ cal_backend_factory_new_backend (EBackendFactory *factory,
 		class->backend_type, E_TYPE_CAL_BACKEND), NULL);
 
 	data_factory = cal_backend_factory_get_data_factory (factory);
-	registry = e_data_cal_factory_get_registry (data_factory);
+	registry = e_data_factory_get_registry (E_DATA_FACTORY (data_factory));
 
 	return g_object_new (
 		class->backend_type,

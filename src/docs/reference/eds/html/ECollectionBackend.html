@@ -1,0 +1,986 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ECollectionBackend: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch07.html" title="Registry Service Classes">
+<link rel="prev" href="ch07.html" title="Registry Service Classes">
+<link rel="next" href="ECollectionBackendFactory.html" title="ECollectionBackendFactory">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#ECollectionBackend.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#ECollectionBackend.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch07.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch07.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ECollectionBackendFactory.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="ECollectionBackend"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ECollectionBackend.top_of_page"></a>ECollectionBackend</span></h2>
+<p>ECollectionBackend — A base class for a data source collection backend</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="ECollectionBackend.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-new-child" title="e_collection_backend_new_child ()">e_collection_backend_new_child</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gioGProxyResolver.html#GProxyResolver-struct"><span class="returnvalue">GProxyResolver</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-ref-proxy-resolver" title="e_collection_backend_ref_proxy_resolver ()">e_collection_backend_ref_proxy_resolver</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">struct <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="returnvalue">_ESourceRegistryServer</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-ref-server" title="e_collection_backend_ref_server ()">e_collection_backend_ref_server</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-get-cache-dir" title="e_collection_backend_get_cache_dir ()">e_collection_backend_get_cache_dir</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-dup-resource-id" title="e_collection_backend_dup_resource_id ()">e_collection_backend_dup_resource_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-claim-all-resources" title="e_collection_backend_claim_all_resources ()">e_collection_backend_claim_all_resources</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-list-calendar-sources" title="e_collection_backend_list_calendar_sources ()">e_collection_backend_list_calendar_sources</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-list-contacts-sources" title="e_collection_backend_list_contacts_sources ()">e_collection_backend_list_contacts_sources</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-list-mail-sources" title="e_collection_backend_list_mail_sources ()">e_collection_backend_list_mail_sources</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-create-resource-sync" title="e_collection_backend_create_resource_sync ()">e_collection_backend_create_resource_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-create-resource" title="e_collection_backend_create_resource ()">e_collection_backend_create_resource</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-create-resource-finish" title="e_collection_backend_create_resource_finish ()">e_collection_backend_create_resource_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-delete-resource-sync" title="e_collection_backend_delete_resource_sync ()">e_collection_backend_delete_resource_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-delete-resource" title="e_collection_backend_delete_resource ()">e_collection_backend_delete_resource</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-delete-resource-finish" title="e_collection_backend_delete_resource_finish ()">e_collection_backend_delete_resource_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ECollectionBackend.html#e-collection-backend-authenticate-children" title="e_collection_backend_authenticate_children ()">e_collection_backend_authenticate_children</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ECollectionBackend.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="ECollectionBackend.html#ECollectionBackend-struct" title="struct ECollectionBackend">ECollectionBackend</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ECollectionBackend.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="EBackend.html" title="EBackend">EBackend</a>
+        <span class="lineart">╰──</span> ECollectionBackend
+</pre>
+</div>
+<div class="refsect1">
+<a name="ECollectionBackend.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libebackend/libebackend.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="ECollectionBackend.description"></a><h2>Description</h2>
+<p><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> is a base class for backends which manage a
+collection of data sources that collectively represent the resources
+on a remote server.  The resources can include any number of private
+and shared email stores, calendars and address books.</p>
+<p>The backend's job is to synchronize local representations of remote
+resources by adding and removing <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> instances in an
+<a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>.  If possible the backend should also listen
+for notifications of newly-added or deleted resources on the remote
+server or else poll the remote server at regular intervals and then
+update the data source collection accordingly.</p>
+<p>As most remote servers require authentication, the backend may also
+wish to implement the <span class="type">ESourceAuthenticator</span> interface so it can submit
+its own <span class="type">EAuthenticationSession</span> instances to the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a>.</p>
+</div>
+<div class="refsect1">
+<a name="ECollectionBackend.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-collection-backend-new-child"></a><h3>e_collection_backend_new_child ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *
+e_collection_backend_new_child (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *resource_id</code></em>);</pre>
+<p>Creates a new <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a> as a child of the collection
+<a class="link" href="EBackend.html#EBackend--source" title="The “source” property"><span class="type">“source”</span></a> owned by <em class="parameter"><code>backend</code></em>
+.  If possible, the <a class="link" href="EServerSideSource.html" title="EServerSideSource"><span class="type">EServerSideSource</span></a>
+is drawn from a cache of previously used sources indexed by <em class="parameter"><code>resource_id</code></em>
+
+so that locally cached data from previous sessions can be reused.</p>
+<p>The returned data source should be passed to
+<a class="link" href="ESourceRegistryServer.html#e-source-registry-server-add-source" title="e_source_registry_server_add_source ()"><code class="function">e_source_registry_server_add_source()</code></a> to export it over D-Bus.</p>
+<p>Return: a newly-created data source</p>
+<div class="refsect3">
+<a name="e-collection-backend-new-child.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>resource_id</p></td>
+<td class="parameter_description"><p>a stable and unique resource ID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-ref-proxy-resolver"></a><h3>e_collection_backend_ref_proxy_resolver ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gioGProxyResolver.html#GProxyResolver-struct"><span class="returnvalue">GProxyResolver</span></a> *
+e_collection_backend_ref_proxy_resolver
+                               (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>);</pre>
+<p>Returns the <a href="/usr/share/gtk-doc/html/gioGProxyResolver.html#GProxyResolver-struct"><span class="type">GProxyResolver</span></a> for <em class="parameter"><code>backend</code></em>
+ (if applicable), as indicated
+by the <span class="type">“proxy-uid”</span> of <em class="parameter"><code>backend</code></em>
+'s <a class="link" href="EBackend.html#EBackend--source" title="The “source” property"><span class="type">“source”</span></a>
+or one of its ancestors.</p>
+<p>The returned <a href="/usr/share/gtk-doc/html/gioGProxyResolver.html#GProxyResolver-struct"><span class="type">GProxyResolver</span></a> is referenced for thread-safety and must
+be unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+<div class="refsect3">
+<a name="e-collection-backend-ref-proxy-resolver.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-ref-proxy-resolver.returns"></a><h4>Returns</h4>
+<p> a <a href="/usr/share/gtk-doc/html/gioGProxyResolver.html#GProxyResolver-struct"><span class="type">GProxyResolver</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-ref-server"></a><h3>e_collection_backend_ref_server ()</h3>
+<pre class="programlisting">struct <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="returnvalue">_ESourceRegistryServer</span></a> *
+e_collection_backend_ref_server (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>);</pre>
+<p>Returns the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> to which <em class="parameter"><code>backend</code></em>
+ belongs.</p>
+<p>The returned <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> is referenced for thread-safety.
+Unreference the <a class="link" href="ESourceRegistryServer.html" title="ESourceRegistryServer"><span class="type">ESourceRegistryServer</span></a> with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when
+finished with it.</p>
+<div class="refsect3">
+<a name="e-collection-backend-ref-server.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-ref-server.returns"></a><h4>Returns</h4>
+<p> the <span class="type">ESourceRegisterServer</span> for <em class="parameter"><code>backend</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-get-cache-dir"></a><h3>e_collection_backend_get_cache_dir ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_collection_backend_get_cache_dir (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>);</pre>
+<p>Returns the private cache directory path for <em class="parameter"><code>backend</code></em>
+, which is named
+after the <span class="type">“uid”</span> of <em class="parameter"><code>backend</code></em>
+'s collection <a class="link" href="EBackend.html#EBackend--source" title="The “source” property"><span class="type">“source”</span></a>.</p>
+<p>The cache directory is meant to store key files for backend-created
+data sources.  See also: <a class="link" href="EServerSideSource.html#e-server-side-source-set-write-directory" title="e_server_side_source_set_write_directory ()"><code class="function">e_server_side_source_set_write_directory()</code></a></p>
+<div class="refsect3">
+<a name="e-collection-backend-get-cache-dir.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-get-cache-dir.returns"></a><h4>Returns</h4>
+<p> the cache directory for <em class="parameter"><code>backend</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-dup-resource-id"></a><h3>e_collection_backend_dup_resource_id ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_collection_backend_dup_resource_id (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>,
+                                      <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *child_source</code></em>);</pre>
+<p>Extracts the resource ID for <em class="parameter"><code>child_source</code></em>
+, which is supposed to be a
+stable and unique server-assigned identifier for the remote resource
+described by <em class="parameter"><code>child_source</code></em>
+.  If <em class="parameter"><code>child_source</code></em>
+ is not actually a child
+of the collection <a class="link" href="EBackend.html#EBackend--source" title="The “source” property"><span class="type">“source”</span></a> owned by <em class="parameter"><code>backend</code></em>
+, the function
+returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<p>The returned string should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="e-collection-backend-dup-resource-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>child_source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> managed by <em class="parameter"><code>backend</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-dup-resource-id.returns"></a><h4>Returns</h4>
+<p> a newly-allocated resource ID for <em class="parameter"><code>child_source</code></em>
+, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-claim-all-resources"></a><h3>e_collection_backend_claim_all_resources ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_collection_backend_claim_all_resources
+                               (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>);</pre>
+<p>Claims all previously used sources that have not yet been claimed by
+<a class="link" href="ECollectionBackend.html#e-collection-backend-new-child" title="e_collection_backend_new_child ()"><code class="function">e_collection_backend_new_child()</code></a> and returns them in a <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a>.  Note
+that previously used sources can only be claimed once, so subsequent
+calls to this function for <em class="parameter"><code>backend</code></em>
+ will return <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<p>The <em class="parameter"><code>backend</code></em>
+ is then expected to compare the returned list with a
+current list of resources from a remote server, create new <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+instances as needed with <a class="link" href="ECollectionBackend.html#e-collection-backend-new-child" title="e_collection_backend_new_child ()"><code class="function">e_collection_backend_new_child()</code></a>, discard
+unneeded <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instances with <a class="link" href="ESource.html#e-source-remove" title="e_source_remove ()"><code class="function">e_source_remove()</code></a>, and export the
+remaining instances with <a class="link" href="ESourceRegistryServer.html#e-source-registry-server-add-source" title="e_source_registry_server_add_source ()"><code class="function">e_source_registry_server_add_source()</code></a>.</p>
+<p>The sources returned in the list are referenced for thread-safety.
+They must each be unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
+with them.  Free the returned <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> itself with <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.</p>
+<p>An easy way to free the list properly in one step is as follows:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free-full">g_list_free_full</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">,</span><span class="normal"> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref">g_object_unref</a></span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="refsect3">
+<a name="e-collection-backend-claim-all-resources.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-claim-all-resources.returns"></a><h4>Returns</h4>
+<p> a list of previously used sources</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-list-calendar-sources"></a><h3>e_collection_backend_list_calendar_sources ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_collection_backend_list_calendar_sources
+                               (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>);</pre>
+<p>Returns a list of calendar sources belonging to the data source
+collection managed by <em class="parameter"><code>backend</code></em>
+.</p>
+<p>The sources returned in the list are referenced for thread-safety.
+They must each be unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
+with them.  Free the returned <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> itself with <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.</p>
+<p>An easy way to free the list properly in one step is as follows:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free-full">g_list_free_full</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">,</span><span class="normal"> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref">g_object_unref</a></span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="refsect3">
+<a name="e-collection-backend-list-calendar-sources.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-list-calendar-sources.returns"></a><h4>Returns</h4>
+<p> a list of calendar sources</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-list-contacts-sources"></a><h3>e_collection_backend_list_contacts_sources ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_collection_backend_list_contacts_sources
+                               (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>);</pre>
+<p>Returns a list of address book sources belonging to the data source
+collection managed by <em class="parameter"><code>backend</code></em>
+.</p>
+<p>The sources returned in the list are referenced for thread-safety.
+They must each be unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
+with them.  Free the returned <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> itself with <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.</p>
+<p>An easy way to free the list properly in one step is as follows:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free-full">g_list_free_full</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">,</span><span class="normal"> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref">g_object_unref</a></span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="refsect3">
+<a name="e-collection-backend-list-contacts-sources.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-list-contacts-sources.returns"></a><h4>Returns</h4>
+<p> a list of address book sources</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-list-mail-sources"></a><h3>e_collection_backend_list_mail_sources ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_collection_backend_list_mail_sources
+                               (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>);</pre>
+<p>Returns a list of mail sources belonging to the data source collection
+managed by <em class="parameter"><code>backend</code></em>
+.</p>
+<p>The sources returned in the list are referenced for thread-safety.
+They must each be unreferenced with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished
+with them.  Free the returned <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> itself with <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.</p>
+<p>An easy way to free the list properly in one step is as follows:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free-full">g_list_free_full</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">list</span><span class="symbol">,</span><span class="normal"> <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref">g_object_unref</a></span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="refsect3">
+<a name="e-collection-backend-list-mail-sources.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-list-mail-sources.returns"></a><h4>Returns</h4>
+<p> a list of mail sources</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-create-resource-sync"></a><h3>e_collection_backend_create_resource_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_collection_backend_create_resource_sync
+                               (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>,
+                                <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Creates a server-side resource described by <em class="parameter"><code>source</code></em>
+.  For example, if
+<em class="parameter"><code>source</code></em>
+ describes a new calendar, an equivalent calendar is created on
+the server.</p>
+<p>It is the implementor's responsibility to examine <em class="parameter"><code>source</code></em>
+ and determine
+what the equivalent server-side resource would be.  If this cannot be
+determined without ambiguity, the function must return an error.</p>
+<p>After the server-side resource is successfully created, the implementor
+must also add an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> to <em class="parameter"><code>backend</code></em>
+'s <span class="type">“server”</span>.  This
+can either be done immediately or in response to some "resource created"
+notification from the server.  The added <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> can be <em class="parameter"><code>source</code></em>
+ itself
+or a different <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instance that describes the new resource.</p>
+<p>If an error occurs, the function will set <em class="parameter"><code>error</code></em>
+ and return <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+<div class="refsect3">
+<a name="e-collection-backend-create-resource-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-create-resource-sync.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-create-resource"></a><h3>e_collection_backend_create_resource ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_collection_backend_create_resource (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>,
+                                      <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Asynchronously creates a server-side resource described by <em class="parameter"><code>source</code></em>
+.
+For example, if <em class="parameter"><code>source</code></em>
+ describes a new calendar, an equivalent calendar
+is created on the server.</p>
+<p>It is the implementor's responsibility to examine <em class="parameter"><code>source</code></em>
+ and determine
+what the equivalent server-side resource would be.  If this cannot be
+determined without ambiguity, the function must return an error.</p>
+<p>After the server-side resource is successfully created, the implementor
+must also add an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> to <em class="parameter"><code>backend</code></em>
+'s <span class="type">“server”</span>.  This
+can either be done immediately or in response to some "resource created"
+notification from the server.  The added <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> can be <em class="parameter"><code>source</code></em>
+ itself
+or a different <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instance that describes the new resource.</p>
+<p>When the operation is finished, <em class="parameter"><code>callback</code></em>
+ will be called.  You can then
+call <a class="link" href="ECollectionBackend.html#e-collection-backend-create-resource-finish" title="e_collection_backend_create_resource_finish ()"><code class="function">e_collection_backend_create_resource_finish()</code></a> to get the result of
+the operation.</p>
+<div class="refsect3">
+<a name="e-collection-backend-create-resource.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>data to pass to the callback function</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-create-resource-finish"></a><h3>e_collection_backend_create_resource_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_collection_backend_create_resource_finish
+                               (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes the operation started with <a class="link" href="ECollectionBackend.html#e-collection-backend-create-resource" title="e_collection_backend_create_resource ()"><code class="function">e_collection_backend_create_resource()</code></a>.</p>
+<p>If an error occurred, the function will set <em class="parameter"><code>error</code></em>
+ and return <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+<div class="refsect3">
+<a name="e-collection-backend-create-resource-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-create-resource-finish.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-delete-resource-sync"></a><h3>e_collection_backend_delete_resource_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_collection_backend_delete_resource_sync
+                               (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>,
+                                <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Deletes a server-side resource described by <em class="parameter"><code>source</code></em>
+.  The <em class="parameter"><code>source</code></em>
+ must
+be a child of <em class="parameter"><code>backend</code></em>
+'s collection <a class="link" href="EBackend.html#EBackend--source" title="The “source” property"><span class="type">“source”</span></a>.</p>
+<p>After the server-side resource is successfully deleted, the implementor
+must also remove <em class="parameter"><code>source</code></em>
+ from the <em class="parameter"><code>backend</code></em>
+'s <span class="type">“server”</span>.
+This can either be done immediately or in response to some "resource
+deleted" notification from the server.</p>
+<p>If an error occurs, the function will set <em class="parameter"><code>error</code></em>
+ and return <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+<div class="refsect3">
+<a name="e-collection-backend-delete-resource-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-delete-resource-sync.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-delete-resource"></a><h3>e_collection_backend_delete_resource ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_collection_backend_delete_resource (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>,
+                                      <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Asynchronously deletes a server-side resource described by <em class="parameter"><code>source</code></em>
+.
+The <em class="parameter"><code>source</code></em>
+ must be a child of <em class="parameter"><code>backend</code></em>
+'s collection <a class="link" href="EBackend.html#EBackend--source" title="The “source” property"><span class="type">“source”</span></a>.</p>
+<p>After the server-side resource is successfully deleted, the implementor
+must also remove <em class="parameter"><code>source</code></em>
+ from the <em class="parameter"><code>backend</code></em>
+'s <span class="type">“server”</span>.
+This can either be done immediately or in response to some "resource
+deleted" notification from the server.</p>
+<p>When the operation is finished, <em class="parameter"><code>callback</code></em>
+ will be called.  You can then
+call <a class="link" href="ECollectionBackend.html#e-collection-backend-delete-resource-finish" title="e_collection_backend_delete_resource_finish ()"><code class="function">e_collection_backend_delete_resource_finish()</code></a> to get the result of
+the operation.</p>
+<div class="refsect3">
+<a name="e-collection-backend-delete-resource.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request is satisfied</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>data to pass to the callback function</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-delete-resource-finish"></a><h3>e_collection_backend_delete_resource_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_collection_backend_delete_resource_finish
+                               (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes the operation started with <a class="link" href="ECollectionBackend.html#e-collection-backend-delete-resource" title="e_collection_backend_delete_resource ()"><code class="function">e_collection_backend_delete_resource()</code></a>.</p>
+<p>If an error occurred, the function will set <em class="parameter"><code>error</code></em>
+ and return <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+<div class="refsect3">
+<a name="e-collection-backend-delete-resource-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-collection-backend-delete-resource-finish.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> on failure</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-collection-backend-authenticate-children"></a><h3>e_collection_backend_authenticate_children ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_collection_backend_authenticate_children
+                               (<em class="parameter"><code><a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a> *backend</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="eds-e-data-server-util.html#ENamedParameters"><span class="type">ENamedParameters</span></a> *credentials</code></em>);</pre>
+<p>Authenticates all enabled children sources with the given <em class="parameter"><code>crendetials</code></em>
+.
+This is usually called when the collection source successfully used
+the <em class="parameter"><code>credentials</code></em>
+ to connect to the (possibly) remote data store, to
+open the childern too. Already connected child sources are skipped.</p>
+<div class="refsect3">
+<a name="e-collection-backend-authenticate-children.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ECollectionBackend.html" title="ECollectionBackend"><span class="type">ECollectionBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>credentials</p></td>
+<td class="parameter_description"><p>credentials to authenticate with</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ECollectionBackend.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="ECollectionBackend-struct"></a><h3>struct ECollectionBackend</h3>
+<pre class="programlisting">struct ECollectionBackend;</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelMimeFilterProgress</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelMimeFilterProgress: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Stream-Filters.html" title="Stream Filters">
 <link rel="prev" href="CamelMimeFilterPgp.html" title="CamelMimeFilterPgp">
 <link rel="next" href="CamelMimeFilterToHTML.html" title="CamelMimeFilterToHTML">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelMimeFilterProgress.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -51,7 +51,7 @@
 </div>
 <div class="refsect1">
 <a name="CamelMimeFilterProgress.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
@@ -64,7 +64,7 @@
 </div>
 <div class="refsect1">
 <a name="CamelMimeFilterProgress.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter">CamelMimeFilter</a>
         <span class="lineart">╰──</span> CamelMimeFilterProgress
 </pre>
@@ -77,17 +77,17 @@
 <div class="refsect2">
 <a name="camel-mime-filter-progress-new"></a><h3>camel_mime_filter_progress_new ()</h3>
 <pre class="programlisting"><a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="returnvalue">CamelMimeFilter</span></a> *
-camel_mime_filter_progress_new (<em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> total</code></em>);</pre>
+camel_mime_filter_progress_new (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> total</code></em>);</pre>
 <p>Create a new <a class="link" href="CamelMimeFilterProgress.html" title="CamelMimeFilterProgress"><span class="type">CamelMimeFilterProgress</span></a> object that will report streaming
 progress.  While the function will silently accept <em class="parameter"><code>cancellable</code></em>
  being
-<a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> or a plain <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> for convenience sake, no progress will be
+<a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> or a plain <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> for convenience sake, no progress will be
 reported unless <em class="parameter"><code>cancellable</code></em>
- is a <a class="link" href="camel-camel-operation.html#CamelOperation"><span class="type">CamelOperation</span></a>.</p>
+ is a <a class="link" href="CamelOperation.html" title="CamelOperation"><span class="type">CamelOperation</span></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.4.15.7.2.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-progress-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -96,7 +96,7 @@ reported unless <em class="parameter"><code>cancellable</code></em>
 <tbody>
 <tr>
 <td class="parameter_name"><p>cancellable</p></td>
-<td class="parameter_description"><p>a <a class="link" href="camel-camel-operation.html#CamelOperation"><span class="type">CamelOperation</span></a> cast as a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a></p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelOperation.html" title="CamelOperation"><span class="type">CamelOperation</span></a> cast as a <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -108,11 +108,10 @@ reported unless <em class="parameter"><code>cancellable</code></em>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.4.15.7.2.6"></a><h4>Returns</h4>
+<a name="camel-mime-filter-progress-new.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="type">CamelMimeFilter</span></a> object</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2.24.html" title="Index of new symbols in 2.24">2.24</a></p>
 </div>
 </div>
 <div class="refsect1">
@@ -120,12 +119,11 @@ reported unless <em class="parameter"><code>cancellable</code></em>
 <div class="refsect2">
 <a name="CamelMimeFilterProgress-struct"></a><h3>struct CamelMimeFilterProgress</h3>
 <pre class="programlisting">struct CamelMimeFilterProgress;</pre>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2.24.html" title="Index of new symbols in 2.24">2.24</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

@@ -1,17 +1,17 @@
 /*
  * camel-imapx-settings.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -31,9 +31,9 @@ struct _CamelIMAPXSettingsPrivate {
 	gchar *real_trash_path;
 	gchar *shell_command;
 
-	guint batch_fetch_count;
 	guint concurrent_connections;
 
+	gboolean use_multi_fetch;
 	gboolean check_all;
 	gboolean check_subscribed;
 	gboolean filter_all;
@@ -55,7 +55,7 @@ struct _CamelIMAPXSettingsPrivate {
 enum {
 	PROP_0,
 	PROP_AUTH_MECHANISM,
-	PROP_BATCH_FETCH_COUNT,
+	PROP_USE_MULTI_FETCH,
 	PROP_CHECK_ALL,
 	PROP_CHECK_SUBSCRIBED,
 	PROP_CONCURRENT_CONNECTIONS,
@@ -102,10 +102,10 @@ imapx_settings_set_property (GObject *object,
 				g_value_get_string (value));
 			return;
 
-		case PROP_BATCH_FETCH_COUNT:
-			camel_imapx_settings_set_batch_fetch_count (
+		case PROP_USE_MULTI_FETCH:
+			camel_imapx_settings_set_use_multi_fetch (
 				CAMEL_IMAPX_SETTINGS (object),
-				g_value_get_uint (value));
+				g_value_get_boolean (value));
 			return;
 
 		case PROP_CHECK_ALL:
@@ -270,10 +270,10 @@ imapx_settings_get_property (GObject *object,
 				CAMEL_NETWORK_SETTINGS (object)));
 			return;
 
-		case PROP_BATCH_FETCH_COUNT:
-			g_value_set_uint (
+		case PROP_USE_MULTI_FETCH:
+			g_value_set_boolean (
 				value,
-				camel_imapx_settings_get_batch_fetch_count (
+				camel_imapx_settings_get_use_multi_fetch (
 				CAMEL_IMAPX_SETTINGS (object)));
 			return;
 
@@ -487,14 +487,12 @@ camel_imapx_settings_class_init (CamelIMAPXSettingsClass *class)
 
 	g_object_class_install_property (
 		object_class,
-		PROP_BATCH_FETCH_COUNT,
-		g_param_spec_uint (
-			"batch-fetch-count",
-			"Batch Fetch Count",
-			"Number of envelopes to fetch at once",
-			0,
-			G_MAXUINT,
-			500,
+		PROP_USE_MULTI_FETCH,
+		g_param_spec_boolean (
+			"use-multi-fetch",
+			"Use Multi Fetch",
+			"Whether allow downloading of large messages in chunks",
+			FALSE,
 			G_PARAM_READWRITE |
 			G_PARAM_CONSTRUCT |
 			G_PARAM_STATIC_STRINGS));
@@ -776,50 +774,46 @@ camel_imapx_settings_init (CamelIMAPXSettings *settings)
 }
 
 /**
- * camel_imapx_settings_get_batch_fetch_count:
+ * camel_imapx_settings_get_use_multi_fetch:
  * @settings: a #CamelIMAPXSettings
  *
- * Returns the number of message envelopes to fetch at once.
+ * Returns whether large messages can be downloaded in chunks.
+ * The default is %TRUE, but some server can be slower when
+ * the messages are downloaded in parts, rather than in one call.
  *
- * This is a tunable performance parameter and probably should not be
- * exposed in a graphical user interface.
+ * Returns: whether large messages can be downloaded in chunks
  *
- * Returns: number of message envelopes to fetch at once
- *
- * Since: 3.2
+ * Since: 3.20
  **/
 guint
-camel_imapx_settings_get_batch_fetch_count (CamelIMAPXSettings *settings)
+camel_imapx_settings_get_use_multi_fetch (CamelIMAPXSettings *settings)
 {
 	g_return_val_if_fail (CAMEL_IS_IMAPX_SETTINGS (settings), 0);
 
-	return settings->priv->batch_fetch_count;
+	return settings->priv->use_multi_fetch;
 }
 
 /**
- * camel_imapx_settings_set_batch_fetch_count:
+ * camel_imapx_settings_set_use_multi_fetch:
  * @settings: a #CamelIMAPXSettings
- * @batch_fetch_count: number of message envelopes to fetch at once
+ * @use_multi_fetch: whether can download large messages in chunks
  *
- * Sets the number of message envelopes to fetch at once.
+ * Sets whether can download large messages in chunks.
  *
- * This is a tunable performance parameter and probably should not be
- * exposed in a graphical user interface.
- *
- * Since: 3.2
+ * Since: 3.20
  **/
 void
-camel_imapx_settings_set_batch_fetch_count (CamelIMAPXSettings *settings,
-                                            guint batch_fetch_count)
+camel_imapx_settings_set_use_multi_fetch (CamelIMAPXSettings *settings,
+					  guint use_multi_fetch)
 {
 	g_return_if_fail (CAMEL_IS_IMAPX_SETTINGS (settings));
 
-	if (settings->priv->batch_fetch_count == batch_fetch_count)
+	if (settings->priv->use_multi_fetch == use_multi_fetch)
 		return;
 
-	settings->priv->batch_fetch_count = batch_fetch_count;
+	settings->priv->use_multi_fetch = use_multi_fetch;
 
-	g_object_notify (G_OBJECT (settings), "batch-fetch-count");
+	g_object_notify (G_OBJECT (settings), "use-multi-fetch");
 }
 
 /**
@@ -915,7 +909,7 @@ camel_imapx_settings_set_check_subscribed (CamelIMAPXSettings *settings,
  *
  * Returns: the number of concurrent connections to use
  *
- * Since: 3.14
+ * Since: 3.16
  **/
 guint
 camel_imapx_settings_get_concurrent_connections (CamelIMAPXSettings *settings)
@@ -937,7 +931,7 @@ camel_imapx_settings_get_concurrent_connections (CamelIMAPXSettings *settings)
  * @concurrent_connections value will be clamped to these limits if
  * necessary.
  *
- * Since: 3.14
+ * Since: 3.16
  **/
 void
 camel_imapx_settings_set_concurrent_connections (CamelIMAPXSettings *settings,
@@ -1563,7 +1557,7 @@ camel_imapx_settings_set_use_namespace (CamelIMAPXSettings *settings,
  *
  * Returns: whether to ignore namespace for other users
  *
- * Since: 3.12.9
+ * Since: 3.16
  **/
 gboolean
 camel_imapx_settings_get_ignore_other_users_namespace (CamelIMAPXSettings *settings)
@@ -1580,7 +1574,7 @@ camel_imapx_settings_get_ignore_other_users_namespace (CamelIMAPXSettings *setti
  *
  * Sets whether to ignore other users namespace.
  *
- * Since: 3.12.9
+ * Since: 3.16
  **/
 void
 camel_imapx_settings_set_ignore_other_users_namespace (CamelIMAPXSettings *settings,
@@ -1604,7 +1598,7 @@ camel_imapx_settings_set_ignore_other_users_namespace (CamelIMAPXSettings *setti
  *
  * Returns: whether to ignore namespace for shared folders
  *
- * Since: 3.12.9
+ * Since: 3.16
  **/
 gboolean
 camel_imapx_settings_get_ignore_shared_folders_namespace (CamelIMAPXSettings *settings)
@@ -1621,7 +1615,7 @@ camel_imapx_settings_get_ignore_shared_folders_namespace (CamelIMAPXSettings *se
  *
  * Sets whether to ignore shared folders namespace.
  *
- * Since: 3.12.9
+ * Since: 3.16
  **/
 void
 camel_imapx_settings_set_ignore_shared_folders_namespace (CamelIMAPXSettings *settings,

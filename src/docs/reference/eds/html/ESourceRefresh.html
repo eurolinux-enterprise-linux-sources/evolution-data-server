@@ -1,0 +1,523 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceRefresh: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch02.html" title="Data Source Extensions">
+<link rel="prev" href="ESourceProxy.html" title="ESourceProxy">
+<link rel="next" href="ESourceResource.html" title="ESourceResource">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#ESourceRefresh.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#ESourceRefresh.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ESourceProxy.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ESourceResource.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="ESourceRefresh"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceRefresh.top_of_page"></a>ESourceRefresh</span></h2>
+<p>ESourceRefresh — <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> extension for refresh settings</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="ESourceRefresh.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="ESourceRefresh.html#ESourceRefreshFunc" title="ESourceRefreshFunc ()">*ESourceRefreshFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceRefresh.html#e-source-refresh-get-enabled" title="e_source_refresh_get_enabled ()">e_source_refresh_get_enabled</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceRefresh.html#e-source-refresh-set-enabled" title="e_source_refresh_set_enabled ()">e_source_refresh_set_enabled</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceRefresh.html#e-source-refresh-get-interval-minutes" title="e_source_refresh_get_interval_minutes ()">e_source_refresh_get_interval_minutes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceRefresh.html#e-source-refresh-set-interval-minutes" title="e_source_refresh_set_interval_minutes ()">e_source_refresh_set_interval_minutes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceRefresh.html#e-source-refresh-add-timeout" title="e_source_refresh_add_timeout ()">e_source_refresh_add_timeout</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceRefresh.html#e-source-refresh-force-timeout" title="e_source_refresh_force_timeout ()">e_source_refresh_force_timeout</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceRefresh.html#e-source-refresh-remove-timeout" title="e_source_refresh_remove_timeout ()">e_source_refresh_remove_timeout</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceRefresh.html#e-source-refresh-remove-timeouts-by-data" title="e_source_refresh_remove_timeouts_by_data ()">e_source_refresh_remove_timeouts_by_data</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="ESourceRefresh.html#E-SOURCE-EXTENSION-REFRESH:CAPS" title="E_SOURCE_EXTENSION_REFRESH">E_SOURCE_EXTENSION_REFRESH</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="ESourceRefresh.html#ESourceRefresh-struct" title="struct ESourceRefresh">ESourceRefresh</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="ESourceExtension.html" title="ESourceExtension">ESourceExtension</a>
+        <span class="lineart">╰──</span> ESourceRefresh
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedataserver/libedataserver.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.description"></a><h2>Description</h2>
+<p>The <a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> extension tracks the interval for fetching
+updates from a remote server.</p>
+<p>Access the extension as follows:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;libedataserver/libedataserver.h&gt;</span>
+
+<span class="usertype">ESourceRefresh</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">extension</span><span class="symbol">;</span>
+
+<span class="normal">extension </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ESource.html#e-source-get-extension">e_source_get_extension</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">source</span><span class="symbol">,</span><span class="normal"> <a href="ESourceRefresh.html#E-SOURCE-EXTENSION-REFRESH:CAPS">E_SOURCE_EXTENSION_REFRESH</a></span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="ESourceRefreshFunc"></a><h3>ESourceRefreshFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*ESourceRefreshFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="refsect3">
+<a name="ESourceRefreshFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data provided to the callback function</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-get-enabled"></a><h3>e_source_refresh_get_enabled ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_source_refresh_get_enabled (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>);</pre>
+<p>Returns whether to periodically fetch updates from a remote server.</p>
+<p>The refresh interval is determined by the <span class="type">“interval-minutes”</span>
+property.</p>
+<div class="refsect3">
+<a name="e-source-refresh-get-enabled.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-refresh-get-enabled.returns"></a><h4>Returns</h4>
+<p> whether periodic refresh is enabled</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-set-enabled"></a><h3>e_source_refresh_set_enabled ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_refresh_set_enabled (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> enabled</code></em>);</pre>
+<p>Sets whether to periodically fetch updates from a remote server.</p>
+<p>The refresh interval is determined by the <span class="type">“interval-minutes”</span>
+property.</p>
+<div class="refsect3">
+<a name="e-source-refresh-set-enabled.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>enabled</p></td>
+<td class="parameter_description"><p>whether to enable periodic refresh</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-get-interval-minutes"></a><h3>e_source_refresh_get_interval_minutes ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+e_source_refresh_get_interval_minutes (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>);</pre>
+<p>Returns the interval for fetching updates from a remote server.</p>
+<p>Note this value is only effective when the <span class="type">“enabled”</span>
+property is <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-refresh-get-interval-minutes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-refresh-get-interval-minutes.returns"></a><h4>Returns</h4>
+<p> the interval in minutes</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-set-interval-minutes"></a><h3>e_source_refresh_set_interval_minutes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_refresh_set_interval_minutes (<em class="parameter"><code><a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a> *extension</code></em>,
+                                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> interval_minutes</code></em>);</pre>
+<p>Sets the interval for fetching updates from a remote server.</p>
+<p>Note this value is only effective when the <span class="type">“enabled”</span>
+property is <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-refresh-set-interval-minutes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>interval_minutes</p></td>
+<td class="parameter_description"><p>the interval in minutes</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-add-timeout"></a><h3>e_source_refresh_add_timeout ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+e_source_refresh_add_timeout (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *context</code></em>,
+                              <em class="parameter"><code><a class="link" href="ESourceRefresh.html#ESourceRefreshFunc" title="ESourceRefreshFunc ()"><span class="type">ESourceRefreshFunc</span></a> callback</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> notify</code></em>);</pre>
+<p>This is a simple way to schedule a periodic data source refresh.</p>
+<p>Adds a timeout <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a> to <em class="parameter"><code>context</code></em>
+ and handles all the bookkeeping
+if <em class="parameter"><code>source</code></em>
+'s refresh <span class="type">“enabled”</span> state or its refresh
+<span class="type">“interval-minutes”</span> value changes.  The <em class="parameter"><code>callback</code></em>
+ is
+expected to dispatch an asynchronous job to connect to and fetch
+updates from a remote server.</p>
+<p>The returned ID can be passed to <a class="link" href="ESourceRefresh.html#e-source-refresh-remove-timeout" title="e_source_refresh_remove_timeout ()"><code class="function">e_source_refresh_remove_timeout()</code></a> to
+remove the timeout from <em class="parameter"><code>context</code></em>
+.  Note the ID is a private handle and
+cannot be passed to <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#g-source-remove"><code class="function">g_source_remove()</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-refresh-add-timeout.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>context</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> (if <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, the default
+context will be used). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>function to call on each timeout</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>data to pass to <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>notify</p></td>
+<td class="parameter_description"><p> function to call when the timeout is removed,
+or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-refresh-add-timeout.returns"></a><h4>Returns</h4>
+<p> a refresh timeout ID</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-force-timeout"></a><h3>e_source_refresh_force_timeout ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_refresh_force_timeout (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<p>For all timeouts added with <a class="link" href="ESourceRefresh.html#e-source-refresh-add-timeout" title="e_source_refresh_add_timeout ()"><code class="function">e_source_refresh_add_timeout()</code></a>, invokes
+the <a class="link" href="ESourceRefresh.html#ESourceRefreshFunc" title="ESourceRefreshFunc ()"><span class="type">ESourceRefreshFunc</span></a> callback immediately and then, if the refresh
+<span class="type">“enabled”</span> state is TRUE, reschedules the timeout.</p>
+<p>This function is called automatically when the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> switches from
+disabled to enabled, but can also be useful when a network connection
+becomes available or when waking up from hibernation or suspend.</p>
+<div class="refsect3">
+<a name="e-source-refresh-force-timeout.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-remove-timeout"></a><h3>e_source_refresh_remove_timeout ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_source_refresh_remove_timeout (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> refresh_timeout_id</code></em>);</pre>
+<p>Removes a timeout <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a> added by <a class="link" href="ESourceRefresh.html#e-source-refresh-add-timeout" title="e_source_refresh_add_timeout ()"><code class="function">e_source_refresh_add_timeout()</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-refresh-remove-timeout.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>refresh_timeout_id</p></td>
+<td class="parameter_description"><p>a refresh timeout ID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-refresh-remove-timeout.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the timeout was found and removed</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-refresh-remove-timeouts-by-data"></a><h3>e_source_refresh_remove_timeouts_by_data ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>
+e_source_refresh_remove_timeouts_by_data
+                               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Removes all timeout <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GSource"><span class="type">GSource</span></a>'s added by <a class="link" href="ESourceRefresh.html#e-source-refresh-add-timeout" title="e_source_refresh_add_timeout ()"><code class="function">e_source_refresh_add_timeout()</code></a>
+whose callback data pointer matches <em class="parameter"><code>user_data</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-refresh-remove-timeouts-by-data.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data to match against timeout callbacks</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-refresh-remove-timeouts-by-data.returns"></a><h4>Returns</h4>
+<p> the number of timeouts found and removed</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceRefresh.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="E-SOURCE-EXTENSION-REFRESH:CAPS"></a><h3>E_SOURCE_EXTENSION_REFRESH</h3>
+<pre class="programlisting">#define E_SOURCE_EXTENSION_REFRESH "Refresh"
+</pre>
+<p>Pass this extension name to <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a> to access
+<a class="link" href="ESourceRefresh.html" title="ESourceRefresh"><span class="type">ESourceRefresh</span></a>.  This is also used as a group name in key files.</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceRefresh-struct"></a><h3>struct ESourceRefresh</h3>
+<pre class="programlisting">struct ESourceRefresh;</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

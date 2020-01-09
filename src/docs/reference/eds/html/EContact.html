@@ -1,0 +1,2515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EContact: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch04.html" title="Addressbook">
+<link rel="prev" href="EVCard.html" title="EVCard">
+<link rel="next" href="ch05.html" title="Calendar">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#EContact.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#EContact.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="EVCard.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch05.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="EContact"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EContact.top_of_page"></a>EContact</span></h2>
+<p>EContact — A convenience interface for interacting with contacts</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="EContact.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html" title="EContact"><span class="returnvalue">EContact</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-new" title="e_contact_new ()">e_contact_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html" title="EContact"><span class="returnvalue">EContact</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-new-from-vcard" title="e_contact_new_from_vcard ()">e_contact_new_from_vcard</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html" title="EContact"><span class="returnvalue">EContact</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-new-from-vcard-with-uid" title="e_contact_new_from_vcard_with_uid ()">e_contact_new_from_vcard_with_uid</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html" title="EContact"><span class="returnvalue">EContact</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-duplicate" title="e_contact_duplicate ()">e_contact_duplicate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-get" title="e_contact_get ()">e_contact_get</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gconstpointer"><span class="returnvalue">gconstpointer</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-get-const" title="e_contact_get_const ()">e_contact_get_const</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-set" title="e_contact_set ()">e_contact_set</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-get-attributes" title="e_contact_get_attributes ()">e_contact_get_attributes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-get-attributes-set" title="e_contact_get_attributes_set ()">e_contact_get_attributes_set</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-set-attributes" title="e_contact_set_attributes ()">e_contact_set_attributes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactDate"><span class="returnvalue">EContactDate</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-date-new" title="e_contact_date_new ()">e_contact_date_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactDate"><span class="returnvalue">EContactDate</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-date-from-string" title="e_contact_date_from_string ()">e_contact_date_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-date-to-string" title="e_contact_date_to_string ()">e_contact_date_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-date-equal" title="e_contact_date_equal ()">e_contact_date_equal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-date-free" title="e_contact_date_free ()">e_contact_date_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactName"><span class="returnvalue">EContactName</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-name-new" title="e_contact_name_new ()">e_contact_name_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-name-to-string" title="e_contact_name_to_string ()">e_contact_name_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactName"><span class="returnvalue">EContactName</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-name-from-string" title="e_contact_name_from_string ()">e_contact_name_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactName"><span class="returnvalue">EContactName</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-name-copy" title="e_contact_name_copy ()">e_contact_name_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-name-free" title="e_contact_name_free ()">e_contact_name_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactPhoto"><span class="returnvalue">EContactPhoto</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-photo-new" title="e_contact_photo_new ()">e_contact_photo_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-photo-free" title="e_contact_photo_free ()">e_contact_photo_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactPhoto"><span class="returnvalue">EContactPhoto</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-photo-copy" title="e_contact_photo_copy ()">e_contact_photo_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="returnvalue">guchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-photo-get-inlined" title="e_contact_photo_get_inlined ()">e_contact_photo_get_inlined</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-photo-set-inlined" title="e_contact_photo_set_inlined ()">e_contact_photo_set_inlined</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-photo-get-mime-type" title="e_contact_photo_get_mime_type ()">e_contact_photo_get_mime_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-photo-set-mime-type" title="e_contact_photo_set_mime_type ()">e_contact_photo_set_mime_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-photo-get-uri" title="e_contact_photo_get_uri ()">e_contact_photo_get_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-photo-set-uri" title="e_contact_photo_set_uri ()">e_contact_photo_set_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-inline-local-photos" title="e_contact_inline_local_photos ()">e_contact_inline_local_photos</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactGeo"><span class="returnvalue">EContactGeo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-geo-new" title="e_contact_geo_new ()">e_contact_geo_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-geo-free" title="e_contact_geo_free ()">e_contact_geo_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactCert"><span class="returnvalue">EContactCert</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-cert-new" title="e_contact_cert_new ()">e_contact_cert_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-cert-free" title="e_contact_cert_free ()">e_contact_cert_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactAddress"><span class="returnvalue">EContactAddress</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-address-new" title="e_contact_address_new ()">e_contact_address_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-address-free" title="e_contact_address_free ()">e_contact_address_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-attr-list-copy" title="e_contact_attr_list_copy ()">e_contact_attr_list_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-attr-list-free" title="e_contact_attr_list_free ()">e_contact_attr_list_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-field-type" title="e_contact_field_type ()">e_contact_field_type</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-field-name" title="e_contact_field_name ()">e_contact_field_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-pretty-name" title="e_contact_pretty_name ()">e_contact_pretty_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-vcard-attribute" title="e_contact_vcard_attribute ()">e_contact_vcard_attribute</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-field-is-string" title="e_contact_field_is_string ()">e_contact_field_is_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="returnvalue">EContactField</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-field-id" title="e_contact_field_id ()">e_contact_field_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="returnvalue">EContactField</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EContact.html#e-contact-field-id-from-vcard" title="e_contact_field_id_from_vcard ()">e_contact_field_id_from_vcard</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<a name="EContactGeo"></a><a name="EContactAddress"></a><a name="EContactCert"></a><a name="EContactDate"></a><a name="EContactName"></a><a name="EContactPhoto"></a><div class="refsect1">
+<a name="EContact.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="EContact.html#EContactField" title="enum EContactField">EContactField</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="EContact.html#EContactGeo-struct" title="EContactGeo">EContactGeo</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="EContact.html#EContactPhotoType" title="enum EContactPhotoType">EContactPhotoType</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EContact.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html">GBoxed</a>
+    <span class="lineart">├──</span> EContactAddress
+    <span class="lineart">├──</span> EContactCert
+    <span class="lineart">├──</span> EContactDate
+    <span class="lineart">├──</span> EContactGeo
+    <span class="lineart">├──</span> EContactName
+    <span class="lineart">╰──</span> EContactPhoto
+    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="EVCard.html" title="EVCard">EVCard</a>
+        <span class="lineart">╰──</span> EContact
+</pre>
+</div>
+<div class="refsect1">
+<a name="EContact.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libebook-contacts/libebook-contacts.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="EContact.description"></a><h2>Description</h2>
+<p>This subclass of <a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> is a convenient interface for interacting with
+vCards. The <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a>, <a class="link" href="EBookClientView.html" title="EBookClientView"><span class="type">EBookClientView</span></a> and <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> return
+vCards in the form of an <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> for your convenience.</p>
+</div>
+<div class="refsect1">
+<a name="EContact.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-contact-new"></a><h3>e_contact_new ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html" title="EContact"><span class="returnvalue">EContact</span></a> *
+e_contact_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new, blank <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a>.</p>
+<div class="refsect3">
+<a name="e-contact-new.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-new-from-vcard"></a><h3>e_contact_new_from_vcard ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html" title="EContact"><span class="returnvalue">EContact</span></a> *
+e_contact_new_from_vcard (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);</pre>
+<p>Creates a new <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> based on a vcard.</p>
+<div class="refsect3">
+<a name="e-contact-new-from-vcard.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>vcard</p></td>
+<td class="parameter_description"><p>a string representing a vcard</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-new-from-vcard.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a>.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-new-from-vcard-with-uid"></a><h3>e_contact_new_from_vcard_with_uid ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html" title="EContact"><span class="returnvalue">EContact</span></a> *
+e_contact_new_from_vcard_with_uid (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>,
+                                   <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
+<p>Creates a new <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> based on a vcard and a predefined UID.</p>
+<div class="refsect3">
+<a name="e-contact-new-from-vcard-with-uid.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>vcard</p></td>
+<td class="parameter_description"><p>a string representing a vcard</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>a contact UID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-new-from-vcard-with-uid.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a>.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-duplicate"></a><h3>e_contact_duplicate ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html" title="EContact"><span class="returnvalue">EContact</span></a> *
+e_contact_duplicate (<em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>);</pre>
+<p>Creates a copy of <em class="parameter"><code>contact</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-duplicate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-duplicate.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> identical to <em class="parameter"><code>contact</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-get"></a><h3>e_contact_get ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>
+e_contact_get (<em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>,
+               <em class="parameter"><code><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_id</code></em>);</pre>
+<p>Gets the value of <em class="parameter"><code>contact</code></em>
+'s field specified by <em class="parameter"><code>field_id</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-get.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>field_id</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-get.returns"></a><h4>Returns</h4>
+<p> Depends on the field's type, owned by the caller. This may be <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the field isn't set. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-get-const"></a><h3>e_contact_get_const ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gconstpointer"><span class="returnvalue">gconstpointer</span></a>
+e_contact_get_const (<em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>,
+                     <em class="parameter"><code><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_id</code></em>);</pre>
+<p>Gets the value of <em class="parameter"><code>contact</code></em>
+'s field specified by <em class="parameter"><code>field_id</code></em>
+, caching
+the result so it can be freed later. Use <a class="link" href="EContact.html#e-contact-field-is-string" title="e_contact_field_is_string ()"><code class="function">e_contact_field_is_string()</code></a>
+to check whether the field can be used here.</p>
+<div class="refsect3">
+<a name="e-contact-get-const.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>field_id</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-get-const.returns"></a><h4>Returns</h4>
+<p> Depends on the field's type, owned by the
+<a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-set"></a><h3>e_contact_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_set (<em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>,
+               <em class="parameter"><code><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_id</code></em>,
+               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> value</code></em>);</pre>
+<p>Sets the value of <em class="parameter"><code>contact</code></em>
+'s field specified by <em class="parameter"><code>field_id</code></em>
+ to <em class="parameter"><code>value</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-set.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>field_id</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>a value whose type depends on the <em class="parameter"><code>field_id</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-get-attributes"></a><h3>e_contact_get_attributes ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_contact_get_attributes (<em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>,
+                          <em class="parameter"><code><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_id</code></em>);</pre>
+<p>Gets a list of the vcard attributes for <em class="parameter"><code>contact</code></em>
+'s <em class="parameter"><code>field_id</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-get-attributes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>field_id</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-get-attributes.returns"></a><h4>Returns</h4>
+<p> A <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of pointers
+to <a class="link" href="EVCard.html#EVCardAttribute"><span class="type">EVCardAttribute</span></a>, owned by the caller. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EVCardAttribute]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-get-attributes-set"></a><h3>e_contact_get_attributes_set ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_contact_get_attributes_set (<em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>,
+                              <em class="parameter"><code>const <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_ids[]</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> size</code></em>);</pre>
+<p>Gets a list of the vcard attributes for <em class="parameter"><code>contact</code></em>
+'s <em class="parameter"><code>field_ids</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-get-attributes-set.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>field_ids</p></td>
+<td class="parameter_description"><p>an array of <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>size</p></td>
+<td class="parameter_description"><p>number of elements in field_ids</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-get-attributes-set.returns"></a><h4>Returns</h4>
+<p> A <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of pointers
+to <a class="link" href="EVCard.html#EVCardAttribute"><span class="type">EVCardAttribute</span></a>, owned by the caller. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EVCardAttribute]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-set-attributes"></a><h3>e_contact_set_attributes ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_set_attributes (<em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>,
+                          <em class="parameter"><code><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_id</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *attributes</code></em>);</pre>
+<p>Sets the vcard attributes for <em class="parameter"><code>contact</code></em>
+'s <em class="parameter"><code>field_id</code></em>
+.
+Attributes are added to the contact in the same order as they are in <em class="parameter"><code>attributes</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-set-attributes.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>field_id</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>attributes</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of pointers to <a class="link" href="EVCard.html#EVCardAttribute"><span class="type">EVCardAttribute</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EVCardAttribute]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-date-new"></a><h3>e_contact_date_new ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactDate"><span class="returnvalue">EContactDate</span></a> *
+e_contact_date_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a> struct.</p>
+<div class="refsect3">
+<a name="e-contact-date-new.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a> struct.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-date-from-string"></a><h3>e_contact_date_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactDate"><span class="returnvalue">EContactDate</span></a> *
+e_contact_date_from_string (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *str</code></em>);</pre>
+<p>Creates a new <a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a> based on <em class="parameter"><code>str</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-date-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>a date string in the format YYYY-MM-DD or YYYYMMDD</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-date-from-string.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a> struct.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-date-to-string"></a><h3>e_contact_date_to_string ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_contact_date_to_string (<em class="parameter"><code><a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a> *dt</code></em>);</pre>
+<p>Generates a date string in the format YYYY-MM-DD based
+on the values of <em class="parameter"><code>dt</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-date-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dt</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-date-to-string.returns"></a><h4>Returns</h4>
+<p> A date string, owned by the caller.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-date-equal"></a><h3>e_contact_date_equal ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_contact_date_equal (<em class="parameter"><code><a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a> *dt1</code></em>,
+                      <em class="parameter"><code><a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a> *dt2</code></em>);</pre>
+<p>Checks if <em class="parameter"><code>dt1</code></em>
+ and <em class="parameter"><code>dt2</code></em>
+ are the same date.</p>
+<div class="refsect3">
+<a name="e-contact-date-equal.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dt1</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dt2</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-date-equal.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>dt1</code></em>
+and <em class="parameter"><code>dt2</code></em>
+are equal, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-date-free"></a><h3>e_contact_date_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_date_free (<em class="parameter"><code><a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a> *date</code></em>);</pre>
+<p>Frees the <em class="parameter"><code>date</code></em>
+ struct and its contents.</p>
+<div class="refsect3">
+<a name="e-contact-date-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>date</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactDate"><span class="type">EContactDate</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-name-new"></a><h3>e_contact_name_new ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactName"><span class="returnvalue">EContactName</span></a> *
+e_contact_name_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a> struct.</p>
+<div class="refsect3">
+<a name="e-contact-name-new.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a> struct.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-name-to-string"></a><h3>e_contact_name_to_string ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_contact_name_to_string (<em class="parameter"><code>const <a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a> *name</code></em>);</pre>
+<p>Generates a string representation of <em class="parameter"><code>name</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-name-to-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-name-to-string.returns"></a><h4>Returns</h4>
+<p> The string representation of <em class="parameter"><code>name</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-name-from-string"></a><h3>e_contact_name_from_string ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactName"><span class="returnvalue">EContactName</span></a> *
+e_contact_name_from_string (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name_str</code></em>);</pre>
+<p>Creates a new <a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a> based on the parsed <em class="parameter"><code>name_str</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-name-from-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>name_str</p></td>
+<td class="parameter_description"><p>a string representing a contact's full name</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-name-from-string.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a> struct.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-name-copy"></a><h3>e_contact_name_copy ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactName"><span class="returnvalue">EContactName</span></a> *
+e_contact_name_copy (<em class="parameter"><code><a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a> *n</code></em>);</pre>
+<p>Creates a copy of <em class="parameter"><code>n</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-name-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>n</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-name-copy.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a> identical to <em class="parameter"><code>n</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-name-free"></a><h3>e_contact_name_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_name_free (<em class="parameter"><code><a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a> *name</code></em>);</pre>
+<p>Frees <em class="parameter"><code>name</code></em>
+ and its contents.</p>
+<div class="refsect3">
+<a name="e-contact-name-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactName"><span class="type">EContactName</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-photo-new"></a><h3>e_contact_photo_new ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactPhoto"><span class="returnvalue">EContactPhoto</span></a> *
+e_contact_photo_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> struct.</p>
+<div class="refsect3">
+<a name="e-contact-photo-new.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> struct. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-photo-free"></a><h3>e_contact_photo_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_photo_free (<em class="parameter"><code><a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> *photo</code></em>);</pre>
+<p>Frees the <em class="parameter"><code>photo</code></em>
+ struct and its contents.</p>
+<div class="refsect3">
+<a name="e-contact-photo-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>photo</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> struct</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-photo-copy"></a><h3>e_contact_photo_copy ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactPhoto"><span class="returnvalue">EContactPhoto</span></a> *
+e_contact_photo_copy (<em class="parameter"><code><a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> *photo</code></em>);</pre>
+<p>Creates a copy of <em class="parameter"><code>photo</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-photo-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>photo</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-photo-copy.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> struct identical to <em class="parameter"><code>photo</code></em>
+.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-photo-get-inlined"></a><h3>e_contact_photo_get_inlined ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="returnvalue">guchar</span></a> *
+e_contact_photo_get_inlined (<em class="parameter"><code><a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> *photo</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> *len</code></em>);</pre>
+<p>Gets the <em class="parameter"><code>photo</code></em>
+'s data.</p>
+<div class="refsect3">
+<a name="e-contact-photo-get-inlined.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>photo</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>len</p></td>
+<td class="parameter_description"><p> the length of the inlined data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Out parameter, where caller must allocate storage."><span class="acronym">out caller-allocates</span></acronym>][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-photo-get-inlined.returns"></a><h4>Returns</h4>
+<p> the inlined image in the
+<a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if it has not been set. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-photo-set-inlined"></a><h3>e_contact_photo_set_inlined ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_photo_set_inlined (<em class="parameter"><code><a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> *photo</code></em>,
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *data</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>);</pre>
+<p>Sets the <em class="parameter"><code>photo</code></em>
+'s inlined data.</p>
+<div class="refsect3">
+<a name="e-contact-photo-set-inlined.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>photo</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p> the inlined image data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>len</p></td>
+<td class="parameter_description"><p>the length of <em class="parameter"><code>data</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-photo-get-mime-type"></a><h3>e_contact_photo_get_mime_type ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_contact_photo_get_mime_type (<em class="parameter"><code><a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> *photo</code></em>);</pre>
+<p>Gets the <em class="parameter"><code>photo</code></em>
+'s mime type.</p>
+<div class="refsect3">
+<a name="e-contact-photo-get-mime-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>photo</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-photo-get-mime-type.returns"></a><h4>Returns</h4>
+<p> the MIME type of the image, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if it has not been set. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-photo-set-mime-type"></a><h3>e_contact_photo_set_mime_type ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_photo_set_mime_type (<em class="parameter"><code><a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> *photo</code></em>,
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *mime_type</code></em>);</pre>
+<p>Sets the <em class="parameter"><code>photo</code></em>
+'s mime type.</p>
+<div class="refsect3">
+<a name="e-contact-photo-set-mime-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>photo</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>mime_type</p></td>
+<td class="parameter_description"><p>the mime type</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-photo-get-uri"></a><h3>e_contact_photo_get_uri ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_contact_photo_get_uri (<em class="parameter"><code><a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> *photo</code></em>);</pre>
+<p>Gets the <em class="parameter"><code>photo</code></em>
+'s URI.</p>
+<div class="refsect3">
+<a name="e-contact-photo-get-uri.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>photo</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-photo-get-uri.returns"></a><h4>Returns</h4>
+<p> the URI of the image, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if it has not been set. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-photo-set-uri"></a><h3>e_contact_photo_set_uri ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_photo_set_uri (<em class="parameter"><code><a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> *photo</code></em>,
+                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>);</pre>
+<p>Sets the <em class="parameter"><code>photo</code></em>
+'s URI.</p>
+<div class="refsect3">
+<a name="e-contact-photo-set-uri.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>photo</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>the <em class="parameter"><code>photo</code></em>
+'s URI</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-inline-local-photos"></a><h3>e_contact_inline_local_photos ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_contact_inline_local_photos (<em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Tries to modify any <a class="link" href="EContact.html#EContactPhoto"><span class="type">EContactPhoto</span></a> fields which are
+stored on the local file system as type <a class="link" href="EContact.html#E-CONTACT-PHOTO-TYPE-URI:CAPS"><code class="literal">E_CONTACT_PHOTO_TYPE_URI</code></a>
+to be inlined and stored as <a class="link" href="EContact.html#E-CONTACT-PHOTO-TYPE-INLINED:CAPS"><code class="literal">E_CONTACT_PHOTO_TYPE_INLINED</code></a> instead.</p>
+<div class="refsect3">
+<a name="e-contact-inline-local-photos.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>the location to store any <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> which might occur</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-inline-local-photos.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if there were no errors, upon error <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned
+and <em class="parameter"><code>error</code></em>
+is set.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-geo-new"></a><h3>e_contact_geo_new ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactGeo"><span class="returnvalue">EContactGeo</span></a> *
+e_contact_geo_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates an <a class="link" href="EContact.html#EContactGeo"><span class="type">EContactGeo</span></a> struct with all coordinates set to 0.</p>
+<div class="refsect3">
+<a name="e-contact-geo-new.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html#EContactGeo"><span class="type">EContactGeo</span></a> struct. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-geo-free"></a><h3>e_contact_geo_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_geo_free (<em class="parameter"><code><a class="link" href="EContact.html#EContactGeo"><span class="type">EContactGeo</span></a> *geo</code></em>);</pre>
+<p>Frees the <em class="parameter"><code>geo</code></em>
+ struct and its contents.</p>
+<div class="refsect3">
+<a name="e-contact-geo-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>geo</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactGeo"><span class="type">EContactGeo</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1.12.html" title="Index of new symbols in 1.12">1.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-cert-new"></a><h3>e_contact_cert_new ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactCert"><span class="returnvalue">EContactCert</span></a> *
+e_contact_cert_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates an <a class="link" href="EContact.html#EContactCert"><span class="type">EContactCert</span></a> struct with all values set to 0.</p>
+<div class="refsect3">
+<a name="e-contact-cert-new.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html#EContactCert"><span class="type">EContactCert</span></a> struct. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-cert-free"></a><h3>e_contact_cert_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_cert_free (<em class="parameter"><code><a class="link" href="EContact.html#EContactCert"><span class="type">EContactCert</span></a> *cert</code></em>);</pre>
+<p>Frees the <em class="parameter"><code>cert</code></em>
+ struct and its contents.</p>
+<div class="refsect3">
+<a name="e-contact-cert-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cert</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactCert"><span class="type">EContactCert</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-address-new"></a><h3>e_contact_address_new ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactAddress"><span class="returnvalue">EContactAddress</span></a> *
+e_contact_address_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="EContact.html#EContactAddress"><span class="type">EContactAddress</span></a> struct.</p>
+<div class="refsect3">
+<a name="e-contact-address-new.returns"></a><h4>Returns</h4>
+<p> A new <a class="link" href="EContact.html#EContactAddress"><span class="type">EContactAddress</span></a> struct. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-address-free"></a><h3>e_contact_address_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_address_free (<em class="parameter"><code><a class="link" href="EContact.html#EContactAddress"><span class="type">EContactAddress</span></a> *address</code></em>);</pre>
+<p>Frees the <em class="parameter"><code>address</code></em>
+ struct and its contents.</p>
+<div class="refsect3">
+<a name="e-contact-address-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>address</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactAddress"><span class="type">EContactAddress</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-attr-list-copy"></a><h3>e_contact_attr_list_copy ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_contact_attr_list_copy (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list</code></em>);</pre>
+<p>Copies a list of allocated strings, specifically
+for the <span class="type">EContactAttrList</span> boxed type used for multi valued
+contact fields.</p>
+<div class="refsect3">
+<a name="e-contact-attr-list-copy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of strings</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-attr-list-copy.returns"></a><h4>Returns</h4>
+<p> A copy of <em class="parameter"><code>list</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-attr-list-free"></a><h3>e_contact_attr_list_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_contact_attr_list_free (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list</code></em>);</pre>
+<p>Frees a list of allocated strings, specifically
+for the <span class="type">EContactAttrList</span> boxed type used for multi valued
+contact fields.</p>
+<div class="refsect3">
+<a name="e-contact-attr-list-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>A <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of strings</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-field-type"></a><h3>e_contact_field_type ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="returnvalue">GType</span></a>
+e_contact_field_type (<em class="parameter"><code><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_id</code></em>);</pre>
+<p>Gets the <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a> used for this contact field, this indicates
+what kind of value can be passed to <a class="link" href="EContact.html#e-contact-set" title="e_contact_set ()"><code class="function">e_contact_set()</code></a>.</p>
+<div class="refsect3">
+<a name="e-contact-field-type.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>field_id</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-field-type.returns"></a><h4>Returns</h4>
+<p> The <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#GType"><span class="type">GType</span></a> used for <em class="parameter"><code>field_id</code></em>
+, or <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#G-TYPE-INVALID:CAPS"><code class="literal">G_TYPE_INVALID</code></a> if it doesn't exist.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.8.html" title="Index of new symbols in 3.8">3.8</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-field-name"></a><h3>e_contact_field_name ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_contact_field_name (<em class="parameter"><code><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_id</code></em>);</pre>
+<p>Gets the string representation of <em class="parameter"><code>field_id</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-field-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>field_id</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-field-name.returns"></a><h4>Returns</h4>
+<p> The string representation of <em class="parameter"><code>field_id</code></em>
+, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if it doesn't exist.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-pretty-name"></a><h3>e_contact_pretty_name ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_contact_pretty_name (<em class="parameter"><code><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_id</code></em>);</pre>
+<p>Gets a human-readable, translated string representation
+of <em class="parameter"><code>field_id</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-pretty-name.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>field_id</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-pretty-name.returns"></a><h4>Returns</h4>
+<p> The human-readable representation of <em class="parameter"><code>field_id</code></em>
+, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if it doesn't exist.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-vcard-attribute"></a><h3>e_contact_vcard_attribute ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_contact_vcard_attribute (<em class="parameter"><code><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_id</code></em>);</pre>
+<p>Gets the vcard attribute corresponding to <em class="parameter"><code>field_id</code></em>
+, as a string.</p>
+<div class="refsect3">
+<a name="e-contact-vcard-attribute.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>field_id</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-vcard-attribute.returns"></a><h4>Returns</h4>
+<p> The vcard attribute corresponding to <em class="parameter"><code>field_id</code></em>
+, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if it doesn't exist.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-field-is-string"></a><h3>e_contact_field_is_string ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_contact_field_is_string (<em class="parameter"><code><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> field_id</code></em>);</pre>
+<p>Returns whether the <em class="parameter"><code>field_id</code></em>
+ is of a string type,
+thus it can be used with <a class="link" href="EContact.html#e-contact-get-const" title="e_contact_get_const ()"><code class="function">e_contact_get_const()</code></a>.</p>
+<div class="refsect3">
+<a name="e-contact-field-is-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>field_id</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-field-is-string.returns"></a><h4>Returns</h4>
+<p> Whether the <em class="parameter"><code>field_id</code></em>
+is of a string type.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-field-id"></a><h3>e_contact_field_id ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="returnvalue">EContactField</span></a>
+e_contact_field_id (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *field_name</code></em>);</pre>
+<p>Gets the <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> corresponding to the <em class="parameter"><code>field_name</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-field-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>field_name</p></td>
+<td class="parameter_description"><p>a string representing a contact field</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-field-id.returns"></a><h4>Returns</h4>
+<p> An <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> corresponding to <em class="parameter"><code>field_name</code></em>
+, or <code class="literal">0</code> if it doesn't exist.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-contact-field-id-from-vcard"></a><h3>e_contact_field_id_from_vcard ()</h3>
+<pre class="programlisting"><a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="returnvalue">EContactField</span></a>
+e_contact_field_id_from_vcard (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard_field</code></em>);</pre>
+<p>Gets the <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> corresponding to the <em class="parameter"><code>vcard_field</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-contact-field-id-from-vcard.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>vcard_field</p></td>
+<td class="parameter_description"><p>a string representing a vCard field</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-contact-field-id-from-vcard.returns"></a><h4>Returns</h4>
+<p> An <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> corresponding to <em class="parameter"><code>vcard_field</code></em>
+, or <code class="literal">0</code> if it doesn't exist.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2.26.html" title="Index of new symbols in 2.26">2.26</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EContact.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EContactField"></a><h3>enum EContactField</h3>
+<div class="refsect3">
+<a name="EContactField.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-UID:CAPS"></a>E_CONTACT_UID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-FILE-AS:CAPS"></a>E_CONTACT_FILE_AS</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-BOOK-UID:CAPS"></a>E_CONTACT_BOOK_UID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-FULL-NAME:CAPS"></a>E_CONTACT_FULL_NAME</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-GIVEN-NAME:CAPS"></a>E_CONTACT_GIVEN_NAME</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-FAMILY-NAME:CAPS"></a>E_CONTACT_FAMILY_NAME</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-NICKNAME:CAPS"></a>E_CONTACT_NICKNAME</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-EMAIL-1:CAPS"></a>E_CONTACT_EMAIL_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-EMAIL-2:CAPS"></a>E_CONTACT_EMAIL_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-EMAIL-3:CAPS"></a>E_CONTACT_EMAIL_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-EMAIL-4:CAPS"></a>E_CONTACT_EMAIL_4</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-MAILER:CAPS"></a>E_CONTACT_MAILER</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ADDRESS-LABEL-HOME:CAPS"></a>E_CONTACT_ADDRESS_LABEL_HOME</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ADDRESS-LABEL-WORK:CAPS"></a>E_CONTACT_ADDRESS_LABEL_WORK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ADDRESS-LABEL-OTHER:CAPS"></a>E_CONTACT_ADDRESS_LABEL_OTHER</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-ASSISTANT:CAPS"></a>E_CONTACT_PHONE_ASSISTANT</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-BUSINESS:CAPS"></a>E_CONTACT_PHONE_BUSINESS</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-BUSINESS-2:CAPS"></a>E_CONTACT_PHONE_BUSINESS_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-BUSINESS-FAX:CAPS"></a>E_CONTACT_PHONE_BUSINESS_FAX</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-CALLBACK:CAPS"></a>E_CONTACT_PHONE_CALLBACK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-CAR:CAPS"></a>E_CONTACT_PHONE_CAR</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-COMPANY:CAPS"></a>E_CONTACT_PHONE_COMPANY</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-HOME:CAPS"></a>E_CONTACT_PHONE_HOME</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-HOME-2:CAPS"></a>E_CONTACT_PHONE_HOME_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-HOME-FAX:CAPS"></a>E_CONTACT_PHONE_HOME_FAX</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-ISDN:CAPS"></a>E_CONTACT_PHONE_ISDN</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-MOBILE:CAPS"></a>E_CONTACT_PHONE_MOBILE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-OTHER:CAPS"></a>E_CONTACT_PHONE_OTHER</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-OTHER-FAX:CAPS"></a>E_CONTACT_PHONE_OTHER_FAX</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-PAGER:CAPS"></a>E_CONTACT_PHONE_PAGER</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-PRIMARY:CAPS"></a>E_CONTACT_PHONE_PRIMARY</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-RADIO:CAPS"></a>E_CONTACT_PHONE_RADIO</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-TELEX:CAPS"></a>E_CONTACT_PHONE_TELEX</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHONE-TTYTDD:CAPS"></a>E_CONTACT_PHONE_TTYTDD</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ORG:CAPS"></a>E_CONTACT_ORG</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ORG-UNIT:CAPS"></a>E_CONTACT_ORG_UNIT</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-OFFICE:CAPS"></a>E_CONTACT_OFFICE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-TITLE:CAPS"></a>E_CONTACT_TITLE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ROLE:CAPS"></a>E_CONTACT_ROLE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-MANAGER:CAPS"></a>E_CONTACT_MANAGER</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ASSISTANT:CAPS"></a>E_CONTACT_ASSISTANT</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-HOMEPAGE-URL:CAPS"></a>E_CONTACT_HOMEPAGE_URL</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-BLOG-URL:CAPS"></a>E_CONTACT_BLOG_URL</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-CATEGORIES:CAPS"></a>E_CONTACT_CATEGORIES</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-CALENDAR-URI:CAPS"></a>E_CONTACT_CALENDAR_URI</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-FREEBUSY-URL:CAPS"></a>E_CONTACT_FREEBUSY_URL</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ICS-CALENDAR:CAPS"></a>E_CONTACT_ICS_CALENDAR</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-VIDEO-URL:CAPS"></a>E_CONTACT_VIDEO_URL</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-SPOUSE:CAPS"></a>E_CONTACT_SPOUSE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-NOTE:CAPS"></a>E_CONTACT_NOTE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-AIM-HOME-1:CAPS"></a>E_CONTACT_IM_AIM_HOME_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-AIM-HOME-2:CAPS"></a>E_CONTACT_IM_AIM_HOME_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-AIM-HOME-3:CAPS"></a>E_CONTACT_IM_AIM_HOME_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-AIM-WORK-1:CAPS"></a>E_CONTACT_IM_AIM_WORK_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-AIM-WORK-2:CAPS"></a>E_CONTACT_IM_AIM_WORK_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-AIM-WORK-3:CAPS"></a>E_CONTACT_IM_AIM_WORK_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GROUPWISE-HOME-1:CAPS"></a>E_CONTACT_IM_GROUPWISE_HOME_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GROUPWISE-HOME-2:CAPS"></a>E_CONTACT_IM_GROUPWISE_HOME_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GROUPWISE-HOME-3:CAPS"></a>E_CONTACT_IM_GROUPWISE_HOME_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GROUPWISE-WORK-1:CAPS"></a>E_CONTACT_IM_GROUPWISE_WORK_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GROUPWISE-WORK-2:CAPS"></a>E_CONTACT_IM_GROUPWISE_WORK_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GROUPWISE-WORK-3:CAPS"></a>E_CONTACT_IM_GROUPWISE_WORK_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-JABBER-HOME-1:CAPS"></a>E_CONTACT_IM_JABBER_HOME_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-JABBER-HOME-2:CAPS"></a>E_CONTACT_IM_JABBER_HOME_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-JABBER-HOME-3:CAPS"></a>E_CONTACT_IM_JABBER_HOME_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-JABBER-WORK-1:CAPS"></a>E_CONTACT_IM_JABBER_WORK_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-JABBER-WORK-2:CAPS"></a>E_CONTACT_IM_JABBER_WORK_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-JABBER-WORK-3:CAPS"></a>E_CONTACT_IM_JABBER_WORK_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-YAHOO-HOME-1:CAPS"></a>E_CONTACT_IM_YAHOO_HOME_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-YAHOO-HOME-2:CAPS"></a>E_CONTACT_IM_YAHOO_HOME_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-YAHOO-HOME-3:CAPS"></a>E_CONTACT_IM_YAHOO_HOME_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-YAHOO-WORK-1:CAPS"></a>E_CONTACT_IM_YAHOO_WORK_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-YAHOO-WORK-2:CAPS"></a>E_CONTACT_IM_YAHOO_WORK_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-YAHOO-WORK-3:CAPS"></a>E_CONTACT_IM_YAHOO_WORK_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-MSN-HOME-1:CAPS"></a>E_CONTACT_IM_MSN_HOME_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-MSN-HOME-2:CAPS"></a>E_CONTACT_IM_MSN_HOME_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-MSN-HOME-3:CAPS"></a>E_CONTACT_IM_MSN_HOME_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-MSN-WORK-1:CAPS"></a>E_CONTACT_IM_MSN_WORK_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-MSN-WORK-2:CAPS"></a>E_CONTACT_IM_MSN_WORK_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-MSN-WORK-3:CAPS"></a>E_CONTACT_IM_MSN_WORK_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-ICQ-HOME-1:CAPS"></a>E_CONTACT_IM_ICQ_HOME_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-ICQ-HOME-2:CAPS"></a>E_CONTACT_IM_ICQ_HOME_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-ICQ-HOME-3:CAPS"></a>E_CONTACT_IM_ICQ_HOME_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-ICQ-WORK-1:CAPS"></a>E_CONTACT_IM_ICQ_WORK_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-ICQ-WORK-2:CAPS"></a>E_CONTACT_IM_ICQ_WORK_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-ICQ-WORK-3:CAPS"></a>E_CONTACT_IM_ICQ_WORK_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-REV:CAPS"></a>E_CONTACT_REV</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-NAME-OR-ORG:CAPS"></a>E_CONTACT_NAME_OR_ORG</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ADDRESS:CAPS"></a>E_CONTACT_ADDRESS</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ADDRESS-HOME:CAPS"></a>E_CONTACT_ADDRESS_HOME</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ADDRESS-WORK:CAPS"></a>E_CONTACT_ADDRESS_WORK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ADDRESS-OTHER:CAPS"></a>E_CONTACT_ADDRESS_OTHER</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-CATEGORY-LIST:CAPS"></a>E_CONTACT_CATEGORY_LIST</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHOTO:CAPS"></a>E_CONTACT_PHOTO</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-LOGO:CAPS"></a>E_CONTACT_LOGO</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-NAME:CAPS"></a>E_CONTACT_NAME</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-EMAIL:CAPS"></a>E_CONTACT_EMAIL</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-AIM:CAPS"></a>E_CONTACT_IM_AIM</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GROUPWISE:CAPS"></a>E_CONTACT_IM_GROUPWISE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-JABBER:CAPS"></a>E_CONTACT_IM_JABBER</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-YAHOO:CAPS"></a>E_CONTACT_IM_YAHOO</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-MSN:CAPS"></a>E_CONTACT_IM_MSN</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-ICQ:CAPS"></a>E_CONTACT_IM_ICQ</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-WANTS-HTML:CAPS"></a>E_CONTACT_WANTS_HTML</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IS-LIST:CAPS"></a>E_CONTACT_IS_LIST</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-LIST-SHOW-ADDRESSES:CAPS"></a>E_CONTACT_LIST_SHOW_ADDRESSES</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-BIRTH-DATE:CAPS"></a>E_CONTACT_BIRTH_DATE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-ANNIVERSARY:CAPS"></a>E_CONTACT_ANNIVERSARY</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-X509-CERT:CAPS"></a>E_CONTACT_X509_CERT</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PGP-CERT:CAPS"></a>E_CONTACT_PGP_CERT</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GADUGADU-HOME-1:CAPS"></a>E_CONTACT_IM_GADUGADU_HOME_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GADUGADU-HOME-2:CAPS"></a>E_CONTACT_IM_GADUGADU_HOME_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GADUGADU-HOME-3:CAPS"></a>E_CONTACT_IM_GADUGADU_HOME_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GADUGADU-WORK-1:CAPS"></a>E_CONTACT_IM_GADUGADU_WORK_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GADUGADU-WORK-2:CAPS"></a>E_CONTACT_IM_GADUGADU_WORK_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GADUGADU-WORK-3:CAPS"></a>E_CONTACT_IM_GADUGADU_WORK_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GADUGADU:CAPS"></a>E_CONTACT_IM_GADUGADU</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-GEO:CAPS"></a>E_CONTACT_GEO</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-TEL:CAPS"></a>E_CONTACT_TEL</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-SKYPE-HOME-1:CAPS"></a>E_CONTACT_IM_SKYPE_HOME_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-SKYPE-HOME-2:CAPS"></a>E_CONTACT_IM_SKYPE_HOME_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-SKYPE-HOME-3:CAPS"></a>E_CONTACT_IM_SKYPE_HOME_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-SKYPE-WORK-1:CAPS"></a>E_CONTACT_IM_SKYPE_WORK_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-SKYPE-WORK-2:CAPS"></a>E_CONTACT_IM_SKYPE_WORK_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-SKYPE-WORK-3:CAPS"></a>E_CONTACT_IM_SKYPE_WORK_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-SKYPE:CAPS"></a>E_CONTACT_IM_SKYPE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-SIP:CAPS"></a>E_CONTACT_SIP</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GOOGLE-TALK-HOME-1:CAPS"></a>E_CONTACT_IM_GOOGLE_TALK_HOME_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GOOGLE-TALK-HOME-2:CAPS"></a>E_CONTACT_IM_GOOGLE_TALK_HOME_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GOOGLE-TALK-HOME-3:CAPS"></a>E_CONTACT_IM_GOOGLE_TALK_HOME_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GOOGLE-TALK-WORK-1:CAPS"></a>E_CONTACT_IM_GOOGLE_TALK_WORK_1</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GOOGLE-TALK-WORK-2:CAPS"></a>E_CONTACT_IM_GOOGLE_TALK_WORK_2</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GOOGLE-TALK-WORK-3:CAPS"></a>E_CONTACT_IM_GOOGLE_TALK_WORK_3</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-GOOGLE-TALK:CAPS"></a>E_CONTACT_IM_GOOGLE_TALK</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-IM-TWITTER:CAPS"></a>E_CONTACT_IM_TWITTER</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-FIELD-LAST:CAPS"></a>E_CONTACT_FIELD_LAST</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-FIELD-FIRST:CAPS"></a>E_CONTACT_FIELD_FIRST</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-LAST-SIMPLE-STRING:CAPS"></a>E_CONTACT_LAST_SIMPLE_STRING</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-FIRST-PHONE-ID:CAPS"></a>E_CONTACT_FIRST_PHONE_ID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-LAST-PHONE-ID:CAPS"></a>E_CONTACT_LAST_PHONE_ID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-FIRST-EMAIL-ID:CAPS"></a>E_CONTACT_FIRST_EMAIL_ID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-LAST-EMAIL-ID:CAPS"></a>E_CONTACT_LAST_EMAIL_ID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-FIRST-ADDRESS-ID:CAPS"></a>E_CONTACT_FIRST_ADDRESS_ID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-LAST-ADDRESS-ID:CAPS"></a>E_CONTACT_LAST_ADDRESS_ID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-FIRST-LABEL-ID:CAPS"></a>E_CONTACT_FIRST_LABEL_ID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-LAST-LABEL-ID:CAPS"></a>E_CONTACT_LAST_LABEL_ID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EContactGeo-struct"></a><h3>EContactGeo</h3>
+<pre class="programlisting">typedef struct {
+	gdouble latitude;
+	gdouble longitude;
+} EContactGeo;
+</pre>
+<div class="refsect3">
+<a name="EContactGeo.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> <em class="structfield"><code><a name="EContactGeo-struct.latitude"></a>latitude</code></em>;</p></td>
+<td class="struct_member_description"><p>latitude</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gdouble"><span class="type">gdouble</span></a> <em class="structfield"><code><a name="EContactGeo-struct.longitude"></a>longitude</code></em>;</p></td>
+<td class="struct_member_description"><p>longitude</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-1.12.html" title="Index of new symbols in 1.12">1.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EContactPhotoType"></a><h3>enum EContactPhotoType</h3>
+<div class="refsect3">
+<a name="EContactPhotoType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHOTO-TYPE-INLINED:CAPS"></a>E_CONTACT_PHOTO_TYPE_INLINED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CONTACT-PHOTO-TYPE-URI:CAPS"></a>E_CONTACT_PHOTO_TYPE_URI</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

@@ -1,24 +1,23 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
- * camel-provider.c: provider framework
- *
- * Authors:
- *  Bertrand Guiheneuf <bertrand@helixcode.com>
- *  Dan Winship <danw@ximian.com>
- *  Jeffrey Stedfast <fejj@ximian.com>
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/* camel-provider.c: provider framework
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
+ *          Dan Winship <danw@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
  */
 
 /* FIXME: Shouldn't we add a version number to providers ? */
@@ -322,18 +321,16 @@ add_to_list (gpointer key,
 }
 
 /**
- * camel_session_list_providers:
- * @session: the session
+ * camel_provider_list:
  * @load: whether or not to load in providers that are not already loaded
  *
- * This returns a list of available providers in this session. If @load
- * is %TRUE, it will first load in all available providers that haven't
- * yet been loaded.
+ * This returns a list of available providers. If @load is %TRUE, it will
+ * first load in all available providers that haven't yet been loaded.
  *
  * Free the returned list with g_list_free().  The #CamelProvider structs
  * in the list are owned by Camel and should not be modified or freed.
  *
- * Returns: a #GList of #CamelProvider structs
+ * Returns: (element-type CamelProvider) (transfer container): a #GList of #CamelProvider structs
  **/
 GList *
 camel_provider_list (gboolean load)
@@ -436,7 +433,7 @@ fail:
  * camel_provider_auto_detect:
  * @provider: camel provider
  * @url: a #CamelURL
- * @auto_detected: output hash table of auto-detected values
+ * @auto_detected: (inout): output hash table of auto-detected values
  * @error: return location for a #GError, or %NULL
  *
  * After filling in the standard Username/Hostname/Port/Path settings

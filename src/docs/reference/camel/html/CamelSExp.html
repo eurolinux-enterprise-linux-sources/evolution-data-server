@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelSExp</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelSExp: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Utilities.html" title="Utilities">
 <link rel="prev" href="camel-camel-search-sql-sexp.html" title="camel-search-sql-sexp">
 <link rel="next" href="camel-camel-string-utils.html" title="camel-string-utils">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelSExp.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -98,7 +98,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSExp.html#camel-sexp-set-scope" title="camel_sexp_set_scope ()">camel_sexp_set_scope</a> <span class="c_punctuation">()</span>
@@ -122,7 +122,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSExp.html#camel-sexp-parse" title="camel_sexp_parse ()">camel_sexp_parse</a> <span class="c_punctuation">()</span>
@@ -193,7 +193,7 @@
 </td>
 </tr>
 <tr>
-<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelSExp.html#camel-sexp-error" title="camel_sexp_error ()">camel_sexp_error</a> <span class="c_punctuation">()</span>
@@ -209,7 +209,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelSExp.html#camel-sexp-evaluate-occur-times" title="camel_sexp_evaluate_occur_times ()">camel_sexp_evaluate_occur_times</a> <span class="c_punctuation">()</span>
@@ -220,15 +220,23 @@
 </div>
 <div class="refsect1">
 <a name="CamelSExp.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
 </colgroup>
 <tbody>
 <tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="CamelSExp.html#CamelSExpResultType" title="enum CamelSExpResultType">CamelSExpResultType</a></td>
+</tr>
+<tr>
 <td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelSExp.html#CamelSExp-struct" title="struct CamelSExp">CamelSExp</a></td>
+<td class="function_name"><a class="link" href="CamelSExp.html#CamelSExpResult" title="struct CamelSExpResult">CamelSExpResult</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="CamelSExp.html#CamelSExpTermType" title="enum CamelSExpTermType">CamelSExpTermType</a></td>
 </tr>
 <tr>
 <td class="datatype_keyword">struct</td>
@@ -236,26 +244,18 @@
 </tr>
 <tr>
 <td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelSExp.html#CamelSExpResult" title="struct CamelSExpResult">CamelSExpResult</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">struct</td>
 <td class="function_name"><a class="link" href="CamelSExp.html#CamelSExpTerm" title="struct CamelSExpTerm">CamelSExpTerm</a></td>
 </tr>
 <tr>
-<td class="datatype_keyword">enum</td>
-<td class="function_name"><a class="link" href="CamelSExp.html#CamelSExpResultType" title="enum CamelSExpResultType">CamelSExpResultType</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">enum</td>
-<td class="function_name"><a class="link" href="CamelSExp.html#CamelSExpTermType" title="enum CamelSExpTermType">CamelSExpTermType</a></td>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="CamelSExp.html#CamelSExp-struct" title="struct CamelSExp">CamelSExp</a></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelSExp.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> CamelSExp
 </pre>
 </div>
@@ -268,107 +268,137 @@
 <a name="CamelSExpFunc"></a><h3>CamelSExpFunc ()</h3>
 <pre class="programlisting"><a class="link" href="CamelSExp.html#CamelSExpResult" title="struct CamelSExpResult"><span class="returnvalue">CamelSExpResult</span></a>
 <span class="c_punctuation">(</span>*CamelSExpFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                  <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> argc</code></em>,
+                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> argc</code></em>,
                   <em class="parameter"><code><a class="link" href="CamelSExp.html#CamelSExpResult" title="struct CamelSExpResult"><span class="type">CamelSExpResult</span></a> **argv</code></em>,
-                  <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
-<p class="since">Since 3.4</p>
+                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CamelSExpIFunc"></a><h3>CamelSExpIFunc ()</h3>
 <pre class="programlisting"><a class="link" href="CamelSExp.html#CamelSExpResult" title="struct CamelSExpResult"><span class="returnvalue">CamelSExpResult</span></a>
 <span class="c_punctuation">(</span>*CamelSExpIFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> argc</code></em>,
+                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> argc</code></em>,
                    <em class="parameter"><code><a class="link" href="CamelSExp.html#CamelSExpTerm" title="struct CamelSExpTerm"><span class="type">CamelSExpTerm</span></a> **argv</code></em>,
-                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
-<p class="since">Since 3.4</p>
+                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-new"></a><h3>camel_sexp_new ()</h3>
 <pre class="programlisting"><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="returnvalue">CamelSExp</span></a> *
 camel_sexp_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-add-function"></a><h3>camel_sexp_add_function ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_sexp_add_function (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> scope</code></em>,
-                         <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> scope</code></em>,
+                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
                          <em class="parameter"><code><a class="link" href="CamelSExp.html#CamelSExpFunc" title="CamelSExpFunc ()"><span class="type">CamelSExpFunc</span></a> func</code></em>,
-                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
-<p class="since">Since 3.4</p>
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-sexp-add-function.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-add-ifunction"></a><h3>camel_sexp_add_ifunction ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_sexp_add_ifunction (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> scope</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> scope</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
                           <em class="parameter"><code><a class="link" href="CamelSExp.html#CamelSExpIFunc" title="CamelSExpIFunc ()"><span class="type">CamelSExpIFunc</span></a> func</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
-<p class="since">Since 3.4</p>
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-sexp-add-ifunction.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-add-variable"></a><h3>camel_sexp_add_variable ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_sexp_add_variable (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> scope</code></em>,
-                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> scope</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
                          <em class="parameter"><code><a class="link" href="CamelSExp.html#CamelSExpTerm" title="struct CamelSExpTerm"><span class="type">CamelSExpTerm</span></a> *value</code></em>);</pre>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-remove-symbol"></a><h3>camel_sexp_remove_symbol ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_sexp_remove_symbol (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> scope</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
-<p class="since">Since 3.4</p>
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> scope</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-set-scope"></a><h3>camel_sexp_set_scope ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_sexp_set_scope (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> scope</code></em>);</pre>
-<p class="since">Since 3.4</p>
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> scope</code></em>);</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-input-text"></a><h3>camel_sexp_input_text ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_sexp_input_text (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>,
-                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>);</pre>
-<p class="since">Since 3.4</p>
+                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>,
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>);</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-input-file"></a><h3>camel_sexp_input_file ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_sexp_input_file (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> fd</code></em>);</pre>
-<p class="since">Since 3.4</p>
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> fd</code></em>);</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-parse"></a><h3>camel_sexp_parse ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_sexp_parse (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>);</pre>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-eval"></a><h3>camel_sexp_eval ()</h3>
 <pre class="programlisting"><a class="link" href="CamelSExp.html#CamelSExpResult" title="struct CamelSExpResult"><span class="returnvalue">CamelSExpResult</span></a> *
 camel_sexp_eval (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>);</pre>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -376,15 +406,15 @@ camel_sexp_eval (<em class="parameter"><code><a class="link" href="CamelSExp.htm
 <pre class="programlisting"><a class="link" href="CamelSExp.html#CamelSExpResult" title="struct CamelSExpResult"><span class="returnvalue">CamelSExpResult</span></a> *
 camel_sexp_term_eval (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
                       <em class="parameter"><code><a class="link" href="CamelSExp.html#CamelSExpTerm" title="struct CamelSExpTerm"><span class="type">CamelSExpTerm</span></a> *term</code></em>);</pre>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-result-new"></a><h3>camel_sexp_result_new ()</h3>
 <pre class="programlisting"><a class="link" href="CamelSExp.html#CamelSExpResult" title="struct CamelSExpResult"><span class="returnvalue">CamelSExpResult</span></a> *
 camel_sexp_result_new (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> type</code></em>);</pre>
-<p class="since">Since 3.4</p>
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> type</code></em>);</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -392,42 +422,42 @@ camel_sexp_result_new (<em class="parameter"><code><a class="link" href="CamelSE
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_sexp_result_free (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
                         <em class="parameter"><code><a class="link" href="CamelSExp.html#CamelSExpResult" title="struct CamelSExpResult"><span class="type">CamelSExpResult</span></a> *term</code></em>);</pre>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-resultv-free"></a><h3>camel_sexp_resultv_free ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_sexp_resultv_free (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> argc</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> argc</code></em>,
                          <em class="parameter"><code><a class="link" href="CamelSExp.html#CamelSExpResult" title="struct CamelSExpResult"><span class="type">CamelSExpResult</span></a> **argv</code></em>);</pre>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-encode-bool"></a><h3>camel_sexp_encode_bool ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_sexp_encode_bool (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a> *string</code></em>,
-                        <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> v_bool</code></em>);</pre>
+camel_sexp_encode_bool (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Strings.html#GString"><span class="type">GString</span></a> *string</code></em>,
+                        <em class="parameter"><code><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a> v_bool</code></em>);</pre>
 <p>Encode a bool into an s-expression <em class="parameter"><code>string</code></em>
 .  Bools are
 encoded using #t #f syntax.</p>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-encode-string"></a><h3>camel_sexp_encode_string ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_sexp_encode_string (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a> *string</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *v_string</code></em>);</pre>
+camel_sexp_encode_string (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Strings.html#GString"><span class="type">GString</span></a> *string</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *v_string</code></em>);</pre>
 <p>Add a c string <em class="parameter"><code>v_string</code></em>
  to the s-expression stored in
 the gstring <em class="parameter"><code>s</code></em>
 .  Quotes are added, and special characters
 are escaped appropriately.</p>
 <div class="refsect3">
-<a name="id-1.2.13.15.7.19.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-sexp-encode-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -447,35 +477,35 @@ are escaped appropriately.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-fatal-error"></a><h3>camel_sexp_fatal_error ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_sexp_fatal_error (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
-                        <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *why</code></em>,
+                        <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *why</code></em>,
                         <em class="parameter"><code>...</code></em>);</pre>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-error"></a><h3>camel_sexp_error ()</h3>
-<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_sexp_error (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>);</pre>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-parse-value"></a><h3>camel_sexp_parse_value ()</h3>
 <pre class="programlisting"><a class="link" href="CamelSExp.html#CamelSExpTerm" title="struct CamelSExpTerm"><span class="returnvalue">CamelSExpTerm</span></a> *
 camel_sexp_parse_value (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>);</pre>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-sexp-evaluate-occur-times"></a><h3>camel_sexp_evaluate_occur_times ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_sexp_evaluate_occur_times (<em class="parameter"><code><a class="link" href="CamelSExp.html" title="CamelSExp"><span class="type">CamelSExp</span></a> *sexp</code></em>,
                                  <em class="parameter"><code><span class="type">time_t</span> *start</code></em>,
                                  <em class="parameter"><code><span class="type">time_t</span> *end</code></em>);</pre>
@@ -484,71 +514,10 @@ camel_sexp_evaluate_occur_times (<em class="parameter"><code><a class="link" hre
 <div class="refsect1">
 <a name="CamelSExp.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
-<a name="CamelSExp-struct"></a><h3>struct CamelSExp</h3>
-<pre class="programlisting">struct CamelSExp;</pre>
-<p class="since">Since 3.4</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CamelSExpSymbol"></a><h3>struct CamelSExpSymbol</h3>
-<pre class="programlisting">struct CamelSExpSymbol {
-	gint type;		/* TERM_FUNC or TERM_VAR */
-	gchar *name;
-	gpointer data;
-	union {
-		CamelSExpFunc func;
-		CamelSExpIFunc ifunc;
-	} f;
-};
-</pre>
-<p class="since">Since 3.4</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CamelSExpResult"></a><h3>struct CamelSExpResult</h3>
-<pre class="programlisting">struct CamelSExpResult {
-	CamelSExpResultType type;
-	union {
-		GPtrArray *ptrarray;
-		gint number;
-		gchar *string;
-		gint boolean;
-		time_t time;
-	} value;
-	gboolean time_generator;
-	time_t occuring_start;
-	time_t occuring_end;
-};
-</pre>
-<p class="since">Since 3.4</p>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CamelSExpTerm"></a><h3>struct CamelSExpTerm</h3>
-<pre class="programlisting">struct CamelSExpTerm {
-	CamelSExpTermType type;
-	union {
-		gchar *string;
-		gint number;
-		gint boolean;
-		time_t time;
-		struct {
-			CamelSExpSymbol *sym;
-			CamelSExpTerm **terms;
-			gint termcount;
-		} func;
-		CamelSExpSymbol *var;
-	} value;
-};
-</pre>
-<p class="since">Since 3.4</p>
-</div>
-<hr>
-<div class="refsect2">
 <a name="CamelSExpResultType"></a><h3>enum CamelSExpResultType</h3>
 <div class="refsect3">
-<a name="id-1.2.13.15.8.6.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="CamelSExpResultType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="300px" class="enum_members_name">
 <col class="enum_members_description">
@@ -588,14 +557,33 @@ camel_sexp_evaluate_occur_times (<em class="parameter"><code><a class="link" hre
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelSExpResult"></a><h3>struct CamelSExpResult</h3>
+<pre class="programlisting">struct CamelSExpResult {
+	CamelSExpResultType type;
+	union {
+		GPtrArray *ptrarray;
+		gint number;
+		gchar *string;
+		gint boolean;
+		time_t time;
+	} value;
+	gboolean time_generator;
+	time_t occuring_start;
+	time_t occuring_end;
+};
+</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="CamelSExpTermType"></a><h3>enum CamelSExpTermType</h3>
 <div class="refsect3">
-<a name="id-1.2.13.15.8.7.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="CamelSExpTermType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="300px" class="enum_members_name">
 <col class="enum_members_description">
@@ -640,12 +628,53 @@ camel_sexp_evaluate_occur_times (<em class="parameter"><code><a class="link" hre
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelSExpSymbol"></a><h3>struct CamelSExpSymbol</h3>
+<pre class="programlisting">struct CamelSExpSymbol {
+	gint type;		/* TERM_FUNC or TERM_VAR */
+	gchar *name;
+	gpointer data;
+	union {
+		CamelSExpFunc func;
+		CamelSExpIFunc ifunc;
+	} f;
+};
+</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelSExpTerm"></a><h3>struct CamelSExpTerm</h3>
+<pre class="programlisting">struct CamelSExpTerm {
+	CamelSExpTermType type;
+	union {
+		gchar *string;
+		gint number;
+		gint boolean;
+		time_t time;
+		struct {
+			CamelSExpSymbol *sym;
+			CamelSExpTerm **terms;
+			gint termcount;
+		} func;
+		CamelSExpSymbol *var;
+	} value;
+};
+</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelSExp-struct"></a><h3>struct CamelSExp</h3>
+<pre class="programlisting">struct CamelSExp;</pre>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

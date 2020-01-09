@@ -1,0 +1,2723 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EBookSqlite: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch08.html" title="Addressbook Backend Classes">
+<link rel="prev" href="EBookBackendSExp.html" title="EBookBackendSExp">
+<link rel="next" href="EDataBook.html" title="EDataBook">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#EBookSqlite.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#EBookSqlite.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#EBookSqlite.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#EBookSqlite.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch08.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="EBookBackendSExp.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="EDataBook.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="EBookSqlite"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EBookSqlite.top_of_page"></a>EBookSqlite</span></h2>
+<p>EBookSqlite — An SQLite storage facility for addressbooks</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="EBookSqlite.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="EBookSqlite.html#EbSqlChangeCallback" title="EbSqlChangeCallback ()">*EbSqlChangeCallback</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="EBookSqlite.html#EbSqlVCardCallback" title="EbSqlVCardCallback ()">*EbSqlVCardCallback</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-error-quark" title="e_book_sqlite_error_quark ()">e_book_sqlite_error_quark</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-search-data-free" title="e_book_sqlite_search_data_free ()">e_book_sqlite_search_data_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="returnvalue">EBookSqlite</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-new" title="e_book_sqlite_new ()">e_book_sqlite_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="returnvalue">EBookSqlite</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-new-full" title="e_book_sqlite_new_full ()">e_book_sqlite_new_full</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-lock" title="e_book_sqlite_lock ()">e_book_sqlite_lock</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-unlock" title="e_book_sqlite_unlock ()">e_book_sqlite_unlock</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-set-locale" title="e_book_sqlite_set_locale ()">e_book_sqlite_set_locale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-get-locale" title="e_book_sqlite_get_locale ()">e_book_sqlite_get_locale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-e-collator.html#ECollator"><span class="returnvalue">ECollator</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-ref-collator" title="e_book_sqlite_ref_collator ()">e_book_sqlite_ref_collator</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-ref-source" title="e_book_sqlite_ref_source ()">e_book_sqlite_ref_source</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-add-contact" title="e_book_sqlite_add_contact ()">e_book_sqlite_add_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-add-contacts" title="e_book_sqlite_add_contacts ()">e_book_sqlite_add_contacts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-remove-contact" title="e_book_sqlite_remove_contact ()">e_book_sqlite_remove_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-remove-contacts" title="e_book_sqlite_remove_contacts ()">e_book_sqlite_remove_contacts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-has-contact" title="e_book_sqlite_has_contact ()">e_book_sqlite_has_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-get-contact" title="e_book_sqlite_get_contact ()">e_book_sqlite_get_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#ebsql-get-contact-unlocked" title="ebsql_get_contact_unlocked ()">ebsql_get_contact_unlocked</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-get-vcard" title="e_book_sqlite_get_vcard ()">e_book_sqlite_get_vcard</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#ebsql-get-vcard-unlocked" title="ebsql_get_vcard_unlocked ()">ebsql_get_vcard_unlocked</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-set-contact-extra" title="e_book_sqlite_set_contact_extra ()">e_book_sqlite_set_contact_extra</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-get-contact-extra" title="e_book_sqlite_get_contact_extra ()">e_book_sqlite_get_contact_extra</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#ebsql-get-contact-extra-unlocked" title="ebsql_get_contact_extra_unlocked ()">ebsql_get_contact_extra_unlocked</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-search" title="e_book_sqlite_search ()">e_book_sqlite_search</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-search-uids" title="e_book_sqlite_search_uids ()">e_book_sqlite_search_uids</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-get-key-value" title="e_book_sqlite_get_key_value ()">e_book_sqlite_get_key_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-set-key-value" title="e_book_sqlite_set_key_value ()">e_book_sqlite_set_key_value</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-get-key-value-int" title="e_book_sqlite_get_key_value_int ()">e_book_sqlite_get_key_value_int</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-set-key-value-int" title="e_book_sqlite_set_key_value_int ()">e_book_sqlite_set_key_value_int</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="returnvalue">EbSqlCursor</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-new" title="e_book_sqlite_cursor_new ()">e_book_sqlite_cursor_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-free" title="e_book_sqlite_cursor_free ()">e_book_sqlite_cursor_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-step" title="e_book_sqlite_cursor_step ()">e_book_sqlite_cursor_step</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-set-target-alphabetic-index" title="e_book_sqlite_cursor_set_target_alphabetic_index ()">e_book_sqlite_cursor_set_target_alphabetic_index</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-set-sexp" title="e_book_sqlite_cursor_set_sexp ()">e_book_sqlite_cursor_set_sexp</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-calculate" title="e_book_sqlite_cursor_calculate ()">e_book_sqlite_cursor_calculate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-compare-contact" title="e_book_sqlite_cursor_compare_contact ()">e_book_sqlite_cursor_compare_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookSqlite.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a></td>
+<td class="signal_name"><a class="link" href="EBookSqlite.html#EBookSqlite-before-insert-contact" title="The “before-insert-contact” signal">before-insert-contact</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+<tr>
+<td class="signal_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a></td>
+<td class="signal_name"><a class="link" href="EBookSqlite.html#EBookSqlite-before-remove-contact" title="The “before-remove-contact” signal">before-remove-contact</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookSqlite.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#E-BOOK-SQLITE-ERROR:CAPS" title="E_BOOK_SQLITE_ERROR">E_BOOK_SQLITE_ERROR</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#E-BOOK-SQL-SYNC-DATA-KEY:CAPS" title="E_BOOK_SQL_SYNC_DATA_KEY">E_BOOK_SQL_SYNC_DATA_KEY</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#EbSqlChangeType" title="enum EbSqlChangeType">EbSqlChangeType</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#EBookSqliteError" title="enum EBookSqliteError">EBookSqliteError</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#EbSqlLockType" title="enum EbSqlLockType">EbSqlLockType</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#EbSqlUnlockAction" title="enum EbSqlUnlockAction">EbSqlUnlockAction</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#EbSqlSearchData" title="EbSqlSearchData">EbSqlSearchData</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#EBookSqlite-struct" title="struct EBookSqlite">EBookSqlite</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#EBookSqliteClass" title="struct EBookSqliteClass">EBookSqliteClass</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#EbSqlCursorOrigin" title="enum EbSqlCursorOrigin">EbSqlCursorOrigin</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#EbSqlCursorStepFlags" title="enum EbSqlCursorStepFlags">EbSqlCursorStepFlags</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor">EbSqlCursor</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookSqlite.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> EBookSqlite
+</pre>
+</div>
+<div class="refsect1">
+<a name="EBookSqlite.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+EBookSqlite implements
+</p>
+</div>
+<div class="refsect1">
+<a name="EBookSqlite.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedata-book/libedata-book.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="EBookSqlite.description"></a><h2>Description</h2>
+<p>The <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> is an API for storing and looking up <span class="type">EContacts</span>
+in an SQLite database. It also supports a lean index mode via
+the <a class="link" href="EBookSqlite.html#EbSqlVCardCallback" title="EbSqlVCardCallback ()"><span class="type">EbSqlVCardCallback</span></a>, if you are in a situation where it is
+not convenient to store the vCards directly in the SQLite. It is
+however recommended to avoid storing contacts in separate storage
+if at all possible, as this will decrease performance of searches
+an also contribute to flash wear.</p>
+<p>The API is thread safe, with special considerations to be made
+around <a class="link" href="EBookSqlite.html#e-book-sqlite-lock" title="e_book_sqlite_lock ()"><code class="function">e_book_sqlite_lock()</code></a> and <a class="link" href="EBookSqlite.html#e-book-sqlite-unlock" title="e_book_sqlite_unlock ()"><code class="function">e_book_sqlite_unlock()</code></a> for
+the sake of isolating transactions across threads.</p>
+<p>Any operations which can take a lot of time to complete (depending
+on the size of your addressbook) can be cancelled using a <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>.</p>
+<p>Depending on your summary configuration, your mileage will vary. Refer
+to the <a class="link" href="ESourceBackendSummarySetup.html" title="ESourceBackendSummarySetup"><span class="type">ESourceBackendSummarySetup</span></a> for configuring your addressbook
+for the type of usage you mean to make of it.</p>
+</div>
+<div class="refsect1">
+<a name="EBookSqlite.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="EbSqlChangeCallback"></a><h3>EbSqlChangeCallback ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*EbSqlChangeCallback<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlChangeType" title="enum EbSqlChangeType"><span class="type">EbSqlChangeType</span></a> change_type</code></em>,
+                        <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                        <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extra</code></em>,
+                        <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>,
+                        <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>A function which may be called in response to a change
+in contact data.</p>
+<div class="note"><p>This user callback is called inside a lock,
+you must not call the <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> API from
+this callback.</p></div>
+<div class="refsect3">
+<a name="EbSqlChangeCallback.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>change_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookSqlite.html#EbSqlChangeType" title="enum EbSqlChangeType"><span class="type">EbSqlChangeType</span></a> which occurred</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>A contact UID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>extra</p></td>
+<td class="parameter_description"><p>The extra data associated to the contact</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vcard</p></td>
+<td class="parameter_description"><p>The vcard string for this UID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>Pointer to user provided data</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EbSqlVCardCallback"></a><h3>EbSqlVCardCallback ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<span class="c_punctuation">(</span>*EbSqlVCardCallback<span class="c_punctuation">)</span> (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extra</code></em>,
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>If this callback is passed to <a class="link" href="EBookSqlite.html#e-book-sqlite-new" title="e_book_sqlite_new ()"><code class="function">e_book_sqlite_new()</code></a>, then
+vcards are not stored in the SQLite and instead this callback
+is invoked to fetch the vcard.</p>
+<p>This callback will be called to fetch results for fully indexed
+and optimized queries, and it will also be called while performing
+fallback queries against <a href="EContact.html#EContactField"><span class="type">EContactFields</span></a> which are not configured
+in the <a class="link" href="ESourceBackendSummarySetup.html" title="ESourceBackendSummarySetup"><span class="type">ESourceBackendSummarySetup</span></a> or default summary fields. </p>
+<div class="note"><p>This user callback is called inside a lock,
+you must not call the <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> API from
+this callback.</p></div>
+<div class="refsect3">
+<a name="EbSqlVCardCallback.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>A contact UID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>extra</p></td>
+<td class="parameter_description"><p>The extra data associated to the contact</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>User data previously passed to <a class="link" href="EBookSqlite.html#e-book-sqlite-new" title="e_book_sqlite_new ()"><code class="function">e_book_sqlite_new()</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="EbSqlVCardCallback.returns"></a><h4>Returns</h4>
+<p> The appropriate vcard indicated by <em class="parameter"><code>uid</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-error-quark"></a><h3>e_book_sqlite_error_quark ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>
+e_book_sqlite_error_quark (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-search-data-free"></a><h3>e_book_sqlite_search_data_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_sqlite_search_data_free (<em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlSearchData" title="EbSqlSearchData"><span class="type">EbSqlSearchData</span></a> *data</code></em>);</pre>
+<p>Frees an <a class="link" href="EBookSqlite.html#EbSqlSearchData" title="EbSqlSearchData"><span class="type">EbSqlSearchData</span></a></p>
+<div class="refsect3">
+<a name="e-book-sqlite-search-data-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html#EbSqlSearchData" title="EbSqlSearchData"><span class="type">EbSqlSearchData</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-new"></a><h3>e_book_sqlite_new ()</h3>
+<pre class="programlisting"><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="returnvalue">EBookSqlite</span></a> *
+e_book_sqlite_new (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *path</code></em>,
+                   <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Creates a new <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> with the default summary configuration.</p>
+<p>Aside from the manditory fields <a class="link" href="EContact.html#E-CONTACT-UID:CAPS"><code class="literal">E_CONTACT_UID</code></a>, <a class="link" href="EContact.html#E-CONTACT-REV:CAPS"><code class="literal">E_CONTACT_REV</code></a>,
+the default configuration stores the following fields for quick
+performance of searches: <a class="link" href="EContact.html#E-CONTACT-FILE-AS:CAPS"><code class="literal">E_CONTACT_FILE_AS</code></a>, <a class="link" href="EContact.html#E-CONTACT-NICKNAME:CAPS"><code class="literal">E_CONTACT_NICKNAME</code></a>,
+<a class="link" href="EContact.html#E-CONTACT-FULL-NAME:CAPS"><code class="literal">E_CONTACT_FULL_NAME</code></a>, <a class="link" href="EContact.html#E-CONTACT-GIVEN-NAME:CAPS"><code class="literal">E_CONTACT_GIVEN_NAME</code></a>, <a class="link" href="EContact.html#E-CONTACT-FAMILY-NAME:CAPS"><code class="literal">E_CONTACT_FAMILY_NAME</code></a>,
+<a class="link" href="EContact.html#E-CONTACT-EMAIL:CAPS"><code class="literal">E_CONTACT_EMAIL</code></a>, <a class="link" href="EContact.html#E-CONTACT-TEL:CAPS"><code class="literal">E_CONTACT_TEL</code></a>, <a class="link" href="EContact.html#E-CONTACT-IS-LIST:CAPS"><code class="literal">E_CONTACT_IS_LIST</code></a>, <a class="link" href="EContact.html#E-CONTACT-LIST-SHOW-ADDRESSES:CAPS"><code class="literal">E_CONTACT_LIST_SHOW_ADDRESSES</code></a>,
+and <a class="link" href="EContact.html#E-CONTACT-WANTS-HTML:CAPS"><code class="literal">E_CONTACT_WANTS_HTML</code></a>.</p>
+<p>The fields <a class="link" href="EContact.html#E-CONTACT-FULL-NAME:CAPS"><code class="literal">E_CONTACT_FULL_NAME</code></a> and <a class="link" href="EContact.html#E-CONTACT-EMAIL:CAPS"><code class="literal">E_CONTACT_EMAIL</code></a> are configured
+to respond extra quickly with the <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-INDEX-PREFIX:CAPS"><code class="literal">E_BOOK_INDEX_PREFIX</code></a> index flag.</p>
+<p>The fields <a class="link" href="EContact.html#E-CONTACT-FILE-AS:CAPS"><code class="literal">E_CONTACT_FILE_AS</code></a>, <a class="link" href="EContact.html#E-CONTACT-FAMILY-NAME:CAPS"><code class="literal">E_CONTACT_FAMILY_NAME</code></a> and
+<a class="link" href="EContact.html#E-CONTACT-GIVEN-NAME:CAPS"><code class="literal">E_CONTACT_GIVEN_NAME</code></a> are configured to perform well with
+the <a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a> interface, using the <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-INDEX-SORT-KEY:CAPS"><code class="literal">E_BOOK_INDEX_SORT_KEY</code></a>
+index flag.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>location to load or create the new database</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an optional <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, associated with the <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-new.returns"></a><h4>Returns</h4>
+<p> A reference to a <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-new-full"></a><h3>e_book_sqlite_new_full ()</h3>
+<pre class="programlisting"><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="returnvalue">EBookSqlite</span></a> *
+e_book_sqlite_new_full (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *path</code></em>,
+                        <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                        <em class="parameter"><code><a class="link" href="ESourceBackendSummarySetup.html" title="ESourceBackendSummarySetup"><span class="type">ESourceBackendSummarySetup</span></a> *setup</code></em>,
+                        <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlVCardCallback" title="EbSqlVCardCallback ()"><span class="type">EbSqlVCardCallback</span></a> vcard_callback</code></em>,
+                        <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlChangeCallback" title="EbSqlChangeCallback ()"><span class="type">EbSqlChangeCallback</span></a> change_callback</code></em>,
+                        <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                        <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> user_data_destroy</code></em>,
+                        <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                        <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Opens or creates a new addressbook at <em class="parameter"><code>path</code></em>
+.</p>
+<p>Like <a class="link" href="EBookSqlite.html#e-book-sqlite-new" title="e_book_sqlite_new ()"><code class="function">e_book_sqlite_new()</code></a>, but allows configuration of which contact fields
+will be stored for quick reference in the summary. The configuration indicated by
+<em class="parameter"><code>setup</code></em>
+ will only be taken into account when initially creating the underlying table,
+further configurations will be ignored.</p>
+<p>The fields <a class="link" href="EContact.html#E-CONTACT-UID:CAPS"><code class="literal">E_CONTACT_UID</code></a> and <a class="link" href="EContact.html#E-CONTACT-REV:CAPS"><code class="literal">E_CONTACT_REV</code></a> are not optional,
+they will be stored in the summary regardless of this function's parameters.
+Only <a href="EContact.html#EContactField"><span class="type">EContactFields</span></a> with the type <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#G-TYPE-STRING:CAPS"><span class="type">G_TYPE_STRING</span></a>, <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#G-TYPE-BOOLEAN:CAPS"><span class="type">G_TYPE_BOOLEAN</span></a> or
+<span class="type">E_TYPE_CONTACT_ATTR_LIST</span> are currently supported.</p>
+<p>If <em class="parameter"><code>vcard_callback</code></em>
+ is specified, then vcards will not be stored by functions
+such as <code class="function">e_book_sqlitedb_add_contact()</code>. Instead <em class="parameter"><code>vcard_callback</code></em>
+ will be invoked
+at any time the created <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> requires a vcard, either as a fallback
+for querying search expressions which cannot be satisfied with the summary
+fields, or when reporting results from searches.</p>
+<p>If any error occurs and <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is returned, then the passed <em class="parameter"><code>user_data</code></em>
+ will
+be automatically freed using the <em class="parameter"><code>user_data_destroy</code></em>
+ function, if specified.</p>
+<p>It is recommended to store all contact vcards in the <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> addressbook
+if at all possible, however in some cases the vcards must be stored in some
+other storage.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-new-full.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>path</p></td>
+<td class="parameter_description"><p>location to load or create the new database</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an optional <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, associated with the <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>setup</p></td>
+<td class="parameter_description"><p> an <a class="link" href="ESourceBackendSummarySetup.html" title="ESourceBackendSummarySetup"><span class="type">ESourceBackendSummarySetup</span></a> describing how the summary should be setup, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to use the default. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>vcard_callback</p></td>
+<td class="parameter_description"><p> A function to resolve vcards. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>][<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym> user_data]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>change_callback</p></td>
+<td class="parameter_description"><p> A function to catch notifications of vcard changes. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>][<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym> user_data]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p> callback user data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data_destroy</p></td>
+<td class="parameter_description"><p> A function to free <em class="parameter"><code>user_data</code></em>
+automatically when the created <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> is destroyed. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-new-full.returns"></a><h4>Returns</h4>
+<p> The newly created <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if opening or creating the addressbook failed. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-lock"></a><h3>e_book_sqlite_lock ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_lock (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                    <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlLockType" title="enum EbSqlLockType"><span class="type">EbSqlLockType</span></a> lock_type</code></em>,
+                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Obtains an exclusive lock on <em class="parameter"><code>ebsql</code></em>
+ and starts a transaction.</p>
+<p>This should be called if you need to access <em class="parameter"><code>ebsql</code></em>
+ multiple times while
+ensuring an atomic transaction. End this transaction with <a class="link" href="EBookSqlite.html#e-book-sqlite-unlock" title="e_book_sqlite_unlock ()"><code class="function">e_book_sqlite_unlock()</code></a>.</p>
+<p>If <em class="parameter"><code>cancellable</code></em>
+ is specified, then <em class="parameter"><code>ebsql</code></em>
+ will retain a reference to it until
+<a class="link" href="EBookSqlite.html#e-book-sqlite-unlock" title="e_book_sqlite_unlock ()"><code class="function">e_book_sqlite_unlock()</code></a> is called. Any accesses to <em class="parameter"><code>ebsql</code></em>
+ with the lock held
+are expected to have the same <em class="parameter"><code>cancellable</code></em>
+ specified, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<div class="note"><p>Aside from ensuring atomicity of transactions, this function will hold a mutex
+which will cause further calls to <a class="link" href="EBookSqlite.html#e-book-sqlite-lock" title="e_book_sqlite_lock ()"><code class="function">e_book_sqlite_lock()</code></a> to block. If you are accessing
+<em class="parameter"><code>ebsql</code></em> from multiple threads, then any interactions with <em class="parameter"><code>ebsql</code></em> should be nested in calls
+to <a class="link" href="EBookSqlite.html#e-book-sqlite-lock" title="e_book_sqlite_lock ()"><code class="function">e_book_sqlite_lock()</code></a> and <a class="link" href="EBookSqlite.html#e-book-sqlite-unlock" title="e_book_sqlite_unlock ()"><code class="function">e_book_sqlite_unlock()</code></a>.</p></div>
+<div class="refsect3">
+<a name="e-book-sqlite-lock.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>lock_type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookSqlite.html#EbSqlLockType" title="enum EbSqlLockType"><span class="type">EbSqlLockType</span></a> to acquire</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-lock.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-unlock"></a><h3>e_book_sqlite_unlock ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_unlock (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                      <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlUnlockAction" title="enum EbSqlUnlockAction"><span class="type">EbSqlUnlockAction</span></a> action</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Releases an exclusive on <em class="parameter"><code>ebsql</code></em>
+ and finishes a transaction previously
+started with <code class="function">e_book_sqlite_lock_updates()</code>.</p>
+<div class="note"><p>If this fails, the lock on <em class="parameter"><code>ebsql</code></em> is still released and <em class="parameter"><code>error</code></em> will
+be set to indicate why the transaction or rollback failed.</p></div>
+<div class="refsect3">
+<a name="e-book-sqlite-unlock.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>action</p></td>
+<td class="parameter_description"><p>Which <a class="link" href="EBookSqlite.html#EbSqlUnlockAction" title="enum EbSqlUnlockAction"><span class="type">EbSqlUnlockAction</span></a> to take while unlocking</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-unlock.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-set-locale"></a><h3>e_book_sqlite_set_locale ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_set_locale (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *lc_collate</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Relocalizes any locale specific data in the specified
+new <em class="parameter"><code>lc_collate</code></em>
+ locale.</p>
+<p>The <em class="parameter"><code>lc_collate</code></em>
+ locale setting is stored and remembered on
+subsequent accesses of the addressbook, changing the locale
+will store the new locale and will modify sort keys and any
+locale specific data in the addressbook.</p>
+<p>As a side effect, it's possible that changing the locale
+will cause stored vcards to change. Notifications for
+these changes can be caught with the <a class="link" href="EBookSqlite.html#EbSqlVCardCallback" title="EbSqlVCardCallback ()"><span class="type">EbSqlVCardCallback</span></a>
+provided to <a class="link" href="EBookSqlite.html#e-book-sqlite-new-full" title="e_book_sqlite_new_full ()"><code class="function">e_book_sqlite_new_full()</code></a>.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-set-locale.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>lc_collate</p></td>
+<td class="parameter_description"><p>The new locale for the addressbook</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>A location to store any error that may have occurred</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-set-locale.returns"></a><h4>Returns</h4>
+<p> Whether the new locale was successfully set.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-get-locale"></a><h3>e_book_sqlite_get_locale ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_get_locale (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **locale_out</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Fetches the current locale setting for the address-book.</p>
+<p>Upon success, <em class="parameter"><code>lc_collate_out</code></em>
+ will hold the returned locale setting,
+otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> will be returned and <em class="parameter"><code>error</code></em>
+ will be updated accordingly.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-get-locale.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>locale_out</p></td>
+<td class="parameter_description"><p> The location to return the current locale. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>A location to store any error that may have occurred</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-get-locale.returns"></a><h4>Returns</h4>
+<p> Whether the locale was successfully fetched.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-ref-collator"></a><h3>e_book_sqlite_ref_collator ()</h3>
+<pre class="programlisting"><a class="link" href="eds-e-collator.html#ECollator"><span class="returnvalue">ECollator</span></a> *
+e_book_sqlite_ref_collator (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>);</pre>
+<p>References the currently active <a class="link" href="eds-e-collator.html#ECollator"><span class="type">ECollator</span></a> for <em class="parameter"><code>ebsql</code></em>
+,
+use <a class="link" href="eds-e-collator.html#e-collator-unref" title="e_collator_unref ()"><code class="function">e_collator_unref()</code></a> when finished using the returned collator.</p>
+<p>Note that the active collator will change with the active locale setting.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-ref-collator.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-ref-collator.returns"></a><h4>Returns</h4>
+<p> A reference to the active collator. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-ref-source"></a><h3>e_book_sqlite_ref_source ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *
+e_book_sqlite_ref_source (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>);</pre>
+<p>References the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> to which <em class="parameter"><code>ebsql</code></em>
+ is paired,
+use <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished using the source.
+It can be <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> in some cases, like when running tests.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-ref-source.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-ref-source.returns"></a><h4>Returns</h4>
+<p> A reference to the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> to which <em class="parameter"><code>ebsql</code></em>
+is paired, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-add-contact"></a><h3>e_book_sqlite_add_contact ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_add_contact (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                           <em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>,
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extra</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> replace</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-add-contacts"></a><h3>e_book_sqlite_add_contacts ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_add_contacts (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *contacts</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *extra</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> replace</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-remove-contact"></a><h3>e_book_sqlite_remove_contact ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_remove_contact (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                              <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Removes the contact indicated by <em class="parameter"><code>uid</code></em>
+ from <em class="parameter"><code>ebsql</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-remove-contact.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>the uid of the contact to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-remove-contact.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-remove-contacts"></a><h3>e_book_sqlite_remove_contacts ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_remove_contacts (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *uids</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Removes the contacts indicated by <em class="parameter"><code>uids</code></em>
+ from <em class="parameter"><code>ebsql</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-remove-contacts.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uids</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of uids indicating which contacts to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-remove-contacts.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-has-contact"></a><h3>e_book_sqlite_has_contact ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_has_contact (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *exists</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Checks if a contact bearing the UID indicated by <em class="parameter"><code>uid</code></em>
+ is stored in <em class="parameter"><code>ebsql</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-has-contact.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>The uid of the contact to check for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>exists</p></td>
+<td class="parameter_description"><p> Return location to store whether the contact exists. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-has-contact.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-get-contact"></a><h3>e_book_sqlite_get_contact ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_get_contact (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> meta_contact</code></em>,
+                           <em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> **ret_contact</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Fetch the <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> specified by <em class="parameter"><code>uid</code></em>
+ in <em class="parameter"><code>ebsql</code></em>
+.</p>
+<p>If <em class="parameter"><code>meta_contact</code></em>
+ is specified, then a shallow <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> will be created
+holding only the <a class="link" href="EContact.html#E-CONTACT-UID:CAPS"><code class="literal">E_CONTACT_UID</code></a> and <a class="link" href="EContact.html#E-CONTACT-REV:CAPS"><code class="literal">E_CONTACT_REV</code></a> fields.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-get-contact.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>The uid of the contact to fetch</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>meta_contact</p></td>
+<td class="parameter_description"><p>Whether an entire contact is desired, or only the metadata</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ret_contact</p></td>
+<td class="parameter_description"><p> Return location to store the fetched contact. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-get-contact.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ebsql-get-contact-unlocked"></a><h3>ebsql_get_contact_unlocked ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+ebsql_get_contact_unlocked (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> meta_contact</code></em>,
+                            <em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> **ret_contact</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Fetch the <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> specified by <em class="parameter"><code>uid</code></em>
+ in <em class="parameter"><code>ebsql</code></em>
+ without locking internal mutex.</p>
+<p>If <em class="parameter"><code>meta_contact</code></em>
+ is specified, then a shallow <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> will be created
+holding only the <a class="link" href="EContact.html#E-CONTACT-UID:CAPS"><code class="literal">E_CONTACT_UID</code></a> and <a class="link" href="EContact.html#E-CONTACT-REV:CAPS"><code class="literal">E_CONTACT_REV</code></a> fields.</p>
+<div class="refsect3">
+<a name="ebsql-get-contact-unlocked.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>The uid of the contact to fetch</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>meta_contact</p></td>
+<td class="parameter_description"><p>Whether an entire contact is desired, or only the metadata</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p> Return location to store the fetched contact. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="ebsql-get-contact-unlocked.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-get-vcard"></a><h3>e_book_sqlite_get_vcard ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_get_vcard (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> meta_contact</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **ret_vcard</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Fetch a vcard string for <em class="parameter"><code>uid</code></em>
+ in <em class="parameter"><code>ebsql</code></em>
+.</p>
+<p>If <em class="parameter"><code>meta_contact</code></em>
+ is specified, then a shallow vcard representation will be
+created holding only the <a class="link" href="EContact.html#E-CONTACT-UID:CAPS"><code class="literal">E_CONTACT_UID</code></a> and <a class="link" href="EContact.html#E-CONTACT-REV:CAPS"><code class="literal">E_CONTACT_REV</code></a> fields.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-get-vcard.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>The uid of the contact to fetch</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>meta_contact</p></td>
+<td class="parameter_description"><p>Whether an entire contact is desired, or only the metadata</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ret_vcard</p></td>
+<td class="parameter_description"><p> Return location to store the fetched vcard string. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-get-vcard.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ebsql-get-vcard-unlocked"></a><h3>ebsql_get_vcard_unlocked ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+ebsql_get_vcard_unlocked (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> meta_contact</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **ret_vcard</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Fetch a vcard string for <em class="parameter"><code>uid</code></em>
+ in <em class="parameter"><code>ebsql</code></em>
+ without locking internal mutex.</p>
+<p>If <em class="parameter"><code>meta_contact</code></em>
+ is specified, then a shallow vcard representation will be
+created holding only the <a class="link" href="EContact.html#E-CONTACT-UID:CAPS"><code class="literal">E_CONTACT_UID</code></a> and <a class="link" href="EContact.html#E-CONTACT-REV:CAPS"><code class="literal">E_CONTACT_REV</code></a> fields.</p>
+<div class="refsect3">
+<a name="ebsql-get-vcard-unlocked.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>The uid of the contact to fetch</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>meta_contact</p></td>
+<td class="parameter_description"><p>Whether an entire contact is desired, or only the metadata</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ret_vcard</p></td>
+<td class="parameter_description"><p> Return location to store the fetched vcard string. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="ebsql-get-vcard-unlocked.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-set-contact-extra"></a><h3>e_book_sqlite_set_contact_extra ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_set_contact_extra (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *extra</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Sets or replaces the extra data associated with <em class="parameter"><code>uid</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-set-contact-extra.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>The uid of the contact to set the extra data for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>extra</p></td>
+<td class="parameter_description"><p> The extra data to set. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-set-contact-extra.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-get-contact-extra"></a><h3>e_book_sqlite_get_contact_extra ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_get_contact_extra (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **ret_extra</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Fetches the extra data previously set for <em class="parameter"><code>uid</code></em>
+, either with
+<a class="link" href="EBookSqlite.html#e-book-sqlite-set-contact-extra" title="e_book_sqlite_set_contact_extra ()"><code class="function">e_book_sqlite_set_contact_extra()</code></a> or when adding contacts.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-get-contact-extra.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>The uid of the contact to fetch the extra data for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ret_extra</p></td>
+<td class="parameter_description"><p> Return location to store the extra data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-get-contact-extra.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ebsql-get-contact-extra-unlocked"></a><h3>ebsql_get_contact_extra_unlocked ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+ebsql_get_contact_extra_unlocked (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                                  <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **ret_extra</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Fetches the extra data previously set for <em class="parameter"><code>uid</code></em>
+, either with
+<a class="link" href="EBookSqlite.html#e-book-sqlite-set-contact-extra" title="e_book_sqlite_set_contact_extra ()"><code class="function">e_book_sqlite_set_contact_extra()</code></a> or when adding contacts,
+without locking internal mutex.</p>
+<div class="refsect3">
+<a name="ebsql-get-contact-extra-unlocked.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>The uid of the contact to fetch the extra data for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ret_extra</p></td>
+<td class="parameter_description"><p> Return location to store the extra data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="ebsql-get-contact-extra-unlocked.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-search"></a><h3>e_book_sqlite_search ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_search (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                      <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sexp</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> meta_contacts</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> **ret_list</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Searches <em class="parameter"><code>ebsql</code></em>
+ for contacts matching the search expression indicated by <em class="parameter"><code>sexp</code></em>
+.</p>
+<p>When <em class="parameter"><code>sexp</code></em>
+ refers only to <a href="EContact.html#EContactField"><span class="type">EContactFields</span></a> configured in the summary of <em class="parameter"><code>ebsql</code></em>
+,
+the search should always be quick, when searching for other <a href="EContact.html#EContactField"><span class="type">EContactFields</span></a>
+a fallback will be used, possibly invoking any <a class="link" href="EBookSqlite.html#EbSqlVCardCallback" title="EbSqlVCardCallback ()"><span class="type">EbSqlVCardCallback</span></a> which
+may have been passed to <a class="link" href="EBookSqlite.html#e-book-sqlite-new-full" title="e_book_sqlite_new_full ()"><code class="function">e_book_sqlite_new_full()</code></a>.</p>
+<p>The returned <em class="parameter"><code>ret_list</code></em>
+ list should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#g-slist-free"><code class="function">g_slist_free()</code></a>
+and all elements freed with <a class="link" href="EBookSqlite.html#e-book-sqlite-search-data-free" title="e_book_sqlite_search_data_free ()"><code class="function">e_book_sqlite_search_data_free()</code></a>.</p>
+<p>If <em class="parameter"><code>meta_contact</code></em>
+ is specified, then shallow vcard representations will be
+created holding only the <a class="link" href="EContact.html#E-CONTACT-UID:CAPS"><code class="literal">E_CONTACT_UID</code></a> and <a class="link" href="EContact.html#E-CONTACT-REV:CAPS"><code class="literal">E_CONTACT_REV</code></a> fields.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-search.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sexp</p></td>
+<td class="parameter_description"><p> search expression; use <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> or an empty string to list all stored contacts. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>meta_contacts</p></td>
+<td class="parameter_description"><p>Whether entire contacts are desired, or only the metadata</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ret_list</p></td>
+<td class="parameter_description"><p> Return location
+to store a <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of <a class="link" href="EBookSqlite.html#EbSqlSearchData" title="EbSqlSearchData"><span class="type">EbSqlSearchData</span></a> structures. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EbSqlSearchData]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-search.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-search-uids"></a><h3>e_book_sqlite_search_uids ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_search_uids (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sexp</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> **ret_list</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Similar to <code class="function">e_book_sqlitedb_search()</code>, but fetches only a list of contact UIDs.</p>
+<p>The returned <em class="parameter"><code>ret_list</code></em>
+ list should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#g-slist-free"><code class="function">g_slist_free()</code></a> and all
+elements freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-search-uids.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sexp</p></td>
+<td class="parameter_description"><p> search expression; use <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> or an empty string to get all stored contacts. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ret_list</p></td>
+<td class="parameter_description"><p> Return location to store a <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of contact uids. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-search-uids.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-get-key-value"></a><h3>e_book_sqlite_get_key_value ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_get_key_value (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **value</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Fetches the value for <em class="parameter"><code>key</code></em>
+ and stores it in <em class="parameter"><code>value</code></em>
+</p>
+<div class="refsect3">
+<a name="e-book-sqlite-get-key-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>The key to fetch a value for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p> A return location to store the value for <em class="parameter"><code>key</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-get-key-value.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-set-key-value"></a><h3>e_book_sqlite_set_key_value ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_set_key_value (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Sets the value for <em class="parameter"><code>key</code></em>
+ to be <em class="parameter"><code>value</code></em>
+</p>
+<div class="refsect3">
+<a name="e-book-sqlite-set-key-value.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>The key to fetch a value for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>The new value for <em class="parameter"><code>key</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-set-key-value.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-get-key-value-int"></a><h3>e_book_sqlite_get_key_value_int ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_get_key_value_int (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *value</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>A convenience function to fetch the value of <em class="parameter"><code>key</code></em>
+ as an integer.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-get-key-value-int.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>The key to fetch a value for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p> A return location to store the value for <em class="parameter"><code>key</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-get-key-value-int.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-set-key-value-int"></a><h3>e_book_sqlite_set_key_value_int ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_set_key_value_int (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> value</code></em>,
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>A convenience function to set the value of <em class="parameter"><code>key</code></em>
+ as an integer.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-set-key-value-int.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>The key to fetch a value for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>The new value for <em class="parameter"><code>key</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A location to store any error that may have occurred. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-set-key-value-int.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-cursor-new"></a><h3>e_book_sqlite_cursor_new ()</h3>
+<pre class="programlisting"><a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="returnvalue">EbSqlCursor</span></a> *
+e_book_sqlite_cursor_new (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sexp</code></em>,
+                          <em class="parameter"><code>const <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> *sort_fields</code></em>,
+                          <em class="parameter"><code>const <a class="link" href="eds-e-book-contacts-types.html#EBookCursorSortType" title="enum EBookCursorSortType"><span class="type">EBookCursorSortType</span></a> *sort_types</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> n_sort_fields</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Creates a new <a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a>.</p>
+<p>The cursor should be freed with <a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-free" title="e_book_sqlite_cursor_free ()"><code class="function">e_book_sqlite_cursor_free()</code></a>.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sexp</p></td>
+<td class="parameter_description"><p>search expression; use NULL or an empty string to get all stored contacts.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_fields</p></td>
+<td class="parameter_description"><p> An array of <a href="EContact.html#EContactField"><span class="type">EContactFields</span></a> as sort keys in order of priority. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_sort_fields]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sort_types</p></td>
+<td class="parameter_description"><p> An array of <a href="eds-e-book-contacts-types.html#EBookCursorSortType"><span class="type">EBookCursorSortTypes</span></a>, one for each field in <em class="parameter"><code>sort_fields</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_sort_fields]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>n_sort_fields</p></td>
+<td class="parameter_description"><p>The number of fields to sort results by.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>A return location to store any error that might be reported.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-new.returns"></a><h4>Returns</h4>
+<p> A newly created <a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-cursor-free"></a><h3>e_book_sqlite_cursor_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_sqlite_cursor_free (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                           <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a> *cursor</code></em>);</pre>
+<p>Frees <em class="parameter"><code>cursor</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a> to free</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-cursor-step"></a><h3>e_book_sqlite_cursor_step ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_book_sqlite_cursor_step (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                           <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a> *cursor</code></em>,
+                           <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlCursorStepFlags" title="enum EbSqlCursorStepFlags"><span class="type">EbSqlCursorStepFlags</span></a> flags</code></em>,
+                           <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlCursorOrigin" title="enum EbSqlCursorOrigin"><span class="type">EbSqlCursorOrigin</span></a> origin</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> count</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> **results</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Steps <em class="parameter"><code>cursor</code></em>
+ through it's sorted query by a maximum of <em class="parameter"><code>count</code></em>
+ contacts
+starting from <em class="parameter"><code>origin</code></em>
+.</p>
+<p>If <em class="parameter"><code>count</code></em>
+ is negative, then the cursor will move through the list in reverse.</p>
+<p>If <em class="parameter"><code>cursor</code></em>
+ reaches the beginning or end of the query results, then the
+returned list might not contain the amount of desired contacts, or might
+return no results if the cursor currently points to the last contact. 
+Reaching the end of the list is not considered an error condition. Attempts
+to step beyond the end of the list after having reached the end of the list
+will however trigger an <a class="link" href="EBookSqlite.html#E-BOOK-SQLITE-ERROR-END-OF-LIST:CAPS"><code class="literal">E_BOOK_SQLITE_ERROR_END_OF_LIST</code></a> error.</p>
+<p>If <a class="link" href="EBookSqlite.html#EBSQL-CURSOR-STEP-FETCH:CAPS"><code class="literal">EBSQL_CURSOR_STEP_FETCH</code></a> is specified in <code class="literal">flags</code>, a pointer to 
+a <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> pointer should be provided for the <em class="parameter"><code>results</code></em>
+ parameter.</p>
+<p>The result list will be stored to <em class="parameter"><code>results</code></em>
+ and should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#g-slist-free"><code class="function">g_slist_free()</code></a>
+and all elements freed with <a class="link" href="EBookSqlite.html#e-book-sqlite-search-data-free" title="e_book_sqlite_search_data_free ()"><code class="function">e_book_sqlite_search_data_free()</code></a>.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-step.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a> to use</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookSqlite.html#EbSqlCursorStepFlags" title="enum EbSqlCursorStepFlags"><span class="type">EbSqlCursorStepFlags</span></a> for this step</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>origin</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookSqlite.html#EbSqlCursorOrigin" title="enum EbSqlCursorOrigin"><span class="type">EbSqlCursorOrigin</span></a> from whence to step</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>count</p></td>
+<td class="parameter_description"><p>A positive or negative amount of contacts to try and fetch</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>results</p></td>
+<td class="parameter_description"><p>  A return location to store the results, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <a class="link" href="EBookSqlite.html#EBSQL-CURSOR-STEP-FETCH:CAPS"><code class="literal">EBSQL_CURSOR_STEP_FETCH</code></a> is not specified in <code class="literal">flags</code>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EbSqlSearchData][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>A return location to store any error that might be reported.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-step.returns"></a><h4>Returns</h4>
+<p> The number of contacts traversed if successful, otherwise -1 is
+returned and <em class="parameter"><code>error</code></em>
+is set.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-cursor-set-target-alphabetic-index"></a><h3>e_book_sqlite_cursor_set_target_alphabetic_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_sqlite_cursor_set_target_alphabetic_index
+                               (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                                <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a> *cursor</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> idx</code></em>);</pre>
+<p>Sets the <em class="parameter"><code>cursor</code></em>
+ position to an</p>
+<a class="link" href="EBookClientCursor.html#cursor-alphabet" title="Alphabetic Indexes">Alphabetic Index</a><p>into the alphabet active in <em class="parameter"><code>ebsql</code></em>
+'s locale.</p>
+<p>After setting the target to an alphabetic index, for example the
+index for letter 'E', then further calls to <a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-step" title="e_book_sqlite_cursor_step ()"><code class="function">e_book_sqlite_cursor_step()</code></a>
+will return results starting with the letter 'E' (or results starting
+with the last result in 'D', if moving in a negative direction).</p>
+<p>The passed index must be a valid index in the active locale, knowledge
+on the currently active alphabet index must be obtained using <a class="link" href="eds-e-collator.html#ECollator"><span class="type">ECollator</span></a>
+APIs.</p>
+<p>Use <a class="link" href="EBookSqlite.html#e-book-sqlite-ref-collator" title="e_book_sqlite_ref_collator ()"><code class="function">e_book_sqlite_ref_collator()</code></a> to obtain the active collator for <em class="parameter"><code>ebsql</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-set-target-alphabetic-index.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a> to modify</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>idx</p></td>
+<td class="parameter_description"><p>The alphabetic index</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-cursor-set-sexp"></a><h3>e_book_sqlite_cursor_set_sexp ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_cursor_set_sexp (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                               <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a> *cursor</code></em>,
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sexp</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Modifies the current query expression for <em class="parameter"><code>cursor</code></em>
+. This will not
+modify <em class="parameter"><code>cursor</code></em>
+'s state, but will change the outcome of any further
+calls to <a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-calculate" title="e_book_sqlite_cursor_calculate ()"><code class="function">e_book_sqlite_cursor_calculate()</code></a> or
+<a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-step" title="e_book_sqlite_cursor_step ()"><code class="function">e_book_sqlite_cursor_step()</code></a>.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-set-sexp.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sexp</p></td>
+<td class="parameter_description"><p>The new query expression for <em class="parameter"><code>cursor</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>A return location to store any error that might be reported.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-set-sexp.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the expression was valid and accepted by <em class="parameter"><code>ebsql</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-cursor-calculate"></a><h3>e_book_sqlite_cursor_calculate ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_sqlite_cursor_calculate (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                                <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a> *cursor</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *total</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *position</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Calculates the <em class="parameter"><code>total</code></em>
+ amount of results for the <em class="parameter"><code>cursor</code></em>
+'s query expression,
+as well as the current <em class="parameter"><code>position</code></em>
+ of <em class="parameter"><code>cursor</code></em>
+ in the results. <em class="parameter"><code>position</code></em>
+ is
+represented as the amount of results which lead up to the current value
+of <em class="parameter"><code>cursor</code></em>
+, if <em class="parameter"><code>cursor</code></em>
+ currently points to an exact contact, the position
+also includes the cursor contact.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-calculate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>total</p></td>
+<td class="parameter_description"><p> A return location to store the total result set for this cursor. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>position</p></td>
+<td class="parameter_description"><p> A return location to store the total results before the cursor value. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> A <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> A return location to store any error that might be reported. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-calculate.returns"></a><h4>Returns</h4>
+<p> Whether <em class="parameter"><code>total</code></em>
+and <em class="parameter"><code>position</code></em>
+were successfully calculated.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-sqlite-cursor-compare-contact"></a><h3>e_book_sqlite_cursor_compare_contact ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_book_sqlite_cursor_compare_contact (<em class="parameter"><code><a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebsql</code></em>,
+                                      <em class="parameter"><code><a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a> *cursor</code></em>,
+                                      <em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *matches_sexp</code></em>);</pre>
+<p>Compares <em class="parameter"><code>contact</code></em>
+ with <em class="parameter"><code>cursor</code></em>
+ and returns whether <em class="parameter"><code>contact</code></em>
+ is less than, equal to, or greater
+than <em class="parameter"><code>cursor</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-compare-contact.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>ebsql</p></td>
+<td class="parameter_description"><p>An <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookSqlite.html#EbSqlCursor" title="EbSqlCursor"><span class="type">EbSqlCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> to compare</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>matches_sexp</p></td>
+<td class="parameter_description"><p> Whether the contact matches the cursor's search expression. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-sqlite-cursor-compare-contact.returns"></a><h4>Returns</h4>
+<p> A value that is less than, equal to, or greater than zero if <em class="parameter"><code>contact</code></em>
+is found,
+respectively, to be less than, to match, or be greater than the current value of <em class="parameter"><code>cursor</code></em>
+.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EBookSqlite.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="E-BOOK-SQLITE-ERROR:CAPS"></a><h3>E_BOOK_SQLITE_ERROR</h3>
+<pre class="programlisting">#define E_BOOK_SQLITE_ERROR (e_book_sqlite_error_quark ())
+</pre>
+<p>Error domain for <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> operations.</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="E-BOOK-SQL-SYNC-DATA-KEY:CAPS"></a><h3>E_BOOK_SQL_SYNC_DATA_KEY</h3>
+<pre class="programlisting">#define E_BOOK_SQL_SYNC_DATA_KEY "eds-reserved-namespace-sync-data"
+</pre>
+<p>This key can be used with <a class="link" href="EBookSqlite.html#e-book-sqlite-get-key-value" title="e_book_sqlite_get_key_value ()"><code class="function">e_book_sqlite_get_key_value()</code></a>.</p>
+<p>In the case of a migration from an older SQLite, any value which
+was previously stored with <code class="function">e_book_sqlitedb_set_sync_data()</code>
+can be retrieved with this key.</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EbSqlChangeType"></a><h3>enum EbSqlChangeType</h3>
+<p>Indicates the type of change which occurred in a <a class="link" href="EBookSqlite.html#EbSqlChangeCallback" title="EbSqlChangeCallback ()"><span class="type">EbSqlChangeCallback</span></a></p>
+<div class="refsect3">
+<a name="EbSqlChangeType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-CHANGE-CONTACT-ADDED:CAPS"></a>EBSQL_CHANGE_CONTACT_ADDED</p></td>
+<td class="enum_member_description">
+<p>Contact was modified as a result of it's addition to the addressbook</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-CHANGE-LOCALE-CHANGED:CAPS"></a>EBSQL_CHANGE_LOCALE_CHANGED</p></td>
+<td class="enum_member_description">
+<p>Contact was modified as a result of a locale change</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-CHANGE-LAST:CAPS"></a>EBSQL_CHANGE_LAST</p></td>
+<td class="enum_member_description">
+<p>A symbolic end marker for this enumeration, will not be passed in callbacks.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookSqliteError"></a><h3>enum EBookSqliteError</h3>
+<p>Defines the types of possible errors reported by the <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a></p>
+<div class="refsect3">
+<a name="EBookSqliteError.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="E-BOOK-SQLITE-ERROR-ENGINE:CAPS"></a>E_BOOK_SQLITE_ERROR_ENGINE</p></td>
+<td class="enum_member_description">
+<p>An error was reported from the SQLite engine</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-BOOK-SQLITE-ERROR-CONSTRAINT:CAPS"></a>E_BOOK_SQLITE_ERROR_CONSTRAINT</p></td>
+<td class="enum_member_description">
+<p>The error occurred due to an explicit constraint, this will
+happen when attempting to add two contacts with the same UID.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-BOOK-SQLITE-ERROR-CONTACT-NOT-FOUND:CAPS"></a>E_BOOK_SQLITE_ERROR_CONTACT_NOT_FOUND</p></td>
+<td class="enum_member_description">
+<p>A contact was not found by UID (this is
+different from a query that returns no results, which is not an error).</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-BOOK-SQLITE-ERROR-INVALID-QUERY:CAPS"></a>E_BOOK_SQLITE_ERROR_INVALID_QUERY</p></td>
+<td class="enum_member_description">
+<p>A query was invalid. This can happen if the
+search expression could not be parsed or if a phone number query contained non-phonenumber input.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-BOOK-SQLITE-ERROR-UNSUPPORTED-QUERY:CAPS"></a>E_BOOK_SQLITE_ERROR_UNSUPPORTED_QUERY</p></td>
+<td class="enum_member_description">
+<p>A query was not supported</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-BOOK-SQLITE-ERROR-UNSUPPORTED-FIELD:CAPS"></a>E_BOOK_SQLITE_ERROR_UNSUPPORTED_FIELD</p></td>
+<td class="enum_member_description">
+<p>An unsupported <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> was specified in the summary</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-BOOK-SQLITE-ERROR-END-OF-LIST:CAPS"></a>E_BOOK_SQLITE_ERROR_END_OF_LIST</p></td>
+<td class="enum_member_description">
+<p>An attempt was made to fetch results past the end of a contact list</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-BOOK-SQLITE-ERROR-LOAD:CAPS"></a>E_BOOK_SQLITE_ERROR_LOAD</p></td>
+<td class="enum_member_description">
+<p>An error occured while loading or creating the database</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EbSqlLockType"></a><h3>enum EbSqlLockType</h3>
+<p>Indicates the type of lock requested in <a class="link" href="EBookSqlite.html#e-book-sqlite-lock" title="e_book_sqlite_lock ()"><code class="function">e_book_sqlite_lock()</code></a></p>
+<div class="refsect3">
+<a name="EbSqlLockType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-LOCK-READ:CAPS"></a>EBSQL_LOCK_READ</p></td>
+<td class="enum_member_description">
+<p>Obtain a lock for reading</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-LOCK-WRITE:CAPS"></a>EBSQL_LOCK_WRITE</p></td>
+<td class="enum_member_description">
+<p>Obtain a lock for writing</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EbSqlUnlockAction"></a><h3>enum EbSqlUnlockAction</h3>
+<p>Indicates what type of action to take while unlocking the sqlite with <a class="link" href="EBookSqlite.html#e-book-sqlite-unlock" title="e_book_sqlite_unlock ()"><code class="function">e_book_sqlite_unlock()</code></a></p>
+<p>In the case that some addressbook modification failed while holding an <a class="link" href="EBookSqlite.html#EBSQL-LOCK-WRITE:CAPS"><code class="literal">EBSQL_LOCK_WRITE</code></a> lock,
+then the <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> must be unlocked with <a class="link" href="EBookSqlite.html#EBSQL-UNLOCK-ROLLBACK:CAPS"><code class="literal">EBSQL_UNLOCK_ROLLBACK</code></a>.</p>
+<div class="refsect3">
+<a name="EbSqlUnlockAction.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-UNLOCK-NONE:CAPS"></a>EBSQL_UNLOCK_NONE</p></td>
+<td class="enum_member_description">
+<p>Just unlock, this is appropriate for locks which were obtained with <a class="link" href="EBookSqlite.html#EBSQL-LOCK-READ:CAPS"><code class="literal">EBSQL_LOCK_READ</code></a></p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-UNLOCK-COMMIT:CAPS"></a>EBSQL_UNLOCK_COMMIT</p></td>
+<td class="enum_member_description">
+<p>Commit any modifications which were made while the lock was held</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-UNLOCK-ROLLBACK:CAPS"></a>EBSQL_UNLOCK_ROLLBACK</p></td>
+<td class="enum_member_description">
+<p>Rollback any modifications which were made while the lock was held</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EbSqlSearchData"></a><h3>EbSqlSearchData</h3>
+<pre class="programlisting">typedef struct {
+	gchar *uid;
+	gchar *vcard;
+	gchar *extra;
+} EbSqlSearchData;
+</pre>
+<p>This structure is used to represent contacts returned
+by the <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> from various functions
+such as <code class="function">e_book_sqlitedb_search()</code>.</p>
+<p>The <em class="parameter"><code>extra</code></em>
+ parameter will contain any data which was
+previously passed for this contact in <a class="link" href="EBookSqlite.html#e-book-sqlite-add-contact" title="e_book_sqlite_add_contact ()"><code class="function">e_book_sqlite_add_contact()</code></a>.</p>
+<p>These should be freed with <a class="link" href="EBookSqlite.html#e-book-sqlite-search-data-free" title="e_book_sqlite_search_data_free ()"><code class="function">e_book_sqlite_search_data_free()</code></a>.</p>
+<div class="refsect3">
+<a name="EbSqlSearchData.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="EbSqlSearchData.uid"></a>uid</code></em>;</p></td>
+<td class="struct_member_description"><p>The <a class="link" href="EContact.html#E-CONTACT-UID:CAPS"><code class="literal">E_CONTACT_UID</code></a> field of this contact</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="EbSqlSearchData.vcard"></a>vcard</code></em>;</p></td>
+<td class="struct_member_description"><p>The the vcard string</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="EbSqlSearchData.extra"></a>extra</code></em>;</p></td>
+<td class="struct_member_description"><p>Any extra data associated to the vcard</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookSqlite-struct"></a><h3>struct EBookSqlite</h3>
+<pre class="programlisting">struct EBookSqlite;</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookSqliteClass"></a><h3>struct EBookSqliteClass</h3>
+<pre class="programlisting">struct EBookSqliteClass {
+};
+</pre>
+<p>Class structure for the <a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> class.</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EbSqlCursorOrigin"></a><h3>enum EbSqlCursorOrigin</h3>
+<p>Specifies the start position to in the list of traversed contacts
+in calls to <a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-step" title="e_book_sqlite_cursor_step ()"><code class="function">e_book_sqlite_cursor_step()</code></a>.</p>
+<p>When an <span class="type">EbSqlCuror</span> is created, the current position implied by <a class="link" href="EBookSqlite.html#EBSQL-CURSOR-ORIGIN-CURRENT:CAPS"><code class="literal">EBSQL_CURSOR_ORIGIN_CURRENT</code></a>
+is the same as <a class="link" href="EBookSqlite.html#EBSQL-CURSOR-ORIGIN-BEGIN:CAPS"><code class="literal">EBSQL_CURSOR_ORIGIN_BEGIN</code></a>.</p>
+<div class="refsect3">
+<a name="EbSqlCursorOrigin.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-CURSOR-ORIGIN-CURRENT:CAPS"></a>EBSQL_CURSOR_ORIGIN_CURRENT</p></td>
+<td class="enum_member_description">
+<p>The current cursor position</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-CURSOR-ORIGIN-BEGIN:CAPS"></a>EBSQL_CURSOR_ORIGIN_BEGIN</p></td>
+<td class="enum_member_description">
+<p>The beginning of the cursor results.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-CURSOR-ORIGIN-END:CAPS"></a>EBSQL_CURSOR_ORIGIN_END</p></td>
+<td class="enum_member_description">
+<p>The ending of the cursor results.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EbSqlCursorStepFlags"></a><h3>enum EbSqlCursorStepFlags</h3>
+<p>Defines the behaviour of <a class="link" href="EBookSqlite.html#e-book-sqlite-cursor-step" title="e_book_sqlite_cursor_step ()"><code class="function">e_book_sqlite_cursor_step()</code></a>.</p>
+<div class="refsect3">
+<a name="EbSqlCursorStepFlags.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-CURSOR-STEP-MOVE:CAPS"></a>EBSQL_CURSOR_STEP_MOVE</p></td>
+<td class="enum_member_description">
+<p>The cursor position should be modified while stepping</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="EBSQL-CURSOR-STEP-FETCH:CAPS"></a>EBSQL_CURSOR_STEP_FETCH</p></td>
+<td class="enum_member_description">
+<p>Traversed contacts should be listed and returned while stepping.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EbSqlCursor"></a><h3>EbSqlCursor</h3>
+<pre class="programlisting">typedef struct _EbSqlCursor EbSqlCursor;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="EBookSqlite.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="EBookSqlite-before-insert-contact"></a><h3>The <code class="literal">“before-insert-contact”</code> signal</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+user_function (<a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebooksqlite,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     arg1,
+               <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a>     *arg2,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>       *arg3,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a>     arg4,
+               <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a>     *arg5,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     arg6,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)</pre>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookSqlite-before-remove-contact"></a><h3>The <code class="literal">“before-remove-contact”</code> signal</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+user_function (<a class="link" href="EBookSqlite.html" title="EBookSqlite"><span class="type">EBookSqlite</span></a> *ebooksqlite,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     arg1,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a>       *arg2,
+               <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct"><span class="type">GObject</span></a>     *arg3,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     arg4,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)</pre>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

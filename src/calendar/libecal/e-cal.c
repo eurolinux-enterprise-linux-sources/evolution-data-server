@@ -4,21 +4,21 @@
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  * Copyright (C) 2009 Intel Corporation
  *
- * Authors: Federico Mena-Quintero <federico@ximian.com>
- *          Rodrigo Moya <rodrigo@novell.com>
- *          Ross Burton <ross@linux.intel.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Federico Mena-Quintero <federico@ximian.com>
+ *          Rodrigo Moya <rodrigo@novell.com>
+ *          Ross Burton <ross@linux.intel.com>
  */
 
 /**
@@ -1588,7 +1588,7 @@ e_cal_get_free_busy (ECal *ecal,
                      GList **freebusy,
                      GError **error)
 {
-	GSList *slist = NULL;
+	GSList *slist = NULL, *out_freebusy = NULL, *link;
 	gboolean success;
 
 	g_return_val_if_fail (E_IS_CAL (ecal), FALSE);
@@ -1601,16 +1601,18 @@ e_cal_get_free_busy (ECal *ecal,
 	for (; users != NULL; users = g_list_next (users))
 		slist = g_slist_prepend (slist, users->data);
 
-	/* FIXME ECalClient's API for this is a giant W.T.F.
-	 *       There's no way to populate the freebusy list
-	 *       in a way that will avoid deadlocking for all
-	 *       cases.  I guess leave the list empty and hope
-	 *       no one notices until ECalClient grows a saner
-	 *       free/busy API. */
 	success = e_cal_client_get_free_busy_sync (
-		ecal->priv->client, start, end, slist, NULL, error);
+		ecal->priv->client, start, end, slist, &out_freebusy, NULL, error);
 
 	g_slist_free (slist);
+
+	if (success) {
+		for (link = out_freebusy; link; link = g_slist_next (link)) {
+			*freebusy = g_list_prepend (*freebusy, g_object_ref (link->data));
+		}
+	}
+
+	g_slist_free_full (out_freebusy, g_object_unref);
 
 	return success;
 }
@@ -2321,7 +2323,7 @@ e_cal_get_error_message (ECalendarStatus status)
 	case E_CALENDAR_STATUS_PROTOCOL_NOT_SUPPORTED :
 		return _("Protocol not supported");
 	case E_CALENDAR_STATUS_CANCELLED :
-		return _("Operation has been canceled");
+		return _("Operation has been cancelled");
 	case E_CALENDAR_STATUS_COULD_NOT_CANCEL :
 		return _("Could not cancel operation");
 	case E_CALENDAR_STATUS_AUTHENTICATION_FAILED :

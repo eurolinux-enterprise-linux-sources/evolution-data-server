@@ -2,17 +2,18 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 #ifndef CAMEL_IMAPX_UTILS_H
@@ -213,7 +214,7 @@ struct _CamelMessageContentInfo *
 		imapx_parse_body_fields		(CamelIMAPXInputStream *stream,
 						 GCancellable *cancellable,
 						 GError **error);
-struct _camel_header_address *
+CamelHeaderAddress *
 		imapx_parse_address_list	(CamelIMAPXInputStream *stream,
 						 GCancellable *cancellable,
 						 GError **error);
@@ -299,6 +300,7 @@ struct _status_info {
 struct _status_info *
 		imapx_parse_status		(CamelIMAPXInputStream *stream,
 						 CamelIMAPXMailbox *mailbox,
+						 gboolean is_ok_no_bad,
 						 GCancellable *cancellable,
 						 GError **error);
 struct _status_info *
@@ -391,6 +393,8 @@ void imapx_utils_init (void);
 gchar *		imapx_path_to_physical		(const gchar *prefix,
 						 const gchar *vpath);
 gchar *		imapx_get_temp_uid		(void);
+
+gboolean	imapx_util_all_is_ascii		(const gchar *str);
 
 G_END_DECLS
 

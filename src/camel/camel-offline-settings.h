@@ -1,17 +1,17 @@
 /*
  * camel-offline-settings.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -73,6 +73,11 @@ gboolean	camel_offline_settings_get_stay_synchronized
 void		camel_offline_settings_set_stay_synchronized
 					(CamelOfflineSettings *settings,
 					 gboolean stay_synchronized);
+gint		camel_offline_settings_get_store_changes_interval
+					(CamelOfflineSettings *settings);
+void		camel_offline_settings_set_store_changes_interval
+					(CamelOfflineSettings *settings,
+					 gint interval);
 
 G_END_DECLS
 

@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelMimeFilterBestenc</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelMimeFilterBestenc: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Stream-Filters.html" title="Stream Filters">
 <link rel="prev" href="CamelMimeFilterBasic.html" title="CamelMimeFilterBasic">
 <link rel="next" href="CamelMimeFilterCanon.html" title="CamelMimeFilterCanon">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelMimeFilterBestenc.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -50,14 +50,14 @@
 </tr>
 <tr>
 <td class="function_type">
-<a class="link" href="camel-camel-mime-utils.html#CamelTransferEncoding" title="enum CamelTransferEncoding"><span class="returnvalue">CamelTransferEncoding</span></a>
+<a class="link" href="camel-camel-enums.html#CamelTransferEncoding" title="enum CamelTransferEncoding"><span class="returnvalue">CamelTransferEncoding</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelMimeFilterBestenc.html#camel-mime-filter-bestenc-get-best-encoding" title="camel_mime_filter_bestenc_get_best_encoding ()">camel_mime_filter_bestenc_get_best_encoding</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelMimeFilterBestenc.html#camel-mime-filter-bestenc-get-best-charset" title="camel_mime_filter_bestenc_get_best_charset ()">camel_mime_filter_bestenc_get_best_charset</a> <span class="c_punctuation">()</span>
@@ -76,7 +76,7 @@
 </div>
 <div class="refsect1">
 <a name="CamelMimeFilterBestenc.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
@@ -90,16 +90,12 @@
 <td class="datatype_keyword">enum</td>
 <td class="function_name"><a class="link" href="CamelMimeFilterBestenc.html#CamelBestencEncoding" title="enum CamelBestencEncoding">CamelBestencEncoding</a></td>
 </tr>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelMimeFilterBestenc.html#CamelMimeFilterBestenc-struct" title="struct CamelMimeFilterBestenc">CamelMimeFilterBestenc</a></td>
-</tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelMimeFilterBestenc.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter">CamelMimeFilter</a>
         <span class="lineart">╰──</span> CamelMimeFilterBestenc
 </pre>
@@ -112,11 +108,11 @@
 <div class="refsect2">
 <a name="camel-mime-filter-bestenc-new"></a><h3>camel_mime_filter_bestenc_new ()</h3>
 <pre class="programlisting"><a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="returnvalue">CamelMimeFilter</span></a> *
-camel_mime_filter_bestenc_new (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> flags</code></em>);</pre>
+camel_mime_filter_bestenc_new (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> flags</code></em>);</pre>
 <p>Create a new <a class="link" href="CamelMimeFilterBestenc.html" title="CamelMimeFilterBestenc"><span class="type">CamelMimeFilterBestenc</span></a> object.</p>
 <div class="refsect3">
-<a name="id-1.2.4.4.7.2.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-bestenc-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -130,23 +126,22 @@ camel_mime_filter_bestenc_new (<em class="parameter"><code><a href="https://deve
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.4.4.7.2.6"></a><h4>Returns</h4>
+<a name="camel-mime-filter-bestenc-new.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="CamelMimeFilterBestenc.html" title="CamelMimeFilterBestenc"><span class="type">CamelMimeFilterBestenc</span></a> object</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-mime-filter-bestenc-get-best-encoding"></a><h3>camel_mime_filter_bestenc_get_best_encoding ()</h3>
-<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelTransferEncoding" title="enum CamelTransferEncoding"><span class="returnvalue">CamelTransferEncoding</span></a>
+<pre class="programlisting"><a class="link" href="camel-camel-enums.html#CamelTransferEncoding" title="enum CamelTransferEncoding"><span class="returnvalue">CamelTransferEncoding</span></a>
 camel_mime_filter_bestenc_get_best_encoding
                                (<em class="parameter"><code><a class="link" href="CamelMimeFilterBestenc.html" title="CamelMimeFilterBestenc"><span class="type">CamelMimeFilterBestenc</span></a> *filter</code></em>,
                                 <em class="parameter"><code><a class="link" href="CamelMimeFilterBestenc.html#CamelBestencEncoding" title="enum CamelBestencEncoding"><span class="type">CamelBestencEncoding</span></a> required</code></em>);</pre>
 <p>Get the best encoding, given specific constraints, that can be used to
 encode a stream of bytes.</p>
 <div class="refsect3">
-<a name="id-1.2.4.4.7.3.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-bestenc-get-best-encoding.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -167,21 +162,20 @@ encode a stream of bytes.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.4.4.7.3.6"></a><h4>Returns</h4>
+<a name="camel-mime-filter-bestenc-get-best-encoding.returns"></a><h4>Returns</h4>
 <p> the best encoding to use</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-mime-filter-bestenc-get-best-charset"></a><h3>camel_mime_filter_bestenc_get_best_charset ()</h3>
-<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_mime_filter_bestenc_get_best_charset
                                (<em class="parameter"><code><a class="link" href="CamelMimeFilterBestenc.html" title="CamelMimeFilterBestenc"><span class="type">CamelMimeFilterBestenc</span></a> *filter</code></em>);</pre>
 <p>Gets the best charset that can be used to contain this content.</p>
 <div class="refsect3">
-<a name="id-1.2.4.4.7.4.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-bestenc-get-best-charset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -195,11 +189,10 @@ camel_mime_filter_bestenc_get_best_charset
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.4.4.7.4.6"></a><h4>Returns</h4>
+<a name="camel-mime-filter-bestenc-get-best-charset.returns"></a><h4>Returns</h4>
 <p> the name of the best charset to use to encode the input
 text filtered by <em class="parameter"><code>filter</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -207,11 +200,11 @@ text filtered by <em class="parameter"><code>filter</code></em>
 <a name="camel-mime-filter-bestenc-set-flags"></a><h3>camel_mime_filter_bestenc_set_flags ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_mime_filter_bestenc_set_flags (<em class="parameter"><code><a class="link" href="CamelMimeFilterBestenc.html" title="CamelMimeFilterBestenc"><span class="type">CamelMimeFilterBestenc</span></a> *filter</code></em>,
-                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> flags</code></em>);</pre>
+                                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint"><span class="type">guint</span></a> flags</code></em>);</pre>
 <p>Set the flags for subsequent operations.</p>
 <div class="refsect3">
-<a name="id-1.2.4.4.7.5.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-bestenc-set-flags.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -238,8 +231,8 @@ camel_mime_filter_bestenc_set_flags (<em class="parameter"><code><a class="link"
 <div class="refsect2">
 <a name="CamelBestencRequired"></a><h3>enum CamelBestencRequired</h3>
 <div class="refsect3">
-<a name="id-1.2.4.4.8.2.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="CamelBestencRequired.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="300px" class="enum_members_name">
 <col class="enum_members_description">
@@ -274,8 +267,8 @@ camel_mime_filter_bestenc_set_flags (<em class="parameter"><code><a class="link"
 <div class="refsect2">
 <a name="CamelBestencEncoding"></a><h3>enum CamelBestencEncoding</h3>
 <div class="refsect3">
-<a name="id-1.2.4.4.8.3.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="CamelBestencEncoding.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="300px" class="enum_members_name">
 <col class="enum_members_description">
@@ -306,15 +299,9 @@ camel_mime_filter_bestenc_set_flags (<em class="parameter"><code><a class="link"
 </table></div>
 </div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="CamelMimeFilterBestenc-struct"></a><h3>struct CamelMimeFilterBestenc</h3>
-<pre class="programlisting">struct CamelMimeFilterBestenc;</pre>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

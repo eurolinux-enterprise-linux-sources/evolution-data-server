@@ -2,13 +2,15 @@ NULL =
 
 @GNOME_CODE_COVERAGE_RULES@
 
-TESTS = \
-	e-source-test \
-	e-source-registry-test \
+TESTS_SKIP = \
 	e-collator-test \
 	$(NULL)
 
-noinst_PROGRAMS = $(TESTS)
+TESTS = \
+	e-source-registry-test \
+	$(NULL)
+
+noinst_PROGRAMS = $(TESTS) $(TESTS_SKIP)
 
 test_CPPFLAGS = \
 	$(AM_CPPFLAGS) \
@@ -36,13 +38,6 @@ test_LDADD = \
 	$(EVOLUTION_CALENDAR_LIBS) \
 	$(GIO_UNIX_LIBS) \
 	$(NULL)
-
-e_source_test_SOURCES = \
-	e-source-test.c \
-	$(NULL)
-
-e_source_test_CPPFLAGS = $(test_CPPFLAGS)
-e_source_test_LDADD = $(test_LDADD)
 
 e_collator_test_SOURCES = \
 	e-collator-test.c \

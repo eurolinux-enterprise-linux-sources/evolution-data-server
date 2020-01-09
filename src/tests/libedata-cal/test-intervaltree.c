@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Stanislav Slusny <slusnys@gmail.com>
- *
  * Copyright 2008
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
- * This library is distributed in the hope that it will be useful, but
+ * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Stanislav Slusny <slusnys@gmail.com>
  */
 #include <stdlib.h>
 #include <unistd.h>
@@ -154,11 +153,11 @@ create_test_component (time_t start,
 	ECalComponentDateTime dtstart, dtend;
 	struct icaltimetype time_start, time_end;
  *
-	time_start = icaltime_from_timet (start, 0);
-	dtstart.value = icaltime_from_timet (start, 0);
+	time_start = icaltime_from_timet_with_zone (start, 0, NULL);
+	dtstart.value = icaltime_from_timet_with_zone (start, 0, NULL);
 	dtstart.zone = icaltimezone_get_utc_timezone ();
  *
-	dtend.value = icaltime_from_timet (end, 0);
+	dtend.value = icaltime_from_timet_with_zone (end, 0, NULL);
 	dtend.value = icaltimezone_get_utc_timezone ();
 	e_cal_component_set_dtstart (comp, &dtstart);
 	e_cal_component_set_dtend (comp, &dtend);
@@ -171,7 +170,7 @@ create_test_component (time_t start,
 
 	g_free ((gchar *) summary.value);
 
-	current = icaltime_from_timet (time (NULL), 0);
+	current = icaltime_from_timet_with_zone (time (NULL), 0, NULL);
 	e_cal_component_set_created (comp, &current);
 	e_cal_component_set_last_modified (comp, &current);
 

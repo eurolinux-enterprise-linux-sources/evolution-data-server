@@ -1,23 +1,20 @@
 /*
- * This library is free software you can redistribute it and/or modify it
+ * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
+ *
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- *
- * Authors:
- *		Jeffrey Stedfast <fejj@ximian.com>
- *		Veerapuram Varadhan <vvaradhan@novell.com>
- *
- * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
- *
+ * Authors: Jeffrey Stedfast <fejj@ximian.com>
+ *          Veerapuram Varadhan <vvaradhan@novell.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -428,6 +425,8 @@ ep_need_proxy_socks (EProxy *proxy,
 	return !ep_is_in_ignored (proxy, host);
 }
 
+/* Apply a prefix-notation @netmask to the given @addr_in, as described in
+ * http://tools.ietf.org/html/rfc4632#section-3.1 */
 static gboolean
 ep_manipulate_ipv4 (ProxyHostAddr *host_addr,
                     struct in_addr *addr_in,
@@ -451,8 +450,11 @@ ep_manipulate_ipv4 (ProxyHostAddr *host_addr,
 		if (*endptr != '\0' || width < 0 || width > 32) {
 			has_error = TRUE;
 			mask->s_addr = 0xFFFFFFFF;
+		} else if (width == 32) {
+			mask->s_addr = 0;
+			addr->s_addr = 0;
 		} else {
-			mask->s_addr = htonl (~0 << width);
+			mask->s_addr = htonl (~0U << width);
 			addr->s_addr &= mask->s_addr;
 		}
 	} else {

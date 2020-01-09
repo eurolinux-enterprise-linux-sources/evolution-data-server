@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: camel-uid-cache</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>camel-uid-cache: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Utilities.html" title="Utilities">
 <link rel="prev" href="camel-camel-trie.html" title="camel-trie">
 <link rel="next" href="camel-camel-url-scanner.html" title="camel-url-scanner">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -33,7 +33,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="camel-camel-uid-cache.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -49,7 +49,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-uid-cache.html#camel-uid-cache-save" title="camel_uid_cache_save ()">camel_uid_cache_save</a> <span class="c_punctuation">()</span>
@@ -65,7 +65,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-uid-cache.html#camel-uid-cache-get-new-uids" title="camel_uid_cache_get_new_uids ()">camel_uid_cache_get_new_uids</a> <span class="c_punctuation">()</span>
@@ -92,7 +92,7 @@
 </div>
 <div class="refsect1">
 <a name="camel-camel-uid-cache.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
@@ -111,15 +111,15 @@
 <div class="refsect2">
 <a name="camel-uid-cache-new"></a><h3>camel_uid_cache_new ()</h3>
 <pre class="programlisting"><a class="link" href="camel-camel-uid-cache.html#CamelUIDCache" title="CamelUIDCache"><span class="returnvalue">CamelUIDCache</span></a> *
-camel_uid_cache_new (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
+camel_uid_cache_new (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
 <p>Creates a new UID cache, initialized from <em class="parameter"><code>filename</code></em>
 . If <em class="parameter"><code>filename</code></em>
 
 doesn't already exist, the UID cache will be empty. Otherwise, if
-it does exist but can't be read, the function will return <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+it does exist but can't be read, the function will return <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.13.18.6.2.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-uid-cache-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -133,21 +133,20 @@ it does exist but can't be read, the function will return <a href="https://devel
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.18.6.2.6"></a><h4>Returns</h4>
-<p> a new UID cache, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
-<p></p>
+<a name="camel-uid-cache-new.returns"></a><h4>Returns</h4>
+<p> a new UID cache, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-uid-cache-save"></a><h3>camel_uid_cache_save ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_uid_cache_save (<em class="parameter"><code><a class="link" href="camel-camel-uid-cache.html#CamelUIDCache" title="CamelUIDCache"><span class="type">CamelUIDCache</span></a> *cache</code></em>);</pre>
 <p>Attempts to save <em class="parameter"><code>cache</code></em>
  back to disk.</p>
 <div class="refsect3">
-<a name="id-1.2.13.18.6.3.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-uid-cache-save.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -161,9 +160,8 @@ camel_uid_cache_save (<em class="parameter"><code><a class="link" href="camel-ca
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.18.6.3.6"></a><h4>Returns</h4>
+<a name="camel-uid-cache-save.returns"></a><h4>Returns</h4>
 <p> success or failure</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -174,8 +172,8 @@ camel_uid_cache_destroy (<em class="parameter"><code><a class="link" href="camel
 <p>Destroys <em class="parameter"><code>cache</code></em>
  and frees its data.</p>
 <div class="refsect3">
-<a name="id-1.2.13.18.6.4.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-uid-cache-destroy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -192,9 +190,9 @@ camel_uid_cache_destroy (<em class="parameter"><code><a class="link" href="camel
 <hr>
 <div class="refsect2">
 <a name="camel-uid-cache-get-new-uids"></a><h3>camel_uid_cache_get_new_uids ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *
 camel_uid_cache_get_new_uids (<em class="parameter"><code><a class="link" href="camel-camel-uid-cache.html#CamelUIDCache" title="CamelUIDCache"><span class="type">CamelUIDCache</span></a> *cache</code></em>,
-                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *uids</code></em>);</pre>
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *uids</code></em>);</pre>
 <p>Returns an array of UIDs from <em class="parameter"><code>uids</code></em>
  that are not in <em class="parameter"><code>cache</code></em>
 , and
@@ -202,8 +200,8 @@ removes UIDs from <em class="parameter"><code>cache</code></em>
  that aren't in <em class="parameter"><code>uids</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.13.18.6.5.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-uid-cache-get-new-uids.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -217,17 +215,17 @@ removes UIDs from <em class="parameter"><code>cache</code></em>
 </tr>
 <tr>
 <td class="parameter_name"><p>uids</p></td>
-<td class="parameter_description"><p>an array of UIDs</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> an array of UIDs. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.18.6.5.6"></a><h4>Returns</h4>
+<a name="camel-uid-cache-get-new-uids.returns"></a><h4>Returns</h4>
 <p> an array of new UIDs, which must be freed with
-<a class="link" href="camel-camel-uid-cache.html#camel-uid-cache-free-uids" title="camel_uid_cache_free_uids ()"><code class="function">camel_uid_cache_free_uids()</code></a>.</p>
-<p></p>
+<a class="link" href="camel-camel-uid-cache.html#camel-uid-cache-free-uids" title="camel_uid_cache_free_uids ()"><code class="function">camel_uid_cache_free_uids()</code></a>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
 </div>
 <hr>
@@ -235,11 +233,11 @@ removes UIDs from <em class="parameter"><code>cache</code></em>
 <a name="camel-uid-cache-save-uid"></a><h3>camel_uid_cache_save_uid ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_uid_cache_save_uid (<em class="parameter"><code><a class="link" href="camel-camel-uid-cache.html#CamelUIDCache" title="CamelUIDCache"><span class="type">CamelUIDCache</span></a> *cache</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
 <p>Marks a uid for saving.</p>
 <div class="refsect3">
-<a name="id-1.2.13.18.6.6.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-uid-cache-save-uid.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -264,11 +262,11 @@ camel_uid_cache_save_uid (<em class="parameter"><code><a class="link" href="came
 <div class="refsect2">
 <a name="camel-uid-cache-free-uids"></a><h3>camel_uid_cache_free_uids ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_uid_cache_free_uids (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *uids</code></em>);</pre>
+camel_uid_cache_free_uids (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *uids</code></em>);</pre>
 <p>Frees the array of UIDs.</p>
 <div class="refsect3">
-<a name="id-1.2.13.18.6.7.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-uid-cache-free-uids.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -276,8 +274,8 @@ camel_uid_cache_free_uids (<em class="parameter"><code><a href="https://develope
 </colgroup>
 <tbody><tr>
 <td class="parameter_name"><p>uids</p></td>
-<td class="parameter_description"><p>an array returned from <a class="link" href="camel-camel-uid-cache.html#camel-uid-cache-get-new-uids" title="camel_uid_cache_get_new_uids ()"><code class="function">camel_uid_cache_get_new_uids()</code></a></p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> an array returned from <a class="link" href="camel-camel-uid-cache.html#camel-uid-cache-get-new-uids" title="camel_uid_cache_get_new_uids ()"><code class="function">camel_uid_cache_get_new_uids()</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></td>
 </tr></tbody>
 </table></div>
 </div>
@@ -300,7 +298,6 @@ camel_uid_cache_free_uids (<em class="parameter"><code><a href="https://develope
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

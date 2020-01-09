@@ -4,21 +4,20 @@
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  * Copyright (C) 2012 Intel Corporation
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors:
- *   Chris Toshok <toshok@ximian.com>
- *   Tristan Van Berkom <tristanvb@openismus.com>
+ * Authors: Chris Toshok <toshok@ximian.com>
+ *          Tristan Van Berkom <tristanvb@openismus.com>
  */
 
 #if !defined (__LIBEBOOK_CONTACTS_H_INSIDE__) && !defined (LIBEBOOK_CONTACTS_COMPILATION)
@@ -215,6 +214,7 @@ typedef enum {
 
 	/* Security Fields */
 	E_CONTACT_X509_CERT,     /* structured field (EContactCert) */
+	E_CONTACT_PGP_CERT,      /* structured field (EContactCert) */
 
 	E_CONTACT_IM_GADUGADU_HOME_1,  /* Synthetic string field */
 	E_CONTACT_IM_GADUGADU_HOME_2,  /* Synthetic string field */
@@ -358,10 +358,14 @@ void		e_contact_set			(EContact *contact,
 						 EContactField field_id,
 						 gconstpointer value);
 
-/* the following two calls return and take a GList of
+/* the following three calls return and take a GList of
  * EVCardAttribute*'s. */
 GList *		e_contact_get_attributes	(EContact *contact,
 						 EContactField field_id);
+GList *		e_contact_get_attributes_set	(EContact *contact,
+						 const EContactField field_ids[],
+						 gint size);
+
 void		e_contact_set_attributes	(EContact *contact,
 						 EContactField field_id,
 						 GList *attributes);

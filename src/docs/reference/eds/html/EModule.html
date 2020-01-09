@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EModule: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch06.html" title="Abstract Classes for Backends">
+<link rel="prev" href="EExtension.html" title="EExtension">
+<link rel="next" href="ESubprocessFactory.html" title="ESubprocessFactory">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#EModule.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#EModule.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#EModule.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch06.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="EExtension.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ESubprocessFactory.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="EModule"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EModule.top_of_page"></a>EModule</span></h2>
+<p>EModule — A module loader</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="EModule.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="EModule.html" title="EModule"><span class="returnvalue">EModule</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EModule.html#e-module-new" title="e_module_new ()">e_module_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EModule.html#e-module-get-filename" title="e_module_get_filename ()">e_module_get_filename</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="EModule.html" title="EModule"><span class="returnvalue">EModule</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EModule.html#e-module-load-file" title="e_module_load_file ()">e_module_load_file</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EModule.html#e-module-load-all-in-directory" title="e_module_load_all_in_directory ()">e_module_load_all_in_directory</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EModule.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EModule.html#EModule-struct" title="struct EModule">EModule</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EModule.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gobjectGTypeModule.html#GTypeModule-struct">GTypeModule</a>
+        <span class="lineart">╰──</span> EModule
+</pre>
+</div>
+<div class="refsect1">
+<a name="EModule.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+EModule implements
+ <a href="/usr/share/gtk-doc/html/gobjectGTypePlugin.html#GTypePlugin-struct">GTypePlugin</a>.</p>
+</div>
+<div class="refsect1">
+<a name="EModule.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedataserver/libedataserver.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="EModule.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="EModule.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-module-new"></a><h3>e_module_new ()</h3>
+<pre class="programlisting"><a class="link" href="EModule.html" title="EModule"><span class="returnvalue">EModule</span></a> *
+e_module_new (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
+<p>Creates a new <a class="link" href="EModule.html" title="EModule"><span class="type">EModule</span></a> that will load the specific shared library
+when in use.</p>
+<div class="refsect3">
+<a name="e-module-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>filename</p></td>
+<td class="parameter_description"><p>filename of the shared library module</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-module-new.returns"></a><h4>Returns</h4>
+<p> a new <a class="link" href="EModule.html" title="EModule"><span class="type">EModule</span></a> for <em class="parameter"><code>filename</code></em>
+</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-module-get-filename"></a><h3>e_module_get_filename ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_module_get_filename (<em class="parameter"><code><a class="link" href="EModule.html" title="EModule"><span class="type">EModule</span></a> *module</code></em>);</pre>
+<p>Returns the filename of the shared library for <em class="parameter"><code>module</code></em>
+.  The
+string is owned by <em class="parameter"><code>module</code></em>
+ and should not be modified or freed.</p>
+<div class="refsect3">
+<a name="e-module-get-filename.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>module</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EModule.html" title="EModule"><span class="type">EModule</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-module-get-filename.returns"></a><h4>Returns</h4>
+<p> the filename for <em class="parameter"><code>module</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-module-load-file"></a><h3>e_module_load_file ()</h3>
+<pre class="programlisting"><a class="link" href="EModule.html" title="EModule"><span class="returnvalue">EModule</span></a> *
+e_module_load_file (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
+<p>Load the module from the specified filename into memory. If
+you want to unload it (enabling on-demand loading) you must call
+<a href="/usr/share/gtk-doc/html/gobjectGTypeModule.html#g-type-module-unuse"><code class="function">g_type_module_unuse()</code></a> on the module.</p>
+<div class="refsect3">
+<a name="e-module-load-file.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>filename</p></td>
+<td class="parameter_description"><p>filename of the module to load</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-module-load-file.returns"></a><h4>Returns</h4>
+<p> an <a class="link" href="EModule.html" title="EModule"><span class="type">EModule</span></a> loaded from <em class="parameter"><code>filename</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-module-load-all-in-directory"></a><h3>e_module_load_all_in_directory ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_module_load_all_in_directory (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *dirname</code></em>);</pre>
+<p>Loads all the modules in the specified directory into memory.  If
+you want to unload them (enabling on-demand loading) you must call
+<a href="/usr/share/gtk-doc/html/gobjectGTypeModule.html#g-type-module-unuse"><code class="function">g_type_module_unuse()</code></a> on all the modules.  Free the returned list
+with <a href="/usr/share/gtk-doc/html/glibglib-Doubly-Linked-Lists.html#g-list-free"><code class="function">g_list_free()</code></a>.</p>
+<div class="refsect3">
+<a name="e-module-load-all-in-directory.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dirname</p></td>
+<td class="parameter_description"><p>pathname for a directory containing modules to load</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-module-load-all-in-directory.returns"></a><h4>Returns</h4>
+<p> a list of <a href="EModule.html#EModule-struct"><span class="type">EModules</span></a> loaded from <em class="parameter"><code>dirname</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EModule][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EModule.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EModule-struct"></a><h3>struct EModule</h3>
+<pre class="programlisting">struct EModule;</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

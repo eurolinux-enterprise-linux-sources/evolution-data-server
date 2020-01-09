@@ -2,25 +2,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: camel-mime-utils</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>camel-mime-utils: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Utilities.html" title="Utilities">
 <link rel="prev" href="camel-camel-mempool.html" title="camel-mempool">
-<link rel="next" href="camel-camel-movemail.html" title="camel-movemail">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="next" href="camel-camel-mime-part-utils.html" title="camel-mime-part-utils">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
 <td width="100%" align="left" class="shortcuts">
 <a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
-                  <a href="#camel-camel-mime-utils.description" class="shortcut">Description</a></span>
+                  <a href="#camel-camel-mime-utils.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#camel-camel-mime-utils.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
 </td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
 <td><a accesskey="u" href="Utilities.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
 <td><a accesskey="p" href="camel-camel-mempool.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
-<td><a accesskey="n" href="camel-camel-movemail.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="camel-camel-mime-part-utils.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
 </tr></table>
 <div class="refentry">
 <a name="camel-camel-mime-utils"></a><div class="titlepage"></div>
@@ -33,36 +34,12 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="camel-camel-mime-utils.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
 </colgroup>
 <tbody>
-<tr>
-<td class="define_keyword">#define</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CAMEL-FOLD-SIZE:CAPS" title="CAMEL_FOLD_SIZE">CAMEL_FOLD_SIZE</a></td>
-</tr>
-<tr>
-<td class="define_keyword">#define</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CAMEL-FOLD-MAX-SIZE:CAPS" title="CAMEL_FOLD_MAX_SIZE">CAMEL_FOLD_MAX_SIZE</a></td>
-</tr>
-<tr>
-<td class="define_keyword">#define</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CAMEL-UUDECODE-STATE-INIT:CAPS" title="CAMEL_UUDECODE_STATE_INIT">CAMEL_UUDECODE_STATE_INIT</a></td>
-</tr>
-<tr>
-<td class="define_keyword">#define</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CAMEL-UUDECODE-STATE-BEGIN:CAPS" title="CAMEL_UUDECODE_STATE_BEGIN">CAMEL_UUDECODE_STATE_BEGIN</a></td>
-</tr>
-<tr>
-<td class="define_keyword">#define</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CAMEL-UUDECODE-STATE-END:CAPS" title="CAMEL_UUDECODE_STATE_END">CAMEL_UUDECODE_STATE_END</a></td>
-</tr>
-<tr>
-<td class="define_keyword">#define</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CAMEL-UUDECODE-STATE-MASK:CAPS" title="CAMEL_UUDECODE_STATE_MASK">CAMEL_UUDECODE_STATE_MASK</a></td>
-</tr>
 <tr>
 <td class="function_type">
 <span class="returnvalue">time_t</span>
@@ -80,21 +57,24 @@
 </td>
 </tr>
 <tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address"><span class="returnvalue">_camel_header_address</span></a> *
+<td class="function_type">
+<a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-address-new" title="camel_header_address_new ()">camel_header_address_new</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address"><span class="returnvalue">_camel_header_address</span></a> *
+<td class="function_type">
+<a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-address-new-name" title="camel_header_address_new_name ()">camel_header_address_new_name</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address"><span class="returnvalue">_camel_header_address</span></a> *
+<td class="function_type">
+<a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-address-new-group" title="camel_header_address_new_group ()">camel_header_address_new_group</a> <span class="c_punctuation">()</span>
@@ -102,7 +82,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<span class="returnvalue">void</span>
+<a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-address-ref" title="camel_header_address_ref ()">camel_header_address_ref</a> <span class="c_punctuation">()</span>
@@ -173,14 +153,16 @@
 </td>
 </tr>
 <tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address"><span class="returnvalue">_camel_header_address</span></a> *
+<td class="function_type">
+<a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-address-decode" title="camel_header_address_decode ()">camel_header_address_decode</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address"><span class="returnvalue">_camel_header_address</span></a> *
+<td class="function_type">
+<a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-mailbox-decode" title="camel_header_mailbox_decode ()">camel_header_mailbox_decode</a> <span class="c_punctuation">()</span>
@@ -188,7 +170,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-address-list-encode" title="camel_header_address_list_encode ()">camel_header_address_list_encode</a> <span class="c_punctuation">()</span>
@@ -196,21 +178,29 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-address-list-format" title="camel_header_address_list_format ()">camel_header_address_list_format</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="struct camel_header_param"><span class="returnvalue">_camel_header_param</span></a> *
+<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="camel_header_param ()"><span class="returnvalue">_camel_header_param</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-param-list-decode" title="camel_header_param_list_decode ()">camel_header_param_list_decode</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="struct camel_header_param"><span class="returnvalue">_camel_header_param</span></a> *
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="camel_header_param ()">camel_header_param</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="camel_header_param ()"><span class="returnvalue">_camel_header_param</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-set-param" title="camel_header_set_param ()">camel_header_set_param</a> <span class="c_punctuation">()</span>
@@ -226,7 +216,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-param-list-format" title="camel_header_param_list_format ()">camel_header_param_list_format</a> <span class="c_punctuation">()</span>
@@ -242,7 +232,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="returnvalue">CamelContentType</span></a> *
+<a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="returnvalue">CamelContentType</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-type-new" title="camel_content_type_new ()">camel_content_type_new</a> <span class="c_punctuation">()</span>
@@ -250,7 +240,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="returnvalue">CamelContentType</span></a> *
+<a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="returnvalue">CamelContentType</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-type-decode" title="camel_content_type_decode ()">camel_content_type_decode</a> <span class="c_punctuation">()</span>
@@ -266,14 +256,14 @@
 </tr>
 <tr>
 <td class="function_type">
-<span class="returnvalue">void</span>
+<a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="returnvalue">CamelContentType</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-type-ref" title="camel_content_type_ref ()">camel_content_type_ref</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-type-param" title="camel_content_type_param ()">camel_content_type_param</a> <span class="c_punctuation">()</span>
@@ -289,7 +279,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-type-is" title="camel_content_type_is ()">camel_content_type_is</a> <span class="c_punctuation">()</span>
@@ -297,7 +287,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-type-format" title="camel_content_type_format ()">camel_content_type_format</a> <span class="c_punctuation">()</span>
@@ -305,7 +295,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-type-simple" title="camel_content_type_simple ()">camel_content_type_simple</a> <span class="c_punctuation">()</span>
@@ -321,7 +311,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition" title="CamelContentDisposition"><span class="returnvalue">CamelContentDisposition</span></a> *
+<a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition"><span class="returnvalue">CamelContentDisposition</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-disposition-decode" title="camel_content_disposition_decode ()">camel_content_disposition_decode</a> <span class="c_punctuation">()</span>
@@ -329,7 +319,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<span class="returnvalue">void</span>
+<a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition"><span class="returnvalue">CamelContentDisposition</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-disposition-ref" title="camel_content_disposition_ref ()">camel_content_disposition_ref</a> <span class="c_punctuation">()</span>
@@ -345,7 +335,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-disposition-format" title="camel_content_disposition_format ()">camel_content_disposition_format</a> <span class="c_punctuation">()</span>
@@ -353,7 +343,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-content-transfer-encoding-decode" title="camel_content_transfer_encoding_decode ()">camel_content_transfer_encoding_decode</a> <span class="c_punctuation">()</span>
@@ -376,14 +366,14 @@
 </td>
 </tr>
 <tr>
-<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-raw-find" title="camel_header_raw_find ()">camel_header_raw_find</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-raw-find-next" title="camel_header_raw_find_next ()">camel_header_raw_find_next</a> <span class="c_punctuation">()</span>
@@ -423,7 +413,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-raw-check-mailing-list" title="camel_header_raw_check_mailing_list ()">camel_header_raw_check_mailing_list</a> <span class="c_punctuation">()</span>
@@ -431,7 +421,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-address-fold" title="camel_header_address_fold ()">camel_header_address_fold</a> <span class="c_punctuation">()</span>
@@ -439,7 +429,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-fold" title="camel_header_fold ()">camel_header_fold</a> <span class="c_punctuation">()</span>
@@ -447,7 +437,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-unfold" title="camel_header_unfold ()">camel_header_unfold</a> <span class="c_punctuation">()</span>
@@ -455,7 +445,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-token-decode" title="camel_header_token_decode ()">camel_header_token_decode</a> <span class="c_punctuation">()</span>
@@ -463,7 +453,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-decode-int" title="camel_header_decode_int ()">camel_header_decode_int</a> <span class="c_punctuation">()</span>
@@ -471,7 +461,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-decode-string" title="camel_header_decode_string ()">camel_header_decode_string</a> <span class="c_punctuation">()</span>
@@ -479,7 +469,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-encode-string" title="camel_header_encode_string ()">camel_header_encode_string</a> <span class="c_punctuation">()</span>
@@ -487,7 +477,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-format-ctext" title="camel_header_format_ctext ()">camel_header_format_ctext</a> <span class="c_punctuation">()</span>
@@ -495,7 +485,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-encode-phrase" title="camel_header_encode_phrase ()">camel_header_encode_phrase</a> <span class="c_punctuation">()</span>
@@ -511,7 +501,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-format-date" title="camel_header_format_date ()">camel_header_format_date</a> <span class="c_punctuation">()</span>
@@ -519,7 +509,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-msgid-decode" title="camel_header_msgid_decode ()">camel_header_msgid_decode</a> <span class="c_punctuation">()</span>
@@ -527,7 +517,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-contentid-decode" title="camel_header_contentid_decode ()">camel_header_contentid_decode</a> <span class="c_punctuation">()</span>
@@ -535,21 +525,15 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-msgid-generate" title="camel_header_msgid_generate ()">camel_header_msgid_generate</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-references" title="struct camel_header_references"><span class="returnvalue">_camel_header_references</span></a> *
-</td>
-<td class="function_name">
-<a class="link" href="camel-camel-mime-utils.html#camel-header-references-inreplyto-decode" title="camel_header_references_inreplyto_decode ()">camel_header_references_inreplyto_decode</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-references" title="struct camel_header_references"><span class="returnvalue">_camel_header_references</span></a> *
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-references-decode" title="camel_header_references_decode ()">camel_header_references_decode</a> <span class="c_punctuation">()</span>
@@ -557,60 +541,22 @@
 </tr>
 <tr>
 <td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="camel-camel-mime-utils.html#camel-header-references-list-clear" title="camel_header_references_list_clear ()">camel_header_references_list_clear</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="camel-camel-mime-utils.html#camel-header-references-list-append-asis" title="camel_header_references_list_append_asis ()">camel_header_references_list_append_asis</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
-</td>
-<td class="function_name">
-<a class="link" href="camel-camel-mime-utils.html#camel-header-references-list-size" title="camel_header_references_list_size ()">camel_header_references_list_size</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-references" title="struct camel_header_references"><span class="returnvalue">_camel_header_references</span></a> *
-</td>
-<td class="function_name">
-<a class="link" href="camel-camel-mime-utils.html#camel-header-references-dup" title="camel_header_references_dup ()">camel_header_references_dup</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-location-decode" title="camel_header_location_decode ()">camel_header_location_decode</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-newsgroup" title="struct camel_header_newsgroup"><span class="returnvalue">_camel_header_newsgroup</span></a> *
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-header-newsgroups-decode" title="camel_header_newsgroups_decode ()">camel_header_newsgroups_decode</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
 <tr>
-<td class="function_type">
-<span class="returnvalue">void</span>
-</td>
-<td class="function_name">
-<a class="link" href="camel-camel-mime-utils.html#camel-header-newsgroups-free" title="camel_header_newsgroups_free ()">camel_header_newsgroups_free</a> <span class="c_punctuation">()</span>
-</td>
-</tr>
-<tr>
-<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-transfer-encoding-to-string" title="camel_transfer_encoding_to_string ()">camel_transfer_encoding_to_string</a> <span class="c_punctuation">()</span>
@@ -618,7 +564,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a class="link" href="camel-camel-mime-utils.html#CamelTransferEncoding" title="enum CamelTransferEncoding"><span class="returnvalue">CamelTransferEncoding</span></a>
+<a class="link" href="camel-camel-enums.html#CamelTransferEncoding" title="enum CamelTransferEncoding"><span class="returnvalue">CamelTransferEncoding</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-transfer-encoding-from-string" title="camel_transfer_encoding_from_string ()">camel_transfer_encoding_from_string</a> <span class="c_punctuation">()</span>
@@ -634,7 +580,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-uudecode-step" title="camel_uudecode_step ()">camel_uudecode_step</a> <span class="c_punctuation">()</span>
@@ -642,7 +588,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-uuencode-step" title="camel_uuencode_step ()">camel_uuencode_step</a> <span class="c_punctuation">()</span>
@@ -650,7 +596,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-uuencode-close" title="camel_uuencode_close ()">camel_uuencode_close</a> <span class="c_punctuation">()</span>
@@ -658,7 +604,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-quoted-decode-step" title="camel_quoted_decode_step ()">camel_quoted_decode_step</a> <span class="c_punctuation">()</span>
@@ -666,7 +612,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-quoted-encode-step" title="camel_quoted_encode_step ()">camel_quoted_encode_step</a> <span class="c_punctuation">()</span>
@@ -674,7 +620,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-mime-utils.html#camel-quoted-encode-close" title="camel_quoted_encode_close ()">camel_quoted_encode_close</a> <span class="c_punctuation">()</span>
@@ -755,52 +701,52 @@
 </tbody>
 </table></div>
 </div>
-<div class="refsect1">
+<a name="CamelContentDisposition"></a><a name="CamelContentType"></a><a name="CamelHeaderAddress"></a><div class="refsect1">
 <a name="camel-camel-mime-utils.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
 </colgroup>
 <tbody>
 <tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CAMEL-FOLD-SIZE:CAPS" title="CAMEL_FOLD_SIZE">CAMEL_FOLD_SIZE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CAMEL-FOLD-MAX-SIZE:CAPS" title="CAMEL_FOLD_MAX_SIZE">CAMEL_FOLD_MAX_SIZE</a></td>
+</tr>
+<tr>
 <td class="datatype_keyword">enum</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CamelTransferEncoding" title="enum CamelTransferEncoding">CamelTransferEncoding</a></td>
+<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CamelUUDecodeState" title="enum CamelUUDecodeState">CamelUUDecodeState</a></td>
 </tr>
 <tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#camel-header-references" title="struct camel_header_references">camel_header_references</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="struct camel_header_param">camel_header_param</a></td>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CAMEL-UUDECODE-STATE-MASK:CAPS" title="CAMEL_UUDECODE_STATE_MASK">CAMEL_UUDECODE_STATE_MASK</a></td>
 </tr>
 <tr>
 <td class="datatype_keyword"> </td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType">CamelContentType</a></td>
+<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CamelHeaderParam" title="CamelHeaderParam">CamelHeaderParam</a></td>
 </tr>
 <tr>
 <td class="datatype_keyword">struct</td>
 <td class="function_name"><a class="link" href="camel-camel-mime-utils.html#camel-header-raw" title="struct camel_header_raw">camel_header_raw</a></td>
 </tr>
 <tr>
-<td class="datatype_keyword"> </td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition" title="CamelContentDisposition">CamelContentDisposition</a></td>
-</tr>
-<tr>
 <td class="datatype_keyword">enum</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#camel-header-address-t" title="enum camel_header_address_t">camel_header_address_t</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address">camel_header_address</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#camel-header-newsgroup" title="struct camel_header_newsgroup">camel_header_newsgroup</a></td>
+<td class="function_name"><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddressType" title="enum CamelHeaderAddressType">CamelHeaderAddressType</a></td>
 </tr>
 </tbody>
 </table></div>
+</div>
+<div class="refsect1">
+<a name="camel-camel-mime-utils.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html">GBoxed</a>
+    <span class="lineart">├──</span> CamelContentDisposition
+    <span class="lineart">├──</span> CamelContentType
+    <span class="lineart">╰──</span> CamelHeaderAddress
+</pre>
 </div>
 <div class="refsect1">
 <a name="camel-camel-mime-utils.description"></a><h2>Description</h2>
@@ -808,49 +754,13 @@
 <div class="refsect1">
 <a name="camel-camel-mime-utils.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
-<a name="CAMEL-FOLD-SIZE:CAPS"></a><h3>CAMEL_FOLD_SIZE</h3>
-<pre class="programlisting">#define CAMEL_FOLD_SIZE (77)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CAMEL-FOLD-MAX-SIZE:CAPS"></a><h3>CAMEL_FOLD_MAX_SIZE</h3>
-<pre class="programlisting">#define CAMEL_FOLD_MAX_SIZE (998)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CAMEL-UUDECODE-STATE-INIT:CAPS"></a><h3>CAMEL_UUDECODE_STATE_INIT</h3>
-<pre class="programlisting">#define CAMEL_UUDECODE_STATE_INIT   (0)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CAMEL-UUDECODE-STATE-BEGIN:CAPS"></a><h3>CAMEL_UUDECODE_STATE_BEGIN</h3>
-<pre class="programlisting">#define CAMEL_UUDECODE_STATE_BEGIN  (1 &lt;&lt; 16)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CAMEL-UUDECODE-STATE-END:CAPS"></a><h3>CAMEL_UUDECODE_STATE_END</h3>
-<pre class="programlisting">#define CAMEL_UUDECODE_STATE_END    (1 &lt;&lt; 17)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CAMEL-UUDECODE-STATE-MASK:CAPS"></a><h3>CAMEL_UUDECODE_STATE_MASK</h3>
-<pre class="programlisting">#define CAMEL_UUDECODE_STATE_MASK   (CAMEL_UUDECODE_STATE_BEGIN | CAMEL_UUDECODE_STATE_END)
-</pre>
-</div>
-<hr>
-<div class="refsect2">
 <a name="camel-mktime-utc"></a><h3>camel_mktime_utc ()</h3>
 <pre class="programlisting"><span class="returnvalue">time_t</span>
 camel_mktime_utc (<em class="parameter"><code><span class="type">struct tm</span> *tm</code></em>);</pre>
 <p>Like mktime(3), but assumes UTC instead of local timezone.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.8.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mktime-utc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -864,12 +774,11 @@ camel_mktime_utc (<em class="parameter"><code><span class="type">struct tm</span
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.8.6"></a><h4>Returns</h4>
+<a name="camel-mktime-utc.returns"></a><h4>Returns</h4>
 <p> the calendar time representation of <em class="parameter"><code>tm</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 3.4</p>
+<p class="since">Since: <a class="link" href="api-index-3.4.html" title="Index of new symbols in 3.4">3.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -877,7 +786,7 @@ camel_mktime_utc (<em class="parameter"><code><span class="type">struct tm</span
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_localtime_with_offset (<em class="parameter"><code><span class="type">time_t</span> tt</code></em>,
                              <em class="parameter"><code><span class="type">struct tm</span> *tm</code></em>,
-                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *offset</code></em>);</pre>
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *offset</code></em>);</pre>
 <p>Converts the calendar time representation <em class="parameter"><code>tt</code></em>
  to a broken-down
 time representation, stored in <em class="parameter"><code>tm</code></em>
@@ -885,8 +794,8 @@ time representation, stored in <em class="parameter"><code>tm</code></em>
 seconds from UTC time, stored in <em class="parameter"><code>offset</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.9.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-localtime-with-offset.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -905,7 +814,7 @@ seconds from UTC time, stored in <em class="parameter"><code>offset</code></em>
 </tr>
 <tr>
 <td class="parameter_name"><p>offset</p></td>
-<td class="parameter_description"><p>the <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> to store the offset in</p></td>
+<td class="parameter_description"><p>the <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> to store the offset in</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
@@ -915,125 +824,167 @@ seconds from UTC time, stored in <em class="parameter"><code>offset</code></em>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-new"></a><h3>camel_header_address_new ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address"><span class="returnvalue">_camel_header_address</span></a> *
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
 camel_header_address_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-new-name"></a><h3>camel_header_address_new_name ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address"><span class="returnvalue">_camel_header_address</span></a> *
-camel_header_address_new_name (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
-                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *addr</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
+camel_header_address_new_name (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *addr</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-new-group"></a><h3>camel_header_address_new_group ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address"><span class="returnvalue">_camel_header_address</span></a> *
-camel_header_address_new_group (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
+camel_header_address_new_group (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-ref"></a><h3>camel_header_address_ref ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_address_ref (<em class="parameter"><code><span class="type">struct _camel_header_address</span> *addrlist</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
+camel_header_address_ref (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *addrlist</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-unref"></a><h3>camel_header_address_unref ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_address_unref (<em class="parameter"><code><span class="type">struct _camel_header_address</span> *addrlist</code></em>);</pre>
+camel_header_address_unref (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *addrlist</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-set-name"></a><h3>camel_header_address_set_name ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_address_set_name (<em class="parameter"><code><span class="type">struct _camel_header_address</span> *addrlist</code></em>,
-                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+camel_header_address_set_name (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *addrlist</code></em>,
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-set-addr"></a><h3>camel_header_address_set_addr ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_address_set_addr (<em class="parameter"><code><span class="type">struct _camel_header_address</span> *addrlist</code></em>,
-                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *addr</code></em>);</pre>
+camel_header_address_set_addr (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *addrlist</code></em>,
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *addr</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-set-members"></a><h3>camel_header_address_set_members ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_address_set_members (<em class="parameter"><code><span class="type">struct _camel_header_address</span> *addrlist</code></em>,
-                                  <em class="parameter"><code><span class="type">struct _camel_header_address</span> *group</code></em>);</pre>
+camel_header_address_set_members (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *addrlist</code></em>,
+                                  <em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *group</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-add-member"></a><h3>camel_header_address_add_member ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_address_add_member (<em class="parameter"><code><span class="type">struct _camel_header_address</span> *addrlist</code></em>,
-                                 <em class="parameter"><code><span class="type">struct _camel_header_address</span> *member</code></em>);</pre>
+camel_header_address_add_member (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *addrlist</code></em>,
+                                 <em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *member</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-list-append-list"></a><h3>camel_header_address_list_append_list ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_address_list_append_list (<em class="parameter"><code><span class="type">struct _camel_header_address</span> **addrlistp</code></em>,
-                                       <em class="parameter"><code><span class="type">struct _camel_header_address</span> **addrs</code></em>);</pre>
+camel_header_address_list_append_list (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> **addrlistp</code></em>,
+                                       <em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> **addrs</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-list-append"></a><h3>camel_header_address_list_append ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_address_list_append (<em class="parameter"><code><span class="type">struct _camel_header_address</span> **addrlistp</code></em>,
-                                  <em class="parameter"><code><span class="type">struct _camel_header_address</span> *addr</code></em>);</pre>
+camel_header_address_list_append (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> **addrlistp</code></em>,
+                                  <em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *addr</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-list-clear"></a><h3>camel_header_address_list_clear ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_address_list_clear (<em class="parameter"><code><span class="type">struct _camel_header_address</span> **addrlistp</code></em>);</pre>
+camel_header_address_list_clear (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> **addrlistp</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-decode"></a><h3>camel_header_address_decode ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address"><span class="returnvalue">_camel_header_address</span></a> *
-camel_header_address_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
-                             <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *charset</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
+camel_header_address_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *charset</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-mailbox-decode"></a><h3>camel_header_mailbox_decode ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-address" title="struct camel_header_address"><span class="returnvalue">_camel_header_address</span></a> *
-camel_header_mailbox_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
-                             <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *charset</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="returnvalue">CamelHeaderAddress</span></a> *
+camel_header_mailbox_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *charset</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-list-encode"></a><h3>camel_header_address_list_encode ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_address_list_encode (<em class="parameter"><code><span class="type">struct _camel_header_address</span> *addrlist</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_address_list_encode (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *addrlist</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-list-format"></a><h3>camel_header_address_list_format ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_address_list_format (<em class="parameter"><code><span class="type">struct _camel_header_address</span> *addrlist</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_address_list_format (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress"><span class="type">CamelHeaderAddress</span></a> *addrlist</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-param-list-decode"></a><h3>camel_header_param_list_decode ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="struct camel_header_param"><span class="returnvalue">_camel_header_param</span></a> *
-camel_header_param_list_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="camel_header_param ()"><span class="returnvalue">_camel_header_param</span></a> *
+camel_header_param_list_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-header-param-list-decode.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-header-param"></a><h3>camel_header_param ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_param (<em class="parameter"><code><span class="type">struct _camel_header_param</span> *params</code></em>,
+                    <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>Searches <em class="parameter"><code>params</code></em>
+ for a param named <em class="parameter"><code>name</code></em>
+ and gets the value.</p>
+<div class="refsect3">
+<a name="camel-header-param.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>params</p></td>
+<td class="parameter_description"><p>parameters</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>name of param to find</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="camel-header-param.returns"></a><h4>Returns</h4>
+<p> the value of the <em class="parameter"><code>name</code></em>
+param</p>
+</div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-set-param"></a><h3>camel_header_set_param ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="struct camel_header_param"><span class="returnvalue">_camel_header_param</span></a> *
+<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="camel_header_param ()"><span class="returnvalue">_camel_header_param</span></a> *
 camel_header_set_param (<em class="parameter"><code><span class="type">struct _camel_header_param</span> **paramsp</code></em>,
-                        <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
-                        <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+                        <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                        <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
 <p>Set a parameter in the list.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.27.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-set-param.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1059,22 +1010,22 @@ camel_header_set_param (<em class="parameter"><code><span class="type">struct _c
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.27.6"></a><h4>Returns</h4>
-<p> the set param</p>
-<p></p>
+<a name="camel-header-set-param.returns"></a><h4>Returns</h4>
+<p> the set param. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-param-list-format-append"></a><h3>camel_header_param_list_format_append ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_param_list_format_append (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a> *out</code></em>,
+camel_header_param_list_format_append (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Strings.html#GString"><span class="type">GString</span></a> *out</code></em>,
                                        <em class="parameter"><code><span class="type">struct _camel_header_param</span> *params</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-param-list-format"></a><h3>camel_header_param_list_format ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_header_param_list_format (<em class="parameter"><code><span class="type">struct _camel_header_param</span> *params</code></em>);</pre>
 </div>
 <hr>
@@ -1084,8 +1035,8 @@ camel_header_param_list_format (<em class="parameter"><code><span class="type">s
 camel_header_param_list_free (<em class="parameter"><code><span class="type">struct _camel_header_param</span> *params</code></em>);</pre>
 <p>Free the list of params.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.30.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-param-list-free.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1102,13 +1053,13 @@ camel_header_param_list_free (<em class="parameter"><code><span class="type">str
 <hr>
 <div class="refsect2">
 <a name="camel-content-type-new"></a><h3>camel_content_type_new ()</h3>
-<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="returnvalue">CamelContentType</span></a> *
-camel_content_type_new (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
-                        <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *subtype</code></em>);</pre>
-<p>Create a new <a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a>.</p>
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="returnvalue">CamelContentType</span></a> *
+camel_content_type_new (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                        <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *subtype</code></em>);</pre>
+<p>Create a new <a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a>.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.31.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-content-type-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1129,26 +1080,25 @@ camel_content_type_new (<em class="parameter"><code>const <a href="https://devel
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.31.6"></a><h4>Returns</h4>
-<p> the new <a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a></p>
-<p></p>
+<a name="camel-content-type-new.returns"></a><h4>Returns</h4>
+<p> the new <a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-type-decode"></a><h3>camel_content_type_decode ()</h3>
-<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="returnvalue">CamelContentType</span></a> *
-camel_content_type_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="returnvalue">CamelContentType</span></a> *
+camel_content_type_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-type-unref"></a><h3>camel_content_type_unref ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_content_type_unref (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>);</pre>
+camel_content_type_unref (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>);</pre>
 <p>Unrefs, and potentially frees, the content type.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.33.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-content-type-unref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1156,7 +1106,7 @@ camel_content_type_unref (<em class="parameter"><code><a class="link" href="came
 </colgroup>
 <tbody><tr>
 <td class="parameter_name"><p>content_type</p></td>
-<td class="parameter_description"><p>a <a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a></p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr></tbody>
 </table></div>
@@ -1165,12 +1115,12 @@ camel_content_type_unref (<em class="parameter"><code><a class="link" href="came
 <hr>
 <div class="refsect2">
 <a name="camel-content-type-ref"></a><h3>camel_content_type_ref ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-camel_content_type_ref (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="returnvalue">CamelContentType</span></a> *
+camel_content_type_ref (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>);</pre>
 <p>Refs the content type.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.34.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-content-type-ref.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1178,7 +1128,7 @@ camel_content_type_ref (<em class="parameter"><code><a class="link" href="camel-
 </colgroup>
 <tbody><tr>
 <td class="parameter_name"><p>content_type</p></td>
-<td class="parameter_description"><p>a <a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a></p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr></tbody>
 </table></div>
@@ -1187,15 +1137,15 @@ camel_content_type_ref (<em class="parameter"><code><a class="link" href="camel-
 <hr>
 <div class="refsect2">
 <a name="camel-content-type-param"></a><h3>camel_content_type_param ()</h3>
-<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_content_type_param (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
-<p>Searches the params on s <a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a> for a param named <em class="parameter"><code>name</code></em>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_content_type_param (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>Searches the params on s <a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a> for a param named <em class="parameter"><code>name</code></em>
 
 and gets the value.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.35.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-content-type-param.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1204,7 +1154,7 @@ and gets the value.</p>
 <tbody>
 <tr>
 <td class="parameter_name"><p>content_type</p></td>
-<td class="parameter_description"><p>a <a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a></p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -1216,24 +1166,23 @@ and gets the value.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.35.6"></a><h4>Returns</h4>
+<a name="camel-content-type-param.returns"></a><h4>Returns</h4>
 <p> the value of the <em class="parameter"><code>name</code></em>
 param</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-type-set-param"></a><h3>camel_content_type_set_param ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_content_type_set_param (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>,
-                              <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
-                              <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+camel_content_type_set_param (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>,
+                              <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                              <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
 <p>Set a parameter on <em class="parameter"><code>content_type</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.36.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-content-type-set-param.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1242,7 +1191,7 @@ camel_content_type_set_param (<em class="parameter"><code><a class="link" href="
 <tbody>
 <tr>
 <td class="parameter_name"><p>content_type</p></td>
-<td class="parameter_description"><p>a <a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a></p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -1262,16 +1211,16 @@ camel_content_type_set_param (<em class="parameter"><code><a class="link" href="
 <hr>
 <div class="refsect2">
 <a name="camel-content-type-is"></a><h3>camel_content_type_is ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
-camel_content_type_is (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>,
-                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
-                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *subtype</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+camel_content_type_is (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>,
+                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *type</code></em>,
+                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *subtype</code></em>);</pre>
 <p>The subtype of "*" will match any subtype.  If <em class="parameter"><code>ct</code></em>
- is <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, then
+ is <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>, then
 it will match the type "text/plain".</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.37.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-content-type-is.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1280,7 +1229,7 @@ it will match the type "text/plain".</p>
 <tbody>
 <tr>
 <td class="parameter_name"><p>content_type</p></td>
-<td class="parameter_description"><p>A content type specifier, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p></td>
+<td class="parameter_description"><p>A content type specifier, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 <tr>
@@ -1297,113 +1246,112 @@ it will match the type "text/plain".</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.37.6"></a><h4>Returns</h4>
-<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the content type <em class="parameter"><code>ct</code></em>
+<a name="camel-content-type-is.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the content type <em class="parameter"><code>ct</code></em>
 is of type <em class="parameter"><code>type</code></em>
 /<em class="parameter"><code>subtype</code></em>
 or
-<a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</p>
-<p></p>
+<a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise</p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-type-format"></a><h3>camel_content_type_format ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_content_type_format (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_content_type_format (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-type-simple"></a><h3>camel_content_type_simple ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_content_type_simple (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_content_type_simple (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-type-dump"></a><h3>camel_content_type_dump ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_content_type_dump (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType" title="CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>);</pre>
+camel_content_type_dump (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentType"><span class="type">CamelContentType</span></a> *content_type</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-disposition-decode"></a><h3>camel_content_disposition_decode ()</h3>
-<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition" title="CamelContentDisposition"><span class="returnvalue">CamelContentDisposition</span></a> *
-camel_content_disposition_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition"><span class="returnvalue">CamelContentDisposition</span></a> *
+camel_content_disposition_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-disposition-ref"></a><h3>camel_content_disposition_ref ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-camel_content_disposition_ref (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition" title="CamelContentDisposition"><span class="type">CamelContentDisposition</span></a> *disposition</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition"><span class="returnvalue">CamelContentDisposition</span></a> *
+camel_content_disposition_ref (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition"><span class="type">CamelContentDisposition</span></a> *disposition</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-disposition-unref"></a><h3>camel_content_disposition_unref ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_content_disposition_unref (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition" title="CamelContentDisposition"><span class="type">CamelContentDisposition</span></a> *disposition</code></em>);</pre>
+camel_content_disposition_unref (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition"><span class="type">CamelContentDisposition</span></a> *disposition</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-disposition-format"></a><h3>camel_content_disposition_format ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_content_disposition_format (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition" title="CamelContentDisposition"><span class="type">CamelContentDisposition</span></a> *disposition</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_content_disposition_format (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition"><span class="type">CamelContentDisposition</span></a> *disposition</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-content-transfer-encoding-decode"></a><h3>camel_content_transfer_encoding_decode ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_content_transfer_encoding_decode
-                               (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+                               (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-raw-append"></a><h3>camel_header_raw_append ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_header_raw_append (<em class="parameter"><code><span class="type">struct _camel_header_raw</span> **list</code></em>,
-                         <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
-                         <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>,
-                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> offset</code></em>);</pre>
+                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>,
+                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> offset</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-raw-append-parse"></a><h3>camel_header_raw_append_parse ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_header_raw_append_parse (<em class="parameter"><code><span class="type">struct _camel_header_raw</span> **list</code></em>,
-                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *header</code></em>,
-                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> offset</code></em>);</pre>
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *header</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> offset</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-raw-find"></a><h3>camel_header_raw_find ()</h3>
-<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_header_raw_find (<em class="parameter"><code><span class="type">struct _camel_header_raw</span> **list</code></em>,
-                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
-                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *offset</code></em>);</pre>
+                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *offset</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-raw-find-next"></a><h3>camel_header_raw_find_next ()</h3>
-<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_header_raw_find_next (<em class="parameter"><code><span class="type">struct _camel_header_raw</span> **list</code></em>,
-                            <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
-                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *offset</code></em>,
-                            <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *last</code></em>);</pre>
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *offset</code></em>,
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *last</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-raw-replace"></a><h3>camel_header_raw_replace ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_header_raw_replace (<em class="parameter"><code><span class="type">struct _camel_header_raw</span> **list</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
-                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> offset</code></em>);</pre>
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                          <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> offset</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-raw-remove"></a><h3>camel_header_raw_remove ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_header_raw_remove (<em class="parameter"><code><span class="type">struct _camel_header_raw</span> **list</code></em>,
-                         <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
@@ -1420,39 +1368,39 @@ camel_header_raw_clear (<em class="parameter"><code><span class="type">struct _c
 <hr>
 <div class="refsect2">
 <a name="camel-header-raw-check-mailing-list"></a><h3>camel_header_raw_check_mailing_list ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_header_raw_check_mailing_list (<em class="parameter"><code><span class="type">struct _camel_header_raw</span> **list</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-address-fold"></a><h3>camel_header_address_fold ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_address_fold (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
-                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> headerlen</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_address_fold (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> headerlen</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-fold"></a><h3>camel_header_fold ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_fold (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
-                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> headerlen</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_fold (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> headerlen</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-unfold"></a><h3>camel_header_unfold ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_unfold (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_unfold (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-token-decode"></a><h3>camel_header_token_decode ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_token_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_token_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
 <p>Gets the first token in the string according to the rules of
 rfc0822.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.58.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-token-decode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1466,23 +1414,22 @@ rfc0822.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.58.6"></a><h4>Returns</h4>
+<a name="camel-header-token-decode.returns"></a><h4>Returns</h4>
 <p> a new string containing the first token in <em class="parameter"><code>in</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-decode-int"></a><h3>camel_header_decode_int ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
-camel_header_decode_int (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **in</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+camel_header_decode_int (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **in</code></em>);</pre>
 <p>Extracts an integer token from <em class="parameter"><code>in</code></em>
  and updates the pointer to point
 to after the end of the integer token (sort of like strtol).</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.59.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-decode-int.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1496,21 +1443,20 @@ to after the end of the integer token (sort of like strtol).</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.59.6"></a><h4>Returns</h4>
+<a name="camel-header-decode-int.returns"></a><h4>Returns</h4>
 <p> the gint value</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-decode-string"></a><h3>camel_header_decode_string ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_decode_string (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
-                            <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *default_charset</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_decode_string (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *default_charset</code></em>);</pre>
 <p>Decodes rfc2047 encoded-word tokens</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.60.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-decode-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1531,21 +1477,20 @@ camel_header_decode_string (<em class="parameter"><code>const <a href="https://d
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.60.6"></a><h4>Returns</h4>
+<a name="camel-header-decode-string.returns"></a><h4>Returns</h4>
 <p> a string containing the UTF-8 version of the decoded header
 value</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-encode-string"></a><h3>camel_header_encode_string ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_encode_string (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_encode_string (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>);</pre>
 <p>Encodes a 'text' header according to the rules of rfc2047.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.61.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-encode-string.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1559,22 +1504,21 @@ camel_header_encode_string (<em class="parameter"><code>const <a href="https://d
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.61.6"></a><h4>Returns</h4>
+<a name="camel-header-encode-string.returns"></a><h4>Returns</h4>
 <p> the rfc2047 encoded header</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-format-ctext"></a><h3>camel_header_format_ctext ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_format_ctext (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
-                           <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *default_charset</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_format_ctext (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *default_charset</code></em>);</pre>
 <p>Decodes a header which contains rfc2047 encoded-word tokens that
 may or may not be within a comment.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.62.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-format-ctext.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1595,21 +1539,20 @@ may or may not be within a comment.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.62.6"></a><h4>Returns</h4>
+<a name="camel-header-format-ctext.returns"></a><h4>Returns</h4>
 <p> a string containing the UTF-8 version of the decoded header
 value</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-encode-phrase"></a><h3>camel_header_encode_phrase ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_encode_phrase (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_encode_phrase (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>);</pre>
 <p>Encodes a 'phrase' header according to the rules in rfc2047.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.63.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-encode-phrase.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1623,23 +1566,22 @@ camel_header_encode_phrase (<em class="parameter"><code>const <a href="https://d
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.63.6"></a><h4>Returns</h4>
+<a name="camel-header-encode-phrase.returns"></a><h4>Returns</h4>
 <p> the encoded 'phrase'</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-decode-date"></a><h3>camel_header_decode_date ()</h3>
 <pre class="programlisting"><span class="returnvalue">time_t</span>
-camel_header_decode_date (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *str</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *tz_offset</code></em>);</pre>
+camel_header_decode_date (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *str</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *tz_offset</code></em>);</pre>
 <p>Decodes the rfc822 date string and saves the GMT offset into
 <em class="parameter"><code>tz_offset</code></em>
  if non-NULL.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.64.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-decode-date.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1660,28 +1602,27 @@ camel_header_decode_date (<em class="parameter"><code>const <a href="https://dev
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.64.6"></a><h4>Returns</h4>
+<a name="camel-header-decode-date.returns"></a><h4>Returns</h4>
 <p> the time_t representation of the date string specified by
 <em class="parameter"><code>str</code></em>
 or (time_t) <code class="literal">0</code> on error. If <em class="parameter"><code>tz_offset</code></em>
 is non-NULL, the value
 of the timezone offset will be stored.</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-format-date"></a><h3>camel_header_format_date ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_header_format_date (<em class="parameter"><code><span class="type">time_t</span> date</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> tz_offset</code></em>);</pre>
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> tz_offset</code></em>);</pre>
 <p>Allocates a string buffer containing the rfc822 formatted date
 string represented by <em class="parameter"><code>time</code></em>
  and <em class="parameter"><code>tz_offset</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.65.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-format-date.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1702,21 +1643,20 @@ string represented by <em class="parameter"><code>time</code></em>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.65.6"></a><h4>Returns</h4>
+<a name="camel-header-format-date.returns"></a><h4>Returns</h4>
 <p> a valid string representation of the date.</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-msgid-decode"></a><h3>camel_header_msgid_decode ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_msgid_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_msgid_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
 <p>Extract a message-id token from <em class="parameter"><code>in</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.66.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-msgid-decode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1730,21 +1670,20 @@ camel_header_msgid_decode (<em class="parameter"><code>const <a href="https://de
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.66.6"></a><h4>Returns</h4>
+<a name="camel-header-msgid-decode.returns"></a><h4>Returns</h4>
 <p> the msg-id</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-contentid-decode"></a><h3>camel_header_contentid_decode ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_contentid_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_contentid_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
 <p>Extract a content-id from <em class="parameter"><code>in</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.67.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-header-contentid-decode.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1758,109 +1697,102 @@ camel_header_contentid_decode (<em class="parameter"><code>const <a href="https:
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.67.6"></a><h4>Returns</h4>
+<a name="camel-header-contentid-decode.returns"></a><h4>Returns</h4>
 <p> the extracted content-id</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-msgid-generate"></a><h3>camel_header_msgid_generate ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_msgid_generate (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_msgid_generate (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *domain</code></em>);</pre>
+<p>Either the <em class="parameter"><code>domain</code></em>
+ is used, or the user's local hostname,
+in case it's NULL or empty.</p>
+<div class="refsect3">
+<a name="camel-header-msgid-generate.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>domain</p></td>
+<td class="parameter_description"><p>domain to use (like "example.com") for the ID suffix; can be NULL</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="camel-header-references-inreplyto-decode"></a><h3>camel_header_references_inreplyto_decode ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-references" title="struct camel_header_references"><span class="returnvalue">_camel_header_references</span></a> *
-camel_header_references_inreplyto_decode
-                               (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-header-msgid-generate.returns"></a><h4>Returns</h4>
+<p> Unique message ID.</p>
+</div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-references-decode"></a><h3>camel_header_references_decode ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-references" title="struct camel_header_references"><span class="returnvalue">_camel_header_references</span></a> *
-camel_header_references_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+camel_header_references_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<p>Generate a list of references, from most recent up.</p>
+<div class="refsect3">
+<a name="camel-header-references-decode.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<hr>
-<div class="refsect2">
-<a name="camel-header-references-list-clear"></a><h3>camel_header_references_list_clear ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_references_list_clear (<em class="parameter"><code><span class="type">struct _camel_header_references</span> **list</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="camel-header-references-list-append-asis"></a><h3>camel_header_references_list_append_asis ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_references_list_append_asis
-                               (<em class="parameter"><code><span class="type">struct _camel_header_references</span> **list</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *ref</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="camel-header-references-list-size"></a><h3>camel_header_references_list_size ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
-camel_header_references_list_size (<em class="parameter"><code><span class="type">struct _camel_header_references</span> **list</code></em>);</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="camel-header-references-dup"></a><h3>camel_header_references_dup ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-references" title="struct camel_header_references"><span class="returnvalue">_camel_header_references</span></a> *
-camel_header_references_dup (<em class="parameter"><code>const <span class="type">struct _camel_header_references</span> *list</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-location-decode"></a><h3>camel_header_location_decode ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_header_location_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_header_location_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-newsgroups-decode"></a><h3>camel_header_newsgroups_decode ()</h3>
-<pre class="programlisting">struct <a class="link" href="camel-camel-mime-utils.html#camel-header-newsgroup" title="struct camel_header_newsgroup"><span class="returnvalue">_camel_header_newsgroup</span></a> *
-camel_header_newsgroups_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+camel_header_newsgroups_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-header-newsgroups-decode.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<hr>
-<div class="refsect2">
-<a name="camel-header-newsgroups-free"></a><h3>camel_header_newsgroups_free ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_newsgroups_free (<em class="parameter"><code><span class="type">struct _camel_header_newsgroup</span> *ng</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-transfer-encoding-to-string"></a><h3>camel_transfer_encoding_to_string ()</h3>
-<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
-camel_transfer_encoding_to_string (<em class="parameter"><code><a class="link" href="camel-camel-mime-utils.html#CamelTransferEncoding" title="enum CamelTransferEncoding"><span class="type">CamelTransferEncoding</span></a> encoding</code></em>);</pre>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_transfer_encoding_to_string (<em class="parameter"><code><a class="link" href="camel-camel-enums.html#CamelTransferEncoding" title="enum CamelTransferEncoding"><span class="type">CamelTransferEncoding</span></a> encoding</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-transfer-encoding-from-string"></a><h3>camel_transfer_encoding_from_string ()</h3>
-<pre class="programlisting"><a class="link" href="camel-camel-mime-utils.html#CamelTransferEncoding" title="enum CamelTransferEncoding"><span class="returnvalue">CamelTransferEncoding</span></a>
-camel_transfer_encoding_from_string (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *string</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="camel-camel-enums.html#CamelTransferEncoding" title="enum CamelTransferEncoding"><span class="returnvalue">CamelTransferEncoding</span></a>
+camel_transfer_encoding_from_string (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *string</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-header-mime-decode"></a><h3>camel_header_mime_decode ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
-camel_header_mime_decode (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *maj</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *min</code></em>);</pre>
+camel_header_mime_decode (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *maj</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *min</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-uudecode-step"></a><h3>camel_uudecode_step ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
-camel_uudecode_step (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
-                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> inlen</code></em>,
-                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
-                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *state</code></em>,
-                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> *save</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+camel_uudecode_step (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
+                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> inlen</code></em>,
+                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
+                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *state</code></em>,
+                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint32"><span class="type">guint32</span></a> *save</code></em>);</pre>
 <p>Uudecodes a chunk of data. Performs a 'decode step' on a chunk of
 uuencoded data. Assumes the "begin mode filename" line has
 been stripped off.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.81.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-uudecode-step.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1869,8 +1801,8 @@ been stripped off.</p>
 <tbody>
 <tr>
 <td class="parameter_name"><p>in</p></td>
-<td class="parameter_description"><p>input stream</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> input stream. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=inlen]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>inlen</p></td>
@@ -1879,39 +1811,38 @@ been stripped off.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>out</p></td>
-<td class="parameter_description"><p>output stream</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> output stream. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>state</p></td>
-<td class="parameter_description"><p>holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
-</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>save</p></td>
-<td class="parameter_description"><p>leftover bits that have not yet been decoded</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> leftover bits that have not yet been decoded. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=state]</span></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.81.6"></a><h4>Returns</h4>
+<a name="camel-uudecode-step.returns"></a><h4>Returns</h4>
 <p> the number of bytes decoded</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-uuencode-step"></a><h3>camel_uuencode_step ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
-camel_uuencode_step (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
-                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
-                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
-                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *uubuf</code></em>,
-                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *state</code></em>,
-                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> *save</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+camel_uuencode_step (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
+                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
+                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
+                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *uubuf</code></em>,
+                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *state</code></em>,
+                     <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint32"><span class="type">guint32</span></a> *save</code></em>);</pre>
 <p>Uuencodes a chunk of data. Performs an 'encode step', only encodes
 blocks of 45 characters to the output at a time, saves left-over
 state in <em class="parameter"><code>uubuf</code></em>
@@ -1920,8 +1851,8 @@ state in <em class="parameter"><code>uubuf</code></em>
  (initialize to 0 on first
 invocation).</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.82.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-uuencode-step.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1930,8 +1861,8 @@ invocation).</p>
 <tbody>
 <tr>
 <td class="parameter_name"><p>in</p></td>
-<td class="parameter_description"><p>input stream</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> input stream. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>len</p></td>
@@ -1940,49 +1871,48 @@ invocation).</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>out</p></td>
-<td class="parameter_description"><p>output stream</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> output stream. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>uubuf</p></td>
-<td class="parameter_description"><p>temporary buffer of 60 bytes</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> temporary buffer of 60 bytes. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> fixed-size=60]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>state</p></td>
-<td class="parameter_description"><p>holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
-</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>save</p></td>
-<td class="parameter_description"><p>leftover bits that have not yet been encoded</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> leftover bits that have not yet been encoded. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=state]</span></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.82.6"></a><h4>Returns</h4>
+<a name="camel-uuencode-step.returns"></a><h4>Returns</h4>
 <p> the number of bytes encoded</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-uuencode-close"></a><h3>camel_uuencode_close ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
-camel_uuencode_close (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
-                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
-                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
-                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *uubuf</code></em>,
-                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *state</code></em>,
-                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> *save</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+camel_uuencode_close (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *uubuf</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *state</code></em>,
+                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint32"><span class="type">guint32</span></a> *save</code></em>);</pre>
 <p>Uuencodes a chunk of data. Call this when finished encoding data
 with <a class="link" href="camel-camel-mime-utils.html#camel-uuencode-step" title="camel_uuencode_step ()"><code class="function">camel_uuencode_step()</code></a> to flush off the last little bit.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.83.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-uuencode-close.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -1991,8 +1921,8 @@ with <a class="link" href="camel-camel-mime-utils.html#camel-uuencode-step" titl
 <tbody>
 <tr>
 <td class="parameter_name"><p>in</p></td>
-<td class="parameter_description"><p>input stream</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> input stream. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>len</p></td>
@@ -2001,48 +1931,47 @@ with <a class="link" href="camel-camel-mime-utils.html#camel-uuencode-step" titl
 </tr>
 <tr>
 <td class="parameter_name"><p>out</p></td>
-<td class="parameter_description"><p>output stream</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> output stream. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>uubuf</p></td>
-<td class="parameter_description"><p>temporary buffer of 60 bytes</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> temporary buffer of 60 bytes. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> fixed-size=60]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>state</p></td>
-<td class="parameter_description"><p>holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
-</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>save</p></td>
-<td class="parameter_description"><p>leftover bits that have not yet been encoded</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> leftover bits that have not yet been encoded. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=state]</span></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.83.6"></a><h4>Returns</h4>
+<a name="camel-uuencode-close.returns"></a><h4>Returns</h4>
 <p> the number of bytes encoded</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-quoted-decode-step"></a><h3>camel_quoted_decode_step ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
-camel_quoted_decode_step (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *savestate</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *saveme</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+camel_quoted_decode_step (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *savestate</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *saveme</code></em>);</pre>
 <p>Decodes a block of quoted-printable encoded data. Performs a
 'decode step' on a chunk of QP encoded data.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.84.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-quoted-decode-step.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -2051,8 +1980,8 @@ camel_quoted_decode_step (<em class="parameter"><code><a href="https://developer
 <tbody>
 <tr>
 <td class="parameter_name"><p>in</p></td>
-<td class="parameter_description"><p>input stream</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> input stream. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>len</p></td>
@@ -2061,44 +1990,43 @@ camel_quoted_decode_step (<em class="parameter"><code><a href="https://developer
 </tr>
 <tr>
 <td class="parameter_name"><p>out</p></td>
-<td class="parameter_description"><p>output stream</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> output stream. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>savestate</p></td>
-<td class="parameter_description"><p>holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
-</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> holds the number of bits that are stored in <em class="parameter"><code>saveme</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>saveme</p></td>
-<td class="parameter_description"><p>leftover bits that have not yet been decoded</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> leftover bits that have not yet been decoded. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=savestate]</span></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.84.6"></a><h4>Returns</h4>
+<a name="camel-quoted-decode-step.returns"></a><h4>Returns</h4>
 <p> the number of bytes decoded</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-quoted-encode-step"></a><h3>camel_quoted_encode_step ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
-camel_quoted_encode_step (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *state</code></em>,
-                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *save</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+camel_quoted_encode_step (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *state</code></em>,
+                          <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *save</code></em>);</pre>
 <p>Quoted-printable encodes a block of text. Performs an 'encode
 step', saves left-over state in state and save (initialise to -1 on
 first invocation).</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.85.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-quoted-encode-step.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -2107,8 +2035,8 @@ first invocation).</p>
 <tbody>
 <tr>
 <td class="parameter_name"><p>in</p></td>
-<td class="parameter_description"><p>input stream</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> input stream. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>len</p></td>
@@ -2117,44 +2045,43 @@ first invocation).</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>out</p></td>
-<td class="parameter_description"><p>output string</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> output string. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>state</p></td>
-<td class="parameter_description"><p>holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
-</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>save</p></td>
-<td class="parameter_description"><p>leftover bits that have not yet been encoded</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> leftover bits that have not yet been encoded. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=state]</span></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.85.6"></a><h4>Returns</h4>
+<a name="camel-quoted-encode-step.returns"></a><h4>Returns</h4>
 <p> the number of bytes encoded</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-quoted-encode-close"></a><h3>camel_quoted_encode_close ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
-camel_quoted_encode_close (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
-                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
-                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
-                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *state</code></em>,
-                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> *save</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="returnvalue">gsize</span></a>
+camel_quoted_encode_close (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *in</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guchar"><span class="type">guchar</span></a> *out</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *state</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> *save</code></em>);</pre>
 <p>Quoted-printable encodes a block of text. Call this when finished
 encoding data with <a class="link" href="camel-camel-mime-utils.html#camel-quoted-encode-step" title="camel_quoted_encode_step ()"><code class="function">camel_quoted_encode_step()</code></a> to flush off
 the last little bit.</p>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.86.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-quoted-encode-close.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -2163,8 +2090,8 @@ the last little bit.</p>
 <tbody>
 <tr>
 <td class="parameter_name"><p>in</p></td>
-<td class="parameter_description"><p>input stream</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> input stream. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>len</p></td>
@@ -2173,27 +2100,26 @@ the last little bit.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>out</p></td>
-<td class="parameter_description"><p>output string</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> output string. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>state</p></td>
-<td class="parameter_description"><p>holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
-</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> holds the number of bits that are stored in <em class="parameter"><code>save</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>save</p></td>
-<td class="parameter_description"><p>leftover bits that have not yet been encoded</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> leftover bits that have not yet been encoded. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for input and for returning results. Default is transfer full."><span class="acronym">inout</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=state]</span></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.13.10.6.86.6"></a><h4>Returns</h4>
+<a name="camel-quoted-encode-close.returns"></a><h4>Returns</h4>
 <p> the number of bytes encoded</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2272,10 +2198,22 @@ the last little bit.</p>
 <div class="refsect1">
 <a name="camel-camel-mime-utils.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
-<a name="CamelTransferEncoding"></a><h3>enum CamelTransferEncoding</h3>
+<a name="CAMEL-FOLD-SIZE:CAPS"></a><h3>CAMEL_FOLD_SIZE</h3>
+<pre class="programlisting">#define CAMEL_FOLD_SIZE (77)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAMEL-FOLD-MAX-SIZE:CAPS"></a><h3>CAMEL_FOLD_MAX_SIZE</h3>
+<pre class="programlisting">#define CAMEL_FOLD_MAX_SIZE (998)
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelUUDecodeState"></a><h3>enum CamelUUDecodeState</h3>
 <div class="refsect3">
-<a name="id-1.2.13.10.7.2.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="CamelUUDecodeState.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="300px" class="enum_members_name">
 <col class="enum_members_description">
@@ -2283,42 +2221,17 @@ the last little bit.</p>
 </colgroup>
 <tbody>
 <tr>
-<td class="enum_member_name"><p><a name="CAMEL-TRANSFER-ENCODING-DEFAULT:CAPS"></a>CAMEL_TRANSFER_ENCODING_DEFAULT</p></td>
+<td class="enum_member_name"><p><a name="CAMEL-UUDECODE-STATE-INIT:CAPS"></a>CAMEL_UUDECODE_STATE_INIT</p></td>
 <td> </td>
 <td> </td>
 </tr>
 <tr>
-<td class="enum_member_name"><p><a name="CAMEL-TRANSFER-ENCODING-7BIT:CAPS"></a>CAMEL_TRANSFER_ENCODING_7BIT</p></td>
+<td class="enum_member_name"><p><a name="CAMEL-UUDECODE-STATE-BEGIN:CAPS"></a>CAMEL_UUDECODE_STATE_BEGIN</p></td>
 <td> </td>
 <td> </td>
 </tr>
 <tr>
-<td class="enum_member_name"><p><a name="CAMEL-TRANSFER-ENCODING-8BIT:CAPS"></a>CAMEL_TRANSFER_ENCODING_8BIT</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-TRANSFER-ENCODING-BASE64:CAPS"></a>CAMEL_TRANSFER_ENCODING_BASE64</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-TRANSFER-ENCODING-QUOTEDPRINTABLE:CAPS"></a>CAMEL_TRANSFER_ENCODING_QUOTEDPRINTABLE</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-TRANSFER-ENCODING-BINARY:CAPS"></a>CAMEL_TRANSFER_ENCODING_BINARY</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-TRANSFER-ENCODING-UUENCODE:CAPS"></a>CAMEL_TRANSFER_ENCODING_UUENCODE</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-TRANSFER-NUM-ENCODINGS:CAPS"></a>CAMEL_TRANSFER_NUM_ENCODINGS</p></td>
+<td class="enum_member_name"><p><a name="CAMEL-UUDECODE-STATE-END:CAPS"></a>CAMEL_UUDECODE_STATE_END</p></td>
 <td> </td>
 <td> </td>
 </tr>
@@ -2328,62 +2241,18 @@ the last little bit.</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="camel-header-references"></a><h3>struct camel_header_references</h3>
-<pre class="programlisting">struct camel_header_references {
-	struct _camel_header_references *next;
-	gchar *id;
-};
+<a name="CAMEL-UUDECODE-STATE-MASK:CAPS"></a><h3>CAMEL_UUDECODE_STATE_MASK</h3>
+<pre class="programlisting">#define CAMEL_UUDECODE_STATE_MASK   (CAMEL_UUDECODE_STATE_BEGIN | CAMEL_UUDECODE_STATE_END)
 </pre>
 </div>
 <hr>
 <div class="refsect2">
-<a name="camel-header-param"></a><h3>struct camel_header_param</h3>
-<pre class="programlisting">struct camel_header_param {
+<a name="CamelHeaderParam"></a><h3>CamelHeaderParam</h3>
+<pre class="programlisting">typedef struct {
 	struct _camel_header_param *next;
 	gchar *name;
 	gchar *value;
-};
-</pre>
-<p>Searches <em class="parameter"><code>params</code></em>
- for a param named <em class="parameter"><code>name</code></em>
- and gets the value.</p>
-<div class="refsect3">
-<a name="id-1.2.13.10.7.4.5"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="300px" class="struct_members_name">
-<col class="struct_members_description">
-<col width="200px" class="struct_members_annotations">
-</colgroup>
-<tbody>
-<tr>
-<td class="struct_member_name"><p>struct <a class="link" href="camel-camel-mime-utils.html#camel-header-param" title="struct camel_header_param"><span class="type">_camel_header_param</span></a> *<em class="structfield"><code><a name="camel-header-param.next"></a>next</code></em>;</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="struct_member_name"><p><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="camel-header-param.name"></a>name</code></em>;</p></td>
-<td class="struct_member_description"><p>name of param to find</p></td>
-<td class="struct_member_annotations"> </td>
-</tr>
-<tr>
-<td class="struct_member_name"><p><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="camel-header-param.value"></a>value</code></em>;</p></td>
-<td> </td>
-<td> </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CamelContentType"></a><h3>CamelContentType</h3>
-<pre class="programlisting">typedef struct {
-	gchar *type;
-	gchar *subtype;
-	struct _camel_header_param *params;
-	guint refcount;
-} CamelContentType;
+} CamelHeaderParam;
 </pre>
 </div>
 <hr>
@@ -2399,20 +2268,10 @@ the last little bit.</p>
 </div>
 <hr>
 <div class="refsect2">
-<a name="CamelContentDisposition"></a><h3>CamelContentDisposition</h3>
-<pre class="programlisting">typedef struct {
-	gchar *disposition;
-	struct _camel_header_param *params;
-	guint refcount;
-} CamelContentDisposition;
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="camel-header-address-t"></a><h3>enum camel_header_address_t</h3>
+<a name="CamelHeaderAddressType"></a><h3>enum CamelHeaderAddressType</h3>
 <div class="refsect3">
-<a name="id-1.2.13.10.7.8.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="CamelHeaderAddressType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="300px" class="enum_members_name">
 <col class="enum_members_description">
@@ -2438,35 +2297,9 @@ the last little bit.</p>
 </table></div>
 </div>
 </div>
-<hr>
-<div class="refsect2">
-<a name="camel-header-address"></a><h3>struct camel_header_address</h3>
-<pre class="programlisting">struct camel_header_address {
-	struct _camel_header_address *next;
-	camel_header_address_t type;
-	gchar *name;
-	union {
-		gchar *addr;
-		struct _camel_header_address *members;
-	} v;
-	guint refcount;
-};
-</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="camel-header-newsgroup"></a><h3>struct camel_header_newsgroup</h3>
-<pre class="programlisting">struct camel_header_newsgroup {
-	struct _camel_header_newsgroup *next;
-
-	gchar *newsgroup;
-};
-</pre>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

@@ -1,23 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-multipart.c : Abstract class for a multipart */
-/*
- *
- * Author :
- *  Bertrand Guiheneuf <bertrand@helixcode.com>
+/* camel-multipart.c : Abstract class for a multipart
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -354,7 +352,7 @@ multipart_construct_from_parser (CamelMultipart *multipart,
 	gchar *buf;
 	gsize len;
 
-	g_assert (camel_mime_parser_state (mp) == CAMEL_MIME_PARSER_STATE_MULTIPART);
+	g_return_val_if_fail (camel_mime_parser_state (mp) == CAMEL_MIME_PARSER_STATE_MULTIPART, -1);
 
 	content_type = camel_mime_parser_content_type (mp);
 	camel_multipart_set_boundary (
@@ -461,7 +459,7 @@ camel_multipart_add_part (CamelMultipart *multipart,
  * @multipart: a #CamelMultipart object
  * @index: a zero-based index indicating the part to get
  *
- * Returns: the indicated subpart, or %NULL
+ * Returns: (transfer none): the indicated subpart, or %NULL
  **/
 CamelMimePart *
 camel_multipart_get_part (CamelMultipart *multipart,

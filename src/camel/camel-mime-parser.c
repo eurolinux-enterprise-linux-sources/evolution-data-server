@@ -2,19 +2,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 /* What should hopefully be a fast mail parser */
@@ -42,7 +42,7 @@
 #define c(x)
 #define d(x)
 
-/*#define PRESERVE_HEADERS*/
+#define PRESERVE_HEADERS
 
 /*#define PURIFY*/
 
@@ -64,7 +64,7 @@ struct _header_scan_state {
 
     /* global state */
 
-	camel_mime_parser_state_t state;
+	CamelMimeParserState state;
 
 	/* for building headers during scanning */
 	gchar *outbuf;
@@ -111,7 +111,7 @@ struct _header_scan_state {
 struct _header_scan_stack {
 	struct _header_scan_stack *parent;
 
-	camel_mime_parser_state_t savestate; /* state at invocation of this part */
+	CamelMimeParserState savestate; /* state at invocation of this part */
 
 #ifdef MEMPOOL
 	CamelMemPool *pool;	/* memory pool to keep track of headers/etc at this level */
@@ -330,7 +330,7 @@ camel_mime_parser_header (CamelMimeParser *m,
  * current state of the parser.  These headers are valid
  * until the next call to parser_step(), or parser_drop_step().
  *
- * Returns: The raw headers, or NULL if there are no headers
+ * Returns: (transfer none): The raw headers, or NULL if there are no headers
  * defined for the current part or state.  These are READ ONLY.
  *
  * Since: 2.22
@@ -625,10 +625,10 @@ camel_mime_parser_drop_step (CamelMimeParser *parser)
 /**
  * camel_mime_parser_step:
  * @parser: MIME parser object
- * @databuffer: Pointer to accept a pointer to the data
+ * @databuffer: (inout) (array length=datalength) (nullable): Pointer to accept a pointer to the data
  * associated with this step (if any).  May be %NULL,
  * in which case datalength is also ingored.
- * @datalength: Pointer to accept a pointer to the data
+ * @datalength: (inout) (nullable): Pointer to accept a pointer to the data
  * length associated with this step (if any).
  *
  * Parse the next part of the MIME message.  If _unstep()
@@ -647,7 +647,7 @@ camel_mime_parser_drop_step (CamelMimeParser *parser)
  * Returns: The current new state of the parser
  * is returned.
  **/
-camel_mime_parser_state_t
+CamelMimeParserState
 camel_mime_parser_step (CamelMimeParser *parser,
                         gchar **databuffer,
                         gsize *datalength)
@@ -677,8 +677,8 @@ camel_mime_parser_step (CamelMimeParser *parser,
 /**
  * camel_mime_parser_read:
  * @parser: MIME parser object
- * @databuffer:
- * @len:
+ * @databuffer: (out) (array): The data buffer
+ * @len: The length of data to read
  * @error: return location for a #GError, or %NULL
  *
  * Read at most @len bytes from the internal mime parser buffer.
@@ -686,7 +686,7 @@ camel_mime_parser_step (CamelMimeParser *parser,
  * Returns the address of the internal buffer in @databuffer,
  * and the length of useful data.
  *
- * @len may be specified as INT_MAX, in which case you will
+ * @len may be specified as %G_MAXSSIZE, in which case you will
  * get the full remainder of the buffer at each call.
  *
  * Note that no parsing of the data read through this function
@@ -695,14 +695,14 @@ camel_mime_parser_step (CamelMimeParser *parser,
  *
  * Returns: The number of bytes available, or -1 on error.
  **/
-gint
+gssize
 camel_mime_parser_read (CamelMimeParser *parser,
                         const gchar **databuffer,
-                        gint len,
+                        gssize len,
                         GError **error)
 {
 	struct _header_scan_state *s = _PRIVATE (parser);
-	gint there;
+	gintptr there;
 
 	if (len == 0)
 		return 0;
@@ -864,7 +864,7 @@ camel_mime_parser_seek (CamelMimeParser *parser,
  *
  * Returns: The current parser state.
  **/
-camel_mime_parser_state_t
+CamelMimeParserState
 camel_mime_parser_state (CamelMimeParser *parser)
 {
 	struct _header_scan_state *s = _PRIVATE (parser);
@@ -883,7 +883,7 @@ camel_mime_parser_state (CamelMimeParser *parser)
  **/
 void
 camel_mime_parser_push_state (CamelMimeParser *mp,
-                              camel_mime_parser_state_t newstate,
+                              CamelMimeParserState newstate,
                               const gchar *boundary)
 {
 	struct _header_scan_stack *h;
@@ -909,8 +909,8 @@ camel_mime_parser_push_state (CamelMimeParser *mp,
  * be read from directly (without saving and restoring
  * the seek position in between).
  *
- * Returns: The stream from _init_with_stream(), or NULL
- * if the parser is reading from a file descriptor or is
+ * Returns: (transfer none) (nullable): The stream from _init_with_stream(),
+ * or NULL if the parser is reading from a file descriptor or is
  * uninitialised.
  **/
 CamelStream *
@@ -974,7 +974,7 @@ folder_read (struct _header_scan_state *s)
 		s->ioerrno = errno ? errno : EIO;
 	}
 
-	g_assert (s->inptr <= s->inend);
+	g_return_val_if_fail (s->inptr <= s->inend, 0);
 #ifdef PURIFY
 	inend_id = purify_watch (&s->inend);
 	inbuffer_id = purify_watch_n (s->inend + 1, SCAN_HEAD - 1, "rw");
@@ -1223,12 +1223,12 @@ header_append_mempool (struct _header_scan_state *s,
 /* Basically an optimised version of g_byte_array_append() */
 #define header_append(s, start, inptr) \
 { \
-	register gint headerlen = inptr - start; \
+	register gintptr headerlen = inptr - start; \
  \
 	if (headerlen > 0) { \
 		if (headerlen >= (s->outend - s->outptr)) { \
 			register gchar *outnew; \
-			register gint olen = ((s->outend - s->outbuf) + headerlen) * 2 + 1; \
+			register gintptr olen = ((s->outend - s->outbuf) + headerlen) * 2 + 1; \
 			outnew = g_realloc (s->outbuf, olen); \
 			s->outptr = s->outptr - s->outbuf + outnew; \
 			s->outbuf = outnew; \
@@ -1291,7 +1291,7 @@ folder_scan_header (struct _header_scan_state *s,
 				while ((*inptr++) != '\n')
 					;
 
-				g_assert (inptr <= s->inend + 1);
+				g_return_val_if_fail (inptr <= s->inend + 1, NULL);
 
 				/* check for sentinal or real end of line */
 				if (inptr > inend) {

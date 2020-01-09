@@ -3,20 +3,19 @@
  *
  * Copyright (C) 2013 Intel Corporation
  *
- * Authors:
- *     Tristan Van Berkom <tristanvb@openismus.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Tristan Van Berkom <tristanvb@openismus.com>
  */
 
 /**
@@ -128,26 +127,51 @@ ebsql_init_debug (void)
 	}
 }
 
+static const gchar *
+ebsql_error_str (EBookSqliteError code)
+{
+	switch (code) {
+		case E_BOOK_SQLITE_ERROR_ENGINE:
+			return "engine";
+		case E_BOOK_SQLITE_ERROR_CONSTRAINT:
+			return "constraint";
+		case E_BOOK_SQLITE_ERROR_CONTACT_NOT_FOUND:
+			return "contact not found";
+		case E_BOOK_SQLITE_ERROR_INVALID_QUERY:
+			return "invalid query";
+		case E_BOOK_SQLITE_ERROR_UNSUPPORTED_QUERY:
+			return "unsupported query";
+		case E_BOOK_SQLITE_ERROR_UNSUPPORTED_FIELD:
+			return "unsupported field";
+		case E_BOOK_SQLITE_ERROR_END_OF_LIST:
+			return "end of list";
+		case E_BOOK_SQLITE_ERROR_LOAD:
+			return "load";
+	}
+
+	return "(unknown)";
+}
+
+static const gchar *
+ebsql_origin_str (EbSqlCursorOrigin origin)
+{
+	switch (origin) {
+		case EBSQL_CURSOR_ORIGIN_CURRENT:
+			return "current";
+		case EBSQL_CURSOR_ORIGIN_BEGIN:
+			return "begin";
+		case EBSQL_CURSOR_ORIGIN_END:
+			return "end";
+	}
+
+	return "(invalid)";
+}
+
 #define EBSQL_NOTE(type,action) \
 	G_STMT_START { \
 		if (ebsql_debug_flags & EBSQL_DEBUG_##type) \
 			{ action; }; \
 	} G_STMT_END
-
-#define EBSQL_ERROR_STR(code) \
-	((code) == E_BOOK_SQLITE_ERROR_ENGINE ? "engine" : \
-	 (code) == E_BOOK_SQLITE_ERROR_CONSTRAINT ? "constraint" : \
-	 (code) == E_BOOK_SQLITE_ERROR_CONTACT_NOT_FOUND ? "contact not found" : \
-	 (code) == E_BOOK_SQLITE_ERROR_INVALID_QUERY ? "invalid query" : \
-	 (code) == E_BOOK_SQLITE_ERROR_UNSUPPORTED_QUERY ? "unsupported query" : \
-	 (code) == E_BOOK_SQLITE_ERROR_UNSUPPORTED_FIELD ? "unsupported field" : \
-	 (code) == E_BOOK_SQLITE_ERROR_END_OF_LIST ? "end of list" : \
-	 (code) == E_BOOK_SQLITE_ERROR_LOAD ? "load" : "(unknown)")
-
-#define EBSQL_ORIGIN_STR(origin) \
-	((origin) == EBSQL_CURSOR_ORIGIN_CURRENT ? "current" : \
-	 (origin) == EBSQL_CURSOR_ORIGIN_BEGIN ? "begin" : \
-	 (origin) == EBSQL_CURSOR_ORIGIN_END ? "end" : "(invalid)")
 
 #define EBSQL_LOCK_MUTEX(mutex) \
 	G_STMT_START { \
@@ -178,7 +202,7 @@ ebsql_init_debug (void)
 			gchar *format = g_strdup_printf ( \
 				"ERR [%%s]: Set error code '%%s': %s\n", fmt); \
 			g_printerr (format, G_STRFUNC, \
-				    EBSQL_ERROR_STR (code), ## args); \
+				    ebsql_error_str (code), ## args); \
 			g_free (format); \
 		} \
 		g_set_error (error, E_BOOK_SQLITE_ERROR, code, fmt, ## args); \
@@ -190,7 +214,7 @@ ebsql_init_debug (void)
 			g_printerr ("ERR [%s]: " \
 				    "Set error code %s: %s\n", \
 				    G_STRFUNC, \
-				    EBSQL_ERROR_STR (code), detail); \
+				    ebsql_error_str (code), detail); \
 		} \
 		g_set_error_literal (error, E_BOOK_SQLITE_ERROR, code, detail); \
 	} G_STMT_END
@@ -246,7 +270,7 @@ ebsql_init_debug (void)
 		} \
 	} G_STMT_END
 
-#define FOLDER_VERSION                8
+#define FOLDER_VERSION                11
 #define INSERT_MULTI_STMT_BYTES       128
 #define COLUMN_DEFINITION_BYTES       32
 #define GENERATED_QUERY_BYTES         1024
@@ -368,9 +392,20 @@ struct _EBookSqlitePrivate {
 	sqlite3_stmt   *replace_stmt;    /* Replace statement for main summary table */
 	GHashTable     *multi_deletes;   /* Delete statement for each auxiliary table */
 	GHashTable     *multi_inserts;   /* Insert statement for each auxiliary table */
+
+	ESource        *source;
 };
 
-G_DEFINE_TYPE (EBookSqlite, e_book_sqlite, G_TYPE_OBJECT)
+enum {
+	BEFORE_INSERT_CONTACT,
+	BEFORE_REMOVE_CONTACT,
+	LAST_SIGNAL
+};
+
+static guint signals[LAST_SIGNAL];
+
+G_DEFINE_TYPE_WITH_CODE (EBookSqlite, e_book_sqlite, G_TYPE_OBJECT,
+			 G_IMPLEMENT_INTERFACE (E_TYPE_EXTENSIBLE, NULL))
 G_DEFINE_QUARK (e-book-backend-sqlite-error-quark,
 		e_book_sqlite_error)
 
@@ -406,7 +441,8 @@ static EContactField default_summary_fields[] = {
 	E_CONTACT_TEL,
 	E_CONTACT_IS_LIST,
 	E_CONTACT_LIST_SHOW_ADDRESSES,
-	E_CONTACT_WANTS_HTML
+	E_CONTACT_WANTS_HTML,
+	E_CONTACT_X509_CERT,
 };
 
 /* Create indexes on full_name and email fields as autocompletion 
@@ -417,6 +453,10 @@ static EContactField default_summary_fields[] = {
  */
 static EContactField default_indexed_fields[] = {
 	E_CONTACT_FULL_NAME,
+	E_CONTACT_NICKNAME,
+	E_CONTACT_FILE_AS,
+	E_CONTACT_GIVEN_NAME,
+	E_CONTACT_FAMILY_NAME,
 	E_CONTACT_EMAIL,
 	E_CONTACT_FILE_AS,
 	E_CONTACT_FAMILY_NAME,
@@ -424,6 +464,10 @@ static EContactField default_indexed_fields[] = {
 };
 
 static EBookIndexType default_index_types[] = {
+	E_BOOK_INDEX_PREFIX,
+	E_BOOK_INDEX_PREFIX,
+	E_BOOK_INDEX_PREFIX,
+	E_BOOK_INDEX_PREFIX,
 	E_BOOK_INDEX_PREFIX,
 	E_BOOK_INDEX_PREFIX,
 	E_BOOK_INDEX_SORT_KEY,
@@ -451,7 +495,7 @@ column_info_new (SummaryField *field,
 	if (!info->type) {
 		if (field->type == G_TYPE_STRING)
 			info->type = "TEXT";
-		else if (field->type == G_TYPE_BOOLEAN)
+		else if (field->type == G_TYPE_BOOLEAN || field->type == E_TYPE_CONTACT_CERT)
 			info->type = "INTEGER";
 		else if (field->type == E_TYPE_CONTACT_ATTR_LIST)
 			info->type = "TEXT";
@@ -553,6 +597,7 @@ summary_field_append (GArray *array,
 
 	if (type != G_TYPE_STRING &&
 	    type != G_TYPE_BOOLEAN &&
+	    type != E_TYPE_CONTACT_CERT &&
 	    type != E_TYPE_CONTACT_ATTR_LIST) {
 		EBSQL_SET_ERROR (
 			error, E_BOOK_SQLITE_ERROR_UNSUPPORTED_FIELD,
@@ -647,6 +692,7 @@ summary_field_list_columns (SummaryField *field,
 	g_return_val_if_fail (
 		field->type == G_TYPE_STRING ||
 		field->type == G_TYPE_BOOLEAN ||
+		field->type == E_TYPE_CONTACT_CERT ||
 		field->type == E_TYPE_CONTACT_ATTR_LIST,
 		NULL);
 
@@ -664,13 +710,15 @@ summary_field_list_columns (SummaryField *field,
 	}
 
 	/* Suffix match column */
-	if (field->type != G_TYPE_BOOLEAN && (field->index & INDEX_FLAG (SUFFIX)) != 0) {
+	if (field->type != G_TYPE_BOOLEAN && field->type != E_TYPE_CONTACT_CERT &&
+	    (field->index & INDEX_FLAG (SUFFIX)) != 0) {
 		info = column_info_new (field, folderid, EBSQL_SUFFIX_REVERSE, "TEXT", NULL, "RINDEX");
 		columns = g_slist_prepend (columns, info);
 	}
 
 	/* Phone match columns */
-	if (field->type != G_TYPE_BOOLEAN && (field->index & INDEX_FLAG (PHONE)) != 0) {
+	if (field->type != G_TYPE_BOOLEAN && field->type != E_TYPE_CONTACT_CERT &&
+	    (field->index & INDEX_FLAG (PHONE)) != 0) {
 
 		/* One indexed column for storing the national number */
 		info = column_info_new (field, folderid, EBSQL_SUFFIX_PHONE, "TEXT", NULL, "PINDEX");
@@ -876,21 +924,26 @@ search_data_from_results (gint ncol,
 {
 	EbSqlSearchData *data = g_slice_new0 (EbSqlSearchData);
 	gint i;
+	const gchar *name;
 
 	for (i = 0; i < ncol; i++) {
 
 		if (!names[i] || !cols[i])
 			continue;
 
+		name = names[i];
+		if (!strncmp (name, "summary.", 8))
+			name += 8;
+
 		/* These come through differently depending on the configuration,
 		 * search within text is good enough
 		 */
-		if (!g_ascii_strcasecmp (names[i], "uid")) {
+		if (!g_ascii_strcasecmp (name, "uid")) {
 			data->uid = g_strdup (cols[i]);
-		} else if (!g_ascii_strcasecmp (names[i], "vcard") ||
-			   !g_ascii_strncasecmp (names[i], "fetch_vcard", 11)) {
+		} else if (!g_ascii_strcasecmp (name, "vcard") ||
+			   !g_ascii_strncasecmp (name, "fetch_vcard", 11)) {
 			data->vcard = g_strdup (cols[i]);
-		} else if (!g_ascii_strcasecmp (names[i], "bdata")) {
+		} else if (!g_ascii_strcasecmp (name, "bdata")) {
 			data->extra = g_strdup (cols[i]);
 		}
 	}
@@ -1736,7 +1789,7 @@ ebsql_check_cancel (gpointer ref)
 	    g_cancellable_is_cancelled (ebsql->priv->cancel)) {
 		EBSQL_NOTE (
 			CANCEL,
-			g_printerr ("CANCEL: An operation was canceled\n"));
+			g_printerr ("CANCEL: An operation was cancelled\n"));
 		return -1;
 	}
 
@@ -2075,7 +2128,7 @@ format_multivalues (EBookSqlite *ebsql)
 		}
 	}
 
-	return g_string_free (string, FALSE);
+	return g_string_free (string, string->len == 0);
 }
 
 /* Called with the lock held and inside a transaction */
@@ -2107,6 +2160,23 @@ ebsql_add_folder (EBookSqlite *ebsql,
 			ebsql->priv->folderid, success ? "success" : "failed"));
 
 	return success;
+}
+
+static gboolean
+ebsql_email_list_exists (EBookSqlite *ebsql)
+{
+	gint n_tables = 0;
+	gboolean success;
+
+	success = ebsql_exec_printf (
+		ebsql, "SELECT count(*) FROM sqlite_master WHERE type='table' AND name='%q_email_list';",
+		get_count_cb, &n_tables, NULL, NULL,
+		ebsql->priv->folderid);
+
+	if (!success)
+		return FALSE;
+
+	return n_tables == 1;
 }
 
 /* Called with the lock held and inside a transaction */
@@ -2225,6 +2295,19 @@ ebsql_introspect_summary (EBookSqlite *ebsql,
 	if (!success)
 		goto introspect_summary_finish;
 
+	if (!multivalues || !*multivalues) {
+		g_free (multivalues);
+		multivalues = NULL;
+
+		/* The migration from a previous version didn't store this default multivalue
+		   reference, thus the next backend open (not the immediate one after migration),
+		   didn't know about this table, which has a FOREIGN KEY constraint, thus an item
+		   delete caused a 'FOREIGN KEY constraint failed' error.
+		*/
+		if (ebsql_email_list_exists (ebsql))
+			multivalues = g_strdup ("email;prefix");
+	}
+
 	if (multivalues) {
 		gchar **fields = g_strsplit (multivalues, ":", 0);
 
@@ -2309,6 +2392,36 @@ ebsql_introspect_summary (EBookSqlite *ebsql,
 				summary_field = &g_array_index (summary_fields, SummaryField, i);
 				summary_field->index |= INDEX_FLAG (SORT_KEY);
 			}
+		}
+
+		if (previous_schema < 9) {
+			if (summary_field_array_index (summary_fields, E_CONTACT_X509_CERT) < 0) {
+				summary_field_append (summary_fields, ebsql->priv->folderid,
+						      E_CONTACT_X509_CERT, NULL);
+			}
+		}
+
+		if (previous_schema < 10) {
+			if ((i = summary_field_array_index (summary_fields, E_CONTACT_NICKNAME)) >= 0) {
+				summary_field = &g_array_index (summary_fields, SummaryField, i);
+				summary_field->index |= INDEX_FLAG (PREFIX);
+			}
+
+			if ((i = summary_field_array_index (summary_fields, E_CONTACT_FILE_AS)) >= 0) {
+				summary_field = &g_array_index (summary_fields, SummaryField, i);
+				summary_field->index |= INDEX_FLAG (PREFIX);
+			}
+
+			if ((i = summary_field_array_index (summary_fields, E_CONTACT_GIVEN_NAME)) >= 0) {
+				summary_field = &g_array_index (summary_fields, SummaryField, i);
+				summary_field->index |= INDEX_FLAG (PREFIX);
+			}
+
+			if ((i = summary_field_array_index (summary_fields, E_CONTACT_FAMILY_NAME)) >= 0) {
+				summary_field = &g_array_index (summary_fields, SummaryField, i);
+				summary_field->index |= INDEX_FLAG (PREFIX);
+			}
+
 		}
 	}
 
@@ -2524,6 +2637,20 @@ ebsql_init_aux_tables (EBookSqlite *ebsql,
 				field->aux_table));
 	}
 
+	if (success) {
+		gchar *multivalues;
+
+		multivalues = format_multivalues (ebsql);
+
+		success = ebsql_exec_printf (
+			ebsql,
+			"UPDATE folders SET multivalues=%Q WHERE folder_id=%Q",
+			NULL, NULL, NULL, error,
+			multivalues, ebsql->priv->folderid);
+
+		g_free (multivalues);
+	}
+
 	EBSQL_NOTE (
 		SCHEMA,
 		g_printerr (
@@ -2705,7 +2832,7 @@ ebsql_init_legacy_keys (EBookSqlite *ebsql,
 		}
 
 		/* Repeat for 'sync_data' */
-		success = ebsql_exec_printf (
+		success = success && ebsql_exec_printf (
 			ebsql, "SELECT sync_data FROM folders WHERE folder_id = %Q",
 			get_string_cb, &sync_data, NULL, error, ebsql->priv->folderid);
 
@@ -2770,7 +2897,7 @@ ebsql_init_locale (EBookSqlite *ebsql,
 	/* Check if we need to relocalize */
 	if (success) {
 		/* Need to relocalize the whole thing if the schema has been upgraded to version 7 */
-		if (previous_schema >= 1 && previous_schema < 7)
+		if (previous_schema >= 1 && previous_schema < 11)
 			relocalize_needed = TRUE;
 
 		/* We may need to relocalize for a country code change */
@@ -2796,6 +2923,7 @@ ebsql_init_locale (EBookSqlite *ebsql,
 
 static EBookSqlite *
 ebsql_new_internal (const gchar *path,
+		    ESource *source,
                     EbSqlVCardCallback vcard_callback,
                     EbSqlChangeCallback change_callback,
                     gpointer user_data,
@@ -2835,6 +2963,10 @@ ebsql_new_internal (const gchar *path,
 	ebsql->priv->change_callback = change_callback;
 	ebsql->priv->user_data = user_data;
 	ebsql->priv->user_data_destroy = user_data_destroy;
+	if (source != NULL)
+		ebsql->priv->source = g_object_ref (source);
+	else
+		ebsql->priv->source = NULL;
 
 	EBSQL_NOTE (REF_COUNTS, g_printerr ("EBookSqlite initially created\n"));
 
@@ -3022,6 +3154,22 @@ convert_phone (const gchar *normal,
 		*out_country_code = country_code;
 
 	return national_number;
+}
+
+static gchar *
+remove_leading_zeros (gchar *number)
+{
+	gchar *trimmed = NULL;
+	gchar *tmp = number;
+
+	g_return_val_if_fail (NULL != number, NULL);
+
+	while ('0' == *tmp)
+		tmp++;
+	trimmed = g_strdup (tmp);
+	g_free (number);
+
+	return trimmed;
 }
 
 typedef struct {
@@ -3346,6 +3494,7 @@ ebsql_run_multi_insert_one (EBookSqlite *ebsql,
 		str = convert_phone (
 			normal, ebsql->priv->region_code,
 			&country_code);
+		str = remove_leading_zeros (str);
 
 		/* :value_phone */
 		ret = sqlite3_bind_text (stmt, param_idx++, str, -1, g_free);
@@ -3471,7 +3620,8 @@ ebsql_prepare_insert (EBookSqlite *ebsql,
 				g_string_append (string, ", ");
 		}
 
-		if (field->type == G_TYPE_STRING || field->type == G_TYPE_BOOLEAN) {
+		if (field->type == G_TYPE_STRING || field->type == G_TYPE_BOOLEAN ||
+		    field->type == E_TYPE_CONTACT_CERT) {
 
 			g_string_append_c (string, ':');
 			g_string_append (string, field->dbname);
@@ -3634,6 +3784,7 @@ ebsql_run_insert (EBookSqlite *ebsql,
 				str = convert_phone (
 					normal, ebsql->priv->region_code,
 					&country_code);
+				str = remove_leading_zeros (str);
 
 				ret = sqlite3_bind_text (stmt, param_idx++, str, -1, g_free);
 				if (ret == SQLITE_OK)
@@ -3647,6 +3798,15 @@ ebsql_run_insert (EBookSqlite *ebsql,
 			val = e_contact_get (contact, field->field_id) ? TRUE : FALSE;
 
 			ret = sqlite3_bind_int (stmt, param_idx++, val ? 1 : 0);
+		} else if (field->type == E_TYPE_CONTACT_CERT) {
+			EContactCert *cert = NULL;
+
+			cert = e_contact_get (contact, field->field_id);
+
+			/* We don't actually store the cert; only a boolean to indicate
+			 * that is *has* a cert. */
+			ret = sqlite3_bind_int (stmt, param_idx++, cert ? 1 : 0);
+			e_contact_cert_free (cert);
 		} else if (field->type != E_TYPE_CONTACT_ATTR_LIST)
 			g_warn_if_reached ();
 	}
@@ -3791,6 +3951,7 @@ typedef enum {
 enum {
 	/* 'exists' is a supported query on a field, but not part of EBookQueryTest */
 	BOOK_QUERY_EXISTS = E_BOOK_QUERY_LAST,
+	BOOK_QUERY_EXISTS_VCARD,
 
 	/* From here the compound types start */
 	BOOK_QUERY_SUB_AND,
@@ -3803,6 +3964,7 @@ enum {
 
 #define EBSQL_QUERY_TYPE_STR(query) \
 	((query) == BOOK_QUERY_EXISTS ? "exists" : \
+	 (query) == BOOK_QUERY_EXISTS_VCARD ? "exists_vcard" : \
 	 (query) == BOOK_QUERY_SUB_AND ? "AND" : \
 	 (query) == BOOK_QUERY_SUB_OR ? "OR" : \
 	 (query) == BOOK_QUERY_SUB_NOT ? "NOT" : \
@@ -3859,12 +4021,13 @@ typedef struct {
 } QueryPhoneTest;
 
 /* Stack initializer for the PreflightContext struct below */
-#define PREFLIGHT_CONTEXT_INIT { PREFLIGHT_OK, NULL, 0 }
+#define PREFLIGHT_CONTEXT_INIT { PREFLIGHT_OK, NULL, 0, FALSE }
 
 typedef struct {
 	PreflightStatus  status;         /* result status */
 	GPtrArray       *constraints;    /* main query; may be NULL */
 	guint64          aux_mask;       /* Bitmask of which auxiliary tables are needed in the query */
+	guint64          left_join_mask; /* Do we need to use a LEFT JOIN */
 } PreflightContext;
 
 static QueryElement *
@@ -3975,21 +4138,6 @@ constraints_insert (GPtrArray *array,
 #endif
 }
 
-static inline QueryElement *
-constraints_take (GPtrArray *array,
-                  gint idx)
-{
-	QueryElement *element;
-
-	g_return_val_if_fail (idx >= 0 && idx < (gint) array->len, NULL);
-
-	element = array->pdata[idx];
-	array->pdata[idx] = NULL;
-	g_ptr_array_remove_index (array, idx);
-
-	return element;
-}
-
 static inline void
 constraints_insert_delimiter (GPtrArray *array,
                               gint idx,
@@ -4032,12 +4180,20 @@ preflight_context_clear (PreflightContext *context)
  *
  * I.e. sub contexts can be OR, AND, or NOT, in which
  * field tests or other sub contexts are nested.
+ *
+ * The 'count' field is a simple counter of how deep the contexts are nested.
+ *
+ * The 'cond_count' field is to be used by the caller for its own purposes;
+ * it is incremented in sub_query_context_push() only if the inc_cond_count
+ * parameter is TRUE. This is used by query_preflight_check() in a complex
+ * fashion which is described there.
  */
 typedef GQueue SubQueryContext;
 
 typedef struct {
 	guint sub_type; /* The type of this sub context */
 	guint count;    /* The number of field tests so far in this context */
+	guint cond_count; /* User-specific conditional counter */
 } SubQueryData;
 
 #define sub_query_context_new g_queue_new
@@ -4045,13 +4201,18 @@ typedef struct {
 
 static inline void
 sub_query_context_push (SubQueryContext *ctx,
-                        guint sub_type)
+                        guint sub_type, gboolean inc_cond_count)
 {
-	SubQueryData *data;
+	SubQueryData *data, *prev;
+
+	prev = g_queue_peek_tail (ctx);
 
 	data = g_slice_new (SubQueryData);
 	data->sub_type = sub_type;
 	data->count = 0;
+	data->cond_count = prev ? prev->cond_count : 0;
+	if (inc_cond_count)
+		data->cond_count++;
 
 	g_queue_push_tail (ctx, data);
 }
@@ -4073,6 +4234,19 @@ sub_query_context_peek_type (SubQueryContext *ctx)
 	data = g_queue_peek_tail (ctx);
 
 	return data->sub_type;
+}
+
+static inline guint
+sub_query_context_peek_cond_counter (SubQueryContext *ctx)
+{
+	SubQueryData *data;
+
+	data = g_queue_peek_tail (ctx);
+
+	if (data)
+		return data->cond_count;
+	else
+		return 0;
 }
 
 /* Returns the context field test count before incrementing */
@@ -4175,6 +4349,7 @@ static const struct {
 	{ "regex_normal",     FALSE, E_BOOK_QUERY_REGEX_NORMAL },
 	{ "regex_raw",        FALSE, E_BOOK_QUERY_REGEX_RAW },
 	{ "exists",           FALSE, BOOK_QUERY_EXISTS },
+	{ "exists_vcard",     FALSE, BOOK_QUERY_EXISTS_VCARD }
 };
 
 /* Cheat our way into passing mode data to these funcs */
@@ -4254,7 +4429,12 @@ func_check (struct _ESExp *f,
 
 	query_type = GPOINTER_TO_UINT (data);
 
-	if (argc == 2 &&
+	if (argc == 1 && query_type == BOOK_QUERY_EXISTS &&
+	    argv[0]->type == ESEXP_RES_STRING) {
+		query_name = argv[0]->value.string;
+
+		field_id = e_contact_field_id (query_name);
+	} else if (argc == 2 &&
 	    argv[0]->type == ESEXP_RES_STRING &&
 	    argv[1]->type == ESEXP_RES_STRING) {
 		query_name = argv[0]->value.string;
@@ -4381,7 +4561,7 @@ query_preflight_initialize (PreflightContext *context,
 		e_sexp_result_free (sexp_parser, result);
 	}
 
-	e_sexp_unref (sexp_parser);
+	g_object_unref (sexp_parser);
 
 	EBSQL_NOTE (
 		PREFLIGHT,
@@ -4392,7 +4572,8 @@ query_preflight_initialize (PreflightContext *context,
 
 typedef struct {
 	EBookSqlite   *ebsql;
-	gboolean       has_attr_list;
+	SummaryField  *field;
+	gboolean       condition;
 } AttrListCheckData;
 
 static gboolean
@@ -4409,10 +4590,32 @@ check_has_attr_list_cb (QueryElement *element,
 		test->field = summary_field_get (data->ebsql, test->field_id);
 
 	if (test->field && test->field->type == E_TYPE_CONTACT_ATTR_LIST)
-		data->has_attr_list = TRUE;
+		data->condition = TRUE;
 
 	/* Keep looping until we find one */
-	return (data->has_attr_list == FALSE);
+	return (data->condition == FALSE);
+}
+
+static gboolean
+check_different_fields_cb (QueryElement *element,
+			   gint sub_level,
+			   gint offset,
+			   gpointer user_data)
+{
+	QueryFieldTest *test = (QueryFieldTest *) element;
+	AttrListCheckData *data = (AttrListCheckData *) user_data;
+
+	/* We havent resolved all the fields at this stage yet */
+	if (!test->field)
+		test->field = summary_field_get (data->ebsql, test->field_id);
+
+	if (test->field && data->field && test->field != data->field)
+		data->condition = TRUE;
+	else
+		data->field = test->field;
+
+	/* Keep looping until we find one */
+	return (data->condition == FALSE);
 }
 
 /* What is done in this pass:
@@ -4426,6 +4629,7 @@ query_preflight_check (PreflightContext *context,
 {
 	gint i, n_elements;
 	QueryElement **elements;
+	SubQueryContext *ctx;
 
 	context->status = PREFLIGHT_OK;
 
@@ -4436,6 +4640,8 @@ query_preflight_check (PreflightContext *context,
 		elements = NULL;
 		n_elements = 0;
 	}
+
+	ctx = sub_query_context_new ();
 
 	for (i = 0; i < n_elements; i++) {
 		QueryFieldTest *test;
@@ -4448,6 +4654,24 @@ query_preflight_check (PreflightContext *context,
 				EBSQL_QUERY_TYPE_STR (elements[i]->query)));
 
 		if (elements[i]->query >= BOOK_QUERY_SUB_FIRST) {
+			AttrListCheckData data = { ebsql, NULL, FALSE };
+
+			switch (elements[i]->query) {
+			case BOOK_QUERY_SUB_OR:
+				/* An OR doesn't have to force us to use a LEFT JOIN, as long
+				   as all its sub-conditions are on the same field. */
+				query_preflight_foreach_sub (elements,
+							     n_elements,
+							     i, FALSE,
+							     check_different_fields_cb,
+							     &data);
+			case BOOK_QUERY_SUB_AND:
+				sub_query_context_push (ctx, elements[i]->query, data.condition);
+				break;
+			case BOOK_QUERY_SUB_END:
+				sub_query_context_pop (ctx);
+				break;
+
 			/* It's too complicated to properly perform
 			 * the unary NOT operator on a constraint which
 			 * accesses attribute lists.
@@ -4460,16 +4684,14 @@ query_preflight_check (PreflightContext *context,
 			 * muliple results from the attribute list tables,
 			 * this breaks down with NOT.
 			 */
-			if (elements[i]->query == BOOK_QUERY_SUB_NOT) {
-				AttrListCheckData data = { ebsql, FALSE };
-
+			case BOOK_QUERY_SUB_NOT:
 				query_preflight_foreach_sub (elements,
 							     n_elements,
 							     i, FALSE,
 							     check_has_attr_list_cb,
 							     &data);
 
-				if (data.has_attr_list) {
+				if (data.condition) {
 					context->status = MAX (
 						context->status,
 						PREFLIGHT_NOT_SUMMARIZED);
@@ -4481,7 +4703,12 @@ query_preflight_check (PreflightContext *context,
 							"new status: %s\n",
 							EBSQL_STATUS_STR (context->status)));
 				}
+				break;
+
+			default:
+				g_warn_if_reached ();
 			}
+
 			continue;
 		}
 
@@ -4550,6 +4777,26 @@ query_preflight_check (PreflightContext *context,
 			}
 		}
 
+		if (test->field && test->field->type == E_TYPE_CONTACT_CERT) {
+			/* For certificates, and later potentially other fields,
+			 * the only information in the summary is the fact that
+			 * they exist, or not. So the only check we can do from
+			 * the summary is BOOK_QUERY_EXISTS. */
+			if (field_test != BOOK_QUERY_EXISTS) {
+				context->status = MAX (context->status, PREFLIGHT_NOT_SUMMARIZED);
+				EBSQL_NOTE (
+					PREFLIGHT,
+					g_printerr (
+						"PREFLIGHT CHECK: "
+						"Cannot perform '%s' check on existence summary field '%s', new status: %s\n",
+						EBSQL_QUERY_TYPE_STR (field_test),
+						EBSQL_FIELD_ID_STR (test->field_id),
+						EBSQL_STATUS_STR (context->status)));
+			}
+			/* Bypass the other checks below which are not appropriate. */
+			continue;
+		}
+
 		switch (field_test) {
 		case E_BOOK_QUERY_IS:
 			break;
@@ -4577,6 +4824,17 @@ query_preflight_check (PreflightContext *context,
 				}
 			}
 
+			break;
+
+		case BOOK_QUERY_EXISTS_VCARD:
+			/* Exists vCard queries only supported in the fallback */
+			context->status = MAX (context->status, PREFLIGHT_NOT_SUMMARIZED);
+			EBSQL_NOTE (
+				PREFLIGHT,
+				g_printerr (
+					"PREFLIGHT CHECK: "
+					"Exists vCard requires full data, new status: %s\n",
+					EBSQL_STATUS_STR (context->status)));
 			break;
 
 		case E_BOOK_QUERY_REGEX_RAW:
@@ -4637,6 +4895,7 @@ query_preflight_check (PreflightContext *context,
 					 */
 					phone_test->national = e_phone_number_get_national_number (number);
 					phone_test->country = e_phone_number_get_country_code (number, &source);
+					phone_test->national = remove_leading_zeros (phone_test->national);
 
 					if (source == E_PHONE_NUMBER_COUNTRY_FROM_DEFAULT)
 						phone_test->country = 0;
@@ -4662,8 +4921,25 @@ query_preflight_check (PreflightContext *context,
 					"PREFLIGHT CHECK: "
 					"Adding auxiliary field `%s' to the mask\n",
 					EBSQL_FIELD_ID_STR (test->field_id)));
+
+			/* If this condition is a *requirement* for the overall query to
+			   match a given record (i.e. there's no surrounding 'OR' but
+			   only 'AND'), then we can use an inner join for the query and
+			   it will be a lot more efficient. If records without this
+			   condition can also match the overall condition, then we must
+			   use LEFT JOIN. */
+			if (sub_query_context_peek_cond_counter (ctx)) {
+				context->left_join_mask |= (1 << aux_index);
+				EBSQL_NOTE (
+					PREFLIGHT,
+					g_printerr (
+						"PREFLIGHT CHECK: "
+						"Using LEFT JOIN because auxiliary field is not absolute requirement\n"));
+			}
 		}
 	}
+
+	sub_query_context_free (ctx);
 }
 
 /* Handle special case of E_CONTACT_FULL_NAME
@@ -5084,7 +5360,11 @@ field_test_query_exists (EBookSqlite *ebsql,
 	SummaryField *field = test->field;
 
 	ebsql_string_append_column (string, field, NULL);
-	ebsql_string_append_printf (string, " IS NOT NULL");
+
+	if (test->field->type == E_TYPE_CONTACT_CERT)
+		ebsql_string_append_printf (string, " IS NOT '0'");
+	else
+		ebsql_string_append_printf (string, " IS NOT NULL");
 }
 
 /* Lookup table for field test generators per EBookQueryTest,
@@ -5102,6 +5382,7 @@ static const GenerateFieldTest field_test_func_table[] = {
 	field_test_query_regex_normal,     /* E_BOOK_QUERY_REGEX_NORMAL */
 	NULL /* Requires fallback */,      /* E_BOOK_QUERY_REGEX_RAW  */
 	field_test_query_exists,           /* BOOK_QUERY_EXISTS */
+	NULL /* Requires fallback */       /* BOOK_QUERY_EXISTS_VCARD */
 };
 
 /**********************************************************
@@ -5193,7 +5474,7 @@ ebsql_generate_constraints (EBookSqlite *ebsql,
 			case BOOK_QUERY_SUB_OR:
 
 				/* Open a grouped statement and push the context */
-				sub_query_context_push (ctx, delim->query);
+				sub_query_context_push (ctx, delim->query, FALSE);
 				g_string_append_c (string, '(');
 				break;
 
@@ -5221,6 +5502,7 @@ ebsql_generate_constraints (EBookSqlite *ebsql,
 		g_warn_if_fail (test->field != NULL);
 
 		/* Generate the field test */
+		/* coverity[var_deref_op] */
 		generate_test_func (ebsql, string, test);
 	}
 
@@ -5286,6 +5568,7 @@ ebsql_generate_select (EBookSqlite *ebsql,
 			/* We cap this at EBSQL_MAX_SUMMARY_FIELDS (64 bits) at creation time */
 			if ((context->aux_mask & (1 << i)) != 0) {
 				SummaryField *field = &(ebsql->priv->summary_fields[i]);
+				gboolean left_join = (context->left_join_mask >> i) & 1;
 
 				/* Note the '+' in the JOIN statement.
 				 *
@@ -5302,9 +5585,11 @@ ebsql_generate_select (EBookSqlite *ebsql,
 				 *     WHERE email_list.value LIKE "boogieman%"
 				 */
 				ebsql_string_append_printf (
-					string, " JOIN %Q AS %s ON +%s.uid = summary.uid",
+					string, " %sJOIN %Q AS %s ON %s%s.uid = summary.uid",
+					left_join ? "LEFT " : "",
 					field->aux_table,
 					field->aux_table_symbolic,
+					left_join ? "" : "+",
 					field->aux_table_symbolic);
 			}
 		}
@@ -5313,6 +5598,125 @@ ebsql_generate_select (EBookSqlite *ebsql,
 	return callback;
 }
 
+static gboolean
+ebsql_is_autocomplete_query (PreflightContext *context)
+{
+	QueryFieldTest *test;
+	QueryElement **elements;
+	gint n_elements, i;
+	int non_aux_fields = 0;
+
+	if (context->status != PREFLIGHT_OK || context->aux_mask == 0)
+		return FALSE;
+
+	elements = (QueryElement **) context->constraints->pdata;
+	n_elements = context->constraints->len;
+
+	for (i = 0; i < n_elements; i++) {
+		test = (QueryFieldTest *) elements[i];
+
+		/* For these, check if the field being operated on is
+		   an auxiliary field or not. */
+		if (elements[i]->query == E_BOOK_QUERY_BEGINS_WITH ||
+		    elements[i]->query == E_BOOK_QUERY_ENDS_WITH ||
+		    elements[i]->query == E_BOOK_QUERY_IS ||
+		    elements[i]->query == BOOK_QUERY_EXISTS ||
+		    elements[i]->query == E_BOOK_QUERY_CONTAINS) {
+			if (test->field->type != E_TYPE_CONTACT_ATTR_LIST)
+				non_aux_fields++;
+			continue;
+		}
+
+		/* Nothing else is allowed other than "(or" ... ")" */
+		if (elements[i]->query != BOOK_QUERY_SUB_OR &&
+		    elements[i]->query != BOOK_QUERY_SUB_END)
+			return FALSE;
+	}
+
+	/* If there were no non-aux fields being queried, don't bother */
+	return non_aux_fields != 0;
+}
+
+static EbSqlRowFunc
+ebsql_generate_autocomplete_query (EBookSqlite *ebsql,
+				   GString *string,
+				   SearchType search_type,
+				   PreflightContext *context,
+				   GError **error)
+{
+	QueryElement **elements;
+	gint n_elements, i;
+	guint64 aux_mask = context->aux_mask;
+	guint64 left_join_mask = context->left_join_mask;
+	EbSqlRowFunc callback;
+	gboolean first = TRUE;
+
+	elements = (QueryElement **) context->constraints->pdata;
+	n_elements = context->constraints->len;
+
+	/* First the queries which use aux tables. */
+	for (i = 0; i < n_elements; i++) {
+		GenerateFieldTest generate_test_func = NULL;
+		QueryFieldTest *test;
+		gint aux_index;
+
+		if (elements[i]->query == BOOK_QUERY_SUB_OR ||
+		    elements[i]->query == BOOK_QUERY_SUB_END)
+			continue;
+
+		test = (QueryFieldTest *) elements[i];
+		if (test->field->type != E_TYPE_CONTACT_ATTR_LIST)
+			continue;
+
+		aux_index = summary_field_get_index (ebsql, test->field_id);
+		g_warn_if_fail (aux_index >= 0 && aux_index < EBSQL_MAX_SUMMARY_FIELDS);
+		context->aux_mask = (1 << aux_index);
+		context->left_join_mask = 0;
+
+		callback = ebsql_generate_select (ebsql, string, search_type, context, error);
+		g_string_append (string, " WHERE ");
+		context->aux_mask = aux_mask;
+		context->left_join_mask = left_join_mask;
+		if (!callback)
+			return NULL;
+
+		generate_test_func = field_test_func_table[test->query];
+		generate_test_func (ebsql, string, test);
+
+		g_string_append (string, " UNION ");
+	}
+	/* Finally, generate the SELECT for the primary fields. */
+	context->aux_mask = 0;
+	callback = ebsql_generate_select (ebsql, string, search_type, context, error);
+	context->aux_mask = aux_mask;
+	if (!callback)
+		return NULL;
+
+	g_string_append (string, " WHERE ");
+
+	for (i = 0; i < n_elements; i++) {
+		GenerateFieldTest generate_test_func = NULL;
+		QueryFieldTest *test;
+
+		if (elements[i]->query == BOOK_QUERY_SUB_OR ||
+		    elements[i]->query == BOOK_QUERY_SUB_END)
+			continue;
+
+		test = (QueryFieldTest *) elements[i];
+		if (test->field->type == E_TYPE_CONTACT_ATTR_LIST)
+			continue;
+
+		if (!first)
+			g_string_append (string, " OR ");
+		else
+			first = FALSE;
+
+		generate_test_func = field_test_func_table[test->query];
+		generate_test_func (ebsql, string, test);
+	}
+
+	return callback;
+}
 static gboolean
 ebsql_do_search_query (EBookSqlite *ebsql,
                        PreflightContext *context,
@@ -5330,18 +5734,25 @@ ebsql_do_search_query (EBookSqlite *ebsql,
 	 * during the preflight checks */
 	string = g_string_sized_new (GENERATED_QUERY_BYTES);
 
-	/* Generate the leading SELECT statement */
-	callback = ebsql_generate_select (
-		ebsql, string, search_type, context, error);
+	/* Extra special case. For the common case of the email composer's
+	   addressbook autocompletion, we really want the most optimal query.
+	   So check for it and use a basically hand-crafted one. */
+        if (ebsql_is_autocomplete_query(context)) {
+		callback = ebsql_generate_autocomplete_query (ebsql, string, search_type, context, error);
+	} else {
+		/* Generate the leading SELECT statement */
+		callback = ebsql_generate_select (
+						  ebsql, string, search_type, context, error);
 
-	if (callback &&
-	    EBSQL_STATUS_GEN_CONSTRAINTS (context->status)) {
-		/*
-		 * Now generate the search expression on the main contacts table
-		 */
-		g_string_append (string, " WHERE ");
-		ebsql_generate_constraints (
-			ebsql, string, context->constraints, sexp);
+		if (callback &&
+		    EBSQL_STATUS_GEN_CONSTRAINTS (context->status)) {
+			/*
+			 * Now generate the search expression on the main contacts table
+			 */
+			g_string_append (string, " WHERE ");
+			ebsql_generate_constraints (
+				ebsql, string, context->constraints, sexp);
+		}
 	}
 
 	if (callback)
@@ -5966,6 +6377,8 @@ e_book_sqlite_finalize (GObject *object)
 	if (priv->collator)
 		e_collator_unref (priv->collator);
 
+	g_clear_object (&priv->source);
+
 	g_mutex_clear (&priv->lock);
 	g_mutex_clear (&priv->updates_lock);
 
@@ -5989,6 +6402,51 @@ e_book_sqlite_finalize (GObject *object)
 }
 
 static void
+e_book_sqlite_constructed (GObject *object)
+{
+	/* Chain up to parent's constructed() method. */
+	G_OBJECT_CLASS (e_book_sqlite_parent_class)->constructed (object);
+
+	e_extensible_load_extensions (E_EXTENSIBLE (object));
+}
+
+static gboolean
+ebsql_signals_accumulator (GSignalInvocationHint *ihint,
+			   GValue *return_accu,
+			   const GValue *handler_return,
+			   gpointer data)
+{
+	gboolean handler_result;
+
+	handler_result = g_value_get_boolean (handler_return);
+	g_value_set_boolean (return_accu, handler_result);
+
+	return handler_result;
+}
+
+static gboolean
+ebsql_before_insert_contact_default (EBookSqlite *ebsql,
+				     gpointer db,
+				     EContact *contact,
+				     const gchar *extra,
+				     gboolean replace,
+				     GCancellable *cancellable,
+				     GError **error)
+{
+	return TRUE;
+}
+
+static gboolean
+ebsql_before_remove_contact_default (EBookSqlite *ebsql,
+				     gpointer db,
+				     const gchar *contact_uid,
+				     GCancellable *cancellable,
+				     GError **error)
+{
+	return TRUE;
+}
+
+static void
 e_book_sqlite_class_init (EBookSqliteClass *class)
 {
 	GObjectClass *object_class;
@@ -5998,9 +6456,43 @@ e_book_sqlite_class_init (EBookSqliteClass *class)
 	object_class = G_OBJECT_CLASS (class);
 	object_class->dispose = e_book_sqlite_dispose;
 	object_class->finalize = e_book_sqlite_finalize;
+	object_class->constructed = e_book_sqlite_constructed;
+
+	class->before_insert_contact = ebsql_before_insert_contact_default;
+	class->before_remove_contact = ebsql_before_remove_contact_default;
 
 	/* Parse the EBSQL_DEBUG environment variable */
 	ebsql_init_debug ();
+
+	signals[BEFORE_INSERT_CONTACT] = g_signal_new (
+		"before-insert-contact",
+		G_OBJECT_CLASS_TYPE (class),
+		G_SIGNAL_RUN_LAST,
+		G_STRUCT_OFFSET (EBookSqliteClass, before_insert_contact),
+		ebsql_signals_accumulator,
+		NULL,
+		g_cclosure_marshal_generic,
+		G_TYPE_BOOLEAN, 6,
+		G_TYPE_POINTER,
+		G_TYPE_OBJECT,
+		G_TYPE_STRING,
+		G_TYPE_BOOLEAN,
+		G_TYPE_OBJECT,
+		G_TYPE_POINTER);
+
+	signals[BEFORE_REMOVE_CONTACT] = g_signal_new (
+		"before-remove-contact",
+		G_OBJECT_CLASS_TYPE (class),
+		G_SIGNAL_RUN_LAST,
+		G_STRUCT_OFFSET (EBookSqliteClass, before_remove_contact),
+		ebsql_signals_accumulator,
+		NULL,
+		g_cclosure_marshal_generic,
+		G_TYPE_BOOLEAN, 4,
+		G_TYPE_POINTER,
+		G_TYPE_STRING,
+		G_TYPE_OBJECT,
+		G_TYPE_POINTER);
 }
 
 static void
@@ -6017,6 +6509,7 @@ e_book_sqlite_init (EBookSqlite *ebsql)
  **********************************************************/
 static EBookSqlite *
 ebsql_new_default (const gchar *path,
+		   ESource *source,
                    EbSqlVCardCallback vcard_callback,
                    EbSqlChangeCallback change_callback,
                    gpointer user_data,
@@ -6041,7 +6534,8 @@ ebsql_new_default (const gchar *path,
 		G_N_ELEMENTS (default_indexed_fields));
 
 	ebsql = ebsql_new_internal (
-		path, vcard_callback, change_callback,
+		path, source,
+		vcard_callback, change_callback,
 		user_data, user_data_destroy,
 		(SummaryField *) summary_fields->data,
 		summary_fields->len,
@@ -6055,6 +6549,7 @@ ebsql_new_default (const gchar *path,
 /**
  * e_book_sqlite_new:
  * @path: location to load or create the new database
+ * @source: an optional #ESource, associated with the #EBookSqlite, or %NULL
  * @cancellable: (allow-none): A #GCancellable
  * @error: (allow-none): A location to store any error that may have occurred.
  *
@@ -6081,17 +6576,19 @@ ebsql_new_default (const gchar *path,
  **/
 EBookSqlite *
 e_book_sqlite_new (const gchar *path,
+		   ESource *source,
                    GCancellable *cancellable,
                    GError **error)
 {
 	g_return_val_if_fail (path && path[0], NULL);
 
-	return ebsql_new_default (path, NULL, NULL, NULL, NULL, cancellable, error);
+	return ebsql_new_default (path, source, NULL, NULL, NULL, NULL, cancellable, error);
 }
 
 /**
  * e_book_sqlite_new_full:
  * @path: location to load or create the new database
+ * @source: an optional #ESource, associated with the #EBookSqlite, or %NULL
  * @setup: (allow-none): an #ESourceBackendSummarySetup describing how the summary should be setup, or %NULL to use the default
  * @vcard_callback: (allow-none) (scope async) (closure user_data): A function to resolve vcards
  * @change_callback: (allow-none) (scope async) (closure user_data): A function to catch notifications of vcard changes
@@ -6131,6 +6628,7 @@ e_book_sqlite_new (const gchar *path,
  **/
 EBookSqlite *
 e_book_sqlite_new_full (const gchar *path,
+			ESource *source,
                         ESourceBackendSummarySetup *setup,
                         EbSqlVCardCallback vcard_callback,
                         EbSqlChangeCallback change_callback,
@@ -6153,6 +6651,7 @@ e_book_sqlite_new_full (const gchar *path,
 	if (!setup)
 		return ebsql_new_default (
 			path,
+			source,
 			vcard_callback,
 			change_callback,
 			user_data,
@@ -6172,6 +6671,7 @@ e_book_sqlite_new_full (const gchar *path,
 
 		ebsql = ebsql_new_default (
 			path,
+			source,
 			vcard_callback,
 			change_callback,
 			user_data,
@@ -6221,7 +6721,8 @@ e_book_sqlite_new_full (const gchar *path,
 		summary_fields, indexed_fields, index_types, n_indexed_fields);
 
 	ebsql = ebsql_new_internal (
-		path, vcard_callback, change_callback,
+		path, source,
+		vcard_callback, change_callback,
 		user_data, user_data_destroy,
 		(SummaryField *) summary_fields->data,
 		summary_fields->len,
@@ -6370,6 +6871,30 @@ e_book_sqlite_ref_collator (EBookSqlite *ebsql)
 }
 
 /**
+ * e_book_sqlite_ref_source:
+ * @ebsql: An #EBookSqlite
+ *
+ * References the #ESource to which @ebsql is paired,
+ * use g_object_unref() when finished using the source.
+ * It can be %NULL in some cases, like when running tests.
+ *
+ * Returns: (transfer full): A reference to the #ESource to which @ebsql
+ * is paired, or %NULL.
+ *
+ * Since: 3.16
+*/
+ESource *
+e_book_sqlite_ref_source (EBookSqlite *ebsql)
+{
+	g_return_val_if_fail (E_IS_BOOK_SQLITE (ebsql), NULL);
+
+	if (!ebsql->priv->source)
+		return NULL;
+
+	return g_object_ref (ebsql->priv->source);
+}
+
+/**
  * e_book_sqlitedb_add_contact:
  * @ebsql: An #EBookSqlite
  * @contact: EContact to be added
@@ -6460,6 +6985,17 @@ e_book_sqlite_add_contacts (EBookSqlite *ebsql,
 
 		if (ll)
 			extra_data = (const gchar *) ll->data;
+
+		g_signal_emit (ebsql,
+			       signals[BEFORE_INSERT_CONTACT],
+			       0,
+			       ebsql->priv->db,
+			       contact, extra_data,
+			       replace,
+			       cancellable, error,
+			       &success);
+		if (!success)
+			break;
 
 		success = ebsql_insert_contact (
 			ebsql,
@@ -6556,6 +7092,8 @@ e_book_sqlite_remove_contacts (EBookSqlite *ebsql,
 	gboolean success = TRUE;
 	gint i;
 	gchar *stmt;
+	const gchar *contact_uid;
+	GSList *l = NULL;
 
 	g_return_val_if_fail (E_IS_BOOK_SQLITE (ebsql), FALSE);
 	g_return_val_if_fail (uids != NULL, FALSE);
@@ -6565,6 +7103,17 @@ e_book_sqlite_remove_contacts (EBookSqlite *ebsql,
 	if (!ebsql_start_transaction (ebsql, EBSQL_LOCK_WRITE, cancellable, error)) {
 		EBSQL_UNLOCK_MUTEX (&ebsql->priv->lock);
 		return FALSE;
+	}
+
+	for (l = uids; success && l; l = l->next) {
+		contact_uid = (const gchar *) l->data;
+		g_signal_emit (ebsql,
+			       signals[BEFORE_REMOVE_CONTACT],
+			       0,
+			       ebsql->priv->db,
+			       contact_uid,
+			       cancellable, error,
+			       &success);
 	}
 
 	/* Delete data from the auxiliary tables first */
@@ -6647,7 +7196,7 @@ e_book_sqlite_has_contact (EBookSqlite *ebsql,
  * Fetch the #EContact specified by @uid in @ebsql.
  *
  * If @meta_contact is specified, then a shallow #EContact will be created
- * holing only the %E_CONTACT_UID and %E_CONTACT_REV fields.
+ * holding only the %E_CONTACT_UID and %E_CONTACT_REV fields.
  *
  * Returns: %TRUE on success, otherwise %FALSE is returned and @error is set appropriately.
  *
@@ -6679,6 +7228,51 @@ e_book_sqlite_get_contact (EBookSqlite *ebsql,
 }
 
 /**
+ * ebsql_get_contact_unlocked:
+ * @ebsql: An #EBookSqlite
+ * @uid: The uid of the contact to fetch
+ * @meta_contact: Whether an entire contact is desired, or only the metadata
+ * @contact: (out) (transfer full): Return location to store the fetched contact
+ * @error: (allow-none): A location to store any error that may have occurred.
+ *
+ * Fetch the #EContact specified by @uid in @ebsql without locking internal mutex.
+ *
+ * If @meta_contact is specified, then a shallow #EContact will be created
+ * holding only the %E_CONTACT_UID and %E_CONTACT_REV fields.
+ *
+ * Returns: %TRUE on success, otherwise %FALSE is returned and @error is set appropriately.
+ *
+ * Since: 3.16
+ **/
+gboolean
+ebsql_get_contact_unlocked (EBookSqlite *ebsql,
+			    const gchar *uid,
+			    gboolean meta_contact,
+			    EContact **contact,
+			    GError **error)
+{
+	gboolean success = FALSE;
+	gchar *vcard = NULL;
+
+	g_return_val_if_fail (E_IS_BOOK_SQLITE (ebsql), FALSE);
+	g_return_val_if_fail (uid != NULL, FALSE);
+	g_return_val_if_fail (contact != NULL && *contact == NULL, FALSE);
+
+	success = ebsql_get_vcard_unlocked (ebsql,
+					    uid,
+					    meta_contact,
+					    &vcard,
+					    error);
+
+	if (success && vcard) {
+		*contact = e_contact_new_from_vcard_with_uid (vcard, uid);
+		g_free (vcard);
+	}
+
+	return success;
+}
+
+/**
  * e_book_sqlite_get_vcard:
  * @ebsql: An #EBookSqlite
  * @uid: The uid of the contact to fetch
@@ -6689,7 +7283,7 @@ e_book_sqlite_get_contact (EBookSqlite *ebsql,
  * Fetch a vcard string for @uid in @ebsql.
  *
  * If @meta_contact is specified, then a shallow vcard representation will be
- * created holing only the %E_CONTACT_UID and %E_CONTACT_REV fields.
+ * created holding only the %E_CONTACT_UID and %E_CONTACT_REV fields.
  *
  * Returns: %TRUE on success, otherwise %FALSE is returned and @error is set appropriately.
  *
@@ -6746,6 +7340,75 @@ e_book_sqlite_get_vcard (EBookSqlite *ebsql,
 			error,
 			E_BOOK_SQLITE_ERROR_CONTACT_NOT_FOUND,
 			_("Contact '%s' not found"), uid);
+		success = FALSE;
+	}
+
+	return success;
+}
+
+/**
+ * ebsql_get_vcard_unlocked:
+ * @ebsql: An #EBookSqlite
+ * @uid: The uid of the contact to fetch
+ * @meta_contact: Whether an entire contact is desired, or only the metadata
+ * @ret_vcard: (out) (transfer full): Return location to store the fetched vcard string
+ * @error: (allow-none): A location to store any error that may have occurred.
+ *
+ * Fetch a vcard string for @uid in @ebsql without locking internal mutex.
+ *
+ * If @meta_contact is specified, then a shallow vcard representation will be
+ * created holding only the %E_CONTACT_UID and %E_CONTACT_REV fields.
+ *
+ * Returns: %TRUE on success, otherwise %FALSE is returned and @error is set appropriately.
+ *
+ * Since: 3.16
+ **/
+gboolean
+ebsql_get_vcard_unlocked (EBookSqlite *ebsql,
+                         const gchar *uid,
+                         gboolean meta_contact,
+                         gchar **ret_vcard,
+                         GError **error)
+{
+	gboolean success = FALSE;
+	gchar *vcard = NULL;
+
+	g_return_val_if_fail (E_IS_BOOK_SQLITE (ebsql), FALSE);
+	g_return_val_if_fail (uid != NULL, FALSE);
+	g_return_val_if_fail (ret_vcard != NULL && *ret_vcard == NULL, FALSE);
+
+	/* Try constructing contacts from only UID/REV first if that's requested */
+	if (meta_contact) {
+		GSList *vcards = NULL;
+
+		success = ebsql_exec_printf (
+			ebsql, "SELECT summary.uid, summary.Rev FROM %Q AS summary WHERE uid = %Q",
+			collect_lean_results_cb, &vcards, NULL, error,
+			ebsql->priv->folderid, uid);
+
+		if (vcards) {
+			EbSqlSearchData *search_data = (EbSqlSearchData *) vcards->data;
+
+			vcard = search_data->vcard;
+			search_data->vcard = NULL;
+
+			g_slist_free_full (vcards, (GDestroyNotify) e_book_sqlite_search_data_free);
+			vcards = NULL;
+		}
+
+       } else {
+	       success = ebsql_exec_printf (
+		       ebsql, "SELECT %s FROM %Q AS summary WHERE summary.uid = %Q",
+		       get_string_cb, &vcard, NULL, error,
+		       EBSQL_VCARD_FRAGMENT (ebsql), ebsql->priv->folderid, uid);
+       }
+
+	*ret_vcard = vcard;
+
+	if (success && !vcard) {
+		EBSQL_SET_ERROR (error,
+				 E_BOOK_SQLITE_ERROR_CONTACT_NOT_FOUND,
+				 _("Contact '%s' not found"), uid);
 		success = FALSE;
 	}
 
@@ -6823,6 +7486,41 @@ e_book_sqlite_get_contact_extra (EBookSqlite *ebsql,
 }
 
 /**
+ * ebsql_get_contact_extra_unlocked:
+ * @ebsql: An #EBookSqlite
+ * @uid: The uid of the contact to fetch the extra data for
+ * @ret_extra: (out) (transfer full): Return location to store the extra data
+ * @error: (allow-none): A location to store any error that may have occurred.
+ *
+ * Fetches the extra data previously set for @uid, either with
+ * e_book_sqlite_set_contact_extra() or when adding contacts,
+ * without locking internal mutex.
+ *
+ * Returns: %TRUE on success, otherwise %FALSE is returned and @error is set appropriately.
+ *
+ * Since: 3.16
+ **/
+gboolean
+ebsql_get_contact_extra_unlocked (EBookSqlite *ebsql,
+				  const gchar *uid,
+				  gchar **ret_extra,
+				  GError **error)
+{
+	gboolean success;
+
+	g_return_val_if_fail (E_IS_BOOK_SQLITE (ebsql), FALSE);
+	g_return_val_if_fail (uid != NULL, FALSE);
+	g_return_val_if_fail (ret_extra != NULL && *ret_extra == NULL, FALSE);
+
+	success = ebsql_exec_printf (
+		ebsql, "SELECT bdata FROM %Q WHERE uid = %Q",
+		get_string_cb, ret_extra, NULL, error,
+		ebsql->priv->folderid, uid);
+
+	return success;
+}
+
+/**
  * e_book_sqlite_search:
  * @ebsql: An #EBookSqlite
  * @sexp: (allow-none): search expression; use %NULL or an empty string to list all stored contacts.
@@ -6843,7 +7541,7 @@ e_book_sqlite_get_contact_extra (EBookSqlite *ebsql,
  * and all elements freed with e_book_sqlite_search_data_free().
  *
  * If @meta_contact is specified, then shallow vcard representations will be
- * created holing only the %E_CONTACT_UID and %E_CONTACT_REV fields.
+ * created holding only the %E_CONTACT_UID and %E_CONTACT_REV fields.
  *
  * Returns: %TRUE on success, otherwise %FALSE is returned and @error is set appropriately.
  *
@@ -7402,7 +8100,7 @@ e_book_sqlite_cursor_step (EBookSqlite *ebsql,
 		CURSOR,
 		g_printerr (
 			"Cursor requested to step by %d with origin %s will move: %s will fetch: %s\n",
-			count, EBSQL_ORIGIN_STR (origin),
+			count, ebsql_origin_str (origin),
 			(flags & EBSQL_CURSOR_STEP_MOVE) ? "yes" : "no",
 			(flags & EBSQL_CURSOR_STEP_FETCH) ? "yes" : "no"));
 

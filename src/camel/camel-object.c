@@ -1,21 +1,20 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- *
- *
- * Author:
- *  Michael Zucchi <notzed@ximian.com>
- *
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -28,6 +27,8 @@
 
 #include <glib/gstdio.h>
 
+#include "camel-enums.h"
+#include "camel-enumtypes.h"
 #include "camel-file-utils.h"
 #include "camel-object.h"
 
@@ -85,7 +86,8 @@ enum camel_arg_t {
 	CAMEL_ARG_DBL = 0x20000000, /* gdouble */
 	CAMEL_ARG_STR = 0x30000000, /* c string */
 	CAMEL_ARG_PTR = 0x40000000, /* ptr */
-	CAMEL_ARG_BOO = 0x50000000  /* bool */
+	CAMEL_ARG_BOO = 0x50000000, /* bool */
+	CAMEL_ARG_3ST = 0x60000000  /* three-state */
 };
 
 #define CAMEL_ARGV_MAX (20)
@@ -158,7 +160,7 @@ object_state_read (CamelObject *object,
 	if (camel_file_util_decode_uint32 (fp, &version) == -1)
 		return -1;
 
-	if (version > 1)
+	if (version > 2)
 		return -1;
 
 	if (camel_file_util_decode_uint32 (fp, &count) == -1)
@@ -205,13 +207,19 @@ object_state_read (CamelObject *object,
 			goto exit;
 
 		/* Record state file values into GValues.
-		 * XXX We currently only support booleans. */
+		 * XXX We currently only support booleans and three-state. */
 		switch (tag & CAMEL_ARG_TYPE) {
 			case CAMEL_ARG_BOO:
 				if (camel_file_util_decode_uint32 (fp, &v_uint32) == -1)
 					goto exit;
 				g_value_init (&value, G_TYPE_BOOLEAN);
 				g_value_set_boolean (&value, (gboolean) v_uint32);
+				break;
+			case CAMEL_ARG_3ST:
+				if (camel_file_util_decode_uint32 (fp, &v_uint32) == -1)
+					goto exit;
+				g_value_init (&value, CAMEL_TYPE_THREE_STATE);
+				g_value_set_enum (&value, (CamelThreeState) v_uint32);
 				break;
 			default:
 				g_warn_if_reached ();
@@ -236,6 +244,17 @@ object_state_read (CamelObject *object,
 			g_warn_if_fail (pspec->flags & CAMEL_PARAM_PERSISTENT);
 			if ((pspec->flags & CAMEL_PARAM_PERSISTENT) == 0)
 				continue;
+
+			if (version == 1 && pspec->value_type == CAMEL_TYPE_THREE_STATE &&
+			    G_VALUE_HOLDS_BOOLEAN (&value)) {
+				/* Convert from boolean to three-state value. Assign the 'TRUE' to 'On'
+				   and the rest keep as 'Inconsistent'. */
+				gboolean stored = g_value_get_boolean (&value);
+
+				g_value_unset (&value);
+				g_value_init (&value, CAMEL_TYPE_THREE_STATE);
+				g_value_set_enum (&value, stored ? CAMEL_THREE_STATE_ON : CAMEL_THREE_STATE_INCONSISTENT);
+			}
 
 			g_object_set_property (
 				G_OBJECT (object), pspec->name, &value);
@@ -279,8 +298,8 @@ object_state_write (CamelObject *object,
 	class = G_OBJECT_GET_CLASS (object);
 	properties = g_object_class_list_properties (class, &n_properties);
 
-	/* Version = 1 */
-	if (camel_file_util_encode_uint32 (fp, 1) == -1)
+	/* Version = 2 */
+	if (camel_file_util_encode_uint32 (fp, 2) == -1)
 		goto exit;
 
 	/* No meta-data items. */
@@ -326,8 +345,18 @@ object_state_write (CamelObject *object,
 					goto exit;
 				break;
 			default:
-				g_warn_if_reached ();
-				goto exit;
+				if (pspec->value_type == CAMEL_TYPE_THREE_STATE) {
+					tag |= CAMEL_ARG_3ST;
+					v_uint32 = g_value_get_enum (&value);
+					if (camel_file_util_encode_uint32 (fp, tag) == -1)
+						goto exit;
+					if (camel_file_util_encode_uint32 (fp, v_uint32) == -1)
+						goto exit;
+				} else {
+					g_warn_if_reached ();
+					goto exit;
+				}
+				break;
 		}
 
 		g_value_unset (&value);

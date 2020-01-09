@@ -4,17 +4,17 @@
  * Copyright (C) 2006 OpenedHand Ltd
  * Copyright (C) 2009 Intel Corporation
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #if !defined (__LIBEDATA_BOOK_H_INSIDE__) && !defined (LIBEDATA_BOOK_COMPILATION)
@@ -53,6 +53,14 @@
  */
 #define EDS_ADDRESS_BOOK_MODULES "EDS_ADDRESS_BOOK_MODULES"
 
+/**
+ * EDS_SUBPROCESS_BOOK_PATH:
+ *
+ * This environment variable configures where the address book
+ * factory subprocess is located in.
+ */
+#define EDS_SUBPROCESS_BOOK_PATH "EDS_SUBPROCESS_BOOK_PATH"
+
 G_BEGIN_DECLS
 
 typedef struct _EDataBookFactory EDataBookFactory;
@@ -71,9 +79,6 @@ struct _EDataBookFactoryClass {
 GType		e_data_book_factory_get_type	(void) G_GNUC_CONST;
 EDBusServer *	e_data_book_factory_new		(GCancellable *cancellable,
 						 GError **error);
-ESourceRegistry *
-		e_data_book_factory_get_registry
-						(EDataBookFactory *factory);
 
 G_END_DECLS
 

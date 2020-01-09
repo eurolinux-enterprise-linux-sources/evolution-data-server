@@ -1,23 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/*
- * camel-iconv.c
+/* camel-iconv.c
+ *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors:
- *   Michael Zucchi <notzed@ximian.com>
- *   Jeffery Stedfast <fejj@ximian.com>
- *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
+ *          Jeffery Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -46,7 +45,7 @@ struct _iconv_cache_node {
 	struct _iconv_cache *parent;
 
 	gint busy;
-	iconv_t ip;
+	GIConv ip;
 };
 
 struct _iconv_cache {
@@ -361,9 +360,9 @@ flush_entry (struct _iconv_cache *ic)
 	struct _iconv_cache_node *in;
 
 	while ((in = g_queue_pop_head (&ic->open)) != NULL) {
-		if (in->ip != (iconv_t) - 1) {
+		if (in->ip != (GIConv) -1) {
 			g_hash_table_remove (iconv_cache_open, in->ip);
-			iconv_close (in->ip);
+			g_iconv_close (in->ip);
 		}
 		g_free (in);
 	}
@@ -373,7 +372,7 @@ flush_entry (struct _iconv_cache *ic)
 }
 
 /* This should run pretty quick, its called a lot */
-iconv_t
+GIConv
 camel_iconv_open (const gchar *oto,
                   const gchar *ofrom)
 {
@@ -383,11 +382,11 @@ camel_iconv_open (const gchar *oto,
 	struct _iconv_cache *ic;
 	struct _iconv_cache_node *in;
 	gint errnosav;
-	iconv_t ip;
+	GIConv ip;
 
 	if (oto == NULL || ofrom == NULL) {
 		errno = EINVAL;
-		return (iconv_t) -1;
+		return (GIConv) -1;
 	}
 
 	to = camel_iconv_charset_name (oto);
@@ -437,7 +436,7 @@ camel_iconv_open (const gchar *oto,
 	if (in != NULL && !in->busy) {
 		cd (printf ("using existing iconv converter '%s'\n", ic->conv));
 		ip = in->ip;
-		if (ip != (iconv_t) - 1) {
+		if (ip != (GIConv) -1) {
 			/* work around some broken iconv implementations
 			 * that die if the length arguments are NULL
 			 */
@@ -445,19 +444,19 @@ camel_iconv_open (const gchar *oto,
 			gchar *buggy_iconv_buf = NULL;
 
 			/* resets the converter */
-			iconv (ip, &buggy_iconv_buf, &buggy_iconv_len, &buggy_iconv_buf, &buggy_iconv_len);
+			g_iconv (ip, &buggy_iconv_buf, &buggy_iconv_len, &buggy_iconv_buf, &buggy_iconv_len);
 			in->busy = TRUE;
 			g_queue_remove (&ic->open, in);
 			g_queue_push_head (&ic->open, in);
 		}
 	} else {
 		cd (printf ("creating new iconv converter '%s'\n", ic->conv));
-		ip = iconv_open (to, from);
+		ip = g_iconv_open (to, from);
 		in = g_malloc (sizeof (*in));
 		in->ip = ip;
 		in->parent = ic;
 		g_queue_push_head (&ic->open, in);
-		if (ip != (iconv_t) - 1) {
+		if (ip != (GIConv) -1) {
 			g_hash_table_insert (iconv_cache_open, ip, in);
 			in->busy = TRUE;
 		} else {
@@ -474,21 +473,21 @@ camel_iconv_open (const gchar *oto,
 }
 
 gsize
-camel_iconv (iconv_t cd,
+camel_iconv (GIConv cd,
              const gchar **inbuf,
              gsize *inbytesleft,
              gchar **outbuf,
              gsize *outbytesleft)
 {
-	return iconv (cd, (gchar **) inbuf, inbytesleft, outbuf, outbytesleft);
+	return g_iconv (cd, (gchar **) inbuf, inbytesleft, outbuf, outbytesleft);
 }
 
 void
-camel_iconv_close (iconv_t ip)
+camel_iconv_close (GIConv ip)
 {
 	struct _iconv_cache_node *in;
 
-	if (ip == (iconv_t) - 1)
+	if (ip == (GIConv) -1)
 		return;
 
 	G_LOCK (iconv);
@@ -500,7 +499,7 @@ camel_iconv_close (iconv_t ip)
 		g_queue_push_tail (&in->parent->open, in);
 	} else {
 		g_warning ("trying to close iconv i dont know about: %p", ip);
-		iconv_close (ip);
+		g_iconv_close (ip);
 	}
 	G_UNLOCK (iconv);
 }

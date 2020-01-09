@@ -1,19 +1,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #include <stdio.h>
@@ -36,17 +36,15 @@ static gint
 nntp_address_decode (CamelAddress *address,
                      const gchar *raw)
 {
-	struct _camel_header_newsgroup *ha, *n;
+	GSList *ha, *n;
 	gint count = address->addresses->len;
 
 	ha = camel_header_newsgroups_decode (raw);
-	if (ha) {
-		for (n = ha; n; n = n->next)
-			camel_nntp_address_add (
-				CAMEL_NNTP_ADDRESS (address), n->newsgroup);
-		camel_header_newsgroups_free (ha);
+	for (n = ha; n != NULL; n = n->next) {
+		camel_nntp_address_add (CAMEL_NNTP_ADDRESS (address), n->data);
 	}
 
+	g_slist_free_full (ha, g_free);
 	return address->addresses->len - count;
 }
 
@@ -82,7 +80,7 @@ nntp_address_cat (CamelAddress *dest,
 {
 	gint ii;
 
-	g_assert (CAMEL_IS_NNTP_ADDRESS (source));
+	g_return_val_if_fail (CAMEL_IS_NNTP_ADDRESS (source), -1);
 
 	for (ii = 0; ii < source->addresses->len; ii++)
 		camel_nntp_address_add (
@@ -150,7 +148,7 @@ camel_nntp_address_add (CamelNNTPAddress *a,
 {
 	gint index, i;
 
-	g_assert (CAMEL_IS_NNTP_ADDRESS (a));
+	g_return_val_if_fail (CAMEL_IS_NNTP_ADDRESS (a), -1);
 
 	index = ((CamelAddress *) a)->addresses->len;
 	for (i = 0; i < index; i++)
@@ -177,7 +175,7 @@ camel_nntp_address_get (CamelNNTPAddress *a,
                         gint index,
                         const gchar **namep)
 {
-	g_assert (CAMEL_IS_NNTP_ADDRESS (a));
+	g_return_val_if_fail (CAMEL_IS_NNTP_ADDRESS (a), FALSE);
 
 	if (index < 0 || index >= ((CamelAddress *) a)->addresses->len)
 		return FALSE;

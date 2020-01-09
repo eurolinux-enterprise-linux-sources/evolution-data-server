@@ -1,17 +1,17 @@
 /*
  * camel-enums.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -301,7 +301,7 @@ typedef enum {
 } CamelProviderConfType;
 
 /**
- * CamelProviderFlags;
+ * CamelProviderFlags:
  * @CAMEL_PROVIDER_IS_REMOTE:
  *   Provider works with remote data.
  * @CAMEL_PROVIDER_IS_LOCAL:
@@ -410,7 +410,8 @@ typedef enum { /*< flags >*/
 	CAMEL_STORE_REAL_JUNK_FOLDER = 1 << 4,
 	CAMEL_STORE_CAN_EDIT_FOLDERS = 1 << 5,
 	CAMEL_STORE_USE_CACHE_DIR = 1 << 6,
-	CAMEL_STORE_CAN_DELETE_FOLDERS_AT_ONCE = 1 << 7
+	CAMEL_STORE_CAN_DELETE_FOLDERS_AT_ONCE = 1 << 7,
+	CAMEL_STORE_SUPPORTS_INITIAL_SETUP = 1 << 8
 } CamelStoreFlags;
 
 /**
@@ -425,13 +426,18 @@ typedef enum { /*< flags >*/
  *   flag for requesting the list of folders available for
  *   subscription. Used in Exchange / IMAP connectors for public
  *   folder fetching.
+ * @CAMEL_STORE_FOLDER_INFO_REFRESH:
+ *   Treat this call as a request to refresh the folder summary;
+ *   for remote accounts it can be to re-fetch fresh folder
+ *   content from the server and update the local cache.
  **/
 typedef enum { /*< flags >*/
 	CAMEL_STORE_FOLDER_INFO_FAST = 1 << 0,
 	CAMEL_STORE_FOLDER_INFO_RECURSIVE = 1 << 1,
 	CAMEL_STORE_FOLDER_INFO_SUBSCRIBED = 1 << 2,
 	CAMEL_STORE_FOLDER_INFO_NO_VIRTUAL = 1 << 3,
-	CAMEL_STORE_FOLDER_INFO_SUBSCRIPTION_LIST = 1 << 4
+	CAMEL_STORE_FOLDER_INFO_SUBSCRIPTION_LIST = 1 << 4,
+	CAMEL_STORE_FOLDER_INFO_REFRESH = 1 << 5
 } CamelStoreGetFolderInfoFlags;
 
 typedef enum { /*< flags >*/
@@ -451,5 +457,21 @@ typedef enum {
 	CAMEL_TRANSFER_ENCODING_UUENCODE,
 	CAMEL_TRANSFER_NUM_ENCODINGS
 } CamelTransferEncoding;
+
+/**
+ * CamelThreeState:
+ * @CAMEL_THREE_STATE_OFF: the three-state value is Off
+ * @CAMEL_THREE_STATE_ON: the three-state value is On
+ * @CAMEL_THREE_STATE_INCONSISTENT: the three-state value is neither On, nor Off
+ *
+ * Describes a three-state value, which can be either Off, On or Inconsistent.
+ *
+ * Since: 3.22
+ **/
+typedef enum {
+	CAMEL_THREE_STATE_OFF = 0,
+	CAMEL_THREE_STATE_ON,
+	CAMEL_THREE_STATE_INCONSISTENT
+} CamelThreeState;
 
 #endif /* CAMEL_ENUMS_H */

@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Jeffrey Stedfast <fejj@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
@@ -26,7 +25,6 @@
 #define CAMEL_ICONV_H
 
 #include <sys/types.h>
-#include <iconv.h>
 #include <glib.h>
 
 G_BEGIN_DECLS
@@ -37,14 +35,14 @@ const gchar *	camel_iconv_locale_language	(void);
 const gchar *	camel_iconv_charset_name	(const gchar *charset);
 const gchar *	camel_iconv_charset_language	(const gchar *charset);
 
-iconv_t		camel_iconv_open		(const gchar *to,
+GIConv		camel_iconv_open		(const gchar *to,
 						 const gchar *from);
-gsize		camel_iconv			(iconv_t cd,
+gsize		camel_iconv			(GIConv cd,
 						 const gchar **inbuf,
 						 gsize *inleft,
 						 gchar **outbuf,
 						 gsize *outleft);
-void		camel_iconv_close		(iconv_t cd);
+void		camel_iconv_close		(GIConv cd);
 
 G_END_DECLS
 

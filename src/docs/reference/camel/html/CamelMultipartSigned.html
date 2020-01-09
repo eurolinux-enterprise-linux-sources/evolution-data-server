@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelMultipartSigned</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelMultipartSigned: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="MIME.html" title="MIME Objects">
 <link rel="prev" href="CamelMultipart.html" title="CamelMultipart">
 <link rel="next" href="CamelMultipartEncrypted.html" title="CamelMultipartEncrypted">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelMultipartSigned.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -76,21 +76,8 @@
 </table></div>
 </div>
 <div class="refsect1">
-<a name="CamelMultipartSigned.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody><tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelMultipartSigned.html#CamelMultipartSigned-struct" title="struct CamelMultipartSigned">CamelMultipartSigned</a></td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect1">
 <a name="CamelMultipartSigned.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelDataWrapper.html" title="CamelDataWrapper">CamelDataWrapper</a>
         <span class="lineart">╰──</span> <a class="link" href="CamelMultipart.html" title="CamelMultipart">CamelMultipart</a>
             <span class="lineart">╰──</span> CamelMultipartSigned
@@ -124,9 +111,8 @@ and the whole part may be written using write_to_stream to
 create a 'transport-safe' version (as safe as can be expected with
 such a broken specification).</p>
 <div class="refsect3">
-<a name="id-1.2.11.6.7.2.9"></a><h4>Returns</h4>
+<a name="camel-multipart-signed-new.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="CamelMultipartSigned.html" title="CamelMultipartSigned"><span class="type">CamelMultipartSigned</span></a> object</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -135,12 +121,12 @@ such a broken specification).</p>
 <pre class="programlisting"><a class="link" href="CamelStream.html" title="CamelStream"><span class="returnvalue">CamelStream</span></a> *
 camel_multipart_signed_get_content_stream
                                (<em class="parameter"><code><a class="link" href="CamelMultipartSigned.html" title="CamelMultipartSigned"><span class="type">CamelMultipartSigned</span></a> *mps</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Get the raw signed content stream of the multipart/signed MIME part
 suitable for use with verification of the signature.</p>
 <div class="refsect3">
-<a name="id-1.2.11.6.7.3.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-multipart-signed-get-content-stream.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -154,16 +140,16 @@ suitable for use with verification of the signature.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>error</p></td>
-<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.11.6.7.3.6"></a><h4>Returns</h4>
-<p> the signed content stream</p>
-<p></p>
+<a name="camel-multipart-signed-get-content-stream.returns"></a><h4>Returns</h4>
+<p> the signed content stream. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
 </div>
 <hr>
@@ -176,8 +162,8 @@ camel_multipart_signed_set_content_stream
 <p>Explicits sets the raw signed content stream of the multipart/signed
 MIME part.</p>
 <div class="refsect3">
-<a name="id-1.2.11.6.7.4.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-multipart-signed-set-content-stream.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -197,7 +183,7 @@ MIME part.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.12</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -208,8 +194,8 @@ camel_multipart_signed_set_signature (<em class="parameter"><code><a class="link
 <p>Explicitly sets the signature part of <em class="parameter"><code>mps</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.11.6.7.5.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-multipart-signed-set-signature.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -229,19 +215,14 @@ camel_multipart_signed_set_signature (<em class="parameter"><code><a class="link
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.12</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
 </div>
 </div>
 <div class="refsect1">
 <a name="CamelMultipartSigned.other_details"></a><h2>Types and Values</h2>
-<div class="refsect2">
-<a name="CamelMultipartSigned-struct"></a><h3>struct CamelMultipartSigned</h3>
-<pre class="programlisting">struct CamelMultipartSigned;</pre>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

@@ -5,17 +5,17 @@
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  * Copyright (C) 2012 Intel Corporation
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  * Authors: Nat Friedman <nat@novell.com>
  *          Chris Toshok <toshok@ximian.com>
@@ -295,7 +295,7 @@ safe_name_for_photo (EBookBackendFile *bf,
 	gchar         *suffix = NULL;
 	gint           i = 0;
 
-	g_assert (photo->type == E_CONTACT_PHOTO_TYPE_INLINED);
+	g_return_val_if_fail (photo->type == E_CONTACT_PHOTO_TYPE_INLINED, NULL);
 
 	/* Get a suitable filename extension */
 	if (photo->data.inlined.mime_type != NULL &&
@@ -550,7 +550,7 @@ maybe_transform_vcard_field_for_photo (EBookBackendFile *bf,
 			 * logic to the file-system.
 			 */
 			filename = g_filename_from_uri (photo->data.uri, NULL, NULL);
-			g_assert (filename); /* we already checked this with 'is_backend_owned_uri ()' */
+			g_return_val_if_fail (filename, STATUS_NORMAL); /* we already checked this with 'is_backend_owned_uri ()' */
 
 			new_filename = hard_link_photo (bf, contact, field, filename, error);
 
@@ -1140,6 +1140,9 @@ book_backend_file_open_sync (EBookBackend *backend,
 
 	source = e_backend_get_source (E_BACKEND (backend));
 
+	/* Local source is always connected. */
+	e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_CONNECTED);
+
 	g_type_ensure (E_TYPE_SOURCE_REVISION_GUARDS);
 	guards = e_source_get_extension (source, E_SOURCE_EXTENSION_REVISION_GUARDS);
 
@@ -1492,8 +1495,10 @@ book_backend_file_remove_contacts_sync (EBookBackend *backend,
 		/* Remove from summary as well */
 		if (!e_book_sqlite_remove_contacts (bf->priv->sqlitedb, removed_ids,
 						    cancellable, &local_error)) {
-			g_warning ("Failed to remove contacts: %s", local_error->message);
-			g_propagate_error (error, local_error);
+			if (local_error) {
+				g_warning ("Failed to remove contacts: %s", local_error->message);
+				g_propagate_error (error, local_error);
+			}
 		}
 
 		e_book_backend_file_bump_revision (bf, NULL);
@@ -2015,7 +2020,7 @@ book_backend_file_initable_init (GInitable *initable,
 	/* The old BDB exists, lets migrate that to sqlite right away. */
 	if (g_file_test (filename, G_FILE_TEST_EXISTS)) {
 		priv->sqlitedb = e_book_sqlite_new_full (
-			fullpath, setup_extension,
+			fullpath, source, setup_extension,
 			NULL,
 			book_backend_file_vcard_changed,
 			initable, NULL, cancellable, error);
@@ -2061,7 +2066,7 @@ book_backend_file_initable_init (GInitable *initable,
 
 		/* Create the sqlitedb. */
 		priv->sqlitedb = e_book_sqlite_new_full (
-			fullpath, setup_extension,
+			fullpath, source, setup_extension,
 			NULL,
 			book_backend_file_vcard_changed,
 			initable, NULL, cancellable, error);

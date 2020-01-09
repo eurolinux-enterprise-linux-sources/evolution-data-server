@@ -2,17 +2,18 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 #ifdef HAVE_CONFIG_H
@@ -123,7 +124,7 @@ imapx_parse_flags (CamelIMAPXInputStream *stream,
 
 	if (tok != '(') {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"expecting flag list");
 		return FALSE;
 	}
@@ -152,12 +153,21 @@ imapx_parse_flags (CamelIMAPXInputStream *stream,
 
 			if (!match_found && user_flagsp != NULL) {
 				const gchar *flag_name;
+				gchar *utf8;
 
 				flag_name = rename_label_flag (
 					(gchar *) token,
 					strlen ((gchar *) token), TRUE);
 
-				camel_flag_set (user_flagsp, flag_name, TRUE);
+				utf8 = camel_utf7_utf8 (flag_name);
+				if (utf8 && !g_utf8_validate (utf8, -1, NULL)) {
+					g_free (utf8);
+					utf8 = NULL;
+				}
+
+				camel_flag_set (user_flagsp, utf8 ? utf8 : flag_name, TRUE);
+
+				g_free (utf8);
 			}
 
 			g_free (upper);
@@ -239,6 +249,7 @@ imapx_write_flags (GString *string,
 
 	while (user_flags) {
 		const gchar *flag_name;
+		gchar *utf7;
 
 		flag_name = rename_label_flag (
 			user_flags->name, strlen (user_flags->name), FALSE);
@@ -246,7 +257,12 @@ imapx_write_flags (GString *string,
 		if (!first)
 			g_string_append_c (string, ' ');
 		first = FALSE;
-		g_string_append (string, flag_name);
+
+		utf7 = camel_utf8_utf7 (flag_name);
+
+		g_string_append (string, utf7 ? utf7 : flag_name);
+
+		g_free (utf7);
 
 		user_flags = user_flags->next;
 	}
@@ -261,17 +277,21 @@ imapx_update_user_flags (CamelMessageInfo *info,
 	gboolean changed = FALSE;
 	CamelMessageInfoBase *binfo = (CamelMessageInfoBase *) info;
 	CamelIMAPXMessageInfo *xinfo = (CamelIMAPXMessageInfo *) info;
-	gboolean set_cal = FALSE;
+	gboolean set_cal = FALSE, set_note = FALSE;
 
 	if (camel_flag_get (&binfo->user_flags, "$has_cal"))
 		set_cal = TRUE;
+	if (camel_flag_get (&binfo->user_flags, "$has_note"))
+		set_note = TRUE;
 
 	changed = camel_flag_list_copy (&binfo->user_flags, &server_user_flags);
 	camel_flag_list_copy (&xinfo->server_user_flags, &server_user_flags);
 
-	/* reset the calendar flag if it was set in messageinfo before */
+	/* reset the flags as they were set in messageinfo before */
 	if (set_cal)
 		camel_flag_set (&binfo->user_flags, "$has_cal", TRUE);
+	if (set_note)
+		camel_flag_set (&binfo->user_flags, "$has_note", TRUE);
 
 	return changed;
 }
@@ -288,16 +308,16 @@ imapx_update_message_info_flags (CamelMessageInfo *info,
 	CamelIMAPXMessageInfo *xinfo = (CamelIMAPXMessageInfo *) info;
 
 	/* Locally made changes should not be overwritten, it'll be (re)saved later */
-	if ((camel_message_info_flags (info) & CAMEL_MESSAGE_FOLDER_FLAGGED) != 0) {
-		d ('?', "Skipping update of locally changed uid:'%s'\n", camel_message_info_uid (info));
+	if ((camel_message_info_get_flags (info) & CAMEL_MESSAGE_FOLDER_FLAGGED) != 0) {
+		d ('?', "Skipping update of locally changed uid:'%s'\n", camel_message_info_get_uid (info));
 		return FALSE;
 	}
 
 	/* This makes sure that server flags has precedence from locally stored flags,
 	 * thus a user actually sees what is stored on the server */
-	if ((camel_message_info_flags (info) & CAMEL_IMAPX_SERVER_FLAGS) != (server_flags & CAMEL_IMAPX_SERVER_FLAGS)) {
+	if ((camel_message_info_get_flags (info) & CAMEL_IMAPX_SERVER_FLAGS) != (server_flags & CAMEL_IMAPX_SERVER_FLAGS)) {
 		xinfo->server_flags = (xinfo->server_flags & ~CAMEL_IMAPX_SERVER_FLAGS) |
-				      (camel_message_info_flags (info) & CAMEL_IMAPX_SERVER_FLAGS);
+				      (camel_message_info_get_flags (info) & CAMEL_IMAPX_SERVER_FLAGS);
 	}
 
 	if (server_flags != xinfo->server_flags) {
@@ -312,16 +332,13 @@ imapx_update_message_info_flags (CamelMessageInfo *info,
 		if (permanent_flags > 0)
 			server_cleared &= permanent_flags;
 
-		camel_message_info_set_flags ((
+		changed = camel_message_info_set_flags ((
 			CamelMessageInfo *) xinfo,
 			server_set | server_cleared,
 			(xinfo->info.flags | server_set) & ~server_cleared);
 
 		xinfo->server_flags = server_flags;
-		xinfo->info.flags = xinfo->info.flags & ~CAMEL_MESSAGE_FOLDER_FLAGGED;
 		xinfo->info.dirty = TRUE;
-
-		changed = TRUE;
 	}
 
 	if ((permanent_flags & CAMEL_MESSAGE_USER) != 0 && imapx_update_user_flags (info, server_user_flags))
@@ -503,8 +520,11 @@ imapx_parse_capability (CamelIMAPXInputStream *stream,
 				/* Put it back so that imapx_untagged() isn't unhappy */
 				camel_imapx_input_stream_ungettoken (
 					stream, tok, token, len);
-				return cinfo;
+				break;
 			case 43:
+				/* the CAPABILITY shouldn't start with a '+', ignore it then */
+				if (!token)
+					break;
 				token = (guchar *) g_strconcat ((gchar *) token, "+", NULL);
 				free_token = TRUE;
 				/* coverity[fallthrough] */
@@ -530,10 +550,13 @@ imapx_parse_capability (CamelIMAPXInputStream *stream,
 				break;
 			default:
 				g_set_error (
-					error, CAMEL_IMAPX_ERROR, 1,
+					error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 					"capability: expecting name");
 				break;
 		}
+
+		if (tok == ']')
+			break;
 
 		tok = camel_imapx_input_stream_token (
 			stream, &token, &len, cancellable, &local_error);
@@ -841,18 +864,29 @@ imapx_parse_ext_optional (CamelIMAPXInputStream *stream,
 			dinfo = g_malloc0 (sizeof (*dinfo));
 			dinfo->refcount = 1;
 			/* should be string */
-			camel_imapx_input_stream_astring (
-				stream, &token, cancellable, NULL);
+			if (!camel_imapx_input_stream_astring (stream, &token, cancellable, &local_error)) {
+				if (!local_error)
+					g_set_error (
+						&local_error,
+						CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
+						"expecting string");
+				goto done;
+			}
 
 			dinfo->disposition = g_strdup ((gchar *) token);
 			imapx_parse_param_list (
-				stream, &dinfo->params, cancellable, NULL);
+				stream, &dinfo->params, cancellable,
+				&local_error);
+
+			if (local_error != NULL)
+				goto done;
+
 			break;
 		case IMAPX_TOK_TOKEN:
 			break;
 		default:
 			g_set_error (
-				error, CAMEL_IMAPX_ERROR, 1,
+				error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 				"body_fld_disp: expecting nil or list");
 			return NULL;
 	}
@@ -877,7 +911,7 @@ imapx_parse_ext_optional (CamelIMAPXInputStream *stream,
 					g_clear_error (&local_error);
 					g_set_error (
 						&local_error,
-						CAMEL_IMAPX_ERROR, 1,
+						CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 						"expecting string");
 					break;
 				}
@@ -899,6 +933,7 @@ imapx_parse_ext_optional (CamelIMAPXInputStream *stream,
 
 	}
 
+ done:
 	if (local_error != NULL) {
 		g_propagate_error (error, local_error);
 		if (dinfo)
@@ -994,10 +1029,10 @@ imapx_parse_body_fields (CamelIMAPXInputStream *stream,
 error:
 	imapx_free_body (cinfo);
 
-	return cinfo;
+	return NULL;
 }
 
-struct _camel_header_address *
+CamelHeaderAddress *
 imapx_parse_address_list (CamelIMAPXInputStream *stream,
                           GCancellable *cancellable,
                           GError **error)
@@ -1006,7 +1041,7 @@ imapx_parse_address_list (CamelIMAPXInputStream *stream,
 	guint len;
 	guchar *token, *host;
 	gchar *mbox;
-	struct _camel_header_address *list = NULL;
+	CamelHeaderAddress *list = NULL;
 	GError *local_error = NULL;
 
 	/* "(" 1*address ")" / nil */
@@ -1019,7 +1054,7 @@ imapx_parse_address_list (CamelIMAPXInputStream *stream,
 	}
 
 	if (tok == '(') {
-		struct _camel_header_address *addr, *group = NULL;
+		CamelHeaderAddress *addr, *group = NULL;
 		while (1) {
 			/* address         ::= "(" addr_name SPACE addr_adl SPACE addr_mailbox
 			 * SPACE addr_host ")" */
@@ -1031,7 +1066,7 @@ imapx_parse_address_list (CamelIMAPXInputStream *stream,
 				g_clear_error (&local_error);
 				camel_header_address_list_clear (&list);
 				g_set_error (
-					error, CAMEL_IMAPX_ERROR, 1,
+					error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 					"missing '(' for address");
 				return NULL;
 			}
@@ -1039,14 +1074,20 @@ imapx_parse_address_list (CamelIMAPXInputStream *stream,
 			addr = camel_header_address_new ();
 			addr->type = CAMEL_HEADER_ADDRESS_NAME;
 			camel_imapx_input_stream_nstring (stream, &token, cancellable, &local_error);
-			if (local_error)
+			if (local_error) {
+				camel_header_address_unref (addr);
 				goto error;
+			}
 
 			addr->name = g_strdup ((gchar *) token);
 			/* we ignore the route, nobody uses it in the real world */
 			camel_imapx_input_stream_nstring (stream, &token, cancellable, &local_error);
-			if (local_error)
+			if (local_error) {
+				camel_header_address_unref (addr);
 				goto error;
+			}
+
+			mbox = NULL;
 
 			/* [RFC-822] group syntax is indicated by a special
 			 * form of address structure in which the host name
@@ -1057,18 +1098,23 @@ imapx_parse_address_list (CamelIMAPXInputStream *stream,
 			 * mailbox name field holds the group name phrase. */
 
 			camel_imapx_input_stream_nstring (stream, (guchar **) &mbox, cancellable, &local_error);
-			if (local_error)
+			if (local_error) {
+				camel_header_address_unref (addr);
 				goto error;
+			}
 
 			mbox = g_strdup (mbox);
 
 			camel_imapx_input_stream_nstring (stream, &host, cancellable, &local_error);
-			if (local_error)
+			if (local_error) {
+				camel_header_address_unref (addr);
 				goto error;
+			}
 
 			if (host == NULL) {
 				if (mbox == NULL) {
 					group = NULL;
+					camel_header_address_unref (addr);
 				} else {
 					g_free (addr->name);
 					addr->name = mbox;
@@ -1114,7 +1160,7 @@ imapx_parse_envelope (CamelIMAPXInputStream *stream,
 	gint tok;
 	guint len;
 	guchar *token;
-	struct _camel_header_address *addr, *addr_from;
+	CamelHeaderAddress *addr, *addr_from;
 	gchar *addrstr;
 	struct _CamelMessageInfoBase *minfo = NULL;
 	GError *local_error = NULL;
@@ -1135,7 +1181,7 @@ imapx_parse_envelope (CamelIMAPXInputStream *stream,
 	if (tok != '(') {
 		g_clear_error (&local_error);
 		camel_message_info_unref (minfo);
-		g_set_error (error, CAMEL_IMAPX_ERROR, 1, "envelope: expecting '('");
+		g_set_error (error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED, "envelope: expecting '('");
 		return NULL;
 	}
 
@@ -1242,7 +1288,7 @@ imapx_parse_envelope (CamelIMAPXInputStream *stream,
 	if (tok != ')') {
 		g_clear_error (&local_error);
 		camel_message_info_unref (minfo);
-		g_set_error (error, CAMEL_IMAPX_ERROR, 1, "expecting ')'");
+		g_set_error (error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED, "expecting ')'");
 		return NULL;
 	}
 
@@ -1277,7 +1323,7 @@ imapx_parse_body (CamelIMAPXInputStream *stream,
 		stream, &token, &len, cancellable, &local_error);
 	if (tok != '(') {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"body: expecting '('");
 		return NULL;
 	}
@@ -1319,10 +1365,7 @@ imapx_parse_body (CamelIMAPXInputStream *stream,
 				stream, tok, token, len);
 		} while (tok == '(');
 
-		camel_imapx_input_stream_astring (
-			stream, &token, cancellable, &local_error);
-
-		if (local_error)
+		if (!camel_imapx_input_stream_astring (stream, &token, cancellable, &local_error) || local_error)
 			goto error;
 
 		cinfo->type = camel_content_type_new (
@@ -1516,7 +1559,7 @@ imapx_parse_section (CamelIMAPXInputStream *stream,
 
 	if (tok != '[') {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"section: expecting '['");
 		return NULL;
 	}
@@ -1531,7 +1574,7 @@ imapx_parse_section (CamelIMAPXInputStream *stream,
 		camel_imapx_input_stream_ungettoken (stream, tok, token, len);
 	} else {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"section: expecting token");
 		return NULL;
 	}
@@ -1552,7 +1595,7 @@ imapx_parse_section (CamelIMAPXInputStream *stream,
 				/* ?do something? */
 			} else if (tok != ')') {
 				g_set_error (
-					error, CAMEL_IMAPX_ERROR, 1,
+					error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 					"section: header fields: expecting string");
 				g_free (section);
 				return NULL;
@@ -1565,7 +1608,7 @@ imapx_parse_section (CamelIMAPXInputStream *stream,
 
 	if (tok != ']') {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"section: expecting ']'");
 		g_free (section);
 		return NULL;
@@ -1593,7 +1636,7 @@ imapx_parse_modseq (CamelIMAPXInputStream *stream,
 
 	if (tok != '(') {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"fetch: expecting '('");
 		return 0;
 	}
@@ -1612,7 +1655,7 @@ imapx_parse_modseq (CamelIMAPXInputStream *stream,
 
 	if (tok != ')') {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"fetch: expecting '('");
 		return 0;
 	}
@@ -1663,19 +1706,19 @@ imapx_dump_fetch (struct _fetch_info *finfo)
 	if (finfo->body != NULL) {
 		g_print ("Body content:\n");
 		data = g_bytes_get_data (finfo->body, &size);
-		fwrite (data, size, 1, stdout);
+		fwrite (data, sizeof (gchar), size, stdout);
 	}
 
 	if (finfo->text != NULL) {
 		g_print ("Text content:\n");
 		data = g_bytes_get_data (finfo->text, &size);
-		fwrite (data, size, 1, stdout);
+		fwrite (data, sizeof (gchar), size, stdout);
 	}
 
 	if (finfo->header != NULL) {
 		g_print ("Header content:\n");
 		data = g_bytes_get_data (finfo->header, &size);
-		fwrite (data, size, 1, stdout);
+		fwrite (data, sizeof (gchar), size, stdout);
 	}
 
 	if (finfo->minfo != NULL) {
@@ -1769,7 +1812,7 @@ imapx_parse_fetch_body (CamelIMAPXInputStream *stream,
 	}
 
 	g_set_error (
-		error, CAMEL_IMAPX_ERROR, 1,
+		error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 		"unknown body response");
 
 	return FALSE;
@@ -1940,7 +1983,7 @@ imapx_parse_fetch_uid (CamelIMAPXInputStream *stream,
 
 	if (tok != IMAPX_TOK_INT) {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"uid not integer");
 		return FALSE;
 	}
@@ -1971,7 +2014,7 @@ imapx_parse_fetch (CamelIMAPXInputStream *stream,
 
 	if (tok != '(') {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"fetch: expecting '('");
 		goto fail;
 	}
@@ -2039,7 +2082,7 @@ imapx_parse_fetch (CamelIMAPXInputStream *stream,
 
 			default:
 				g_set_error (
-					error, CAMEL_IMAPX_ERROR, 1,
+					error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 					"unknown body response");
 				break;
 		}
@@ -2056,7 +2099,7 @@ imapx_parse_fetch (CamelIMAPXInputStream *stream,
 
 	if (tok != ')') {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"missing closing ')' on fetch response");
 		goto fail;
 	}
@@ -2077,7 +2120,7 @@ imapx_parse_uids (CamelIMAPXInputStream *stream,
                   GError **error)
 {
 	GArray *array;
-	guchar *token;
+	guchar *token = NULL;
 	gchar **splits;
 	guint len, str_len;
 	gint tok, ii;
@@ -2088,6 +2131,14 @@ imapx_parse_uids (CamelIMAPXInputStream *stream,
 		stream, &token, &len, cancellable, error);
 	if (tok < 0)
 		return NULL;
+
+	if (!token) {
+		g_set_error (error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_IGNORE, "server response truncated");
+
+		camel_imapx_input_stream_ungettoken (stream, tok, token, len);
+
+		return NULL;
+	}
 
 	array = g_array_new (FALSE, FALSE, sizeof (guint32));
 	splits = g_strsplit ((gchar *) token, ",", -1);
@@ -2164,6 +2215,7 @@ imapx_parse_status_copyuid (CamelIMAPXInputStream *stream,
 	GArray *uids;
 	guint64 number;
 	gboolean success;
+	GError *local_error = NULL;
 
 	success = camel_imapx_input_stream_number (
 		stream, &number, cancellable, error);
@@ -2173,15 +2225,39 @@ imapx_parse_status_copyuid (CamelIMAPXInputStream *stream,
 
 	sinfo->u.copyuid.uidvalidity = number;
 
-	uids = imapx_parse_uids (stream, cancellable, error);
-	if (uids == NULL)
+	uids = imapx_parse_uids (stream, cancellable, &local_error);
+	if (uids == NULL) {
+		/* Sometimes the server can return truncated response, like:
+		   B00083 OK [COPYUID 4154  ] COPY completed.
+		   It's for example when moving/copying messages which are not
+		   available on the serer any more.
+		   Just ignore such server error.
+		*/
+		if (g_error_matches (local_error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_IGNORE)) {
+			g_clear_error (&local_error);
+			return TRUE;
+		}
+
+		if (local_error)
+			g_propagate_error (error, local_error);
+
 		return FALSE;
+	}
 
 	sinfo->u.copyuid.uids = uids;
 
 	uids = imapx_parse_uids (stream, cancellable, error);
-	if (uids == NULL)
+	if (uids == NULL) {
+		if (g_error_matches (local_error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_IGNORE)) {
+			g_clear_error (&local_error);
+			return TRUE;
+		}
+
+		if (local_error)
+			g_propagate_error (error, local_error);
+
 		return FALSE;
+	}
 
 	sinfo->u.copyuid.copied_uids = uids;
 
@@ -2320,6 +2396,7 @@ imapx_parse_status_unseen (CamelIMAPXInputStream *stream,
 struct _status_info *
 imapx_parse_status (CamelIMAPXInputStream *stream,
                     CamelIMAPXMailbox *mailbox,
+		    gboolean is_ok_no_bad,
                     GCancellable *cancellable,
                     GError **error)
 {
@@ -2359,7 +2436,7 @@ imapx_parse_status (CamelIMAPXInputStream *stream,
 			break;
 		default:
 			g_set_error (
-				error, CAMEL_IMAPX_ERROR, 1,
+				error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 				"expecting OK/NO/BAD");
 			goto fail;
 	}
@@ -2432,7 +2509,9 @@ imapx_parse_status (CamelIMAPXInputStream *stream,
 				break;
 
 			case IMAPX_UNSEEN:
-				success = imapx_parse_status_unseen (
+				/* Ignore UNSEEN in OK/NO/BAD, because it's not count of unseen
+				   messages, but the sequence number of the first unseen message. */
+				success = is_ok_no_bad || imapx_parse_status_unseen (
 					stream, mailbox, cancellable, error);
 				break;
 
@@ -2469,7 +2548,7 @@ imapx_parse_status (CamelIMAPXInputStream *stream,
 				stream, &token, &len, cancellable, NULL);
 			if (tok == '\n' || tok < 0) {
 				g_set_error (
-					error, CAMEL_IMAPX_ERROR, 1,
+					error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 					"server response truncated");
 				goto fail;
 			}
@@ -2484,6 +2563,10 @@ imapx_parse_status (CamelIMAPXInputStream *stream,
 
 	if (!success)
 		goto fail;
+
+	if (sinfo->text) {
+		g_strstrip (sinfo->text);
+	}
 
 	goto exit;
 
@@ -2523,8 +2606,10 @@ imapx_free_status (struct _status_info *sinfo)
 		g_free (sinfo->u.newname.newname);
 		break;
 	case IMAPX_COPYUID:
-		g_array_free (sinfo->u.copyuid.uids, TRUE);
-		g_array_free (sinfo->u.copyuid.copied_uids, TRUE);
+		if (sinfo->u.copyuid.uids)
+			g_array_free (sinfo->u.copyuid.uids, TRUE);
+		if (sinfo->u.copyuid.copied_uids)
+			g_array_free (sinfo->u.copyuid.copied_uids, TRUE);
 		break;
 	case IMAPX_CAPABILITY:
 		if (sinfo->u.cinfo)
@@ -2898,7 +2983,7 @@ camel_imapx_parse_quota (CamelIMAPXInputStream *stream,
 			break;
 		default:
 			g_set_error (
-				error, CAMEL_IMAPX_ERROR, 1,
+				error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 				"quota_response: expecting '('");
 			goto fail;
 	}
@@ -3210,4 +3295,19 @@ imapx_get_temp_uid (void)
 	G_UNLOCK (lock);
 
 	return res;
+}
+
+gboolean
+imapx_util_all_is_ascii (const gchar *str)
+{
+	gint ii;
+	gboolean all_ascii = TRUE;
+
+	g_return_val_if_fail (str != NULL, FALSE);
+
+	for (ii = 0; str[ii] && all_ascii; ii++) {
+		all_ascii = str[ii] > 0;
+	}
+
+	return all_ascii;
 }

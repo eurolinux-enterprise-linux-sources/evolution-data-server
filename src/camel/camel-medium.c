@@ -1,23 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-
 /* camelMedium.c : Abstract class for a medium
- *
- * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
- *	    Michael Zucchi <notzed@ximian.com>
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
+ *	    Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -261,7 +260,7 @@ camel_medium_remove_header (CamelMedium *medium,
  * instance of the header.  For multi-occuring headers, use
  * :get_headers().
  *
- * Returns: the value of the named header, or %NULL
+ * Returns: (transfer none) (nullable): the value of the named header, or %NULL
  **/
 gconstpointer
 camel_medium_get_header (CamelMedium *medium,
@@ -287,8 +286,8 @@ camel_medium_get_header (CamelMedium *medium,
  * to UTF-8 for any headers that are recognized by Camel. The
  * caller should not modify the returned data.
  *
- * Returns: the array of headers, which must be freed with
- * camel_medium_free_headers().
+ * Returns: (element-type CamelMediumHeader) (transfer full): the array of
+ * headers, which must be freed with camel_medium_free_headers().
  **/
 GArray *
 camel_medium_get_headers (CamelMedium *medium)
@@ -306,7 +305,8 @@ camel_medium_get_headers (CamelMedium *medium)
 /**
  * camel_medium_free_headers:
  * @medium: a #CamelMedium object
- * @headers: an array of headers returned from camel_medium_get_headers()
+ * @headers: (element-type CamelMediumHeader): an array of headers returned
+ * from camel_medium_get_headers()
  *
  * Frees @headers.
  **/
@@ -332,7 +332,8 @@ camel_medium_free_headers (CamelMedium *medium,
  * Gets a data wrapper that represents the content of the medium,
  * without its headers.
  *
- * Returns: a #CamelDataWrapper containing @medium's content. Can return NULL.
+ * Returns: (transfer none) (nullable): a #CamelDataWrapper containing
+ * @medium's content. Can return NULL.
  **/
 CamelDataWrapper *
 camel_medium_get_content (CamelMedium *medium)

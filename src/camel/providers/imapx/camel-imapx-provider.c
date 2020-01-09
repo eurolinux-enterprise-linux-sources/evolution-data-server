@@ -1,23 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-pop3-provider.c: pop3 provider registration code */
-/*
- * Authors :
- *   Dan Winship <danw@ximian.com>
- *   Michael Zucchi <notzed@ximian.com>
+/* camel-pop3-provider.c: pop3 provider registration code
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors :
+ *   Dan Winship <danw@ximian.com>
+ *   Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -69,16 +69,16 @@ CamelProviderConfEntry imapx_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter-junk", NULL,
 	  N_("Check new messages for _Junk contents"), "0" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter-junk-inbox", "filter-junk",
-	  N_("Only check for Junk messages in the IN_BOX folder"), "0" },
+	  N_("Only check for Junk messages in the In_box folder"), "0" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "stay-synchronized", NULL,
-	  N_("Automatically synchroni_ze remote mail locally"), "0" },
+	  N_("Synchroni_ze remote mail locally in all folders"), "0" },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_END }
 };
 
 CamelProviderPortEntry imapx_port_entries[] = {
 	{ 143, N_("Default IMAP port"), FALSE },
-	{ 993, N_("IMAP over SSL"), TRUE },
+	{ 993, N_("IMAP over TLS"), TRUE },
 	{ 0, NULL, 0 }
 };
 

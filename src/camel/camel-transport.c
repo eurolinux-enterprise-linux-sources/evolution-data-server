@@ -1,24 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-transport.c : Abstract class for an email transport */
-
-/*
- *
- * Author :
- *  Dan Winship <danw@ximian.com>
+/* camel-transport.c : Abstract class for an email transport
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Dan Winship <danw@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -45,6 +42,7 @@ struct _AsyncContext {
 	CamelAddress *from;
 	CamelAddress *recipients;
 	CamelMimeMessage *message;
+	gboolean sent_message_saved;
 };
 
 G_DEFINE_ABSTRACT_TYPE (CamelTransport, camel_transport, CAMEL_TYPE_SERVICE)
@@ -82,6 +80,7 @@ camel_transport_init (CamelTransport *transport)
  * @message: a #CamelMimeMessage to send
  * @from: a #CamelAddress to send from
  * @recipients: a #CamelAddress containing all recipients
+ * @out_sent_message_saved: (out): set to %TRUE, if the sent message was also saved
  * @cancellable: optional #GCancellable object, or %NULL
  * @error: return location for a #GError, or %NULL
  *
@@ -98,6 +97,7 @@ camel_transport_send_to_sync (CamelTransport *transport,
                               CamelMimeMessage *message,
                               CamelAddress *from,
                               CamelAddress *recipients,
+			      gboolean *out_sent_message_saved,
                               GCancellable *cancellable,
                               GError **error)
 {
@@ -109,6 +109,7 @@ camel_transport_send_to_sync (CamelTransport *transport,
 	g_return_val_if_fail (CAMEL_IS_MIME_MESSAGE (message), FALSE);
 	g_return_val_if_fail (CAMEL_IS_ADDRESS (from), FALSE);
 	g_return_val_if_fail (CAMEL_IS_ADDRESS (recipients), FALSE);
+	g_return_val_if_fail (out_sent_message_saved != NULL, FALSE);
 
 	closure = camel_async_closure_new ();
 
@@ -119,7 +120,7 @@ camel_transport_send_to_sync (CamelTransport *transport,
 
 	result = camel_async_closure_wait (closure);
 
-	success = camel_transport_send_to_finish (transport, result, error);
+	success = camel_transport_send_to_finish (transport, result, out_sent_message_saved, error);
 
 	camel_async_closure_free (closure);
 
@@ -150,6 +151,7 @@ transport_send_to_thread (GTask *task,
 		async_context->message,
 		async_context->from,
 		async_context->recipients,
+		&async_context->sent_message_saved,
 		cancellable, &local_error);
 	CAMEL_CHECK_LOCAL_GERROR (
 		transport, send_to_sync, success, local_error);
@@ -235,6 +237,7 @@ camel_transport_send_to (CamelTransport *transport,
  * camel_transport_send_to_finish:
  * @transport: a #CamelTransport
  * @result: a #GAsyncResult
+ * @out_sent_message_saved: (out): set to %TRUE, if the sent message was also saved
  * @error: return locaton for a #GError, or %NULL
  *
  * Finishes the operation started with camel_transport_send_to().
@@ -246,14 +249,24 @@ camel_transport_send_to (CamelTransport *transport,
 gboolean
 camel_transport_send_to_finish (CamelTransport *transport,
                                 GAsyncResult *result,
+				gboolean *out_sent_message_saved,
                                 GError **error)
 {
+	AsyncContext *async_context;
+
 	g_return_val_if_fail (CAMEL_IS_TRANSPORT (transport), FALSE);
 	g_return_val_if_fail (g_task_is_valid (result, transport), FALSE);
 
 	g_return_val_if_fail (
 		g_async_result_is_tagged (
 		result, camel_transport_send_to), FALSE);
+
+	g_return_val_if_fail (out_sent_message_saved != NULL, FALSE);
+
+	async_context = g_task_get_task_data (G_TASK (result));
+	g_return_val_if_fail (async_context != NULL, FALSE);
+
+	*out_sent_message_saved = async_context->sent_message_saved;
 
 	return g_task_propagate_boolean (G_TASK (result), error);
 }

@@ -1,20 +1,19 @@
 /*
  * e-client.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * Copyright (C) 2011 Red Hat, Inc. (www.redhat.com)
+ *
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Copyright (C) 2011 Red Hat, Inc. (www.redhat.com)
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -119,8 +118,28 @@ GQuark e_client_error_quark (void) G_GNUC_CONST;
 
 /**
  * EClientError:
- *
- * FIXME Document each code.
+ * @E_CLIENT_ERROR_INVALID_ARG: Invalid argument was used
+ * @E_CLIENT_ERROR_BUSY: The client is busy
+ * @E_CLIENT_ERROR_SOURCE_NOT_LOADED: The source is not loaded
+ * @E_CLIENT_ERROR_SOURCE_ALREADY_LOADED: The source is already loaded
+ * @E_CLIENT_ERROR_AUTHENTICATION_FAILED: Authentication failed
+ * @E_CLIENT_ERROR_AUTHENTICATION_REQUIRED: Authentication required
+ * @E_CLIENT_ERROR_REPOSITORY_OFFLINE: The repository (client) is offline
+ * @E_CLIENT_ERROR_OFFLINE_UNAVAILABLE: The operation is unavailable in offline mode
+ * @E_CLIENT_ERROR_PERMISSION_DENIED: Permission denied for the operation
+ * @E_CLIENT_ERROR_CANCELLED: The operation was cancelled
+ * @E_CLIENT_ERROR_COULD_NOT_CANCEL: The operation cannot be cancelled
+ * @E_CLIENT_ERROR_NOT_SUPPORTED: The operation is not supported
+ * @E_CLIENT_ERROR_TLS_NOT_AVAILABLE: TLS is not available
+ * @E_CLIENT_ERROR_UNSUPPORTED_AUTHENTICATION_METHOD: Requested authentication method is not supported
+ * @E_CLIENT_ERROR_SEARCH_SIZE_LIMIT_EXCEEDED: Search size limit exceeded
+ * @E_CLIENT_ERROR_SEARCH_TIME_LIMIT_EXCEEDED: Search time limit exceeded
+ * @E_CLIENT_ERROR_INVALID_QUERY: The query was invalid
+ * @E_CLIENT_ERROR_QUERY_REFUSED: The query was refused by the server side
+ * @E_CLIENT_ERROR_DBUS_ERROR: A D-Bus error occurred
+ * @E_CLIENT_ERROR_OTHER_ERROR: Other error
+ * @E_CLIENT_ERROR_NOT_OPENED: The client is not opened
+ * @E_CLIENT_ERROR_OUT_OF_SYNC: The clien tis out of sync
  *
  * Error codes for #EClient operations.
  *
@@ -166,11 +185,13 @@ typedef struct _EClientClass EClientClass;
 typedef struct _EClientPrivate EClientPrivate;
 
 struct _EClient {
+	/*< private >*/
 	GObject parent;
 	EClientPrivate *priv;
 };
 
 struct _EClientClass {
+	/*< private >*/
 	GObjectClass parent;
 
 	/* This method is deprecated. */
@@ -267,6 +288,10 @@ struct _EClientClass {
 	gboolean	(*refresh_sync)		(EClient *client,
 						 GCancellable *cancellable,
 						 GError **error);
+	gboolean	(*retrieve_properties_sync)
+						(EClient *client,
+						 GCancellable *cancellable,
+						 GError **error);
 
 	void		(*opened)		(EClient *client,
 						 const GError *error);
@@ -316,6 +341,20 @@ gboolean	e_client_refresh_finish		(EClient *client,
 						 GAsyncResult *result,
 						 GError **error);
 gboolean	e_client_refresh_sync		(EClient *client,
+						 GCancellable *cancellable,
+						 GError **error);
+
+void		e_client_wait_for_connected	(EClient *client,
+						 guint32 timeout_seconds,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+gboolean	e_client_wait_for_connected_finish
+						(EClient *client,
+						 GAsyncResult *result,
+						 GError **error);
+gboolean	e_client_wait_for_connected_sync(EClient *client,
+						 guint32 timeout_seconds,
 						 GCancellable *cancellable,
 						 GError **error);
 
@@ -408,6 +447,18 @@ gboolean	e_client_remove_finish		(EClient *client,
 gboolean	e_client_remove_sync		(EClient *client,
 						 GCancellable *cancellable,
 						 GError **error);
+gboolean	e_client_retrieve_properties_sync
+						(EClient *client,
+						 GCancellable *cancellable,
+						 GError **error);
+void		e_client_retrieve_properties	(EClient *client,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+gboolean	e_client_retrieve_properties_finish
+						(EClient *client,
+						 GAsyncResult *result,
+						 GError **error);
 gchar **	e_client_util_slist_to_strv	(const GSList *strings);
 GSList *	e_client_util_strv_to_slist	(const gchar * const *strv);
 GSList *	e_client_util_copy_string_slist	(GSList *copy_to,
@@ -416,6 +467,10 @@ GSList *	e_client_util_copy_object_slist	(GSList *copy_to,
 						 const GSList *objects);
 void		e_client_util_free_string_slist	(GSList *strings);
 void		e_client_util_free_object_slist	(GSList *objects);
+gchar *		e_client_dup_bus_name		(EClient *client);
+void		e_client_set_bus_name		(EClient *client,
+						 const gchar *bus_name);
+
 
 typedef struct _EClientErrorsList EClientErrorsList;
 

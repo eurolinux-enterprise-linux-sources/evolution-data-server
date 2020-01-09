@@ -1,17 +1,17 @@
 /*
  * camel-imapx-status-response.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -134,7 +134,7 @@ camel_imapx_status_response_new (CamelIMAPXInputStream *stream,
 		goto fail;
 	if (tok != '(') {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"status: expecting '('");
 		goto fail;
 	}
@@ -199,7 +199,7 @@ camel_imapx_status_response_new (CamelIMAPXInputStream *stream,
 
 			default:
 				g_set_error (
-					error, CAMEL_IMAPX_ERROR, 1,
+					error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 					"unknown status attribute");
 				success = FALSE;
 				break;
@@ -218,7 +218,7 @@ camel_imapx_status_response_new (CamelIMAPXInputStream *stream,
 
 	if (tok != ')') {
 		g_set_error (
-			error, CAMEL_IMAPX_ERROR, 1,
+			error, CAMEL_IMAPX_ERROR, CAMEL_IMAPX_ERROR_SERVER_RESPONSE_MALFORMED,
 			"status: expecting ')' or attribute");
 		goto fail;
 	}

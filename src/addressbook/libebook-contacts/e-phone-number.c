@@ -2,19 +2,19 @@
 /*
  * Copyright (C) 2012,2013 Intel Corporation
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Author: Mathias Hasselmann <mathias@openismus.com>
+ * Authors: Mathias Hasselmann <mathias@openismus.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -40,7 +40,7 @@ e_phone_number_error_to_string (EPhoneNumberError code)
 	case E_PHONE_NUMBER_ERROR_NOT_IMPLEMENTED:
 		return _("The library was built without phone number support.");
 	case E_PHONE_NUMBER_ERROR_UNKNOWN:
-		return _("The phone number parser reported an yet unkown error code.");
+		return _("The phone number parser reported a yet unknown error code.");
 	case E_PHONE_NUMBER_ERROR_NOT_A_NUMBER:
 		return _("Not a phone number");
 	case E_PHONE_NUMBER_ERROR_INVALID_COUNTRY_CODE:
@@ -69,7 +69,7 @@ _e_phone_number_set_error (GError **error,
  *
  * Checks if phone number support is available. It is recommended to call this
  * function before using any of the phone-utils functions to ensure that the
- * required functionality is available, and to pick alternative mechnisms if
+ * required functionality is available, and to pick alternative mechanisms if
  * needed.
  *
  * Returns: %TRUE if phone number support is available.

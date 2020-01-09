@@ -1,0 +1,1747 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceProxy: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch02.html" title="Data Source Extensions">
+<link rel="prev" href="ESourceOpenPGP.html" title="ESourceOpenPGP">
+<link rel="next" href="ESourceRefresh.html" title="ESourceRefresh">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#ESourceProxy.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#ESourceProxy.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ESourceOpenPGP.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ESourceRefresh.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="ESourceProxy"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceProxy.top_of_page"></a>ESourceProxy</span></h2>
+<p>ESourceProxy — <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> extension for network proxy settings</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="ESourceProxy.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-e-source-enums.html#EProxyMethod" title="enum EProxyMethod"><span class="returnvalue">EProxyMethod</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-method" title="e_source_proxy_get_method ()">e_source_proxy_get_method</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-method" title="e_source_proxy_set_method ()">e_source_proxy_set_method</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-autoconfig-url" title="e_source_proxy_get_autoconfig_url ()">e_source_proxy_get_autoconfig_url</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-dup-autoconfig-url" title="e_source_proxy_dup_autoconfig_url ()">e_source_proxy_dup_autoconfig_url</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-autoconfig-url" title="e_source_proxy_set_autoconfig_url ()">e_source_proxy_set_autoconfig_url</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> * const *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-ignore-hosts" title="e_source_proxy_get_ignore_hosts ()">e_source_proxy_get_ignore_hosts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-dup-ignore-hosts" title="e_source_proxy_dup_ignore_hosts ()">e_source_proxy_dup_ignore_hosts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-ignore-hosts" title="e_source_proxy_set_ignore_hosts ()">e_source_proxy_set_ignore_hosts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-ftp-host" title="e_source_proxy_get_ftp_host ()">e_source_proxy_get_ftp_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-dup-ftp-host" title="e_source_proxy_dup_ftp_host ()">e_source_proxy_dup_ftp_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-ftp-host" title="e_source_proxy_set_ftp_host ()">e_source_proxy_set_ftp_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="returnvalue">guint16</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-ftp-port" title="e_source_proxy_get_ftp_port ()">e_source_proxy_get_ftp_port</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-ftp-port" title="e_source_proxy_set_ftp_port ()">e_source_proxy_set_ftp_port</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-http-host" title="e_source_proxy_get_http_host ()">e_source_proxy_get_http_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-dup-http-host" title="e_source_proxy_dup_http_host ()">e_source_proxy_dup_http_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-http-host" title="e_source_proxy_set_http_host ()">e_source_proxy_set_http_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="returnvalue">guint16</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-http-port" title="e_source_proxy_get_http_port ()">e_source_proxy_get_http_port</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-http-port" title="e_source_proxy_set_http_port ()">e_source_proxy_set_http_port</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-http-use-auth" title="e_source_proxy_get_http_use_auth ()">e_source_proxy_get_http_use_auth</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-http-use-auth" title="e_source_proxy_set_http_use_auth ()">e_source_proxy_set_http_use_auth</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-http-auth-user" title="e_source_proxy_get_http_auth_user ()">e_source_proxy_get_http_auth_user</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-dup-http-auth-user" title="e_source_proxy_dup_http_auth_user ()">e_source_proxy_dup_http_auth_user</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-http-auth-user" title="e_source_proxy_set_http_auth_user ()">e_source_proxy_set_http_auth_user</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-http-auth-password" title="e_source_proxy_get_http_auth_password ()">e_source_proxy_get_http_auth_password</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-dup-http-auth-password" title="e_source_proxy_dup_http_auth_password ()">e_source_proxy_dup_http_auth_password</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-http-auth-password" title="e_source_proxy_set_http_auth_password ()">e_source_proxy_set_http_auth_password</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-https-host" title="e_source_proxy_get_https_host ()">e_source_proxy_get_https_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-dup-https-host" title="e_source_proxy_dup_https_host ()">e_source_proxy_dup_https_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-https-host" title="e_source_proxy_set_https_host ()">e_source_proxy_set_https_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="returnvalue">guint16</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-https-port" title="e_source_proxy_get_https_port ()">e_source_proxy_get_https_port</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-https-port" title="e_source_proxy_set_https_port ()">e_source_proxy_set_https_port</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-socks-host" title="e_source_proxy_get_socks_host ()">e_source_proxy_get_socks_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-dup-socks-host" title="e_source_proxy_dup_socks_host ()">e_source_proxy_dup_socks_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-socks-host" title="e_source_proxy_set_socks_host ()">e_source_proxy_set_socks_host</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="returnvalue">guint16</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-get-socks-port" title="e_source_proxy_get_socks_port ()">e_source_proxy_get_socks_port</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-set-socks-port" title="e_source_proxy_set_socks_port ()">e_source_proxy_set_socks_port</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-lookup-sync" title="e_source_proxy_lookup_sync ()">e_source_proxy_lookup_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-lookup" title="e_source_proxy_lookup ()">e_source_proxy_lookup</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **
+</td>
+<td class="function_name">
+<a class="link" href="ESourceProxy.html#e-source-proxy-lookup-finish" title="e_source_proxy_lookup_finish ()">e_source_proxy_lookup_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ESourceProxy.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="ESourceProxy.html#E-SOURCE-EXTENSION-PROXY:CAPS" title="E_SOURCE_EXTENSION_PROXY">E_SOURCE_EXTENSION_PROXY</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="ESourceProxy.html#ESourceProxy-struct" title="struct ESourceProxy">ESourceProxy</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ESourceProxy.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="ESourceExtension.html" title="ESourceExtension">ESourceExtension</a>
+        <span class="lineart">╰──</span> ESourceProxy
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceProxy.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedataserver/libedataserver.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceProxy.description"></a><h2>Description</h2>
+<p>The <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> extension defines a network proxy profile.</p>
+<p>An <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> instance with this extension can serve as a <a href="/usr/share/gtk-doc/html/gioGProxyResolver.html#GProxyResolver-struct"><span class="type">GProxyResolver</span></a>.</p>
+<p>Access the extension as follows:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;libedataserver/libedataserver.h&gt;</span>
+
+<span class="usertype">ESourceProxy</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">extension</span><span class="symbol">;</span>
+
+<span class="normal">extension </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ESource.html#e-source-get-extension">e_source_get_extension</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">source</span><span class="symbol">,</span><span class="normal"> <a href="ESourceProxy.html#E-SOURCE-EXTENSION-PROXY:CAPS">E_SOURCE_EXTENSION_PROXY</a></span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+<div class="refsect1">
+<a name="ESourceProxy.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-source-proxy-get-method"></a><h3>e_source_proxy_get_method ()</h3>
+<pre class="programlisting"><a class="link" href="eds-e-source-enums.html#EProxyMethod" title="enum EProxyMethod"><span class="returnvalue">EProxyMethod</span></a>
+e_source_proxy_get_method (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the proxy configuration method for <em class="parameter"><code>extension</code></em>
+.</p>
+<p>The proxy configuration method determines the behavior of
+<a class="link" href="ESourceProxy.html#e-source-proxy-lookup" title="e_source_proxy_lookup ()"><code class="function">e_source_proxy_lookup()</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-method.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-method.returns"></a><h4>Returns</h4>
+<p> the proxy configuration method</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-method"></a><h3>e_source_proxy_set_method ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_method (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                           <em class="parameter"><code><a class="link" href="eds-e-source-enums.html#EProxyMethod" title="enum EProxyMethod"><span class="type">EProxyMethod</span></a> method</code></em>);</pre>
+<p>Sets the proxy configuration method for <em class="parameter"><code>extension</code></em>
+.</p>
+<p>The proxy configuration method determines the behavior of
+<a class="link" href="ESourceProxy.html#e-source-proxy-lookup" title="e_source_proxy_lookup ()"><code class="function">e_source_proxy_lookup()</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-method.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>method</p></td>
+<td class="parameter_description"><p>the proxy configuration method</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-autoconfig-url"></a><h3>e_source_proxy_get_autoconfig_url ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_get_autoconfig_url (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the URL that provides proxy configuration values.  When the
+<em class="parameter"><code>extension</code></em>
+'s <span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_AUTO</code></em>
+, this URL
+is used to look up proxy information for all protocols.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-autoconfig-url.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-autoconfig-url.returns"></a><h4>Returns</h4>
+<p> the autoconfiguration URL</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-dup-autoconfig-url"></a><h3>e_source_proxy_dup_autoconfig_url ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_dup_autoconfig_url (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Thread-safe variation of <a class="link" href="ESourceProxy.html#e-source-proxy-get-autoconfig-url" title="e_source_proxy_get_autoconfig_url ()"><code class="function">e_source_proxy_get_autoconfig_url()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em>
+ from multiple threads.</p>
+<p>The returned string should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="e-source-proxy-dup-autoconfig-url.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-dup-autoconfig-url.returns"></a><h4>Returns</h4>
+<p> a newly-allocated copy of <span class="type">“autoconfig-url”</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-autoconfig-url"></a><h3>e_source_proxy_set_autoconfig_url ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_autoconfig_url (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                                   <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *autoconfig_url</code></em>);</pre>
+<p>Sets the URL that provides proxy configuration values.  When the
+<em class="parameter"><code>extension</code></em>
+'s <span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_AUTO</code></em>
+, this URL
+is used to look up proxy information for all protocols.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-autoconfig-url.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>autoconfig_url</p></td>
+<td class="parameter_description"><p>an autoconfiguration URL</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-ignore-hosts"></a><h3>e_source_proxy_get_ignore_hosts ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> * const *
+e_source_proxy_get_ignore_hosts (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns a <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated string array of hosts which are connected to
+directly, rather than via the proxy (if it is active).  The array elements
+can be hostnames, domains (using an initial wildcard like *.foo.com), IP
+host addresses (both IPv4 and IPv6) and network addresses with a netmask
+(something like 192.168.0.0/24).</p>
+<p>The returned array is owned by <em class="parameter"><code>extension</code></em>
+ and should not be modified or
+freed.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-ignore-hosts.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-ignore-hosts.returns"></a><h4>Returns</h4>
+<p> a <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated string array of hosts. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-dup-ignore-hosts"></a><h3>e_source_proxy_dup_ignore_hosts ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **
+e_source_proxy_dup_ignore_hosts (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Thread-safe variation of <a class="link" href="ESourceProxy.html#e-source-proxy-get-ignore-hosts" title="e_source_proxy_get_ignore_hosts ()"><code class="function">e_source_proxy_get_ignore_hosts()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em>
+ from multiple threads.</p>
+<p>The returned string array should be freed with <a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#g-strfreev"><code class="function">g_strfreev()</code></a> when no
+longer needed.</p>
+<div class="refsect3">
+<a name="e-source-proxy-dup-ignore-hosts.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-dup-ignore-hosts.returns"></a><h4>Returns</h4>
+<p> a newly-allocated copy of
+<span class="type">“ignore-hosts”</span>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-ignore-hosts"></a><h3>e_source_proxy_set_ignore_hosts ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_ignore_hosts (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *ignore_hosts</code></em>);</pre>
+<p>Sets the hosts which are connected to directly, rather than via the proxy
+(if it is active).  The array elements can be hostnames, domains (using an
+initial wildcard like *.foo.com), IP host addresses (both IPv4 and IPv6)
+and network addresses with a netmask (something like 192.168.0.0/24).</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-ignore-hosts.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ignore_hosts</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated string array of hosts</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-ftp-host"></a><h3>e_source_proxy_get_ftp_host ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_get_ftp_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the machine name to proxy FTP through when <em class="parameter"><code>extension</code></em>
+'s
+<span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-ftp-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-ftp-host.returns"></a><h4>Returns</h4>
+<p> FTP proxy host name</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-dup-ftp-host"></a><h3>e_source_proxy_dup_ftp_host ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_dup_ftp_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Thread-safe variation of <a class="link" href="ESourceProxy.html#e-source-proxy-get-ftp-host" title="e_source_proxy_get_ftp_host ()"><code class="function">e_source_proxy_get_ftp_host()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em>
+ from multiple threads.</p>
+<p>The returned string should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="e-source-proxy-dup-ftp-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-dup-ftp-host.returns"></a><h4>Returns</h4>
+<p> a newly-allocated copy of <span class="type">“ftp-host”</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-ftp-host"></a><h3>e_source_proxy_set_ftp_host ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_ftp_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *ftp_host</code></em>);</pre>
+<p>Sets the machine name to proxy FTP through when <em class="parameter"><code>extension</code></em>
+'s
+<span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-ftp-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ftp_host</p></td>
+<td class="parameter_description"><p>FTP proxy host name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-ftp-port"></a><h3>e_source_proxy_get_ftp_port ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="returnvalue">guint16</span></a>
+e_source_proxy_get_ftp_port (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the port on the machine defined by <span class="type">“ftp-host”</span> to proxy
+through when <em class="parameter"><code>extension</code></em>
+'s <span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-ftp-port.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-ftp-port.returns"></a><h4>Returns</h4>
+<p> FTP proxy port</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-ftp-port"></a><h3>e_source_proxy_set_ftp_port ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_ftp_port (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="type">guint16</span></a> ftp_port</code></em>);</pre>
+<p>Sets the port on the machine defined by <span class="type">“ftp-host”</span> to proxy
+through when <em class="parameter"><code>extension</code></em>
+'s <span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-ftp-port.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ftp_port</p></td>
+<td class="parameter_description"><p>FTP proxy port</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-http-host"></a><h3>e_source_proxy_get_http_host ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_get_http_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the machine name to proxy HTTP through when <em class="parameter"><code>extension</code></em>
+'s
+<span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-http-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-http-host.returns"></a><h4>Returns</h4>
+<p> HTTP proxy host name</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-dup-http-host"></a><h3>e_source_proxy_dup_http_host ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_dup_http_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Thread-safe variation of <a class="link" href="ESourceProxy.html#e-source-proxy-get-http-host" title="e_source_proxy_get_http_host ()"><code class="function">e_source_proxy_get_http_host()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em>
+ from multiple threads.</p>
+<p>The returned string should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="e-source-proxy-dup-http-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-dup-http-host.returns"></a><h4>Returns</h4>
+<p> a newly-allocated copy of <span class="type">“http-host”</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-http-host"></a><h3>e_source_proxy_set_http_host ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_http_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                              <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *http_host</code></em>);</pre>
+<p>Sets the machine name to proxy HTTP through when <em class="parameter"><code>extension</code></em>
+'s
+<span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-http-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>http_host</p></td>
+<td class="parameter_description"><p>HTTP proxy host name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-http-port"></a><h3>e_source_proxy_get_http_port ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="returnvalue">guint16</span></a>
+e_source_proxy_get_http_port (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the port on the machine defined by <span class="type">“http-host”</span> to proxy
+through when <em class="parameter"><code>extension</code></em>
+'s <span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-http-port.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-http-port.returns"></a><h4>Returns</h4>
+<p> HTTP proxy port</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-http-port"></a><h3>e_source_proxy_set_http_port ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_http_port (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="type">guint16</span></a> http_port</code></em>);</pre>
+<p>Sets the port on the machine defined by <span class="type">“http-host”</span> to proxy
+through when <em class="parameter"><code>extension</code></em>
+'s <span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-http-port.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>http_port</p></td>
+<td class="parameter_description"><p>HTTP proxy port</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-http-use-auth"></a><h3>e_source_proxy_get_http_use_auth ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_source_proxy_get_http_use_auth (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns whether the HTTP proxy server at <span class="type">“http-host”</span> and
+<span class="type">“http-port”</span> requires authentication.</p>
+<p>The username/password combo is defined by <span class="type">“http-auth-user”</span>
+and <span class="type">“http-auth-password”</span>, but only applies when <em class="parameter"><code>extension</code></em>
+'s
+<span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-http-use-auth.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-http-use-auth.returns"></a><h4>Returns</h4>
+<p> whether to authenticate HTTP proxy connections</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-http-use-auth"></a><h3>e_source_proxy_set_http_use_auth ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_http_use_auth (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> http_use_auth</code></em>);</pre>
+<p>Sets whether the HTTP proxy server at <span class="type">“http-host”</span> and
+<span class="type">“http-port”</span> requires authentication.</p>
+<p>The username/password combo is defined by <span class="type">“http-auth-user”</span>
+and <span class="type">“http-auth-password”</span>, but only applies when <em class="parameter"><code>extension</code></em>
+'s
+<span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-http-use-auth.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>http_use_auth</p></td>
+<td class="parameter_description"><p>whether to authenticate HTTP proxy connections</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-http-auth-user"></a><h3>e_source_proxy_get_http_auth_user ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_get_http_auth_user (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the user name to pass as authentication when doing HTTP proxying
+and <span class="type">“http-use-auth”</span> is <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-http-auth-user.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-http-auth-user.returns"></a><h4>Returns</h4>
+<p> HTTP proxy username</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-dup-http-auth-user"></a><h3>e_source_proxy_dup_http_auth_user ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_dup_http_auth_user (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Thread-safe variation of <a class="link" href="ESourceProxy.html#e-source-proxy-get-http-auth-user" title="e_source_proxy_get_http_auth_user ()"><code class="function">e_source_proxy_get_http_auth_user()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em>
+ from multiple threads.</p>
+<p>The returned string should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="e-source-proxy-dup-http-auth-user.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-dup-http-auth-user.returns"></a><h4>Returns</h4>
+<p> a newly-allocated copy of <span class="type">“http-auth-user”</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-http-auth-user"></a><h3>e_source_proxy_set_http_auth_user ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_http_auth_user (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                                   <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *http_auth_user</code></em>);</pre>
+<p>Sets the user name to pass as authentication when doing HTTP proxying
+and <span class="type">“http-use-auth”</span> is <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-http-auth-user.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>http_auth_user</p></td>
+<td class="parameter_description"><p>HTTP proxy username</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-http-auth-password"></a><h3>e_source_proxy_get_http_auth_password ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_get_http_auth_password (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the password to pass as authentication when doing HTTP proxying
+and <span class="type">“http-use-auth”</span> is <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-http-auth-password.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-http-auth-password.returns"></a><h4>Returns</h4>
+<p> HTTP proxy password</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-dup-http-auth-password"></a><h3>e_source_proxy_dup_http_auth_password ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_dup_http_auth_password (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Thread-safe variation of <a class="link" href="ESourceProxy.html#e-source-proxy-get-http-auth-password" title="e_source_proxy_get_http_auth_password ()"><code class="function">e_source_proxy_get_http_auth_password()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em>
+ from multiple threads.</p>
+<p>The returned string should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="e-source-proxy-dup-http-auth-password.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-dup-http-auth-password.returns"></a><h4>Returns</h4>
+<p> a newly-allocated copy of <span class="type">“http-auth-password”</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-http-auth-password"></a><h3>e_source_proxy_set_http_auth_password ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_http_auth_password (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *http_auth_password</code></em>);</pre>
+<p>Sets the password to pass as authentication when doing HTTP proxying
+and <span class="type">“http-use-auth”</span> is <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-http-auth-password.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>http_auth_password</p></td>
+<td class="parameter_description"><p>HTTP proxy password</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-https-host"></a><h3>e_source_proxy_get_https_host ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_get_https_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the machine name to proxy secure HTTP through when <em class="parameter"><code>extension</code></em>
+'s
+<span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-https-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-https-host.returns"></a><h4>Returns</h4>
+<p> secure HTTP proxy host name</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-dup-https-host"></a><h3>e_source_proxy_dup_https_host ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_dup_https_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Threads-safe variation of <a class="link" href="ESourceProxy.html#e-source-proxy-get-https-host" title="e_source_proxy_get_https_host ()"><code class="function">e_source_proxy_get_https_host()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em>
+ from multiple threads.</p>
+<p>The returned string should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="e-source-proxy-dup-https-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-dup-https-host.returns"></a><h4>Returns</h4>
+<p> a newly-allocated copy of <span class="type">“https-host”</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-https-host"></a><h3>e_source_proxy_set_https_host ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_https_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *https_host</code></em>);</pre>
+<p>Sets the machine name to proxy secure HTTP through when <em class="parameter"><code>extension</code></em>
+'s
+<span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-https-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>https_host</p></td>
+<td class="parameter_description"><p>secure HTTP proxy host name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-https-port"></a><h3>e_source_proxy_get_https_port ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="returnvalue">guint16</span></a>
+e_source_proxy_get_https_port (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the port on the machine defined by <span class="type">“https-host”</span> to proxy
+through when <em class="parameter"><code>extension</code></em>
+'s <span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-https-port.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-https-port.returns"></a><h4>Returns</h4>
+<p> secure HTTP proxy port</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-https-port"></a><h3>e_source_proxy_set_https_port ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_https_port (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="type">guint16</span></a> https_port</code></em>);</pre>
+<p>Sets the port on the machine defined by <span class="type">“https-host”</span> to proxy
+through when <em class="parameter"><code>extension</code></em>
+'s <span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-https-port.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>https_port</p></td>
+<td class="parameter_description"><p>secure HTTP proxy port</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-socks-host"></a><h3>e_source_proxy_get_socks_host ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_get_socks_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the machine name to use as a SOCKS proxy when <em class="parameter"><code>extension</code></em>
+'s
+<span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-socks-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-socks-host.returns"></a><h4>Returns</h4>
+<p> SOCKS proxy host name</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-dup-socks-host"></a><h3>e_source_proxy_dup_socks_host ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_proxy_dup_socks_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Thread-safe variation of e_source-<code class="function">proxy_get_socks_host()</code>.
+Use this function when accessing <em class="parameter"><code>extension</code></em>
+ from multiple threads.</p>
+<p>The returned string should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="e-source-proxy-dup-socks-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-dup-socks-host.returns"></a><h4>Returns</h4>
+<p> a newly-allocated copy of <span class="type">“socks-host”</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-socks-host"></a><h3>e_source_proxy_set_socks_host ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_socks_host (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *socks_host</code></em>);</pre>
+<p>Sets the machine name to use as a SOCKS proxy when <em class="parameter"><code>extension</code></em>
+'s
+<span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-socks-host.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>socks_host</p></td>
+<td class="parameter_description"><p>SOCKS proxy host name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-get-socks-port"></a><h3>e_source_proxy_get_socks_port ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="returnvalue">guint16</span></a>
+e_source_proxy_get_socks_port (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>);</pre>
+<p>Returns the port on the machine defined by <span class="type">“socks-host”</span> to proxy
+through when <em class="parameter"><code>extension</code></em>
+'s <span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-get-socks-port.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-get-socks-port.returns"></a><h4>Returns</h4>
+<p> SOCKS proxy port</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-set-socks-port"></a><h3>e_source_proxy_set_socks_port ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_set_socks_port (<em class="parameter"><code><a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> *extension</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#guint16"><span class="type">guint16</span></a> socks_port</code></em>);</pre>
+<p>Sets the port on the machine defined by <span class="type">“socks-host”</span> to proxy
+through when <em class="parameter"><code>extension</code></em>
+'s <span class="type">“method”</span> is <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-source-proxy-set-socks-port.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>socks_port</p></td>
+<td class="parameter_description"><p>SOCKS proxy port</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-lookup-sync"></a><h3>e_source_proxy_lookup_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **
+e_source_proxy_lookup_sync (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                            <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                            <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Looks into <em class="parameter"><code>source</code></em>
+'s <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> extension to determine what proxy,
+if any, to use to connect to <em class="parameter"><code>uri</code></em>
+.  The returned proxy URIs are of the
+same form described by <a href="/usr/share/gtk-doc/html/gioGProxyResolver.html#g-proxy-resolver-lookup"><code class="function">g_proxy_resolver_lookup()</code></a>.</p>
+<p>The proxy extension's <span class="type">“method”</span> controls how proxy URIs are
+determined:</p>
+<p>When using <em class="parameter"><code>E_PROXY_METHOD_DEFAULT</code></em>
+, the function will defer to the
+<a href="/usr/share/gtk-doc/html/gioGProxyResolver.html#GProxyResolver-struct"><span class="type">GProxyResolver</span></a> returned by <a href="/usr/share/gtk-doc/html/gioGProxyResolver.html#g-proxy-resolver-get-default"><code class="function">g_proxy_resolver_get_default()</code></a>.</p>
+<p>When using <em class="parameter"><code>E_PROXY_METHOD_MANUAL</code></em>
+, the function will configure a
+<a href="/usr/share/gtk-doc/html/gioGSimpleProxyResolver.html#GSimpleProxyResolver-struct"><span class="type">GSimpleProxyResolver</span></a> from the HTTP, HTTPS, FTP and SOCKS properties,
+as well as <span class="type">“ignore-hosts”</span>.</p>
+<p>When using <em class="parameter"><code>E_PROXY_METHOD_AUTO</code></em>
+, the function will execute a proxy
+auto-config (PAC) file at <span class="type">“autoconfig-url”</span>.</p>
+<p>When using <em class="parameter"><code>E_PROXY_METHOD_NONE</code></em>
+, the function will only return
+<code class="literal">direct://</code>.</p>
+<p>If <em class="parameter"><code>source</code></em>
+ does not have an <a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a> extension, the function sets
+<em class="parameter"><code>error</code></em>
+ to <em class="parameter"><code>G_IO_ERROR_NOT_SUPPORTED</code></em>
+ and returns <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<p>Free the returned proxy URIs with <a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#g-strfreev"><code class="function">g_strfreev()</code></a> when finished with them.</p>
+<div class="refsect3">
+<a name="e-source-proxy-lookup-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>a URI representing the destination to connect to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-lookup-sync.returns"></a><h4>Returns</h4>
+<p> a <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of proxy URIs, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-lookup"></a><h3>e_source_proxy_lookup ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_proxy_lookup (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>,
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Asynchronously determines what proxy, if any, to use to connect to <em class="parameter"><code>uri</code></em>
+.
+See <a class="link" href="ESourceProxy.html#e-source-proxy-lookup-sync" title="e_source_proxy_lookup_sync ()"><code class="function">e_source_proxy_lookup_sync()</code></a> for more details.</p>
+<p>When the operation is finished, <em class="parameter"><code>callback</code></em>
+ will be called.  You can then
+call <a class="link" href="ESourceProxy.html#e-source-proxy-lookup-finish" title="e_source_proxy_lookup_finish ()"><code class="function">e_source_proxy_lookup_finish()</code></a> to get the result of the operation.</p>
+<div class="refsect3">
+<a name="e-source-proxy-lookup.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uri</p></td>
+<td class="parameter_description"><p>a URI representing the destination to connect to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> optional <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> object, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> to call when the request
+is satisfied. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p> data to pass to the callback function. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-proxy-lookup-finish"></a><h3>e_source_proxy_lookup_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **
+e_source_proxy_lookup_finish (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes the operation started with <a class="link" href="ESourceProxy.html#e-source-proxy-lookup" title="e_source_proxy_lookup ()"><code class="function">e_source_proxy_lookup()</code></a>.</p>
+<p>Free the returned proxy URIs with <a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#g-strfreev"><code class="function">g_strfreev()</code></a> when finished with them.</p>
+<div class="refsect3">
+<a name="e-source-proxy-lookup-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-proxy-lookup-finish.returns"></a><h4>Returns</h4>
+<p> a <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of proxy URIs, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceProxy.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="E-SOURCE-EXTENSION-PROXY:CAPS"></a><h3>E_SOURCE_EXTENSION_PROXY</h3>
+<pre class="programlisting">#define E_SOURCE_EXTENSION_PROXY "Proxy"
+</pre>
+<p>Pass this extension name to <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a> to access
+<a class="link" href="ESourceProxy.html" title="ESourceProxy"><span class="type">ESourceProxy</span></a>.  This is also used as a group name in key files.</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceProxy-struct"></a><h3>struct ESourceProxy</h3>
+<pre class="programlisting">struct ESourceProxy;</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

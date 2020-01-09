@@ -2,19 +2,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -274,9 +274,9 @@ add_range_xover (CamelNNTPSummary *cns,
 				camel_folder_summary_add (s, mi);
 
 				cns->high = n;
-				camel_folder_change_info_add_uid (changes, camel_message_info_uid (mi));
+				camel_folder_change_info_add_uid (changes, camel_message_info_get_uid (mi));
 				if (folder_filter_recent)
-					camel_folder_change_info_recent_uid (changes, camel_message_info_uid (mi));
+					camel_folder_change_info_recent_uid (changes, camel_message_info_get_uid (mi));
 			}
 		}
 
@@ -351,7 +351,7 @@ add_range_head (CamelNNTPSummary *cns,
 		if (ret == 423)
 			continue;
 		else if (ret == -1)
-			goto ioerror;
+			goto error;
 		else if (ret != 221) {
 			g_set_error (
 				error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
@@ -379,9 +379,9 @@ add_range_head (CamelNNTPSummary *cns,
 					goto error;
 				}
 				cns->high = i;
-				camel_folder_change_info_add_uid (changes, camel_message_info_uid (mi));
+				camel_folder_change_info_add_uid (changes, camel_message_info_get_uid (mi));
 				if (folder_filter_recent)
-					camel_folder_change_info_recent_uid (changes, camel_message_info_uid (mi));
+					camel_folder_change_info_recent_uid (changes, camel_message_info_get_uid (mi));
 			}
 			if (cns->priv->uid) {
 				g_free (cns->priv->uid);

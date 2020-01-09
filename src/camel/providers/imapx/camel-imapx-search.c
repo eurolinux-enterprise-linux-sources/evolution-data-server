@@ -1,22 +1,27 @@
 /*
  * camel-imapx-search.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "camel-imapx-search.h"
 
+#include <string.h>
 #include <camel/camel.h>
 #include <camel/camel-search-private.h>
 
@@ -154,7 +159,9 @@ static CamelSExpResult *
 imapx_search_process_criteria (CamelSExp *sexp,
                                CamelFolderSearch *search,
                                CamelIMAPXStore *imapx_store,
-                               const GString *criteria,
+                               const GString *criteria_prefix,
+			       const gchar *search_key,
+			       const GPtrArray *words,
                                const gchar *from_function)
 {
 	CamelSExpResult *result;
@@ -173,33 +180,17 @@ imapx_search_process_criteria (CamelSExp *sexp,
 
 	if (mailbox != NULL) {
 		CamelIMAPXStore *imapx_store;
-		CamelIMAPXServer *imapx_server;
-		const gchar *folder_name;
+		CamelIMAPXConnManager *conn_man;
 
 		imapx_store = camel_imapx_search_ref_store (imapx_search);
 
 		/* there should always be one, held by one of the callers of this function */
 		g_warn_if_fail (imapx_store != NULL);
 
-		folder_name = camel_folder_get_full_name (search->folder);
-		imapx_server = camel_imapx_store_ref_server (imapx_store, folder_name, TRUE, imapx_search->priv->cancellable, &local_error);
-		if (imapx_server) {
-			uids = camel_imapx_server_uid_search (imapx_server, mailbox, criteria->str, imapx_search->priv->cancellable, &local_error);
-			camel_imapx_store_folder_op_done (imapx_store, imapx_server, folder_name);
+		conn_man = camel_imapx_store_get_conn_manager (imapx_store);
+		uids = camel_imapx_conn_manager_uid_search_sync (conn_man, mailbox, criteria_prefix->str, search_key,
+			words ? (const gchar * const *) words->pdata : NULL, imapx_search->priv->cancellable, &local_error);
 
-			while (!uids && g_error_matches (local_error, CAMEL_IMAPX_SERVER_ERROR, CAMEL_IMAPX_SERVER_ERROR_TRY_RECONNECT)) {
-				g_clear_error (&local_error);
-				g_clear_object (&imapx_server);
-
-				imapx_server = camel_imapx_store_ref_server (imapx_store, folder_name, TRUE, imapx_search->priv->cancellable, &local_error);
-				if (imapx_server) {
-					uids = camel_imapx_server_uid_search (imapx_server, mailbox, criteria->str, imapx_search->priv->cancellable, &local_error);
-					camel_imapx_store_folder_op_done (imapx_store, imapx_server, folder_name);
-				}
-			}
-		}
-
-		g_clear_object (&imapx_server);
 		g_clear_object (&imapx_store);
 		g_object_unref (mailbox);
 	}
@@ -296,6 +287,58 @@ imapx_search_match_all (CamelSExp *sexp,
 	return result;
 }
 
+static GPtrArray *
+imapx_search_gather_words (CamelSExpResult **argv,
+			   gint from_index,
+			   gint argc)
+{
+	GPtrArray *ptrs;
+	GHashTable *words_hash;
+	GHashTableIter iter;
+	gpointer key, value;
+	gint ii, jj;
+
+	g_return_val_if_fail (argv != 0, NULL);
+
+	words_hash = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
+
+	for (ii = from_index; ii < argc; ii++) {
+		struct _camel_search_words *words;
+
+		if (argv[ii]->type != CAMEL_SEXP_RES_STRING)
+			continue;
+
+		/* Handle multiple search words within a single term. */
+		words = camel_search_words_split ((const guchar *) argv[ii]->value.string);
+
+		for (jj = 0; jj < words->len; jj++) {
+			const gchar *word = words->words[jj]->word;
+
+			g_hash_table_insert (words_hash, g_strdup (word), NULL);
+		}
+
+		camel_search_words_free (words);
+	}
+
+	ptrs = g_ptr_array_new_full (g_hash_table_size (words_hash), g_free);
+
+	g_hash_table_iter_init (&iter, words_hash);
+	while (g_hash_table_iter_next (&iter, &key, &value)) {
+		g_ptr_array_add (ptrs, g_strdup (key));
+	}
+
+	if (ptrs->len == 0) {
+		g_ptr_array_free (ptrs, TRUE);
+		ptrs = NULL;
+	} else {
+		g_ptr_array_add (ptrs, NULL);
+	}
+
+	g_hash_table_destroy (words_hash);
+
+	return ptrs;
+}
+
 static CamelSExpResult *
 imapx_search_body_contains (CamelSExp *sexp,
                             gint argc,
@@ -306,7 +349,8 @@ imapx_search_body_contains (CamelSExp *sexp,
 	CamelIMAPXStore *imapx_store;
 	CamelSExpResult *result;
 	GString *criteria;
-	gint ii, jj;
+	GPtrArray *words;
+	gboolean is_gmail;
 
 	/* Always do body-search server-side */
 	if (imapx_search->priv->local_data_search) {
@@ -339,44 +383,80 @@ imapx_search_body_contains (CamelSExp *sexp,
 		const gchar *uid;
 
 		/* Limit the search to a single UID. */
-		uid = camel_message_info_uid (search->current);
+		uid = camel_message_info_get_uid (search->current);
 		g_string_append_printf (criteria, "UID %s", uid);
 	}
 
-	for (ii = 0; ii < argc; ii++) {
-		struct _camel_search_words *words;
-		const guchar *term;
+	words = imapx_search_gather_words (argv, 0, argc);
 
-		if (argv[ii]->type != CAMEL_SEXP_RES_STRING)
-			continue;
+	result = imapx_search_process_criteria (sexp, search, imapx_store, criteria, "BODY", words, G_STRFUNC);
 
-		/* Handle multiple search words within a single term. */
-		term = (const guchar *) argv[ii]->value.string;
-		words = camel_search_words_split (term);
-
-		for (jj = 0; jj < words->len; jj++) {
-			gchar *cp;
-
-			if (criteria->len > 0)
-				g_string_append_c (criteria, ' ');
-
-			g_string_append (criteria, "BODY \"");
-
-			cp = words->words[jj]->word;
-			for (; *cp != '\0'; cp++) {
-				if (*cp == '\\' || *cp == '"')
-					g_string_append_c (criteria, '\\');
-				g_string_append_c (criteria, *cp);
-			}
-
-			g_string_append_c (criteria, '"');
-		}
-	}
-
-	result = imapx_search_process_criteria (sexp, search, imapx_store, criteria, G_STRFUNC);
+	is_gmail = camel_imapx_store_is_gmail_server (imapx_store);
 
 	g_string_free (criteria, TRUE);
+	g_ptr_array_free (words, TRUE);
 	g_object_unref (imapx_store);
+
+	if (is_gmail && result && (result->type == CAMEL_SEXP_RES_ARRAY_PTR || (result->type == CAMEL_SEXP_RES_BOOL && !result->value.boolean))) {
+		/* Gmail returns BODY matches on whole words only, which is not it should be,
+		   thus try also locally cached messages to provide any better results. */
+		gboolean was_only_cached_messages;
+		CamelSExpResult *cached_result;
+
+		was_only_cached_messages = camel_folder_search_get_only_cached_messages (search);
+		camel_folder_search_set_only_cached_messages (search, TRUE);
+
+		cached_result = CAMEL_FOLDER_SEARCH_CLASS (camel_imapx_search_parent_class)->body_contains (sexp, argc, argv, search);
+
+		camel_folder_search_set_only_cached_messages (search, was_only_cached_messages);
+
+		if (cached_result && cached_result->type == result->type) {
+			if (result->type == CAMEL_SEXP_RES_BOOL) {
+				result->value.boolean = cached_result->value.boolean;
+			} else {
+				/* Merge the two UID arrays */
+				GHashTable *merge;
+				GHashTableIter iter;
+				GPtrArray *array;
+				gpointer key;
+				guint ii;
+
+				/* UID-s are strings from the string pool, thus can be compared directly */
+				merge = g_hash_table_new (g_direct_hash, g_direct_equal);
+
+				array = result->value.ptrarray;
+				for (ii = 0; array && ii < array->len; ii++) {
+					gpointer uid = g_ptr_array_index (array, ii);
+
+					if (uid)
+						g_hash_table_insert (merge, uid, NULL);
+				}
+
+				array = cached_result->value.ptrarray;
+				for (ii = 0; array && ii < array->len; ii++) {
+					gpointer uid = g_ptr_array_index (array, ii);
+
+					if (uid)
+						g_hash_table_insert (merge, uid, NULL);
+				}
+
+				array = g_ptr_array_new_full (g_hash_table_size (merge), (GDestroyNotify) camel_pstring_free);
+
+				g_hash_table_iter_init (&iter, merge);
+				while (g_hash_table_iter_next (&iter, &key, NULL)) {
+					g_ptr_array_add (array, (gpointer) camel_pstring_strdup (key));
+				}
+
+				g_hash_table_destroy (merge);
+
+				g_ptr_array_unref (result->value.ptrarray);
+
+				result->value.ptrarray = array;
+			}
+		}
+
+		camel_sexp_result_free (sexp, cached_result);
+	}
 
 	return result;
 }
@@ -401,7 +481,8 @@ imapx_search_header_contains (CamelSExp *sexp,
 	CamelSExpResult *result;
 	const gchar *headername, *command = NULL;
 	GString *criteria;
-	gint ii, jj;
+	gchar *search_key = NULL;
+	GPtrArray *words;
 
 	/* Match nothing if empty argv or empty summary. */
 	if (argc <= 1 ||
@@ -443,7 +524,7 @@ imapx_search_header_contains (CamelSExp *sexp,
 		const gchar *uid;
 
 		/* Limit the search to a single UID. */
-		uid = camel_message_info_uid (search->current);
+		uid = camel_message_info_get_uid (search->current);
 		g_string_append_printf (criteria, "UID %s", uid);
 	}
 
@@ -458,45 +539,17 @@ imapx_search_header_contains (CamelSExp *sexp,
 	else if (g_ascii_strcasecmp (headername, "Subject") == 0)
 		command = "SUBJECT";
 
-	for (ii = 1; ii < argc; ii++) {
-		struct _camel_search_words *words;
-		const guchar *term;
+	words = imapx_search_gather_words (argv, 1, argc);
 
-		if (argv[ii]->type != CAMEL_SEXP_RES_STRING)
-			continue;
+	if (!command)
+		search_key = g_strdup_printf ("HEADER \"%s\"", headername);
 
-		/* Handle multiple search words within a single term. */
-		term = (const guchar *) argv[ii]->value.string;
-		words = camel_search_words_split (term);
-
-		for (jj = 0; jj < words->len; jj++) {
-			gchar *cp;
-
-			if (criteria->len > 0)
-				g_string_append_c (criteria, ' ');
-
-			if (command)
-				g_string_append (criteria, command);
-			else
-				g_string_append_printf (criteria, "HEADER \"%s\"", headername);
-
-			g_string_append (criteria, " \"");
-
-			cp = words->words[jj]->word;
-			for (; *cp != '\0'; cp++) {
-				if (*cp == '\\' || *cp == '"')
-					g_string_append_c (criteria, '\\');
-				g_string_append_c (criteria, *cp);
-			}
-
-			g_string_append_c (criteria, '"');
-		}
-	}
-
-	result = imapx_search_process_criteria (sexp, search, imapx_store, criteria, G_STRFUNC);
+	result = imapx_search_process_criteria (sexp, search, imapx_store, criteria, command ? command : search_key, words, G_STRFUNC);
 
 	g_string_free (criteria, TRUE);
+	g_ptr_array_free (words, TRUE);
 	g_object_unref (imapx_store);
+	g_free (search_key);
 
 	return result;
 }
@@ -560,7 +613,7 @@ imapx_search_header_exists (CamelSExp *sexp,
 		const gchar *uid;
 
 		/* Limit the search to a single UID. */
-		uid = camel_message_info_uid (search->current);
+		uid = camel_message_info_get_uid (search->current);
 		g_string_append_printf (criteria, "UID %s", uid);
 	}
 
@@ -578,7 +631,7 @@ imapx_search_header_exists (CamelSExp *sexp,
 		g_string_append_printf (criteria, "HEADER \"%s\" \"\"", headername);
 	}
 
-	result = imapx_search_process_criteria (sexp, search, imapx_store, criteria, G_STRFUNC);
+	result = imapx_search_process_criteria (sexp, search, imapx_store, criteria, NULL, NULL, G_STRFUNC);
 
 	g_string_free (criteria, TRUE);
 	g_object_unref (imapx_store);
@@ -629,7 +682,7 @@ camel_imapx_search_init (CamelIMAPXSearch *search)
 
 /**
  * camel_imapx_search_new:
- * imapx_store: a #CamelIMAPXStore to which the search belongs
+ * @imapx_store: a #CamelIMAPXStore to which the search belongs
  *
  * Returns a new #CamelIMAPXSearch instance.
  *
@@ -716,7 +769,7 @@ camel_imapx_search_set_store (CamelIMAPXSearch *search,
  * for the whole run of the search and reset them both to NULL after
  * the search is finished.
  *
- * Since: 3.14
+ * Since: 3.16
  **/
 void
 camel_imapx_search_set_cancellable_and_error (CamelIMAPXSearch *search,

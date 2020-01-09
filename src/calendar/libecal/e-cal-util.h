@@ -2,19 +2,19 @@
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Author: Federico Mena-Quintero <federico@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Federico Mena-Quintero <federico@ximian.com>
  */
 
 #if !defined (__LIBECAL_H_INSIDE__) && !defined (LIBECAL_COMPILATION)
@@ -32,9 +32,15 @@
 
 G_BEGIN_DECLS
 
-/* Instance of a calendar object.  This can be an actual occurrence, a
+/**
+ * CalObjInstance:
+ * @uid: UID of the object
+ * @start: Start time of instance
+ * @end: End time of instance
+ *
+ * Instance of a calendar object.  This can be an actual occurrence, a
  * recurrence, or an alarm trigger of a `real' calendar object.
- */
+ **/
 typedef struct {
 	gchar *uid;			/* UID of the object */
 	time_t start;			/* Start time of instance */
@@ -104,6 +110,7 @@ gboolean	e_cal_util_event_dates_match	(icalcomponent *icalcomp1,
 
 /**
  * CAL_STATIC_CAPABILITY_MEMO_START_DATE:
+ *
  * Flag indicating that the backend does not support memo's start date
  *
  * Since: 3.12
@@ -195,12 +202,30 @@ gboolean	e_cal_util_event_dates_match	(icalcomponent *icalcomp1,
  **/
 #define CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED		"refresh-supported"
 
+/**
+ * CAL_STATIC_CAPABILITY_ALL_DAY_EVENT_AS_TIME:
+ *
+ * Let the client know that it should store All Day event times as time
+ * with a time zone, rather than as a date.
+ *
+ * Since: 3.18
+ **/
+#define CAL_STATIC_CAPABILITY_ALL_DAY_EVENT_AS_TIME	"all-day-event-as-time"
+
+
 /* Recurrent events. Management for instances */
 icalcomponent *	e_cal_util_construct_instance	(icalcomponent *icalcomp,
 						 struct icaltimetype rid);
 void		e_cal_util_remove_instances	(icalcomponent *icalcomp,
 						 struct icaltimetype rid,
 						 ECalObjModType mod);
+icalcomponent *	e_cal_util_split_at_instance	(icalcomponent *icalcomp,
+						 struct icaltimetype rid,
+						 struct icaltimetype master_dtstart);
+gboolean	e_cal_util_is_first_instance	(ECalComponent *comp,
+						 struct icaltimetype rid,
+						 ECalRecurResolveTimezoneFn tz_cb,
+						 gpointer tz_cb_data);
 
 gchar *		e_cal_util_get_system_timezone_location (void);
 icaltimezone *	e_cal_util_get_system_timezone (void);

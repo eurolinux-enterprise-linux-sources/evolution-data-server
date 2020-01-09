@@ -1,19 +1,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Not Zed <notzed@lostzed.mmc.com.au>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Not Zed <notzed@lostzed.mmc.com.au>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -202,7 +202,7 @@ remove_summary (gchar *key,
 {
 	d (printf ("removing message %s from summary\n", key));
 	if (cls->index)
-		camel_index_delete_name (cls->index, camel_message_info_uid (info));
+		camel_index_delete_name (cls->index, camel_message_info_get_uid (info));
 	camel_folder_summary_remove ((CamelFolderSummary *) cls, info);
 	camel_message_info_unref (info);
 }
@@ -246,7 +246,7 @@ mh_summary_check (CamelLocalSummary *cls,
 	for (i = 0; known_uids && i < known_uids->len; i++) {
 		info = camel_folder_summary_get ((CamelFolderSummary *) cls, g_ptr_array_index (known_uids, i));
 		if (info) {
-			g_hash_table_insert (left, (gchar *) camel_message_info_uid (info), info);
+			g_hash_table_insert (left, (gchar *) camel_message_info_get_uid (info), info);
 		}
 	}
 	camel_folder_summary_free_array (known_uids);
@@ -263,10 +263,10 @@ mh_summary_check (CamelLocalSummary *cls,
 			if (info == NULL || (cls->index && (!camel_index_has_name (cls->index, d->d_name)))) {
 				/* need to add this file to the summary */
 				if (info != NULL) {
-					CamelMessageInfo *old = g_hash_table_lookup (left, camel_message_info_uid (info));
+					CamelMessageInfo *old = g_hash_table_lookup (left, camel_message_info_get_uid (info));
 
 					if (old) {
-						g_hash_table_remove (left, camel_message_info_uid (info));
+						g_hash_table_remove (left, camel_message_info_get_uid (info));
 						camel_message_info_unref (old);
 					}
 
@@ -275,7 +275,7 @@ mh_summary_check (CamelLocalSummary *cls,
 				}
 				camel_mh_summary_add (cls, d->d_name, forceindex, cancellable);
 			} else {
-				const gchar *uid = camel_message_info_uid (info);
+				const gchar *uid = camel_message_info_get_uid (info);
 				CamelMessageInfo *old = g_hash_table_lookup (left, uid);
 
 				if (old) {
@@ -321,9 +321,9 @@ mh_summary_sync (CamelLocalSummary *cls,
 	known_uids = camel_folder_summary_get_array ((CamelFolderSummary *) cls);
 	for (i = (known_uids ? known_uids->len : 0) - 1; i >= 0; i--) {
 		info = (CamelLocalMessageInfo *) camel_folder_summary_get ((CamelFolderSummary *) cls, g_ptr_array_index (known_uids, i));
-		g_assert (info);
+		g_return_val_if_fail (info, -1);
 		if (expunge && (info->info.flags & CAMEL_MESSAGE_DELETED)) {
-			uid = camel_message_info_uid (info);
+			uid = camel_message_info_get_uid (info);
 			name = g_strdup_printf ("%s/%s", cls->folder_path, uid);
 			d (printf ("deleting %s\n", name));
 			if (unlink (name) == 0 || errno == ENOENT) {

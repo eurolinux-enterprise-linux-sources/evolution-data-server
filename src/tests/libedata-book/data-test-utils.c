@@ -2,17 +2,17 @@
 /*
  * Copyright (C) 2013, Openismus GmbH
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  * Authors: Tristan Van Berkom <tristanvb@openismus.com>
  */
@@ -28,6 +28,7 @@
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 
 #include "data-test-utils.h"
 
@@ -202,6 +203,11 @@ e_sqlite_fixture_setup (EbSqlFixture *fixture,
 	gchar  *filename, *directory;
 	GError *error = NULL;
 
+	if (!g_file_test (CAMEL_PROVIDERDIR, G_FILE_TEST_IS_DIR | G_FILE_TEST_EXISTS)) {
+		if (g_mkdir_with_parents (CAMEL_PROVIDERDIR, 0700) == -1)
+			g_warning ("%s: Failed to create folder '%s': %s\n", G_STRFUNC, CAMEL_PROVIDERDIR, g_strerror (errno));
+	}
+
 	fixture->contacts =
 		g_hash_table_new_full (
 			g_str_hash,
@@ -221,6 +227,7 @@ e_sqlite_fixture_setup (EbSqlFixture *fixture,
 	if (closure->without_vcards)
 		fixture->ebsql = e_book_sqlite_new_full (
 			filename,
+			NULL,
 			setup,
 			fetch_vcard_from_hash,
 			contact_change_cb,
@@ -230,6 +237,7 @@ e_sqlite_fixture_setup (EbSqlFixture *fixture,
 	else
 		fixture->ebsql = e_book_sqlite_new_full (
 			filename,
+			NULL,
 			setup,
 			NULL,
 			contact_change_cb,

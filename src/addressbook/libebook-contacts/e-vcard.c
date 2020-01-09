@@ -4,20 +4,20 @@
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  * Copyright (C) 2013 Collabora Ltd.
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Author: Chris Toshok (toshok@ximian.com)
- *         Philip Withnall <philip.withnall@collabora.co.uk>
+ * Authors: Chris Toshok (toshok@ximian.com)
+ *          Philip Withnall <philip.withnall@collabora.co.uk>
  */
 
 /**
@@ -334,30 +334,37 @@ read_attribute_value (EVCardAttribute *attr,
 	     lp = skip_newline ( lp, quoted_printable ) ) {
 
 		if (*lp == '=' && quoted_printable) {
-			gchar a, b;
+			gunichar a, b;
 
 			/* it's for the '=' */
 			lp++;
 			lp = skip_newline (lp, quoted_printable);
 
-			if ((a = *(lp++)) == '\0') break;
+			a = g_utf8_get_char (lp);
+			lp = g_utf8_next_char (lp);
+			if (a == '\0')
+				break;
+
 			lp = skip_newline (lp, quoted_printable);
 
-			if ((b = *(lp++)) == '\0') break;
-			if (isxdigit (a) && isxdigit (b)) {
+			b = g_utf8_get_char (lp);
+			if (b == '\0')
+				break;
+			lp = g_utf8_next_char (lp);
+
+			if (g_unichar_isxdigit (a) && g_unichar_isxdigit (b)) {
 				gchar c;
 
-				a = tolower (a);
-				b = tolower (b);
+				gint a_bin = g_unichar_xdigit_value (a);
+				gint b_bin = g_unichar_xdigit_value (b);
 
-				c = (((a >= 'a' ? a - 'a' + 10 : a - '0') & 0x0f) << 4)
-				   | ((b >= 'a' ? b - 'a' + 10 : b - '0') & 0x0f);
+				c = (a_bin << 4) | b_bin;
 
 				g_string_append_c (str, c); /* add decoded byte (this is not a unicode yet) */
 			} else {
 				g_string_append_c (str, '=');
-				g_string_append_c (str, a);
-				g_string_append_c (str, b);
+				g_string_append_unichar (str, a);
+				g_string_append_unichar (str, b);
 			}
 		} else if (*lp == '\\') {
 			/* convert back to the non-escaped version of
@@ -505,6 +512,8 @@ read_attribute_params (EVCardAttribute *attr,
 						param = NULL;
 						if (!colon)
 							lp = g_utf8_next_char (lp);
+					} else if (!colon) {
+						lp = g_utf8_next_char (lp);
 					}
 				}
 
@@ -728,7 +737,7 @@ make_valid_utf8 (const gchar *name)
 
 	g_string_append (string, remainder);
 
-	g_assert (g_utf8_validate (string->str, -1, NULL));
+	g_return_val_if_fail (g_utf8_validate (string->str, -1, NULL), g_string_free (string, TRUE));
 
 	return g_string_free (string, FALSE);
 }
@@ -1337,7 +1346,7 @@ e_vcard_to_string_vcard_30 (EVCard *evc)
 					gchar *value = v->data;
 					gchar *pval = value;
 					gboolean quotes = FALSE;
-					while (*pval) {
+					while (pval && *pval) {
 						if (!g_unichar_isalnum (g_utf8_get_char (pval))) {
 							quotes = TRUE;
 							break;
@@ -1530,7 +1539,8 @@ e_vcard_dump_structure (EVCard *evc)
  * @attr_name: an attribute name
  *
  * Creates a new #EVCardAttribute with the specified group and
- * attribute names.
+ * attribute names. The @attr_group may be %NULL or the empty string if no
+ * group is needed.
  *
  * Returns: (transfer full): A new #EVCardAttribute.
  **/
@@ -1541,6 +1551,9 @@ e_vcard_attribute_new (const gchar *attr_group,
 	EVCardAttribute *attr;
 
 	attr = g_slice_new0 (EVCardAttribute);
+
+	if (attr_group != NULL && *attr_group == '\0')
+		attr_group = NULL;
 
 	attr->group = g_strdup (attr_group);
 	attr->name = g_strdup (attr_name);

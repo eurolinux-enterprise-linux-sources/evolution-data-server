@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelStreamMem</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelStreamMem: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Streams.html" title="Streams">
 <link rel="prev" href="CamelStreamFs.html" title="CamelStreamFs">
 <link rel="next" href="CamelStreamNull.html" title="CamelStreamNull">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -16,8 +16,7 @@
 <td width="100%" align="left" class="shortcuts">
 <a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
                   <a href="#CamelStreamMem.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
-                  <a href="#CamelStreamMem.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
-                  <a href="#CamelStreamMem.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span>
+                  <a href="#CamelStreamMem.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
 </td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
 <td><a accesskey="u" href="Streams.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
@@ -35,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelStreamMem.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -75,7 +74,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="returnvalue">GByteArray</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Byte-Arrays.html#GByteArray"><span class="returnvalue">GByteArray</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelStreamMem.html#camel-stream-mem-get-byte-array" title="camel_stream_mem_get_byte_array ()">camel_stream_mem_get_byte_array</a> <span class="c_punctuation">()</span>
@@ -101,30 +100,11 @@
 </table></div>
 </div>
 <div class="refsect1">
-<a name="CamelStreamMem.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody><tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelStreamMem.html#CamelStreamMem-struct" title="struct CamelStreamMem">CamelStreamMem</a></td>
-</tr></tbody>
-</table></div>
-</div>
-<div class="refsect1">
 <a name="CamelStreamMem.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelStream.html" title="CamelStream">CamelStream</a>
         <span class="lineart">╰──</span> CamelStreamMem
 </pre>
-</div>
-<div class="refsect1">
-<a name="CamelStreamMem.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
-<p>
-CamelStreamMem implements
- <a href="https://developer.gnome.org/gio/unstable/GSeekable.html">GSeekable</a>.</p>
 </div>
 <div class="refsect1">
 <a name="CamelStreamMem.description"></a><h2>Description</h2>
@@ -137,24 +117,23 @@ CamelStreamMem implements
 camel_stream_mem_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>Create a new <a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a> object.</p>
 <div class="refsect3">
-<a name="id-1.2.3.6.8.2.5"></a><h4>Returns</h4>
+<a name="camel-stream-mem-new.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-stream-mem-new-with-byte-array"></a><h3>camel_stream_mem_new_with_byte_array ()</h3>
 <pre class="programlisting"><a class="link" href="CamelStream.html" title="CamelStream"><span class="returnvalue">CamelStream</span></a> *
-camel_stream_mem_new_with_byte_array (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> *buffer</code></em>);</pre>
+camel_stream_mem_new_with_byte_array (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> *buffer</code></em>);</pre>
 <p>Create a new <a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a> using <em class="parameter"><code>buffer</code></em>
  as the stream data.</p>
 <p>Note: The newly created <a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a> will destroy <em class="parameter"><code>buffer</code></em>
 
 when destroyed.</p>
 <div class="refsect3">
-<a name="id-1.2.3.6.8.3.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-stream-mem-new-with-byte-array.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -162,32 +141,31 @@ when destroyed.</p>
 </colgroup>
 <tbody><tr>
 <td class="parameter_name"><p>buffer</p></td>
-<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> to use as the stream data</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/glibglib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> to use as the stream data</p></td>
 <td class="parameter_annotations"> </td>
 </tr></tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.3.6.8.3.7"></a><h4>Returns</h4>
+<a name="camel-stream-mem-new-with-byte-array.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-stream-mem-new-with-buffer"></a><h3>camel_stream_mem_new_with_buffer ()</h3>
 <pre class="programlisting"><a class="link" href="CamelStream.html" title="CamelStream"><span class="returnvalue">CamelStream</span></a> *
-camel_stream_mem_new_with_buffer (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *buffer</code></em>,
-                                  <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>);</pre>
+camel_stream_mem_new_with_buffer (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *buffer</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>);</pre>
 <p>Create a new memory stream using <em class="parameter"><code>buffer</code></em>
  as the stream data.</p>
 <p>Note: <em class="parameter"><code>buffer</code></em>
- will be copied into an internal <a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> structure
+ will be copied into an internal <a href="/usr/share/gtk-doc/html/glibglib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> structure
 for use as the stream backing. This may have resource implications
 you may wish to consider.</p>
 <div class="refsect3">
-<a name="id-1.2.3.6.8.4.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-stream-mem-new-with-buffer.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -196,8 +174,8 @@ you may wish to consider.</p>
 <tbody>
 <tr>
 <td class="parameter_name"><p>buffer</p></td>
-<td class="parameter_description"><p>a memory buffer to use as the stream data</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> a memory buffer to use as the stream data. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>len</p></td>
@@ -209,9 +187,8 @@ you may wish to consider.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.3.6.8.4.7"></a><h4>Returns</h4>
+<a name="camel-stream-mem-new-with-buffer.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -223,8 +200,8 @@ camel_stream_mem_set_secure (<em class="parameter"><code><a class="link" href="C
 data in the buffer will be cleared when the buffer is finalized.
 This only applies to buffers owned by the stream.</p>
 <div class="refsect3">
-<a name="id-1.2.3.6.8.5.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-stream-mem-set-secure.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -241,11 +218,11 @@ This only applies to buffers owned by the stream.</p>
 <hr>
 <div class="refsect2">
 <a name="camel-stream-mem-get-byte-array"></a><h3>camel_stream_mem_get_byte_array ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="returnvalue">GByteArray</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Byte-Arrays.html#GByteArray"><span class="returnvalue">GByteArray</span></a> *
 camel_stream_mem_get_byte_array (<em class="parameter"><code><a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a> *mem</code></em>);</pre>
 <div class="refsect3">
-<a name="id-1.2.3.6.8.6.4"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-stream-mem-get-byte-array.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -258,14 +235,19 @@ camel_stream_mem_get_byte_array (<em class="parameter"><code><a class="link" hre
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<div class="refsect3">
+<a name="camel-stream-mem-get-byte-array.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2.32.html" title="Index of new symbols in 2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-stream-mem-set-byte-array"></a><h3>camel_stream_mem_set_byte_array ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_stream_mem_set_byte_array (<em class="parameter"><code><a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a> *mem</code></em>,
-                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> *buffer</code></em>);</pre>
+                                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> *buffer</code></em>);</pre>
 <p>Set <em class="parameter"><code>buffer</code></em>
  to be the backing data to the existing <a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a>, <em class="parameter"><code>mem</code></em>
 .</p>
@@ -275,8 +257,8 @@ camel_stream_mem_set_byte_array (<em class="parameter"><code><a class="link" hre
 be freed separately from <em class="parameter"><code>mem</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.3.6.8.7.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-stream-mem-set-byte-array.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -290,7 +272,7 @@ be freed separately from <em class="parameter"><code>mem</code></em>
 </tr>
 <tr>
 <td class="parameter_name"><p>buffer</p></td>
-<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a></p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/glibglib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a></p></td>
 <td class="parameter_annotations"> </td>
 </tr>
 </tbody>
@@ -302,17 +284,17 @@ be freed separately from <em class="parameter"><code>mem</code></em>
 <a name="camel-stream-mem-set-buffer"></a><h3>camel_stream_mem_set_buffer ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_stream_mem_set_buffer (<em class="parameter"><code><a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a> *mem</code></em>,
-                             <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *buffer</code></em>,
-                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>);</pre>
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *buffer</code></em>,
+                             <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gsize"><span class="type">gsize</span></a> len</code></em>);</pre>
 <p>Set <em class="parameter"><code>buffer</code></em>
  to be the backing data to the existing <a class="link" href="CamelStreamMem.html" title="CamelStreamMem"><span class="type">CamelStreamMem</span></a>, <em class="parameter"><code>mem</code></em>
 .</p>
 <p>Note: <em class="parameter"><code>buffer</code></em>
- will be copied into an internal <a href="https://developer.gnome.org/glib/unstable/glib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> structure
+ will be copied into an internal <a href="/usr/share/gtk-doc/html/glibglib-Byte-Arrays.html#GByteArray"><span class="type">GByteArray</span></a> structure
 and so may have resource implications to consider.</p>
 <div class="refsect3">
-<a name="id-1.2.3.6.8.8.6"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-stream-mem-set-buffer.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -326,8 +308,8 @@ and so may have resource implications to consider.</p>
 </tr>
 <tr>
 <td class="parameter_name"><p>buffer</p></td>
-<td class="parameter_description"><p>a memory buffer</p></td>
-<td class="parameter_annotations"> </td>
+<td class="parameter_description"><p> a memory buffer. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=len]</span></td>
 </tr>
 <tr>
 <td class="parameter_name"><p>len</p></td>
@@ -342,14 +324,9 @@ and so may have resource implications to consider.</p>
 </div>
 <div class="refsect1">
 <a name="CamelStreamMem.other_details"></a><h2>Types and Values</h2>
-<div class="refsect2">
-<a name="CamelStreamMem-struct"></a><h3>struct CamelStreamMem</h3>
-<pre class="programlisting">struct CamelStreamMem;</pre>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

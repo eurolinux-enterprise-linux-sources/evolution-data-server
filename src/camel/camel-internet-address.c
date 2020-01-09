@@ -1,19 +1,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #include <stdio.h>
@@ -36,7 +36,7 @@ static gint
 internet_address_decode (CamelAddress *a,
                          const gchar *raw)
 {
-	struct _camel_header_address *ha, *n;
+	CamelHeaderAddress *ha, *n;
 	gint count = a->addresses->len;
 
 	/* Should probably use its own decoder or something */
@@ -47,7 +47,7 @@ internet_address_decode (CamelAddress *a,
 			if (n->type == CAMEL_HEADER_ADDRESS_NAME) {
 				camel_internet_address_add ((CamelInternetAddress *) a, n->name, n->v.addr);
 			} else if (n->type == CAMEL_HEADER_ADDRESS_GROUP) {
-				struct _camel_header_address *g = n->v.members;
+				CamelHeaderAddress *g = n->v.members;
 				while (g) {
 					if (g->type == CAMEL_HEADER_ADDRESS_NAME)
 						camel_internet_address_add ((CamelInternetAddress *) a, g->name, g->v.addr);
@@ -213,7 +213,7 @@ internet_address_cat (CamelAddress *dest,
 {
 	gint i;
 
-	g_assert (CAMEL_IS_INTERNET_ADDRESS (source));
+	g_return_val_if_fail (CAMEL_IS_INTERNET_ADDRESS (source), -1);
 
 	for (i = 0; i < source->addresses->len; i++) {
 		struct _address *addr = g_ptr_array_index (source->addresses, i);
@@ -273,7 +273,7 @@ camel_internet_address_add (CamelInternetAddress *addr,
 	struct _address *new;
 	gint index;
 
-	g_assert (CAMEL_IS_INTERNET_ADDRESS (addr));
+	g_return_val_if_fail (CAMEL_IS_INTERNET_ADDRESS (addr), -1);
 
 	new = g_malloc (sizeof (*new));
 	new->name = g_strdup (name);
@@ -303,7 +303,7 @@ camel_internet_address_get (CamelInternetAddress *addr,
 {
 	struct _address *a;
 
-	g_assert (CAMEL_IS_INTERNET_ADDRESS (addr));
+	g_return_val_if_fail (CAMEL_IS_INTERNET_ADDRESS (addr), FALSE);
 
 	if (index < 0 || index >= ((CamelAddress *) addr)->addresses->len)
 		return FALSE;
@@ -335,7 +335,7 @@ camel_internet_address_find_name (CamelInternetAddress *addr,
 	struct _address *a;
 	gint i, len;
 
-	g_assert (CAMEL_IS_INTERNET_ADDRESS (addr));
+	g_return_val_if_fail (CAMEL_IS_INTERNET_ADDRESS (addr), -1);
 
 	len = ((CamelAddress *) addr)->addresses->len;
 	for (i = 0; i < len; i++) {
@@ -381,7 +381,7 @@ domain_contains_only_ascii (const gchar *address,
  * which means that any non-ASCII letters will be properly encoded.
  * This includes IDN (Internationalized Domain Names).
  *
- * Since: 3.12.6
+ * Since: 3.16
  **/
 void
 camel_internet_address_ensure_ascii_domains (CamelInternetAddress *addr)
@@ -432,7 +432,7 @@ camel_internet_address_find_address (CamelInternetAddress *addr,
 	struct _address *a;
 	gint i, len;
 
-	g_assert (CAMEL_IS_INTERNET_ADDRESS (addr));
+	g_return_val_if_fail (CAMEL_IS_INTERNET_ADDRESS (addr), -1);
 
 	len = ((CamelAddress *) addr)->addresses->len;
 	for (i = 0; i < len; i++) {
@@ -503,12 +503,15 @@ camel_internet_address_encode_address (gint *inlen,
                                        const gchar *real,
                                        const gchar *addr)
 {
-	gchar *name = camel_header_encode_phrase ((const guchar *) real);
+	gchar *name;
 	gchar *ret = NULL;
 	gint len = 0;
-	GString *out = g_string_new ("");
+	GString *out;
 
-	g_assert (addr);
+	g_return_val_if_fail (addr, NULL);
+
+	name = camel_header_encode_phrase ((const guchar *) real);
+	out = g_string_new ("");
 
 	if (inlen != NULL)
 		len = *inlen;
@@ -576,7 +579,7 @@ camel_internet_address_format_address (const gchar *name,
 {
 	gchar *ret = NULL;
 
-	g_assert (addr);
+	g_return_val_if_fail (addr, NULL);
 
 	if (name && name[0]) {
 		const gchar *p = name;

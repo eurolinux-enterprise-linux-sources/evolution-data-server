@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Evolution-Data-Server Reference Manual: Part VII. Deprecated Classes</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>Part VII. Deprecated Classes: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
 <link rel="up" href="index.html" title="Evolution-Data-Server Reference Manual">
-<link rel="prev" href="eds-ETestServerFixture.html" title="ETestServerFixture">
-<link rel="next" href="ch14.html" title="Common Deprecated Classes">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="prev" href="eds-e-test-server-utils.html" title="e-test-server-utils">
+<link rel="next" href="ch15.html" title="Common Deprecated Classes">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -16,8 +16,8 @@
 <td width="100%" align="left" class="shortcuts"></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
 <td><img src="up-insensitive.png" width="16" height="16" border="0"></td>
-<td><a accesskey="p" href="eds-ETestServerFixture.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
-<td><a accesskey="n" href="ch14.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+<td><a accesskey="p" href="eds-e-test-server-utils.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch15.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
 </tr></table>
 <div class="part">
 <div class="titlepage"><div><div><h1 class="title">
@@ -25,71 +25,70 @@
 <div class="toc">
 <p><b>Table of Contents</b></p>
 <dl class="toc">
-<dt><span class="chapter"><a href="ch14.html">Common Deprecated Classes</a></span></dt>
+<dt><span class="chapter"><a href="ch15.html">Common Deprecated Classes</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-ECredentials.html">ECredentials</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-credentials.html">e-credentials</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EIterator.html">EIterator</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="EIterator.html">EIterator</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EList.html">EList</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="EList.html">EList</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EListIterator.html">EListIterator</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="EListIterator.html">EListIterator</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EProxy.html">EProxy</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="EProxy.html">EProxy</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EUri.html">EUri</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-url.html">e-url</a></span><span class="refpurpose"></span>
 </dt>
 </dl></dd>
-<dt><span class="chapter"><a href="ch15.html">Client Deprecated Classes</a></span></dt>
+<dt><span class="chapter"><a href="ch16.html">Client Deprecated Classes</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-EBook.html">EBook</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="EBook.html">EBook</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EBookView.html">EBookView</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="EBookView.html">EBookView</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECal.html">ECal</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="ECal.html">ECal</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-ECalView.html">ECalView</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="ECalView.html">ECalView</a></span><span class="refpurpose"></span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Deprecated-addressbook-types.html">Deprecated addressbook types</a></span><span class="refpurpose"></span>
+<span class="refentrytitle"><a href="eds-e-book-types.html">e-book-types</a></span><span class="refpurpose"></span>
 </dt>
 </dl></dd>
-<dt><span class="chapter"><a href="ch16.html">Backend Deprecated Classes</a></span></dt>
+<dt><span class="chapter"><a href="ch17.html">Backend Deprecated Classes</a></span></dt>
 <dd><dl>
 <dt>
-<span class="refentrytitle"><a href="eds-EDbHash.html">EDbHash</a></span><span class="refpurpose"> — Simple DB-based hash table for strings</span>
+<span class="refentrytitle"><a href="eds-e-dbhash.html">e-dbhash</a></span><span class="refpurpose"> — Simple DB-based hash table for strings</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EOfflineListener.html">EOfflineListener</a></span><span class="refpurpose"> — Tracks Evolution's online/offline state</span>
+<span class="refentrytitle"><a href="EOfflineListener.html">EOfflineListener</a></span><span class="refpurpose"> — Tracks Evolution's online/offline state</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EBookBackendSqliteDB.html">EBookBackendSqliteDB</a></span><span class="refpurpose"> — An SQLite storage facility for addressbooks</span>
+<span class="refentrytitle"><a href="EBookBackendSqliteDB.html">EBookBackendSqliteDB</a></span><span class="refpurpose"> — An SQLite storage facility for addressbooks</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EBookBackendSummary.html">EBookBackendSummary</a></span><span class="refpurpose"> — A utility for storing contact data and searching for contacts</span>
+<span class="refentrytitle"><a href="EBookBackendSummary.html">EBookBackendSummary</a></span><span class="refpurpose"> — A utility for storing contact data and searching for contacts</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-EBookBackendCache.html">EBookBackendCache</a></span><span class="refpurpose"> — A utility for storing contact data and searching for contacts</span>
+<span class="refentrytitle"><a href="EBookBackendCache.html">EBookBackendCache</a></span><span class="refpurpose"> — A utility for storing contact data and searching for contacts</span>
 </dt>
 <dt>
-<span class="refentrytitle"><a href="eds-Berkeley-DB-caching-API.html">Berkeley DB caching API</a></span><span class="refpurpose"> — A Berkeley DB cache facility for addressbooks</span>
+<span class="refentrytitle"><a href="eds-e-book-backend-db-cache.html">e-book-backend-db-cache</a></span><span class="refpurpose"> — A Berkeley DB cache facility for addressbooks</span>
 </dt>
 </dl></dd>
 </dl>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

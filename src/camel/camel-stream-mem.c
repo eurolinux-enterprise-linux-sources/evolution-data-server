@@ -1,23 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-stream-mem.c: memory buffer based stream */
-
-/*
- * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
- *	    Michael Zucchi <notzed@ximian.com>
+/* camel-stream-mem.c: memory buffer based stream
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
+ *	    Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -270,7 +269,7 @@ camel_stream_mem_new (void)
 
 /**
  * camel_stream_mem_new_with_buffer:
- * @buffer: a memory buffer to use as the stream data
+ * @buffer: (array length=len): a memory buffer to use as the stream data
  * @len: length of @buffer
  *
  * Create a new memory stream using @buffer as the stream data.
@@ -345,6 +344,8 @@ camel_stream_mem_set_secure (CamelStreamMem *mem)
  * camel_stream_mem_get_byte_array:
  * @mem: a #CamelStreamMem
  *
+ * Returns: (transfer none):
+ *
  * Since: 2.32
  **/
 GByteArray *
@@ -386,7 +387,7 @@ camel_stream_mem_set_byte_array (CamelStreamMem *mem,
 /**
  * camel_stream_mem_set_buffer:
  * @mem: a #CamelStreamMem object
- * @buffer: a memory buffer
+ * @buffer: (array length=len): a memory buffer
  * @len: length of @buffer
  *
  * Set @buffer to be the backing data to the existing #CamelStreamMem, @mem.

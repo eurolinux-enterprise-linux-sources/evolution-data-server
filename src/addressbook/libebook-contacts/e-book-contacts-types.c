@@ -1,3 +1,17 @@
+/*
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -12,7 +26,9 @@ G_DEFINE_QUARK (e-book-client-error-quark, e_book_client_error)
  * e_book_client_error_to_string:
  * @code: an #EBookClientError code
  *
- * FIXME: Document me.
+ * Get localized human readable description of the given error code.
+ *
+ * Returns: Localized human readable description of the given error code
  *
  * Since: 3.2
  **/

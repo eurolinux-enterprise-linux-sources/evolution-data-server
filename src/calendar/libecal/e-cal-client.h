@@ -1,20 +1,19 @@
 /*
  * e-cal-client.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * Copyright (C) 2011 Red Hat, Inc. (www.redhat.com)
+ *
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Copyright (C) 2011 Red Hat, Inc. (www.redhat.com)
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -91,8 +90,12 @@ G_BEGIN_DECLS
 
 /**
  * ECalClientError:
- *
- * FIXME: Document me.
+ * @E_CAL_CLIENT_ERROR_NO_SUCH_CALENDAR: No such calendar
+ * @E_CAL_CLIENT_ERROR_OBJECT_NOT_FOUND: Object not found
+ * @E_CAL_CLIENT_ERROR_INVALID_OBJECT: Invalid object
+ * @E_CAL_CLIENT_ERROR_UNKNOWN_USER: Unknown user
+ * @E_CAL_CLIENT_ERROR_OBJECT_ID_ALREADY_EXISTS: Object ID already exists
+ * @E_CAL_CLIENT_ERROR_INVALID_RANGE: Invalid range
  *
  * Since: 3.2
  **/
@@ -118,15 +121,23 @@ typedef struct _ECalClientPrivate ECalClientPrivate;
  * Since: 3.2
  **/
 struct _ECalClient {
+	/*< private >*/
 	EClient parent;
 
-	/*< private >*/
 	ECalClientPrivate *priv;
 };
 
+/**
+ * ECalClientClass:
+ * @free_busy_data: signal used to notify about free/busy data
+ *
+ * Base class structure for the #ECalClient class
+ **/
 struct _ECalClientClass {
+	/*< private >*/
 	EClientClass parent;
 
+	/*< public >*/
 	/* Signals */
 	void		(*free_busy_data)	(ECalClient *client,
 						 const GSList *free_busy_ecalcomps);
@@ -138,10 +149,12 @@ const gchar *	e_cal_client_error_to_string	(ECalClientError code);
 GType		e_cal_client_get_type		(void) G_GNUC_CONST;
 EClient *	e_cal_client_connect_sync	(ESource *source,
 						 ECalClientSourceType source_type,
+						 guint32 wait_for_connected_seconds,
 						 GCancellable *cancellable,
 						 GError **error);
 void		e_cal_client_connect		(ESource *source,
 						 ECalClientSourceType source_type,
+						 guint32 wait_for_connected_seconds,
 						 GCancellable *cancellable,
 						 GAsyncReadyCallback callback,
 						 gpointer user_data);
@@ -173,6 +186,10 @@ void		e_cal_client_free_ecalcomp_slist
 
 icaltimezone *	e_cal_client_resolve_tzid_cb	(const gchar *tzid,
 						 gpointer data);
+icaltimezone *	e_cal_client_resolve_tzid_sync	(const gchar *tzid,
+						 gpointer cal_client,
+						 GCancellable *cancellable,
+						 GError **error);
 void		e_cal_client_generate_instances	(ECalClient *client,
 						 time_t start,
 						 time_t end,
@@ -295,11 +312,13 @@ void		e_cal_client_get_free_busy	(ECalClient *client,
 gboolean	e_cal_client_get_free_busy_finish
 						(ECalClient *client,
 						 GAsyncResult *result,
+						 GSList **out_freebusy,
 						 GError **error);
 gboolean	e_cal_client_get_free_busy_sync	(ECalClient *client,
 						 time_t start,
 						 time_t end,
 						 const GSList *users,
+						 GSList **out_freebusy,
 						 GCancellable *cancellable,
 						 GError **error);
 void		e_cal_client_create_object	(ECalClient *client,

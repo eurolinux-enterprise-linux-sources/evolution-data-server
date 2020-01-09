@@ -2,19 +2,19 @@
  *
  * Copyright (C) 2008 Matthias Braun <matze@braunis.de>
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Author: Matthias Braun <matze@braunis.de>
+ * Authors: Matthias Braun <matze@braunis.de>
  */
 
 /*
@@ -51,17 +51,7 @@
 #define WEBDAV_CONTACT_ETAG "X-EVOLUTION-WEBDAV-ETAG"
 #define WEBDAV_CONTACT_HREF "X-EVOLUTION-WEBDAV-HREF"
 
-/* Forward Declarations */
-static void	e_book_backend_webdav_source_authenticator_init
-				(ESourceAuthenticatorInterface *iface);
-
-G_DEFINE_TYPE_WITH_CODE (
-	EBookBackendWebdav,
-	e_book_backend_webdav,
-	E_TYPE_BOOK_BACKEND,
-	G_IMPLEMENT_INTERFACE (
-		E_TYPE_SOURCE_AUTHENTICATOR,
-		e_book_backend_webdav_source_authenticator_init))
+G_DEFINE_TYPE (EBookBackendWebdav, e_book_backend_webdav, E_TYPE_BOOK_BACKEND)
 
 struct _EBookBackendWebdavPrivate {
 	gboolean           marked_for_offline;
@@ -230,37 +220,12 @@ send_and_handle_ssl (EBookBackendWebdav *webdav,
 {
 	guint status_code;
 
+	e_soup_ssl_trust_connect (message, e_backend_get_source (E_BACKEND (webdav)));
+
 	status_code = soup_session_send_message (webdav->priv->session, message);
-	if (status_code == SOUP_STATUS_SSL_FAILED) {
-		ESource *source;
-		ESourceWebdav *extension;
-		ESourceRegistry *registry;
-		EBackend *backend;
-		ETrustPromptResponse response;
-		ENamedParameters *parameters;
 
-		backend = E_BACKEND (webdav);
-		source = e_backend_get_source (backend);
-		registry = e_book_backend_get_registry (E_BOOK_BACKEND (backend));
-		extension = e_source_get_extension (source, E_SOURCE_EXTENSION_WEBDAV_BACKEND);
-
-		parameters = e_named_parameters_new ();
-
-		response = e_source_webdav_prepare_ssl_trust_prompt (extension, message, registry, parameters);
-		if (response == E_TRUST_PROMPT_RESPONSE_UNKNOWN) {
-			response = e_backend_trust_prompt_sync (backend, parameters, cancellable, NULL);
-			if (response != E_TRUST_PROMPT_RESPONSE_UNKNOWN)
-				e_source_webdav_store_ssl_trust_prompt (extension, message, response);
-		}
-
-		e_named_parameters_free (parameters);
-
-		if (response == E_TRUST_PROMPT_RESPONSE_ACCEPT ||
-		    response == E_TRUST_PROMPT_RESPONSE_ACCEPT_TEMPORARILY) {
-			g_object_set (webdav->priv->session, SOUP_SESSION_SSL_STRICT, FALSE, NULL);
-			status_code = soup_session_send_message (webdav->priv->session, message);
-		}
-	}
+	if (SOUP_STATUS_IS_SUCCESSFUL (status_code))
+		e_backend_ensure_source_status_connected (E_BACKEND (webdav));
 
 	return status_code;
 }
@@ -609,7 +574,8 @@ parse_propfind_response (xmlTextReaderPtr reader)
 
 static SoupMessage *
 send_propfind (EBookBackendWebdav *webdav,
-               GCancellable *cancellable)
+	       GCancellable *cancellable,
+	       GError **error)
 {
 	SoupMessage               *message;
 	EBookBackendWebdavPrivate *priv = webdav->priv;
@@ -618,6 +584,11 @@ send_propfind (EBookBackendWebdav *webdav,
 		"<propfind xmlns=\"DAV:\"><prop><getetag/></prop></propfind>";
 
 	message = soup_message_new (SOUP_METHOD_PROPFIND, priv->uri);
+	if (!message) {
+		g_set_error (error, G_IO_ERROR, G_IO_ERROR_INVALID_ARGUMENT, _("Malformed URI: %s"), priv->uri);
+		return NULL;
+	}
+
 	soup_message_headers_append (message->request_headers, "User-Agent", USERAGENT);
 	soup_message_headers_append (message->request_headers, "Connection", "close");
 	soup_message_headers_append (message->request_headers, "Depth", "1");
@@ -832,6 +803,7 @@ static gboolean
 download_contacts (EBookBackendWebdav *webdav,
                    EFlag *running,
                    EDataBookView *book_view,
+		   gboolean force,
                    GCancellable *cancellable,
                    GError **error)
 {
@@ -851,7 +823,7 @@ download_contacts (EBookBackendWebdav *webdav,
 
 	g_mutex_lock (&priv->update_lock);
 
-	if (!check_addressbook_changed (webdav, &new_ctag, cancellable)) {
+	if (!force && !check_addressbook_changed (webdav, &new_ctag, cancellable)) {
 		g_free (new_ctag);
 		g_mutex_unlock (&priv->update_lock);
 		return TRUE;
@@ -864,7 +836,15 @@ download_contacts (EBookBackendWebdav *webdav,
 				_("Loading Addressbook summary..."));
 	}
 
-	message = send_propfind (webdav, cancellable);
+	message = send_propfind (webdav, cancellable, error);
+	if (!message) {
+		g_free (new_ctag);
+		if (book_view)
+			e_data_book_view_notify_progress (book_view, -1, NULL);
+		g_mutex_unlock (&priv->update_lock);
+		return FALSE;
+	}
+
 	status = message->status_code;
 
 	if (status == SOUP_STATUS_UNAUTHORIZED ||
@@ -1072,7 +1052,7 @@ book_view_thread (gpointer data)
 	 * it's stopped */
 	g_object_ref (book_view);
 
-	download_contacts (webdav, closure->running, book_view, NULL, NULL);
+	download_contacts (webdav, closure->running, book_view, FALSE, NULL, NULL);
 
 	g_object_unref (book_view);
 
@@ -1158,7 +1138,7 @@ soup_authenticate (SoupSession *session,
 	if (retrying)
 		return;
 
-	if (!priv->username || !*priv->username)
+	if (!priv->username || !*priv->username || !priv->password)
 		soup_message_set_status (message, SOUP_STATUS_FORBIDDEN);
 	else
 		soup_auth_authenticate (auth, priv->username, priv->password);
@@ -1218,7 +1198,7 @@ book_backend_webdav_get_backend_property (EBookBackend *backend,
 	g_return_val_if_fail (prop_name != NULL, NULL);
 
 	if (g_str_equal (prop_name, CLIENT_BACKEND_PROPERTY_CAPABILITIES)) {
-		return g_strdup ("net,do-initial-query,contact-lists");
+		return g_strdup ("net,do-initial-query,contact-lists,refresh-supported");
 
 	} else if (g_str_equal (prop_name, BOOK_BACKEND_PROPERTY_REQUIRED_FIELDS)) {
 		return g_strdup (e_contact_field_name (E_CONTACT_FILE_AS));
@@ -1246,6 +1226,8 @@ book_backend_webdav_get_backend_property (EBookBackend *backend,
 
 static gboolean
 book_backend_webdav_test_can_connect (EBookBackendWebdav *webdav,
+				      gchar **out_certificate_pem,
+				      GTlsCertificateFlags *out_certificate_errors,
 				      GCancellable *cancellable,
 				      GError **error)
 {
@@ -1255,7 +1237,9 @@ book_backend_webdav_test_can_connect (EBookBackendWebdav *webdav,
 	g_return_val_if_fail (E_IS_BOOK_BACKEND_WEBDAV (webdav), FALSE);
 
 	/* Send a PROPFIND to test whether user/password is correct. */
-	message = send_propfind (webdav, cancellable);
+	message = send_propfind (webdav, cancellable, error);
+	if (!message)
+		return FALSE;
 
 	switch (message->status_code) {
 		case SOUP_STATUS_OK:
@@ -1282,11 +1266,32 @@ book_backend_webdav_test_can_connect (EBookBackendWebdav *webdav,
 				e_client_error_to_string (E_CLIENT_ERROR_AUTHENTICATION_REQUIRED));
 			break;
 
-		default:
-			g_set_error (
+		case SOUP_STATUS_SSL_FAILED:
+			if (out_certificate_pem && out_certificate_errors) {
+				GTlsCertificate *certificate = NULL;
+
+				g_object_get (G_OBJECT (message),
+					"tls-certificate", &certificate,
+					"tls-errors", out_certificate_errors,
+					NULL);
+
+				if (certificate) {
+					g_object_get (certificate, "certificate-pem", out_certificate_pem, NULL);
+					g_object_unref (certificate);
+				}
+			}
+
+			g_set_error_literal (
 				error, SOUP_HTTP_ERROR,
 				message->status_code,
-				"%s", message->reason_phrase);
+				message->reason_phrase);
+			break;
+
+		default:
+			g_set_error_literal (
+				error, SOUP_HTTP_ERROR,
+				message->status_code,
+				message->reason_phrase);
 			break;
 	}
 
@@ -1376,9 +1381,10 @@ book_backend_webdav_open_sync (EBookBackend *backend,
 		SOUP_SESSION_TIMEOUT, 90,
 		SOUP_SESSION_SSL_STRICT, TRUE,
 		SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE, TRUE,
+		SOUP_SESSION_ACCEPT_LANGUAGE_AUTO, TRUE,
 		NULL);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		backend, "proxy-resolver",
 		session, "proxy-resolver",
 		G_BINDING_SYNC_CREATE);
@@ -1395,17 +1401,82 @@ book_backend_webdav_open_sync (EBookBackend *backend,
 	e_backend_set_online (E_BACKEND (backend), TRUE);
 	e_book_backend_set_writable (backend, TRUE);
 
-	if (e_source_authentication_required (auth_extension))
-		success = e_backend_authenticate_sync (
-			E_BACKEND (backend),
-			E_SOURCE_AUTHENTICATOR (backend),
+	e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_CONNECTING);
+
+	if (e_source_authentication_required (auth_extension)) {
+		e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_DISCONNECTED);
+
+		success = e_backend_credentials_required_sync (E_BACKEND (backend),
+			E_SOURCE_CREDENTIALS_REASON_REQUIRED, NULL, 0, NULL,
 			cancellable, error);
-	else
-		success = book_backend_webdav_test_can_connect (webdav, cancellable, error);
+	} else {
+		gchar *certificate_pem = NULL;
+		GTlsCertificateFlags certificate_errors = 0;
+		GError *local_error = NULL;
+
+		success = book_backend_webdav_test_can_connect (webdav, &certificate_pem, &certificate_errors, cancellable, &local_error);
+		if (!success && !g_cancellable_is_cancelled (cancellable)) {
+			ESourceCredentialsReason reason;
+			GError *local_error2 = NULL;
+
+			if (g_error_matches (local_error, SOUP_HTTP_ERROR, SOUP_STATUS_SSL_FAILED)) {
+				reason = E_SOURCE_CREDENTIALS_REASON_SSL_FAILED;
+				e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_SSL_FAILED);
+			} else if (g_error_matches (local_error, E_CLIENT_ERROR, E_CLIENT_ERROR_AUTHENTICATION_FAILED) ||
+			           g_error_matches (local_error, E_CLIENT_ERROR, E_CLIENT_ERROR_AUTHENTICATION_REQUIRED)) {
+				reason = E_SOURCE_CREDENTIALS_REASON_REQUIRED;
+			} else {
+				reason = E_SOURCE_CREDENTIALS_REASON_ERROR;
+			}
+
+			if (!e_backend_credentials_required_sync (E_BACKEND (backend), reason, certificate_pem, certificate_errors,
+				local_error, cancellable, &local_error2)) {
+				g_warning ("%s: Failed to call credentials required: %s", G_STRFUNC, local_error2 ? local_error2->message : "Unknown error");
+			}
+
+			if (!local_error2 && g_error_matches (local_error, SOUP_HTTP_ERROR, SOUP_STATUS_SSL_FAILED)) {
+				/* These cerificate errors are treated through the authentication */
+				g_clear_error (&local_error);
+			} else {
+				g_propagate_error (error, local_error);
+				local_error = NULL;
+			}
+
+			g_clear_error (&local_error2);
+		} else {
+			e_source_set_connection_status (source, E_SOURCE_CONNECTION_STATUS_CONNECTED);
+		}
+
+		g_free (certificate_pem);
+
+		if (local_error)
+			g_propagate_error (error, local_error);
+	}
 
 	soup_uri_free (suri);
 
 	return success;
+}
+
+static gboolean
+webdav_can_use_uid (const gchar *uid)
+{
+	const gchar *ptr;
+
+	if (!uid || !*uid)
+		return FALSE;
+
+	for (ptr = uid; *ptr; ptr++) {
+		if ((*ptr >= 'a' && *ptr <= 'z') ||
+		    (*ptr >= 'A' && *ptr <= 'Z') ||
+		    (*ptr >= '0' && *ptr <= '9') ||
+		    strchr (".-@", *ptr) != NULL)
+			continue;
+
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
 static gboolean
@@ -1446,14 +1517,24 @@ book_backend_webdav_create_contacts_sync (EBookBackend *backend,
 	contact = e_contact_new_from_vcard (vcards[0]);
 
 	orig_uid = e_contact_get_const (contact, E_CONTACT_UID);
-	if (orig_uid && *orig_uid && !e_book_backend_cache_check_contact (webdav->priv->cache, orig_uid)) {
+	if (orig_uid && *orig_uid && webdav_can_use_uid (orig_uid) && !e_book_backend_cache_check_contact (webdav->priv->cache, orig_uid)) {
 		uid = g_strdup (orig_uid);
 	} else {
-		/* do 3 rand() calls to construct a unique ID... poor way but should be
-		 * good enough for us */
-		uid = g_strdup_printf ("%08X-%08X-%08X", rand (), rand (), rand ());
+		uid = NULL;
+
+		do {
+			g_free (uid);
+
+			/* do 3 random() calls to construct a unique ID... poor way but should be
+			 * good enough for us */
+			uid = g_strdup_printf ("%08X-%08X-%08X", g_random_int (), g_random_int (), g_random_int ());
+
+		} while (e_book_backend_cache_check_contact (webdav->priv->cache, uid) &&
+			 !g_cancellable_is_cancelled (cancellable));
+
 		e_contact_set (contact, E_CONTACT_UID, uid);
 	}
+
 	href = g_strconcat (webdav->priv->uri, uid, ".vcf", NULL);
 
 	/* kill WEBDAV_CONTACT_ETAG field (might have been set by some other backend) */
@@ -1560,7 +1641,7 @@ book_backend_webdav_modify_contacts_sync (EBookBackend *backend,
 	href = webdav_contact_get_href (contact);
 	status = upload_contact (webdav, href, contact, &status_reason, cancellable);
 	g_free (href);
-	if (status != 201 && status != 204) {
+	if (status != 200 && status != 201 && status != 204) {
 		g_object_unref (contact);
 		if (status == 401 || status == 407) {
 			webdav_handle_auth_request (webdav, error);
@@ -1762,9 +1843,10 @@ book_backend_webdav_get_contact_list_sync (EBookBackend *backend,
 	EBookBackendWebdav *webdav = E_BOOK_BACKEND_WEBDAV (backend);
 	GList *contact_list;
 
-	if (e_backend_get_online (E_BACKEND (backend))) {
+	if (e_backend_get_online (E_BACKEND (backend)) &&
+	    e_source_get_connection_status (e_backend_get_source (E_BACKEND (backend))) == E_SOURCE_CONNECTION_STATUS_CONNECTED) {
 		/* make sure the cache is up to date */
-		if (!download_contacts (webdav, NULL, NULL, cancellable, error))
+		if (!download_contacts (webdav, NULL, NULL, FALSE, cancellable, error))
 			return FALSE;
 	}
 
@@ -1789,31 +1871,49 @@ book_backend_webdav_get_contact_list_sync (EBookBackend *backend,
 }
 
 static ESourceAuthenticationResult
-book_backend_webdav_try_password_sync (ESourceAuthenticator *authenticator,
-                                       const GString *password,
-                                       GCancellable *cancellable,
-                                       GError **error)
+book_backend_webdav_authenticate_sync (EBackend *backend,
+				       const ENamedParameters *credentials,
+				       gchar **out_certificate_pem,
+				       GTlsCertificateFlags *out_certificate_errors,
+				       GCancellable *cancellable,
+				       GError **error)
 {
-	EBookBackendWebdav *webdav = E_BOOK_BACKEND_WEBDAV (authenticator);
+	EBookBackendWebdav *webdav = E_BOOK_BACKEND_WEBDAV (backend);
 	ESourceAuthentication *auth_extension;
 	ESourceAuthenticationResult result;
 	ESource *source;
-	const gchar *extension_name;
+	const gchar *username;
 	GError *local_error = NULL;
 
-	source = e_backend_get_source (E_BACKEND (authenticator));
-	extension_name = E_SOURCE_EXTENSION_AUTHENTICATION;
-	auth_extension = e_source_get_extension (source, extension_name);
+	source = e_backend_get_source (backend);
+	auth_extension = e_source_get_extension (source, E_SOURCE_EXTENSION_AUTHENTICATION);
 
-	webdav->priv->username =
-		e_source_authentication_dup_user (auth_extension);
-	webdav->priv->password = g_strdup (password->str);
+	g_free (webdav->priv->username);
+	webdav->priv->username = NULL;
 
-	if (book_backend_webdav_test_can_connect (webdav, cancellable, &local_error)) {
+	g_free (webdav->priv->password);
+	webdav->priv->password = g_strdup (e_named_parameters_get (credentials, E_SOURCE_CREDENTIAL_PASSWORD));
+
+	username = e_named_parameters_get (credentials, E_SOURCE_CREDENTIAL_USERNAME);
+	if (username && *username) {
+		webdav->priv->username = g_strdup (username);
+	} else {
+		webdav->priv->username = e_source_authentication_dup_user (auth_extension);
+	}
+
+	if (book_backend_webdav_test_can_connect (webdav, out_certificate_pem, out_certificate_errors, cancellable, &local_error)) {
 		result = E_SOURCE_AUTHENTICATION_ACCEPTED;
-	} else if (g_error_matches (local_error, E_CLIENT_ERROR, E_CLIENT_ERROR_AUTHENTICATION_FAILED)) {
-		result = E_SOURCE_AUTHENTICATION_REJECTED;
+	} else if (g_error_matches (local_error, E_CLIENT_ERROR, E_CLIENT_ERROR_AUTHENTICATION_FAILED) ||
+		   g_error_matches (local_error, E_CLIENT_ERROR, E_CLIENT_ERROR_AUTHENTICATION_REQUIRED)) {
+		if (!e_named_parameters_get (credentials, E_SOURCE_CREDENTIAL_PASSWORD) ||
+		    g_error_matches (local_error, E_CLIENT_ERROR, E_CLIENT_ERROR_AUTHENTICATION_REQUIRED))
+			result = E_SOURCE_AUTHENTICATION_REQUIRED;
+		else
+			result = E_SOURCE_AUTHENTICATION_REJECTED;
 		g_clear_error (&local_error);
+	} else if (g_error_matches (local_error, SOUP_HTTP_ERROR, SOUP_STATUS_SSL_FAILED)) {
+		result = E_SOURCE_AUTHENTICATION_ERROR_SSL_FAILED;
+		g_propagate_error (error, local_error);
 	} else {
 		result = E_SOURCE_AUTHENTICATION_ERROR;
 		g_propagate_error (error, local_error);
@@ -1822,11 +1922,35 @@ book_backend_webdav_try_password_sync (ESourceAuthenticator *authenticator,
 	return result;
 }
 
+static gboolean
+e_book_backend_webdav_refresh_sync (EBookBackend *book_backend,
+				    GCancellable *cancellable,
+				    GError **error)
+{
+	EBackend *backend;
+
+	g_return_val_if_fail (E_IS_BOOK_BACKEND_WEBDAV (book_backend), FALSE);
+
+	backend = E_BACKEND (book_backend);
+
+	if (!e_backend_get_online (backend) &&
+	    e_backend_is_destination_reachable (backend, cancellable, NULL)) {
+		e_backend_set_online (backend, TRUE);
+	}
+
+	if (e_backend_get_online (backend) && !g_cancellable_is_cancelled (cancellable)) {
+		return download_contacts (E_BOOK_BACKEND_WEBDAV (book_backend), NULL, NULL, TRUE, cancellable, error);
+	}
+
+	return TRUE;
+}
+
 static void
 e_book_backend_webdav_class_init (EBookBackendWebdavClass *class)
 {
 	GObjectClass *object_class;
-	EBookBackendClass *backend_class;
+	EBackendClass *backend_class;
+	EBookBackendClass *book_backend_class;
 
 	g_type_class_add_private (class, sizeof (EBookBackendWebdavPrivate));
 
@@ -1834,22 +1958,20 @@ e_book_backend_webdav_class_init (EBookBackendWebdavClass *class)
 	object_class->dispose = book_backend_webdav_dispose;
 	object_class->finalize = book_backend_webdav_finalize;
 
-	backend_class = E_BOOK_BACKEND_CLASS (class);
-	backend_class->get_backend_property = book_backend_webdav_get_backend_property;
-	backend_class->open_sync = book_backend_webdav_open_sync;
-	backend_class->create_contacts_sync = book_backend_webdav_create_contacts_sync;
-	backend_class->modify_contacts_sync = book_backend_webdav_modify_contacts_sync;
-	backend_class->remove_contacts_sync = book_backend_webdav_remove_contacts_sync;
-	backend_class->get_contact_sync = book_backend_webdav_get_contact_sync;
-	backend_class->get_contact_list_sync = book_backend_webdav_get_contact_list_sync;
-	backend_class->start_view = e_book_backend_webdav_start_view;
-	backend_class->stop_view = e_book_backend_webdav_stop_view;
-}
+	backend_class = E_BACKEND_CLASS (class);
+	backend_class->authenticate_sync = book_backend_webdav_authenticate_sync;
 
-static void
-e_book_backend_webdav_source_authenticator_init (ESourceAuthenticatorInterface *iface)
-{
-	iface->try_password_sync = book_backend_webdav_try_password_sync;
+	book_backend_class = E_BOOK_BACKEND_CLASS (class);
+	book_backend_class->get_backend_property = book_backend_webdav_get_backend_property;
+	book_backend_class->open_sync = book_backend_webdav_open_sync;
+	book_backend_class->create_contacts_sync = book_backend_webdav_create_contacts_sync;
+	book_backend_class->modify_contacts_sync = book_backend_webdav_modify_contacts_sync;
+	book_backend_class->remove_contacts_sync = book_backend_webdav_remove_contacts_sync;
+	book_backend_class->get_contact_sync = book_backend_webdav_get_contact_sync;
+	book_backend_class->get_contact_list_sync = book_backend_webdav_get_contact_list_sync;
+	book_backend_class->start_view = e_book_backend_webdav_start_view;
+	book_backend_class->stop_view = e_book_backend_webdav_stop_view;
+	book_backend_class->refresh_sync = e_book_backend_webdav_refresh_sync;
 }
 
 static void

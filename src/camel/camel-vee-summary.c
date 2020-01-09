@@ -2,19 +2,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -89,7 +89,7 @@ vee_info_ptr (const CamelMessageInfo *mi,
 
 	rmi = camel_folder_summary_get (vmi->orig_summary, mi->uid + 8);
 	HANDLE_NULL_INFO (NULL);
-	p = (gpointer) camel_message_info_ptr (rmi, id);
+	p = (gpointer) camel_message_info_get_ptr (rmi, id);
 	camel_message_info_unref (rmi);
 
 	return p;
@@ -103,7 +103,7 @@ vee_info_uint32 (const CamelMessageInfo *mi,
 	guint32 ret;
 
 	HANDLE_NULL_INFO (0);
-	ret = camel_message_info_uint32 (rmi, id);
+	ret = camel_message_info_get_uint32 (rmi, id);
 	camel_message_info_unref (rmi);
 
 	return ret;
@@ -118,7 +118,7 @@ vee_info_time (const CamelMessageInfo *mi,
 	time_t ret;
 
 	HANDLE_NULL_INFO (0);
-	ret = camel_message_info_time (rmi, id);
+	ret = camel_message_info_get_time (rmi, id);
 	camel_message_info_unref (rmi);
 
 	return ret;
@@ -132,7 +132,7 @@ vee_info_user_flag (const CamelMessageInfo *mi,
 	gboolean ret;
 
 	HANDLE_NULL_INFO (FALSE);
-	ret = camel_message_info_user_flag (rmi, id);
+	ret = camel_message_info_get_user_flag (rmi, id);
 	camel_message_info_unref (rmi);
 
 	return ret;
@@ -146,7 +146,7 @@ vee_info_user_tag (const CamelMessageInfo *mi,
 	const gchar *ret;
 
 	HANDLE_NULL_INFO ("");
-	ret = camel_message_info_user_tag (rmi, id);
+	ret = camel_message_info_get_user_tag (rmi, id);
 	camel_message_info_unref (rmi);
 
 	return ret;
@@ -163,7 +163,7 @@ vee_summary_notify_mi_changed (CamelVeeFolder *vfolder,
 
 	changes = camel_folder_change_info_new ();
 
-	camel_folder_change_info_change_uid (changes, camel_message_info_uid (mi));
+	camel_folder_change_info_change_uid (changes, camel_message_info_get_uid (mi));
 	camel_folder_changed (CAMEL_FOLDER (vfolder), changes);
 	camel_folder_change_info_free (changes);
 }
@@ -256,9 +256,7 @@ vee_info_set_flags (CamelMessageInfo *mi,
 		if (ignore_changes)
 			camel_vee_folder_ignore_next_changed_event (vf, camel_folder_summary_get_folder (rmi->summary));
 
-		camel_folder_freeze (camel_folder_summary_get_folder (rmi->summary));
 		res = camel_message_info_set_flags (rmi, flags, set);
-		camel_folder_thaw (camel_folder_summary_get_folder (rmi->summary));
 
 		if (res) {
 			/* update flags on itself too */
@@ -421,6 +419,8 @@ get_uids_for_subfolder (gpointer key,
  * camel_vee_summary_get_uids_for_subfolder:
  *
  * FIXME Document me!
+ *
+ * Returns: (element-type utf8 utf8) (transfer container):
  *
  * Since: 3.6
  **/

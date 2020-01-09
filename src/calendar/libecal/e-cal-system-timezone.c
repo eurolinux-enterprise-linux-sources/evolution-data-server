@@ -3,17 +3,17 @@
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <glib/gstdio.h>
@@ -42,6 +42,10 @@ static gchar *
 system_timezone_strip_path_if_valid (const gchar *filename)
 {
 	gint skip;
+
+	/* In case it's a relative path the '../' references the root (from the /etc) */
+	if (filename && g_str_has_prefix (filename, "../"))
+		filename += 2;
 
 	if (!filename || !g_str_has_prefix (filename, SYSTEM_ZONEINFODIR "/"))
 		return NULL;

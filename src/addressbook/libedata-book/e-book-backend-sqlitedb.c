@@ -4,21 +4,20 @@
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  * Copyright (C) 2012 Intel Corporation
  *
- * Authors:
- *     Chenthill Palanisamy <pchenthill@novell.com>
- *     Tristan Van Berkom <tristanvb@openismus.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Chenthill Palanisamy <pchenthill@novell.com>
+ *          Tristan Van Berkom <tristanvb@openismus.com>
  */
 
 /**
@@ -2850,6 +2849,8 @@ uid_rev_fields (GHashTable *fields_of_interest)
  * This only checks if all the fields are part of the default summary fields,
  * not part of the configured summary fields.
  *
+ * Returns: Whether all @fields_of_interest are part of the default summary fields
+ *
  * Since: 3.2
  *
  * Deprecated: 3.8: Use #EBookSqlite instead
@@ -3081,7 +3082,7 @@ e_book_backend_sqlitedb_get_vcard_string (EBookBackendSqliteDB *ebsdb,
 	if (!vcard_str && error && !*error)
 		g_set_error (
 			error, E_BOOK_SDB_ERROR, E_BOOK_SDB_ERROR_CONTACT_NOT_FOUND,
-			_("Contact '%s' not found"), uid ? uid : "NULL");
+			_("Contact '%s' not found"), uid);
 
 	return vcard_str;
 }
@@ -3336,7 +3337,7 @@ e_book_backend_sqlitedb_check_summary_query_locked (EBookBackendSqliteDB *ebsdb,
 	}
 
 	e_sexp_result_free (sexp, r);
-	e_sexp_unref (sexp);
+	g_object_unref (sexp);
 
 	return retval;
 }
@@ -4009,11 +4010,18 @@ sexp_to_sql_query (EBookBackendSqliteDB *ebsdb,
 	}
 
 	e_sexp_input_text (sexp, query, strlen (query));
-	e_sexp_parse (sexp);
+
+	if (e_sexp_parse (sexp) == -1) {
+		g_object_unref (sexp);
+		return NULL;
+	}
 
 	r = e_sexp_eval (sexp);
-	if (!r)
+	if (!r) {
+		g_object_unref (sexp);
 		return NULL;
+	}
+
 	if (r->type == ESEXP_RES_STRING) {
 		if (r->value.string && *r->value.string)
 			res = g_strdup (r->value.string);
@@ -4025,7 +4033,7 @@ sexp_to_sql_query (EBookBackendSqliteDB *ebsdb,
 	}
 
 	e_sexp_result_free (sexp, r);
-	e_sexp_unref (sexp);
+	g_object_unref (sexp);
 
 	return res;
 }

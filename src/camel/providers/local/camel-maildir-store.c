@@ -1,20 +1,20 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*-
- *
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -202,10 +202,26 @@ maildir_store_get_folder_sync (CamelStore *store,
 	CamelLocalSettings *local_settings;
 	CamelSettings *settings;
 	CamelService *service;
+	CamelMaildirStore *maildir_store;
 	gchar *name, *tmp, *cur, *new, *dir_name;
 	gchar *path;
 	struct stat st;
 	CamelFolder *folder = NULL;
+
+	g_return_val_if_fail (CAMEL_IS_MAILDIR_STORE (store), NULL);
+
+	maildir_store = CAMEL_MAILDIR_STORE (store);
+
+	if (!maildir_store->priv->already_migrated &&
+	    maildir_store->priv->can_escape_dots) {
+		CamelFolderInfo *folder_info;
+
+		/* Not interested in any errors here, this is to invoke folder
+		   content migration only. */
+		folder_info = camel_store_get_folder_info_sync (store, NULL, CAMEL_STORE_FOLDER_INFO_RECURSIVE, cancellable, NULL);
+		if (folder_info)
+			camel_folder_info_free (folder_info);
+	}
 
 	service = CAMEL_SERVICE (store);
 

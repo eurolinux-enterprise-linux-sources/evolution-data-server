@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Jeffrey Stedfast <fejj@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
@@ -71,7 +70,7 @@ typedef struct {
 	gchar *fingerprint;
 
 	CamelCertTrust trust;
-	GBytes *rawcert;
+	GBytes *rawcert; /* loaded on demand, with camel_cert_load_cert_file() */
 } CamelCert;
 
 struct _CamelCertDB {
@@ -94,9 +93,15 @@ struct _CamelCertDBClass {
 						 FILE *ostream);
 };
 
+GType		camel_cert_get_type		(void) G_GNUC_CONST;
 CamelCert *	camel_cert_new			(void);
-void		camel_cert_ref			(CamelCert *cert);
+CamelCert *	camel_cert_ref			(CamelCert *cert);
 void		camel_cert_unref		(CamelCert *cert);
+gboolean	camel_cert_load_cert_file	(CamelCert *cert,
+						 GError **error);
+gboolean	camel_cert_save_cert_file	(CamelCert *cert,
+						 const GByteArray *der_data,
+						 GError **error);
 
 GType		camel_certdb_get_type		(void) G_GNUC_CONST;
 CamelCertDB *	camel_certdb_new		(void);
@@ -126,6 +131,8 @@ void		camel_certdb_remove_host	(CamelCertDB *certdb,
 						 const gchar *fingerprint);
 
 void		camel_certdb_clear		(CamelCertDB *certdb);
+
+GSList *	camel_certdb_list_certs		(CamelCertDB *certdb);
 
 G_END_DECLS
 

@@ -1,22 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Jeffrey Stedfast <fejj@ximian.com>
- *           Bertrand Guiheneuf <bertrand@helixcode.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Jeffrey Stedfast <fejj@ximian.com>
+ *          Bertrand Guiheneuf <bertrand@helixcode.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -266,4 +265,124 @@ camel_shutdown (void)
 	}
 
 	initialised = FALSE;
+}
+
+static GRecMutex camel_binding_lock;
+
+/**
+ * camel_binding_bind_property:
+ *
+ * Thread safe variant of g_object_bind_property(). See its documentation
+ * for more information on arguments and return value.
+ *
+ * Returns: (transfer none):
+ *
+ * Since: 3.16
+ **/
+GBinding *
+camel_binding_bind_property (gpointer source,
+			     const gchar *source_property,
+			     gpointer target,
+			     const gchar *target_property,
+			     GBindingFlags flags)
+{
+	GBinding *binding;
+
+	g_rec_mutex_lock (&camel_binding_lock);
+
+	binding = g_object_bind_property (source, source_property, target, target_property, flags);
+
+	g_rec_mutex_unlock (&camel_binding_lock);
+
+	return binding;
+}
+
+/**
+ * camel_binding_bind_property_full:
+ * @source: (type GObject.Object): the source #GObject
+ * @source_property: the property on @source to bind
+ * @target: (type GObject.Object): the target #GObject
+ * @target_property: the property on @target to bind
+ * @flags: flags to pass to #GBinding
+ * @transform_to: (scope notified) (allow-none): the transformation function
+ *   from the @source to the @target, or %NULL to use the default
+ * @transform_from: (scope notified) (allow-none): the transformation function
+ *   from the @target to the @source, or %NULL to use the default
+ * @user_data: custom data to be passed to the transformation functions,
+ *   or %NULL
+ * @notify: function to be called when disposing the binding, to free the
+ *   resources used by the transformation functions
+ *
+ * Thread safe variant of g_object_bind_property_full(). See its documentation
+ * for more information on arguments and return value.
+ *
+ * Return value: (transfer none): the #GBinding instance representing the
+ *   binding between the two #GObject instances. The binding is released
+ *   whenever the #GBinding reference count reaches zero.
+ *
+ * Since: 3.16
+ **/
+GBinding *
+camel_binding_bind_property_full (gpointer source,
+				  const gchar *source_property,
+				  gpointer target,
+				  const gchar *target_property,
+				  GBindingFlags flags,
+				  GBindingTransformFunc transform_to,
+				  GBindingTransformFunc transform_from,
+				  gpointer user_data,
+				  GDestroyNotify notify)
+{
+	GBinding *binding;
+
+	g_rec_mutex_lock (&camel_binding_lock);
+
+	binding = g_object_bind_property_full (source, source_property, target, target_property, flags,
+		transform_to, transform_from, user_data, notify);
+
+	g_rec_mutex_unlock (&camel_binding_lock);
+
+	return binding;
+}
+
+/**
+ * camel_binding_bind_property_with_closures: (rename-to camel_binding_bind_property_full)
+ * @source: (type GObject.Object): the source #GObject
+ * @source_property: the property on @source to bind
+ * @target: (type GObject.Object): the target #GObject
+ * @target_property: the property on @target to bind
+ * @flags: flags to pass to #GBinding
+ * @transform_to: a #GClosure wrapping the transformation function
+ *   from the @source to the @target, or %NULL to use the default
+ * @transform_from: a #GClosure wrapping the transformation function
+ *   from the @target to the @source, or %NULL to use the default
+ *
+ * Thread safe variant of g_object_bind_property_with_closures(). See its
+ * documentation for more information on arguments and return value.
+ *
+ * Return value: (transfer none): the #GBinding instance representing the
+ *   binding between the two #GObject instances. The binding is released
+ *   whenever the #GBinding reference count reaches zero.
+ *
+ * Since: 3.16
+ **/
+GBinding *
+camel_binding_bind_property_with_closures (gpointer source,
+					   const gchar *source_property,
+					   gpointer target,
+					   const gchar *target_property,
+					   GBindingFlags flags,
+					   GClosure *transform_to,
+					   GClosure *transform_from)
+{
+	GBinding *binding;
+
+	g_rec_mutex_lock (&camel_binding_lock);
+
+	binding = g_object_bind_property_with_closures (source, source_property, target, target_property, flags,
+		transform_to, transform_from);
+
+	g_rec_mutex_unlock (&camel_binding_lock);
+
+	return binding;
 }

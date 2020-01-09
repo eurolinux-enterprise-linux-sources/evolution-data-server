@@ -1,17 +1,17 @@
 /*
  * e-collection-backend.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -72,6 +72,10 @@ struct _ECollectionBackendPrivate {
 	gulong source_added_handler_id;
 	gulong source_removed_handler_id;
 	gulong notify_enabled_handler_id;
+	gulong notify_collection_handler_id;
+	gulong notify_online_handler_id;
+
+	guint scheduled_populate_idle_id;
 };
 
 enum {
@@ -385,7 +389,7 @@ collection_backend_bind_child_enabled (ECollectionBackend *backend,
 	extension = e_source_get_extension (collection_source, extension_name);
 
 	if (collection_backend_child_is_calendar (child_source)) {
-		g_object_bind_property_full (
+		e_binding_bind_property_full (
 			extension, "calendar-enabled",
 			child_source, "enabled",
 			G_BINDING_SYNC_CREATE,
@@ -397,7 +401,7 @@ collection_backend_bind_child_enabled (ECollectionBackend *backend,
 	}
 
 	if (collection_backend_child_is_contacts (child_source)) {
-		g_object_bind_property_full (
+		e_binding_bind_property_full (
 			extension, "contacts-enabled",
 			child_source, "enabled",
 			G_BINDING_SYNC_CREATE,
@@ -409,7 +413,7 @@ collection_backend_bind_child_enabled (ECollectionBackend *backend,
 	}
 
 	if (collection_backend_child_is_mail (child_source)) {
-		g_object_bind_property_full (
+		e_binding_bind_property_full (
 			extension, "mail-enabled",
 			child_source, "enabled",
 			G_BINDING_SYNC_CREATE,
@@ -420,7 +424,7 @@ collection_backend_bind_child_enabled (ECollectionBackend *backend,
 		return;
 	}
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		collection_source, "enabled",
 		child_source, "enabled",
 		G_BINDING_SYNC_CREATE);
@@ -509,12 +513,59 @@ collection_backend_populate_idle_cb (gpointer user_data)
 
 	backend = E_COLLECTION_BACKEND (user_data);
 
+	backend->priv->scheduled_populate_idle_id = 0;
+
 	class = E_COLLECTION_BACKEND_GET_CLASS (backend);
 	g_return_val_if_fail (class->populate != NULL, FALSE);
 
 	class->populate (backend);
 
 	return FALSE;
+}
+
+static void
+collection_backend_schedule_populate_idle (ECollectionBackend *backend)
+{
+	g_return_if_fail (E_IS_COLLECTION_BACKEND (backend));
+
+	if (!backend->priv->scheduled_populate_idle_id)
+		backend->priv->scheduled_populate_idle_id = g_idle_add_full (
+			G_PRIORITY_LOW,
+			collection_backend_populate_idle_cb,
+			g_object_ref (backend),
+			(GDestroyNotify) g_object_unref);
+}
+
+static void
+collection_backend_online_cb (EBackend *backend,
+			      GParamSpec *spec,
+			      gpointer user_data)
+{
+	g_return_if_fail (E_IS_COLLECTION_BACKEND (backend));
+
+	if (e_backend_get_online (backend))
+		collection_backend_schedule_populate_idle (E_COLLECTION_BACKEND (backend));
+}
+
+static void
+collection_backend_notify_collection_cb (ESourceCollection *collection_extension,
+					 GParamSpec *param,
+					 ECollectionBackend *collection_backend)
+{
+	ESource *source;
+
+	g_return_if_fail (E_IS_SOURCE_COLLECTION (collection_extension));
+	g_return_if_fail (param != NULL);
+	g_return_if_fail (E_IS_COLLECTION_BACKEND (collection_backend));
+
+	source = e_backend_get_source (E_BACKEND (collection_backend));
+	if (!e_source_get_enabled (source) || (
+	    g_strcmp0 (g_param_spec_get_name (param), "calendar-enabled") != 0 &&
+	    g_strcmp0 (g_param_spec_get_name (param), "contacts-enabled") != 0 &&
+	    g_strcmp0 (g_param_spec_get_name (param), "mail-enabled") != 0))
+		return;
+
+	collection_backend_schedule_populate_idle (collection_backend);
 }
 
 static void
@@ -662,6 +713,25 @@ collection_backend_dispose (GObject *object)
 		priv->notify_enabled_handler_id = 0;
 	}
 
+	if (priv->notify_collection_handler_id) {
+		ESource *source = e_backend_get_source (E_BACKEND (object));
+
+		if (source) {
+			ESourceCollection *collection_extension;
+
+			collection_extension = e_source_get_extension (source, E_SOURCE_EXTENSION_COLLECTION);
+
+			g_signal_handler_disconnect (collection_extension, priv->notify_collection_handler_id);
+		}
+
+		priv->notify_collection_handler_id = 0;
+	}
+
+	if (priv->notify_online_handler_id) {
+		g_signal_handler_disconnect (object, priv->notify_online_handler_id);
+		priv->notify_online_handler_id = 0;
+	}
+
 	g_mutex_lock (&priv->children_lock);
 	g_hash_table_remove_all (priv->children);
 	g_mutex_unlock (&priv->children_lock);
@@ -777,44 +847,20 @@ collection_backend_constructed (GObject *object)
 	backend->priv->notify_enabled_handler_id = g_signal_connect (source, "notify::enabled",
 		G_CALLBACK (collection_backend_source_enabled_cb), backend);
 
+	if (e_source_has_extension (source, E_SOURCE_EXTENSION_COLLECTION)) {
+		ESourceCollection *collection_extension;
+
+		collection_extension = e_source_get_extension (source, E_SOURCE_EXTENSION_COLLECTION);
+		backend->priv->notify_collection_handler_id = g_signal_connect (collection_extension, "notify",
+			G_CALLBACK (collection_backend_notify_collection_cb), backend);
+	}
+
 	/* Populate the newly-added collection from an idle callback
 	 * so persistent child sources have a chance to be added first. */
+	collection_backend_schedule_populate_idle (backend);
 
-	g_idle_add_full (
-		G_PRIORITY_LOW,
-		collection_backend_populate_idle_cb,
-		g_object_ref (backend),
-		(GDestroyNotify) g_object_unref);
-}
-
-static gboolean
-collection_backend_authenticate_sync (EBackend *backend,
-                                      ESourceAuthenticator *authenticator,
-                                      GCancellable *cancellable,
-                                      GError **error)
-{
-	ECollectionBackend *collection_backend;
-	ESourceRegistryServer *server;
-	EAuthenticationSession *session;
-	ESource *source;
-	const gchar *source_uid;
-	gboolean success;
-
-	source = e_backend_get_source (backend);
-	source_uid = e_source_get_uid (source);
-
-	collection_backend = E_COLLECTION_BACKEND (backend);
-	server = e_collection_backend_ref_server (collection_backend);
-	session = e_source_registry_server_new_auth_session (
-		server, authenticator, source_uid);
-
-	success = e_source_registry_server_authenticate_sync (
-		server, session, cancellable, error);
-
-	g_object_unref (session);
-	g_object_unref (server);
-
-	return success;
+	backend->priv->notify_online_handler_id = g_signal_connect (backend, "notify::online",
+		G_CALLBACK (collection_backend_online_cb), NULL);
 }
 
 static void
@@ -866,7 +912,7 @@ collection_backend_child_added (ECollectionBackend *backend,
 
 	/* Synchronize mail-related display names with the collection. */
 	if (is_mail)
-		g_object_bind_property (
+		e_binding_bind_property (
 			collection_source, "display-name",
 			child_source, "display-name",
 			G_BINDING_SYNC_CREATE);
@@ -875,14 +921,8 @@ collection_backend_child_added (ECollectionBackend *backend,
 	e_server_side_source_set_removable (
 		E_SERVER_SIDE_SOURCE (child_source), FALSE);
 
-	/* Collection children inherit the authentication session type. */
-	g_object_bind_property (
-		collection_source, "auth-session-type",
-		child_source, "auth-session-type",
-		G_BINDING_SYNC_CREATE);
-
 	/* Collection children inherit OAuth 2.0 support if available. */
-	g_object_bind_property (
+	e_binding_bind_property (
 		collection_source, "oauth2-support",
 		child_source, "oauth2-support",
 		G_BINDING_SYNC_CREATE);
@@ -1017,7 +1057,6 @@ static void
 e_collection_backend_class_init (ECollectionBackendClass *class)
 {
 	GObjectClass *object_class;
-	EBackendClass *backend_class;
 
 	g_type_class_add_private (class, sizeof (ECollectionBackendPrivate));
 
@@ -1027,9 +1066,6 @@ e_collection_backend_class_init (ECollectionBackendClass *class)
 	object_class->dispose = collection_backend_dispose;
 	object_class->finalize = collection_backend_finalize;
 	object_class->constructed = collection_backend_constructed;
-
-	backend_class = E_BACKEND_CLASS (class);
-	backend_class->authenticate_sync = collection_backend_authenticate_sync;
 
 	class->populate = collection_backend_populate;
 	class->dup_resource_id = collection_backend_dup_resource_id;
@@ -1726,3 +1762,75 @@ e_collection_backend_delete_resource_finish (ECollectionBackend *backend,
 	return class->delete_resource_finish (backend, result, error);
 }
 
+static void
+collection_backend_child_authenticate_done_cb (GObject *source_object,
+					       GAsyncResult *result,
+					       gpointer user_data)
+{
+	ESource *source;
+	GError *error = NULL;
+
+	g_return_if_fail (E_IS_SOURCE (source_object));
+
+	source = E_SOURCE (source_object);
+
+	if (!e_source_invoke_authenticate_finish (source, result, &error) &&
+	    !g_error_matches (error, G_IO_ERROR, G_IO_ERROR_CANCELLED)) {
+		g_warning ("%s: Failed to invoke authenticate for '%s': %s", G_STRFUNC,
+			e_source_get_uid (source), error ? error->message : "Unknown error");
+	}
+
+	g_clear_error (&error);
+}
+
+/**
+ * e_collection_backend_authenticate_children:
+ * @backend: an #ECollectionBackend
+ * @credentials: credentials to authenticate with
+ *
+ * Authenticates all enabled children sources with the given @crendetials.
+ * This is usually called when the collection source successfully used
+ * the @credentials to connect to the (possibly) remote data store, to
+ * open the childern too. Already connected child sources are skipped.
+ *
+ * Since: 3.16
+ **/
+void
+e_collection_backend_authenticate_children (ECollectionBackend *backend,
+					    const ENamedParameters *credentials)
+{
+	ESource *master_source, *child, *cred_source;
+	ESourceRegistryServer *registry_server;
+	ESourceCredentialsProvider *credentials_provider;
+	GList *sources, *link;
+
+	g_return_if_fail (E_IS_COLLECTION_BACKEND (backend));
+
+	master_source = e_backend_get_source (E_BACKEND (backend));
+	g_return_if_fail (master_source != NULL);
+
+	registry_server = e_collection_backend_ref_server (backend);
+	g_return_if_fail (registry_server != NULL);
+
+	credentials_provider = e_source_registry_server_ref_credentials_provider (registry_server);
+	sources = e_source_registry_server_list_sources (registry_server, NULL);
+	for (link = sources; link; link = g_list_next (link)) {
+		child = link->data;
+
+		if (child && !e_source_equal (child, master_source) && e_source_get_enabled (child) && (
+		    e_source_get_connection_status (child) == E_SOURCE_CONNECTION_STATUS_AWAITING_CREDENTIALS ||
+		    e_source_get_connection_status (child) == E_SOURCE_CONNECTION_STATUS_DISCONNECTED)) {
+			cred_source = e_source_credentials_provider_ref_credentials_source (credentials_provider, child);
+
+			if (cred_source && e_source_equal (cred_source, master_source)) {
+				e_source_invoke_authenticate (child, credentials, NULL, collection_backend_child_authenticate_done_cb, NULL);
+			}
+
+			g_clear_object (&cred_source);
+		}
+	}
+
+	g_list_free_full (sources, g_object_unref);
+	g_clear_object (&credentials_provider);
+	g_clear_object (&registry_server);
+}

@@ -2,17 +2,20 @@ NULL =
 
 vapidir = $(datarootdir)/vala/vapi
 vapi_DATA = \
+	camel-1.2.vapi \
 	libedataserver-1.2.vapi \
 	libebook-1.2.vapi \
 	libebook-contacts-1.2.vapi \
 	$(NULL)
 dist_vapi_DATA = \
+	camel-1.2.deps \
 	libedataserver-1.2.deps \
 	libebook-1.2.deps \
 	libebook-contacts-1.2.deps \
 	$(NULL)
 
 EXTRA_DIST = \
+	Camel-1.2.metadata \
 	EBook-1.2.metadata \
 	EBookContacts-1.2.metadata \
 	libebook-contacts-1.2-custom.vala \
@@ -25,13 +28,28 @@ BUILT_SOURCES = \
 
 pkgconfigdir = ${libdir}/pkgconfig
 
-libedataserver-1.2.vapi: $(top_builddir)/libedataserver/EDataServer-1.2.gir  libedataserver-1.2.deps
+camel-1.2.vapi: $(top_builddir)/camel/Camel-1.2.gir camel-1.2.deps
+	$(VAPIGEN_V)$(VAPIGEN) \
+		--vapidir=. \
+		--vapidir=$(srcdir) \
+		--girdir=$(top_builddir)/camel \
+		--pkg gio-2.0 \
+		--pkg libxml-2.0 \
+		--pkg posix \
+		--library camel-1.2 \
+		--metadatadir=$(srcdir) \
+		$< \
+		$(NULL)
+
+libedataserver-1.2.vapi: $(top_builddir)/libedataserver/EDataServer-1.2.gir libedataserver-1.2.deps
 	$(VAPIGEN_V)$(VAPIGEN) \
 		--vapidir=. \
 		--vapidir=$(srcdir) \
 		--girdir=$(top_builddir)/libedataserver \
 		--pkg gio-2.0 \
 		--pkg libxml-2.0 \
+		--pkg libsoup-2.4 \
+		--pkg posix \
 		--library libedataserver-1.2 \
 		--metadatadir=$(srcdir) \
 		$< \
@@ -45,6 +63,8 @@ libebook-contacts-1.2.vapi: $(top_builddir)/addressbook/libebook-contacts/EBookC
 		--pkg libedataserver-1.2 \
 		--pkg gio-2.0 \
 		--pkg libxml-2.0 \
+		--pkg libsoup-2.4 \
+		--pkg posix \
 		--library libebook-contacts-1.2 \
 		--metadatadir=$(srcdir) \
 		$< \
@@ -61,6 +81,8 @@ libebook-1.2.vapi: $(top_builddir)/addressbook/libebook/EBook-1.2.gir libedatase
 		--pkg libebook-contacts-1.2 \
 		--pkg gio-2.0 \
 		--pkg libxml-2.0 \
+		--pkg libsoup-2.4 \
+		--pkg posix \
 		--library libebook-1.2 \
 		--metadatadir=$(srcdir) \
 		$< \

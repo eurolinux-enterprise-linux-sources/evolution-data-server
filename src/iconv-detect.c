@@ -1,23 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Jeffrey Stedfast <fejj@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Jeffrey Stedfast <fejj@ximian.com>
  */
 
+#include <glib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iconv.h>
@@ -92,7 +92,7 @@ int main (int argc, char **argv)
 {
 	unsigned int iso8859, iso2022, iso10646;
 	CharInfo *info;
-	iconv_t cd;
+	GIConv cd;
 	FILE *fp;
 	int i;
 
@@ -106,8 +106,8 @@ int main (int argc, char **argv)
 	info = iso8859_tests;
 	/*printf ("#define DEFAULT_ISO_FORMAT(iso,codepage)\t");*/
 	for (i = 0; i < num_iso8859_tests; i++) {
-		cd = iconv_open (info[i].charset, "UTF-8");
-		if (cd != (iconv_t) -1) {
+		cd = g_iconv_open (info[i].charset, "UTF-8");
+		if (cd != (GIConv) -1) {
 			iconv_close (cd);
 			/*printf ("(\"%s\", (iso), (codepage))\n", info[i].format);*/
 			fprintf (stderr, "System prefers %s\n", info[i].charset);
@@ -131,8 +131,8 @@ int main (int argc, char **argv)
 	/*printf ("#define ISO_2022_FORMAT(iso,codepage)\t");*/
 	for (i = 0; i < num_iso2022_tests; i++) {
 		cd = iconv_open (info[i].charset, "UTF-8");
-		if (cd != (iconv_t) -1) {
-			iconv_close (cd);
+		if (cd != (GIConv) -1) {
+			g_iconv_close (cd);
 			/*printf ("(\"%s\", (iso), (codepage))\n", info[i].format);*/
 			fprintf (stderr, "System prefers %s\n", info[i].charset);
 			iso2022 = info[i].id;
@@ -155,8 +155,8 @@ int main (int argc, char **argv)
 	/*printf ("#define ISO_10646_FORMAT(iso,codepage)\t");*/
 	for (i = 0; i < num_iso10646_tests; i++) {
 		cd = iconv_open (info[i].charset, "UTF-8");
-		if (cd != (iconv_t) -1) {
-			iconv_close (cd);
+		if (cd != (GIConv) -1) {
+			g_iconv_close (cd);
 			/*if (info[i].id < ISO_DASH_D_LOWER)
 				printf ("(\"%s\", (iso), (codepage))\n", info[i].format);
 			else

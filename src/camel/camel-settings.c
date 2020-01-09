@@ -1,17 +1,17 @@
 /*
  * camel-settings.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -144,7 +144,7 @@ camel_settings_init (CamelSettings *settings)
  * to be settings, but subclasses may wish to exclude certain properties.
  * Free the returned array with g_free().
  *
- * Returns: an array of #GParamSpec which should be freed after use
+ * Returns: (transfer full): an array of #GParamSpec which should be freed after use
  *
  * Since: 3.2
  **/
@@ -169,7 +169,7 @@ camel_settings_class_list_settings (CamelSettingsClass *settings_class,
  * as @settings, and copies all #GObject property values from @settings
  * to the new instance.
  *
- * Returns: a newly-created copy of @settings
+ * Returns: (transfer full): a newly-created copy of @settings
  *
  * Since: 3.2
  **/

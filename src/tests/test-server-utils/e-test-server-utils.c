@@ -4,17 +4,17 @@
  *
  * Copyright (C) 2012 Intel Corporation
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  * Authors: Tristan Van Berkom <tristanvb@openismus.com>
  */
@@ -47,7 +47,7 @@
 #define ADDRESS_BOOK_SOURCE_UID "test-address-book"
 #define CALENDAR_SOURCE_UID     "test-calendar"
 
-#define FINALIZE_SECONDS         10
+#define FINALIZE_SECONDS         30
 
 /* FIXME, currently we are unable to achieve server activation
  * twice in a single test case, so we're using one D-Bus server
@@ -246,6 +246,39 @@ generate_source_name (void)
 static void
 setup_environment (void)
 {
+	GString *libs_dir;
+	const gchar *libs_dir_env;
+
+	libs_dir_env = g_getenv ("LD_LIBRARY_PATH");
+
+	libs_dir = g_string_new ("");
+
+	#define add_lib_path(x) G_STMT_START { \
+		if (libs_dir->len) \
+			g_string_append_c (libs_dir, ':'); \
+		g_string_append_printf (libs_dir, EDS_TEST_TOP_BUILD_DIR x); \
+		} G_STMT_END
+
+	add_lib_path ("addressbook/libebook/.libs");
+	add_lib_path ("addressbook/libebook-contacts/.libs");
+	add_lib_path ("addressbook/libedata-book/.libs");
+	add_lib_path ("calendar/libecal/.libs");
+	add_lib_path ("calendar/libedata-cal/.libs");
+	add_lib_path ("camel/.libs");
+	add_lib_path ("libebackend/.libs");
+	add_lib_path ("libedataserver/.libs");
+	add_lib_path ("libedataserverui/.libs");
+	add_lib_path ("private/.libs");
+
+	#undef add_lib_path
+
+	if (libs_dir_env && *libs_dir_env) {
+		if (libs_dir->len)
+			g_string_append_c (libs_dir, ':');
+		g_string_append (libs_dir, libs_dir_env);
+	}
+
+	g_assert (g_setenv ("LD_LIBRARY_PATH", libs_dir->str, TRUE));
 	g_assert (g_setenv ("XDG_DATA_HOME", EDS_TEST_WORK_DIR, TRUE));
 	g_assert (g_setenv ("XDG_CACHE_HOME", EDS_TEST_WORK_DIR, TRUE));
 	g_assert (g_setenv ("XDG_CONFIG_HOME", EDS_TEST_WORK_DIR, TRUE));
@@ -254,11 +287,15 @@ setup_environment (void)
 	g_assert (g_setenv ("EDS_ADDRESS_BOOK_MODULES", EDS_TEST_ADDRESS_BOOK_DIR, TRUE));
 	g_assert (g_setenv ("EDS_REGISTRY_MODULES", EDS_TEST_REGISTRY_DIR, TRUE));
 	g_assert (g_setenv ("EDS_CAMEL_PROVIDER_DIR", EDS_TEST_CAMEL_DIR, TRUE));
+	g_assert (g_setenv ("EDS_SUBPROCESS_CAL_PATH", EDS_TEST_SUBPROCESS_CAL_PATH, TRUE));
+	g_assert (g_setenv ("EDS_SUBPROCESS_BOOK_PATH", EDS_TEST_SUBPROCESS_BOOK_PATH, TRUE));
 	g_assert (g_setenv ("GIO_USE_VFS", "local", TRUE));
 	g_assert (g_setenv ("EDS_TESTING", "1", TRUE));
 	g_assert (g_setenv ("GSETTINGS_BACKEND", "memory", TRUE));
 
 	g_unsetenv ("DISPLAY");
+
+	g_string_free (libs_dir, TRUE);
 }
 
 static void
@@ -358,24 +395,24 @@ e_test_server_utils_source_added (ESourceRegistry *registry,
 
 		if (pair->closure->type == E_TEST_SERVER_DIRECT_ADDRESS_BOOK) {
 			if (pair->closure->use_async_connect)
-				e_book_client_connect_direct (source, NULL, e_test_server_utils_client_ready, pair);
+				e_book_client_connect_direct (source, (guint32) -1, NULL, e_test_server_utils_client_ready, pair);
 			else
 				pair->fixture->service.book_client = (EBookClient *)
 					e_book_client_connect_direct_sync (
 						pair->fixture->registry,
-						source, NULL, &error);
+						source, (guint32) -1, NULL, &error);
 		} else {
 
 			if (pair->closure->use_async_connect)
-				e_book_client_connect (source, NULL, e_test_server_utils_client_ready, pair);
+				e_book_client_connect (source, (guint32) -1, NULL, e_test_server_utils_client_ready, pair);
 			else
 				pair->fixture->service.book_client = (EBookClient *)
-					e_book_client_connect_sync (source, NULL, &error);
+					e_book_client_connect_sync (source, (guint32) -1, NULL, &error);
 		}
 
 		if (!pair->closure->use_async_connect &&
 		    !pair->fixture->service.book_client)
-			g_error ("Unable to create the test book: %s", error->message);
+			g_error ("Unable to create the test book: %s", error ? error->message : "Unknown error");
 
 		break;
 
@@ -395,7 +432,7 @@ e_test_server_utils_source_added (ESourceRegistry *registry,
 
 		if (pair->closure->use_async_connect) {
 			e_cal_client_connect (
-				source, pair->closure->calendar_source_type,
+				source, pair->closure->calendar_source_type, (guint32) -1,
 				NULL, e_test_server_utils_client_ready, pair);
 
 		} else {
@@ -403,7 +440,7 @@ e_test_server_utils_source_added (ESourceRegistry *registry,
 			pair->fixture->service.calendar_client = (ECalClient *)
 				e_cal_client_connect_sync (
 					source,
-					pair->closure->calendar_source_type, NULL, &error);
+					pair->closure->calendar_source_type, (guint32) -1, NULL, &error);
 			if (!pair->fixture->service.calendar_client)
 				g_error ("Unable to create the test calendar: %s", error->message);
 		}

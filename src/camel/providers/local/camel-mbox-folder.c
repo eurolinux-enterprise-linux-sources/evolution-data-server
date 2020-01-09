@@ -1,21 +1,21 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8; fill-column: 160 -*-
- *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *          Jeffrey Stedfast <fejj@ximian.com>
- *
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8; fill-column: 160 -*- */
+/*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -180,11 +180,11 @@ mbox_folder_append_message_sync (CamelFolder *folder,
 	if (mi == NULL)
 		goto fail;
 
-	d (printf ("Appending message: uid is %s\n", camel_message_info_uid (mi)));
+	d (printf ("Appending message: uid is %s\n", camel_message_info_get_uid (mi)));
 
 	has_attachment = camel_mime_message_has_attachment (message);
-	if (((camel_message_info_flags (mi) & CAMEL_MESSAGE_ATTACHMENTS) && !has_attachment) ||
-	    ((camel_message_info_flags (mi) & CAMEL_MESSAGE_ATTACHMENTS) == 0 && has_attachment)) {
+	if (((camel_message_info_get_flags (mi) & CAMEL_MESSAGE_ATTACHMENTS) && !has_attachment) ||
+	    ((camel_message_info_get_flags (mi) & CAMEL_MESSAGE_ATTACHMENTS) == 0 && has_attachment)) {
 		camel_message_info_set_flags (mi, CAMEL_MESSAGE_ATTACHMENTS, has_attachment ? CAMEL_MESSAGE_ATTACHMENTS : 0);
 	}
 
@@ -253,7 +253,7 @@ mbox_folder_append_message_sync (CamelFolder *folder,
 	}
 
 	if (appended_uid)
-		*appended_uid = g_strdup(camel_message_info_uid(mi));
+		*appended_uid = g_strdup(camel_message_info_get_uid(mi));
 
 	return TRUE;
 
@@ -439,7 +439,7 @@ mbox_folder_lock (CamelLocalFolder *lf,
 	CamelMboxFolder *mf = (CamelMboxFolder *) lf;
 
 	/* make sure we have matching unlocks for locks, camel-local-folder class should enforce this */
-	g_assert (mf->lockfd == -1);
+	g_return_val_if_fail (mf->lockfd == -1, -1);
 
 	mf->lockfd = open (lf->folder_path, O_RDWR | O_LARGEFILE, 0);
 	if (mf->lockfd == -1) {
@@ -466,7 +466,7 @@ mbox_folder_unlock (CamelLocalFolder *lf)
 #ifndef G_OS_WIN32
 	CamelMboxFolder *mf = (CamelMboxFolder *) lf;
 
-	g_assert (mf->lockfd != -1);
+	g_return_if_fail (mf->lockfd != -1);
 	if (mf->lockfd != -1) {
 		camel_unlock_folder (lf->folder_path, mf->lockfd);
 		close (mf->lockfd);

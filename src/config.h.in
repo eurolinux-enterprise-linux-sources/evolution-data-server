@@ -26,6 +26,12 @@
 /* Define to 1 if using `alloca.c'. */
 #undef C_ALLOCA
 
+/* If backend-per-process is enabled */
+#undef ENABLE_BACKEND_PER_PROCESS
+
+/* Define to 1 if Google autentication support is enabled. */
+#undef ENABLE_GOOGLE_AUTH
+
 /* Enable IPv6 support */
 #undef ENABLE_IPv6
 
@@ -46,6 +52,12 @@
 
 /* Package name for gettext */
 #undef GETTEXT_PACKAGE
+
+/* Define Google OAuth 2.0 Client ID to use */
+#undef GOOGLE_CLIENT_ID
+
+/* Define Google OAuth 2.0 Client Secret to use */
+#undef GOOGLE_CLIENT_SECRET
 
 /* Define it once memory returned by libical is free'ed properly */
 #undef HANDLE_LIBICAL_MEMORY
@@ -109,6 +121,9 @@
 /* Define if you have Heimdal */
 #undef HAVE_HEIMDAL_KRB5
 
+/* libical provides icaltzutil_set_exact_vtimezones_support function */
+#undef HAVE_ICALTZUTIL_SET_EXACT_VTIMEZONES_SUPPORT
+
 /* libical provides ical_set_unknown_token_handling_setting function */
 #undef HAVE_ICAL_UNKNOWN_TOKEN_HANDLING
 
@@ -123,6 +138,12 @@
 
 /* Have libdb */
 #undef HAVE_LIBDB
+
+/* Define to 1 when the libgdata provides GTasks pagination functions */
+#undef HAVE_LIBGDATA_TASKS_PAGINATION_FUNCTIONS
+
+/* Define if compiled with libical 2.0 */
+#undef HAVE_LIBICAL_2_0
 
 /* strftime supports use of l and k */
 #undef HAVE_LKSTRFTIME
@@ -220,8 +241,7 @@
 /* Have nl_langinfo (_NL_ADDRESS_COUNTRY_AB2) */
 #undef HAVE__NL_ADDRESS_COUNTRY_AB2
 
-/* Define to the sub-directory in which libtool stores uninstalled libraries.
-   */
+/* Define to the sub-directory where libtool stores uninstalled libraries. */
 #undef LT_OBJDIR
 
 /* Enable getaddrinfo emulation */

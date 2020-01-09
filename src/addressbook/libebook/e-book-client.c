@@ -1,21 +1,20 @@
 /*
  * e-book-client.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * Copyright (C) 2011 Red Hat, Inc. (www.redhat.com)
+ * Copyright (C) 2012 Intel Corporation
+ *
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
- *
- *
- * Copyright (C) 2011 Red Hat, Inc. (www.redhat.com)
- * Copyright (C) 2012 Intel Corporation
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -97,6 +96,7 @@ struct _SignalClosure {
 struct _ConnectClosure {
 	ESource *source;
 	GCancellable *cancellable;
+	guint32 wait_for_connected_seconds;
 };
 
 struct _RunInThreadClosure {
@@ -524,10 +524,109 @@ book_client_dbus_proxy_error_cb (EDBusAddressBook *dbus_proxy,
 	}
 }
 
+static void
+book_client_dbus_proxy_property_changed (EClient *client,
+					 const gchar *property_name,
+					 const GValue *value,
+					 gboolean is_in_main_thread)
+{
+	const gchar *backend_prop_name = NULL;
+
+	g_return_if_fail (E_IS_BOOK_CLIENT (client));
+	g_return_if_fail (property_name != NULL);
+
+	if (g_str_equal (property_name, "cache-dir")) {
+		backend_prop_name = CLIENT_BACKEND_PROPERTY_CACHE_DIR;
+	}
+
+	if (g_str_equal (property_name, "capabilities")) {
+		gchar **strv;
+		gchar *csv = NULL;
+
+		backend_prop_name = CLIENT_BACKEND_PROPERTY_CAPABILITIES;
+
+		strv = g_value_get_boxed (value);
+		if (strv != NULL) {
+			csv = g_strjoinv (",", strv);
+		}
+		e_client_set_capabilities (client, csv);
+		g_free (csv);
+	}
+
+	if (g_str_equal (property_name, "online")) {
+		gboolean online;
+
+		backend_prop_name = CLIENT_BACKEND_PROPERTY_ONLINE;
+
+		online = g_value_get_boolean (value);
+		e_client_set_online (client, online);
+	}
+
+	if (g_str_equal (property_name, "required-fields")) {
+		backend_prop_name = BOOK_BACKEND_PROPERTY_REQUIRED_FIELDS;
+	}
+
+	if (g_str_equal (property_name, "revision")) {
+		backend_prop_name = CLIENT_BACKEND_PROPERTY_REVISION;
+	}
+
+	if (g_str_equal (property_name, "supported-fields")) {
+		backend_prop_name = BOOK_BACKEND_PROPERTY_SUPPORTED_FIELDS;
+	}
+
+	if (g_str_equal (property_name, "writable")) {
+		gboolean writable;
+
+		backend_prop_name = CLIENT_BACKEND_PROPERTY_READONLY;
+
+		writable = g_value_get_boolean (value);
+		e_client_set_readonly (client, !writable);
+	}
+
+	if (g_str_equal (property_name, "locale")) {
+		backend_prop_name = "locale";
+	}
+
+	if (backend_prop_name != NULL) {
+		SignalClosure *signal_closure;
+
+		signal_closure = g_slice_new0 (SignalClosure);
+		g_weak_ref_init (&signal_closure->client, client);
+		signal_closure->property_name = g_strdup (backend_prop_name);
+
+		/* The 'locale' is not an EClient property, so just transport
+		 * the value directly on the SignalClosure
+		 */
+		if (g_str_equal (backend_prop_name, "locale"))
+			signal_closure->property_value = g_value_dup_string (value);
+
+		if (is_in_main_thread) {
+			book_client_emit_backend_property_changed_idle_cb (signal_closure);
+			signal_closure_free (signal_closure);
+		} else {
+			GSource *idle_source;
+			GMainContext *main_context;
+
+			main_context = e_client_ref_main_context (client);
+
+			idle_source = g_idle_source_new ();
+			g_source_set_callback (
+				idle_source,
+				book_client_emit_backend_property_changed_idle_cb,
+				signal_closure,
+				(GDestroyNotify) signal_closure_free);
+			g_source_attach (idle_source, main_context);
+			g_source_unref (idle_source);
+
+			g_main_context_unref (main_context);
+		}
+	}
+}
+
 typedef struct {
 	EClient *client;
-	EDBusAddressBook *dbus_proxy;
 	gchar *property_name;
+	GValue property_value;
 } IdleProxyNotifyData;
 
 static void
@@ -537,90 +636,20 @@ idle_proxy_notify_data_free (gpointer ptr)
 
 	if (ipn) {
 		g_clear_object (&ipn->client);
-		g_clear_object (&ipn->dbus_proxy);
 		g_free (ipn->property_name);
+		g_value_unset (&ipn->property_value);
 		g_free (ipn);
 	}
 }
 
 static gboolean
-book_client_dbus_proxy_notify_idle_cb (gpointer user_data)
+book_client_proxy_notify_idle_cb (gpointer user_data)
 {
 	IdleProxyNotifyData *ipn = user_data;
-	const gchar *backend_prop_name = NULL;
 
 	g_return_val_if_fail (ipn != NULL, FALSE);
 
-	if (g_str_equal (ipn->property_name, "cache-dir")) {
-		backend_prop_name = CLIENT_BACKEND_PROPERTY_CACHE_DIR;
-	}
-
-	if (g_str_equal (ipn->property_name, "capabilities")) {
-		gchar **strv;
-		gchar *csv = NULL;
-
-		backend_prop_name = CLIENT_BACKEND_PROPERTY_CAPABILITIES;
-
-		strv = e_dbus_address_book_dup_capabilities (ipn->dbus_proxy);
-		if (strv != NULL) {
-			csv = g_strjoinv (",", strv);
-			g_strfreev (strv);
-		}
-		e_client_set_capabilities (ipn->client, csv);
-		g_free (csv);
-	}
-
-	if (g_str_equal (ipn->property_name, "online")) {
-		gboolean online;
-
-		backend_prop_name = CLIENT_BACKEND_PROPERTY_ONLINE;
-
-		online = e_dbus_address_book_get_online (ipn->dbus_proxy);
-		e_client_set_online (ipn->client, online);
-	}
-
-	if (g_str_equal (ipn->property_name, "required-fields")) {
-		backend_prop_name = BOOK_BACKEND_PROPERTY_REQUIRED_FIELDS;
-	}
-
-	if (g_str_equal (ipn->property_name, "revision")) {
-		backend_prop_name = CLIENT_BACKEND_PROPERTY_REVISION;
-	}
-
-	if (g_str_equal (ipn->property_name, "supported-fields")) {
-		backend_prop_name = BOOK_BACKEND_PROPERTY_SUPPORTED_FIELDS;
-	}
-
-	if (g_str_equal (ipn->property_name, "writable")) {
-		gboolean writable;
-
-		backend_prop_name = CLIENT_BACKEND_PROPERTY_READONLY;
-
-		writable = e_dbus_address_book_get_writable (ipn->dbus_proxy);
-		e_client_set_readonly (ipn->client, !writable);
-	}
-
-	if (g_str_equal (ipn->property_name, "locale")) {
-		backend_prop_name = "locale";
-	}
-
-	if (backend_prop_name != NULL) {
-		SignalClosure *signal_closure;
-
-		signal_closure = g_slice_new0 (SignalClosure);
-		g_weak_ref_init (&signal_closure->client, ipn->client);
-		signal_closure->property_name = g_strdup (backend_prop_name);
-
-		/* The 'locale' is not an EClient property, so just transport
-		 * the value directly on the SignalClosure
-		 */
-		if (g_str_equal (backend_prop_name, "locale"))
-			signal_closure->property_value =
-				e_dbus_address_book_dup_locale (ipn->dbus_proxy);
-
-		book_client_emit_backend_property_changed_idle_cb (signal_closure);
-		signal_closure_free (signal_closure);
-	}
+	book_client_dbus_proxy_property_changed (ipn->client, ipn->property_name, &ipn->property_value, TRUE);
 
 	return FALSE;
 }
@@ -641,13 +670,14 @@ book_client_dbus_proxy_notify_cb (EDBusAddressBook *dbus_proxy,
 
 	ipn = g_new0 (IdleProxyNotifyData, 1);
 	ipn->client = g_object_ref (client);
-	ipn->dbus_proxy = g_object_ref (dbus_proxy);
 	ipn->property_name = g_strdup (pspec->name);
+	g_value_init (&ipn->property_value, pspec->value_type);
+	g_object_get_property (G_OBJECT (dbus_proxy), pspec->name, &ipn->property_value);
 
 	main_context = e_client_ref_main_context (client);
 
 	idle_source = g_idle_source_new ();
-	g_source_set_callback (idle_source, book_client_dbus_proxy_notify_idle_cb,
+	g_source_set_callback (idle_source, book_client_proxy_notify_idle_cb,
 		ipn, idle_proxy_notify_data_free);
 	g_source_attach (idle_source, main_context);
 	g_source_unref (idle_source);
@@ -744,6 +774,66 @@ book_client_finalize (GObject *object)
 
 	/* Chain up to parent's finalize() method. */
 	G_OBJECT_CLASS (e_book_client_parent_class)->finalize (object);
+}
+
+static void
+book_client_process_properties (EBookClient *book_client,
+				gchar * const *properties)
+{
+	GObject *dbus_proxy;
+	GObjectClass *object_class;
+	gint ii;
+
+	g_return_if_fail (E_IS_BOOK_CLIENT (book_client));
+
+	dbus_proxy = G_OBJECT (book_client->priv->dbus_proxy);
+	g_return_if_fail (G_IS_OBJECT (dbus_proxy));
+
+	if (!properties)
+		return;
+
+	object_class = G_OBJECT_GET_CLASS (dbus_proxy);
+
+	for (ii = 0; properties[ii]; ii++) {
+		if (!(ii & 1) && properties[ii + 1]) {
+			GParamSpec *param;
+			GVariant *expected = NULL;
+
+			param = g_object_class_find_property (object_class, properties[ii]);
+			if (param) {
+				#define WORKOUT(gvl, gvr) \
+					if (g_type_is_a (param->value_type, G_TYPE_ ## gvl)) { \
+						expected = g_variant_parse (G_VARIANT_TYPE_ ## gvr, properties[ii + 1], NULL, NULL, NULL); \
+					}
+
+				WORKOUT (BOOLEAN, BOOLEAN);
+				WORKOUT (STRING, STRING);
+				WORKOUT (STRV, STRING_ARRAY);
+				WORKOUT (UCHAR, BYTE);
+				WORKOUT (INT, INT32);
+				WORKOUT (UINT, UINT32);
+				WORKOUT (INT64, INT64);
+				WORKOUT (UINT64, UINT64);
+				WORKOUT (DOUBLE, DOUBLE);
+
+				#undef WORKOUT
+			}
+
+			/* Update the property always, even when the current value on the GDBusProxy
+			   matches the expected value, because sometimes the proxy can have up-to-date
+			   values, but still not propagated into EClient properties. */
+			if (expected) {
+				GValue value = G_VALUE_INIT;
+
+				g_dbus_gvariant_to_gvalue (expected, &value);
+
+				book_client_dbus_proxy_property_changed (E_CLIENT (book_client), param->name, &value, FALSE);
+
+				g_value_unset (&value);
+				g_variant_unref (expected);
+			}
+		}
+	}
 }
 
 static GDBusProxy *
@@ -866,6 +956,7 @@ book_client_open_sync (EClient *client,
                        GError **error)
 {
 	EBookClient *book_client;
+	gchar **properties = NULL;
 	GError *local_error = NULL;
 
 	g_return_val_if_fail (E_IS_BOOK_CLIENT (client), FALSE);
@@ -873,7 +964,10 @@ book_client_open_sync (EClient *client,
 	book_client = E_BOOK_CLIENT (client);
 
 	e_dbus_address_book_call_open_sync (
-		book_client->priv->dbus_proxy, cancellable, &local_error);
+		book_client->priv->dbus_proxy, &properties, cancellable, &local_error);
+
+	book_client_process_properties (book_client, properties);
+	g_strfreev (properties);
 
 	if (local_error != NULL) {
 		g_dbus_error_strip_remote_error (local_error);
@@ -908,6 +1002,34 @@ book_client_refresh_sync (EClient *client,
 	return TRUE;
 }
 
+static gboolean
+book_client_retrieve_properties_sync (EClient *client,
+				      GCancellable *cancellable,
+				      GError **error)
+{
+	EBookClient *book_client;
+	gchar **properties = NULL;
+	GError *local_error = NULL;
+
+	g_return_val_if_fail (E_IS_BOOK_CLIENT (client), FALSE);
+
+	book_client = E_BOOK_CLIENT (client);
+
+	e_dbus_address_book_call_retrieve_properties_sync (
+		book_client->priv->dbus_proxy, &properties, cancellable, &local_error);
+
+	book_client_process_properties (book_client, properties);
+	g_strfreev (properties);
+
+	if (local_error != NULL) {
+		g_dbus_error_strip_remote_error (local_error);
+		g_propagate_error (error, local_error);
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
 static void
 book_client_init_in_dbus_thread (GSimpleAsyncResult *simple,
                                  GObject *source_object,
@@ -921,6 +1043,7 @@ book_client_init_in_dbus_thread (GSimpleAsyncResult *simple,
 	ESource *source;
 	const gchar *uid;
 	gchar *object_path = NULL;
+	gchar *bus_name = NULL;
 	gulong handler_id;
 	GError *local_error = NULL;
 
@@ -964,14 +1087,14 @@ book_client_init_in_dbus_thread (GSimpleAsyncResult *simple,
 	}
 
 	e_dbus_address_book_factory_call_open_address_book_sync (
-		factory_proxy, uid, &object_path, cancellable, &local_error);
+		factory_proxy, uid, &object_path, &bus_name, cancellable, &local_error);
 
 	g_object_unref (factory_proxy);
 
 	/* Sanity check. */
 	g_return_if_fail (
-		((object_path != NULL) && (local_error == NULL)) ||
-		((object_path == NULL) && (local_error != NULL)));
+		(((object_path != NULL) || (bus_name != NULL)) && (local_error == NULL)) ||
+		(((object_path == NULL) || (bus_name == NULL)) && (local_error != NULL)));
 
 	if (local_error != NULL) {
 		g_dbus_error_strip_remote_error (local_error);
@@ -980,13 +1103,15 @@ book_client_init_in_dbus_thread (GSimpleAsyncResult *simple,
 		return;
 	}
 
+	e_client_set_bus_name (client, bus_name);
+
 	priv->dbus_proxy = e_dbus_address_book_proxy_new_sync (
 		connection,
 		G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START,
-		ADDRESS_BOOK_DBUS_SERVICE_NAME,
-		object_path, cancellable, &local_error);
+		bus_name, object_path, cancellable, &local_error);
 
 	g_free (object_path);
+	g_free (bus_name);
 
 	/* Sanity check. */
 	g_return_if_fail (
@@ -1150,6 +1275,7 @@ e_book_client_class_init (EBookClientClass *class)
 	client_class->set_backend_property_sync = book_client_set_backend_property_sync;
 	client_class->open_sync = book_client_open_sync;
 	client_class->refresh_sync = book_client_refresh_sync;
+	client_class->retrieve_properties_sync = book_client_retrieve_properties_sync;
 
 	/**
 	 * EBookClient:locale:
@@ -1197,6 +1323,7 @@ e_book_client_init (EBookClient *client)
 /**
  * e_book_client_connect_sync:
  * @source: an #ESource
+ * @wait_for_connected_seconds: timeout, in seconds, to wait for the backend to be fully connected
  * @cancellable: (allow-none): optional #GCancellable object, or %NULL
  * @error: return location for a #GError, or %NULL
  *
@@ -1205,6 +1332,15 @@ e_book_client_init (EBookClient *client)
  *
  * Unlike with e_book_client_new(), there is no need to call
  * e_client_open_sync() after obtaining the #EBookClient.
+ *
+ * The @wait_for_connected_seconds argument had been added since 3.16,
+ * to let the caller decide how long to wait for the backend to fully
+ * connect to its (possibly remote) data store. This is required due
+ * to a change in the authentication process, which is fully asynchronous
+ * and done on the client side, while not every client is supposed to
+ * response to authentication requests. In case the backend will not connect
+ * within the set interval, then it is opened in an offline mode. A special
+ * value -1 can be used to not wait for the connected state at all.
  *
  * For error handling convenience, any error message returned by this
  * function will have a descriptive prefix that includes the display
@@ -1216,6 +1352,7 @@ e_book_client_init (EBookClient *client)
  **/
 EClient *
 e_book_client_connect_sync (ESource *source,
+			    guint32 wait_for_connected_seconds,
                             GCancellable *cancellable,
                             GError **error)
 {
@@ -1230,9 +1367,21 @@ e_book_client_connect_sync (ESource *source,
 
 	g_initable_init (G_INITABLE (client), cancellable, &local_error);
 
-	if (local_error == NULL)
+	if (local_error == NULL) {
+		gchar **properties = NULL;
+
 		e_dbus_address_book_call_open_sync (
-			client->priv->dbus_proxy, cancellable, &local_error);
+			client->priv->dbus_proxy, &properties, cancellable, &local_error);
+
+		book_client_process_properties (client, properties);
+		g_strfreev (properties);
+	}
+
+	if (!local_error && wait_for_connected_seconds != (guint32) -1) {
+		/* These errors are ignored, the book is left opened in an offline mode. */
+		e_client_wait_for_connected_sync (E_CLIENT (client),
+			wait_for_connected_seconds, cancellable, NULL);
+	}
 
 	if (local_error != NULL) {
 		g_dbus_error_strip_remote_error (local_error);
@@ -1247,6 +1396,23 @@ e_book_client_connect_sync (ESource *source,
 	return E_CLIENT (client);
 }
 
+static void
+book_client_connect_wait_for_connected_cb (GObject *source_object,
+					   GAsyncResult *result,
+					   gpointer user_data)
+{
+	GSimpleAsyncResult *simple;
+
+	simple = G_SIMPLE_ASYNC_RESULT (user_data);
+
+	/* These errors are ignored, the book is left opened in an offline mode. */
+	e_client_wait_for_connected_finish (E_CLIENT (source_object), result, NULL);
+
+	g_simple_async_result_complete (simple);
+
+	g_object_unref (simple);
+}
+
 /* Helper for e_book_client_connect() */
 static void
 book_client_connect_open_cb (GObject *source_object,
@@ -1254,12 +1420,38 @@ book_client_connect_open_cb (GObject *source_object,
                              gpointer user_data)
 {
 	GSimpleAsyncResult *simple;
+	gchar **properties = NULL;
+	GObject *client_object;
 	GError *local_error = NULL;
 
 	simple = G_SIMPLE_ASYNC_RESULT (user_data);
 
 	e_dbus_address_book_call_open_finish (
-		E_DBUS_ADDRESS_BOOK (source_object), result, &local_error);
+		E_DBUS_ADDRESS_BOOK (source_object), &properties, result, &local_error);
+
+	client_object = g_async_result_get_source_object (G_ASYNC_RESULT (simple));
+	if (client_object) {
+		book_client_process_properties (E_BOOK_CLIENT (client_object), properties);
+
+		if (!local_error) {
+			ConnectClosure *closure;
+
+			closure = g_simple_async_result_get_op_res_gpointer (simple);
+			if (closure->wait_for_connected_seconds != (guint32) -1) {
+				e_client_wait_for_connected (E_CLIENT (client_object),
+					closure->wait_for_connected_seconds,
+					closure->cancellable,
+					book_client_connect_wait_for_connected_cb, g_object_ref (simple));
+
+				g_clear_object (&client_object);
+				g_object_unref (simple);
+				g_strfreev (properties);
+				return;
+			}
+		}
+
+		g_clear_object (&client_object);
+	}
 
 	if (local_error != NULL) {
 		g_dbus_error_strip_remote_error (local_error);
@@ -1269,6 +1461,7 @@ book_client_connect_open_cb (GObject *source_object,
 	g_simple_async_result_complete (simple);
 
 	g_object_unref (simple);
+	g_strfreev (properties);
 }
 
 /* Helper for e_book_client_connect() */
@@ -1316,12 +1509,22 @@ exit:
 /**
  * e_book_client_connect:
  * @source: an #ESource
+ * @wait_for_connected_seconds: timeout, in seconds, to wait for the backend to be fully connected
  * @cancellable: (allow-none): optional #GCancellable object, or %NULL
  * @callback: (scope async): a #GAsyncReadyCallback to call when the request
  *            is satisfied
  * @user_data: (closure): data to pass to the callback function
  *
  * Asynchronously creates a new #EBookClient for @source.
+ *
+ * The @wait_for_connected_seconds argument had been added since 3.16,
+ * to let the caller decide how long to wait for the backend to fully
+ * connect to its (possibly remote) data store. This is required due
+ * to a change in the authentication process, which is fully asynchronous
+ * and done on the client side, while not every client is supposed to
+ * response to authentication requests. In case the backend will not connect
+ * within the set interval, then it is opened in an offline mode. A special
+ * value -1 can be used to not wait for the connected state at all.
  *
  * Unlike with e_book_client_new(), there is no need to call e_client_open()
  * after obtaining the #EBookClient.
@@ -1333,6 +1536,7 @@ exit:
  **/
 void
 e_book_client_connect (ESource *source,
+		       guint32 wait_for_connected_seconds,
                        GCancellable *cancellable,
                        GAsyncReadyCallback callback,
                        gpointer user_data)
@@ -1351,6 +1555,7 @@ e_book_client_connect (ESource *source,
 
 	closure = g_slice_new0 (ConnectClosure);
 	closure->source = g_object_ref (source);
+	closure->wait_for_connected_seconds = wait_for_connected_seconds;
 
 	if (G_IS_CANCELLABLE (cancellable))
 		closure->cancellable = g_object_ref (cancellable);
@@ -1459,6 +1664,7 @@ connect_direct (EBookClient *client,
 	EBookClientPrivate *priv;
 	EDBusDirectBook *direct_config;
 	const gchar *backend_name, *backend_path, *config;
+	gchar *bus_name;
 
 	priv = E_BOOK_CLIENT_GET_PRIVATE (client);
 
@@ -1471,12 +1677,16 @@ connect_direct (EBookClient *client,
 			return;
 	}
 
+	bus_name = e_client_dup_bus_name (E_CLIENT (client));
+
 	direct_config = e_dbus_direct_book_proxy_new_sync (
 		g_dbus_proxy_get_connection (G_DBUS_PROXY (priv->dbus_proxy)),
 		G_DBUS_PROXY_FLAGS_NONE,
-		ADDRESS_BOOK_DBUS_SERVICE_NAME,
+		bus_name,
 		g_dbus_proxy_get_object_path (G_DBUS_PROXY (priv->dbus_proxy)),
 		NULL, NULL);
+
+	g_free (bus_name);
 
 	backend_path = e_dbus_direct_book_get_backend_path (direct_config);
 	backend_name = e_dbus_direct_book_get_backend_name (direct_config);
@@ -1509,6 +1719,7 @@ connect_direct (EBookClient *client,
  * e_book_client_connect_direct_sync:
  * @registry: an #ESourceRegistry
  * @source: an #ESource
+ * @wait_for_connected_seconds: timeout, in seconds, to wait for the backend to be fully connected
  * @cancellable: (allow-none): optional #GCancellable object, or %NULL
  * @error: return location for a #GError, or %NULL
  *
@@ -1522,12 +1733,13 @@ connect_direct (EBookClient *client,
 EClient *
 e_book_client_connect_direct_sync (ESourceRegistry *registry,
                                    ESource *source,
+				   guint32 wait_for_connected_seconds,
                                    GCancellable *cancellable,
                                    GError **error)
 {
 	EClient *client;
 
-	client = e_book_client_connect_sync (source, cancellable, error);
+	client = e_book_client_connect_sync (source, wait_for_connected_seconds, cancellable, error);
 
 	if (!client)
 		return NULL;
@@ -1586,6 +1798,7 @@ exit:
 /**
  * e_book_client_connect_direct:
  * @source: an #ESource
+ * @wait_for_connected_seconds: timeout, in seconds, to wait for the backend to be fully connected
  * @cancellable: (allow-none): optional #GCancellable object, or %NULL
  * @callback: (scope async): a #GAsyncReadyCallback to call when the request
  *            is satisfied
@@ -1601,6 +1814,7 @@ exit:
  **/
 void
 e_book_client_connect_direct (ESource *source,
+			      guint32 wait_for_connected_seconds,
                               GCancellable *cancellable,
                               GAsyncReadyCallback callback,
                               gpointer user_data)
@@ -1618,6 +1832,7 @@ e_book_client_connect_direct (ESource *source,
 	 * time and block other clients from receiving signals. */
 	closure = g_slice_new0 (ConnectClosure);
 	closure->source = g_object_ref (source);
+	closure->wait_for_connected_seconds = wait_for_connected_seconds;
 
 	if (G_IS_CANCELLABLE (cancellable))
 		closure->cancellable = g_object_ref (cancellable);

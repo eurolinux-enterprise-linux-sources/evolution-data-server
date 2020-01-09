@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Jeffrey Stedfast <fejj@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -46,13 +45,13 @@ struct _CamelMimeFilterToHTMLPrivate {
 	guint32 pre_open : 1;
 };
 
-/**
+/*
  * TODO: convert common text/plain 'markup' to html. eg.:
  *
  * _word_ -> <u>_word_</u>
  * *word* -> <b>*word*</b>
  * /word/ -> <i>/word/</i>
- **/
+ */
 
 #define d(x)
 
@@ -63,7 +62,7 @@ struct _CamelMimeFilterToHTMLPrivate {
 
 static struct {
 	CamelMimeFilterToHTMLFlags mask;
-	urlpattern_t pattern;
+	CamelUrlPattern pattern;
 } patterns[] = {
 	{ CONVERT_WEB_URLS, { "file://",   "",        camel_url_file_start,     camel_url_file_end     } },
 	{ CONVERT_WEB_URLS, { "ftp://",    "",        camel_url_web_start,      camel_url_web_end      } },
@@ -133,7 +132,7 @@ citation_depth (const gchar *in,
 	if (out_skip != NULL)
 		*out_skip = 0;
 
-	if (*inptr++ != '>')
+	if (!strchr (">|", *inptr++))
 		goto exit;
 
 #if FOOLISHLY_UNMUNGE_FROM
@@ -143,6 +142,7 @@ citation_depth (const gchar *in,
 #endif
 
 	depth = 1;
+	skip = 1;
 
 	while (inptr < inend && *inptr != '\n') {
 		if (*inptr == ' ') {
@@ -150,7 +150,7 @@ citation_depth (const gchar *in,
 			skip++;
 		}
 
-		if (inptr >= inend || *inptr++ != '>')
+		if (inptr >= inend || !strchr (">|", *inptr++))
 			break;
 
 		depth++;
@@ -225,9 +225,14 @@ writeln (CamelMimeFilter *mime_filter,
 			}
 			/* otherwise, FALL THROUGH */
 		default:
-			if (u >= 20 && u <0x80)
+			if (u == '\r' && inptr >= inend) {
+				/* This constructs \r\n sequence at the end of the line, thus pass it in
+				   only if not converting the new-line breaks */
+				if (!(priv->flags & CAMEL_MIME_FILTER_TOHTML_CONVERT_NL))
+					*outptr++ = u;
+			} else if (u >= 20 && u <0x80) {
 				*outptr++ = u;
-			else {
+			} else {
 				if (priv->flags & CAMEL_MIME_FILTER_TOHTML_ESCAPE_8BIT)
 					*outptr++ = '?';
 				else
@@ -362,7 +367,7 @@ html_convert (CamelMimeFilter *mime_filter,
 #define CONVERT_URLS (CAMEL_MIME_FILTER_TOHTML_CONVERT_URLS | CAMEL_MIME_FILTER_TOHTML_CONVERT_ADDRESSES)
 		if (priv->flags & CONVERT_URLS) {
 			gsize matchlen, len;
-			urlmatch_t match;
+			CamelUrlMatch match;
 
 			len = inptr - start;
 
@@ -469,6 +474,7 @@ html_convert (CamelMimeFilter *mime_filter,
 			/* close the pre-tag */
 			outptr = check_size (mime_filter, outptr, &outend, 10);
 			outptr = g_stpcpy (outptr, "</pre>");
+			priv->pre_open = FALSE;
 		}
 	} else if (start < inend) {
 		/* backup */

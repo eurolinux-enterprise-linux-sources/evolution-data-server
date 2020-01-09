@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: Class Hierarchy</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>Class Hierarchy: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="index.html" title="Camel Reference Manual">
 <link rel="prev" href="CamelSmtpTransport.html" title="CamelSmtpTransport">
 <link rel="next" href="api-index-full.html" title="Index">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -23,12 +23,11 @@
 <div class="titlepage"><div><div><h1 class="title">
 <a name="ClassTree"></a>Class Hierarchy</h1></div></div></div>
 <pre class="screen">
-    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">├──</span> <a class="link" href="CamelAddress.html" title="CamelAddress">CamelAddress</a>
     <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelInternetAddress.html" title="CamelInternetAddress">CamelInternetAddress</a>
     <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelNNTPAddress.html" title="CamelNNTPAddress">CamelNNTPAddress</a>
     <span class="lineart">├──</span> <a class="link" href="CamelKeyFile.html#CamelBlockFile">CamelBlockFile</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelKeyFile.html" title="CamelKeyFile">CamelKeyFile</a>
     <span class="lineart">├──</span> <a class="link" href="CamelCertDB.html" title="CamelCertDB">CamelCertDB</a>
     <span class="lineart">├──</span> <a class="link" href="CamelCipherContext.html" title="CamelCipherContext">CamelCipherContext</a>
     <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelGpgContext.html" title="CamelGpgContext">CamelGpgContext</a>
@@ -42,12 +41,12 @@
     <span class="lineart">│</span>       <span class="lineart">├──</span> <a class="link" href="CamelMultipartEncrypted.html" title="CamelMultipartEncrypted">CamelMultipartEncrypted</a>
     <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="CamelMultipartSigned.html" title="CamelMultipartSigned">CamelMultipartSigned</a>
     <span class="lineart">├──</span> <a class="link" href="CamelFilterDriver.html" title="CamelFilterDriver">CamelFilterDriver</a>
-    <span class="lineart">├──</span> <a href="https://developer.gnome.org/gio/unstable/GInputStream.html">GInputStream</a>
-    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a href="https://developer.gnome.org/gio/unstable/GFilterInputStream.html">GFilterInputStream</a>
+    <span class="lineart">├──</span> <a href="/usr/share/gtk-doc/html/gioGInputStream.html#GInputStream-struct">GInputStream</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a href="/usr/share/gtk-doc/html/gioGFilterInputStream.html#GFilterInputStream-struct">GFilterInputStream</a>
     <span class="lineart">│</span>       <span class="lineart">├──</span> <a class="link" href="CamelFilterInputStream.html" title="CamelFilterInputStream">CamelFilterInputStream</a>
-    <span class="lineart">│</span>       <span class="lineart">╰──</span> CamelIMAPXInputStream
-    <span class="lineart">├──</span> <a href="https://developer.gnome.org/gio/unstable/GOutputStream.html">GOutputStream</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a href="https://developer.gnome.org/gio/unstable/GFilterOutputStream.html">GFilterOutputStream</a>
+    <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="CamelIMAPXInputStream.html" title="CamelIMAPXInputStream">CamelIMAPXInputStream</a>
+    <span class="lineart">├──</span> <a href="/usr/share/gtk-doc/html/gioGOutputStream.html#GOutputStream-struct">GOutputStream</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a href="/usr/share/gtk-doc/html/gioGFilterOutputStream.html#GFilterOutputStream-struct">GFilterOutputStream</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelFilterOutputStream.html" title="CamelFilterOutputStream">CamelFilterOutputStream</a>
     <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelNullOutputStream.html" title="CamelNullOutputStream">CamelNullOutputStream</a>
     <span class="lineart">├──</span> <a class="link" href="CamelObject.html" title="CamelObject">CamelObject</a>
@@ -55,48 +54,72 @@
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelOfflineFolder.html" title="CamelOfflineFolder">CamelOfflineFolder</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelIMAPXFolder.html" title="CamelIMAPXFolder">CamelIMAPXFolder</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelNNTPFolder.html" title="CamelNNTPFolder">CamelNNTPFolder</a>
-    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder">CamelVeeFolder</a>
-    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelVTrashFolder.html" title="CamelVTrashFolder">CamelVTrashFolder</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelLocalFolder.html" title="CamelLocalFolder">CamelLocalFolder</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMaildirFolder.html" title="CamelMaildirFolder">CamelMaildirFolder</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMboxFolder.html" title="CamelMboxFolder">CamelMboxFolder</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelSpoolFolder.html" title="CamelSpoolFolder">CamelSpoolFolder</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelMhFolder.html" title="CamelMhFolder">CamelMhFolder</a>
-    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelPOP3Folder.html" title="CamelPOP3Folder">CamelPOP3Folder</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelPOP3Folder.html" title="CamelPOP3Folder">CamelPOP3Folder</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelVeeFolder.html" title="CamelVeeFolder">CamelVeeFolder</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="CamelVTrashFolder.html" title="CamelVTrashFolder">CamelVTrashFolder</a>
     <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelService.html" title="CamelService">CamelService</a>
     <span class="lineart">│</span>       <span class="lineart">├──</span> <a class="link" href="CamelStore.html" title="CamelStore">CamelStore</a>
     <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelOfflineStore.html" title="CamelOfflineStore">CamelOfflineStore</a>
     <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore">CamelIMAPXStore</a>
     <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelNNTPStore.html" title="CamelNNTPStore">CamelNNTPStore</a>
-    <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelVeeStore.html" title="CamelVeeStore">CamelVeeStore</a>
     <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelLocalStore.html" title="CamelLocalStore">CamelLocalStore</a>
     <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMaildirStore.html" title="CamelMaildirStore">CamelMaildirStore</a>
     <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMboxStore.html" title="CamelMboxStore">CamelMboxStore</a>
     <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelSpoolStore.html" title="CamelSpoolStore">CamelSpoolStore</a>
     <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelMhStore.html" title="CamelMhStore">CamelMhStore</a>
-    <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelPOP3Store.html" title="CamelPOP3Store">CamelPOP3Store</a>
+    <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelPOP3Store.html" title="CamelPOP3Store">CamelPOP3Store</a>
+    <span class="lineart">│</span>       <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelVeeStore.html" title="CamelVeeStore">CamelVeeStore</a>
     <span class="lineart">│</span>       <span class="lineart">╰──</span> <a class="link" href="CamelTransport.html" title="CamelTransport">CamelTransport</a>
     <span class="lineart">│</span>           <span class="lineart">├──</span> <a class="link" href="CamelSendmailTransport.html" title="CamelSendmailTransport">CamelSendmailTransport</a>
     <span class="lineart">│</span>           <span class="lineart">╰──</span> <a class="link" href="CamelSmtpTransport.html" title="CamelSmtpTransport">CamelSmtpTransport</a>
     <span class="lineart">├──</span> <a class="link" href="CamelFolderSearch.html" title="CamelFolderSearch">CamelFolderSearch</a>
     <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelIMAPXSearch.html" title="CamelIMAPXSearch">CamelIMAPXSearch</a>
     <span class="lineart">├──</span> <a class="link" href="CamelFolderSummary.html" title="CamelFolderSummary">CamelFolderSummary</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelVeeSummary.html" title="CamelVeeSummary">CamelVeeSummary</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelIMAPXSummary.html" title="CamelIMAPXSummary">CamelIMAPXSummary</a>
     <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelLocalSummary.html" title="CamelLocalSummary">CamelLocalSummary</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMaildirSummary.html" title="CamelMaildirSummary">CamelMaildirSummary</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMboxSummary.html" title="CamelMboxSummary">CamelMboxSummary</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelSpoolSummary.html" title="CamelSpoolSummary">CamelSpoolSummary</a>
     <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelMhSummary.html" title="CamelMhSummary">CamelMhSummary</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelIMAPXSummary.html" title="CamelIMAPXSummary">CamelIMAPXSummary</a>
-    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelNNTPSummary.html" title="CamelNNTPSummary">CamelNNTPSummary</a>
-    <span class="lineart">├──</span> CamelHTMLParser
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelNNTPSummary.html" title="CamelNNTPSummary">CamelNNTPSummary</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelVeeSummary.html" title="CamelVeeSummary">CamelVeeSummary</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelHTMLParser.html" title="CamelHTMLParser">CamelHTMLParser</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXConnManager.html" title="CamelIMAPXConnManager">CamelIMAPXConnManager</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXListResponse.html" title="CamelIMAPXListResponse">CamelIMAPXListResponse</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXLogger.html" title="CamelIMAPXLogger">CamelIMAPXLogger</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox">CamelIMAPXMailbox</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXNamespace.html" title="CamelIMAPXNamespace">CamelIMAPXNamespace</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXNamespaceResponse.html" title="CamelIMAPXNamespaceResponse">CamelIMAPXNamespaceResponse</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer">CamelIMAPXServer</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelSettings.html" title="CamelSettings">CamelSettings</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStoreSettings.html" title="CamelStoreSettings">CamelStoreSettings</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelOfflineSettings.html" title="CamelOfflineSettings">CamelOfflineSettings</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelIMAPXSettings.html" title="CamelIMAPXSettings">CamelIMAPXSettings</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelNNTPSettings.html" title="CamelNNTPSettings">CamelNNTPSettings</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelLocalSettings.html" title="CamelLocalSettings">CamelLocalSettings</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMhSettings.html" title="CamelMhSettings">CamelMhSettings</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelSpoolSettings.html" title="CamelSpoolSettings">CamelSpoolSettings</a>
+    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelPOP3Settings.html" title="CamelPOP3Settings">CamelPOP3Settings</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelSendmailSettings.html" title="CamelSendmailSettings">CamelSendmailSettings</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelSmtpSettings.html" title="CamelSmtpSettings">CamelSmtpSettings</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXStatusResponse.html" title="CamelIMAPXStatusResponse">CamelIMAPXStatusResponse</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelStoreSummary.html" title="CamelStoreSummary">CamelStoreSummary</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelIMAPXStoreSummary.html" title="CamelIMAPXStoreSummary">CamelIMAPXStoreSummary</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelNNTPStoreSummary.html" title="CamelNNTPStoreSummary">CamelNNTPStoreSummary</a>
     <span class="lineart">├──</span> <a class="link" href="CamelIndex.html#CamelIndexCursor">CamelIndexCursor</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelTextIndexName.html#CamelTextIndexCursor">CamelTextIndexCursor</a>
-    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelTextIndexName.html#CamelTextIndexKeyCursor">CamelTextIndexKeyCursor</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelIndex.html#CamelIndexName">CamelIndexName</a>
-    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelTextIndexName.html" title="CamelTextIndexName">CamelTextIndexName</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelTextIndex.html#CamelTextIndexCursor">CamelTextIndexCursor</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelTextIndex.html#CamelTextIndexKeyCursor">CamelTextIndexKeyCursor</a>
     <span class="lineart">├──</span> <a class="link" href="CamelIndex.html" title="CamelIndex">CamelIndex</a>
-    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelTextIndexName.html#CamelTextIndex">CamelTextIndex</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelTextIndex.html" title="CamelTextIndex">CamelTextIndex</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelIndex.html#CamelIndexName">CamelIndexName</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelTextIndex.html#CamelTextIndexName">CamelTextIndexName</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelKeyFile.html" title="CamelKeyFile">CamelKeyFile</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelKeyTable.html" title="CamelKeyTable">CamelKeyTable</a>
     <span class="lineart">├──</span> <a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter">CamelMimeFilter</a>
     <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMimeFilterBasic.html" title="CamelMimeFilterBasic">CamelMimeFilterBasic</a>
     <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMimeFilterBestenc.html" title="CamelMimeFilterBestenc">CamelMimeFilterBestenc</a>
@@ -115,21 +138,19 @@
     <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMimeFilterWindows.html" title="CamelMimeFilterWindows">CamelMimeFilterWindows</a>
     <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelMimeFilterYenc.html" title="CamelMimeFilterYenc">CamelMimeFilterYenc</a>
     <span class="lineart">├──</span> <a class="link" href="CamelMimeParser.html" title="CamelMimeParser">CamelMimeParser</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelSettings.html" title="CamelSettings">CamelSettings</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStoreSettings.html" title="CamelStoreSettings">CamelStoreSettings</a>
-    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelOfflineSettings.html" title="CamelOfflineSettings">CamelOfflineSettings</a>
-    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelIMAPXSettings.html" title="CamelIMAPXSettings">CamelIMAPXSettings</a>
-    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelNNTPSettings.html" title="CamelNNTPSettings">CamelNNTPSettings</a>
-    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelLocalSettings.html" title="CamelLocalSettings">CamelLocalSettings</a>
-    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelMhSettings.html" title="CamelMhSettings">CamelMhSettings</a>
-    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelSpoolSettings.html" title="CamelSpoolSettings">CamelSpoolSettings</a>
-    <span class="lineart">│</span>   <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelPOP3Settings.html" title="CamelPOP3Settings">CamelPOP3Settings</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelSendmailSettings.html" title="CamelSendmailSettings">CamelSendmailSettings</a>
-    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelSmtpSettings.html" title="CamelSmtpSettings">CamelSmtpSettings</a>
-    <span class="lineart">├──</span> <a href="https://developer.gnome.org/gio/unstable/GCancellable.html">GCancellable</a>
-    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="camel-camel-operation.html#CamelOperation">CamelOperation</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelStream.html" title="CamelStream">CamelStream</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelNNTPStream.html" title="CamelNNTPStream">CamelNNTPStream</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelPOP3Stream.html" title="CamelPOP3Stream">CamelPOP3Stream</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamBuffer.html" title="CamelStreamBuffer">CamelStreamBuffer</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamFilter.html" title="CamelStreamFilter">CamelStreamFilter</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamFs.html" title="CamelStreamFs">CamelStreamFs</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamMem.html" title="CamelStreamMem">CamelStreamMem</a>
+    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamNull.html" title="CamelStreamNull">CamelStreamNull</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelStreamProcess.html" title="CamelStreamProcess">CamelStreamProcess</a>
+    <span class="lineart">├──</span> <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct">GCancellable</a>
+    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelOperation.html" title="CamelOperation">CamelOperation</a>
     <span class="lineart">├──</span> <a class="link" href="CamelKeyTable.html#CamelPartitionTable">CamelPartitionTable</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelKeyTable.html" title="CamelKeyTable">CamelKeyTable</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelPOP3Engine.html" title="CamelPOP3Engine">CamelPOP3Engine</a>
     <span class="lineart">├──</span> <a class="link" href="CamelSasl.html" title="CamelSasl">CamelSasl</a>
     <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelSaslAnonymous.html" title="CamelSaslAnonymous">CamelSaslAnonymous</a>
     <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelSaslCramMd5.html" title="CamelSaslCramMd5">CamelSaslCramMd5</a>
@@ -141,38 +162,27 @@
     <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelSaslPOPB4SMTP.html" title="CamelSaslPOPB4SMTP">CamelSaslPOPB4SMTP</a>
     <span class="lineart">├──</span> <a class="link" href="CamelSession.html" title="CamelSession">CamelSession</a>
     <span class="lineart">├──</span> <a class="link" href="CamelSExp.html" title="CamelSExp">CamelSExp</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelStoreSummary.html" title="CamelStoreSummary">CamelStoreSummary</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelIMAPXStoreSummary.html" title="CamelIMAPXStoreSummary">CamelIMAPXStoreSummary</a>
-    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelNNTPStoreSummary.html" title="CamelNNTPStoreSummary">CamelNNTPStoreSummary</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelStream.html" title="CamelStream">CamelStream</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamBuffer.html" title="CamelStreamBuffer">CamelStreamBuffer</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamFilter.html" title="CamelStreamFilter">CamelStreamFilter</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamFs.html" title="CamelStreamFs">CamelStreamFs</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamMem.html" title="CamelStreamMem">CamelStreamMem</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamNull.html" title="CamelStreamNull">CamelStreamNull</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelStreamProcess.html" title="CamelStreamProcess">CamelStreamProcess</a>
-    <span class="lineart">│</span>   <span class="lineart">├──</span> <a class="link" href="CamelNNTPStream.html" title="CamelNNTPStream">CamelNNTPStream</a>
-    <span class="lineart">│</span>   <span class="lineart">╰──</span> <a class="link" href="CamelPOP3Stream.html" title="CamelPOP3Stream">CamelPOP3Stream</a>
     <span class="lineart">├──</span> <a class="link" href="CamelVeeDataCache.html" title="CamelVeeDataCache">CamelVeeDataCache</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelVeeMessageInfoData.html" title="CamelVeeMessageInfoData">CamelVeeMessageInfoData</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelVeeSubfolderData.html" title="CamelVeeSubfolderData">CamelVeeSubfolderData</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXListResponse.html" title="CamelIMAPXListResponse">CamelIMAPXListResponse</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXLogger.html" title="CamelIMAPXLogger">CamelIMAPXLogger</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox">CamelIMAPXMailbox</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXNamespace.html" title="CamelIMAPXNamespace">CamelIMAPXNamespace</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXNamespaceResponse.html" title="CamelIMAPXNamespaceResponse">CamelIMAPXNamespaceResponse</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer">CamelIMAPXServer</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelIMAPXStatusResponse.html" title="CamelIMAPXStatusResponse">CamelIMAPXStatusResponse</a>
-    <span class="lineart">╰──</span> <a class="link" href="CamelPOP3Engine.html" title="CamelPOP3Engine">CamelPOP3Engine</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelVeeDataCache.html#CamelVeeMessageInfoData">CamelVeeMessageInfoData</a>
+    <span class="lineart">╰──</span> <a class="link" href="CamelVeeDataCache.html#CamelVeeSubfolderData">CamelVeeSubfolderData</a>
     <a href="https://developer.gnome.org/gobject/unstable/GTypeModule.html">GInterface</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelJunkFilter.html" title="CamelJunkFilter">CamelJunkFilter</a>
-    <span class="lineart">├──</span> <a class="link" href="CamelNetworkService.html" title="CamelNetworkService">CamelNetworkService</a>
     <span class="lineart">├──</span> <a class="link" href="CamelNetworkSettings.html" title="CamelNetworkSettings">CamelNetworkSettings</a>
-    <span class="lineart">╰──</span> <a class="link" href="CamelSubscribable.html" title="CamelSubscribable">CamelSubscribable</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelNetworkService.html" title="CamelNetworkService">CamelNetworkService</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelSubscribable.html" title="CamelSubscribable">CamelSubscribable</a>
+    <span class="lineart">╰──</span> <a class="link" href="CamelJunkFilter.html" title="CamelJunkFilter">CamelJunkFilter</a>
+    <a href="https://developer.gnome.org/gobject/unstable/gobject-Boxed-Types.html">GBoxed</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelCertDB.html#CamelCert">CamelCert</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelCipherContext.html#CamelCipherValidity">CamelCipherValidity</a>
+    <span class="lineart">├──</span> <a class="link" href="camel-camel-mime-utils.html#CamelContentDisposition">CamelContentDisposition</a>
+    <span class="lineart">├──</span> <a class="link" href="camel-camel-mime-utils.html#CamelContentType">CamelContentType</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelStore.html#CamelFolderInfo">CamelFolderInfo</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelFolder.html#CamelFolderQuotaInfo">CamelFolderQuotaInfo</a>
+    <span class="lineart">├──</span> <a class="link" href="camel-camel-mime-utils.html#CamelHeaderAddress">CamelHeaderAddress</a>
+    <span class="lineart">├──</span> <a class="link" href="CamelFolderSummary.html#CamelMessageInfo">CamelMessageInfo</a>
+    <span class="lineart">╰──</span> <a class="link" href="camel-camel-url.html#CamelURL">CamelURL</a>
 </pre>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

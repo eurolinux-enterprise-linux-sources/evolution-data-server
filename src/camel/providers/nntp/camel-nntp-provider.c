@@ -1,23 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-nntp-provider.c: nntp provider registration code */
-
-/*
- * Authors :
- *   Chris Toshok <toshok@ximian.com>
+/* camel-nntp-provider.c: nntp provider registration code
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors :
+ *   Chris Toshok <toshok@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -53,7 +52,7 @@ static CamelProviderConfEntry nntp_conf_entries[] = {
 
 CamelProviderPortEntry nntp_port_entries[] = {
 	{ 119, N_("Default NNTP port"), FALSE },
-	{ 563, N_("NNTP over SSL"), TRUE },
+	{ 563, N_("NNTP over TLS"), TRUE },
 	{ 0, NULL, 0 }
 };
 

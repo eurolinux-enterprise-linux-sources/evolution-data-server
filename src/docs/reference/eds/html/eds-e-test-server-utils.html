@@ -1,0 +1,515 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>e-test-server-utils: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="unit-testing.html" title="Part VI. Unit Testing">
+<link rel="prev" href="unit-testing.html" title="Part VI. Unit Testing">
+<link rel="next" href="deprecated.html" title="Part VII. Deprecated Classes">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-e-test-server-utils.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="unit-testing.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="unit-testing.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="deprecated.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-e-test-server-utils"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-e-test-server-utils.top_of_page"></a>e-test-server-utils</span></h2>
+<p>e-test-server-utils — A utility for unit testing EDS</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-e-test-server-utils.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="eds-e-test-server-utils.html#E-TEST-SERVER-UTILS-SERVICE:CAPS" title="E_TEST_SERVER_UTILS_SERVICE()">E_TEST_SERVER_UTILS_SERVICE</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="eds-e-test-server-utils.html#ETestSourceCustomizeFunc" title="ETestSourceCustomizeFunc ()">*ETestSourceCustomizeFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-test-server-utils.html#e-test-server-utils-setup" title="e_test_server_utils_setup ()">e_test_server_utils_setup</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-test-server-utils.html#e-test-server-utils-teardown" title="e_test_server_utils_teardown ()">e_test_server_utils_teardown</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-test-server-utils.html#e-test-server-utils-run" title="e_test_server_utils_run ()">e_test_server_utils_run</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-test-server-utils.html#e-test-server-utils-run-full" title="e_test_server_utils_run_full ()">e_test_server_utils_run_full</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-e-test-server-utils.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="eds-e-test-server-utils.html#ETestServiceType" title="enum ETestServiceType">ETestServiceType</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-e-test-server-utils.html#ETestServerClosure" title="struct ETestServerClosure">ETestServerClosure</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="eds-e-test-server-utils.html#ETestService" title="ETestService">ETestService</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture">ETestServerFixture</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="eds-e-test-server-utils.html#ETestServerFlags" title="enum ETestServerFlags">ETestServerFlags</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-e-test-server-utils.description"></a><h2>Description</h2>
+<p>This test fixture provides an encapsulated testing environment for test
+cases to test <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> and <a class="link" href="ECalClient.html" title="ECalClient"><span class="type">ECalClient</span></a>.</p>
+<p>The <a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a> should be used as a fixture and must be coupled
+with the <a class="link" href="eds-e-test-server-utils.html#ETestServerClosure" title="struct ETestServerClosure"><span class="type">ETestServerClosure</span></a> to configure how the test fixture will operate.</p>
+<p>Both the <a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a> and <a class="link" href="eds-e-test-server-utils.html#ETestServerClosure" title="struct ETestServerClosure"><span class="type">ETestServerClosure</span></a> can be extended with
+more complex test fixtures, which must remember to call <a class="link" href="eds-e-test-server-utils.html#e-test-server-utils-setup" title="e_test_server_utils_setup ()"><code class="function">e_test_server_utils_setup()</code></a>
+and <a class="link" href="eds-e-test-server-utils.html#e-test-server-utils-teardown" title="e_test_server_utils_teardown ()"><code class="function">e_test_server_utils_teardown()</code></a> in thier fixture's setup and teardown routines.</p>
+</div>
+<div class="refsect1">
+<a name="eds-e-test-server-utils.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="E-TEST-SERVER-UTILS-SERVICE:CAPS"></a><h3>E_TEST_SERVER_UTILS_SERVICE()</h3>
+<pre class="programlisting">#define             E_TEST_SERVER_UTILS_SERVICE(fixture, service_type)</pre>
+<p>A convenience macro to fetch the service for a given test case:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">EBookClient</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">book </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="eds-e-test-server-utils.html#E-TEST-SERVER-UTILS-SERVICE:CAPS">E_TEST_SERVER_UTILS_SERVICE</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">fixture</span><span class="symbol">,</span><span class="normal"> <a href="EBookClient.html#EBookClient-struct">EBookClient</a></span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+<div class="refsect3">
+<a name="E-TEST-SERVER-UTILS-SERVICE.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>fixture</p></td>
+<td class="parameter_description"><p>An <a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>service_type</p></td>
+<td class="parameter_description"><p>The type to cast for the service in use</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ETestSourceCustomizeFunc"></a><h3>ETestSourceCustomizeFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*ETestSourceCustomizeFunc<span class="c_punctuation">)</span> (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *scratch</code></em>,
+                             <em class="parameter"><code><a class="link" href="eds-e-test-server-utils.html#ETestServerClosure" title="struct ETestServerClosure"><span class="type">ETestServerClosure</span></a> *closure</code></em>);</pre>
+<p>This can be used to parameterize the addressbook or calendar <em class="parameter"><code>scratch</code></em>
+ <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>
+before creating/committing it.</p>
+<div class="refsect3">
+<a name="ETestSourceCustomizeFunc.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>scratch</p></td>
+<td class="parameter_description"><p>The scratch <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> template being used to create an addressbook or calendar</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>closure</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-e-test-server-utils.html#ETestServerClosure" title="struct ETestServerClosure"><span class="type">ETestServerClosure</span></a> for this test case</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-test-server-utils-setup"></a><h3>e_test_server_utils_setup ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_test_server_utils_setup (<em class="parameter"><code><a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a> *fixture</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> user_data</code></em>);</pre>
+<p>A setup function for the <a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a> fixture</p>
+<div class="refsect3">
+<a name="e-test-server-utils-setup.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>fixture</p></td>
+<td class="parameter_description"><p>A <a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>A <a class="link" href="eds-e-test-server-utils.html#ETestServerClosure" title="struct ETestServerClosure"><span class="type">ETestServerClosure</span></a> or derived structure provided by the test.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-test-server-utils-teardown"></a><h3>e_test_server_utils_teardown ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_test_server_utils_teardown (<em class="parameter"><code><a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a> *fixture</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> user_data</code></em>);</pre>
+<p>A teardown function for the <a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a> fixture</p>
+<div class="refsect3">
+<a name="e-test-server-utils-teardown.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>fixture</p></td>
+<td class="parameter_description"><p>A <a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>A <a class="link" href="eds-e-test-server-utils.html#ETestServerClosure" title="struct ETestServerClosure"><span class="type">ETestServerClosure</span></a> or derived structure provided by the test.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-test-server-utils-run"></a><h3>e_test_server_utils_run ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_test_server_utils_run (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-test-server-utils-run-full"></a><h3>e_test_server_utils_run_full ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_test_server_utils_run_full (<em class="parameter"><code><a class="link" href="eds-e-test-server-utils.html#ETestServerFlags" title="enum ETestServerFlags"><span class="type">ETestServerFlags</span></a> flags</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-e-test-server-utils.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="ETestServiceType"></a><h3>enum ETestServiceType</h3>
+<p>The type of service to test</p>
+<div class="refsect3">
+<a name="ETestServiceType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="E-TEST-SERVER-NONE:CAPS"></a>E_TEST_SERVER_NONE</p></td>
+<td class="enum_member_description">
+<p>Only the <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> will be created</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-TEST-SERVER-ADDRESS-BOOK:CAPS"></a>E_TEST_SERVER_ADDRESS_BOOK</p></td>
+<td class="enum_member_description">
+<p>An <span class="type">EBookCLient</span> will be created and opened for the test</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-TEST-SERVER-DIRECT-ADDRESS-BOOK:CAPS"></a>E_TEST_SERVER_DIRECT_ADDRESS_BOOK</p></td>
+<td class="enum_member_description">
+<p>An <span class="type">EBookCLient</span> in direct read access mode will be created and opened for the test</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-TEST-SERVER-CALENDAR:CAPS"></a>E_TEST_SERVER_CALENDAR</p></td>
+<td class="enum_member_description">
+<p>An <a class="link" href="ECalClient.html" title="ECalClient"><span class="type">ECalClient</span></a> will be created and opened for the test</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-TEST-SERVER-DEPRECATED-ADDRESS-BOOK:CAPS"></a>E_TEST_SERVER_DEPRECATED_ADDRESS_BOOK</p></td>
+<td class="enum_member_description">
+<p>An <a class="link" href="EBook.html" title="EBook"><span class="type">EBook</span></a> will be created and opened for the test</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-TEST-SERVER-DEPRECATED-CALENDAR:CAPS"></a>E_TEST_SERVER_DEPRECATED_CALENDAR</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ETestServerClosure"></a><h3>struct ETestServerClosure</h3>
+<pre class="programlisting">struct ETestServerClosure {
+	ETestServiceType         type;
+	ETestSourceCustomizeFunc customize;
+	gint                     calendar_source_type;
+	gboolean                 keep_work_directory;
+	GDestroyNotify           destroy_closure_func;
+	gboolean                 use_async_connect;
+};
+</pre>
+<p>This structure provides the parameters for the <a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a> tests,
+it can be included as the first member of a derived structure
+for any tests deriving from the <a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a> test type</p>
+<div class="refsect3">
+<a name="ETestServerClosure.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a class="link" href="eds-e-test-server-utils.html#ETestServiceType" title="enum ETestServiceType"><span class="type">ETestServiceType</span></a> <em class="structfield"><code><a name="ETestServerClosure.type"></a>type</code></em>;</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a class="link" href="eds-e-test-server-utils.html#ETestSourceCustomizeFunc" title="ETestSourceCustomizeFunc ()"><span class="type">ETestSourceCustomizeFunc</span></a> <em class="structfield"><code><a name="ETestServerClosure.customize"></a>customize</code></em>;</p></td>
+<td class="struct_member_description"><p>An <a class="link" href="eds-e-test-server-utils.html#ETestSourceCustomizeFunc" title="ETestSourceCustomizeFunc ()"><span class="type">ETestSourceCustomizeFunc</span></a> to use to parameterize the scratch <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> <em class="structfield"><code><a name="ETestServerClosure.calendar-source-type"></a>calendar_source_type</code></em>;</p></td>
+<td class="struct_member_description"><p>An <a class="link" href="eds-e-cal-types.html#ECalClientSourceType" title="enum ECalClientSourceType"><span class="type">ECalClientSourceType</span></a> or <a class="link" href="ECal.html#ECalSourceType" title="enum ECalSourceType"><span class="type">ECalSourceType</span></a>; for <a class="link" href="eds-e-test-server-utils.html#E-TEST-SERVER-CALENDAR:CAPS"><code class="literal">E_TEST_SERVER_CALENDAR</code></a>
+and <a class="link" href="eds-e-test-server-utils.html#E-TEST-SERVER-DEPRECATED-CALENDAR:CAPS"><code class="literal">E_TEST_SERVER_DEPRECATED_CALENDAR</code></a> tests</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> <em class="structfield"><code><a name="ETestServerClosure.keep-work-directory"></a>keep_work_directory</code></em>;</p></td>
+<td class="struct_member_description"><p>If specified, the work directory will not be deleted between tests</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Datasets.html#GDestroyNotify"><span class="type">GDestroyNotify</span></a> <em class="structfield"><code><a name="ETestServerClosure.destroy-closure-func"></a>destroy_closure_func</code></em>;</p></td>
+<td class="struct_member_description"><p>A function to destroy an allocated <a class="link" href="eds-e-test-server-utils.html#ETestServerClosure" title="struct ETestServerClosure"><span class="type">ETestServerClosure</span></a>, this it
+typically used by sub-fixtures which embed this structure in their closures.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> <em class="structfield"><code><a name="ETestServerClosure.use-async-connect"></a>use_async_connect</code></em>;</p></td>
+<td class="struct_member_description"><p>Specifies whether a synchronous or asyncrhonous API should be used to
+create the <a class="link" href="EClient.html" title="EClient"><span class="type">EClient</span></a> you plan to test.</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ETestService"></a><h3>ETestService</h3>
+<p>A union of service types, holds the object to test in a <a class="link" href="eds-e-test-server-utils.html#ETestServerFixture" title="struct ETestServerFixture"><span class="type">ETestServerFixture</span></a>.</p>
+<div class="refsect3">
+<a name="ETestService.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="union_members_name">
+<col class="union_members_description">
+<col width="200px" class="union_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="union_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> <em class="structfield"><code><a name="ETestService.generic"></a>generic</code></em>;</p></td>
+<td class="union_member_description"><p>A generic pointer for the test service.</p></td>
+<td class="union_member_annotations"> </td>
+</tr>
+<tr>
+<td class="union_member_name"><p><a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> *<em class="structfield"><code><a name="ETestService.book-client"></a>book_client</code></em>;</p></td>
+<td class="union_member_description"><p>An <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a>, created for <a class="link" href="eds-e-test-server-utils.html#E-TEST-SERVER-ADDRESS-BOOK:CAPS"><code class="literal">E_TEST_SERVER_ADDRESS_BOOK</code></a> tests</p></td>
+<td class="union_member_annotations"> </td>
+</tr>
+<tr>
+<td class="union_member_name"><p><a class="link" href="ECalClient.html" title="ECalClient"><span class="type">ECalClient</span></a> *<em class="structfield"><code><a name="ETestService.calendar-client"></a>calendar_client</code></em>;</p></td>
+<td class="union_member_description"><p>An <a class="link" href="ECalClient.html" title="ECalClient"><span class="type">ECalClient</span></a>, created for <a class="link" href="eds-e-test-server-utils.html#E-TEST-SERVER-CALENDAR:CAPS"><code class="literal">E_TEST_SERVER_CALENDAR</code></a> tests</p></td>
+<td class="union_member_annotations"> </td>
+</tr>
+<tr>
+<td class="union_member_name"><p><a class="link" href="EBook.html" title="EBook"><span class="type">EBook</span></a> *<em class="structfield"><code><a name="ETestService.book"></a>book</code></em>;</p></td>
+<td class="union_member_description"><p>An <a class="link" href="EBook.html" title="EBook"><span class="type">EBook</span></a>, created for <a class="link" href="eds-e-test-server-utils.html#E-TEST-SERVER-DEPRECATED-ADDRESS-BOOK:CAPS"><code class="literal">E_TEST_SERVER_DEPRECATED_ADDRESS_BOOK</code></a> tests</p></td>
+<td class="union_member_annotations"> </td>
+</tr>
+<tr>
+<td class="union_member_name"><p><a class="link" href="ECal.html" title="ECal"><span class="type">ECal</span></a> *<em class="structfield"><code><a name="ETestService.calendar"></a>calendar</code></em>;</p></td>
+<td class="union_member_description"><p>An <a class="link" href="ECal.html" title="ECal"><span class="type">ECal</span></a>, created for <a class="link" href="eds-e-test-server-utils.html#E-TEST-SERVER-DEPRECATED-CALENDAR:CAPS"><code class="literal">E_TEST_SERVER_DEPRECATED_CALENDAR</code></a> tests</p></td>
+<td class="union_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ETestServerFixture"></a><h3>struct ETestServerFixture</h3>
+<pre class="programlisting">struct ETestServerFixture {
+	GMainLoop       *loop;
+	GTestDBus       *dbus;
+	ESourceRegistry *registry;
+	ETestService     service;
+	gchar           *source_name;
+};
+</pre>
+<p>A fixture for running tests on the Evolution Data Server
+components in an encapsulated D-Bus environment.</p>
+<div class="refsect3">
+<a name="ETestServerFixture.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainLoop"><span class="type">GMainLoop</span></a> *<em class="structfield"><code><a name="ETestServerFixture.loop"></a>loop</code></em>;</p></td>
+<td class="struct_member_description"><p>A Main loop to run traffic in</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/gioGTestDBus.html#GTestDBus-struct"><span class="type">GTestDBus</span></a> *<em class="structfield"><code><a name="ETestServerFixture.dbus"></a>dbus</code></em>;</p></td>
+<td class="struct_member_description"><p>The D-Bus test scaffold</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a> *<em class="structfield"><code><a name="ETestServerFixture.registry"></a>registry</code></em>;</p></td>
+<td class="struct_member_description"><p>An <a class="link" href="ESourceRegistry.html" title="ESourceRegistry"><span class="type">ESourceRegistry</span></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a class="link" href="eds-e-test-server-utils.html#ETestService" title="ETestService"><span class="type">ETestService</span></a> <em class="structfield"><code><a name="ETestServerFixture.service"></a>service</code></em>;</p></td>
+<td class="struct_member_description"><p>The <a class="link" href="eds-e-test-server-utils.html#ETestService" title="ETestService"><span class="type">ETestService</span></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="ETestServerFixture.source-name"></a>source_name</code></em>;</p></td>
+<td class="struct_member_description"><p>This can be given an allocated string before calling <a class="link" href="eds-e-test-server-utils.html#e-test-server-utils-setup" title="e_test_server_utils_setup ()"><code class="function">e_test_server_utils_setup()</code></a> and will be the <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> UID
+for the test addressbook or calendar, leaving this <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> will result in a suitable unique id being generated for the test. </p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ETestServerFlags"></a><h3>enum ETestServerFlags</h3>
+<div class="refsect3">
+<a name="ETestServerFlags.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="enum_member_name"><p><a name="E-TEST-SERVER-KEEP-WORK-DIRECTORY:CAPS"></a>E_TEST_SERVER_KEEP_WORK_DIRECTORY</p></td>
+<td> </td>
+<td> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

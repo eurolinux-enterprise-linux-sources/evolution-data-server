@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Jeffrey Stedfast <fejj@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -75,6 +74,11 @@ enum {
 };
 
 G_DEFINE_TYPE (CamelCipherContext, camel_cipher_context, G_TYPE_OBJECT)
+
+G_DEFINE_BOXED_TYPE (CamelCipherValidity,
+		camel_cipher_validity,
+		camel_cipher_validity_clone,
+		camel_cipher_validity_free)
 
 static void
 async_context_free (AsyncContext *async_context)
@@ -606,7 +610,7 @@ camel_cipher_context_verify_finish (CamelCipherContext *context,
  * camel_cipher_context_encrypt_sync:
  * @context: a #CamelCipherContext
  * @userid: key ID (or email address) to use when signing, or %NULL to not sign
- * @recipients: an array of recipient key IDs and/or email addresses
+ * @recipients: (element-type utf8): an array of recipient key IDs and/or email addresses
  * @ipart: clear-text #CamelMimePart
  * @opart: cipher-text #CamelMimePart
  * @cancellable: optional #GCancellable object, or %NULL
@@ -692,7 +696,7 @@ cipher_context_encrypt_thread (GTask *task,
  * camel_cipher_context_encrypt:
  * @context: a #CamelCipherContext
  * @userid: key id (or email address) to use when signing, or %NULL to not sign
- * @recipients: an array of recipient key IDs and/or email addresses
+ * @recipients: (element-type utf8): an array of recipient key IDs and/or email addresses
  * @ipart: clear-text #CamelMimePart
  * @opart: cipher-text #CamelMimePart
  * @io_priority: the I/O priority of the request
@@ -972,6 +976,19 @@ camel_cipher_context_hash_to_id (CamelCipherContext *context,
 
 /* Cipher Validity stuff */
 static void
+ccv_certinfo_property_free (gpointer ptr)
+{
+	CamelCipherCertInfoProperty *property = ptr;
+
+	if (property) {
+		g_free (property->name);
+		if (property->value_free)
+			property->value_free (property->value);
+		g_free (property);
+	}
+}
+
+static void
 ccv_certinfo_free (CamelCipherCertInfo *info)
 {
 	g_return_if_fail (info != NULL);
@@ -982,6 +999,7 @@ ccv_certinfo_free (CamelCipherCertInfo *info)
 	if (info->cert_data && info->cert_data_free)
 		info->cert_data_free (info->cert_data);
 
+	g_slist_free_full (info->properties, ccv_certinfo_property_free);
 	g_free (info);
 }
 
@@ -1069,9 +1087,10 @@ camel_cipher_validity_clone (CamelCipherValidity *vin)
 	head = g_queue_peek_head_link (&vin->sign.signers);
 	for (link = head; link != NULL; link = g_list_next (link)) {
 		CamelCipherCertInfo *info = link->data;
+		gint index;
 
 		if (info->cert_data && info->cert_data_clone && info->cert_data_free)
-			camel_cipher_validity_add_certinfo_ex (
+			index = camel_cipher_validity_add_certinfo_ex (
 				vo, CAMEL_CIPHER_VALIDITY_SIGN,
 				info->name,
 				info->email,
@@ -1079,18 +1098,35 @@ camel_cipher_validity_clone (CamelCipherValidity *vin)
 				info->cert_data_free,
 				info->cert_data_clone);
 		else
-			camel_cipher_validity_add_certinfo (
+			index = camel_cipher_validity_add_certinfo (
 				vo, CAMEL_CIPHER_VALIDITY_SIGN,
 				info->name,
 				info->email);
+
+		if (index != -1 && info->properties) {
+			GSList *link;
+
+			for (link = info->properties; link; link = g_slist_next (link)) {
+				CamelCipherCertInfoProperty *property = link->data;
+				gpointer value;
+
+				if (!property)
+					continue;
+
+				value = property->value_clone ? property->value_clone (property->value) : property->value;
+				camel_cipher_validity_set_certinfo_property (vo, CAMEL_CIPHER_VALIDITY_SIGN, index,
+					property->name, value, property->value_free, property->value_clone);
+			}
+		}
 	}
 
 	head = g_queue_peek_head_link (&vin->encrypt.encrypters);
 	for (link = head; link != NULL; link = g_list_next (link)) {
 		CamelCipherCertInfo *info = link->data;
+		gint index;
 
 		if (info->cert_data && info->cert_data_clone && info->cert_data_free)
-			camel_cipher_validity_add_certinfo_ex (
+			index = camel_cipher_validity_add_certinfo_ex (
 				vo, CAMEL_CIPHER_VALIDITY_SIGN,
 				info->name,
 				info->email,
@@ -1098,10 +1134,26 @@ camel_cipher_validity_clone (CamelCipherValidity *vin)
 				info->cert_data_free,
 				info->cert_data_clone);
 		else
-			camel_cipher_validity_add_certinfo (
+			index = camel_cipher_validity_add_certinfo (
 				vo, CAMEL_CIPHER_VALIDITY_ENCRYPT,
 				info->name,
 				info->email);
+
+		if (index != -1 && info->properties) {
+			GSList *link;
+
+			for (link = info->properties; link; link = g_slist_next (link)) {
+				CamelCipherCertInfoProperty *property = link->data;
+				gpointer value;
+
+				if (!property)
+					continue;
+
+				value = property->value_clone ? property->value_clone (property->value) : property->value;
+				camel_cipher_validity_set_certinfo_property (vo, CAMEL_CIPHER_VALIDITY_ENCRYPT, index,
+					property->name, value, property->value_free, property->value_clone);
+			}
+		}
 	}
 
 	return vo;
@@ -1115,14 +1167,16 @@ camel_cipher_validity_clone (CamelCipherValidity *vin)
  * @email:
  *
  * Add a cert info to the signer or encrypter info.
+ *
+ * Returns: Index of the added certinfo; -1 on error
  **/
-void
+gint
 camel_cipher_validity_add_certinfo (CamelCipherValidity *vin,
-                                    enum _camel_cipher_validity_mode_t mode,
+                                    CamelCipherValidityMode mode,
                                     const gchar *name,
                                     const gchar *email)
 {
-	camel_cipher_validity_add_certinfo_ex (vin, mode, name, email, NULL, NULL, NULL);
+	return camel_cipher_validity_add_certinfo_ex (vin, mode, name, email, NULL, NULL, NULL);
 }
 
 /**
@@ -1130,23 +1184,26 @@ camel_cipher_validity_add_certinfo (CamelCipherValidity *vin,
  *
  * Add a cert info to the signer or encrypter info, with extended data set.
  *
+ * Returns: Index of the added certinfo; -1 on error
+ *
  * Since: 2.30
  **/
-void
+gint
 camel_cipher_validity_add_certinfo_ex (CamelCipherValidity *vin,
-                                       camel_cipher_validity_mode_t mode,
+                                       CamelCipherValidityMode mode,
                                        const gchar *name,
                                        const gchar *email,
                                        gpointer cert_data,
-                                       void (*cert_data_free)(gpointer cert_data),
-                                       gpointer (*cert_data_clone)(gpointer cert_data))
+                                       GDestroyNotify cert_data_free,
+                                       CamelCipherCloneFunc cert_data_clone)
 {
 	CamelCipherCertInfo *info;
+	GQueue *queue;
 
-	g_return_if_fail (vin != NULL);
+	g_return_val_if_fail (vin != NULL, -1);
 	if (cert_data) {
-		g_return_if_fail (cert_data_free != NULL);
-		g_return_if_fail (cert_data_clone != NULL);
+		g_return_val_if_fail (cert_data_free != NULL, -1);
+		g_return_val_if_fail (cert_data_clone != NULL, -1);
 	}
 
 	info = g_malloc0 (sizeof (*info));
@@ -1159,9 +1216,100 @@ camel_cipher_validity_add_certinfo_ex (CamelCipherValidity *vin,
 	}
 
 	if (mode == CAMEL_CIPHER_VALIDITY_SIGN)
-		g_queue_push_tail (&vin->sign.signers, info);
+		queue = &vin->sign.signers;
 	else
-		g_queue_push_tail (&vin->encrypt.encrypters, info);
+		queue = &vin->encrypt.encrypters;
+
+	g_queue_push_tail (queue, info);
+
+	return (gint) (g_queue_get_length (queue) - 1);
+}
+
+/**
+ * camel_cipher_validity_get_certinfo_property:
+ * @vin: a #CamelCipherValidity
+ * @mode: which cipher validity part to use
+ * @info_index: a 0-based index of the requested #CamelCipherCertInfo
+ * @name: a property name
+ *
+ * Gets a named property @name value for the given @info_index of the @mode validity part.
+ *
+ * Returns: Value of a named property of a #CamelCipherCertInfo, or %NULL when no such
+ *    property exists. The returned value is owned by the associated #CamelCipherCertInfo
+ *    and is valid until the cert info is freed.
+ *
+ * Since: 3.22
+ **/
+gpointer
+camel_cipher_validity_get_certinfo_property (CamelCipherValidity *vin,
+					     CamelCipherValidityMode mode,
+					     gint info_index,
+					     const gchar *name)
+{
+	GQueue *queue;
+	CamelCipherCertInfo *cert_info;
+
+	g_return_val_if_fail (vin != NULL, NULL);
+	g_return_val_if_fail (name != NULL, NULL);
+
+	if (mode == CAMEL_CIPHER_VALIDITY_SIGN)
+		queue = &vin->sign.signers;
+	else
+		queue = &vin->encrypt.encrypters;
+
+	g_return_val_if_fail (info_index >= 0 && info_index < g_queue_get_length (queue), NULL);
+
+	cert_info = g_queue_peek_nth (queue, info_index);
+
+	g_return_val_if_fail (cert_info != NULL, NULL);
+
+	return camel_cipher_certinfo_get_property (cert_info, name);
+}
+
+/**
+ * camel_cipher_validity_set_certinfo_property:
+ * @vin: a #CamelCipherValidity
+ * @mode: which cipher validity part to use
+ * @info_index: a 0-based index of the requested #CamelCipherCertInfo
+ * @name: a property name
+ * @value: (nullable): a property value, or %NULL
+ * @value_free: (nullable): a free function for the @value
+ * @value_clone: (nullable): a clone function for the @value
+ *
+ * Sets a named property @name value @value for the given @info_index
+ * of the @mode validity part. If the @value is %NULL, then the property
+ * is removed. With a non-%NULL @value also @value_free and @value_clone
+ * functions cannot be %NULL.
+ *
+ * Since: 3.22
+ **/
+void
+camel_cipher_validity_set_certinfo_property (CamelCipherValidity *vin,
+					     CamelCipherValidityMode mode,
+					     gint info_index,
+					     const gchar *name,
+					     gpointer value,
+					     GDestroyNotify value_free,
+					     CamelCipherCloneFunc value_clone)
+{
+	GQueue *queue;
+	CamelCipherCertInfo *cert_info;
+
+	g_return_if_fail (vin != NULL);
+	g_return_if_fail (name != NULL);
+
+	if (mode == CAMEL_CIPHER_VALIDITY_SIGN)
+		queue = &vin->sign.signers;
+	else
+		queue = &vin->encrypt.encrypters;
+
+	g_return_if_fail (info_index >= 0 && info_index < g_queue_get_length (queue));
+
+	cert_info = g_queue_peek_nth (queue, info_index);
+
+	g_return_if_fail (cert_info != NULL);
+
+	camel_cipher_certinfo_set_property (cert_info, name, value, value_free, value_clone);
 }
 
 /**
@@ -1247,6 +1395,102 @@ camel_cipher_validity_free (CamelCipherValidity *validity)
 /* ********************************************************************** */
 
 /**
+ * camel_cipher_certinfo_get_property:
+ * @cert_info: a #CamelCipherCertInfo
+ * @name: a property name
+ *
+ * Gets a named property @name value for the given @cert_info.
+ *
+ * Returns: Value of a named property of the @cert_info, or %NULL when no such
+ *    property exists. The returned value is owned by the @cert_info
+ *    and is valid until the @cert_info is freed.
+ *
+ * Since: 3.22
+ **/
+gpointer
+camel_cipher_certinfo_get_property (CamelCipherCertInfo *cert_info,
+				    const gchar *name)
+{
+	GSList *link;
+
+	g_return_val_if_fail (cert_info != NULL, NULL);
+	g_return_val_if_fail (name != NULL, NULL);
+
+	for (link = cert_info->properties; link; link = g_slist_next (link)) {
+		CamelCipherCertInfoProperty *property = link->data;
+
+		if (property && g_ascii_strcasecmp (property->name, name) == 0)
+			return property->value;
+	}
+
+	return NULL;
+}
+
+/**
+ * camel_cipher_certinfo_set_property:
+ * @cert_info: a #CamelCipherCertInfo
+ * @name: a property name
+ * @value: (nullable): a property value, or %NULL
+ * @value_free: (nullable): a free function for the @value
+ * @value_clone: (nullable): a clone function for the @value
+ *
+ * Sets a named property @name value @value for the given @cert_info.
+ * If the @value is %NULL, then the property is removed. With a non-%NULL
+ * @value also @value_free and @value_clone functions cannot be %NULL.
+ *
+ * Since: 3.22
+ **/
+void
+camel_cipher_certinfo_set_property (CamelCipherCertInfo *cert_info,
+				    const gchar *name,
+				    gpointer value,
+				    GDestroyNotify value_free,
+				    CamelCipherCloneFunc value_clone)
+{
+	CamelCipherCertInfoProperty *property;
+	GSList *link;
+
+	g_return_if_fail (cert_info != NULL);
+	g_return_if_fail (name != NULL);
+
+	if (value) {
+		g_return_if_fail (value_free != NULL);
+		g_return_if_fail (value_clone != NULL);
+	}
+
+	for (link = cert_info->properties; link; link = g_slist_next (link)) {
+		property = link->data;
+
+		if (property && g_ascii_strcasecmp (property->name, name) == 0) {
+			if (value && property->value != value) {
+				/* Replace current value with the new value. */
+				property->value_free (property->value);
+
+				property->value = value;
+				property->value_free = value_free;
+				property->value_clone = value_clone;
+			} else if (!value) {
+				cert_info->properties = g_slist_remove (cert_info->properties, property);
+				ccv_certinfo_property_free (property);
+			}
+			break;
+		}
+	}
+
+	if (value && !link) {
+		property = g_new0 (CamelCipherCertInfoProperty, 1);
+		property->name = g_strdup (name);
+		property->value = value;
+		property->value_free = value_free;
+		property->value_clone = value_clone;
+
+		cert_info->properties = g_slist_prepend (cert_info->properties, property);
+	}
+}
+
+/* ********************************************************************** */
+
+/**
  * camel_cipher_context_new:
  * @session: a #CamelSession
  *
@@ -1268,6 +1512,8 @@ camel_cipher_context_new (CamelSession *session)
 /**
  * camel_cipher_context_get_session:
  * @context: a #CamelCipherContext
+ *
+ * Returns: (transfer none):
  *
  * Since: 2.32
  **/
@@ -1364,4 +1610,24 @@ camel_cipher_canonical_to_stream (CamelMimePart *part,
 			G_SEEK_SET, NULL, NULL);
 
 	return res;
+}
+
+/**
+ * camel_cipher_can_load_photos:
+ *
+ * Returns: Whether ciphers can load photos, as being setup by the user.
+ *
+ * Since: 3.22
+ **/
+gboolean
+camel_cipher_can_load_photos (void)
+{
+	GSettings *settings;
+	gboolean load_photos;
+
+	settings = g_settings_new ("org.gnome.evolution-data-server");
+	load_photos = g_settings_get_boolean (settings, "camel-cipher-load-photos");
+	g_clear_object (&settings);
+
+	return load_photos;
 }

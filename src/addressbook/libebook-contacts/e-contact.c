@@ -4,21 +4,20 @@
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  * Copyright (C) 2012 Intel Corporation
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors:
- *   Chris Toshok (toshok@ximian.com)
- *   Tristan Van Berkom <tristanvb@openismus.com>
+ * Authors: Chris Toshok (toshok@ximian.com)
+ *          Tristan Van Berkom <tristanvb@openismus.com>
  */
 
 /**
@@ -295,6 +294,7 @@ static const EContactFieldInfo field_info[] = {
 
 	/* Security fields */
 	ATTR_TYPE_STRUCT_FIELD (E_CONTACT_X509_CERT,  EVC_KEY, "x509Cert",  N_("X.509 Certificate"), FALSE, "X509", cert_getter, cert_setter, e_contact_cert_get_type),
+	ATTR_TYPE_STRUCT_FIELD (E_CONTACT_PGP_CERT,   EVC_KEY, "pgpCert",  N_("PGP Certificate"), FALSE, "PGP", cert_getter, cert_setter, e_contact_cert_get_type),
 
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_HOME_1,  EVC_X_GADUGADU,  "im_gadugadu_home_1",  N_("Gadu-Gadu Home ID 1"), FALSE, "HOME", 0),
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_HOME_2,  EVC_X_GADUGADU,  "im_gadugadu_home_2",  N_("Gadu-Gadu Home ID 2"), FALSE, "HOME", 1),
@@ -372,7 +372,7 @@ e_contact_class_init (EContactClass *class)
 		GParamFlags flags;
 
 		/* Verify the table is correctly ordered */
-		g_assert (ii == field_info[ii].field_id);
+		g_return_if_fail (ii == field_info[ii].field_id);
 
 		flags = G_PARAM_READABLE |
 			G_PARAM_STATIC_NICK |
@@ -1471,7 +1471,7 @@ e_contact_vcard_attribute (EContactField field_id)
  *
  * Returns: Whether the @field_id is of a string type.
  *
- * Since: 3.14
+ * Since: 3.16
  **/
 gboolean
 e_contact_field_is_string (EContactField field_id)
@@ -1806,14 +1806,43 @@ GList *
 e_contact_get_attributes (EContact *contact,
                           EContactField field_id)
 {
+	EContactField set[1];
+	set[0] = field_id;
+	return e_contact_get_attributes_set (contact, set, 1);
+}
+
+/**
+ * e_contact_get_attributes_set:
+ * @contact: an #EContact
+ * @field_ids: an array of #EContactField
+ * @size: number of elements in field_ids
+ *
+ * Gets a list of the vcard attributes for @contact's @field_ids.
+ *
+ * Returns: (transfer full) (element-type EVCardAttribute): A #GList of pointers
+ * to #EVCardAttribute, owned by the caller.
+ *
+ * Since: 3.16
+ **/
+GList *
+e_contact_get_attributes_set (EContact *contact,
+                              const EContactField field_ids[],
+                              gint size)
+{
 	GList *l = NULL;
 	GList *attrs, *a;
-	const EContactFieldInfo *info = NULL;
+	gint ii;
+	EContactFieldInfo **infos;
 
 	g_return_val_if_fail (contact && E_IS_CONTACT (contact), NULL);
-	g_return_val_if_fail (field_id >= 1 && field_id < E_CONTACT_FIELD_LAST, NULL);
+	g_return_val_if_fail (size > 0, NULL);
+	g_return_val_if_fail (size < E_CONTACT_FIELD_LAST, NULL);
 
-	info = &field_info[field_id];
+	infos = g_new0 (EContactFieldInfo *, size);
+	for (ii = 0; ii < size; ii++) {
+		g_return_val_if_fail (field_ids[ii] >= 1 && field_ids[ii] < E_CONTACT_FIELD_LAST, NULL);
+		infos[ii] = (EContactFieldInfo *) &field_info[field_ids[ii]];
+	}
 
 	attrs = e_vcard_get_attributes (E_VCARD (contact));
 
@@ -1823,10 +1852,15 @@ e_contact_get_attributes (EContact *contact,
 
 		name = e_vcard_attribute_get_name (attr);
 
-		if (!g_ascii_strcasecmp (name, info->vcard_field_name)) {
-			l = g_list_prepend (l, e_vcard_attribute_copy (attr));
+		for (ii = 0; ii < size; ii++) {
+			if (!g_ascii_strcasecmp (name, infos[ii]->vcard_field_name)) {
+				l = g_list_prepend (l, e_vcard_attribute_copy (attr));
+				break;
+			}
 		}
 	}
+
+	g_free (infos);
 
 	return g_list_reverse (l);
 }

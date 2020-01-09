@@ -2,20 +2,20 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *           Jeffrey Stedfast <fejj@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -88,6 +88,21 @@ localtime_r (t,
 
 #define d(x)
 #define d2(x)
+
+G_DEFINE_BOXED_TYPE (CamelContentType,
+		camel_content_type,
+		camel_content_type_ref,
+		camel_content_type_unref)
+
+G_DEFINE_BOXED_TYPE (CamelContentDisposition,
+		camel_content_disposition,
+		camel_content_disposition_ref,
+		camel_content_disposition_unref)
+
+G_DEFINE_BOXED_TYPE (CamelHeaderAddress,
+		camel_header_address,
+		camel_header_address_ref,
+		camel_header_address_unref)
 
 /**
  * camel_mktime_utc:
@@ -164,12 +179,12 @@ static const guchar tohex[16] = {
 
 /**
  * camel_uuencode_close:
- * @in: input stream
+ * @in: (array length=len): input stream
  * @len: input stream length
- * @out: output stream
- * @uubuf: temporary buffer of 60 bytes
- * @state: holds the number of bits that are stored in @save
- * @save: leftover bits that have not yet been encoded
+ * @out: (inout) (array): output stream
+ * @uubuf: (inout) (array fixed-size=60): temporary buffer of 60 bytes
+ * @state: (inout): holds the number of bits that are stored in @save
+ * @save: (inout) (array length=state): leftover bits that have not yet been encoded
  *
  * Uuencodes a chunk of data. Call this when finished encoding data
  * with camel_uuencode_step() to flush off the last little bit.
@@ -248,12 +263,12 @@ camel_uuencode_close (guchar *in,
 
 /**
  * camel_uuencode_step:
- * @in: input stream
+ * @in: (array length=len): input stream
  * @len: input stream length
- * @out: output stream
- * @uubuf: temporary buffer of 60 bytes
- * @state: holds the number of bits that are stored in @save
- * @save: leftover bits that have not yet been encoded
+ * @out: (inout) (array): output stream
+ * @uubuf: (inout) (array fixed-size=60): temporary buffer of 60 bytes
+ * @state: (inout): holds the number of bits that are stored in @save
+ * @save: (inout) (array length=state): leftover bits that have not yet been encoded
  *
  * Uuencodes a chunk of data. Performs an 'encode step', only encodes
  * blocks of 45 characters to the output at a time, saves left-over
@@ -366,11 +381,11 @@ camel_uuencode_step (guchar *in,
 
 /**
  * camel_uudecode_step:
- * @in: input stream
+ * @in: (array length=inlen): input stream
  * @inlen: max length of data to decode
- * @out: output stream
- * @state: holds the number of bits that are stored in @save
- * @save: leftover bits that have not yet been decoded
+ * @out: (inout) (array): output stream
+ * @state: (inout): holds the number of bits that are stored in @save
+ * @save: (inout) (array length=state): leftover bits that have not yet been decoded
  *
  * Uudecodes a chunk of data. Performs a 'decode step' on a chunk of
  * uuencoded data. Assumes the "begin mode filename" line has
@@ -446,12 +461,14 @@ camel_uudecode_step (guchar *in,
 					*outptr++ = CAMEL_UUDECODE_CHAR (b2) << 6 | CAMEL_UUDECODE_CHAR (b3);
 					uulen -= 3;
 				} else {
-					if (uulen >= 1) {
+					gint orig_uulen = uulen;
+
+					if (orig_uulen >= 1) {
 						*outptr++ = CAMEL_UUDECODE_CHAR (b0) << 2 | CAMEL_UUDECODE_CHAR (b1) >> 4;
 						uulen--;
 					}
 
-					if (uulen >= 2) {
+					if (orig_uulen >= 2) {
 						*outptr++ = CAMEL_UUDECODE_CHAR (b1) << 4 | CAMEL_UUDECODE_CHAR (b2) >> 2;
 						uulen--;
 					}
@@ -473,11 +490,11 @@ camel_uudecode_step (guchar *in,
 
 /**
  * camel_quoted_encode_close:
- * @in: input stream
+ * @in: (array length=len): input stream
  * @len: length of the input
- * @out: output string
- * @state: holds the number of bits that are stored in @save
- * @save: leftover bits that have not yet been encoded
+ * @out: (inout) (array): output string
+ * @state: (inout): holds the number of bits that are stored in @save
+ * @save: (inout) (array length=state): leftover bits that have not yet been encoded
  *
  * Quoted-printable encodes a block of text. Call this when finished
  * encoding data with camel_quoted_encode_step() to flush off
@@ -519,11 +536,11 @@ camel_quoted_encode_close (guchar *in,
 
 /**
  * camel_quoted_encode_step:
- * @in: input stream
+ * @in: (array length=len): input stream
  * @len: length of the input
- * @out: output string
- * @state: holds the number of bits that are stored in @save
- * @save: leftover bits that have not yet been encoded
+ * @out: (inout) (array): output string
+ * @state: (inout): holds the number of bits that are stored in @save
+ * @save: (inout) (array length=state): leftover bits that have not yet been encoded
  *
  * Quoted-printable encodes a block of text. Performs an 'encode
  * step', saves left-over state in state and save (initialise to -1 on
@@ -628,11 +645,11 @@ camel_quoted_encode_step (guchar *in,
 
 /**
  * camel_quoted_decode_step:
- * @in: input stream
+ * @in: (array length=len): input stream
  * @len: max length of data to decode
- * @out: output stream
- * @savestate: holds the number of bits that are stored in @save
- * @saveme: leftover bits that have not yet been decoded
+ * @out: (inout) (array): output stream
+ * @savestate: (inout): holds the number of bits that are stored in @saveme
+ * @saveme: (inout) (array length=savestate): leftover bits that have not yet been decoded
  *
  * Decodes a block of quoted-printable encoded data. Performs a
  * 'decode step' on a chunk of QP encoded data.
@@ -846,7 +863,7 @@ header_decode_lwsp (const gchar **in)
 }
 
 static gchar *
-camel_iconv_strndup (iconv_t cd,
+camel_iconv_strndup (GIConv cd,
                      const gchar *string,
                      gsize n)
 {
@@ -856,7 +873,7 @@ camel_iconv_strndup (iconv_t cd,
 	gsize outlen;
 	gint errnosav;
 
-	if (cd == (iconv_t) -1)
+	if (cd == (GIConv) -1)
 		return g_strndup (string, n);
 
 	outlen = n * 2 + 16;
@@ -870,7 +887,7 @@ camel_iconv_strndup (iconv_t cd,
 		outbuf = out + converted;
 		outleft = outlen - converted;
 
-		converted = iconv (cd, (gchar **) &inbuf, &inleft, &outbuf, &outleft);
+		converted = g_iconv (cd, (gchar **) &inbuf, &inleft, &outbuf, &outleft);
 		if (converted == (gsize) -1) {
 			if (errno != E2BIG && errno != EINVAL)
 				goto fail;
@@ -898,7 +915,7 @@ camel_iconv_strndup (iconv_t cd,
 	 */
 
 	/* flush the iconv conversion */
-	while (iconv (cd, NULL, NULL, &outbuf, &outleft) == (gsize) -1) {
+	while (g_iconv (cd, NULL, NULL, &outbuf, &outleft) == (gsize) -1) {
 		if (errno != E2BIG)
 			break;
 
@@ -918,7 +935,7 @@ camel_iconv_strndup (iconv_t cd,
 	memset (outbuf, 0, 4);
 
 	/* reset the cd */
-	iconv (cd, NULL, NULL, NULL, NULL);
+	g_iconv (cd, NULL, NULL, NULL, NULL);
 
 	return out;
 
@@ -931,7 +948,7 @@ camel_iconv_strndup (iconv_t cd,
 	g_free (out);
 
 	/* reset the cd */
-	iconv (cd, NULL, NULL, NULL, NULL);
+	g_iconv (cd, NULL, NULL, NULL, NULL);
 
 	errno = errnosav;
 
@@ -950,7 +967,7 @@ decode_8bit (const gchar *text,
 	const gchar *locale_charset, *best;
 	gchar *out, *outbuf;
 	const gchar *inbuf;
-	iconv_t cd;
+	GIConv cd;
 	gint i = 1;
 
 	if (default_charset && g_ascii_strcasecmp (default_charset, "UTF-8") != 0)
@@ -967,7 +984,7 @@ decode_8bit (const gchar *text,
 	out = g_malloc (outlen + 1);
 
 	for (i = 0; charsets[i]; i++) {
-		if ((cd = camel_iconv_open ("UTF-8", charsets[i])) == (iconv_t) -1)
+		if ((cd = camel_iconv_open ("UTF-8", charsets[i])) == (GIConv) -1)
 			continue;
 
 		outleft = outlen;
@@ -977,7 +994,7 @@ decode_8bit (const gchar *text,
 		n = 0;
 
 		do {
-			rc = iconv (cd, (gchar **) &inbuf, &inleft, &outbuf, &outleft);
+			rc = g_iconv (cd, (gchar **) &inbuf, &inleft, &outbuf, &outleft);
 			if (rc == (gsize) -1) {
 				if (errno == EINVAL) {
 					/* incomplete sequence at the end of the input buffer */
@@ -999,7 +1016,7 @@ decode_8bit (const gchar *text,
 			}
 		} while (inleft > 0);
 
-		while ((rc = iconv (cd, NULL, NULL, &outbuf, &outleft)) == (gsize) -1) {
+		while ((rc = g_iconv (cd, NULL, NULL, &outbuf, &outleft)) == (gsize) -1) {
 			if (errno != E2BIG)
 				break;
 
@@ -1027,7 +1044,7 @@ decode_8bit (const gchar *text,
 	 * try to find the one that fit the best and use that to convert what we can,
 	 * replacing any byte we can't convert with a '?' */
 
-	if ((cd = camel_iconv_open ("UTF-8", best)) == (iconv_t) -1) {
+	if ((cd = camel_iconv_open ("UTF-8", best)) == (GIConv) -1) {
 		/* this shouldn't happen... but if we are here, then
 		 * it did...  the only thing we can do at this point
 		 * is replace the 8bit garbage and pray */
@@ -1054,7 +1071,7 @@ decode_8bit (const gchar *text,
 	inbuf = text;
 
 	do {
-		rc = iconv (cd, (gchar **) &inbuf, &inleft, &outbuf, &outleft);
+		rc = g_iconv (cd, (gchar **) &inbuf, &inleft, &outbuf, &outleft);
 		if (rc == (gsize) -1) {
 			if (errno == EINVAL) {
 				/* incomplete sequence at the end of the input buffer */
@@ -1076,7 +1093,7 @@ decode_8bit (const gchar *text,
 		}
 	} while (inleft > 0);
 
-	while ((rc = iconv (cd, NULL, NULL, &outbuf, &outleft)) == (gsize) -1) {
+	while ((rc = g_iconv (cd, NULL, NULL, &outbuf, &outleft)) == (gsize) -1) {
 		if (errno != E2BIG)
 			break;
 
@@ -1128,7 +1145,7 @@ rfc2047_decode_word (const gchar *in,
 	gssize declen;
 	gint state = 0;
 	gsize len;
-	iconv_t cd;
+	GIConv cd;
 	gchar *buf;
 
 	/* skip over the charset */
@@ -1188,7 +1205,7 @@ rfc2047_decode_word (const gchar *in,
 	if (charset[0])
 		charset = camel_iconv_charset_name (charset);
 
-	if (!charset[0] || (cd = camel_iconv_open ("UTF-8", charset)) == (iconv_t) -1) {
+	if (!charset[0] || (cd = camel_iconv_open ("UTF-8", charset)) == (GIConv) -1) {
 		w (g_warning (
 			"Cannot convert from %s to UTF-8, "
 			"header display may be corrupt: %s",
@@ -1243,10 +1260,10 @@ append_8bit (GString *out,
 {
 	gchar *outbase, *outbuf;
 	gsize outlen;
-	iconv_t ic;
+	GIConv ic;
 
 	ic = camel_iconv_open ("UTF-8", charset);
-	if (ic == (iconv_t) -1)
+	if (ic == (GIConv) -1)
 		return FALSE;
 
 	outlen = inlen * 6 + 16;
@@ -1466,7 +1483,7 @@ rfc2047_encode_word (GString *outstring,
                      const gchar *type,
                      gushort safemask)
 {
-	iconv_t ic = (iconv_t) -1;
+	GIConv ic = (GIConv) -1;
 	gchar *buffer, *out, *ascii;
 	gsize inlen, outlen, enclen, bufflen;
 	const gchar *inptr, *p;
@@ -1495,7 +1512,7 @@ rfc2047_encode_word (GString *outstring,
 		out = buffer;
 		outlen = bufflen;
 
-		if (ic == (iconv_t) -1) {
+		if (ic == (GIConv) -1) {
 			/* native encoding case, the easy one (?) */
 			/* we work out how much we can convert, and still be in length */
 			/* proclen will be the result of input characters that we can convert, to the nearest
@@ -1566,7 +1583,7 @@ rfc2047_encode_word (GString *outstring,
 		}
 	}
 
-	if (ic != (iconv_t) -1)
+	if (ic != (GIConv) -1)
 		camel_iconv_close (ic);
 }
 
@@ -2222,12 +2239,12 @@ header_convert (const gchar *to,
                 const gchar *in,
                 gsize inlen)
 {
-	iconv_t ic;
+	GIConv ic;
 	gsize outlen, ret;
 	gchar *outbuf, *outbase, *result = NULL;
 
 	ic = camel_iconv_open (to, from);
-	if (ic == (iconv_t) -1)
+	if (ic == (GIConv) -1)
 		return NULL;
 
 	outlen = inlen * 6 + 16;
@@ -2311,7 +2328,7 @@ camel_header_param (struct _camel_header_param *params,
  *
  * Set a parameter in the list.
  *
- * Returns: the set param
+ * Returns: (transfer none): the set param
  **/
 struct _camel_header_param *
 camel_header_set_param (struct _camel_header_param **l,
@@ -2384,6 +2401,8 @@ camel_content_type_set_param (CamelContentType *t,
                               const gchar *name,
                               const gchar *value)
 {
+	g_return_if_fail (t != NULL);
+
 	camel_header_set_param (&t->params, name, value);
 }
 
@@ -2468,11 +2487,13 @@ camel_content_type_new (const gchar *type,
  *
  * Refs the content type.
  **/
-void
+CamelContentType *
 camel_content_type_ref (CamelContentType *ct)
 {
 	if (ct)
 		ct->refcount++;
+
+	return ct;
 }
 
 /**
@@ -2617,7 +2638,7 @@ header_decode_addrspec (const gchar **in)
  * *(word) '<' [ *('@' domain ) ':' ] word *( '.' word) @ domain
  * */
 
-static struct _camel_header_address *
+static CamelHeaderAddress *
 header_decode_mailbox (const gchar **in,
                        const gchar *charset)
 {
@@ -2626,7 +2647,7 @@ header_decode_mailbox (const gchar **in,
 	gint closeme = FALSE;
 	GString *addr;
 	GString *name = NULL;
-	struct _camel_header_address *address = NULL;
+	CamelHeaderAddress *address = NULL;
 	const gchar *comment = NULL;
 
 	addr = g_string_new ("");
@@ -2879,14 +2900,14 @@ header_decode_mailbox (const gchar **in,
 	return address;
 }
 
-static struct _camel_header_address *
+static CamelHeaderAddress *
 header_decode_address (const gchar **in,
                        const gchar *charset)
 {
 	const gchar *inptr = *in;
 	gchar *pre;
 	GString *group = g_string_new ("");
-	struct _camel_header_address *addr = NULL, *member;
+	CamelHeaderAddress *addr = NULL, *member;
 
 	/* pre-scan, trying to work out format, discard results */
 	header_decode_lwsp (&inptr);
@@ -3021,7 +3042,7 @@ camel_header_contentid_decode (const gchar *in)
 	}
 
 	/* Eudora has been known to use <.@> as a content-id */
-	if (!(buf = header_decode_word (&inptr)) && !strchr (".@", *inptr))
+	if (!(buf = header_decode_word (&inptr)) && (*inptr == '\0' || !strchr (".@", *inptr)))
 		return NULL;
 
 	addr = g_string_new ("");
@@ -3042,7 +3063,7 @@ camel_header_contentid_decode (const gchar *in)
 				buf = header_decode_word (&inptr);
 				at = TRUE;
 			}
-		} else if (strchr (".[]", *inptr)) {
+		} else if (*inptr != '\0' && strchr (".[]", *inptr)) {
 			g_string_append_c (addr, *inptr++);
 			buf = header_decode_atom (&inptr);
 		}
@@ -3056,49 +3077,9 @@ camel_header_contentid_decode (const gchar *in)
 	return buf;
 }
 
-void
-camel_header_references_list_append_asis (struct _camel_header_references **list,
-                                          gchar *ref)
-{
-	struct _camel_header_references *w = (struct _camel_header_references *) list, *n;
-	while (w->next)
-		w = w->next;
-	n = g_malloc (sizeof (*n));
-	n->id = ref;
-	n->next = NULL;
-	w->next = n;
-}
-
-gint
-camel_header_references_list_size (struct _camel_header_references **list)
-{
-	gint count = 0;
-	struct _camel_header_references *w = *list;
-	while (w) {
-		count++;
-		w = w->next;
-	}
-	return count;
-}
-
-void
-camel_header_references_list_clear (struct _camel_header_references **list)
-{
-	struct _camel_header_references *w = *list, *n;
-	while (w) {
-		n = w->next;
-		g_free (w->id);
-		g_free (w);
-		w = n;
-	}
-	*list = NULL;
-}
-
 static void
-header_references_decode_single (const gchar **in,
-                                 struct _camel_header_references **head)
+header_references_decode_single (const gchar **in, GSList **list)
 {
-	struct _camel_header_references *ref;
 	const gchar *inptr = *in;
 	gchar *id, *word;
 
@@ -3107,10 +3088,7 @@ header_references_decode_single (const gchar **in,
 		if (*inptr == '<') {
 			id = header_msgid_decode_internal (&inptr);
 			if (id) {
-				ref = g_malloc (sizeof (struct _camel_header_references));
-				ref->next = *head;
-				ref->id = id;
-				*head = ref;
+				*list = g_slist_prepend (*list, id);
 				break;
 			}
 		} else {
@@ -3125,25 +3103,18 @@ header_references_decode_single (const gchar **in,
 	*in = inptr;
 }
 
-/* TODO: why is this needed?  Can't the other interface also work? */
-struct _camel_header_references *
-camel_header_references_inreplyto_decode (const gchar *in)
-{
-	struct _camel_header_references *ref = NULL;
-
-	if (in == NULL || in[0] == '\0')
-		return NULL;
-
-	header_references_decode_single (&in, &ref);
-
-	return ref;
-}
-
-/* generate a list of references, from most recent up */
-struct _camel_header_references *
+/**
+ * camel_header_references_decode:
+ * @in:
+ *
+ * Generate a list of references, from most recent up.
+ *
+ * Returns: (element-type utf8) (transfer full):
+ **/
+GSList *
 camel_header_references_decode (const gchar *in)
 {
-	struct _camel_header_references *refs = NULL;
+	GSList *refs = NULL;
 
 	if (in == NULL || in[0] == '\0')
 		return NULL;
@@ -3154,22 +3125,7 @@ camel_header_references_decode (const gchar *in)
 	return refs;
 }
 
-struct _camel_header_references *
-camel_header_references_dup (const struct _camel_header_references *list)
-{
-	struct _camel_header_references *new = NULL, *tmp;
-
-	while (list) {
-		tmp = g_new (struct _camel_header_references, 1);
-		tmp->next = new;
-		tmp->id = g_strdup (list->id);
-		new = tmp;
-		list = list->next;
-	}
-	return new;
-}
-
-struct _camel_header_address *
+CamelHeaderAddress *
 camel_header_mailbox_decode (const gchar *in,
                              const gchar *charset)
 {
@@ -3179,12 +3135,12 @@ camel_header_mailbox_decode (const gchar *in,
 	return header_decode_mailbox (&in, charset);
 }
 
-struct _camel_header_address *
+CamelHeaderAddress *
 camel_header_address_decode (const gchar *in,
                              const gchar *charset)
 {
 	const gchar *inptr = in, *last;
-	struct _camel_header_address *list = NULL, *addr;
+	CamelHeaderAddress *list = NULL, *addr;
 
 	d (printf ("decoding To: '%s'\n", in));
 
@@ -3218,16 +3174,19 @@ camel_header_address_decode (const gchar *in,
 	return list;
 }
 
-struct _camel_header_newsgroup *
+/**
+ * camel_header_newsgroups_decode:
+ * @in:
+ *
+ * Returns: (element-type utf8) (transfer full):
+ **/
+GSList *
 camel_header_newsgroups_decode (const gchar *in)
 {
 	const gchar *inptr = in;
 	register gchar c;
-	struct _camel_header_newsgroup *head, *last, *ng;
+	GSList *list = NULL;
 	const gchar *start;
-
-	head = NULL;
-	last = (struct _camel_header_newsgroup *) &head;
 
 	do {
 		header_decode_lwsp (&inptr);
@@ -3235,27 +3194,11 @@ camel_header_newsgroups_decode (const gchar *in)
 		while ((c = *inptr++) && !camel_mime_is_lwsp (c) && c != ',')
 			;
 		if (start != inptr - 1) {
-			ng = g_malloc (sizeof (*ng));
-			ng->newsgroup = g_strndup (start, inptr - start - 1);
-			ng->next = NULL;
-			last->next = ng;
-			last = ng;
+			list = g_slist_prepend (list, g_strndup (start, inptr - start - 1));
 		}
 	} while (c);
 
-	return head;
-}
-
-void
-camel_header_newsgroups_free (struct _camel_header_newsgroup *ng)
-{
-	while (ng) {
-		struct _camel_header_newsgroup *nng = ng->next;
-
-		g_free (ng->newsgroup);
-		g_free (ng);
-		ng = nng;
-	}
+	return list;
 }
 
 /* this must be kept in sync with the header */
@@ -3482,6 +3425,11 @@ header_decode_param_list (const gchar **in)
 	return head;
 }
 
+/**
+ * camel_header_param_list_decode:
+ *
+ * Returns: (transfer full):
+ **/
 struct _camel_header_param *
 camel_header_param_list_decode (const gchar *in)
 {
@@ -3779,6 +3727,9 @@ camel_content_type_format (CamelContentType *ct)
 gchar *
 camel_content_type_simple (CamelContentType *ct)
 {
+	if (!ct)
+		return NULL;
+
 	if (ct->type == NULL) {
 		w (g_warning ("Content-Type with no main type"));
 		return g_strdup ("text/plain");
@@ -3820,11 +3771,13 @@ camel_content_disposition_decode (const gchar *in)
 	return d;
 }
 
-void
+CamelContentDisposition *
 camel_content_disposition_ref (CamelContentDisposition *d)
 {
 	if (d)
 		d->refcount++;
+
+	return d;
 }
 
 void
@@ -4703,8 +4656,17 @@ camel_header_raw_clear (struct _camel_header_raw **list)
 	*list = NULL;
 }
 
+/**
+ * camel_header_msgid_generate:
+ * @domain: domain to use (like "example.com") for the ID suffix; can be NULL
+ *
+ * Either the @domain is used, or the user's local hostname,
+ * in case it's NULL or empty.
+ *
+ * Returns: Unique message ID.
+ **/
 gchar *
-camel_header_msgid_generate (void)
+camel_header_msgid_generate (const gchar *domain)
 {
 	static GMutex count_lock;
 #define COUNT_LOCK() g_mutex_lock (&count_lock)
@@ -4717,7 +4679,10 @@ camel_header_msgid_generate (void)
 	struct addrinfo *ai = NULL, hints = { 0 };
 	static gchar *cached_hostname = NULL;
 
-	if (!cached_hostname) {
+	COUNT_LOCK ();
+	if (!cached_hostname && (!domain || !*domain)) {
+		domain = NULL;
+
 		retval = gethostname (host, sizeof (host));
 		if (retval == 0 && *host) {
 			hints.ai_flags = AI_CANONNAME;
@@ -4733,8 +4698,7 @@ camel_header_msgid_generate (void)
 		cached_hostname = g_strdup (name);
 	}
 
-	COUNT_LOCK ();
-	msgid = g_strdup_printf ("%d.%d.%d.camel@%s", (gint) time (NULL), getpid (), count++, cached_hostname);
+	msgid = g_strdup_printf ("%d.%d.%d.camel@%s", (gint) time (NULL), getpid (), count++, domain ? domain : cached_hostname);
 	COUNT_UNLOCK ();
 
 	if (ai)
@@ -4813,7 +4777,7 @@ mailing_list_init (gpointer param)
 		}
 	}
 
-	g_assert (failed == 0);
+	g_warn_if_fail (failed == 0);
 
 	return NULL;
 }
@@ -4859,21 +4823,21 @@ camel_header_raw_check_mailing_list (struct _camel_header_raw **list)
 }
 
 /* ok, here's the address stuff, what a mess ... */
-struct _camel_header_address *
+CamelHeaderAddress *
 camel_header_address_new (void)
 {
-	struct _camel_header_address *h;
+	CamelHeaderAddress *h;
 	h = g_malloc0 (sizeof (*h));
 	h->type = CAMEL_HEADER_ADDRESS_NONE;
 	h->refcount = 1;
 	return h;
 }
 
-struct _camel_header_address *
+CamelHeaderAddress *
 camel_header_address_new_name (const gchar *name,
                                const gchar *addr)
 {
-	struct _camel_header_address *h;
+	CamelHeaderAddress *h;
 	h = camel_header_address_new ();
 	h->type = CAMEL_HEADER_ADDRESS_NAME;
 	h->name = g_strdup (name);
@@ -4881,10 +4845,10 @@ camel_header_address_new_name (const gchar *name,
 	return h;
 }
 
-struct _camel_header_address *
+CamelHeaderAddress *
 camel_header_address_new_group (const gchar *name)
 {
-	struct _camel_header_address *h;
+	CamelHeaderAddress *h;
 
 	h = camel_header_address_new ();
 	h->type = CAMEL_HEADER_ADDRESS_GROUP;
@@ -4892,15 +4856,17 @@ camel_header_address_new_group (const gchar *name)
 	return h;
 }
 
-void
-camel_header_address_ref (struct _camel_header_address *h)
+CamelHeaderAddress *
+camel_header_address_ref (CamelHeaderAddress *h)
 {
 	if (h)
 		h->refcount++;
+
+	return h;
 }
 
 void
-camel_header_address_unref (struct _camel_header_address *h)
+camel_header_address_unref (CamelHeaderAddress *h)
 {
 	if (h) {
 		if (h->refcount <= 1) {
@@ -4918,7 +4884,7 @@ camel_header_address_unref (struct _camel_header_address *h)
 }
 
 void
-camel_header_address_set_name (struct _camel_header_address *h,
+camel_header_address_set_name (CamelHeaderAddress *h,
                                const gchar *name)
 {
 	if (h) {
@@ -4928,7 +4894,7 @@ camel_header_address_set_name (struct _camel_header_address *h,
 }
 
 void
-camel_header_address_set_addr (struct _camel_header_address *h,
+camel_header_address_set_addr (CamelHeaderAddress *h,
                                const gchar *addr)
 {
 	if (h) {
@@ -4944,8 +4910,8 @@ camel_header_address_set_addr (struct _camel_header_address *h,
 }
 
 void
-camel_header_address_set_members (struct _camel_header_address *h,
-                                  struct _camel_header_address *group)
+camel_header_address_set_members (CamelHeaderAddress *h,
+                                  CamelHeaderAddress *group)
 {
 	if (h) {
 		if (h->type == CAMEL_HEADER_ADDRESS_GROUP
@@ -4961,8 +4927,8 @@ camel_header_address_set_members (struct _camel_header_address *h,
 }
 
 void
-camel_header_address_add_member (struct _camel_header_address *h,
-                                 struct _camel_header_address *member)
+camel_header_address_add_member (CamelHeaderAddress *h,
+                                 CamelHeaderAddress *member)
 {
 	if (h) {
 		if (h->type == CAMEL_HEADER_ADDRESS_GROUP
@@ -4974,11 +4940,11 @@ camel_header_address_add_member (struct _camel_header_address *h,
 }
 
 void
-camel_header_address_list_append_list (struct _camel_header_address **l,
-                                       struct _camel_header_address **h)
+camel_header_address_list_append_list (CamelHeaderAddress **l,
+                                       CamelHeaderAddress **h)
 {
 	if (l) {
-		struct _camel_header_address *n = (struct _camel_header_address *) l;
+		CamelHeaderAddress *n = (CamelHeaderAddress *) l;
 
 		while (n->next)
 			n = n->next;
@@ -4987,8 +4953,8 @@ camel_header_address_list_append_list (struct _camel_header_address **l,
 }
 
 void
-camel_header_address_list_append (struct _camel_header_address **l,
-                                  struct _camel_header_address *h)
+camel_header_address_list_append (CamelHeaderAddress **l,
+                                  CamelHeaderAddress *h)
 {
 	if (h) {
 		camel_header_address_list_append_list (l, &h);
@@ -4997,9 +4963,9 @@ camel_header_address_list_append (struct _camel_header_address **l,
 }
 
 void
-camel_header_address_list_clear (struct _camel_header_address **l)
+camel_header_address_list_clear (CamelHeaderAddress **l)
 {
-	struct _camel_header_address *a, *n;
+	CamelHeaderAddress *a, *n;
 	a = *l;
 	while (a) {
 		n = a->next;
@@ -5014,7 +4980,7 @@ camel_header_address_list_clear (struct _camel_header_address **l)
 static void
 header_address_list_encode_append (GString *out,
                                    gint encode,
-                                   struct _camel_header_address *a)
+                                   CamelHeaderAddress *a)
 {
 	gchar *text;
 
@@ -5054,7 +5020,7 @@ header_address_list_encode_append (GString *out,
 }
 
 gchar *
-camel_header_address_list_encode (struct _camel_header_address *a)
+camel_header_address_list_encode (CamelHeaderAddress *a)
 {
 	GString *out;
 	gchar *ret;
@@ -5071,7 +5037,7 @@ camel_header_address_list_encode (struct _camel_header_address *a)
 }
 
 gchar *
-camel_header_address_list_format (struct _camel_header_address *a)
+camel_header_address_list_format (CamelHeaderAddress *a)
 {
 	GString *out;
 	gchar *ret;
@@ -5225,11 +5191,8 @@ camel_header_fold (const gchar *in,
 				g_string_truncate (out, out->len - 1);
 				g_string_append_c (out, '\n');
 				g_string_append_c (out, spc);
-			} else {
-				g_string_append (out, "\n\t");
+				outlen = 1;
 			}
-
-			outlen = 1;
 
 			/* check for very long words, just cut them up */
 			while (outlen + len > CAMEL_FOLD_MAX_SIZE) {

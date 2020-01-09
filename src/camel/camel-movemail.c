@@ -1,23 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-movemail.c: mbox copying function */
-
-/*
- * Author:
- *  Dan Winship <danw@ximian.com>
+/* camel-movemail.c: mbox copying function
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Dan Winship <danw@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -82,7 +80,7 @@ static gint camel_movemail_copy (gint fromfd, gint tofd, goffset start, gsize by
  * directory. Dot locking is used on the source file (but not the
  * destination).
  *
- * Return Value: Returns -1 on error.
+ * Return Value: Returns -1 on error or 0 on success.
  **/
 gint
 camel_movemail (const gchar *source,
@@ -94,35 +92,40 @@ camel_movemail (const gchar *source,
 	gint sfd, dfd;
 	struct stat st;
 
-	/* Stat and then open the spool file. If it doesn't exist or
-	 * is empty, the user has no mail. (There's technically a race
-	 * condition here in that an MDA might have just now locked it
-	 * to deliver a message, but we don't care. In that case,
-	 * assuming it's unlocked is equivalent to pretending we were
-	 * called a fraction earlier.)
-	 */
-	if (g_stat (source, &st) == -1) {
-		if (errno != ENOENT)
-			g_set_error (
-				error, G_IO_ERROR,
-				g_io_error_from_errno (errno),
-				_("Could not check mail file %s: %s"),
-				source, g_strerror (errno));
-		return -1;
-	}
-
-	if (st.st_size == 0)
-		return 0;
-
 	/* open files */
 	sfd = open (source, O_RDWR);
-	if (sfd == -1) {
+	if (sfd == -1 && errno != ENOENT) {
 		g_set_error (
 			error, G_IO_ERROR,
 			g_io_error_from_errno (errno),
 			_("Could not open mail file %s: %s"),
 			source, g_strerror (errno));
 		return -1;
+	} else if (sfd == -1) {
+		/* No mail. */
+		return 0;
+	}
+
+	/* Stat the spool file. If it doesn't exist or
+	 * is empty, the user has no mail. (There's technically a race
+	 * condition here in that an MDA might have just now locked it
+	 * to deliver a message, but we don't care. In that case,
+	 * assuming it's unlocked is equivalent to pretending we were
+	 * called a fraction earlier.)
+	 */
+	if (fstat (sfd, &st) == -1) {
+		close (sfd);
+		g_set_error (
+			error, G_IO_ERROR,
+			g_io_error_from_errno (errno),
+			_("Could not check mail file %s: %s"),
+			source, g_strerror (errno));
+		return -1;
+	}
+
+	if (st.st_size == 0) {
+		close (sfd);
+		return 0;
 	}
 
 	dfd = open (dest, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
@@ -506,7 +509,7 @@ camel_movemail_solaris (gint oldsfd,
 	ffrom = camel_mime_filter_from_new ();
 
 	while (camel_mime_parser_step (mp, &buffer, &len) == CAMEL_MIME_PARSER_STATE_FROM) {
-		g_assert (camel_mime_parser_from_line (mp));
+		g_return_val_if_fail (camel_mime_parser_from_line (mp), -1);
 		from = g_strdup (camel_mime_parser_from_line (mp));
 		if (camel_mime_parser_step (mp, &buffer, &len) != CAMEL_MIME_PARSER_STATE_FROM_END) {
 			const gchar *cl;

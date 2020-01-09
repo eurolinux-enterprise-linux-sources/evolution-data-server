@@ -1,24 +1,24 @@
 /*
  * e-signon-session-password.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
 #ifndef E_SIGNON_SESSION_PASSWORD_H
 #define E_SIGNON_SESSION_PASSWORD_H
 
-#include <libebackend/libebackend.h>
+#include <libedataserver/libedataserver.h>
 
 /* Standard GObject macros */
 #define E_TYPE_SIGNON_SESSION_PASSWORD \
@@ -46,12 +46,12 @@ typedef struct _ESignonSessionPasswordClass ESignonSessionPasswordClass;
 typedef struct _ESignonSessionPasswordPrivate ESignonSessionPasswordPrivate;
 
 struct _ESignonSessionPassword {
-	EAuthenticationSession parent;
+	ESourceCredentialsProviderImpl parent;
 	ESignonSessionPasswordPrivate *priv;
 };
 
 struct _ESignonSessionPasswordClass {
-	EAuthenticationSessionClass parent_class;
+	ESourceCredentialsProviderImplClass parent_class;
 };
 
 GType		e_signon_session_password_get_type

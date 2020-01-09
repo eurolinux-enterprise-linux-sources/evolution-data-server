@@ -1,17 +1,17 @@
 /*
  * evolution-user-prompter.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
- * This library is distributed in the hope that it will be useful, but
+ * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -19,6 +19,8 @@
 #include <locale.h>
 #include <libintl.h>
 #include <glib/gi18n.h>
+
+#include <libedataserver/libedataserver.h>
 
 #include "prompt-user.h"
 
@@ -37,11 +39,19 @@ main (gint argc,
 {
 	GOptionContext *context;
 	EDBusServer *server;
+	EDBusServerExitCode exit_code;
 	GError *error = NULL;
+
+#ifdef G_OS_WIN32
+	e_util_win32_initialize ();
+#endif
 
 	setlocale (LC_ALL, "");
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+
+	/* Workaround https://bugzilla.gnome.org/show_bug.cgi?id=674885 */
+	g_type_ensure (G_TYPE_DBUS_CONNECTION);
 
 	prompt_user_init (&argc, &argv);
 
@@ -57,6 +67,7 @@ main (gint argc,
 
 	e_gdbus_templates_init_main_thread ();
 
+ reload:
 	server = e_user_prompter_server_new ();
 	g_signal_connect (
 		server, "prompt",
@@ -69,9 +80,14 @@ main (gint argc,
 	if (opt_keep_running)
 		e_dbus_server_hold (server);
 
-	e_dbus_server_run (server, TRUE);
+	exit_code = e_dbus_server_run (server, TRUE);
 
 	g_object_unref (server);
+
+	if (exit_code == E_DBUS_SERVER_EXIT_RELOAD) {
+		g_debug ("Reloading...");
+		goto reload;
+	}
 
 	g_debug ("Bye.");
 

@@ -2,20 +2,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors:
- *   Chris Toshok <toshok@ximian.com>
- *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Chris Toshok <toshok@ximian.com>
  */
 
 /**
@@ -275,7 +274,7 @@ read_string (FILE *fp,
              gsize len)
 {
 	gchar *buf;
-	gint rv;
+	size_t rv;
 
 	/* Avoid overflow for the nul byte. */
 	if (len == G_MAXSIZE)
@@ -283,8 +282,14 @@ read_string (FILE *fp,
 
 	buf = g_new0 (char, len + 1);
 
-	rv = fread (buf, len, 1, fp);
-	if (rv != 1) {
+	rv = fread (buf, sizeof (gchar), len, fp);
+	if (rv != len) {
+		g_free (buf);
+		return NULL;
+	}
+
+	/* Validate the string as UTF-8. */
+	if (!g_utf8_validate (buf, rv, NULL)) {
 		g_free (buf);
 		return NULL;
 	}
@@ -440,28 +445,34 @@ e_book_backend_summary_open (EBookBackendSummary *summary)
 	if (summary->priv->fp)
 		return TRUE;
 
-	if (g_stat (summary->priv->summary_path, &sb) == -1) {
+	/* Try opening the summary file. */
+	fp = g_fopen (summary->priv->summary_path, "rb");
+	if (!fp) {
 		/* if there's no summary present, look for the .new
 		 * file and rename it if it's there, and attempt to
 		 * load that */
 		gchar *new_filename = g_strconcat (summary->priv->summary_path, ".new", NULL);
-		if (g_stat (new_filename, &sb) == -1) {
-			g_free (new_filename);
-			return FALSE;
+
+		if (g_rename (new_filename, summary->priv->summary_path) == -1 &&
+		    errno != ENOENT) {
+			g_warning (
+				"%s: Failed to rename '%s' to '%s': %s", G_STRFUNC,
+				new_filename, summary->priv->summary_path, g_strerror (errno));
+		} else {
+			fp = g_fopen (summary->priv->summary_path, "rb");
 		}
-		else {
-			if (g_rename (new_filename, summary->priv->summary_path) == -1) {
-				g_warning (
-					"%s: Failed to rename '%s' to '%s': %s", G_STRFUNC,
-					new_filename, summary->priv->summary_path, g_strerror (errno));
-			}
-			g_free (new_filename);
-		}
+
+		g_free (new_filename);
 	}
 
-	fp = g_fopen (summary->priv->summary_path, "rb");
 	if (!fp) {
 		g_warning ("failed to open summary file");
+		return FALSE;
+	}
+
+	if (fstat (fileno (fp), &sb) == -1) {
+		g_warning ("failed to get summary file size");
+		fclose (fp);
 		return FALSE;
 	}
 
@@ -536,8 +547,8 @@ static gboolean
 e_book_backend_summary_save_magic (FILE *fp)
 {
 	gint rv;
-	rv = fwrite (PAS_SUMMARY_MAGIC, PAS_SUMMARY_MAGIC_LEN, 1, fp);
-	if (rv != 1)
+	rv = fwrite (PAS_SUMMARY_MAGIC, sizeof (gchar), PAS_SUMMARY_MAGIC_LEN, fp);
+	if (rv != PAS_SUMMARY_MAGIC_LEN)
 		return FALSE;
 
 	return TRUE;
@@ -565,13 +576,14 @@ static gboolean
 save_string (const gchar *str,
              FILE *fp)
 {
-	gint rv;
+	size_t rv, len;
 
 	if (!str || !*str)
 		return TRUE;
 
-	rv = fwrite (str, strlen (str), 1, fp);
-	return (rv == 1);
+	len = strlen (str);
+	rv = fwrite (str, sizeof (gchar), len, fp);
+	return (rv == len);
 }
 
 static gboolean
@@ -1013,7 +1025,7 @@ e_book_backend_summary_is_summary_query (EBookBackendSummary *summary,
 	esexp_error = e_sexp_parse (sexp);
 
 	if (esexp_error == -1) {
-		e_sexp_unref (sexp);
+		g_object_unref (sexp);
 		return FALSE;
 	}
 
@@ -1023,7 +1035,7 @@ e_book_backend_summary_is_summary_query (EBookBackendSummary *summary,
 
 	e_sexp_result_free (sexp, r);
 
-	e_sexp_unref (sexp);
+	g_object_unref (sexp);
 
 	return retval;
 }
@@ -1277,7 +1289,7 @@ e_book_backend_summary_search (EBookBackendSummary *summary,
 
 	e_sexp_result_free (sexp, r);
 
-	e_sexp_unref (sexp);
+	g_object_unref (sexp);
 
 	return retval;
 }

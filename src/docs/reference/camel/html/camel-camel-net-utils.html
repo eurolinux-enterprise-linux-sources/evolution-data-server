@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: camel-net-utils</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>camel-net-utils: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Utilities.html" title="Utilities">
-<link rel="prev" href="camel-CamelMsgPort.html" title="CamelMsgPort">
+<link rel="prev" href="camel-camel-msgport.html" title="camel-msgport">
 <link rel="next" href="camel-camel-search-sql-sexp.html" title="camel-search-sql-sexp">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -19,7 +19,7 @@
 </td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
 <td><a accesskey="u" href="Utilities.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
-<td><a accesskey="p" href="camel-CamelMsgPort.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="camel-camel-msgport.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
 <td><a accesskey="n" href="camel-camel-search-sql-sexp.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
 </tr></table>
 <div class="refentry">
@@ -33,14 +33,14 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="camel-camel-net-utils.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
 </colgroup>
 <tbody>
 <tr>
-<td class="function_type">struct <span class="returnvalue">addrinfo</span> *
+<td class="function_type">struct <a class="link" href="camel-camel-net-utils.html#addrinfo" title="struct addrinfo"><span class="returnvalue">addrinfo</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="camel-camel-net-utils.html#camel-getaddrinfo" title="camel_getaddrinfo ()">camel_getaddrinfo</a> <span class="c_punctuation">()</span>
@@ -54,17 +54,33 @@
 <a class="link" href="camel-camel-net-utils.html#camel-freeaddrinfo" title="camel_freeaddrinfo ()">camel_freeaddrinfo</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="camel-camel-net-utils.html#camel-host-idna-to-ascii" title="camel_host_idna_to_ascii ()">camel_host_idna_to_ascii</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="camel-camel-net-utils.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
 </colgroup>
 <tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="camel-camel-net-utils.html#socklen-t" title="socklen_t">socklen_t</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="camel-camel-net-utils.html#addrinfo" title="struct addrinfo">addrinfo</a></td>
+</tr>
 <tr>
 <td class="define_keyword">#define</td>
 <td class="function_name"><a class="link" href="camel-camel-net-utils.html#AI-CANONNAME:CAPS" title="AI_CANONNAME">AI_CANONNAME</a></td>
@@ -141,6 +157,10 @@
 <td class="define_keyword">#define</td>
 <td class="function_name"><a class="link" href="camel-camel-net-utils.html#NI-DGRAM:CAPS" title="NI_DGRAM">NI_DGRAM</a></td>
 </tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="camel-camel-net-utils.html#sockaddr" title="struct sockaddr">sockaddr</a></td>
+</tr>
 </tbody>
 </table></div>
 </div>
@@ -151,24 +171,83 @@
 <a name="camel-camel-net-utils.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
 <a name="camel-getaddrinfo"></a><h3>camel_getaddrinfo ()</h3>
-<pre class="programlisting">struct <span class="returnvalue">addrinfo</span> *
-camel_getaddrinfo (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
-                   <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *service</code></em>,
+<pre class="programlisting">struct <a class="link" href="camel-camel-net-utils.html#addrinfo" title="struct addrinfo"><span class="returnvalue">addrinfo</span></a> *
+camel_getaddrinfo (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                   <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *service</code></em>,
                    <em class="parameter"><code>const <span class="type">struct addrinfo</span> *hints</code></em>,
-                   <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
-                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
-<p class="since">Since 2.22</p>
+                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="refsect3">
+<a name="camel-getaddrinfo.returns"></a><h4>Returns</h4>
+<p>. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-2.22.html" title="Index of new symbols in 2.22">2.22</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-freeaddrinfo"></a><h3>camel_freeaddrinfo ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_freeaddrinfo (<em class="parameter"><code><span class="type">struct addrinfo</span> *host</code></em>);</pre>
-<p class="since">Since 2.22</p>
+<p class="since">Since: <a class="link" href="api-index-2.22.html" title="Index of new symbols in 2.22">2.22</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-host-idna-to-ascii"></a><h3>camel_host_idna_to_ascii ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+camel_host_idna_to_ascii (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *host</code></em>);</pre>
+<p>Converts IDN (Internationalized Domain Name) into ASCII representation.
+If there's a failure or the <em class="parameter"><code>host</code></em>
+ has only ASCII letters, then a copy
+of <em class="parameter"><code>host</code></em>
+ is returned.</p>
+<div class="refsect3">
+<a name="camel-host-idna-to-ascii.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>host</p></td>
+<td class="parameter_description"><p>Host name, with or without non-ascii letters in utf8</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="camel-host-idna-to-ascii.returns"></a><h4>Returns</h4>
+<p> Newly allocated string with only ASCII letters describing the <em class="parameter"><code>host</code></em>
+.
+Free it with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when done with it.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.16.html" title="Index of new symbols in 3.16">3.16</a></p>
 </div>
 </div>
 <div class="refsect1">
 <a name="camel-camel-net-utils.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="socklen-t"></a><h3>socklen_t</h3>
+<pre class="programlisting">#define socklen_t int
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="addrinfo"></a><h3>struct addrinfo</h3>
+<pre class="programlisting">struct addrinfo {
+	gint ai_flags;
+	gint ai_family;
+	gint ai_socktype;
+	gint ai_protocol;
+	gsize ai_addrlen;
+	struct sockaddr *ai_addr;
+	gchar *ai_canonname;
+	struct addrinfo *ai_next;
+};
+</pre>
+</div>
+<hr>
 <div class="refsect2">
 <a name="AI-CANONNAME:CAPS"></a><h3>AI_CANONNAME</h3>
 <pre class="programlisting">#define AI_CANONNAME 0x0002 /* Request for canonical name.  */
@@ -282,10 +361,14 @@ camel_freeaddrinfo (<em class="parameter"><code><span class="type">struct addrin
 <pre class="programlisting">#define NI_DGRAM 16 /* Look up UDP service rather than TCP.  */
 </pre>
 </div>
+<hr>
+<div class="refsect2">
+<a name="sockaddr"></a><h3>struct sockaddr</h3>
+<pre class="programlisting">struct sockaddr;</pre>
+</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

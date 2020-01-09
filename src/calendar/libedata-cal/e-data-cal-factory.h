@@ -3,19 +3,19 @@
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Author: Federico Mena-Quintero <federico@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Federico Mena-Quintero <federico@ximian.com>
  */
 
 #if !defined (__LIBEDATA_CAL_H_INSIDE__) && !defined (LIBEDATA_CAL_COMPILATION)
@@ -50,9 +50,17 @@
  * EDS_CALENDAR_MODULES:
  *
  * This environment variable configures where the calendar
- * factory loads it's backend modules from.
+ * factory loads its backend modules from.
  */
 #define EDS_CALENDAR_MODULES    "EDS_CALENDAR_MODULES"
+
+/**
+ * EDS_SUBPROCESS_CAL_PATH:
+ *
+ * This environment variable configures where the calendar
+ * factory subprocess is located in.
+ */
+#define EDS_SUBPROCESS_CAL_PATH "EDS_SUBPROCESS_CAL_PATH"
 
 G_BEGIN_DECLS
 
@@ -72,8 +80,6 @@ struct _EDataCalFactoryClass {
 GType		e_data_cal_factory_get_type	(void);
 EDBusServer *	e_data_cal_factory_new		(GCancellable *cancellable,
 						 GError **error);
-ESourceRegistry *
-		e_data_cal_factory_get_registry	(EDataCalFactory *factory);
 
 G_END_DECLS
 

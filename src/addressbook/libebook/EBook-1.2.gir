@@ -16,7 +16,7 @@ and/or use gtk-doc annotations.  -->
   <c:include name="libebook/libebook.h"/>
   <namespace name="EBook"
              version="1.2"
-             shared-library="libebook-contacts-1.2.so.0,libedata-book-1.2.so.20,libebook-1.2.so.14,libedataserver-1.2.so.18"
+             shared-library="libebook-contacts-1.2.so.2,libedata-book-1.2.so.25,libebook-1.2.so.16,libedataserver-1.2.so.22"
              c:identifier-prefixes="E"
              c:symbol-prefixes="e">
     <class name="BookClient"
@@ -60,6 +60,15 @@ e_client_open(), and e_client_remove().</doc>
                 version="3.8">
         <doc xml:space="preserve">Asynchronously creates a new #EBookClient for @source.
 
+The @wait_for_connected_seconds argument had been added since 3.16,
+to let the caller decide how long to wait for the backend to fully
+connect to its (possibly remote) data store. This is required due
+to a change in the authentication process, which is fully asynchronous
+and done on the client side, while not every client is supposed to
+response to authentication requests. In case the backend will not connect
+within the set interval, then it is opened in an offline mode. A special
+value -1 can be used to not wait for the connected state at all.
+
 Unlike with e_book_client_new(), there is no need to call e_client_open()
 after obtaining the #EBookClient.
 
@@ -73,6 +82,11 @@ call e_book_client_connect_finish() to get the result of the operation.</doc>
             <doc xml:space="preserve">an #ESource</doc>
             <type name="EDataServer.Source" c:type="ESource*"/>
           </parameter>
+          <parameter name="wait_for_connected_seconds"
+                     transfer-ownership="none">
+            <doc xml:space="preserve">timeout, in seconds, to wait for the backend to be fully connected</doc>
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
           <parameter name="cancellable"
                      transfer-ownership="none"
                      nullable="1"
@@ -85,12 +99,15 @@ call e_book_client_connect_finish() to get the result of the operation.</doc>
                      nullable="1"
                      allow-none="1"
                      scope="async"
-                     closure="3">
+                     closure="4">
             <doc xml:space="preserve">a #GAsyncReadyCallback to call when the request
            is satisfied</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to the callback function</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -112,6 +129,11 @@ call e_book_client_connect_direct_finish() to get the result of the operation.</
             <doc xml:space="preserve">an #ESource</doc>
             <type name="EDataServer.Source" c:type="ESource*"/>
           </parameter>
+          <parameter name="wait_for_connected_seconds"
+                     transfer-ownership="none">
+            <doc xml:space="preserve">timeout, in seconds, to wait for the backend to be fully connected</doc>
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
           <parameter name="cancellable"
                      transfer-ownership="none"
                      nullable="1"
@@ -124,12 +146,15 @@ call e_book_client_connect_direct_finish() to get the result of the operation.</
                      nullable="1"
                      allow-none="1"
                      scope="async"
-                     closure="3">
+                     closure="4">
             <doc xml:space="preserve">a #GAsyncReadyCallback to call when the request
            is satisfied</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">data to pass to the callback function</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -176,6 +201,11 @@ direct read access to the underlying addressbook.</doc>
             <doc xml:space="preserve">an #ESource</doc>
             <type name="EDataServer.Source" c:type="ESource*"/>
           </parameter>
+          <parameter name="wait_for_connected_seconds"
+                     transfer-ownership="none">
+            <doc xml:space="preserve">timeout, in seconds, to wait for the backend to be fully connected</doc>
+            <type name="guint32" c:type="guint32"/>
+          </parameter>
           <parameter name="cancellable"
                      transfer-ownership="none"
                      nullable="1"
@@ -217,6 +247,15 @@ will set @error and return %FALSE.
 Unlike with e_book_client_new(), there is no need to call
 e_client_open_sync() after obtaining the #EBookClient.
 
+The @wait_for_connected_seconds argument had been added since 3.16,
+to let the caller decide how long to wait for the backend to fully
+connect to its (possibly remote) data store. This is required due
+to a change in the authentication process, which is fully asynchronous
+and done on the client side, while not every client is supposed to
+response to authentication requests. In case the backend will not connect
+within the set interval, then it is opened in an offline mode. A special
+value -1 can be used to not wait for the connected state at all.
+
 For error handling convenience, any error message returned by this
 function will have a descriptive prefix that includes the display
 name of @source.</doc>
@@ -228,6 +267,11 @@ name of @source.</doc>
           <parameter name="source" transfer-ownership="none">
             <doc xml:space="preserve">an #ESource</doc>
             <type name="EDataServer.Source" c:type="ESource*"/>
+          </parameter>
+          <parameter name="wait_for_connected_seconds"
+                     transfer-ownership="none">
+            <doc xml:space="preserve">timeout, in seconds, to wait for the backend to be fully connected</doc>
+            <type name="guint32" c:type="guint32"/>
           </parameter>
           <parameter name="cancellable"
                      transfer-ownership="none"
@@ -318,7 +362,10 @@ from the @callback.</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -430,7 +477,10 @@ from the @callback.</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -558,7 +608,10 @@ from the @callback.</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -666,7 +719,10 @@ to a string with e_book_query_to_string().</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -783,7 +839,10 @@ to a string with e_book_query_to_string().</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -914,7 +973,10 @@ to a string with e_book_query_to_string().</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -1062,7 +1124,10 @@ to a string with e_book_query_to_string().</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -1170,7 +1235,10 @@ from the @callback.</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -1259,7 +1327,10 @@ from the @callback.</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -1348,7 +1419,10 @@ from the @callback.</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -1388,7 +1462,10 @@ from the @callback.</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -1527,7 +1604,10 @@ from the @callback.</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -1795,7 +1875,7 @@ The returned #EBookClient is referenced because the cursor
 does not keep a strong reference to the client.
 
 Unreference the #EBookClient with g_object_unref() when finished with it.</doc>
-        <return-value transfer-ownership="full">
+        <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve">an #EBookClient</doc>
           <type name="gpointer" c:type="_EBookClient*"/>
         </return-value>
@@ -1843,7 +1923,10 @@ e_book_client_cursor_set_alphabetic_index_finish() from the specified @callback.
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -1955,7 +2038,10 @@ e_book_client_cursor_set_sexp_finish() from the specified @callback.</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -2071,7 +2157,10 @@ e_book_client_cursor_step_finish() from the specified @callback.</doc>
             <doc xml:space="preserve">callback to call when a result is ready</doc>
             <type name="Gio.AsyncReadyCallback" c:type="GAsyncReadyCallback"/>
           </parameter>
-          <parameter name="user_data" transfer-ownership="none">
+          <parameter name="user_data"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">user data for the @callback</doc>
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
@@ -2449,7 +2538,7 @@ functions below.</doc>
               deprecated-version="3.10">
         <doc xml:space="preserve">Returns the #EBookClientView:client associated with @client_view.</doc>
         <doc-deprecated xml:space="preserve">Use e_book_client_view_ref_client() instead.</doc-deprecated>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">an #EBookClient</doc>
           <type name="gpointer" c:type="_EBookClient*"/>
         </return-value>
@@ -2502,13 +2591,12 @@ functions below.</doc>
       </method>
       <method name="ref_client"
               c:identifier="e_book_client_view_ref_client"
-              version="3.10"
-              introspectable="0">
+              version="3.10">
         <doc xml:space="preserve">Returns the #EBookClientView:client associated with @client_view.
 
 The returned #EBookClient is referenced for thread-safety.  Unreference
 the #EBookClient with g_object_unref() when finished with it.</doc>
-        <return-value>
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">an #EBookClient</doc>
           <type name="gpointer" c:type="_EBookClient*"/>
         </return-value>
@@ -2640,7 +2728,10 @@ it will simply return object as is stored in the cache.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="object" transfer-ownership="none">
+          <parameter name="object"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
@@ -2650,7 +2741,10 @@ it will simply return object as is stored in the cache.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="object" transfer-ownership="none">
+          <parameter name="object"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>
@@ -2660,7 +2754,10 @@ it will simply return object as is stored in the cache.</doc>
           <type name="none" c:type="void"/>
         </return-value>
         <parameters>
-          <parameter name="object" transfer-ownership="none">
+          <parameter name="object"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <type name="gpointer" c:type="gpointer"/>
           </parameter>
         </parameters>

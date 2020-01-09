@@ -2,20 +2,21 @@
 /*
  * Copyright (C) 2013 Intel Corporation
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Author: Tristan Van Berkom <tristanvb@openismus.com>
+ * Authors: Tristan Van Berkom <tristanvb@openismus.com>
  */
+
 #include "cursor-data.h"
 
 #define CURSOR_DATA_SOURCE_ID "cursor-example-book"
@@ -42,7 +43,7 @@ cursor_data_source_added (ESourceRegistry *registry,
 		return;
 
 	/* Open the address book */
-	address_book = (EBookClient *) e_book_client_connect_sync (source, NULL, &error);
+	address_book = (EBookClient *) e_book_client_connect_sync (source, 30, NULL, &error);
 	if (!address_book)
 		g_error ("Unable to create the test book: %s", error->message);
 
@@ -203,7 +204,7 @@ cursor_load_data (const gchar *vcard_path,
 			ESource *source = e_source_registry_ref_source (registry, CURSOR_DATA_SOURCE_ID);
 
 			g_clear_error (&error);
-			g_assert (E_IS_SOURCE (source));
+			g_return_val_if_fail (E_IS_SOURCE (source), NULL);
 
 			/* Run the callback which creates the addressbook client connection */
 			cursor_data_source_added (registry, source, NULL);
@@ -223,7 +224,7 @@ cursor_load_data (const gchar *vcard_path,
 		g_main_loop_run (loop);
 
 		/* By now we aborted or we have an addressbook created */
-		g_assert (address_book != NULL);
+		g_return_val_if_fail (address_book != NULL, NULL);
 	}
 
 	/**********************************************************

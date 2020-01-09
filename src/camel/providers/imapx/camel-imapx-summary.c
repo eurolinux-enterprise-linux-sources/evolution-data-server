@@ -2,21 +2,20 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors:
- *    Michael Zucchi <notzed@ximian.com>
- *    Dan Winship <danw@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
+ *          Dan Winship <danw@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -34,6 +33,13 @@
 #include "camel-imapx-summary.h"
 
 #define CAMEL_IMAPX_SUMMARY_VERSION (4)
+
+enum {
+	INFO_CHANGED,
+	LAST_SIGNAL
+};
+
+static guint signals[LAST_SIGNAL];
 
 G_DEFINE_TYPE (
 	CamelIMAPXSummary,
@@ -250,6 +256,15 @@ imapx_summary_message_info_clone (CamelFolderSummary *summary,
 	return copy;
 }
 
+static void
+imapx_summary_emit_info_changed (CamelMessageInfo *info)
+{
+	g_return_if_fail (info != NULL);
+	g_return_if_fail (CAMEL_IS_IMAPX_SUMMARY (info->summary));
+
+	g_signal_emit (info->summary, signals[INFO_CHANGED], 0, info);
+}
+
 static gboolean
 imapx_summary_info_set_user_flag (CamelMessageInfo *info,
                                   const gchar *id,
@@ -257,18 +272,43 @@ imapx_summary_info_set_user_flag (CamelMessageInfo *info,
 {
 	gboolean changed;
 
-	/* Chain up to parent's info_set_user_flag() method. */
-	changed = CAMEL_FOLDER_SUMMARY_CLASS (
-		camel_imapx_summary_parent_class)->
-		info_set_user_flag (info, id, state);
+	/* Chain up to parent's method. */
+	changed = CAMEL_FOLDER_SUMMARY_CLASS (camel_imapx_summary_parent_class)->info_set_user_flag (info, id, state);
 
-	/* there was a change, so do not forget to store it to server */
-	if (changed) {
-		CamelIMAPXMessageInfo *imapx_info;
+	if (changed)
+		imapx_summary_emit_info_changed (info);
 
-		imapx_info = (CamelIMAPXMessageInfo *) info;
-		imapx_info->info.flags |= CAMEL_MESSAGE_FOLDER_FLAGGED;
-	}
+	return changed;
+}
+
+static gboolean
+imapx_summary_info_set_user_tag (CamelMessageInfo *info,
+				 const gchar *name,
+				 const gchar *value)
+{
+	gboolean changed;
+
+	/* Chain up to parent's method. */
+	changed = CAMEL_FOLDER_SUMMARY_CLASS (camel_imapx_summary_parent_class)->info_set_user_tag (info, name, value);
+
+	if (changed)
+		imapx_summary_emit_info_changed (info);
+
+	return changed;
+}
+
+static gboolean
+imapx_summary_info_set_flags (CamelMessageInfo *info,
+			      guint32 flags,
+			      guint32 set)
+{
+	gboolean changed;
+
+	/* Chain up to parent's method. */
+	changed = CAMEL_FOLDER_SUMMARY_CLASS (camel_imapx_summary_parent_class)->info_set_flags (info, flags, set);
+
+	if (changed)
+		imapx_summary_emit_info_changed (info);
 
 	return changed;
 }
@@ -290,6 +330,17 @@ camel_imapx_summary_class_init (CamelIMAPXSummaryClass *class)
 	folder_summary_class->message_info_free = imapx_summary_message_info_free;
 	folder_summary_class->message_info_clone = imapx_summary_message_info_clone;
 	folder_summary_class->info_set_user_flag = imapx_summary_info_set_user_flag;
+	folder_summary_class->info_set_user_tag = imapx_summary_info_set_user_tag;
+	folder_summary_class->info_set_flags = imapx_summary_info_set_flags;
+
+	signals[INFO_CHANGED] = g_signal_new (
+		"info-changed",
+		G_OBJECT_CLASS_TYPE (class),
+		G_SIGNAL_RUN_LAST,
+		0 /* G_STRUCT_OFFSET (CamelIMAPXSummaryClass, info_changed) */,
+		NULL, NULL, NULL,
+		G_TYPE_NONE, 1,
+		G_TYPE_POINTER /* CamelMessageInfo * */);
 }
 
 static void

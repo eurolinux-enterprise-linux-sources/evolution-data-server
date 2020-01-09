@@ -1,23 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8; fill-column: 160 -*- */
 /* camel-mime-part-utils : Utility for mime parsing and so on
  *
- * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
- *          Michael Zucchi <notzed@ximian.com>
- *          Jeffrey Stedfast <fejj@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
+ *          Michael Zucchi <notzed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -175,8 +175,8 @@ camel_mime_message_build_preview (CamelMimePart *msg,
 		gint i, nparts;
 		CamelMultipart *mp = (CamelMultipart *) camel_medium_get_content ((CamelMedium *) msg);
 
-		if (!CAMEL_IS_MULTIPART (mp))
-			g_assert (0);
+		g_warn_if_fail (CAMEL_IS_MULTIPART (mp));
+
 		nparts = camel_multipart_get_number (mp);
 		for (i = 0; i < nparts && !got_plain; i++) {
 			CamelMimePart *part = camel_multipart_get_part (mp, i);

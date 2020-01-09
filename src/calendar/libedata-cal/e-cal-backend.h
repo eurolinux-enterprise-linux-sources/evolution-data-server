@@ -1,17 +1,17 @@
 /*
  * e-cal-backend.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -340,6 +340,7 @@ gboolean	e_cal_backend_get_free_busy_sync
 						 time_t start,
 						 time_t end,
 						 const gchar * const *users,
+						 GSList **out_freebusy,
 						 GCancellable *cancellable,
 						 GError **error);
 void		e_cal_backend_get_free_busy	(ECalBackend *backend,
@@ -352,6 +353,7 @@ void		e_cal_backend_get_free_busy	(ECalBackend *backend,
 gboolean	e_cal_backend_get_free_busy_finish
 						(ECalBackend *backend,
 						 GAsyncResult *result,
+						 GSList **out_freebusy,
 						 GError **error);
 gboolean	e_cal_backend_create_objects_sync
 						(ECalBackend *backend,

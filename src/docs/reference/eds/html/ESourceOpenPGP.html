@@ -1,0 +1,741 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceOpenPGP: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch02.html" title="Data Source Extensions">
+<link rel="prev" href="ESourceOffline.html" title="ESourceOffline">
+<link rel="next" href="ESourceProxy.html" title="ESourceProxy">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#ESourceOpenPGP.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#ESourceOpenPGP.object-hierarchy" class="shortcut">Object Hierarchy</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ESourceOffline.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ESourceProxy.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="ESourceOpenPGP"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceOpenPGP.top_of_page"></a>ESourceOpenPGP</span></h2>
+<p>ESourceOpenPGP — <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> extension for OpenPGP settings</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-always-trust" title="e_source_openpgp_get_always_trust ()">e_source_openpgp_get_always_trust</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-always-trust" title="e_source_openpgp_set_always_trust ()">e_source_openpgp_set_always_trust</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-encrypt-to-self" title="e_source_openpgp_get_encrypt_to_self ()">e_source_openpgp_get_encrypt_to_self</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-encrypt-to-self" title="e_source_openpgp_set_encrypt_to_self ()">e_source_openpgp_set_encrypt_to_self</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-key-id" title="e_source_openpgp_get_key_id ()">e_source_openpgp_get_key_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-dup-key-id" title="e_source_openpgp_dup_key_id ()">e_source_openpgp_dup_key_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-key-id" title="e_source_openpgp_set_key_id ()">e_source_openpgp_set_key_id</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-signing-algorithm" title="e_source_openpgp_get_signing_algorithm ()">e_source_openpgp_get_signing_algorithm</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-dup-signing-algorithm" title="e_source_openpgp_dup_signing_algorithm ()">e_source_openpgp_dup_signing_algorithm</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-signing-algorithm" title="e_source_openpgp_set_signing_algorithm ()">e_source_openpgp_set_signing_algorithm</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-sign-by-default" title="e_source_openpgp_get_sign_by_default ()">e_source_openpgp_get_sign_by_default</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-sign-by-default" title="e_source_openpgp_set_sign_by_default ()">e_source_openpgp_set_sign_by_default</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-encrypt-by-default" title="e_source_openpgp_get_encrypt_by_default ()">e_source_openpgp_get_encrypt_by_default</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-encrypt-by-default" title="e_source_openpgp_set_encrypt_by_default ()">e_source_openpgp_set_encrypt_by_default</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-prefer-inline" title="e_source_openpgp_get_prefer_inline ()">e_source_openpgp_get_prefer_inline</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="ESourceOpenPGP.html#e-source-openpgp-set-prefer-inline" title="e_source_openpgp_set_prefer_inline ()">e_source_openpgp_set_prefer_inline</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="ESourceOpenPGP.html#E-SOURCE-EXTENSION-OPENPGP:CAPS" title="E_SOURCE_EXTENSION_OPENPGP">E_SOURCE_EXTENSION_OPENPGP</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="ESourceOpenPGP.html#ESourceOpenPGP-struct" title="struct ESourceOpenPGP">ESourceOpenPGP</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="ESourceExtension.html" title="ESourceExtension">ESourceExtension</a>
+        <span class="lineart">╰──</span> ESourceOpenPGP
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedataserver/libedataserver.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.description"></a><h2>Description</h2>
+<p>The <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> extension tracks OpenPGP (RFC 4880) settings to be
+applied to outgoing mail messages.</p>
+<p>Access the extension as follows:</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="preproc">#include</span><span class="normal"> </span><span class="string">&lt;libedataserver/libedataserver.h&gt;</span>
+
+<span class="usertype">ESourceOpenPGP</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">extension</span><span class="symbol">;</span>
+
+<span class="normal">extension </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="ESource.html#e-source-get-extension">e_source_get_extension</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">source</span><span class="symbol">,</span><span class="normal"> <a href="ESourceOpenPGP.html#E-SOURCE-EXTENSION-OPENPGP:CAPS">E_SOURCE_EXTENSION_OPENPGP</a></span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p></p>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-source-openpgp-get-always-trust"></a><h3>e_source_openpgp_get_always_trust ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_source_openpgp_get_always_trust (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>Returns whether to skip key validation and assume that used keys are
+always fully trusted.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-get-always-trust.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-openpgp-get-always-trust.returns"></a><h4>Returns</h4>
+<p> whether used keys are always fully trusted</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-always-trust"></a><h3>e_source_openpgp_set_always_trust ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_openpgp_set_always_trust (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                   <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> always_trust</code></em>);</pre>
+<p>Sets whether to skip key validation and assume that used keys are
+always fully trusted.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-set-always-trust.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>always_trust</p></td>
+<td class="parameter_description"><p>whether used keys are always fully trusted</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-encrypt-to-self"></a><h3>e_source_openpgp_get_encrypt_to_self ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_source_openpgp_get_encrypt_to_self (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>Returns whether to "encrypt-to-self" when sending encrypted messages.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-get-encrypt-to-self.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-openpgp-get-encrypt-to-self.returns"></a><h4>Returns</h4>
+<p> whether to "encrypt-to-self"</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-encrypt-to-self"></a><h3>e_source_openpgp_set_encrypt_to_self ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_openpgp_set_encrypt_to_self (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> encrypt_to_self</code></em>);</pre>
+<p>Sets whether to "encrypt-to-self" when sending encrypted messages.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-set-encrypt-to-self.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>encrypt_to_self</p></td>
+<td class="parameter_description"><p>whether to "encrypt-to-self"</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-key-id"></a><h3>e_source_openpgp_get_key_id ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_openpgp_get_key_id (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>Returns the OpenPGP key ID used to sign and encrypt messages.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-get-key-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-openpgp-get-key-id.returns"></a><h4>Returns</h4>
+<p> the key ID used to sign and encrypt messages</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-dup-key-id"></a><h3>e_source_openpgp_dup_key_id ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_openpgp_dup_key_id (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>Thread-safe variation of <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-key-id" title="e_source_openpgp_get_key_id ()"><code class="function">e_source_openpgp_get_key_id()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em>
+ from multiple threads.</p>
+<p>The returned string should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-dup-key-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-openpgp-dup-key-id.returns"></a><h4>Returns</h4>
+<p> a newly-allocated copy of <span class="type">“key-id”</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-key-id"></a><h3>e_source_openpgp_set_key_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_openpgp_set_key_id (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                             <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key_id</code></em>);</pre>
+<p>Sets the OpenPGP key ID used to sign and encrypt messages.</p>
+<p>The internal copy of <em class="parameter"><code>key_id</code></em>
+ is automatically stripped of leading and
+trailing whitespace.  If the resulting string is empty, <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set
+instead.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-set-key-id.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key_id</p></td>
+<td class="parameter_description"><p>the key ID used to sign and encrypt messages</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-signing-algorithm"></a><h3>e_source_openpgp_get_signing_algorithm ()</h3>
+<pre class="programlisting">const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_openpgp_get_signing_algorithm
+                               (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>Returns the name of the hash algorithm used to digitally sign outgoing
+messages.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-get-signing-algorithm.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-openpgp-get-signing-algorithm.returns"></a><h4>Returns</h4>
+<p> the signing algorithm for outgoing messages</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-dup-signing-algorithm"></a><h3>e_source_openpgp_dup_signing_algorithm ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_source_openpgp_dup_signing_algorithm
+                               (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>Thread-safe variation of <a class="link" href="ESourceOpenPGP.html#e-source-openpgp-get-signing-algorithm" title="e_source_openpgp_get_signing_algorithm ()"><code class="function">e_source_openpgp_get_signing_algorithm()</code></a>.
+Use this function when accessing <em class="parameter"><code>extension</code></em>
+ from multiple threads.</p>
+<p>The returned string should be freed with <a href="/usr/share/gtk-doc/html/glibglib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a> when no longer needed.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-dup-signing-algorithm.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-openpgp-dup-signing-algorithm.returns"></a><h4>Returns</h4>
+<p> a newly-allocated copy of <span class="type">“signing-algorithm”</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-signing-algorithm"></a><h3>e_source_openpgp_set_signing_algorithm ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_openpgp_set_signing_algorithm
+                               (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *signing_algorithm</code></em>);</pre>
+<p>Sets the name of the hash algorithm used to digitally sign outgoing
+messages.</p>
+<p>The internal copy of <em class="parameter"><code>signing_algorithm</code></em>
+ is automatically stripped of
+leading and trailing whitespace.  If the resulting string is empty,
+<a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> is set instead.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-set-signing-algorithm.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>signing_algorithm</p></td>
+<td class="parameter_description"><p>the signing algorithm for outgoing messages</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-sign-by-default"></a><h3>e_source_openpgp_get_sign_by_default ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_source_openpgp_get_sign_by_default (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>Returns whether to digitally sign outgoing messages by default using
+OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).</p>
+<div class="refsect3">
+<a name="e-source-openpgp-get-sign-by-default.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-openpgp-get-sign-by-default.returns"></a><h4>Returns</h4>
+<p> whether to sign outgoing messages by default</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-sign-by-default"></a><h3>e_source_openpgp_set_sign_by_default ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_openpgp_set_sign_by_default (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> sign_by_default</code></em>);</pre>
+<p>Sets whether to digitally sign outgoing messages by default using
+OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).</p>
+<div class="refsect3">
+<a name="e-source-openpgp-set-sign-by-default.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sign_by_default</p></td>
+<td class="parameter_description"><p>whether to sign outgoing messages by default</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-encrypt-by-default"></a><h3>e_source_openpgp_get_encrypt_by_default ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_source_openpgp_get_encrypt_by_default
+                               (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>Returns whether to digitally encrypt outgoing messages by default using
+OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).</p>
+<div class="refsect3">
+<a name="e-source-openpgp-get-encrypt-by-default.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-openpgp-get-encrypt-by-default.returns"></a><h4>Returns</h4>
+<p> whether to encrypt outgoing messages by default</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.18.html" title="Index of new symbols in 3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-encrypt-by-default"></a><h3>e_source_openpgp_set_encrypt_by_default ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_openpgp_set_encrypt_by_default
+                               (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> encrypt_by_default</code></em>);</pre>
+<p>Sets whether to digitally encrypt outgoing messages by default using
+OpenPGP-compliant software such as GNU Privacy Guard (GnuPG).</p>
+<div class="refsect3">
+<a name="e-source-openpgp-set-encrypt-by-default.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>encrypt_by_default</p></td>
+<td class="parameter_description"><p>whether to encrypt outgoing messages by default</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.18.html" title="Index of new symbols in 3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-get-prefer-inline"></a><h3>e_source_openpgp_get_prefer_inline ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_source_openpgp_get_prefer_inline (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>);</pre>
+<p>Returns whether to prefer inline sign/encrypt of the text/plain messages.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-get-prefer-inline.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-source-openpgp-get-prefer-inline.returns"></a><h4>Returns</h4>
+<p> whether to prefer inline sign/encrypt of the text/plain messages</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.20.html" title="Index of new symbols in 3.20">3.20</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-source-openpgp-set-prefer-inline"></a><h3>e_source_openpgp_set_prefer_inline ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_source_openpgp_set_prefer_inline (<em class="parameter"><code><a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a> *extension</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> prefer_inline</code></em>);</pre>
+<p>Sets whether to prefer inline sign/encrypt of the text/plain messages.</p>
+<div class="refsect3">
+<a name="e-source-openpgp-set-prefer-inline.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>extension</p></td>
+<td class="parameter_description"><p>an <a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prefer_inline</p></td>
+<td class="parameter_description"><p>whether to prefer inline sign/encrypt of the text/plain messages</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.20.html" title="Index of new symbols in 3.20">3.20</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="ESourceOpenPGP.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="E-SOURCE-EXTENSION-OPENPGP:CAPS"></a><h3>E_SOURCE_EXTENSION_OPENPGP</h3>
+<pre class="programlisting">#define E_SOURCE_EXTENSION_OPENPGP "Pretty Good Privacy (OpenPGP)"
+</pre>
+<p>Pass this extension name to <a class="link" href="ESource.html#e-source-get-extension" title="e_source_get_extension ()"><code class="function">e_source_get_extension()</code></a> to access
+<a class="link" href="ESourceOpenPGP.html" title="ESourceOpenPGP"><span class="type">ESourceOpenPGP</span></a>.  This is also used as a group name in key files.</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="ESourceOpenPGP-struct"></a><h3>struct ESourceOpenPGP</h3>
+<pre class="programlisting">struct ESourceOpenPGP;</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since: <a class="link" href="api-index-3.6.html" title="Index of new symbols in 3.6">3.6</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

@@ -4,19 +4,19 @@
  * Copyright (C) 2006 OpenedHand Ltd
  * Copyright (C) 2009 Intel Corporation
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
- * Author: Ross Burton <ross@linux.intel.com>
+ * Authors: Ross Burton <ross@linux.intel.com>
  */
 
 /**
@@ -49,7 +49,7 @@
 typedef struct _SignalClosure SignalClosure;
 
 struct _EBookClientViewPrivate {
-	GWeakRef client;
+	EBookClient *client;
 	GDBusProxy *dbus_proxy;
 	GDBusConnection *connection;
 	gchar *object_path;
@@ -647,6 +647,8 @@ book_client_view_complete_cb (EGdbusBookView *object,
 		g_weak_ref_init (&signal_closure->client_view, client_view);
 		e_gdbus_templates_decode_error (
 			in_error_strv, &signal_closure->error);
+		if (signal_closure->error)
+			g_dbus_error_strip_remote_error (signal_closure->error);
 
 		main_context = book_client_view_ref_main_context (client_view);
 
@@ -668,29 +670,13 @@ book_client_view_complete_cb (EGdbusBookView *object,
 }
 
 static void
-book_client_view_dispose_cb (GObject *source_object,
-                             GAsyncResult *result,
-                             gpointer user_data)
-{
-	GError *local_error = NULL;
-
-	e_gdbus_book_view_call_dispose_finish (
-		G_DBUS_PROXY (source_object), result, &local_error);
-
-	if (local_error != NULL) {
-		g_dbus_error_strip_remote_error (local_error);
-		g_warning ("%s: %s", G_STRFUNC, local_error->message);
-		g_error_free (local_error);
-	}
-}
-
-static void
 book_client_view_set_client (EBookClientView *client_view,
                              EBookClient *client)
 {
 	g_return_if_fail (E_IS_BOOK_CLIENT (client));
+	g_return_if_fail (client_view->priv->client == NULL);
 
-	g_weak_ref_set (&client_view->priv->client, client);
+	client_view->priv->client = g_object_ref (client);
 }
 
 static void
@@ -800,7 +786,7 @@ book_client_view_dispose (GObject *object)
 
 	priv = E_BOOK_CLIENT_VIEW_GET_PRIVATE (object);
 
-	g_weak_ref_set (&priv->client, NULL);
+	g_clear_object (&priv->client);
 
 	if (priv->connection != NULL) {
 		g_object_unref (priv->connection);
@@ -834,11 +820,11 @@ book_client_view_dispose (GObject *object)
 			priv->dbus_proxy,
 			priv->complete_handler_id);
 
-		/* Call D-Bus dispose() asynchronously
-		 * so we don't block this dispose() .*/
-		e_gdbus_book_view_call_dispose (
-			priv->dbus_proxy, NULL,
-			book_client_view_dispose_cb, NULL);
+		/* Call D-Bus dispose() asynchronously so we don't block this dispose().
+		 * Also omit a callback function, so the GDBusMessage
+		 * uses G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED.
+		 */
+		e_gdbus_book_view_call_dispose (priv->dbus_proxy, NULL, NULL, NULL);
 		g_object_unref (priv->dbus_proxy);
 		priv->dbus_proxy = NULL;
 	}
@@ -857,7 +843,7 @@ book_client_view_finalize (GObject *object)
 	g_free (priv->object_path);
 
 	g_mutex_clear (&priv->main_context_lock);
-	g_weak_ref_clear (&priv->client);
+	g_clear_object (&priv->client);
 
 	/* Chain up to parent's finalize() method. */
 	G_OBJECT_CLASS (e_book_client_view_parent_class)->finalize (object);
@@ -868,18 +854,35 @@ book_client_view_initable_init (GInitable *initable,
                                 GCancellable *cancellable,
                                 GError **error)
 {
+	EBookClient *book_client;
 	EBookClientViewPrivate *priv;
 	EGdbusBookView *gdbus_bookview;
 	gulong handler_id;
+	gchar *bus_name;
 
 	priv = E_BOOK_CLIENT_VIEW_GET_PRIVATE (initable);
+
+	book_client = priv->client ? g_object_ref (priv->client) : NULL;
+	if (book_client == NULL) {
+		g_set_error (
+			error, E_CLIENT_ERROR,
+			E_CLIENT_ERROR_OTHER_ERROR,
+			_("Client disappeared"));
+
+		return FALSE;
+	}
+
+	bus_name = e_client_dup_bus_name (E_CLIENT (book_client));
+	g_object_unref (book_client);
 
 	gdbus_bookview = e_gdbus_book_view_proxy_new_sync (
 		priv->connection,
 		G_DBUS_PROXY_FLAGS_NONE,
-		ADDRESS_BOOK_DBUS_SERVICE_NAME,
+		bus_name,
 		priv->object_path,
 		cancellable, error);
+
+	g_free (bus_name);
 
 	if (gdbus_bookview == NULL)
 		return FALSE;
@@ -1054,7 +1057,7 @@ e_book_client_view_init (EBookClientView *client_view)
 	client_view->priv = E_BOOK_CLIENT_VIEW_GET_PRIVATE (client_view);
 
 	g_mutex_init (&client_view->priv->main_context_lock);
-	g_weak_ref_init (&client_view->priv->client, NULL);
+	client_view->priv->client = NULL;
 }
 
 /**
@@ -1075,7 +1078,10 @@ e_book_client_view_ref_client (EBookClientView *client_view)
 {
 	g_return_val_if_fail (E_IS_BOOK_CLIENT_VIEW (client_view), NULL);
 
-	return g_weak_ref_get (&client_view->priv->client);
+	if (!client_view->priv->client)
+		return NULL;
+
+	return g_object_ref (client_view->priv->client);
 }
 
 /**

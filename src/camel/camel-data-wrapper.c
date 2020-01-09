@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8; -*- */
 /*
- *
- * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -474,7 +473,7 @@ camel_data_wrapper_new (void)
  *
  * Note, it's up to the caller to use this in a thread-safe manner.
  *
- * Returns: the #GByteArray for @data_wrapper
+ * Returns: (transfer none): the #GByteArray for @data_wrapper
  *
  * Since: 3.2
  **/
@@ -537,7 +536,7 @@ camel_data_wrapper_get_mime_type (CamelDataWrapper *data_wrapper)
  * camel_data_wrapper_get_mime_type_field:
  * @data_wrapper: a #CamelDataWrapper
  *
- * Returns: the parsed form of the data wrapper's MIME type
+ * Returns: (transfer none): the parsed form of the data wrapper's MIME type
  **/
 CamelContentType *
 camel_data_wrapper_get_mime_type_field (CamelDataWrapper *data_wrapper)

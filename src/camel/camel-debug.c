@@ -1,20 +1,20 @@
-/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- *
- *
- * Author: Michael Zucchi <notzed@ximian.com>
- *
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+/*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -34,6 +34,8 @@
 #endif
 #endif
 
+#include <glib-object.h>
+
 #include "camel-debug.h"
 
 gint camel_verbose_debug;
@@ -42,7 +44,6 @@ static GHashTable *debug_table = NULL;
 
 /**
  * camel_debug_init:
- * @void:
  *
  * Init camel debug.
  *
@@ -229,8 +230,8 @@ camel_debug_hwatch (gint wp,
 {
      guint32 control, rw;
 
-     g_assert (wp <= DR_LASTADDR);
-     g_assert (sizeof (addr) == 4);
+     g_return_if_fail (wp <= DR_LASTADDR);
+     g_return_if_fail (sizeof (addr) == 4);
 
      get_dr (7, control);
      /* set watch mode + size */
@@ -486,6 +487,7 @@ addr_lookup (gpointer addr,
 #ifdef HAVE_ELFUTILS_LIBDWFL
 	Dwfl *dwfl = dwfl_get (FALSE);
 	struct getmodules_callback_arg arg;
+	static GMutex mutex;
 
 	if (!dwfl)
 		return NULL;
@@ -495,6 +497,8 @@ addr_lookup (gpointer addr,
 	arg.file_path = NULL;
 	arg.lineno = -1;
 
+	g_mutex_lock (&mutex);
+
 	dwfl_getmodules (dwfl, getmodules_callback, &arg, 0);
 
 	if (!arg.func_name && fallback && strstr (fallback, "/lib") != fallback && strstr (fallback, "/usr/lib") != fallback) {
@@ -502,6 +506,8 @@ addr_lookup (gpointer addr,
 		if (dwfl)
 			dwfl_getmodules (dwfl, getmodules_callback, &arg, 0);
 	}
+
+	g_mutex_unlock (&mutex);
 
 	*file_path = arg.file_path;
 	*lineno = arg.lineno;
@@ -689,4 +695,489 @@ GString *
 camel_debug_get_backtrace (void)
 {
 	return get_current_backtrace ();
+}
+
+G_LOCK_DEFINE_STATIC (ref_unref_backtraces);
+static GQueue *ref_unref_backtraces = NULL;
+static guint total_ref_unref_backtraces = 0;
+
+typedef struct _BacktraceLine
+{
+	gchar *function;
+	gchar *file;
+	gint lineno;
+} BacktraceLine;
+
+static void
+backtrace_line_free (gpointer ptr)
+{
+	BacktraceLine *btline = ptr;
+
+	if (btline) {
+		g_free (btline->function);
+		g_free (btline->file);
+		g_free (btline);
+	}
+}
+
+typedef enum {
+	BACKTRACE_TYPE_OTHER,
+	BACKTRACE_TYPE_REF,
+	BACKTRACE_TYPE_UNREF
+} BacktraceType;
+
+typedef struct _Backtrace
+{
+	BacktraceType type;
+	guint object_ref_count;
+	GSList *lines; /* BacktraceLine */
+} Backtrace;
+
+static void
+backtrace_free (gpointer ptr)
+{
+	Backtrace *bt = ptr;
+
+	if (bt) {
+		g_slist_free_full (bt->lines, backtrace_line_free);
+		g_free (bt);
+	}
+}
+
+static BacktraceLine *
+parse_backtrace_line (const gchar *line)
+{
+	gchar **parts;
+	gint ii, lineno = 0;
+	gchar *function = NULL, *filename = NULL;
+
+	if (!line)
+		return NULL;
+
+	while (*line == ' ' || *line == '\t')
+		line++;
+
+	parts = g_strsplit (line, " ", -1);
+	if (!parts || !*parts) {
+		g_strfreev (parts);
+		return NULL;
+	}
+
+	for (ii = 0; parts[ii]; ii++) {
+		const gchar *part = parts[ii];
+
+		if (!*part)
+			continue;
+
+		if (ii == 1) {
+			function = g_strdup (part);
+		} else if (ii == 3 && function) {
+			gchar **file;
+
+			file = g_strsplit (part, ":", -1);
+			if (file && file[0] && file[1]) {
+				filename = g_strdup (file[0]);
+				lineno = g_ascii_strtoll (file[1], NULL, 10);
+			} else {
+				filename = g_strdup (part);
+			}
+
+			g_strfreev (file);
+		}
+	}
+
+	g_strfreev (parts);
+
+	if (function) {
+		BacktraceLine *btline;
+
+		btline = g_new0 (BacktraceLine, 1);
+		btline->function = function;
+		btline->file = filename;
+		btline->lineno = lineno;
+
+		return btline;
+	}
+
+	g_free (function);
+	g_free (filename);
+
+	return NULL;
+}
+
+static Backtrace *
+parse_backtrace (const GString *backtrace,
+		 guint object_ref_count)
+{
+	Backtrace *bt;
+	gchar **btlines;
+	gint ii;
+
+	if (!backtrace)
+		return NULL;
+
+	btlines = g_strsplit (backtrace->str, "\n", -1);
+	if (!btlines || !*btlines) {
+		g_strfreev (btlines);
+		return NULL;
+	}
+
+	bt = g_new0 (Backtrace, 1);
+	bt->object_ref_count = object_ref_count;
+
+	for (ii = 0; btlines[ii]; ii++) {
+		if (ii >= 1) {
+			BacktraceLine *btline = parse_backtrace_line (btlines[ii]);
+
+			if (!btline)
+				continue;
+
+			bt->lines = g_slist_prepend (bt->lines, btline);
+
+			if (ii == 1) {
+				if (g_strcmp0 (btline->function, "g_object_ref()") == 0) {
+					bt->type = BACKTRACE_TYPE_REF;
+				} else if (g_strcmp0 (btline->function, "g_object_unref()") == 0) {
+					bt->type = BACKTRACE_TYPE_UNREF;
+				} else {
+					bt->type = BACKTRACE_TYPE_OTHER;
+				}
+			}
+		}
+	}
+
+	g_strfreev (btlines);
+
+	bt->lines = g_slist_reverse (bt->lines);
+
+	return bt;
+}
+
+static void
+print_backtrace (Backtrace *bt,
+		 gint index)
+{
+	GSList *link;
+
+	if (!bt)
+		return;
+
+	g_print ("      Backtrace[%d] %s %d~>%d:\n", index,
+		bt->type == BACKTRACE_TYPE_REF ? "ref" :
+		bt->type == BACKTRACE_TYPE_UNREF ? "unref" : "other",
+		bt->object_ref_count, bt->object_ref_count + (bt->type == BACKTRACE_TYPE_REF ? 1 : bt->type == BACKTRACE_TYPE_UNREF ? -1 : 0));
+
+	for (link = bt->lines; link; link = g_slist_next (link)) {
+		BacktraceLine *btline = link->data;
+
+		g_print ("         %s %s", link == bt->lines ? "at" : "by", btline->function);
+
+		if (btline->file) {
+			if (btline->lineno > 0) {
+				g_print (" at %s:%d\n", btline->file, btline->lineno);
+			} else {
+				g_print (" at %s\n", btline->file);
+			}
+		} else {
+			g_print ("\n");
+		}
+	}
+
+	g_print ("\n");
+}
+
+static gboolean
+backtrace_matches (const Backtrace *match_bt,
+		   const Backtrace *find_bt,
+		   gint lines_tolerance)
+{
+	GSList *mlink, *flink;
+	gint lines_matched = 0;
+	gint lt, ii;
+
+	if (!match_bt || !find_bt || !find_bt->lines || !match_bt->lines)
+		return FALSE;
+
+	flink = find_bt->lines;
+	mlink = NULL;
+	lt = lines_tolerance;
+	do {
+		gboolean found = FALSE;
+		BacktraceLine *fline = flink->data;
+
+		if (!fline)
+			return FALSE;
+
+		for (mlink = match_bt->lines, ii = 0; mlink && ii <= lines_tolerance; mlink = g_slist_next (mlink), ii++) {
+			BacktraceLine *mline = mlink->data;
+
+			if (!mline)
+				return FALSE;
+
+			found = g_strcmp0 (fline->function, mline->function) == 0;
+			if (found)
+				break;
+		}
+
+		if (found)
+			break;
+
+		lt--;
+		if (lt >= 0)
+			flink = g_slist_next (flink);
+		else
+			flink = NULL;
+	} while (flink);
+
+	if (!flink)
+		return FALSE;
+
+	for (mlink = g_slist_next (mlink), flink = g_slist_next (flink);
+	     mlink && flink;
+	     mlink = g_slist_next (mlink), flink = g_slist_next (flink)) {
+		BacktraceLine *mline, *fline;
+
+		mline = mlink->data;
+		fline = flink->data;
+
+		if (!mline || !fline)
+			break;
+
+		if (g_strcmp0 (mline->function, fline->function) != 0 ||
+		    g_strcmp0 (mline->file, fline->file) != 0 ||
+		    mline->lineno != fline->lineno) {
+			break;
+		}
+
+		lines_matched++;
+	}
+
+	return (!mlink && !flink) || (lines_matched > 40 && (!mlink || !flink));
+}
+
+static gboolean
+backtrace_matches_ref (const Backtrace *match_bt,
+		       const Backtrace *find_bt,
+		       gint lines_tolerance)
+{
+	if (!match_bt || match_bt->type != BACKTRACE_TYPE_REF)
+		return FALSE;
+
+	return backtrace_matches (match_bt, find_bt, lines_tolerance);
+}
+
+static gboolean
+remove_matching_ref_backtrace (GQueue *backtraces,
+			       const Backtrace *unref_backtrace)
+{
+	GList *link;
+	gint up_bts = 2, up_lines = 1;
+
+	g_return_val_if_fail (backtraces != NULL, FALSE);
+	g_return_val_if_fail (unref_backtrace != NULL, FALSE);
+	g_return_val_if_fail (unref_backtrace->type != BACKTRACE_TYPE_REF, FALSE);
+
+	if (unref_backtrace->lines && unref_backtrace->lines->next && unref_backtrace->lines->next->data) {
+		BacktraceLine *btline = unref_backtrace->lines->next->data;
+
+		if (g_strcmp0 ("g_value_object_free_value()", btline->function) == 0)
+			up_lines = 5;
+		else if (g_strcmp0 ("g_object_notify()", btline->function) == 0)
+			up_bts = 5;
+	}
+
+	for (link = g_queue_peek_tail_link (backtraces); link && up_bts > 0; link = g_list_previous (link), up_bts--) {
+		Backtrace *bt = link->data;
+		gint inc_up_lines = 0;
+
+		if (!bt || bt->type != BACKTRACE_TYPE_REF)
+			continue;
+
+		if (bt->lines && bt->lines->next && bt->lines->next->data) {
+			BacktraceLine *btline = bt->lines->next->data;
+
+			if (g_strcmp0 ("g_weak_ref_get()", btline->function) == 0)
+				inc_up_lines = 1;
+		}
+
+		if (backtrace_matches_ref (bt, unref_backtrace, up_lines + inc_up_lines)) {
+			g_queue_delete_link (backtraces, link);
+			backtrace_free (bt);
+
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+static void
+dump_ref_unref_backtraces (gboolean is_at_exit)
+{
+	G_LOCK (ref_unref_backtraces);
+
+	if (ref_unref_backtraces) {
+		g_print ("\n----------------------------------------------------------\n");
+		if (g_queue_get_length (ref_unref_backtraces) == 0) {
+			g_print ("   All ref/unref backtraces were properly matched\n");
+		} else {
+			guint count = g_queue_get_length (ref_unref_backtraces), refs = 0, unrefs = 0, others = 0;
+			GList *link;
+
+			for (link = g_queue_peek_head_link (ref_unref_backtraces); link; link = g_list_next (link)) {
+				Backtrace *bt = link->data;
+
+				if (!bt)
+					continue;
+
+				if (bt->type == BACKTRACE_TYPE_REF)
+					refs++;
+				else if (bt->type == BACKTRACE_TYPE_UNREF)
+					unrefs++;
+				else
+					others++;
+			}
+
+			g_print ("   Left %u (ref(%u)/unref(%u)/other(%u)) backtraces of %u pushed total:\n", count, refs, unrefs, others, total_ref_unref_backtraces);
+
+			for (count = 0, link = g_queue_peek_head_link (ref_unref_backtraces); link; link = g_list_next (link), count++) {
+				Backtrace *bt = link->data;
+
+				if (!bt)
+					continue;
+
+				print_backtrace (bt, count);
+			}
+		}
+		g_print ("----------------------------------------------------------\n");
+	} else if (!is_at_exit) {
+		g_print ("\n----------------------------------------------------------\n");
+		g_print ("   Did not receive any ref/unref backtraces yet\n");
+		g_print ("----------------------------------------------------------\n");
+	}
+
+	G_UNLOCK (ref_unref_backtraces);
+}
+
+static void
+dump_left_ref_unref_backtraces_at_exit_cb (void)
+{
+	dump_ref_unref_backtraces (TRUE);
+
+	G_LOCK (ref_unref_backtraces);
+
+	if (ref_unref_backtraces) {
+		g_queue_free_full (ref_unref_backtraces, backtrace_free);
+		ref_unref_backtraces = NULL;
+	}
+
+	G_UNLOCK (ref_unref_backtraces);
+}
+
+/**
+ * camel_debug_ref_unref_push_backtrace:
+ * @backtrace: a backtrace to push, taken from camel_debug_get_backtrace()
+ * @object_ref_count: the current object reference count when the push is done
+ *
+ * Adds this backtrace into the set of backtraces related to some object
+ * reference counting issues debugging. This is usually called inside g_object_ref()
+ * and g_object_unref(). If the backtrace corresponds to a g_object_unref()
+ * call, and a corresponding g_object_ref() backtrace is found in the current list,
+ * then the previous backtrace is removed and this one is skipped.
+ *
+ * Any left backtraces in the list are printed at the application end.
+ *
+ * A convenient function camel_debug_ref_unref_push_backtrace_for_object()
+ * is provided too.
+ *
+ * Since: 3.20
+ **/
+void
+camel_debug_ref_unref_push_backtrace (const GString *backtrace,
+				      guint object_ref_count)
+{
+	Backtrace *bt;
+
+	g_return_if_fail (backtrace != NULL);
+
+	G_LOCK (ref_unref_backtraces);
+
+	total_ref_unref_backtraces++;
+
+	bt = parse_backtrace (backtrace, object_ref_count);
+	if (!bt) {
+		G_UNLOCK (ref_unref_backtraces);
+		g_warn_if_fail (bt != NULL);
+		return;
+	}
+
+	if (!ref_unref_backtraces) {
+		ref_unref_backtraces = g_queue_new ();
+		atexit (dump_left_ref_unref_backtraces_at_exit_cb);
+	}
+
+	if (bt->type != BACKTRACE_TYPE_UNREF || !remove_matching_ref_backtrace (ref_unref_backtraces, bt)) {
+		g_queue_push_tail (ref_unref_backtraces, bt);
+	} else {
+		backtrace_free (bt);
+	}
+
+	G_UNLOCK (ref_unref_backtraces);
+}
+
+/**
+ * camel_debug_ref_unref_push_backtrace_for_object:
+ * @_object: a #GObject, for which add the backtrace
+ *
+ * Gets current backtrace of this call and adds it to the list
+ * of backtraces with camel_debug_ref_unref_push_backtrace().
+ *
+ * Usual usage would be, once GNOME bug 758358 is applied to the GLib sources,
+ * or a patched GLib is used, to call this function in an object init() function,
+ * like this:
+ *
+ * static void
+ * my_object_init (MyObject *obj)
+ * {
+ *    camel_debug_ref_unref_push_backtrace_for_object (obj);
+ *    g_track_object_ref_unref (obj, (GFunc) camel_debug_ref_unref_push_backtrace_for_object, NULL);
+ * }
+ *
+ * Note that the g_track_object_ref_unref() can track only one pointer, thus make
+ * sure you track the right one (add some logic if multiple objects are created at once).
+ *
+ * Since: 3.20
+ **/
+void
+camel_debug_ref_unref_push_backtrace_for_object (gpointer _object)
+{
+	GString *backtrace;
+	GObject *object;
+
+	g_return_if_fail (G_IS_OBJECT (_object));
+
+	object = G_OBJECT (_object);
+
+	backtrace = camel_debug_get_backtrace ();
+	if (backtrace) {
+		camel_debug_ref_unref_push_backtrace (backtrace, object->ref_count);
+		g_string_free (backtrace, TRUE);
+	}
+}
+
+/**
+ * camel_debug_ref_unref_dump_backtraces:
+ *
+ * Prints current backtraces stored with camel_debug_ref_unref_push_backtrace()
+ * or with camel_debug_ref_unref_push_backtrace_for_object().
+ *
+ * It's usually not needed to use this function, as the left backtraces, if any,
+ * are printed at the end of the application.
+ *
+ * Since: 3.20
+ **/
+void
+camel_debug_ref_unref_dump_backtraces (void)
+{
+	dump_ref_unref_backtraces (FALSE);
 }

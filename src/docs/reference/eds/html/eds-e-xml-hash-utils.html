@@ -1,0 +1,661 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>e-xml-hash-utils: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch10.html" title="Available for clients and backends">
+<link rel="prev" href="eds-e-webdav-discover.html" title="e-webdav-discover">
+<link rel="next" href="eds-e-xml-utils.html" title="e-xml-utils">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-e-xml-hash-utils.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch10.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-e-webdav-discover.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-e-xml-utils.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-e-xml-hash-utils"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-e-xml-hash-utils.top_of_page"></a>e-xml-hash-utils</span></h2>
+<p>e-xml-hash-utils</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-e-xml-hash-utils.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xml-to-hash" title="e_xml_to_hash ()">e_xml_to_hash</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">xmlDoc</span> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xml-from-hash" title="e_xml_from_hash ()">e_xml_from_hash</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xml-destroy-hash" title="e_xml_destroy_hash ()">e_xml_destroy_hash</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="eds-e-xml-hash-utils.html#EXmlHashFunc" title="EXmlHashFunc ()">*EXmlHashFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<span class="c_punctuation">(</span><a class="link" href="eds-e-xml-hash-utils.html#EXmlHashRemoveFunc" title="EXmlHashRemoveFunc ()">*EXmlHashRemoveFunc</a><span class="c_punctuation">)</span> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="returnvalue">EXmlHash</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xmlhash-new" title="e_xmlhash_new ()">e_xmlhash_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xmlhash-add" title="e_xmlhash_add ()">e_xmlhash_add</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xmlhash-remove" title="e_xmlhash_remove ()">e_xmlhash_remove</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-e-xml-hash-utils.html#EXmlHashStatus" title="enum EXmlHashStatus"><span class="returnvalue">EXmlHashStatus</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xmlhash-compare" title="e_xmlhash_compare ()">e_xmlhash_compare</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xmlhash-foreach-key" title="e_xmlhash_foreach_key ()">e_xmlhash_foreach_key</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xmlhash-foreach-key-remove" title="e_xmlhash_foreach_key_remove ()">e_xmlhash_foreach_key_remove</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xmlhash-write" title="e_xmlhash_write ()">e_xmlhash_write</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-e-xml-hash-utils.html#e-xmlhash-destroy" title="e_xmlhash_destroy ()">e_xmlhash_destroy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-e-xml-hash-utils.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="eds-e-xml-hash-utils.html#EXmlHashType" title="enum EXmlHashType">EXmlHashType</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="eds-e-xml-hash-utils.html#EXmlHashStatus" title="enum EXmlHashStatus">EXmlHashStatus</a></td>
+</tr>
+<tr>
+<td class="typedef_keyword">typedef</td>
+<td class="function_name"><a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash">EXmlHash</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-e-xml-hash-utils.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="eds-e-xml-hash-utils.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-xml-to-hash"></a><h3>e_xml_to_hash ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *
+e_xml_to_hash (<em class="parameter"><code><span class="type">xmlDoc</span> *doc</code></em>,
+               <em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHashType" title="enum EXmlHashType"><span class="type">EXmlHashType</span></a> type</code></em>);</pre>
+<p>Creates a <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> representation of the <span class="type">xmlDoc</span> <em class="parameter"><code>doc</code></em>
+.
+If <em class="parameter"><code>type</code></em>
+ is * <em class="parameter"><code>E_XML_HASH_TYPE_PROPERTY</code></em>
+, all XML nodes will be
+indexed in the <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> by name. If <em class="parameter"><code>type</code></em>
+ is
+<a class="link" href="eds-e-xml-hash-utils.html#E-XML-HASH-TYPE-OBJECT-UID:CAPS"><code class="literal">E_XML_HASH_TYPE_OBJECT_UID</code></a>, then XML objects will be indexed in
+the hash by their UID (other nodes will still be indexed by name).</p>
+<div class="refsect3">
+<a name="e-xml-to-hash.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>doc</p></td>
+<td class="parameter_description"><p>The <span class="type">xmlDoc</span> to store in a hash table.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>The value type to use as a key in the hash table.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-xml-to-hash.returns"></a><h4>Returns</h4>
+<p> The newly-created <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> representation
+of <em class="parameter"><code>doc</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 utf8]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-xml-from-hash"></a><h3>e_xml_from_hash ()</h3>
+<pre class="programlisting"><span class="returnvalue">xmlDoc</span> *
+e_xml_from_hash (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *hash</code></em>,
+                 <em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHashType" title="enum EXmlHashType"><span class="type">EXmlHashType</span></a> type</code></em>,
+                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *root_name</code></em>);</pre>
+<p>Uses the key/value pair representation of an XML structure in <em class="parameter"><code>hash</code></em>
+
+to build an equivalent <span class="type">xmlDoc</span>. This is the reverse of <a class="link" href="eds-e-xml-hash-utils.html#e-xml-to-hash" title="e_xml_to_hash ()"><code class="function">e_xml_to_hash()</code></a>.</p>
+<div class="refsect3">
+<a name="e-xml-from-hash.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>hash</p></td>
+<td class="parameter_description"><p> The <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> to extract the XML from. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 utf8]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>type</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-e-xml-hash-utils.html#EXmlHashType" title="enum EXmlHashType"><span class="type">EXmlHashType</span></a> used to store the XML</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>root_name</p></td>
+<td class="parameter_description"><p>The name to call the new <span class="type">xmlDoc</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-xml-from-hash.returns"></a><h4>Returns</h4>
+<p> the <span class="type">xmlDoc</span> created from the data in <em class="parameter"><code>hash</code></em>
+</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-xml-destroy-hash"></a><h3>e_xml_destroy_hash ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_xml_destroy_hash (<em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> *hash</code></em>);</pre>
+<p>Frees the memory used by <em class="parameter"><code>hash</code></em>
+ and its contents.</p>
+<div class="refsect3">
+<a name="e-xml-destroy-hash.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>hash</p></td>
+<td class="parameter_description"><p> the <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#GHashTable"><span class="type">GHashTable</span></a> to destroy. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8 utf8]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EXmlHashFunc"></a><h3>EXmlHashFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+<span class="c_punctuation">(</span>*EXmlHashFunc<span class="c_punctuation">)</span> (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                 <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>,
+                 <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EXmlHashRemoveFunc"></a><h3>EXmlHashRemoveFunc ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<span class="c_punctuation">(</span>*EXmlHashRemoveFunc<span class="c_punctuation">)</span> (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                       <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>,
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-xmlhash-new"></a><h3>e_xmlhash_new ()</h3>
+<pre class="programlisting"><a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="returnvalue">EXmlHash</span></a> *
+e_xmlhash_new (<em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
+<p>Creates a new <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> from the file <em class="parameter"><code>filename</code></em>
+. If <em class="parameter"><code>filename</code></em>
+ does
+not already exist, an empty <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> will be created.</p>
+<div class="refsect3">
+<a name="e-xmlhash-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>filename</p></td>
+<td class="parameter_description"><p>the name of an XML file</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-xmlhash-new.returns"></a><h4>Returns</h4>
+<p> The new <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> structure, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if unable to parse
+<em class="parameter"><code>filename</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-xmlhash-add"></a><h3>e_xmlhash_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_xmlhash_add (<em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> *hash</code></em>,
+               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *data</code></em>);</pre>
+<p>Adds a new key/value pair to the <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> <em class="parameter"><code>hash</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-xmlhash-add.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>hash</p></td>
+<td class="parameter_description"><p>the <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> to add an entry to</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>the key to use for the entry</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>data</p></td>
+<td class="parameter_description"><p>the value of the new entry</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-xmlhash-remove"></a><h3>e_xmlhash_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_xmlhash_remove (<em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> *hash</code></em>,
+                  <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
+<p>Remove the entry in <em class="parameter"><code>hash</code></em>
+ with key equal to <em class="parameter"><code>key</code></em>
+, if it exists.</p>
+<div class="refsect3">
+<a name="e-xmlhash-remove.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>hash</p></td>
+<td class="parameter_description"><p>the <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> to remove an entry from</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>the key of the entry to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-xmlhash-compare"></a><h3>e_xmlhash_compare ()</h3>
+<pre class="programlisting"><a class="link" href="eds-e-xml-hash-utils.html#EXmlHashStatus" title="enum EXmlHashStatus"><span class="returnvalue">EXmlHashStatus</span></a>
+e_xmlhash_compare (<em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> *hash</code></em>,
+                   <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                   <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *compare_data</code></em>);</pre>
+<p>Compares the value with key equal to <em class="parameter"><code>key</code></em>
+ in <em class="parameter"><code>hash</code></em>
+ against
+<em class="parameter"><code>compare_data</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-xmlhash-compare.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>hash</p></td>
+<td class="parameter_description"><p>the <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> to compare against</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>key</p></td>
+<td class="parameter_description"><p>the key of the hash entry to compare with</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>compare_data</p></td>
+<td class="parameter_description"><p>the data to compare against the hash entry</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-xmlhash-compare.returns"></a><h4>Returns</h4>
+<p> E_XMLHASH_STATUS_SAME if the value and <em class="parameter"><code>compare_data</code></em>
+are
+equal,E_XMLHASH_STATUS_DIFFERENT if they are different, or
+E_XMLHASH_STATUS_NOT_FOUND if there is no entry in <em class="parameter"><code>hash</code></em>
+with
+its key equal to <em class="parameter"><code>key</code></em>
+.</p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-xmlhash-foreach-key"></a><h3>e_xmlhash_foreach_key ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_xmlhash_foreach_key (<em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> *hash</code></em>,
+                       <em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHashFunc" title="EXmlHashFunc ()"><span class="type">EXmlHashFunc</span></a> func</code></em>,
+                       <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Executes <em class="parameter"><code>func</code></em>
+ against each key/value pair in <em class="parameter"><code>hash</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-xmlhash-foreach-key.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>hash</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p> the <a class="link" href="eds-e-xml-hash-utils.html#EXmlHashFunc" title="EXmlHashFunc ()"><span class="type">EXmlHashFunc</span></a> to execute on the data in <em class="parameter"><code>hash</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>the data to pass to <em class="parameter"><code>func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-xmlhash-foreach-key-remove"></a><h3>e_xmlhash_foreach_key_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_xmlhash_foreach_key_remove (<em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> *hash</code></em>,
+                              <em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHashRemoveFunc" title="EXmlHashRemoveFunc ()"><span class="type">EXmlHashRemoveFunc</span></a> func</code></em>,
+                              <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Calls <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#g-hash-table-foreach-remove"><code class="function">g_hash_table_foreach_remove()</code></a> on <em class="parameter"><code>hash</code></em>
+'s internal hash
+table.  See <a href="/usr/share/gtk-doc/html/glibglib-Hash-Tables.html#g-hash-table-foreach-remove"><code class="function">g_hash_table_foreach_remove()</code></a> for details.</p>
+<div class="refsect3">
+<a name="e-xmlhash-foreach-key-remove.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>hash</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>func</p></td>
+<td class="parameter_description"><p> the <a class="link" href="eds-e-xml-hash-utils.html#EXmlHashFunc" title="EXmlHashFunc ()"><span class="type">EXmlHashFunc</span></a> to execute on the data in <em class="parameter"><code>hash</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="The callback is valid until first called."><span class="acronym">scope async</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>the data to pass to <em class="parameter"><code>func</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-xmlhash-write"></a><h3>e_xmlhash_write ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_xmlhash_write (<em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> *hash</code></em>);</pre>
+<p>Writes the XML represented by <em class="parameter"><code>hash</code></em>
+ to the file originally passed
+to <a class="link" href="eds-e-xml-hash-utils.html#e-xmlhash-new" title="e_xmlhash_new ()"><code class="function">e_xmlhash_new()</code></a>.</p>
+<div class="refsect3">
+<a name="e-xmlhash-write.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>hash</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> to write.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-xmlhash-destroy"></a><h3>e_xmlhash_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_xmlhash_destroy (<em class="parameter"><code><a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> *hash</code></em>);</pre>
+<p>Frees the memory associated with <em class="parameter"><code>hash</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-xmlhash-destroy.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>hash</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-e-xml-hash-utils.html#EXmlHash" title="EXmlHash"><span class="type">EXmlHash</span></a> to destroy.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-e-xml-hash-utils.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EXmlHashType"></a><h3>enum EXmlHashType</h3>
+<div class="refsect3">
+<a name="EXmlHashType.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="E-XML-HASH-TYPE-OBJECT-UID:CAPS"></a>E_XML_HASH_TYPE_OBJECT_UID</p></td>
+<td class="enum_member_description">
+<p>Use the object UID as the hash key.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-XML-HASH-TYPE-PROPERTY:CAPS"></a>E_XML_HASH_TYPE_PROPERTY</p></td>
+<td class="enum_member_description">
+<p>Use the property name as the hash key.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EXmlHashStatus"></a><h3>enum EXmlHashStatus</h3>
+<div class="refsect3">
+<a name="EXmlHashStatus.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="E-XMLHASH-STATUS-SAME:CAPS"></a>E_XMLHASH_STATUS_SAME</p></td>
+<td class="enum_member_description">
+<p>The compared values are the same.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-XMLHASH-STATUS-DIFFERENT:CAPS"></a>E_XMLHASH_STATUS_DIFFERENT</p></td>
+<td class="enum_member_description">
+<p>The compared values are different.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-XMLHASH-STATUS-NOT-FOUND:CAPS"></a>E_XMLHASH_STATUS_NOT_FOUND</p></td>
+<td class="enum_member_description">
+<p>The key to compare against was not found.</p>
+</td>
+<td class="enum_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EXmlHash"></a><h3>EXmlHash</h3>
+<pre class="programlisting">typedef struct EXmlHash EXmlHash;
+</pre>
+<p>A hash table representation of an XML file.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

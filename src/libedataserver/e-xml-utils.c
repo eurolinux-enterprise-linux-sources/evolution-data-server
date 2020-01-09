@@ -2,17 +2,18 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 #include <config.h>
@@ -157,7 +158,7 @@ e_xml_save_file (const gchar *filename,
  * Attempts to find a child element of @parent named @child_name.
  * If no such child exists, the function returns %NULL.
  *
- * Returns: a child XML node structure, or %NULL
+ * Returns: (nullable): a child XML node structure, or %NULL
  **/
 xmlNode *
 e_xml_get_child_by_name (const xmlNode *parent,

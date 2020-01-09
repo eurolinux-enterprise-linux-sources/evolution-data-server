@@ -2,19 +2,19 @@
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Author: Federico Mena-Quintero <federico@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Federico Mena-Quintero <federico@ximian.com>
  */
 
 #if !defined (__LIBECAL_H_INSIDE__) && !defined (LIBECAL_COMPILATION)
@@ -80,13 +80,26 @@ typedef enum {
  * Since: 3.2
  **/
 struct _ECalClientView {
+	/*< private >*/
 	GObject object;
 	ECalClientViewPrivate *priv;
 };
 
+/**
+ * ECalClientViewClass:
+ * @objects_added: A signal emitted when new objects are added into the view
+ * @objects_modified: A signal emitted when some objects are modified in the view
+ * @objects_removed: A signal emitted when some objects are removed from the view
+ * @progress: A signal emitted when the backend notifies about the progress
+ * @complete: A signal emitted when the backend finished initial view population
+ *
+ * Base class structure for the #ECalClientView class
+ **/
 struct _ECalClientViewClass {
+	/*< private >*/
 	GObjectClass parent_class;
 
+	/*< public >*/
 	/* Signals */
 	void		(*objects_added)	(ECalClientView *client_view,
 						 const GSList *objects);

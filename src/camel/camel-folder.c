@@ -1,23 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-folder.c: Abstract class for an email folder */
-
-/*
- * Author:
- *  Bertrand Guiheneuf <bertrand@helixcode.com>
+/* camel-folder.c: Abstract class for an email folder
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -96,7 +94,7 @@ struct _CamelFolderChangeInfoPrivate {
 };
 
 struct _SignalClosure {
-	GWeakRef folder;
+	CamelFolder *folder;
 	gchar *folder_name;
 };
 
@@ -126,6 +124,11 @@ enum {
 static guint signals[LAST_SIGNAL];
 
 G_DEFINE_ABSTRACT_TYPE (CamelFolder, camel_folder, CAMEL_TYPE_OBJECT)
+
+G_DEFINE_BOXED_TYPE (CamelFolderQuotaInfo,
+		camel_folder_quota_info,
+		camel_folder_quota_info_clone,
+		camel_folder_quota_info_free)
 
 static void
 async_context_free (AsyncContext *async_context)
@@ -161,7 +164,7 @@ async_context_free (AsyncContext *async_context)
 static void
 signal_closure_free (SignalClosure *signal_closure)
 {
-	g_weak_ref_clear (&signal_closure->folder);
+	g_clear_object (&signal_closure->folder);
 
 	g_free (signal_closure->folder_name);
 
@@ -173,23 +176,18 @@ folder_emit_changed_cb (gpointer user_data)
 {
 	SignalClosure *signal_closure = user_data;
 	CamelFolder *folder;
+	CamelFolderChangeInfo *changes;
 
-	folder = g_weak_ref_get (&signal_closure->folder);
+	folder = signal_closure->folder;
 
-	if (folder != NULL) {
-		CamelFolderChangeInfo *changes;
+	g_mutex_lock (&folder->priv->change_lock);
+	changes = folder->priv->pending_changes;
+	folder->priv->pending_changes = NULL;
+	g_mutex_unlock (&folder->priv->change_lock);
 
-		g_mutex_lock (&folder->priv->change_lock);
-		changes = folder->priv->pending_changes;
-		folder->priv->pending_changes = NULL;
-		g_mutex_unlock (&folder->priv->change_lock);
+	g_signal_emit (folder, signals[CHANGED], 0, changes);
 
-		g_signal_emit (folder, signals[CHANGED], 0, changes);
-
-		camel_folder_change_info_free (changes);
-
-		g_object_unref (folder);
-	}
+	camel_folder_change_info_free (changes);
 
 	return FALSE;
 }
@@ -198,14 +196,8 @@ static gboolean
 folder_emit_deleted_cb (gpointer user_data)
 {
 	SignalClosure *signal_closure = user_data;
-	CamelFolder *folder;
 
-	folder = g_weak_ref_get (&signal_closure->folder);
-
-	if (folder != NULL) {
-		g_signal_emit (folder, signals[DELETED], 0);
-		g_object_unref (folder);
-	}
+	g_signal_emit (signal_closure->folder, signals[DELETED], 0);
 
 	return FALSE;
 }
@@ -214,17 +206,11 @@ static gboolean
 folder_emit_renamed_cb (gpointer user_data)
 {
 	SignalClosure *signal_closure = user_data;
-	CamelFolder *folder;
 
-	folder = g_weak_ref_get (&signal_closure->folder);
-
-	if (folder != NULL) {
-		g_signal_emit (
-			folder,
-			signals[RENAMED], 0,
-			signal_closure->folder_name);
-		g_object_unref (folder);
-	}
+	g_signal_emit (
+		signal_closure->folder,
+		signals[RENAMED], 0,
+		signal_closure->folder_name);
 
 	return FALSE;
 }
@@ -280,9 +266,9 @@ folder_filter (CamelSession *session,
 	gint i, status = 0;
 	CamelJunkFilter *junk_filter;
 	gboolean synchronize = FALSE;
-	const gchar *display_name;
+	const gchar *full_name;
 
-	display_name = camel_folder_get_display_name (data->folder);
+	full_name = camel_folder_get_full_name (data->folder);
 	parent_store = camel_folder_get_parent_store (data->folder);
 	junk_filter = camel_session_get_junk_filter (session);
 
@@ -316,13 +302,16 @@ folder_filter (CamelSession *session,
 	if (data->junk) {
 		gboolean success = TRUE;
 
-		/* Translators: The %s is replaced with the
-		 * folder name where the operation is running. */
+		/* Translators: The first '%s' is replaced with an account name and the second '%s'
+		   is replaced with a full path name. The spaces around ':' are intentional, as
+		   the whole '%s : %s' is meant as an absolute identification of the folder. */
 		camel_operation_push_message (
 			cancellable, dngettext (GETTEXT_PACKAGE,
-			"Learning new spam message in '%s'",
-			"Learning new spam messages in '%s'",
-			data->junk->len), display_name);
+			"Learning new spam message in '%s : %s'",
+			"Learning new spam messages in '%s : %s'",
+			data->junk->len),
+			camel_service_get_display_name (CAMEL_SERVICE (parent_store)),
+			full_name);
 
 		for (i = 0; success && i < data->junk->len; i++) {
 			CamelMimeMessage *message;
@@ -356,13 +345,16 @@ folder_filter (CamelSession *session,
 	if (data->notjunk) {
 		gboolean success = TRUE;
 
-		/* Translators: The %s is replaced with the
-		 * folder name where the operation is running. */
+		/* Translators: The first '%s' is replaced with an account name and the second '%s'
+		   is replaced with a full path name. The spaces around ':' are intentional, as
+		   the whole '%s : %s' is meant as an absolute identification of the folder. */
 		camel_operation_push_message (
 			cancellable, dngettext (GETTEXT_PACKAGE,
-			"Learning new ham message in '%s'",
-			"Learning new ham messages in '%s'",
-			data->notjunk->len), display_name);
+			"Learning new ham message in '%s : %s'",
+			"Learning new ham messages in '%s : %s'",
+			data->notjunk->len),
+			camel_service_get_display_name (CAMEL_SERVICE (parent_store)),
+			full_name);
 
 		for (i = 0; success && i < data->notjunk->len; i++) {
 			CamelMimeMessage *message;
@@ -404,13 +396,16 @@ folder_filter (CamelSession *session,
 		CamelService *service;
 		const gchar *store_uid;
 
-		/* Translators: The %s is replaced with the
-		 * folder name where the operation is running. */
+		/* Translators: The first '%s' is replaced with an account name and the second '%s'
+		   is replaced with a full path name. The spaces around ':' are intentional, as
+		   the whole '%s : %s' is meant as an absolute identification of the folder. */
 		camel_operation_push_message (
 			cancellable, dngettext (GETTEXT_PACKAGE,
-			"Filtering new message in '%s'",
-			"Filtering new messages in '%s'",
-			data->recents->len), display_name);
+			"Filtering new message in '%s : %s'",
+			"Filtering new messages in '%s : %s'",
+			data->recents->len),
+			camel_service_get_display_name (CAMEL_SERVICE (parent_store)),
+			full_name);
 
 		service = CAMEL_SERVICE (parent_store);
 		store_uid = camel_service_get_uid (service);
@@ -425,8 +420,8 @@ folder_filter (CamelSession *session,
 				data->folder, uid);
 			if (info == NULL) {
 				g_warning (
-					"uid '%s' vanished from folder '%s'",
-					uid, display_name);
+					"uid '%s' vanished from folder '%s : %s'",
+					uid, camel_service_get_display_name (CAMEL_SERVICE (parent_store)), full_name);
 				continue;
 			}
 
@@ -530,7 +525,7 @@ folder_maybe_connect_sync (CamelFolder *folder,
 	service = CAMEL_SERVICE (parent_store);
 	session = camel_service_ref_session (service);
 	status = camel_service_get_connection_status (service);
-	connect = camel_session_get_online (session) && (status != CAMEL_SERVICE_CONNECTED);
+	connect = session && camel_session_get_online (session) && (status != CAMEL_SERVICE_CONNECTED);
 	g_clear_object (&session);
 
 	if (connect && CAMEL_IS_NETWORK_SERVICE (parent_store)) {
@@ -715,7 +710,7 @@ folder_get_message_flags (CamelFolder *folder,
 	if (info == NULL)
 		return 0;
 
-	flags = camel_message_info_flags (info);
+	flags = camel_message_info_get_flags (info);
 	camel_message_info_unref (info);
 
 	return flags;
@@ -756,7 +751,7 @@ folder_get_message_user_flag (CamelFolder *folder,
 	if (info == NULL)
 		return FALSE;
 
-	ret = camel_message_info_user_flag (info, name);
+	ret = camel_message_info_get_user_flag (info, name);
 	camel_message_info_unref (info);
 
 	return ret;
@@ -794,7 +789,7 @@ folder_get_message_user_tag (CamelFolder *folder,
 	if (info == NULL)
 		return NULL;
 
-	ret = camel_message_info_user_tag (info, name);
+	ret = camel_message_info_get_user_tag (info, name);
 	camel_message_info_unref (info);
 
 	return ret;
@@ -1059,8 +1054,12 @@ folder_get_quota_info_sync (CamelFolder *folder,
 {
 	g_set_error (
 		error, G_IO_ERROR, G_IO_ERROR_NOT_SUPPORTED,
-		_("Quota information not supported for folder '%s'"),
-		camel_folder_get_display_name (folder));
+		/* Translators: The first '%s' is replaced with an account name and the second '%s'
+		   is replaced with a full path name. The spaces around ':' are intentional, as
+		   the whole '%s : %s' is meant as an absolute identification of the folder. */
+		_("Quota information not supported for folder '%s : %s'"),
+		camel_service_get_display_name (CAMEL_SERVICE (camel_folder_get_parent_store (folder))),
+		camel_folder_get_full_name (folder));
 
 	return NULL;
 }
@@ -1092,7 +1091,13 @@ folder_changed (CamelFolder *folder,
 	g_mutex_unlock (&folder->priv->change_lock);
 
 	parent_store = camel_folder_get_parent_store (folder);
+	if (!parent_store)
+		return;
+
 	session = camel_service_ref_session (CAMEL_SERVICE (parent_store));
+	if (!session)
+		return;
+
 	junk_filter = camel_session_get_junk_filter (session);
 
 	if (junk_filter != NULL && info->uid_changed->len) {
@@ -1100,7 +1105,7 @@ folder_changed (CamelFolder *folder,
 
 		for (i = 0; i < info->uid_changed->len; i++) {
 			flags = camel_folder_summary_get_info_flags (folder->summary, info->uid_changed->pdata[i]);
-			if (flags & CAMEL_MESSAGE_JUNK_LEARN) {
+			if (flags != (~0) && (flags & CAMEL_MESSAGE_JUNK_LEARN) != 0) {
 				if (flags & CAMEL_MESSAGE_JUNK) {
 					if (!junk)
 						junk = g_ptr_array_new ();
@@ -1133,6 +1138,7 @@ folder_changed (CamelFolder *folder,
 
 	if (driver || junk || notjunk) {
 		FolderFilterData *data;
+		gchar *description;
 
 		data = g_slice_new0 (FolderFilterData);
 		data->recents = recents;
@@ -1150,11 +1156,20 @@ folder_changed (CamelFolder *folder,
 			folder->priv->changed_frozen, info);
 		g_mutex_unlock (&folder->priv->change_lock);
 
+		/* Translators: The first '%s' is replaced with an account name and the second '%s'
+		   is replaced with a full path name. The spaces around ':' are intentional, as
+		   the whole '%s : %s' is meant as an absolute identification of the folder. */
+		description = g_strdup_printf (_("Filtering folder '%s : %s'"),
+			camel_service_get_display_name (CAMEL_SERVICE (parent_store)),
+			camel_folder_get_full_name (folder));
+
 		camel_session_submit_job (
-			session, (CamelSessionCallback) folder_filter,
+			session, description, (CamelSessionCallback) folder_filter,
 			data, (GDestroyNotify) prepare_folder_filter_data_free);
 
 		g_signal_stop_emission (folder, signals[CHANGED], 0);
+
+		g_free (description);
 	}
 
 	g_object_unref (session);
@@ -1605,14 +1620,15 @@ camel_folder_set_description (CamelFolder *folder,
  * camel_folder_get_parent_store:
  * @folder: a #CamelFolder
  *
- * Returns: the parent #CamelStore of the folder
+ * Returns: (transfer none): the parent #CamelStore of the folder
  **/
 CamelStore *
 camel_folder_get_parent_store (CamelFolder *folder)
 {
 	g_return_val_if_fail (CAMEL_IS_FOLDER (folder), NULL);
 
-	return CAMEL_STORE (folder->priv->parent_store);
+	/* Can be NULL, thus do not use CAMEL_STORE() macro. */
+	return (CamelStore *) (folder->priv->parent_store);
 }
 
 /**
@@ -1931,8 +1947,8 @@ camel_folder_has_summary_capability (CamelFolder *folder)
  * support summaries. The returned array should not be modified, and
  * must be freed by passing it to camel_folder_free_uids().
  *
- * Returns: a GPtrArray of UIDs corresponding to the messages available
- * in the folder
+ * Returns: (element-type utf8) (transfer none): a GPtrArray of UIDs
+ * corresponding to the messages available in the folder
  **/
 GPtrArray *
 camel_folder_get_uids (CamelFolder *folder)
@@ -1950,7 +1966,7 @@ camel_folder_get_uids (CamelFolder *folder)
 /**
  * camel_folder_free_uids:
  * @folder: a #CamelFolder
- * @array: the array of uids to free
+ * @array: (element-type utf8): the array of uids to free
  *
  * Frees the array of UIDs returned by camel_folder_get_uids().
  **/
@@ -1972,12 +1988,14 @@ camel_folder_free_uids (CamelFolder *folder,
 /**
  * camel_folder_get_uncached_uids:
  * @folder: a #CamelFolder
- * @uids: the array of uids to filter down to uncached ones.
+ * @uids: (element-type utf8): the array of uids to filter down to uncached ones.
  *
  * Returns the known-uncached uids from a list of uids. It may return uids
  * which are locally cached but should never filter out a uid which is not
  * locally cached. Free the result by called camel_folder_free_uids().
  * Frees the array of UIDs returned by camel_folder_get_uids().
+ *
+ * Returns: (element-type utf8) (transfer none):
  *
  * Since: 2.26
  **/
@@ -2034,7 +2052,7 @@ camel_folder_cmp_uids (CamelFolder *folder,
 /**
  * camel_folder_sort_uids:
  * @folder: a #CamelFolder
- * @uids: array of uids
+ * @uids: (element-type utf8): array of uids
  *
  * Sorts the array of UIDs.
  *
@@ -2063,7 +2081,7 @@ camel_folder_sort_uids (CamelFolder *folder,
  * should not be modified, and must be freed with
  * camel_folder_free_summary().
  *
- * Returns: an array of #CamelMessageInfo
+ * Returns: (element-type CamelMessageInfo) (transfer none): an array of #CamelMessageInfo
  **/
 GPtrArray *
 camel_folder_get_summary (CamelFolder *folder)
@@ -2081,7 +2099,7 @@ camel_folder_get_summary (CamelFolder *folder)
 /**
  * camel_folder_free_summary:
  * @folder: a #CamelFolder
- * @array: the summary array to free
+ * @array: (element-type CamelMessageInfo): the summary array to free
  *
  * Frees the summary array returned by camel_folder_get_summary().
  **/
@@ -2103,14 +2121,15 @@ camel_folder_free_summary (CamelFolder *folder,
 /**
  * camel_folder_search_by_expression:
  * @folder: a #CamelFolder
- * @expr: a search expression
+ * @expression: a search expression
  * @cancellable: a #GCancellable
  * @error: return location for a #GError, or %NULL
  *
  * Searches the folder for messages matching the given search expression.
  *
- * Returns: a #GPtrArray of uids of matching messages. The caller must
- * free the list and each of the elements when it is done.
+ * Returns: (element-type utf8) (transfer full): a #GPtrArray of uids of
+ * matching messages. The caller must free the list and each of the elements
+ * when it is done.
  **/
 GPtrArray *
 camel_folder_search_by_expression (CamelFolder *folder,
@@ -2168,19 +2187,20 @@ camel_folder_count_by_expression (CamelFolder *folder,
 /**
  * camel_folder_search_by_uids:
  * @folder: a #CamelFolder
- * @expr: search expression
- * @uids: array of uid's to match against.
+ * @expression: search expression
+ * @uids: (element-type utf8): array of uid's to match against.
  * @cancellable: a #GCancellable
  * @error: return location for a #GError, or %NULL
  *
  * Search a subset of uid's for an expression match.
  *
- * Returns: a #GPtrArray of uids of matching messages. The caller must
- * free the list and each of the elements when it is done.
+ * Returns: (element-type utf8) (transfer full): a #GPtrArray of uids of
+ * matching messages. The caller must free the list and each of the elements
+ * when it is done.
  **/
 GPtrArray *
 camel_folder_search_by_uids (CamelFolder *folder,
-                             const gchar *expr,
+                             const gchar *expression,
                              GPtrArray *uids,
                              GCancellable *cancellable,
                              GError **error)
@@ -2195,7 +2215,7 @@ camel_folder_search_by_uids (CamelFolder *folder,
 
 	/* NOTE: that it is upto the callee to CAMEL_FOLDER_REC_LOCK */
 
-	matches = class->search_by_uids (folder, expr, uids, cancellable, error);
+	matches = class->search_by_uids (folder, expression, uids, cancellable, error);
 	CAMEL_CHECK_GERROR (folder, search_by_uids, matches != NULL, error);
 
 	return matches;
@@ -2204,7 +2224,7 @@ camel_folder_search_by_uids (CamelFolder *folder,
 /**
  * camel_folder_search_free:
  * @folder: a #CamelFolder
- * @result: search results to free
+ * @result: (element-type utf8): search results to free
  *
  * Free the result of a search as gotten by camel_folder_search() or
  * camel_folder_search_by_uids().
@@ -2269,9 +2289,11 @@ camel_folder_delete (CamelFolder *folder)
 
 	service = CAMEL_SERVICE (parent_store);
 	session = camel_service_ref_session (service);
+	if (!session)
+		return;
 
 	signal_closure = g_slice_new0 (SignalClosure);
-	g_weak_ref_init (&signal_closure->folder, folder);
+	signal_closure->folder = g_object_ref (folder);
 
 	/* Prioritize ahead of GTK+ redraws. */
 	camel_session_idle_add (
@@ -2322,9 +2344,11 @@ camel_folder_rename (CamelFolder *folder,
 
 	service = CAMEL_SERVICE (parent_store);
 	session = camel_service_ref_session (service);
+	if (!session)
+		return;
 
 	signal_closure = g_slice_new0 (SignalClosure);
-	g_weak_ref_init (&signal_closure->folder, folder);
+	signal_closure->folder = g_object_ref (folder);
 	signal_closure->folder_name = old_name;  /* transfer ownership */
 
 	/* Prioritize ahead of GTK+ redraws. */
@@ -2380,23 +2404,26 @@ camel_folder_changed (CamelFolder *folder,
 		SignalClosure *signal_closure;
 
 		parent_store = camel_folder_get_parent_store (folder);
+		if (parent_store) {
+			service = CAMEL_SERVICE (parent_store);
+			session = camel_service_ref_session (service);
 
-		service = CAMEL_SERVICE (parent_store);
-		session = camel_service_ref_session (service);
+			if (session) {
+				pending_changes = camel_folder_change_info_new ();
+				folder->priv->pending_changes = pending_changes;
 
-		pending_changes = camel_folder_change_info_new ();
-		folder->priv->pending_changes = pending_changes;
+				signal_closure = g_slice_new0 (SignalClosure);
+				signal_closure->folder = g_object_ref (folder);
 
-		signal_closure = g_slice_new0 (SignalClosure);
-		g_weak_ref_init (&signal_closure->folder, folder);
+				camel_session_idle_add (
+					session, G_PRIORITY_LOW,
+					folder_emit_changed_cb,
+					signal_closure,
+					(GDestroyNotify) signal_closure_free);
 
-		camel_session_idle_add (
-			session, G_PRIORITY_LOW,
-			folder_emit_changed_cb,
-			signal_closure,
-			(GDestroyNotify) signal_closure_free);
-
-		g_object_unref (session);
+				g_object_unref (session);
+			}
+		}
 	}
 
 	camel_folder_change_info_cat (pending_changes, changes);
@@ -2578,7 +2605,7 @@ camel_folder_free_nop (CamelFolder *folder,
 /**
  * camel_folder_free_shallow:
  * @folder: a #CamelFolder
- * @array: an array of uids or #CamelMessageInfo
+ * @array: (element-type utf8): an array of uids or #CamelMessageInfo
  *
  * Frees the provided array but not its contents. Used by #CamelFolder
  * subclasses as an implementation for free_uids or free_summary when
@@ -2595,7 +2622,7 @@ camel_folder_free_shallow (CamelFolder *folder,
 /**
  * camel_folder_free_deep:
  * @folder: a #CamelFolder
- * @array: an array of uids
+ * @array: (element-type utf8): an array of uids
  *
  * Frees the provided array and its contents. Used by #CamelFolder
  * subclasses as an implementation for free_uids when the provided
@@ -2734,7 +2761,7 @@ folder_append_message_thread (GTask *task,
 
 /**
  * camel_folder_append_message:
- * @folder a #CamelFolder
+ * @folder: a #CamelFolder
  * @message: a #CamelMimeMessage
  * @info: a #CamelMessageInfo with additional flags/etc to set on the
  *        new message, or %NULL
@@ -2825,6 +2852,13 @@ camel_folder_append_message_finish (CamelFolder *folder,
 	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
+static gboolean
+camel_folder_maybe_run_db_maintenance (CamelFolder *folder,
+				       GError **error)
+{
+	return camel_store_maybe_run_db_maintenance (camel_folder_get_parent_store (folder), error);
+}
+
 /**
  * camel_folder_expunge_sync:
  * @folder: a #CamelFolder
@@ -2843,8 +2877,6 @@ camel_folder_expunge_sync (CamelFolder *folder,
                            GError **error)
 {
 	CamelFolderClass *class;
-	const gchar *display_name;
-	const gchar *message;
 	gboolean success;
 
 	g_return_val_if_fail (CAMEL_IS_FOLDER (folder), FALSE);
@@ -2865,13 +2897,19 @@ camel_folder_expunge_sync (CamelFolder *folder,
 		return FALSE;
 	}
 
-	message = _("Expunging folder '%s'");
-	display_name = camel_folder_get_display_name (folder);
-	camel_operation_push_message (cancellable, message, display_name);
+	/* Translators: The first '%s' is replaced with an account name and the second '%s'
+	   is replaced with a full path name. The spaces around ':' are intentional, as
+	   the whole '%s : %s' is meant as an absolute identification of the folder. */
+	camel_operation_push_message (cancellable, _("Expunging folder '%s : %s'"),
+		camel_service_get_display_name (CAMEL_SERVICE (camel_folder_get_parent_store (folder))),
+		camel_folder_get_full_name (folder));
 
 	if (!(folder->folder_flags & CAMEL_FOLDER_HAS_BEEN_DELETED)) {
 		success = class->expunge_sync (folder, cancellable, error);
 		CAMEL_CHECK_GERROR (folder, expunge_sync, success, error);
+
+		if (success)
+			success = camel_folder_maybe_run_db_maintenance (folder, error);
 	}
 
 	camel_operation_pop_message (cancellable);
@@ -2973,7 +3011,7 @@ camel_folder_expunge_finish (CamelFolder *folder,
  *
  * Gets the message corresponding to @message_uid from @folder.
  *
- * Returns: a #CamelMimeMessage corresponding to the requested UID
+ * Returns: (transfer none): a #CamelMimeMessage corresponding to the requested UID
  *
  * Since: 3.0
  **/
@@ -2984,7 +3022,7 @@ camel_folder_get_message_sync (CamelFolder *folder,
                                GError **error)
 {
 	CamelFolderClass *class;
-	CamelMimeMessage *message = NULL;
+	CamelMimeMessage *message;
 
 	g_return_val_if_fail (CAMEL_IS_FOLDER (folder), NULL);
 	g_return_val_if_fail (message_uid != NULL, NULL);
@@ -2993,24 +3031,21 @@ camel_folder_get_message_sync (CamelFolder *folder,
 	g_return_val_if_fail (class->get_message_sync != NULL, NULL);
 
 	camel_operation_push_message (
-		cancellable, _("Retrieving message '%s' in %s"),
-		message_uid, camel_folder_get_display_name (folder));
+		/* Translators: The first '%s' is replaced with an account name and the second '%s'
+		   is replaced with a full path name. The spaces around ':' are intentional, as
+		   the whole '%s : %s' is meant as an absolute identification of the folder. */
+		cancellable, _("Retrieving message '%s' in '%s : %s'"),
+		message_uid, camel_service_get_display_name (CAMEL_SERVICE (camel_folder_get_parent_store (folder))),
+		camel_folder_get_full_name (folder));
 
-	if (class->get_message_cached) {
-		/* Return cached message, if available locally; this should
-		 * not do any network I/O, only check if message is already
-		 * downloaded and return it quicker, not being blocked by
-		 * the folder's lock.  Returning NULL is not considered as
-		 * an error, it just means that the message is still
-		 * to-be-downloaded. */
-		message = class->get_message_cached (
-			folder, message_uid, cancellable);
-	}
+	message = camel_folder_get_message_cached (folder, message_uid, cancellable);
 
 	if (message == NULL) {
 		/* Recover from a dropped connection, unless we're offline. */
-		if (!folder_maybe_connect_sync (folder, cancellable, error))
+		if (!folder_maybe_connect_sync (folder, cancellable, error)) {
+			camel_operation_pop_message (cancellable);
 			return NULL;
+		}
 
 		camel_folder_lock (folder);
 
@@ -3050,6 +3085,42 @@ camel_folder_get_message_sync (CamelFolder *folder,
 	}
 
 	return message;
+}
+
+/**
+ * camel_folder_get_message_cached:
+ * @folder: a #CamelFolder
+ * @message_uid: the message UID
+ * @cancellable: optional #GCancellable object, or %NULL
+ *
+ * Gets the message corresponding to @message_uid from the @folder cache,
+ * if available locally. This should not do any network I/O, only check
+ * if message is already downloaded and return it quickly, not being
+ * blocked by the folder's lock. Returning NULL is not considered as
+ * an error, it just means that the message is still to-be-downloaded.
+ *
+ * Note: This function is called automatically within camel_folder_get_message_sync().
+ *
+ * Returns: (transfer full) (nullable): a cached #CamelMimeMessage corresponding
+ *    to the requested UID
+ *
+ * Since: 3.22.5
+ **/
+CamelMimeMessage *
+camel_folder_get_message_cached (CamelFolder *folder,
+				 const gchar *message_uid,
+				 GCancellable *cancellable)
+{
+	CamelFolderClass *class;
+
+	g_return_val_if_fail (CAMEL_IS_FOLDER (folder), NULL);
+	g_return_val_if_fail (message_uid != NULL, NULL);
+
+	class = CAMEL_FOLDER_GET_CLASS (folder);
+	if (!class->get_message_cached)
+		return NULL;
+
+	return class->get_message_cached (folder, message_uid, cancellable);
 }
 
 /* Helper for camel_folder_get_message() */
@@ -3134,7 +3205,7 @@ camel_folder_get_message (CamelFolder *folder,
  *
  * Finishes the operation started with camel_folder_get_message().
  *
- * Returns: a #CamelMimeMessage corresponding to the requested UID
+ * Returns: (transfer none): a #CamelMimeMessage corresponding to the requested UID
  *
  * Since: 3.0
  **/
@@ -3176,17 +3247,18 @@ camel_folder_get_quota_info_sync (CamelFolder *folder,
 {
 	CamelFolderClass *class;
 	CamelFolderQuotaInfo *quota_info;
-	const gchar *display_name;
-	const gchar *message;
 
 	g_return_val_if_fail (CAMEL_IS_FOLDER (folder), NULL);
 
 	class = CAMEL_FOLDER_GET_CLASS (folder);
 	g_return_val_if_fail (class->get_quota_info_sync != NULL, NULL);
 
-	message = _("Retrieving quota information for '%s'");
-	display_name = camel_folder_get_display_name (folder);
-	camel_operation_push_message (cancellable, message, display_name);
+	/* Translators: The first '%s' is replaced with an account name and the second '%s'
+	   is replaced with a full path name. The spaces around ':' are intentional, as
+	   the whole '%s : %s' is meant as an absolute identification of the folder. */
+	camel_operation_push_message (cancellable, _("Retrieving quota information for '%s : %s'"),
+		camel_service_get_display_name (CAMEL_SERVICE (camel_folder_get_parent_store (folder))),
+		camel_folder_get_full_name (folder));
 
 	quota_info = class->get_quota_info_sync (folder, cancellable, error);
 	CAMEL_CHECK_GERROR (
@@ -3459,8 +3531,6 @@ camel_folder_refresh_info_sync (CamelFolder *folder,
                                 GError **error)
 {
 	CamelFolderClass *class;
-	const gchar *display_name;
-	const gchar *message;
 	gboolean success;
 
 	g_return_val_if_fail (CAMEL_IS_FOLDER (folder), FALSE);
@@ -3481,9 +3551,12 @@ camel_folder_refresh_info_sync (CamelFolder *folder,
 		return FALSE;
 	}
 
-	message = _("Refreshing folder '%s'");
-	display_name = camel_folder_get_display_name (folder);
-	camel_operation_push_message (cancellable, message, display_name);
+	/* Translators: The first '%s' is replaced with an account name and the second '%s'
+	   is replaced with a full path name. The spaces around ':' are intentional, as
+	   the whole '%s : %s' is meant as an absolute identification of the folder. */
+	camel_operation_push_message (cancellable, _("Refreshing folder '%s : %s'"),
+		camel_service_get_display_name (CAMEL_SERVICE (camel_folder_get_parent_store (folder))),
+		camel_folder_get_full_name (folder));
 
 	success = class->refresh_info_sync (folder, cancellable, error);
 	CAMEL_CHECK_GERROR (folder, refresh_info_sync, success, error);
@@ -3623,6 +3696,9 @@ camel_folder_synchronize_sync (CamelFolder *folder,
 		success = class->synchronize_sync (
 			folder, expunge, cancellable, error);
 		CAMEL_CHECK_GERROR (folder, synchronize_sync, success, error);
+
+		if (success && expunge)
+			success = camel_folder_maybe_run_db_maintenance (folder, error);
 	}
 
 	camel_folder_unlock (folder);
@@ -3817,7 +3893,7 @@ folder_synchronize_message_thread (GTask *task,
 }
 
 /**
- * camel_folder_synchronize_message;
+ * camel_folder_synchronize_message:
  * @folder: a #CamelFolder
  * @message_uid: a message UID
  * @io_priority: the I/O priority of the request
@@ -3895,11 +3971,12 @@ camel_folder_synchronize_message_finish (CamelFolder *folder,
 /**
  * camel_folder_transfer_messages_to_sync:
  * @source: the source #CamelFolder
- * @message_uids: message UIDs in @source
+ * @message_uids: (element-type utf8): message UIDs in @source
  * @destination: the destination #CamelFolder
  * @delete_originals: whether or not to delete the original messages
- * @transferred_uids: if non-%NULL, the UIDs of the resulting messages
- *                    in @destination will be stored here, if known.
+ * @transferred_uids: (element-type utf8) (out): if non-%NULL, the UIDs of the
+ *                    resulting messages in @destination will be stored here,
+ *                    if known.
  * @cancellable: optional #GCancellable object, or %NULL
  * @error: return location for a #GError, or %NULL
  *
@@ -3992,7 +4069,7 @@ folder_transfer_messages_to_thread (GTask *task,
 /**
  * camel_folder_transfer_messages_to:
  * @source: the source #CamelFolder
- * @message_uids: message UIDs in @source
+ * @message_uids: (element-type utf8): message UIDs in @source
  * @destination: the destination #CamelFolder
  * @delete_originals: whether or not to delete the original messages
  * @io_priority: the I/O priority of the request
@@ -4055,8 +4132,9 @@ camel_folder_transfer_messages_to (CamelFolder *source,
  * camel_folder_transfer_messages_to_finish:
  * @source: a #CamelFolder
  * @result: a #GAsyncResult
- * @transferred_uids: if non-%NULL, the UIDs of the resulting messages
- *                    in @destination will be stored here, if known.
+ * @transferred_uids: (element-type utf8) (out): if non-%NULL, the UIDs of the
+ *                    resulting messages in @destination will be stored here,
+ *                    if known.
  * @error: return location for a #GError, or %NULL
  *
  * Finishes the operation started with camel_folder_transfer_messages_to().
@@ -4090,6 +4168,29 @@ camel_folder_transfer_messages_to_finish (CamelFolder *source,
 	}
 
 	return g_task_propagate_boolean (G_TASK (result), error);
+}
+
+/**
+ * camel_folder_prepare_content_refresh:
+ * @folder: a #CamelFolder
+ *
+ * Lets the @folder know that it should refresh its content
+ * the next time from fresh. This is useful for remote accounts,
+ * to fully re-check the folder content against the server.
+ *
+ * Since: 3.22
+ **/
+void
+camel_folder_prepare_content_refresh (CamelFolder *folder)
+{
+	CamelFolderClass *klass;
+
+	g_return_if_fail (CAMEL_IS_FOLDER (folder));
+
+	klass = CAMEL_FOLDER_GET_CLASS (folder);
+
+	if (klass->prepare_content_refresh)
+		klass->prepare_content_refresh (folder);
 }
 
 /**
@@ -4149,7 +4250,7 @@ camel_folder_change_info_add_source (CamelFolderChangeInfo *info,
 /**
  * camel_folder_change_info_add_source_list:
  * @info: a #CamelFolderChangeInfo
- * @list: a list of uids
+ * @list: (element-type utf8) (transfer container): a list of uids
  *
  * Add a list of source uid's for generating a changeset.
  **/
@@ -4211,7 +4312,7 @@ camel_folder_change_info_add_update (CamelFolderChangeInfo *info,
 /**
  * camel_folder_change_info_add_update_list:
  * @info: a #CamelFolderChangeInfo
- * @list: a list of uids
+ * @list: (element-type utf8) (transfer container): a list of uids
  *
  * Add a list of uid's from the updated list.
  **/

@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelMimeFilterBasic</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelMimeFilterBasic: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Stream-Filters.html" title="Stream Filters">
 <link rel="prev" href="CamelMimeFilter.html" title="CamelMimeFilter">
 <link rel="next" href="CamelMimeFilterBestenc.html" title="CamelMimeFilterBestenc">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelMimeFilterBasic.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -50,27 +50,8 @@
 </table></div>
 </div>
 <div class="refsect1">
-<a name="CamelMimeFilterBasic.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="150px" class="name">
-<col class="description">
-</colgroup>
-<tbody>
-<tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelMimeFilterBasic.html#CamelMimeFilterBasic-struct" title="struct CamelMimeFilterBasic">CamelMimeFilterBasic</a></td>
-</tr>
-<tr>
-<td class="datatype_keyword">enum</td>
-<td class="function_name"><a class="link" href="CamelMimeFilterBasic.html#CamelMimeFilterBasicType" title="enum CamelMimeFilterBasicType">CamelMimeFilterBasicType</a></td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<div class="refsect1">
 <a name="CamelMimeFilterBasic.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter">CamelMimeFilter</a>
         <span class="lineart">╰──</span> CamelMimeFilterBasic
 </pre>
@@ -83,12 +64,12 @@
 <div class="refsect2">
 <a name="camel-mime-filter-basic-new"></a><h3>camel_mime_filter_basic_new ()</h3>
 <pre class="programlisting"><a class="link" href="CamelMimeFilter.html" title="CamelMimeFilter"><span class="returnvalue">CamelMimeFilter</span></a> *
-camel_mime_filter_basic_new (<em class="parameter"><code><a class="link" href="CamelMimeFilterBasic.html#CamelMimeFilterBasicType" title="enum CamelMimeFilterBasicType"><span class="type">CamelMimeFilterBasicType</span></a> type</code></em>);</pre>
+camel_mime_filter_basic_new (<em class="parameter"><code><a class="link" href="camel-camel-enums.html#CamelMimeFilterBasicType" title="enum CamelMimeFilterBasicType"><span class="type">CamelMimeFilterBasicType</span></a> type</code></em>);</pre>
 <p>Create a new <a class="link" href="CamelMimeFilterBasic.html" title="CamelMimeFilterBasic"><span class="type">CamelMimeFilterBasic</span></a> object of type <em class="parameter"><code>type</code></em>
 .</p>
 <div class="refsect3">
-<a name="id-1.2.4.3.7.2.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-mime-filter-basic-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -96,79 +77,22 @@ camel_mime_filter_basic_new (<em class="parameter"><code><a class="link" href="C
 </colgroup>
 <tbody><tr>
 <td class="parameter_name"><p>type</p></td>
-<td class="parameter_description"><p>a <a class="link" href="CamelMimeFilterBasic.html#CamelMimeFilterBasicType" title="enum CamelMimeFilterBasicType"><span class="type">CamelMimeFilterBasicType</span></a> type</p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-camel-enums.html#CamelMimeFilterBasicType" title="enum CamelMimeFilterBasicType"><span class="type">CamelMimeFilterBasicType</span></a> type</p></td>
 <td class="parameter_annotations"> </td>
 </tr></tbody>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.4.3.7.2.6"></a><h4>Returns</h4>
+<a name="camel-mime-filter-basic-new.returns"></a><h4>Returns</h4>
 <p> a new <a class="link" href="CamelMimeFilterBasic.html" title="CamelMimeFilterBasic"><span class="type">CamelMimeFilterBasic</span></a> object</p>
-<p></p>
 </div>
 </div>
 </div>
 <div class="refsect1">
 <a name="CamelMimeFilterBasic.other_details"></a><h2>Types and Values</h2>
-<div class="refsect2">
-<a name="CamelMimeFilterBasic-struct"></a><h3>struct CamelMimeFilterBasic</h3>
-<pre class="programlisting">struct CamelMimeFilterBasic;</pre>
-</div>
-<hr>
-<div class="refsect2">
-<a name="CamelMimeFilterBasicType"></a><h3>enum CamelMimeFilterBasicType</h3>
-<div class="refsect3">
-<a name="id-1.2.4.3.8.3.3"></a><h4>Members</h4>
-<div class="informaltable"><table width="100%" border="0">
-<colgroup>
-<col width="300px" class="enum_members_name">
-<col class="enum_members_description">
-<col width="200px" class="enum_members_annotations">
-</colgroup>
-<tbody>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-MIME-FILTER-BASIC-INVALID:CAPS"></a>CAMEL_MIME_FILTER_BASIC_INVALID</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-MIME-FILTER-BASIC-BASE64-ENC:CAPS"></a>CAMEL_MIME_FILTER_BASIC_BASE64_ENC</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-MIME-FILTER-BASIC-BASE64-DEC:CAPS"></a>CAMEL_MIME_FILTER_BASIC_BASE64_DEC</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-MIME-FILTER-BASIC-QP-ENC:CAPS"></a>CAMEL_MIME_FILTER_BASIC_QP_ENC</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-MIME-FILTER-BASIC-QP-DEC:CAPS"></a>CAMEL_MIME_FILTER_BASIC_QP_DEC</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-MIME-FILTER-BASIC-UU-ENC:CAPS"></a>CAMEL_MIME_FILTER_BASIC_UU_ENC</p></td>
-<td> </td>
-<td> </td>
-</tr>
-<tr>
-<td class="enum_member_name"><p><a name="CAMEL-MIME-FILTER-BASIC-UU-DEC:CAPS"></a>CAMEL_MIME_FILTER_BASIC_UU_DEC</p></td>
-<td> </td>
-<td> </td>
-</tr>
-</tbody>
-</table></div>
-</div>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

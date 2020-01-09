@@ -1,17 +1,17 @@
 /*
  * e-source-mail-submission.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -43,7 +43,6 @@
 	((obj), E_TYPE_SOURCE_MAIL_SUBMISSION, ESourceMailSubmissionPrivate))
 
 struct _ESourceMailSubmissionPrivate {
-	GMutex property_lock;
 	gchar *sent_folder;
 	gchar *transport_uid;
 	gboolean replies_to_origin_folder;
@@ -129,8 +128,6 @@ source_mail_submission_finalize (GObject *object)
 
 	priv = E_SOURCE_MAIL_SUBMISSION_GET_PRIVATE (object);
 
-	g_mutex_clear (&priv->property_lock);
-
 	g_free (priv->sent_folder);
 	g_free (priv->transport_uid);
 
@@ -201,7 +198,6 @@ static void
 e_source_mail_submission_init (ESourceMailSubmission *extension)
 {
 	extension->priv = E_SOURCE_MAIL_SUBMISSION_GET_PRIVATE (extension);
-	g_mutex_init (&extension->priv->property_lock);
 }
 
 /**
@@ -244,12 +240,12 @@ e_source_mail_submission_dup_sent_folder (ESourceMailSubmission *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_SUBMISSION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_submission_get_sent_folder (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -275,17 +271,17 @@ e_source_mail_submission_set_sent_folder (ESourceMailSubmission *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_SUBMISSION (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->sent_folder, sent_folder) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->sent_folder);
 	extension->priv->sent_folder = e_util_strdup_strip (sent_folder);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "sent-folder");
 }
@@ -330,12 +326,12 @@ e_source_mail_submission_dup_transport_uid (ESourceMailSubmission *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_SUBMISSION (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_submission_get_transport_uid (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -356,17 +352,17 @@ e_source_mail_submission_set_transport_uid (ESourceMailSubmission *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_SUBMISSION (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->transport_uid, transport_uid) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->transport_uid);
 	extension->priv->transport_uid = g_strdup (transport_uid);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "transport-uid");
 }

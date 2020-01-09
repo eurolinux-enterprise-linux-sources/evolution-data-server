@@ -1,19 +1,19 @@
 /*
  * Copyright (C) 2008 Novell, Inc.
  *
- * Authors: Patrick Ohly <patrick.ohly@gmx.de>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Patrick Ohly <patrick.ohly@gmx.de>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -277,10 +277,10 @@ e_cal_check_timezones (icalcomponent *comp,
 	gchar *tzid = NULL;
 	GList *l;
 
-	/** a hash from old to new tzid; strings dynamically allocated */
+	/* a hash from old to new tzid; strings dynamically allocated */
 	GHashTable *mapping = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
 
-	/** a hash of all system time zone IDs which have to be added; strings are shared with mapping hash */
+	/* a hash of all system time zone IDs which have to be added; strings are shared with mapping hash */
 	GHashTable *systemtzids = g_hash_table_new (g_str_hash, g_str_equal);
 
 	*error = NULL;
@@ -462,10 +462,15 @@ e_cal_check_timezones (icalcomponent *comp,
 
 /**
  * e_cal_tzlookup_ecal:
- * @custom: must be a valid ECal pointer
+ * @tzid: ID of the timezone to lookup
+ * @custom: must be a valid #ECal pointer
+ * @error: an error description in case of a failure
  *
  * An implementation of the tzlookup callback which clients
  * can use. Calls e_cal_get_timezone().
+ *
+ * Returns: A timezone object, or %NULL on failure. This object is owned
+ *   by the @custom, thus do not free it.
  *
  * Since: 2.24
  *
@@ -502,13 +507,18 @@ e_cal_tzlookup_ecal (const gchar *tzid,
 
 /**
  * e_cal_tzlookup_icomp:
+ * @tzid: ID of the timezone to lookup
  * @custom: must be a icalcomponent pointer which contains
  *          either a VCALENDAR with VTIMEZONEs or VTIMEZONES
  *          directly
+ * @error: an error description in case of a failure
  *
  * An implementation of the tzlookup callback which backends
  * like the file backend can use. Searches for the timezone
  * in the component list.
+ *
+ * Returns: A timezone object, or %NULL if not found inside @custom. This object is owned
+ *   by the @custom, thus do not free it.
  *
  * Since: 2.24
  *
@@ -775,10 +785,16 @@ e_cal_client_check_timezones (icalcomponent *comp,
 
 /**
  * e_cal_client_tzlookup:
- * @ecalclient: must be a valid ECalCleint pointer
+ * @tzid: ID of the timezone to lookup
+ * @ecalclient: must be a valid #ECalClient pointer
+ * @cancellable: an optional #GCancellable to use, or %NULL
+ * @error: an error description in case of a failure
  *
  * An implementation of the tzlookup callback which clients
  * can use. Calls e_cal_client_get_timezone_sync().
+ *
+ * Returns: A timezone object, or %NULL on failure. This object is owned
+ *   by the @ecalclient, thus do not free it.
  *
  * Since: 3.2
  */
@@ -814,13 +830,19 @@ e_cal_client_tzlookup (const gchar *tzid,
 
 /**
  * e_cal_client_tzlookup_icomp:
+ * @tzid: ID of the timezone to lookup
  * @custom: must be a icalcomponent pointer which contains
  *          either a VCALENDAR with VTIMEZONEs or VTIMEZONES
  *          directly
+ * @cancellable: an optional #GCancellable to use, or %NULL
+ * @error: an error description in case of a failure
  *
  * An implementation of the tzlookup callback which backends
  * like the file backend can use. Searches for the timezone
  * in the component list.
+ *
+ * Returns: A timezone object, or %NULL if not found inside @custom. This object is owned
+ *   by the @custom, thus do not free it.
  *
  * Since: 3.2
  */

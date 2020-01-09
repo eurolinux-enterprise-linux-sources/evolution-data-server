@@ -1,17 +1,17 @@
 /*
  * e-source-selectable.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -34,7 +34,6 @@
 	((obj), E_TYPE_SOURCE_SELECTABLE, ESourceSelectablePrivate))
 
 struct _ESourceSelectablePrivate {
-	GMutex property_lock;
 	gchar *color;
 	gboolean selected;
 };
@@ -105,8 +104,6 @@ source_selectable_finalize (GObject *object)
 
 	priv = E_SOURCE_SELECTABLE_GET_PRIVATE (object);
 
-	g_mutex_clear (&priv->property_lock);
-
 	g_free (priv->color);
 
 	/* Chain up to parent's finalize() method. */
@@ -159,7 +156,6 @@ static void
 e_source_selectable_init (ESourceSelectable *extension)
 {
 	extension->priv = E_SOURCE_SELECTABLE_GET_PRIVATE (extension);
-	g_mutex_init (&extension->priv->property_lock);
 }
 
 /**
@@ -203,12 +199,12 @@ e_source_selectable_dup_color (ESourceSelectable *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_SELECTABLE (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_selectable_get_color (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -234,17 +230,17 @@ e_source_selectable_set_color (ESourceSelectable *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_SELECTABLE (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->color, color) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->color);
 	extension->priv->color = e_util_strdup_strip (color);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "color");
 }

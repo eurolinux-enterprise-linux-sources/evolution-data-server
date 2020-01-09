@@ -1,17 +1,17 @@
 /*
  * e-source-mail-account.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -45,13 +45,16 @@
 	((obj), E_TYPE_SOURCE_MAIL_ACCOUNT, ESourceMailAccountPrivate))
 
 struct _ESourceMailAccountPrivate {
-	GMutex property_lock;
 	gchar *identity_uid;
+	gchar *archive_folder;
+	gboolean needs_initial_setup;
 };
 
 enum {
 	PROP_0,
-	PROP_IDENTITY_UID
+	PROP_IDENTITY_UID,
+	PROP_ARCHIVE_FOLDER,
+	PROP_NEEDS_INITIAL_SETUP
 };
 
 G_DEFINE_TYPE (
@@ -71,6 +74,18 @@ source_mail_account_set_property (GObject *object,
 				E_SOURCE_MAIL_ACCOUNT (object),
 				g_value_get_string (value));
 			return;
+
+		case PROP_ARCHIVE_FOLDER:
+			e_source_mail_account_set_archive_folder (
+				E_SOURCE_MAIL_ACCOUNT (object),
+				g_value_get_string (value));
+			return;
+
+		case PROP_NEEDS_INITIAL_SETUP:
+			e_source_mail_account_set_needs_initial_setup (
+				E_SOURCE_MAIL_ACCOUNT (object),
+				g_value_get_boolean (value));
+			return;
 	}
 
 	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -89,6 +104,20 @@ source_mail_account_get_property (GObject *object,
 				e_source_mail_account_dup_identity_uid (
 				E_SOURCE_MAIL_ACCOUNT (object)));
 			return;
+
+		case PROP_ARCHIVE_FOLDER:
+			g_value_take_string (
+				value,
+				e_source_mail_account_dup_archive_folder (
+				E_SOURCE_MAIL_ACCOUNT (object)));
+			return;
+
+		case PROP_NEEDS_INITIAL_SETUP:
+			g_value_set_boolean (
+				value,
+				e_source_mail_account_get_needs_initial_setup (
+				E_SOURCE_MAIL_ACCOUNT (object)));
+			return;
 	}
 
 	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
@@ -101,9 +130,8 @@ source_mail_account_finalize (GObject *object)
 
 	priv = E_SOURCE_MAIL_ACCOUNT_GET_PRIVATE (object);
 
-	g_mutex_clear (&priv->property_lock);
-
 	g_free (priv->identity_uid);
+	g_free (priv->archive_folder);
 
 	/* Chain up to parent's finalize() method. */
 	G_OBJECT_CLASS (e_source_mail_account_parent_class)->finalize (object);
@@ -137,13 +165,38 @@ e_source_mail_account_class_init (ESourceMailAccountClass *class)
 			G_PARAM_CONSTRUCT |
 			G_PARAM_STATIC_STRINGS |
 			E_SOURCE_PARAM_SETTING));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_ARCHIVE_FOLDER,
+		g_param_spec_string (
+			"archive-folder",
+			"Archive Folder",
+			"Folder to Archive messages in",
+			"",
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT |
+			G_PARAM_STATIC_STRINGS |
+			E_SOURCE_PARAM_SETTING));
+
+	g_object_class_install_property (
+		object_class,
+		PROP_NEEDS_INITIAL_SETUP,
+		g_param_spec_boolean (
+			"needs-initial-setup",
+			"Needs Initial Setup",
+			"Whether the account needs to do an initial setup",
+			TRUE,
+			G_PARAM_READWRITE |
+			G_PARAM_CONSTRUCT |
+			G_PARAM_STATIC_STRINGS |
+			E_SOURCE_PARAM_SETTING));
 }
 
 static void
 e_source_mail_account_init (ESourceMailAccount *extension)
 {
 	extension->priv = E_SOURCE_MAIL_ACCOUNT_GET_PRIVATE (extension);
-	g_mutex_init (&extension->priv->property_lock);
 }
 
 /**
@@ -186,12 +239,12 @@ e_source_mail_account_dup_identity_uid (ESourceMailAccount *extension)
 
 	g_return_val_if_fail (E_IS_SOURCE_MAIL_ACCOUNT (extension), NULL);
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	protected = e_source_mail_account_get_identity_uid (extension);
 	duplicate = g_strdup (protected);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	return duplicate;
 }
@@ -212,18 +265,143 @@ e_source_mail_account_set_identity_uid (ESourceMailAccount *extension,
 {
 	g_return_if_fail (E_IS_SOURCE_MAIL_ACCOUNT (extension));
 
-	g_mutex_lock (&extension->priv->property_lock);
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
 
 	if (g_strcmp0 (extension->priv->identity_uid, identity_uid) == 0) {
-		g_mutex_unlock (&extension->priv->property_lock);
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 		return;
 	}
 
 	g_free (extension->priv->identity_uid);
 	extension->priv->identity_uid = g_strdup (identity_uid);
 
-	g_mutex_unlock (&extension->priv->property_lock);
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
 
 	g_object_notify (G_OBJECT (extension), "identity-uid");
 }
 
+/**
+ * e_source_mail_account_get_archive_folder:
+ * @extension: an #ESourceMailAccount
+ *
+ * Returns a string identifying the archive folder.
+ * The format of the identifier string is defined by the client application.
+ *
+ * Returns: an identifier of the archive folder
+ *
+ * Since: 3.16
+ **/
+const gchar *
+e_source_mail_account_get_archive_folder (ESourceMailAccount *extension)
+{
+	g_return_val_if_fail (E_IS_SOURCE_MAIL_ACCOUNT (extension), NULL);
+
+	return extension->priv->archive_folder;
+}
+
+/**
+ * e_source_mail_account_dup_archive_folder:
+ * @extension: an #ESourceMailAccount
+ *
+ * Thread-safe variation of e_source_mail_account_get_archive_folder().
+ * Use this function when accessing @extension from multiple threads.
+ *
+ * The returned string should be freed with g_free() when no longer needed.
+ *
+ * Returns: a newly-allocated copy of #ESourceMailAccount:archive-folder
+ *
+ * Since: 3.16
+ **/
+gchar *
+e_source_mail_account_dup_archive_folder (ESourceMailAccount *extension)
+{
+	const gchar *protected;
+	gchar *duplicate;
+
+	g_return_val_if_fail (E_IS_SOURCE_MAIL_ACCOUNT (extension), NULL);
+
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
+
+	protected = e_source_mail_account_get_archive_folder (extension);
+	duplicate = g_strdup (protected);
+
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
+
+	return duplicate;
+}
+
+/**
+ * e_source_mail_account_set_archive_folder:
+ * @extension: an #ESourceMailAccount
+ * @archive_folder: (allow-none): an identifier for the archive folder, or %NULL
+ *
+ * Sets the folder for sent messages by an identifier string.
+ * The format of the identifier string is defined by the client application.
+ *
+ * The internal copy of @archive_folder is automatically stripped of leading
+ * and trailing whitespace. If the resulting string is empty, %NULL is set
+ * instead.
+ *
+ * Since: 3.16
+ **/
+void
+e_source_mail_account_set_archive_folder (ESourceMailAccount *extension,
+					  const gchar *archive_folder)
+{
+	g_return_if_fail (E_IS_SOURCE_MAIL_ACCOUNT (extension));
+
+	e_source_extension_property_lock (E_SOURCE_EXTENSION (extension));
+
+	if (g_strcmp0 (extension->priv->archive_folder, archive_folder) == 0) {
+		e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
+		return;
+	}
+
+	g_free (extension->priv->archive_folder);
+	extension->priv->archive_folder = g_strdup (archive_folder);
+
+	e_source_extension_property_unlock (E_SOURCE_EXTENSION (extension));
+
+	g_object_notify (G_OBJECT (extension), "archive-folder");
+}
+
+/**
+ * e_source_mail_account_get_needs_initial_setup:
+ * @extension: an #ESourceMailAccount
+ *
+ * Check whether the mail account needs to do its initial setup.
+ *
+ * Returns: %TRUE, when the account needs to run its initial setup
+ *
+ * Since: 3.20
+ **/
+gboolean
+e_source_mail_account_get_needs_initial_setup (ESourceMailAccount *extension)
+{
+	g_return_val_if_fail (E_IS_SOURCE_MAIL_ACCOUNT (extension), FALSE);
+
+	return extension->priv->needs_initial_setup;
+}
+
+/**
+ * e_source_mail_account_set_needs_initial_setup:
+ * @extension: an #ESourceMailAccount
+ * @needs_initial_setup: value to set
+ *
+ * Sets whether the account needs to run its initial setup.
+ *
+ * Since: 3.20
+ **/
+void
+e_source_mail_account_set_needs_initial_setup (ESourceMailAccount *extension,
+					       gboolean needs_initial_setup)
+{
+	g_return_if_fail (E_IS_SOURCE_MAIL_ACCOUNT (extension));
+
+	if ((extension->priv->needs_initial_setup ? 1 : 0) == (needs_initial_setup ? 1 : 0))
+		return;
+
+	extension->priv->needs_initial_setup = needs_initial_setup;
+
+	g_object_notify (G_OBJECT (extension), "needs-initial-setup");
+}

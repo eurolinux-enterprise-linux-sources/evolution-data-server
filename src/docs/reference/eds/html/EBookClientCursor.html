@@ -1,0 +1,1741 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EBookClientCursor: Evolution-Data-Server Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch04.html" title="Addressbook">
+<link rel="prev" href="EBookClientView.html" title="EBookClientView">
+<link rel="next" href="eds-e-book-query.html" title="e-book-query">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#EBookClientCursor.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#EBookClientCursor.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#EBookClientCursor.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#EBookClientCursor.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#EBookClientCursor.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch04.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="EBookClientView.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-e-book-query.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="EBookClientCursor"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EBookClientCursor.top_of_page"></a>EBookClientCursor</span></h2>
+<p>EBookClientCursor — An addressbook cursor</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="EBookClientCursor.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">struct <a class="link" href="EBookClient.html" title="EBookClient"><span class="returnvalue">_EBookClient</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-ref-client" title="e_book_client_cursor_ref_client ()">e_book_client_cursor_ref_client</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-get-total" title="e_book_client_cursor_get_total ()">e_book_client_cursor_get_total</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-get-position" title="e_book_client_cursor_get_position ()">e_book_client_cursor_get_position</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-sexp" title="e_book_client_cursor_set_sexp ()">e_book_client_cursor_set_sexp</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-sexp-finish" title="e_book_client_cursor_set_sexp_finish ()">e_book_client_cursor_set_sexp_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-sexp-sync" title="e_book_client_cursor_set_sexp_sync ()">e_book_client_cursor_set_sexp_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-step" title="e_book_client_cursor_step ()">e_book_client_cursor_step</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-step-finish" title="e_book_client_cursor_step_finish ()">e_book_client_cursor_step_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-step-sync" title="e_book_client_cursor_step_sync ()">e_book_client_cursor_step_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-alphabetic-index" title="e_book_client_cursor_set_alphabetic_index ()">e_book_client_cursor_set_alphabetic_index</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-alphabetic-index-finish" title="e_book_client_cursor_set_alphabetic_index_finish ()">e_book_client_cursor_set_alphabetic_index_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-alphabetic-index-sync" title="e_book_client_cursor_set_alphabetic_index_sync ()">e_book_client_cursor_set_alphabetic_index_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-get-contact-alphabetic-index" title="e_book_client_cursor_get_contact_alphabetic_index ()">e_book_client_cursor_get_contact_alphabetic_index</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#GStrv"><span class="type">GStrv</span></a></td>
+<td class="property_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor--alphabet" title="The “alphabet” property">alphabet</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> *</td>
+<td class="property_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor--client" title="The “client” property">client</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> *</td>
+<td class="property_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor--connection" title="The “connection” property">connection</a></td>
+<td class="property_flags">Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *</td>
+<td class="property_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor--context" title="The “context” property">context</a></td>
+<td class="property_flags">Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a class="link" href="EDataBookCursor.html" title="EDataBookCursor"><span class="type">EDataBookCursor</span></a> *</td>
+<td class="property_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor--direct-cursor" title="The “direct-cursor” property">direct-cursor</a></td>
+<td class="property_flags">Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</td>
+<td class="property_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor--object-path" title="The “object-path” property">object-path</a></td>
+<td class="property_flags">Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor--position" title="The “position” property">position</a></td>
+<td class="property_flags">Read</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#GStrv"><span class="type">GStrv</span></a></td>
+<td class="property_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor--sort-fields" title="The “sort-fields” property">sort-fields</a></td>
+<td class="property_flags">Write / Construct Only</td>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor--total" title="The “total” property">total</a></td>
+<td class="property_flags">Read</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table class="informaltable" border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody><tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor-refresh" title="The “refresh” signal">refresh</a></td>
+<td class="signal_flags"><a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EBookClientCursor.html#EBookClientCursor-struct" title="struct EBookClientCursor">EBookClientCursor</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="EBookClientCursor.html#EBookClientCursorClass" title="struct EBookClientCursorClass">EBookClientCursorClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
+    <span class="lineart">╰──</span> EBookClientCursor
+</pre>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+EBookClientCursor implements
+ <a href="/usr/share/gtk-doc/html/gioGInitable.html#GInitable-struct">GInitable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libebook/libebook.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.description"></a><h2>Description</h2>
+<p>The <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> is an iteration based interface for browsing
+a sorted list of contacts in the addressbook.</p>
+<p>Aside from the documentation found here, a fully functional example
+progrem can be found here.</p>
+<div class="refsect2">
+<a name="cursor-sort-keys"></a><h3>Sort Keys</h3>
+<p>
+When creating the cursor initially with <a class="link" href="EBookClient.html#e-book-client-get-cursor" title="e_book_client_get_cursor ()"><code class="function">e_book_client_get_cursor()</code></a>,
+a list of <a href="EContact.html#EContactField"><span class="type">EContactFields</span></a> must be provided to define the sort order for
+the newly created cursor. Only contact fields of type <a href="/usr/share/gtk-doc/html/gobjectgobject-Type-Information.html#G-TYPE-STRING:CAPS"><code class="literal">G_TYPE_STRING</code></a>
+can potentially be used to define a cursor's sort order.
+</p>
+<p>
+Backends which support cursors may refuse to create a cursor based
+on the fields specified as sort keys,  if this happens then an
+<a class="link" href="EClient.html#E-CLIENT-ERROR-INVALID-QUERY:CAPS"><code class="literal">E_CLIENT_ERROR_INVALID_QUERY</code></a> error will be reported by
+<a class="link" href="EBookClient.html#e-book-client-get-cursor" title="e_book_client_get_cursor ()"><code class="function">e_book_client_get_cursor()</code></a>.
+</p>
+<p>
+The default SQLite backend provided with Evolution Data Server
+only supports <a href="EContact.html#EContactField"><span class="type">EContactFields</span></a> that are specified as summary information
+to be used as sort keys. Whether a contact field is configured to
+be part of the summary for your addressbook can be verified with
+<a class="link" href="ESourceBackendSummarySetup.html#e-source-backend-summary-setup-get-summary-fields" title="e_source_backend_summary_setup_get_summary_fields ()"><code class="function">e_source_backend_summary_setup_get_summary_fields()</code></a>.
+</p>
+<p>
+The order of sort keys given to <a class="link" href="EBookClient.html#e-book-client-get-cursor" title="e_book_client_get_cursor ()"><code class="function">e_book_client_get_cursor()</code></a> defines
+which sort key will be the primary sort key and which keys will
+serve as tie breakers where the previous sort keys are exact matches.
+In the following example we create a typical cursor sorted with
+<a class="link" href="EContact.html#E-CONTACT-FAMILY-NAME:CAPS"><code class="literal">E_CONTACT_FAMILY_NAME</code></a> as the primary sort key and <a class="link" href="EContact.html#E-CONTACT-GIVEN-NAME:CAPS"><code class="literal">E_CONTACT_GIVEN_NAME</code></a>
+as a tie breaker.
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">EBookClientCursor</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">cursor </span><span class="symbol">=</span><span class="normal"> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
+<span class="usertype">EContactField</span><span class="normal"> sort_fields</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> <a href="EContact.html#E-CONTACT-FAMILY-NAME:CAPS">E_CONTACT_FAMILY_NAME</a></span><span class="symbol">,</span><span class="normal"> <a href="EContact.html#E-CONTACT-GIVEN-NAME:CAPS">E_CONTACT_GIVEN_NAME</a> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="usertype">EBookCursorSortType</span><span class="normal"> sort_types</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> <a href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-SORT-ASCENDING:CAPS">E_BOOK_CURSOR_SORT_ASCENDING</a></span><span class="symbol">,</span><span class="normal"> <a href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-SORT-ASCENDING:CAPS">E_BOOK_CURSOR_SORT_ASCENDING</a> </span><span class="cbracket">}</span><span class="symbol">;</span>
+<span class="usertype">GError</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">error </span><span class="symbol">=</span><span class="normal"> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
+
+<span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="EBookClient.html#e-book-client-get-cursor-sync">e_book_client_get_cursor_sync</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">book_client</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// EBookClient</span>
+<span class="normal">                                   <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">,</span><span class="normal">        </span><span class="comment">// Search Expression</span>
+<span class="normal">                                   sort_fields</span><span class="symbol">,</span><span class="normal"> </span><span class="comment">// Sort Keys</span>
+<span class="normal">                                   sort_types</span><span class="symbol">,</span><span class="normal">  </span><span class="comment">// Ascending / Descending</span>
+<span class="normal">                                   </span><span class="number">2</span><span class="symbol">,</span><span class="normal">           </span><span class="comment">// Number of keys</span>
+<span class="normal">                                   </span><span class="symbol">&amp;</span><span class="normal">cursor</span><span class="symbol">,</span><span class="normal">     </span><span class="comment">// Return location for cursor</span>
+<span class="normal">                                   <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">,</span><span class="normal">        </span><span class="comment">// GCancellable</span>
+<span class="normal">                                   </span><span class="symbol">&amp;</span><span class="normal">error</span><span class="symbol">))</span><span class="normal"> </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// Now we have a cursor ...</span>
+<span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+Sort order is immutable, if you need to browse content in a different
+order, then you need to create a separate cursor.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cursor-state"></a><h3>Understanding cursor state</h3>
+<p>
+At any given time in a cursor's life cycle, a cursor's internal state will refer to a
+relative position in a sorted list.
+</p>
+<p>
+There are three basic varieties of cursor states:
+</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+<p>
+      Virtual states referring to the beginnng and end of the list.
+    </p>
+<p>
+      The beginning state is positioned before any contact in the addressbook.
+      When the cursor is in this state, a call to <a class="link" href="EBookClientCursor.html#e-book-client-cursor-step" title="e_book_client_cursor_step ()"><code class="function">e_book_client_cursor_step()</code></a>
+      will always start reporting contacts from the beginning of the list.
+      Similarly when in the end state, stepping in reverse will start
+      reporting contacts from the end of the list.
+    </p>
+<p>
+      The beginning and end states can be reached by stepping off the
+      end of the list, or by specifying the <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-BEGIN:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_BEGIN</code></a> or
+      <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-END:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_END</code></a> origins to <a class="link" href="EBookClientCursor.html#e-book-client-cursor-step" title="e_book_client_cursor_step ()"><code class="function">e_book_client_cursor_step()</code></a>. The
+      cursor is also initially positioned before the contact list.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      States referring to a specific contact.
+    </p>
+<p>
+      A state which refers to a specific contact in the list of
+      contacts associated with a given cursor. At the end of any
+      successful call to <a class="link" href="EBookClientCursor.html#e-book-client-cursor-step" title="e_book_client_cursor_step ()"><code class="function">e_book_client_cursor_step()</code></a> with
+      the <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-STEP-MOVE:CAPS"><code class="literal">E_BOOK_CURSOR_STEP_MOVE</code></a> flag specified; the cursor
+      state is updated with the value of the last result.
+    </p>
+</li>
+<li class="listitem">
+<p>
+      States referring to an alphabetic position.
+    </p>
+<p>
+      When a state refers to an
+      <a class="link" href="EBookClientCursor.html#cursor-alphabet" title="Alphabetic Indexes">Alphabetic Index</a>,
+      it refers to a position which is in between contacts.
+      For instance the alphabetic position "E" refers to a
+      position after contacts starting with "D" and before contacts
+      starting with "E".
+    </p>
+</li>
+</ul></div>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cursor-pos-total"></a><h3>Cursor position and total</h3>
+<p>
+The <a class="link" href="EBookClientCursor.html#EBookClientCursor--position" title="The “position” property"><span class="type">“position”</span></a> and <a class="link" href="EBookClientCursor.html#EBookClientCursor--total" title="The “total” property"><span class="type">“total”</span></a> attributes
+provide feedback about a cursor's position in relation to the addressbook
+provided the cursor's sort order.
+</p>
+<p>
+The total reflects that total amount of contacts in the addressbook given
+the cursor's <a class="link" href="EBookClientCursor.html#cursor-search" title="Search Expressions">Search Expression</a>. The position
+is defined as the number of contacts leading up to the cursor position inclusive
+of the cursor position.
+</p>
+<p>
+To help illustrate how the total and position attributes relate to a sorted list
+of contacts, we've provided the diagram below. 
+</p>
+<img src="cursor-positions.png" align="middle"><p>
+The above diagram shows two representations of a sorted contact list, using
+<a class="link" href="EContact.html#E-CONTACT-FAMILY-NAME:CAPS"><code class="literal">E_CONTACT_FAMILY_NAME</code></a> as the primary sort key and <a class="link" href="EContact.html#E-CONTACT-GIVEN-NAME:CAPS"><code class="literal">E_CONTACT_GIVEN_NAME</code></a> as
+a secondary sort key. On either side we can see the symbolic positions
+<a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-BEGIN:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_BEGIN</code></a> and <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-END:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_END</code></a>.
+</p>
+<p>
+For a given cursor state, the position value will be equal to the total
+number of contacts leading up to the current cursor state inclusive of the
+cursor state itself. In the left hand side of the above diagram the cursor
+points to the fourth contact and the cursor position is also 4. An exception
+to this is when the cursor state refers to the <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-END:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_END</code></a> position.
+When the cursor state refers to the end of list, the position property
+will have a value of (total + 1).
+</p>
+<p>
+Another thing the above diagram illustrates is the effect that an
+asynchronous addressbook modification has on the cursor. The right
+hand side of the diagram portrays the result of deleting "Mickey Mouse"
+from the original list on the left.
+</p>
+<p>
+The cursor state at this time still litteraly refers to "Mickey Mouse",
+however the number of contacts leading up to "Mickey Mouse" is now 3 
+instead of 4. As one might have guessed, any addition of a contact
+which is considered to be less than or equal to "Mickey Mouse" at this point,
+will cause the position to increase again. In this way, asynchronous
+addressbook modification might cause the cursor's position and total
+values to change, but never effect the cursor's state and it's
+actual position in relation to other contacts in the sorted list.
+</p>
+<p>
+The position and total can be useful for various tasks
+such as determining "Forward" / "Back" button sensitivity
+in a browser interface, or displaying some indication
+of the view window's position in the full contact list.
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">gint</span><span class="normal"> position</span><span class="symbol">,</span><span class="normal"> total</span><span class="symbol">;</span>
+<span class="usertype">gdouble</span><span class="normal"> percent</span><span class="symbol">;</span>
+
+<span class="comment">// Fetch the position &amp; total</span>
+<span class="normal">position </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="EBookClientCursor.html#e-book-client-cursor-get-position">e_book_client_cursor_get_position</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">);</span>
+<span class="normal">total    </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="EBookClientCursor.html#e-book-client-cursor-get-total">e_book_client_cursor_get_total</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">);</span>
+
+<span class="comment">// The position can be total + 1 if we're at the end of the</span>
+<span class="comment">// list, let's ignore that for this calculation.</span>
+<span class="normal">position </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#CLAMP:CAPS">CLAMP</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">position</span><span class="symbol">,</span><span class="normal"> </span><span class="number">0</span><span class="symbol">,</span><span class="normal"> total</span><span class="symbol">);</span>
+
+<span class="comment">// Calculate the percentage.</span>
+<span class="normal">percent </span><span class="symbol">=</span><span class="normal"> position </span><span class="symbol">*</span><span class="normal"> </span><span class="number">1</span><span class="symbol">.</span><span class="normal">0F </span><span class="symbol">/</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">total </span><span class="symbol">-</span><span class="normal"> N_DISPLAY_CONTACTS</span><span class="symbol">);</span>
+
+<span class="comment">// Let the user know the percentage of contacts in the list</span>
+<span class="comment">// which are positioned before the view position (the</span>
+<span class="comment">// percentage of the addressbook which the user has seen so far).</span>
+<span class="function">update_percentage_of_list_browsed</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">user_interface</span><span class="symbol">,</span><span class="normal"> percent</span><span class="symbol">);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+<p>
+These total and position values are guaranteed to always be coherent, they are
+updated synchronously upon successful completion of any of the asynchronous
+cursor API calls, and also updated asynchronously whenever the addressbook
+changes and a <a class="link" href="EBookClientCursor.html#EBookClientCursor-refresh" title="The “refresh” signal"><span class="type">“refresh”</span></a> signal is delivered.
+</p>
+<p>
+Change notifications are guaranteed to only ever be delivered in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> which
+was the thread default main context at cursor creation time.
+</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cursor-search"></a><h3>Search Expressions</h3>
+<p>
+The list of contacts associated to a given cursor can be filtered
+with a search expression generated by <a class="link" href="eds-e-book-query.html#e-book-query-to-string" title="e_book_query_to_string ()"><code class="function">e_book_query_to_string()</code></a>. Since
+this effects how the data will be traversed in the backend, seach
+expressions come with the same limitation as sort keys. Backends
+will report <a class="link" href="EClient.html#E-CLIENT-ERROR-INVALID-QUERY:CAPS"><code class="literal">E_CLIENT_ERROR_INVALID_QUERY</code></a> for contact fields which
+are not supported. For the default local addressbook, any fields
+which are configured in the summary can be used to filter cursor
+results.
+</p>
+<p>
+Changing the search expression can be done at any time using
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-sexp" title="e_book_client_cursor_set_sexp ()"><code class="function">e_book_client_cursor_set_sexp()</code></a>.
+The cursor <a class="link" href="EBookClientCursor.html#cursor-pos-total" title="Cursor position and total">position and total</a>
+values will be updated synchronously after successfully setting the
+search expression at which time you might refresh the current
+view, displaying the new filtered list of contacts at the same
+cursor position.
+</p>
+<img src="cursor-positions-filtered.png" align="middle">
+</div>
+<hr>
+<div class="refsect2">
+<a name="cursor-iteration"></a><h3>Iteration with the cursor API</h3>
+<p>
+The cursor API allows you to iterate through a sorted list of contacts
+without keeping a potentially large collection of contacts loaded
+in memory.
+</p>
+<p>
+Iterating through the contact list is done with <a class="link" href="EBookClientCursor.html#e-book-client-cursor-step" title="e_book_client_cursor_step ()"><code class="function">e_book_client_cursor_step()</code></a>, this
+function allows one to move the cursor and fetch the results following the current
+cursor position.
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">GError</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">error </span><span class="symbol">=</span><span class="normal"> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
+<span class="usertype">GSList</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">results </span><span class="symbol">=</span><span class="normal"> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
+<span class="usertype">gint</span><span class="normal"> n_results</span><span class="symbol">;</span>
+
+<span class="comment">// Move the cursor forward by 10 contacts and fetch the results.</span>
+<span class="normal">n_results </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="EBookClientCursor.html#e-book-client-cursor-step-sync">e_book_client_cursor_step_sync</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">,</span>
+<span class="normal">                                            <a href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-STEP-MOVE:CAPS">E_BOOK_CURSOR_STEP_MOVE</a> </span><span class="symbol">|</span>
+<span class="normal">                                            <a href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-STEP-FETCH:CAPS">E_BOOK_CURSOR_STEP_FETCH</a></span><span class="symbol">,</span>
+<span class="normal">                                            <a href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-CURRENT:CAPS">E_BOOK_CURSOR_ORIGIN_CURRENT</a></span><span class="symbol">,</span>
+<span class="normal">                                            </span><span class="number">10</span><span class="symbol">,</span>
+<span class="normal">                                            </span><span class="symbol">&amp;</span><span class="normal">results</span><span class="symbol">,</span>
+<span class="normal">                                            <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">,</span>
+<span class="normal">                                            </span><span class="symbol">&amp;</span><span class="normal">error</span><span class="symbol">);</span>
+
+<span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n_results </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
+<span class="normal">  </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#g-error-matches">g_error_matches</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">error</span><span class="symbol">,</span>
+<span class="normal">                         <a href="EClient.html#E-CLIENT-ERROR:CAPS">E_CLIENT_ERROR</a></span><span class="symbol">,</span>
+<span class="normal">                         <a href="EClient.html#E-CLIENT-ERROR-OUT-OF-SYNC:CAPS">E_CLIENT_ERROR_OUT_OF_SYNC</a></span><span class="symbol">))</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// The addressbook has been modified at the same time as</span>
+<span class="normal">        </span><span class="comment">// we asked to step. The appropriate thing to do is wait</span>
+<span class="normal">        </span><span class="comment">// for the "refresh" signal before trying again.</span>
+<span class="normal">        </span><span class="function">handle_out_of_sync_condition</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#g-error-matches">g_error_matches</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">error</span><span class="symbol">,</span>
+<span class="normal">                              <a href="EClient.html#E-CLIENT-ERROR:CAPS">E_CLIENT_ERROR</a></span><span class="symbol">,</span>
+<span class="normal">                              <a href="EClient.html#E-CLIENT-ERROR-QUERY-REFUSED:CAPS">E_CLIENT_ERROR_QUERY_REFUSED</a></span><span class="symbol">))</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// We asked for 10 contacts but were already positioned</span>
+<span class="normal">        </span><span class="comment">// at the end of the list (or we asked for -10 contacts</span>
+<span class="normal">        </span><span class="comment">// and were positioned at the beginning).</span>
+<span class="normal">        </span><span class="function">handle_end_of_list_condition</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// Some error actually occurred</span>
+<span class="normal">        </span><span class="function">handle_error_condition</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">,</span><span class="normal"> error</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#g-clear-error">g_clear_error</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">error</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span>
+<span class="keyword">else</span><span class="normal"> </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">n_results </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">10</span><span class="symbol">)</span>
+<span class="normal">  </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="comment">// Cursor did not traverse as many contacts as requested.</span>
+<span class="normal">    </span><span class="comment">//</span>
+<span class="normal">    </span><span class="comment">// This is not an error but rather an indication that</span>
+<span class="normal">    </span><span class="comment">// the end of the list was reached. The next attempt to</span>
+<span class="normal">    </span><span class="comment">// move the cursor in the same direction will result in</span>
+<span class="normal">    </span><span class="comment">// an E_CLIENT_ERROR_QUERY_REFUSED error.</span>
+<span class="normal">  </span><span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+In the above example we chose <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-CURRENT:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_CURRENT</code></a> as our <a class="link" href="eds-e-book-contacts-types.html#EBookCursorOrigin" title="enum EBookCursorOrigin"><span class="type">EBookCursorOrigin</span></a> so the above
+call will traverse 10 contacts following the cursor's current position. One can also choose the
+<a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-BEGIN:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_BEGIN</code></a> or <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-END:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_END</code></a> origin to start at the beginning or end
+of the results at any time.
+</p>
+<p>
+We also specified both of the flags <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-STEP-MOVE:CAPS"><code class="literal">E_BOOK_CURSOR_STEP_MOVE</code></a> and <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-STEP-FETCH:CAPS"><code class="literal">E_BOOK_CURSOR_STEP_FETCH</code></a>,
+this means we want to receive results from the addressbook and we also want to modify
+the current cursor state (move the cursor), these operations can however be done
+completely independantly of eachother, which is often what is desired for a contact
+browsing user interface. It is however recommended to move and fetch
+results in a single pass wherever that makes sense in your application.
+</p>
+<p>
+Because the addressbook might be modified at any time by another application,
+it's important to handle the <a class="link" href="EClient.html#E-CLIENT-ERROR-OUT-OF-SYNC:CAPS"><code class="literal">E_CLIENT_ERROR_OUT_OF_SYNC</code></a> error. This error will occur
+at any time that the cursor detects an addressbook change while trying to step.
+Whenever an out of sync condition arises, the cursor should be left alone until the
+next <a class="link" href="EBookClientCursor.html#EBookClientCursor-refresh" title="The “refresh” signal"><span class="type">“refresh”</span></a> signal. The <a class="link" href="EBookClientCursor.html#EBookClientCursor-refresh" title="The “refresh” signal"><span class="type">“refresh”</span></a> signal is triggered
+any time that the addressbook changes and is the right place to refresh the currently
+loaded content, it is also guaranteed to be triggered after any <a class="link" href="EClient.html#E-CLIENT-ERROR-OUT-OF-SYNC:CAPS"><code class="literal">E_CLIENT_ERROR_OUT_OF_SYNC</code></a>
+error.
+</p>
+<p>
+The diagram below illustrates some scenarios of how the cursor state is updated
+in calls to <a class="link" href="EBookClientCursor.html#e-book-client-cursor-step" title="e_book_client_cursor_step ()"><code class="function">e_book_client_cursor_step()</code></a>.
+</p>
+<img src="cursor-positions-step.png" align="middle">
+</div>
+<hr>
+<div class="refsect2">
+<a name="cursor-alphabet"></a><h3>Alphabetic Indexes</h3>
+<p>
+The cursor permits navigation of the sorted contact list in terms of alphabetic
+positions in the list, allowing one to jump from one letter to the next in
+the active alphabet.
+</p>
+<p>
+The active alphabet itself is represented as an array of UTF-8 strings which are
+suitable to display a given glyph or alphabetic position in the user's active alphabet.
+This array of alphabetic position labels is exposed via the <a class="link" href="EBookClientCursor.html#EBookClientCursor--alphabet" title="The “alphabet” property"><span class="type">“alphabet”</span></a>
+property and can always be fetched with <code class="function">e_book_client_cursor_get_alphabet()</code>.
+</p>
+<p>
+As shown below, each index in the active alphabet array is a potential cursor state
+which refers to a position before, after or in between contacts in the sorted contact list.
+Most of the positions in the active alphabet array refer to alphabetic glyhps or positions,
+however the the 'underflow', 'inflow' and 'overflow' positions represent positions for
+contacts which sort outside the bounderies of the active alphabet.
+</p>
+<img src="cursor-alphabetic-indexes.png" align="middle"><p>
+The active alphabet is dynamically resolved from the system locale at startup time and
+whenever a system locale change notification is delivered to Evolution Data Server. If
+ever the system locale changes at runtime then a change notification will be delivered
+for the <a class="link" href="EBookClientCursor.html#EBookClientCursor--alphabet" title="The “alphabet” property"><span class="type">“alphabet”</span></a> property, this is a good time to refresh the list
+of alphabetic positions available in a user interface.
+</p>
+<p>
+Using the active alphabet, one can build a user interface which allows the user
+to navigate to a specific letter in the results. To set the cursor's position
+directly before any results starting with a specific letter, one can use
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-alphabetic-index" title="e_book_client_cursor_set_alphabetic_index ()"><code class="function">e_book_client_cursor_set_alphabetic_index()</code></a>.
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">GError</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">error </span><span class="symbol">=</span><span class="normal"> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
+<span class="usertype">gint</span><span class="normal"> index </span><span class="symbol">=</span><span class="normal"> </span><span class="function">currently_selected_index</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">user_interface</span><span class="symbol">);</span>
+
+<span class="comment">// At this point 'index' must be a numeric value corresponding</span>
+<span class="comment">// to one of the positions in the array returned by</span>
+<span class="comment">// e_book_client_cursor_get_alphabet().</span>
+<span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function"><a href="EBookClientCursor.html#e-book-client-cursor-set-alphabetic-index-sync">e_book_client_cursor_set_alphabetic_index_sync</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">,</span>
+<span class="normal">                                                     index</span><span class="symbol">,</span>
+<span class="normal">                                                     <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">,</span>
+<span class="normal">                                                     </span><span class="symbol">&amp;</span><span class="normal">error</span><span class="symbol">))</span>
+<span class="normal">  </span><span class="cbracket">{</span>
+<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#g-error-matches">g_error_matches</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">error</span><span class="symbol">,</span>
+<span class="normal">                         <a href="EClient.html#E-CLIENT-ERROR:CAPS">E_CLIENT_ERROR</a></span><span class="symbol">,</span>
+<span class="normal">                         <a href="EClient.html#E-CLIENT-ERROR-OUT-OF-SYNC:CAPS">E_CLIENT_ERROR_OUT_OF_SYNC</a></span><span class="symbol">))</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// The system locale has changed at the same time</span>
+<span class="normal">        </span><span class="comment">// as we were setting an alphabetic cursor position.</span>
+<span class="normal">        </span><span class="function">handle_out_of_sync_condition</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+<span class="normal">    </span><span class="keyword">else</span>
+<span class="normal">      </span><span class="cbracket">{</span>
+<span class="normal">        </span><span class="comment">// Some error actually occurred</span>
+<span class="normal">        </span><span class="function">handle_error_condition</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">,</span><span class="normal"> error</span><span class="symbol">);</span>
+<span class="normal">      </span><span class="cbracket">}</span>
+
+<span class="normal">    </span><span class="function"><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#g-clear-error">g_clear_error</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">error</span><span class="symbol">);</span>
+<span class="normal">  </span><span class="cbracket">}</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+After setting the alphabetic index successfully, you can go ahead
+and use <a class="link" href="EBookClientCursor.html#e-book-client-cursor-step" title="e_book_client_cursor_step ()"><code class="function">e_book_client_cursor_step()</code></a> to load some contacts at the
+beginning of the given letter.
+</p>
+<p>
+This API can result in an <a class="link" href="EClient.html#E-CLIENT-ERROR-OUT-OF-SYNC:CAPS"><code class="literal">E_CLIENT_ERROR_OUT_OF_SYNC</code></a> error. This error will
+occur at any time that the cursor tries to set the alphabetic index whilst the
+addressbook is changing its active locale setting. In the case of a dynamic locale
+change, a change notification will be delivered for the <a class="link" href="EBookClientCursor.html#EBookClientCursor--alphabet" title="The “alphabet” property"><span class="type">“alphabet”</span></a>
+property at which point the application should reload anything related to the
+alphabet (a <a class="link" href="EBookClientCursor.html#EBookClientCursor-refresh" title="The “refresh” signal"><span class="type">“refresh”</span></a> signal will also be delivered at this point).
+</p>
+<p>
+While moving through the cursor results using <a class="link" href="EBookClientCursor.html#e-book-client-cursor-step" title="e_book_client_cursor_step ()"><code class="function">e_book_client_cursor_step()</code></a>,
+it can be useful to know which alphabetic position a given contact sorts
+under. This can be useful if your user interface displays an alphabetic
+label indicating where the first contact in your view is positioned in
+the alphabet.
+</p>
+<p>
+One can determine the appropriate index for a given <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> by calling
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-get-contact-alphabetic-index" title="e_book_client_cursor_get_contact_alphabetic_index ()"><code class="function">e_book_client_cursor_get_contact_alphabetic_index()</code></a> after refreshing
+the currently displayed contacts in a view.
+</p>
+<div class="informalexample">
+  <table class="listing_frame" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="listing_lines" align="right"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16</pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="usertype">EContact</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">contact</span><span class="symbol">;</span>
+<span class="keyword">const</span><span class="normal"> <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar">gchar</a> </span><span class="symbol">*</span><span class="normal"> </span><span class="keyword">const</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">alphabet</span><span class="symbol">;</span>
+<span class="usertype">gint</span><span class="normal"> index</span><span class="symbol">;</span>
+
+<span class="comment">// Fetch the first displayed EContact in the view</span>
+<span class="normal">contact </span><span class="symbol">=</span><span class="normal"> </span><span class="function">first_contact_in_the_list</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">user_interface</span><span class="symbol">);</span>
+
+<span class="comment">// Calculate the position in the alphabet for this contact</span>
+<span class="normal">index </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="EBookClientCursor.html#e-book-client-cursor-get-contact-alphabetic-index">e_book_client_cursor_get_contact_alphabetic_index</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">,</span><span class="normal"> contact</span><span class="symbol">);</span>
+
+<span class="comment">// Fetch the alphabet labels</span>
+<span class="normal">alphabet </span><span class="symbol">=</span><span class="normal"> </span><span class="function">e_book_client_cursor_get_alphabet</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cursor</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">n_labels</span><span class="symbol">,</span>
+<span class="normal">                                              <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">,</span><span class="normal"> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">,</span><span class="normal"> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">);</span>
+
+<span class="comment">// Update label in user interface</span>
+<span class="function">set_alphabetic_position_feedback_text</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">user_interface</span><span class="symbol">,</span><span class="normal"> alphabet</span><span class="symbol">[</span><span class="normal">index</span><span class="symbol">]);</span></pre></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>
+</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-book-client-cursor-ref-client"></a><h3>e_book_client_cursor_ref_client ()</h3>
+<pre class="programlisting">struct <a class="link" href="EBookClient.html" title="EBookClient"><span class="returnvalue">_EBookClient</span></a> *
+e_book_client_cursor_ref_client (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>);</pre>
+<p>Returns the <a class="link" href="EBookClientCursor.html#EBookClientCursor--client" title="The “client” property"><span class="type">“client”</span></a> associated with <em class="parameter"><code>cursor</code></em>
+.</p>
+<p>The returned <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> is referenced because the cursor
+does not keep a strong reference to the client.</p>
+<p>Unreference the <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> with <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-ref-client.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-cursor-ref-client.returns"></a><h4>Returns</h4>
+<p> an <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-get-total"></a><h3>e_book_client_cursor_get_total ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_book_client_cursor_get_total (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>);</pre>
+<p>Fetches the total number of contacts in the addressbook
+which match <em class="parameter"><code>cursor</code></em>
+'s query</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-get-total.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-cursor-get-total.returns"></a><h4>Returns</h4>
+<p> The total number of contacts matching <em class="parameter"><code>cursor</code></em>
+'s query</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-get-position"></a><h3>e_book_client_cursor_get_position ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_book_client_cursor_get_position (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>);</pre>
+<p>Fetches the number of contacts leading up to the current
+cursor position, inclusive of the current cursor position.</p>
+<p>The position value can be anywhere from 0 to the total
+number of contacts plus one. A value of 0 indicates
+that the cursor is positioned before the contact list in
+the symbolic <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-BEGIN:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_BEGIN</code></a> state. If
+the position is greater than the total, as returned by
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-get-total" title="e_book_client_cursor_get_total ()"><code class="function">e_book_client_cursor_get_total()</code></a>, then the cursor is positioned
+after the last contact in the symbolic <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-END:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_END</code></a> position.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-get-position.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-cursor-get-position.returns"></a><h4>Returns</h4>
+<p> The current cursor position</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-set-sexp"></a><h3>e_book_client_cursor_set_sexp ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_client_cursor_set_sexp (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>,
+                               <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sexp</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                               <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Sets the <a class="link" href="EBookClientCursor.html#cursor-search" title="Search Expressions">Search Expression</a> for the cursor.</p>
+<p>See: <a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-sexp-sync" title="e_book_client_cursor_set_sexp_sync ()"><code class="function">e_book_client_cursor_set_sexp_sync()</code></a>.</p>
+<p>This asynchronous call is completed with a call to
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-sexp-finish" title="e_book_client_cursor_set_sexp_finish ()"><code class="function">e_book_client_cursor_set_sexp_finish()</code></a> from the specified <em class="parameter"><code>callback</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-set-sexp.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sexp</p></td>
+<td class="parameter_description"><p>the new search expression for <em class="parameter"><code>cursor</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> to optionally cancel this operation while in progress. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>callback to call when a result is ready</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data for the <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-set-sexp-finish"></a><h3>e_book_client_cursor_set_sexp_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_client_cursor_set_sexp_finish (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                      <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Completes an asynchronous call initiated by <a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-sexp" title="e_book_client_cursor_set_sexp ()"><code class="function">e_book_client_cursor_set_sexp()</code></a>, reporting
+whether the new search expression was accepted.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-set-sexp-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-cursor-set-sexp-finish.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-set-sexp-sync"></a><h3>e_book_client_cursor_set_sexp_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_client_cursor_set_sexp_sync (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>,
+                                    <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sexp</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                    <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Sets the <a class="link" href="EBookClientCursor.html#cursor-search" title="Search Expressions">Search Expression</a> for the cursor.</p>
+<p>A side effect of setting the search expression is that the</p>
+<a class="link" href="EBookClientCursor.html#cursor-pos-total" title="Cursor position and total">position and total</a><p>properties will be updated.</p>
+<p>If this method is called from the same thread context in which
+the cursor was created, then the updates to the <a class="link" href="EBookClientCursor.html#EBookClientCursor--position" title="The “position” property"><span class="type">“position”</span></a>
+and <a class="link" href="EBookClientCursor.html#EBookClientCursor--total" title="The “total” property"><span class="type">“total”</span></a> properties are guaranteed to be delivered
+synchronously upon successful completion of setting the search expression.
+Otherwise, notifications will be delivered asynchronously in the cursor's
+original thread context.</p>
+<p>If the backend does not support the given search expression,
+an <a class="link" href="EClient.html#E-CLIENT-ERROR-INVALID-QUERY:CAPS"><code class="literal">E_CLIENT_ERROR_INVALID_QUERY</code></a> error will be set.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-set-sexp-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sexp</p></td>
+<td class="parameter_description"><p>the new search expression for <em class="parameter"><code>cursor</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> to optionally cancel this operation while in progress. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-cursor-set-sexp-sync.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-step"></a><h3>e_book_client_cursor_step ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_client_cursor_step (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>,
+                           <em class="parameter"><code><a class="link" href="eds-e-book-contacts-types.html#EBookCursorStepFlags" title="enum EBookCursorStepFlags"><span class="type">EBookCursorStepFlags</span></a> flags</code></em>,
+                           <em class="parameter"><code><a class="link" href="eds-e-book-contacts-types.html#EBookCursorOrigin" title="enum EBookCursorOrigin"><span class="type">EBookCursorOrigin</span></a> origin</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> count</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                           <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<a class="link" href="EBookClientCursor.html#cursor-iteration" title="Iteration with the cursor API">Steps the cursor through the results</a> by 
+<p>a maximum of <em class="parameter"><code>count</code></em>
+ and fetch the results traversed.</p>
+<p>See: <a class="link" href="EBookClientCursor.html#e-book-client-cursor-step-sync" title="e_book_client_cursor_step_sync ()"><code class="function">e_book_client_cursor_step_sync()</code></a>.</p>
+<p>This asynchronous call is completed with a call to
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-step-finish" title="e_book_client_cursor_step_finish ()"><code class="function">e_book_client_cursor_step_finish()</code></a> from the specified <em class="parameter"><code>callback</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-step.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-e-book-contacts-types.html#EBookCursorStepFlags" title="enum EBookCursorStepFlags"><span class="type">EBookCursorStepFlags</span></a> for this step</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>origin</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-e-book-contacts-types.html#EBookCursorOrigin" title="enum EBookCursorOrigin"><span class="type">EBookCursorOrigin</span></a> from whence to step</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>count</p></td>
+<td class="parameter_description"><p>a positive or negative amount of contacts to try and fetch</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> to optionally cancel this operation while in progress. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>callback to call when a result is ready</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data for the <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-step-finish"></a><h3>e_book_client_cursor_step_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_book_client_cursor_step_finish (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> **out_contacts</code></em>,
+                                  <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Completes an asynchronous call initiated by <a class="link" href="EBookClientCursor.html#e-book-client-cursor-step" title="e_book_client_cursor_step ()"><code class="function">e_book_client_cursor_step()</code></a>, fetching
+any contacts which might have been returned by the call.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-step-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_contacts</p></td>
+<td class="parameter_description"><p> return location for a <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of <span class="type">EContacts</span>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EContact][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-cursor-step-finish.returns"></a><h4>Returns</h4>
+<p> The number of contacts traversed if successful, otherwise -1 is
+returned and <em class="parameter"><code>error</code></em>
+is set.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-step-sync"></a><h3>e_book_client_cursor_step_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_book_client_cursor_step_sync (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>,
+                                <em class="parameter"><code><a class="link" href="eds-e-book-contacts-types.html#EBookCursorStepFlags" title="enum EBookCursorStepFlags"><span class="type">EBookCursorStepFlags</span></a> flags</code></em>,
+                                <em class="parameter"><code><a class="link" href="eds-e-book-contacts-types.html#EBookCursorOrigin" title="enum EBookCursorOrigin"><span class="type">EBookCursorOrigin</span></a> origin</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> count</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> **out_contacts</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<a class="link" href="EBookClientCursor.html#cursor-iteration" title="Iteration with the cursor API">Steps the cursor through the results</a> by 
+<p>a maximum of <em class="parameter"><code>count</code></em>
+ and fetch the results traversed.</p>
+<p>If <em class="parameter"><code>count</code></em>
+ is negative, then the cursor will move backwards.</p>
+<p>If <em class="parameter"><code>cursor</code></em>
+ reaches the beginning or end of the query results, then the
+returned list might not contain the amount of desired contacts, or might
+return no results if the cursor currently points to the last contact. 
+Reaching the end of the list is not considered an error condition. Attempts
+to step beyond the end of the list after having reached the end of the list
+will however trigger an <a class="link" href="EClient.html#E-CLIENT-ERROR-QUERY-REFUSED:CAPS"><code class="literal">E_CLIENT_ERROR_QUERY_REFUSED</code></a> error.</p>
+<p>If <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-STEP-FETCH:CAPS"><code class="literal">E_BOOK_CURSOR_STEP_FETCH</code></a> is specified in <code class="literal">flags</code>, a pointer to 
+a <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> pointer should be provided for the <em class="parameter"><code>results</code></em>
+ parameter.</p>
+<p>If <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-STEP-MOVE:CAPS"><code class="literal">E_BOOK_CURSOR_STEP_MOVE</code></a> is specified in <code class="literal">flags</code>, then the cursor's
+state will be modified and the <a class="link" href="EBookClientCursor.html#cursor-pos-total" title="Cursor position and total">position</a>
+property will be updated as a result.</p>
+<p>If this method is called from the same thread context in which
+the cursor was created, then the updates to the <a class="link" href="EBookClientCursor.html#EBookClientCursor--position" title="The “position” property"><span class="type">“position”</span></a>
+property are guaranteed to be delivered synchronously upon successful completion
+of moving the cursor. Otherwise, notifications will be delivered asynchronously
+in the cursor's original thread context.</p>
+<p>If this method completes with an <a class="link" href="EClient.html#E-CLIENT-ERROR-OUT-OF-SYNC:CAPS"><code class="literal">E_CLIENT_ERROR_OUT_OF_SYNC</code></a> error, it is an
+indication that the addressbook has been modified and it would be unsafe to
+move the cursor at this time. Any <a class="link" href="EClient.html#E-CLIENT-ERROR-OUT-OF-SYNC:CAPS"><code class="literal">E_CLIENT_ERROR_OUT_OF_SYNC</code></a> error is guaranteed
+to be followed by an <a class="link" href="EBookClientCursor.html#EBookClientCursor-refresh" title="The “refresh” signal"><span class="type">“refresh”</span></a> signal at which point any content
+should be reloaded.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-step-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flags</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-e-book-contacts-types.html#EBookCursorStepFlags" title="enum EBookCursorStepFlags"><span class="type">EBookCursorStepFlags</span></a> for this step</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>origin</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-e-book-contacts-types.html#EBookCursorOrigin" title="enum EBookCursorOrigin"><span class="type">EBookCursorOrigin</span></a> from whence to step</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>count</p></td>
+<td class="parameter_description"><p>a positive or negative amount of contacts to try and fetch</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_contacts</p></td>
+<td class="parameter_description"><p> return location for a <a href="/usr/share/gtk-doc/html/glibglib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of <span class="type">EContacts</span>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EContact][<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> to optionally cancel this operation while in progress. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-cursor-step-sync.returns"></a><h4>Returns</h4>
+<p> The number of contacts traversed if successful, otherwise -1 is
+returned and <em class="parameter"><code>error</code></em>
+is set.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-set-alphabetic-index"></a><h3>e_book_client_cursor_set_alphabetic_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_client_cursor_set_alphabetic_index
+                               (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> index</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Sets the current cursor position to point to an <a class="link" href="EBookClientCursor.html#cursor-alphabet" title="Alphabetic Indexes">Alphabetic Index</a>.</p>
+<p>See: <a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-alphabetic-index-sync" title="e_book_client_cursor_set_alphabetic_index_sync ()"><code class="function">e_book_client_cursor_set_alphabetic_index_sync()</code></a>.</p>
+<p>This asynchronous call is completed with a call to
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-alphabetic-index-finish" title="e_book_client_cursor_set_alphabetic_index_finish ()"><code class="function">e_book_client_cursor_set_alphabetic_index_finish()</code></a> from the specified <em class="parameter"><code>callback</code></em>
+.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-set-alphabetic-index.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>index</p></td>
+<td class="parameter_description"><p>the alphabetic index</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> to optionally cancel this operation while in progress. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>callback to call when a result is ready</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data for the <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-set-alphabetic-index-finish"></a><h3>e_book_client_cursor_set_alphabetic_index_finish ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_client_cursor_set_alphabetic_index_finish
+                               (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Completes an asynchronous call initiated by <a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-alphabetic-index" title="e_book_client_cursor_set_alphabetic_index ()"><code class="function">e_book_client_cursor_set_alphabetic_index()</code></a>.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-set-alphabetic-index-finish.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="/usr/share/gtk-doc/html/gioGAsyncResult.html#GAsyncResult-struct"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-cursor-set-alphabetic-index-finish.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-set-alphabetic-index-sync"></a><h3>e_book_client_cursor_set_alphabetic_index_sync ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_client_cursor_set_alphabetic_index_sync
+                               (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> index</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Sets the cursor to point to an <a class="link" href="EBookClientCursor.html#cursor-alphabet" title="Alphabetic Indexes">Alphabetic Index</a>.</p>
+<p>After setting the alphabetic index, for example the
+index for letter 'E', then further calls to <a class="link" href="EBookClientCursor.html#e-book-client-cursor-step" title="e_book_client_cursor_step ()"><code class="function">e_book_client_cursor_step()</code></a>
+will return results starting with the letter 'E' (or results starting
+with the last result in 'D' when navigating through cursor results
+in reverse).</p>
+<p>The passed index must be a valid index into the alphabet parameters
+returned by <code class="function">e_book_client_cursor_get_alphabet()</code>.</p>
+<p>If this method is called from the same thread context in which
+the cursor was created, then the updates to the <a class="link" href="EBookClientCursor.html#EBookClientCursor--position" title="The “position” property"><span class="type">“position”</span></a>
+property are guaranteed to be delivered synchronously upon successful completion
+of moving the cursor. Otherwise, notifications will be delivered asynchronously
+in the cursor's original thread context.</p>
+<p>If this method completes with an <a class="link" href="EClient.html#E-CLIENT-ERROR-OUT-OF-SYNC:CAPS"><code class="literal">E_CLIENT_ERROR_OUT_OF_SYNC</code></a> error, it is an
+indication that the addressbook has been set into a new locale and it would be
+unsafe to set the alphabetic index at this time. If you receive an out of sync
+error from this method, then you should wait until a <a class="link" href="EBookClientCursor.html#EBookClientCursor--alphabet" title="The “alphabet” property"><span class="type">“alphabet”</span></a>
+property change notification is delivered and then proceed to load the new
+alphabet before trying to set any alphabetic index.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-set-alphabetic-index-sync.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>index</p></td>
+<td class="parameter_description"><p>the alphabetic index</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> a <a href="/usr/share/gtk-doc/html/gioGCancellable.html#GCancellable-struct"><span class="type">GCancellable</span></a> to optionally cancel this operation while in progress. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> return location for a <a href="/usr/share/gtk-doc/html/glibglib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-cursor-set-alphabetic-index-sync.returns"></a><h4>Returns</h4>
+<p> <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-client-cursor-get-contact-alphabetic-index"></a><h3>e_book_client_cursor_get_contact_alphabetic_index ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_book_client_cursor_get_contact_alphabetic_index
+                               (<em class="parameter"><code><a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor</code></em>,
+                                <em class="parameter"><code><a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> *contact</code></em>);</pre>
+<p>Checks which alphabetic index <em class="parameter"><code>contact</code></em>
+ would be sorted
+into according to <em class="parameter"><code>cursor</code></em>
+.</p>
+<p>So long as the active <a class="link" href="EBookClientCursor.html#EBookClientCursor--alphabet" title="The “alphabet” property"><span class="type">“alphabet”</span></a> does
+not change, the returned index will be a valid position
+in the array of labels returned by <code class="function">e_book_client_cursor_get_alphabet()</code>.</p>
+<p>If the index returned by this function is needed for
+any extended period of time, it should be recalculated
+whenever the <a class="link" href="EBookClientCursor.html#EBookClientCursor--alphabet" title="The “alphabet” property"><span class="type">“alphabet”</span></a> changes.</p>
+<div class="refsect3">
+<a name="e-book-client-cursor-get-contact-alphabetic-index.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>an <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>the <a class="link" href="EContact.html" title="EContact"><span class="type">EContact</span></a> to check</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="e-book-client-cursor-get-contact-alphabetic-index.returns"></a><h4>Returns</h4>
+<p> The alphabetic index of <em class="parameter"><code>contact</code></em>
+in <em class="parameter"><code>cursor</code></em>
+.</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EBookClientCursor-struct"></a><h3>struct EBookClientCursor</h3>
+<pre class="programlisting">struct EBookClientCursor;</pre>
+<p>Contains only private data.</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientCursorClass"></a><h3>struct EBookClientCursorClass</h3>
+<pre class="programlisting">struct EBookClientCursorClass {
+	/* Signals */
+	void		(* refresh) (EBookClientCursor *cursor);
+};
+</pre>
+<p>The cursor class structure.</p>
+<div class="refsect3">
+<a name="EBookClientCursorClass.members"></a><h4>Members</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody><tr>
+<td class="struct_member_name"><p><em class="structfield"><code><a name="EBookClientCursorClass.refresh"></a>refresh</code></em> ()</p></td>
+<td class="struct_member_description"><p>The class handler for the <a class="link" href="EBookClientCursor.html#EBookClientCursor-refresh" title="The “refresh” signal"><span class="type">“refresh”</span></a> signal</p></td>
+<td class="struct_member_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="EBookClientCursor--alphabet"></a><h3>The <code class="literal">“alphabet”</code> property</h3>
+<pre class="programlisting">  “alphabet”                 <a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#GStrv"><span class="type">GStrv</span></a></pre>
+<p>The currently <a class="link" href="EBookClientCursor.html#cursor-alphabet" title="Alphabetic Indexes">active alphabet</a>.</p>
+<p>The value is a <a href="/usr/share/gtk-doc/html/glibglib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> terminated array of strings,
+each string is suitable to display a specific letter
+in the active alphabet.</p>
+<p>Indexes from this array can later be used with
+
+<a class="link" href="EBookClientCursor.html#e-book-client-cursor-set-alphabetic-index" title="e_book_client_cursor_set_alphabetic_index ()"><code class="function">e_book_client_cursor_set_alphabetic_index()</code></a>.</p>
+<p>This property will automatically change if the
+active locale of the addressbook server changes.</p>
+<p>Property change notifications are guaranteed to be
+delivered in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> which was the thread
+default context at cursor creation time.</p>
+<p>Flags: Read</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientCursor--client"></a><h3>The <code class="literal">“client”</code> property</h3>
+<pre class="programlisting">  “client”                   <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> *</pre>
+<p>The <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> which this cursor was created for</p>
+<p>Flags: Read / Write / Construct Only</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientCursor--connection"></a><h3>The <code class="literal">“connection”</code> property</h3>
+<pre class="programlisting">  “connection”               <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> *</pre>
+<p>The <a href="/usr/share/gtk-doc/html/gioGDBusConnection.html#GDBusConnection-struct"><span class="type">GDBusConnection</span></a> to the addressbook server.</p>
+<div class="note"><p>This is an internal parameter for constructing the
+cursor, to construct the cursor use <a class="link" href="EBookClient.html#e-book-client-get-cursor" title="e_book_client_get_cursor ()"><code class="function">e_book_client_get_cursor()</code></a>.
+</p></div>
+<p>Flags: Write / Construct Only</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientCursor--context"></a><h3>The <code class="literal">“context”</code> property</h3>
+<pre class="programlisting">  “context”                  <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> *</pre>
+<p>The <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> in which the <a class="link" href="EBookClient.html" title="EBookClient"><span class="type">EBookClient</span></a> created this cursor.</p>
+<div class="note"><p>This is an internal parameter for constructing the
+cursor, to construct the cursor use <a class="link" href="EBookClient.html#e-book-client-get-cursor" title="e_book_client_get_cursor ()"><code class="function">e_book_client_get_cursor()</code></a>.
+</p></div>
+<p>Flags: Write / Construct Only</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientCursor--direct-cursor"></a><h3>The <code class="literal">“direct-cursor”</code> property</h3>
+<pre class="programlisting">  “direct-cursor”            <a class="link" href="EDataBookCursor.html" title="EDataBookCursor"><span class="type">EDataBookCursor</span></a> *</pre>
+<p>The direct handle to the <a class="link" href="EDataBookCursor.html" title="EDataBookCursor"><span class="type">EDataBookCursor</span></a> for direct read access mode.</p>
+<div class="note"><p>This is an internal parameter for constructing the
+cursor, to construct the cursor use <a class="link" href="EBookClient.html#e-book-client-get-cursor" title="e_book_client_get_cursor ()"><code class="function">e_book_client_get_cursor()</code></a>.
+</p></div>
+<p>Flags: Write / Construct Only</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientCursor--object-path"></a><h3>The <code class="literal">“object-path”</code> property</h3>
+<pre class="programlisting">  “object-path”              <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *</pre>
+<p>The D-Bus object path to find the server side cursor object.</p>
+<div class="note"><p>This is an internal parameter for constructing the
+cursor, to construct the cursor use <a class="link" href="EBookClient.html#e-book-client-get-cursor" title="e_book_client_get_cursor ()"><code class="function">e_book_client_get_cursor()</code></a>.
+</p></div>
+<p>Flags: Write / Construct Only</p>
+<p>Default value: NULL</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientCursor--position"></a><h3>The <code class="literal">“position”</code> property</h3>
+<pre class="programlisting">  “position”                 <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>The current cursor position in the cursor's result list.</p>
+<p>More specifically, the cursor position is defined as
+the number of contacts leading up to the current
+cursor position, inclusive of the current cursor
+position.</p>
+<p>If the position value is <code class="literal">0</code>, then the cursor is positioned
+before the contact list in the symbolic <a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-BEGIN:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_BEGIN</code></a>
+position. If the position value is greater than
+
+<a class="link" href="EBookClientCursor.html#EBookClientCursor--total" title="The “total” property"><span class="type">“total”</span></a>, this indicates that the cursor is
+positioned after the contact list in the symbolic
+<a class="link" href="eds-e-book-contacts-types.html#E-BOOK-CURSOR-ORIGIN-END:CAPS"><code class="literal">E_BOOK_CURSOR_ORIGIN_END</code></a> position.</p>
+<p>Property change notifications are guaranteed to be
+delivered in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> which was the thread
+default context at cursor creation time.</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientCursor--sort-fields"></a><h3>The <code class="literal">“sort-fields”</code> property</h3>
+<pre class="programlisting">  “sort-fields”              <a href="/usr/share/gtk-doc/html/glibglib-String-Utility-Functions.html#GStrv"><span class="type">GStrv</span></a></pre>
+<p>The <a class="link" href="EContact.html#EContactField" title="enum EContactField"><span class="type">EContactField</span></a> names to sort this cursor with</p>
+<div class="note"><p>This is an internal parameter for constructing the
+cursor, to construct the cursor use <a class="link" href="EBookClient.html#e-book-client-get-cursor" title="e_book_client_get_cursor ()"><code class="function">e_book_client_get_cursor()</code></a>.
+</p></div>
+<p>Flags: Write / Construct Only</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookClientCursor--total"></a><h3>The <code class="literal">“total”</code> property</h3>
+<pre class="programlisting">  “total”                    <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>The total number of contacts which satisfy the cursor's query.</p>
+<p>Property change notifications are guaranteed to be
+delivered in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> which was the thread
+default context at cursor creation time.</p>
+<p>Flags: Read</p>
+<p>Allowed values: &gt;= 0</p>
+<p>Default value: 0</p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+</div>
+<div class="refsect1">
+<a name="EBookClientCursor.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="EBookClientCursor-refresh"></a><h3>The <code class="literal">“refresh”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> *cursor,
+               <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Indicates that the addressbook has been modified and
+that any content currently being displayed from the current
+cursor position should be reloaded.</p>
+<p>This signal is guaranteed to be delivered in the <a href="/usr/share/gtk-doc/html/glibglib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a>
+which was the thread default context at cursor creation time.</p>
+<div class="refsect3">
+<a name="EBookClientCursor-refresh.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cursor</p></td>
+<td class="parameter_description"><p>The <a class="link" href="EBookClientCursor.html" title="EBookClientCursor"><span class="type">EBookClientCursor</span></a> which needs to be refreshed</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: <a href="/usr/share/gtk-doc/html/gobjectgobject-Signals.html#G-SIGNAL-RUN-LAST:CAPS">Run Last</a></p>
+<p class="since">Since: <a class="link" href="api-index-3.12.html" title="Index of new symbols in 3.12">3.12</a></p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>Generated by GTK-Doc V1.25</div>
+</body>
+</html>

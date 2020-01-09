@@ -15,7 +15,7 @@ and/or use gtk-doc annotations.  -->
   <c:include name="libebook-contacts/libebook-contacts.h"/>
   <namespace name="EBookContacts"
              version="1.2"
-             shared-library="libebook-contacts-1.2.so.0,libedataserver-1.2.so.18"
+             shared-library="libebook-contacts-1.2.so.2,libedataserver-1.2.so.22"
              c:identifier-prefixes="E"
              c:symbol-prefixes="e">
     <record name="AddressWestern" c:type="EAddressWestern">
@@ -188,8 +188,9 @@ Returned pointer should be freed with g_error_free().</doc>
       <function name="to_string"
                 c:identifier="e_book_client_error_to_string"
                 version="3.2">
-        <doc xml:space="preserve">FIXME: Document me.</doc>
+        <doc xml:space="preserve">Get localized human readable description of the given error code.</doc>
         <return-value transfer-ownership="none">
+          <doc xml:space="preserve">Localized human readable description of the given error code</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
         <parameters>
@@ -748,7 +749,7 @@ for comparison.</doc>
       </function>
       <function name="field_is_string"
                 c:identifier="e_contact_field_is_string"
-                version="3.14">
+                version="3.16">
         <doc xml:space="preserve">Returns whether the @field_id is of a string type,
 thus it can be used with e_contact_get_const().</doc>
         <return-value transfer-ownership="none">
@@ -834,7 +835,7 @@ of @field_id.</doc>
       </method>
       <method name="get" c:identifier="e_contact_get">
         <doc xml:space="preserve">Gets the value of @contact's field specified by @field_id.</doc>
-        <return-value transfer-ownership="full">
+        <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve">Depends on the field's type, owned by the caller. This may be %NULL if the field isn't set.</doc>
           <type name="gpointer" c:type="gpointer"/>
         </return-value>
@@ -869,11 +870,37 @@ to #EVCardAttribute, owned by the caller.</doc>
           </parameter>
         </parameters>
       </method>
+      <method name="get_attributes_set"
+              c:identifier="e_contact_get_attributes_set"
+              version="3.16">
+        <doc xml:space="preserve">Gets a list of the vcard attributes for @contact's @field_ids.</doc>
+        <return-value transfer-ownership="full">
+          <doc xml:space="preserve">A #GList of pointers
+to #EVCardAttribute, owned by the caller.</doc>
+          <type name="GLib.List" c:type="GList*">
+            <type name="VCardAttribute"/>
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="contact" transfer-ownership="none">
+            <doc xml:space="preserve">an #EContact</doc>
+            <type name="Contact" c:type="EContact*"/>
+          </instance-parameter>
+          <parameter name="field_ids" transfer-ownership="none">
+            <doc xml:space="preserve">an array of #EContactField</doc>
+            <type name="ContactField" c:type="const EContactField"/>
+          </parameter>
+          <parameter name="size" transfer-ownership="none">
+            <doc xml:space="preserve">number of elements in field_ids</doc>
+            <type name="gint" c:type="gint"/>
+          </parameter>
+        </parameters>
+      </method>
       <method name="get_const" c:identifier="e_contact_get_const">
         <doc xml:space="preserve">Gets the value of @contact's field specified by @field_id, caching
 the result so it can be freed later. Use e_contact_field_is_string()
 to check whether the field can be used here.</doc>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">Depends on the field's type, owned by the
 #EContact.</doc>
           <type name="gpointer" c:type="gconstpointer"/>
@@ -922,7 +949,10 @@ to be inlined and stored as %E_CONTACT_PHOTO_TYPE_INLINED instead.</doc>
             <doc xml:space="preserve">an #EContactField</doc>
             <type name="ContactField" c:type="EContactField"/>
           </parameter>
-          <parameter name="value" transfer-ownership="none">
+          <parameter name="value"
+                     transfer-ownership="none"
+                     nullable="1"
+                     allow-none="1">
             <doc xml:space="preserve">a value whose type depends on the @field_id</doc>
             <type name="gpointer" c:type="gconstpointer"/>
           </parameter>
@@ -1357,6 +1387,9 @@ Attributes are added to the contact in the same order as they are in @attributes
       </property>
       <property name="pager" writable="1" transfer-ownership="none">
         <type name="utf8" c:type="gchar*"/>
+      </property>
+      <property name="pgpCert" writable="1" transfer-ownership="none">
+        <type name="ContactCert"/>
       </property>
       <property name="phone" writable="1" transfer-ownership="none">
         <type name="ContactAttrList"/>
@@ -2011,100 +2044,102 @@ on the values of @dt.</doc>
       </member>
       <member name="x509_cert" value="109" c:identifier="E_CONTACT_X509_CERT">
       </member>
+      <member name="pgp_cert" value="110" c:identifier="E_CONTACT_PGP_CERT">
+      </member>
       <member name="im_gadugadu_home_1"
-              value="110"
+              value="111"
               c:identifier="E_CONTACT_IM_GADUGADU_HOME_1">
       </member>
       <member name="im_gadugadu_home_2"
-              value="111"
+              value="112"
               c:identifier="E_CONTACT_IM_GADUGADU_HOME_2">
       </member>
       <member name="im_gadugadu_home_3"
-              value="112"
+              value="113"
               c:identifier="E_CONTACT_IM_GADUGADU_HOME_3">
       </member>
       <member name="im_gadugadu_work_1"
-              value="113"
+              value="114"
               c:identifier="E_CONTACT_IM_GADUGADU_WORK_1">
       </member>
       <member name="im_gadugadu_work_2"
-              value="114"
+              value="115"
               c:identifier="E_CONTACT_IM_GADUGADU_WORK_2">
       </member>
       <member name="im_gadugadu_work_3"
-              value="115"
+              value="116"
               c:identifier="E_CONTACT_IM_GADUGADU_WORK_3">
       </member>
       <member name="im_gadugadu"
-              value="116"
+              value="117"
               c:identifier="E_CONTACT_IM_GADUGADU">
       </member>
-      <member name="geo" value="117" c:identifier="E_CONTACT_GEO">
+      <member name="geo" value="118" c:identifier="E_CONTACT_GEO">
       </member>
-      <member name="tel" value="118" c:identifier="E_CONTACT_TEL">
+      <member name="tel" value="119" c:identifier="E_CONTACT_TEL">
       </member>
       <member name="im_skype_home_1"
-              value="119"
+              value="120"
               c:identifier="E_CONTACT_IM_SKYPE_HOME_1">
       </member>
       <member name="im_skype_home_2"
-              value="120"
+              value="121"
               c:identifier="E_CONTACT_IM_SKYPE_HOME_2">
       </member>
       <member name="im_skype_home_3"
-              value="121"
+              value="122"
               c:identifier="E_CONTACT_IM_SKYPE_HOME_3">
       </member>
       <member name="im_skype_work_1"
-              value="122"
+              value="123"
               c:identifier="E_CONTACT_IM_SKYPE_WORK_1">
       </member>
       <member name="im_skype_work_2"
-              value="123"
+              value="124"
               c:identifier="E_CONTACT_IM_SKYPE_WORK_2">
       </member>
       <member name="im_skype_work_3"
-              value="124"
+              value="125"
               c:identifier="E_CONTACT_IM_SKYPE_WORK_3">
       </member>
-      <member name="im_skype" value="125" c:identifier="E_CONTACT_IM_SKYPE">
+      <member name="im_skype" value="126" c:identifier="E_CONTACT_IM_SKYPE">
       </member>
-      <member name="sip" value="126" c:identifier="E_CONTACT_SIP">
+      <member name="sip" value="127" c:identifier="E_CONTACT_SIP">
       </member>
       <member name="im_google_talk_home_1"
-              value="127"
+              value="128"
               c:identifier="E_CONTACT_IM_GOOGLE_TALK_HOME_1">
       </member>
       <member name="im_google_talk_home_2"
-              value="128"
+              value="129"
               c:identifier="E_CONTACT_IM_GOOGLE_TALK_HOME_2">
       </member>
       <member name="im_google_talk_home_3"
-              value="129"
+              value="130"
               c:identifier="E_CONTACT_IM_GOOGLE_TALK_HOME_3">
       </member>
       <member name="im_google_talk_work_1"
-              value="130"
+              value="131"
               c:identifier="E_CONTACT_IM_GOOGLE_TALK_WORK_1">
       </member>
       <member name="im_google_talk_work_2"
-              value="131"
+              value="132"
               c:identifier="E_CONTACT_IM_GOOGLE_TALK_WORK_2">
       </member>
       <member name="im_google_talk_work_3"
-              value="132"
+              value="133"
               c:identifier="E_CONTACT_IM_GOOGLE_TALK_WORK_3">
       </member>
       <member name="im_google_talk"
-              value="133"
+              value="134"
               c:identifier="E_CONTACT_IM_GOOGLE_TALK">
       </member>
       <member name="im_twitter"
-              value="134"
+              value="135"
               c:identifier="E_CONTACT_IM_TWITTER">
       </member>
       <member name="field_last"
-              value="135"
+              value="136"
               c:identifier="E_CONTACT_FIELD_LAST">
       </member>
       <member name="field_first"
@@ -2321,7 +2356,7 @@ on the values of @dt.</doc>
               c:identifier="e_contact_photo_get_inlined"
               version="3.2">
         <doc xml:space="preserve">Gets the @photo's data.</doc>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">the inlined image in the
 #EContactPhoto, or %NULL if it has not been set.</doc>
           <array length="0" zero-terminated="0" c:type="guchar*">
@@ -2346,7 +2381,7 @@ on the values of @dt.</doc>
               c:identifier="e_contact_photo_get_mime_type"
               version="3.2">
         <doc xml:space="preserve">Gets the @photo's mime type.</doc>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">the MIME type of the image, or %NULL if it has not been set.</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -2361,7 +2396,7 @@ on the values of @dt.</doc>
               c:identifier="e_contact_photo_get_uri"
               version="3.2">
         <doc xml:space="preserve">Gets the @photo's URI.</doc>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">the URI of the image, or %NULL if it has not been set</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -2903,7 +2938,7 @@ current locale's two-letter code for phone number parsing.</doc>
                 version="3.8">
         <doc xml:space="preserve">Checks if phone number support is available. It is recommended to call this
 function before using any of the phone-utils functions to ensure that the
-required functionality is available, and to pick alternative mechnisms if
+required functionality is available, and to pick alternative mechanisms if
 needed.</doc>
         <return-value transfer-ownership="none">
           <doc xml:space="preserve">%TRUE if phone number support is available.</doc>
@@ -2948,8 +2983,8 @@ number support</doc>
       <member name="unknown"
               value="1"
               c:identifier="E_PHONE_NUMBER_ERROR_UNKNOWN">
-        <doc xml:space="preserve">the phone number parser reported an yet
-unkown error code.</doc>
+        <doc xml:space="preserve">the phone number parser reported a yet
+unknown error code.</doc>
       </member>
       <member name="not_a_number"
               value="2"
@@ -3645,7 +3680,7 @@ for matching attributes.&lt;/para&gt;
 be called often. If extracting a large number of attributes from a vCard, it
 is more efficient to iterate once over the list returned by
 e_vcard_get_attributes().&lt;/para&gt;&lt;/note&gt;</doc>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">An #EVCardAttribute if found, or %NULL.</doc>
           <type name="VCardAttribute" c:type="EVCardAttribute*"/>
         </return-value>
@@ -3665,7 +3700,7 @@ e_vcard_get_attributes().&lt;/para&gt;&lt;/note&gt;</doc>
               version="3.4">
         <doc xml:space="preserve">Similar to e_vcard_get_attribute() but this method will not attempt to
 parse the vCard if it is not already parsed.</doc>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">An #EVCardAttribute if found, or %NULL.</doc>
           <type name="VCardAttribute" c:type="EVCardAttribute*"/>
         </return-value>
@@ -3786,7 +3821,8 @@ by the @format argument.</doc>
             c:symbol-prefix="vcard_attribute">
       <constructor name="new" c:identifier="e_vcard_attribute_new">
         <doc xml:space="preserve">Creates a new #EVCardAttribute with the specified group and
-attribute names.</doc>
+attribute names. The @attr_group may be %NULL or the empty string if no
+group is needed.</doc>
         <return-value transfer-ownership="full">
           <doc xml:space="preserve">A new #EVCardAttribute.</doc>
           <type name="VCardAttribute" c:type="EVCardAttribute*"/>
@@ -3962,7 +3998,7 @@ if it’s encoded in base-64 or quoted-printable encoding).</doc>
       </method>
       <method name="get_group" c:identifier="e_vcard_attribute_get_group">
         <doc xml:space="preserve">Gets the group name of @attr.</doc>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">The attribute's group name, or %NULL.</doc>
           <type name="utf8" c:type="const gchar*"/>
         </return-value>
@@ -3990,7 +4026,7 @@ if it’s encoded in base-64 or quoted-printable encoding).</doc>
         <doc xml:space="preserve">Gets the list of values for the paramater @name from @attr. The list and its
 contents are owned by @attr, and must not be freed. If no parameter with the
 given @name exists, %NULL is returned.</doc>
-        <return-value transfer-ownership="none">
+        <return-value transfer-ownership="none" nullable="1">
           <doc xml:space="preserve">A list of string
 elements representing the parameter's values, or %NULL.</doc>
           <type name="GLib.List" c:type="GList*">
@@ -4034,7 +4070,7 @@ return the contact’s full name as a single string.
 This will print a warning if called on an #EVCardAttribute which is not
 single-valued (i.e. for which e_vcard_attribute_is_single_valued() returns
 %FALSE). Use e_vcard_attribute_get_values() in such cases instead.</doc>
-        <return-value transfer-ownership="full">
+        <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve">A newly allocated string representing
 the value, or %NULL if the attribute has no value.</doc>
           <type name="utf8" c:type="gchar*"/>
@@ -4055,7 +4091,7 @@ it if necessary according to the encoding given in the vCard’s
 This will print a warning if called on an #EVCardAttribute which is not
 single-valued (i.e. for which e_vcard_attribute_is_single_valued() returns
 %FALSE). Use e_vcard_attribute_get_values_decoded() in such cases instead.</doc>
-        <return-value transfer-ownership="full">
+        <return-value transfer-ownership="full" nullable="1">
           <doc xml:space="preserve">A newly allocated #GString
 representing the value, or %NULL if the attribute has no value.</doc>
           <type name="GLib.String" c:type="GString*"/>
@@ -4475,8 +4511,9 @@ Returned pointer should be freed with g_error_free().</doc>
               c:identifier="e_book_client_error_to_string"
               moved-to="BookClientError.to_string"
               version="3.2">
-      <doc xml:space="preserve">FIXME: Document me.</doc>
+      <doc xml:space="preserve">Get localized human readable description of the given error code.</doc>
       <return-value transfer-ownership="none">
+        <doc xml:space="preserve">Localized human readable description of the given error code</doc>
         <type name="utf8" c:type="const gchar*"/>
       </return-value>
       <parameters>
@@ -4812,7 +4849,7 @@ current locale's two-letter code for phone number parsing.</doc>
               version="3.8">
       <doc xml:space="preserve">Checks if phone number support is available. It is recommended to call this
 function before using any of the phone-utils functions to ensure that the
-required functionality is available, and to pick alternative mechnisms if
+required functionality is available, and to pick alternative mechanisms if
 needed.</doc>
       <return-value transfer-ownership="none">
         <doc xml:space="preserve">%TRUE if phone number support is available.</doc>

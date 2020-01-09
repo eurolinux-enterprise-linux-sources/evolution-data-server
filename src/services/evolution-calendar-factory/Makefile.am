@@ -1,12 +1,25 @@
 NULL =
 
-service_in_files = org.gnome.evolution.dataserver.Calendar.service.in
-servicedir = $(datadir)/dbus-1/services
-service_DATA = $(service_in_files:.service.in=.service)
+dbus_service_in_files = org.gnome.evolution.dataserver.Calendar.service.in
+dbus_service_DATA = $(dbus_service_in_files:.service.in=.service)
+
+systemd_user_in_files = evolution-calendar-factory.service.in
+if WITH_SYSTEMD_USER_UNITS
+systemd_user_DATA = $(systemd_user_in_files:.service.in=.service)
+endif
+
+# this works for both D-Bus and systemd services
 @EVO_SUBST_SERVICE_RULE@
 
-CLEANFILES = $(service_DATA)
-EXTRA_DIST = $(service_in_files)
+CLEANFILES = \
+	$(dbus_service_DATA) \
+	$(systemd_user_DATA) \
+	$(NULL)
+
+EXTRA_DIST = \
+	$(dbus_service_in_files) \
+	$(systemd_user_in_files) \
+	$(NULL)
 
 libexec_PROGRAMS = evolution-calendar-factory
 

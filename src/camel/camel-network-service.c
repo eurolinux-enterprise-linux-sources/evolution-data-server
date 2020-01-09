@@ -1,17 +1,17 @@
 /*
  * camel-network-service.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 #if HAVE_CONFIG_H
@@ -24,6 +24,7 @@
 #include <glib/gstdio.h>
 #include <glib/gi18n-lib.h>
 
+#include "camel.h"
 #include <camel/camel-enumtypes.h>
 #include <camel/camel-network-settings.h>
 #include <camel/camel-service.h>
@@ -48,6 +49,9 @@ struct _CamelNetworkServicePrivate {
 	gboolean host_reachable;
 	gboolean host_reachable_set;
 
+	GWeakRef session_weakref;
+	gulong session_notify_network_monitor_handler_id;
+
 	GNetworkMonitor *network_monitor;
 	gulong network_changed_handler_id;
 
@@ -65,36 +69,6 @@ G_DEFINE_INTERFACE (
 	CamelNetworkService,
 	camel_network_service,
 	CAMEL_TYPE_SERVICE)
-
-static const gchar *
-network_service_get_cert_dir (void)
-{
-	static gchar *cert_dir = NULL;
-
-	if (G_UNLIKELY (cert_dir == NULL)) {
-		const gchar *data_dir;
-		const gchar *home_dir;
-		gchar *old_dir;
-
-		home_dir = g_get_home_dir ();
-		data_dir = g_get_user_data_dir ();
-
-		cert_dir = g_build_filename (data_dir, "camel_certs", NULL);
-
-		/* Move the old certificate directory if present. */
-		old_dir = g_build_filename (home_dir, ".camel_certs", NULL);
-		if (g_file_test (old_dir, G_FILE_TEST_IS_DIR)) {
-			if (g_rename (old_dir, cert_dir) == -1) {
-				g_warning ("%s: Failed to rename '%s' to '%s': %s", G_STRFUNC, old_dir, cert_dir, g_strerror (errno));
-			}
-		}
-		g_free (old_dir);
-
-		g_mkdir_with_parents (cert_dir, 0700);
-	}
-
-	return cert_dir;
-}
 
 static gchar *
 network_service_generate_fingerprint (GTlsCertificate *certificate)
@@ -139,86 +113,6 @@ network_service_generate_fingerprint (GTlsCertificate *certificate)
 	return g_string_free (fingerprint, FALSE);
 }
 
-static GBytes *
-network_service_load_cert_file (const gchar *fingerprint,
-                                GError **error)
-{
-	GBytes *bytes = NULL;
-	gchar *contents = NULL;
-	gchar *filename;
-	gsize length;
-	const gchar *cert_dir;
-
-	cert_dir = network_service_get_cert_dir ();
-	filename = g_build_filename (cert_dir, fingerprint, NULL);
-
-	if (g_file_get_contents (filename, &contents, &length, error))
-		bytes = g_bytes_new_take (contents, length);
-
-	g_free (filename);
-
-	return bytes;
-}
-
-static GBytes *
-network_service_save_cert_file (GTlsCertificate *certificate,
-                                GError **error)
-{
-	GByteArray *der;
-	GBytes *bytes = NULL;
-	GFile *file;
-	GFileOutputStream *output_stream;
-	gchar *filename;
-	gchar *fingerprint;
-	const gchar *cert_dir;
-
-	/* XXX No accessor function for this property. */
-	g_object_get (certificate, "certificate", &der, NULL);
-	g_return_val_if_fail (der != NULL, NULL);
-
-	fingerprint = network_service_generate_fingerprint (certificate);
-	g_return_val_if_fail (fingerprint != NULL, NULL);
-
-	cert_dir = network_service_get_cert_dir ();
-	filename = g_build_filename (cert_dir, fingerprint, NULL);
-	file = g_file_new_for_path (filename);
-
-	output_stream = g_file_replace (
-		file, NULL, FALSE,
-		G_FILE_CREATE_REPLACE_DESTINATION,
-		NULL, error);
-
-	g_object_unref (file);
-	g_free (filename);
-
-	if (output_stream != NULL) {
-		gssize n_written;
-
-		/* XXX Treat GByteArray as though its data is owned by
-		 *     GTlsCertificate.  That means avoiding functions
-		 *     like g_byte_array_free_to_bytes() that alter or
-		 *     reset the GByteArray. */
-		bytes = g_bytes_new (der->data, der->len);
-
-		/* XXX Not handling partial writes, but GIO does not make
-		 *     it easy.  Need a g_output_stream_write_all_bytes().
-		 *     (see: https://bugzilla.gnome.org/708838) */
-		n_written = g_output_stream_write_bytes (
-			G_OUTPUT_STREAM (output_stream),
-			bytes, NULL, error);
-
-		if (n_written < 0) {
-			g_bytes_unref (bytes);
-			bytes = NULL;
-		}
-	}
-
-	g_byte_array_unref (der);
-	g_free (fingerprint);
-
-	return bytes;
-}
-
 static CamelCert *
 network_service_certdb_lookup (CamelCertDB *certdb,
                                GTlsCertificate *certificate,
@@ -239,8 +133,7 @@ network_service_certdb_lookup (CamelCertDB *certdb,
 	if (cert->rawcert == NULL) {
 		GError *local_error = NULL;
 
-		cert->rawcert = network_service_load_cert_file (
-			fingerprint, &local_error);
+		camel_cert_load_cert_file (cert, &local_error);
 
 		/* Sanity check. */
 		g_warn_if_fail (
@@ -285,10 +178,15 @@ network_service_certdb_store (CamelCertDB *certdb,
                               CamelCert *cert,
                               GTlsCertificate *certificate)
 {
+	GByteArray *der = NULL;
 	GError *local_error = NULL;
 
-	cert->rawcert = network_service_save_cert_file (
-		certificate, &local_error);
+	g_object_get (certificate, "certificate", &der, NULL);
+	g_return_if_fail (der != NULL);
+
+	camel_cert_save_cert_file (cert, der, &local_error);
+
+	g_byte_array_unref (der);
 
 	/* Sanity check. */
 	g_warn_if_fail (
@@ -320,6 +218,9 @@ network_service_accept_certificate_cb (GTlsConnection *connection,
 	gchar *host;
 
 	session = camel_service_ref_session (CAMEL_SERVICE (service));
+	if (!session)
+		return FALSE;
+
 	settings = camel_service_ref_settings (CAMEL_SERVICE (service));
 
 	network_settings = CAMEL_NETWORK_SETTINGS (settings);
@@ -414,13 +315,15 @@ network_service_notify_host_reachable (CamelNetworkService *service)
 
 	session = camel_service_ref_session (CAMEL_SERVICE (service));
 
-	camel_session_idle_add (
-		session, G_PRIORITY_DEFAULT_IDLE,
-		network_service_notify_host_reachable_cb,
-		g_object_ref (service),
-		(GDestroyNotify) g_object_unref);
+	if (session) {
+		camel_session_idle_add (
+			session, G_PRIORITY_DEFAULT_IDLE,
+			network_service_notify_host_reachable_cb,
+			g_object_ref (service),
+			(GDestroyNotify) g_object_unref);
 
-	g_object_unref (session);
+		g_object_unref (session);
+	}
 }
 
 static void
@@ -520,6 +423,9 @@ network_service_update_host_reachable (CamelNetworkService *service)
 	priv = CAMEL_NETWORK_SERVICE_GET_PRIVATE (service);
 
 	session = camel_service_ref_session (CAMEL_SERVICE (service));
+	if (!session)
+		return;
+
 	if (!camel_session_get_online (session)) {
 		g_object_unref (session);
 		return;
@@ -564,11 +470,63 @@ network_service_network_changed_cb (GNetworkMonitor *network_monitor,
 	network_service_update_host_reachable (service);
 }
 
+static void
+network_service_session_notify_network_monitor_cb (GObject *object,
+						   GParamSpec *param,
+						   gpointer user_data)
+{
+	CamelSession *session;
+	CamelNetworkService *service = user_data;
+	CamelNetworkServicePrivate *priv;
+	GNetworkMonitor *network_monitor;
+	gboolean update_host_reachable = FALSE;
+
+	g_return_if_fail (CAMEL_IS_SESSION (object));
+	g_return_if_fail (CAMEL_IS_NETWORK_SERVICE (service));
+
+	priv = CAMEL_NETWORK_SERVICE_GET_PRIVATE (service);
+	g_return_if_fail (priv != NULL);
+
+	g_object_ref (service);
+
+	session = CAMEL_SESSION (object);
+
+	network_monitor = camel_session_ref_network_monitor (session);
+
+	g_mutex_lock (&priv->property_lock);
+
+	if (network_monitor != priv->network_monitor) {
+		if (priv->network_monitor) {
+			g_signal_handler_disconnect (
+				priv->network_monitor,
+				priv->network_changed_handler_id);
+			g_object_unref (priv->network_monitor);
+		}
+
+		priv->network_monitor = g_object_ref (network_monitor);
+
+		priv->network_changed_handler_id = g_signal_connect (
+			priv->network_monitor, "network-changed",
+			G_CALLBACK (network_service_network_changed_cb), service);
+
+		update_host_reachable = TRUE;
+	}
+
+	g_mutex_unlock (&priv->property_lock);
+
+	g_clear_object (&network_monitor);
+
+	if (update_host_reachable)
+		network_service_update_host_reachable (service);
+
+	g_object_unref (service);
+}
+
 static CamelNetworkServicePrivate *
 network_service_private_new (CamelNetworkService *service)
 {
 	CamelNetworkServicePrivate *priv;
-	GNetworkMonitor *network_monitor;
+	CamelSession *session;
 	gulong handler_id;
 
 	priv = g_slice_new0 (CamelNetworkServicePrivate);
@@ -579,13 +537,26 @@ network_service_private_new (CamelNetworkService *service)
 
 	/* Configure network monitoring. */
 
-	network_monitor = g_network_monitor_get_default ();
-	priv->network_monitor = g_object_ref (network_monitor);
+	session = camel_service_ref_session (CAMEL_SERVICE (service));
+	if (session) {
+		priv->network_monitor = camel_session_ref_network_monitor (session);
 
-	handler_id = g_signal_connect (
-		priv->network_monitor, "network-changed",
-		G_CALLBACK (network_service_network_changed_cb), service);
-	priv->network_changed_handler_id = handler_id;
+		priv->session_notify_network_monitor_handler_id =
+			g_signal_connect (session, "notify::network-monitor",
+				G_CALLBACK (network_service_session_notify_network_monitor_cb), service);
+
+		g_weak_ref_init (&priv->session_weakref, session);
+
+		g_object_unref (session);
+	} else
+		g_weak_ref_init (&priv->session_weakref, NULL);
+
+	if (priv->network_monitor) {
+		handler_id = g_signal_connect (
+			priv->network_monitor, "network-changed",
+			G_CALLBACK (network_service_network_changed_cb), service);
+		priv->network_changed_handler_id = handler_id;
+	}
 
 	return priv;
 }
@@ -593,13 +564,28 @@ network_service_private_new (CamelNetworkService *service)
 static void
 network_service_private_free (CamelNetworkServicePrivate *priv)
 {
-	g_signal_handler_disconnect (
-		priv->network_monitor,
-		priv->network_changed_handler_id);
+	if (priv->network_changed_handler_id) {
+		g_signal_handler_disconnect (
+			priv->network_monitor,
+			priv->network_changed_handler_id);
+	}
+
+	if (priv->session_notify_network_monitor_handler_id) {
+		CamelSession *session;
+
+		session = g_weak_ref_get (&priv->session_weakref);
+		if (session) {
+			g_signal_handler_disconnect (
+				session,
+				priv->session_notify_network_monitor_handler_id);
+			g_object_unref (session);
+		}
+	}
 
 	g_clear_object (&priv->connectable);
 	g_clear_object (&priv->network_monitor);
 	g_clear_object (&priv->network_monitor_cancellable);
+	g_weak_ref_clear (&priv->session_weakref);
 
 	if (priv->update_host_reachable != NULL) {
 		g_source_destroy (priv->update_host_reachable);
@@ -634,6 +620,7 @@ network_service_connect_sync (CamelNetworkService *service,
 	g_return_val_if_fail (connectable != NULL, NULL);
 
 	client = g_socket_client_new ();
+	g_socket_client_set_timeout (client, 90);
 
 	g_signal_connect (
 		client, "event",
@@ -642,7 +629,7 @@ network_service_connect_sync (CamelNetworkService *service,
 	if (method == CAMEL_NETWORK_SECURITY_METHOD_SSL_ON_ALTERNATE_PORT)
 		g_socket_client_set_tls (client, TRUE);
 
-	g_object_bind_property (
+	camel_binding_bind_property (
 		service, "proxy-resolver",
 		client, "proxy-resolver",
 		G_BINDING_SYNC_CREATE);
@@ -659,8 +646,10 @@ network_service_connect_sync (CamelNetworkService *service,
 		GSocket *socket;
 
 		socket = g_socket_connection_get_socket (connection);
-		if (socket)
+		if (socket) {
 			g_socket_set_timeout (socket, 90);
+			g_socket_set_keepalive (socket, TRUE);
+		}
 	}
 
 	return (connection != NULL) ? G_IO_STREAM (connection) : NULL;
@@ -685,8 +674,17 @@ network_service_new_connectable (CamelNetworkService *service)
 	host = camel_network_settings_dup_host_ensure_ascii (network_settings);
 	port = camel_network_settings_get_port (network_settings);
 
-	if (host && *host)
-		connectable = g_network_address_new (host, port);
+	if (host && *host) {
+		CamelProvider *provider;
+
+		provider = camel_service_get_provider (CAMEL_SERVICE (service));
+
+		connectable = g_object_new (G_TYPE_NETWORK_ADDRESS,
+			"scheme", provider ? provider->protocol : "socks",
+			"hostname", host,
+			"port", port,
+			NULL);
+	}
 
 	g_free (host);
 
@@ -808,7 +806,7 @@ camel_network_service_get_default_port (CamelNetworkService *service,
  * The returned #GSocketConnectable is referenced for thread-safety and
  * must be unreferenced with g_object_unref() when finished with it.
  *
- * Returns: a #GSocketConnectable
+ * Returns: (transfer full): a #GSocketConnectable
  *
  * Since: 3.8
  **/
@@ -825,10 +823,21 @@ camel_network_service_ref_connectable (CamelNetworkService *service)
 
 	g_mutex_lock (&priv->property_lock);
 
-	if (priv->connectable != NULL)
+	if (priv->connectable != NULL) {
 		connectable = g_object_ref (priv->connectable);
+		g_mutex_unlock (&priv->property_lock);
+	} else {
+		CamelNetworkServiceInterface *iface;
 
-	g_mutex_unlock (&priv->property_lock);
+		g_mutex_unlock (&priv->property_lock);
+
+		iface = CAMEL_NETWORK_SERVICE_GET_INTERFACE (service);
+		g_return_val_if_fail (iface->new_connectable != NULL, NULL);
+
+		/* This may return NULL if we don't have valid network
+		 * settings from which to create a GSocketConnectable. */
+		connectable = iface->new_connectable (service);
+	}
 
 	return connectable;
 }
@@ -848,24 +857,21 @@ void
 camel_network_service_set_connectable (CamelNetworkService *service,
                                        GSocketConnectable *connectable)
 {
-	CamelNetworkServiceInterface *iface;
 	CamelNetworkServicePrivate *priv;
 
 	g_return_if_fail (CAMEL_IS_NETWORK_SERVICE (service));
 
-	iface = CAMEL_NETWORK_SERVICE_GET_INTERFACE (service);
-	g_return_if_fail (iface->new_connectable != NULL);
-
 	priv = CAMEL_NETWORK_SERVICE_GET_PRIVATE (service);
 	g_return_if_fail (priv != NULL);
 
+	/* The GNetworkAddress is not thread safe, thus rather than precache it,
+	   create a new instance whenever it's asked for it. Keep precached only
+	   the connectable which had been explicitly set, because there cannot be
+	   done exact copy of it.
+	*/
 	if (connectable != NULL) {
 		g_return_if_fail (G_IS_SOCKET_CONNECTABLE (connectable));
 		g_object_ref (connectable);
-	} else {
-		/* This may return NULL if we don't have valid network
-		 * settings from which to create a GSocketConnectable. */
-		connectable = iface->new_connectable (service);
 	}
 
 	g_mutex_lock (&priv->property_lock);
@@ -919,7 +925,7 @@ camel_network_service_get_host_reachable (CamelNetworkService *service)
  * connection attempt is cancelled, the function sets @error and returns
  * %NULL.
  *
- * Returns: a #GIOStream, or %NULL
+ * Returns: (transfer full): a #GIOStream, or %NULL
  *
  * Since: 3.2
  **/
@@ -951,7 +957,7 @@ camel_network_service_connect_sync (CamelNetworkService *service,
  * This should typically be called after issuing a STARTTLS command
  * to a server to initiate a Transport Layer Security handshake.
  *
- * Returns: the new #GTlsClientConnection, or %NULL on error
+ * Returns: (transfer full): the new #GTlsClientConnection, or %NULL on error
  *
  * Since: 3.12
  **/

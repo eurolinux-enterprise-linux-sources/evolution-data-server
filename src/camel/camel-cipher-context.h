@@ -1,21 +1,20 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /*
- * Authors: Jeffrey Stedfast <fejj@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
+ * Authors: Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
@@ -47,10 +46,23 @@
 	(G_TYPE_INSTANCE_GET_CLASS \
 	((obj), CAMEL_TYPE_CIPHER_CONTEXT, CamelCipherContextClass))
 
+/**
+ * CAMEL_CIPHER_CERT_INFO_PROPERTY_PHOTO_FILENAME:
+ *
+ * Name of the photo-filename property which can be stored
+ * on a #CamelCipherCertInfo.
+ *
+ * Since: 3.22
+ **/
+#define CAMEL_CIPHER_CERT_INFO_PROPERTY_PHOTO_FILENAME "photo-filename"
+
 G_BEGIN_DECLS
+
+typedef gpointer (* CamelCipherCloneFunc) (gpointer value);
 
 typedef struct _CamelCipherValidity CamelCipherValidity;
 typedef struct _CamelCipherCertInfo CamelCipherCertInfo;
+typedef struct _CamelCipherCertInfoProperty CamelCipherCertInfoProperty;
 
 typedef struct _CamelCipherContext CamelCipherContext;
 typedef struct _CamelCipherContextClass CamelCipherContextClass;
@@ -75,40 +87,50 @@ typedef enum _camel_cipher_validity_sign_t {
 	CAMEL_CIPHER_VALIDITY_SIGN_BAD,
 	CAMEL_CIPHER_VALIDITY_SIGN_UNKNOWN,
 	CAMEL_CIPHER_VALIDITY_SIGN_NEED_PUBLIC_KEY
-} camel_cipher_validity_sign_t;
+} CamelCipherValiditySign;
 
 typedef enum _camel_cipher_validity_encrypt_t {
 	CAMEL_CIPHER_VALIDITY_ENCRYPT_NONE,
 	CAMEL_CIPHER_VALIDITY_ENCRYPT_WEAK,
 	CAMEL_CIPHER_VALIDITY_ENCRYPT_ENCRYPTED, /* encrypted, unknown strenght */
 	CAMEL_CIPHER_VALIDITY_ENCRYPT_STRONG
-} camel_cipher_validity_encrypt_t;
+} CamelCipherValidityEncrypt;
 
 typedef enum _camel_cipher_validity_mode_t {
 	CAMEL_CIPHER_VALIDITY_SIGN,
 	CAMEL_CIPHER_VALIDITY_ENCRYPT
-} camel_cipher_validity_mode_t;
+} CamelCipherValidityMode;
+
+struct _CamelCipherCertInfoProperty {
+	gchar *name;
+	gpointer value;
+
+	GDestroyNotify value_free;
+	CamelCipherCloneFunc value_clone;
+};
 
 struct _CamelCipherCertInfo {
 	gchar *name;		/* common name */
 	gchar *email;
 
 	gpointer cert_data;  /* custom certificate data; can be NULL */
-	void (*cert_data_free) (gpointer cert_data); /* called to free cert_data; can be NULL only if cert_data is NULL */
-	gpointer (*cert_data_clone) (gpointer cert_data); /* called to clone cert_data; can be NULL only if cert_data is NULL */
+	GDestroyNotify cert_data_free; /* called to free cert_data; can be NULL only if cert_data is NULL */
+	CamelCipherCloneFunc cert_data_clone; /* called to clone cert_data; can be NULL only if cert_data is NULL */
+
+	GSList *properties; /* CamelCipherCertInfoProperty * */
 };
 
 struct _CamelCipherValidity {
 	GQueue children;
 
 	struct {
-		enum _camel_cipher_validity_sign_t status;
+		CamelCipherValiditySign status;
 		gchar *description;
 		GQueue signers;	/* CamelCipherCertInfo's */
 	} sign;
 
 	struct {
-		enum _camel_cipher_validity_encrypt_t status;
+		CamelCipherValidityEncrypt status;
 		gchar *description;
 		GQueue encrypters;	/* CamelCipherCertInfo's */
 	} encrypt;
@@ -261,6 +283,7 @@ CamelCipherValidity *
 						 GError **error);
 
 /* CamelCipherValidity utility functions */
+GType		camel_cipher_validity_get_type	(void);
 CamelCipherValidity *
 		camel_cipher_validity_new	(void);
 void		camel_cipher_validity_init	(CamelCipherValidity *validity);
@@ -275,22 +298,46 @@ void		camel_cipher_validity_set_description
 void		camel_cipher_validity_clear	(CamelCipherValidity *validity);
 CamelCipherValidity *
 		camel_cipher_validity_clone	(CamelCipherValidity *vin);
-void		camel_cipher_validity_add_certinfo
+gint		camel_cipher_validity_add_certinfo
 						(CamelCipherValidity *vin,
-						 camel_cipher_validity_mode_t mode,
+						 CamelCipherValidityMode mode,
 						 const gchar *name,
 						 const gchar *email);
-void		camel_cipher_validity_add_certinfo_ex (
+gint		camel_cipher_validity_add_certinfo_ex (
 						CamelCipherValidity *vin,
-						camel_cipher_validity_mode_t mode,
+						CamelCipherValidityMode mode,
 						const gchar *name,
 						const gchar *email,
 						gpointer cert_data,
-						void (*cert_data_free) (gpointer cert_data),
-						gpointer (*cert_data_clone) (gpointer cert_data));
+						GDestroyNotify cert_data_free,
+						CamelCipherCloneFunc cert_data_clone);
+gpointer	camel_cipher_validity_get_certinfo_property
+						(CamelCipherValidity *vin,
+						 CamelCipherValidityMode mode,
+						 gint info_index,
+						 const gchar *name);
+void		camel_cipher_validity_set_certinfo_property
+						(CamelCipherValidity *vin,
+						 CamelCipherValidityMode mode,
+						 gint info_index,
+						 const gchar *name,
+						 gpointer value,
+						 GDestroyNotify value_free,
+						 CamelCipherCloneFunc value_clone);
 void		camel_cipher_validity_envelope	(CamelCipherValidity *parent,
 						 CamelCipherValidity *valid);
 void		camel_cipher_validity_free	(CamelCipherValidity *validity);
+
+/* CamelCipherCertInfo utility functions */
+gpointer	camel_cipher_certinfo_get_property
+						(CamelCipherCertInfo *cert_info,
+						 const gchar *name);
+void		camel_cipher_certinfo_set_property
+						(CamelCipherCertInfo *cert_info,
+						 const gchar *name,
+						 gpointer value,
+						 GDestroyNotify value_free,
+						 CamelCipherCloneFunc value_clone);
 
 /* utility functions */
 gint		camel_cipher_canonical_to_stream
@@ -299,6 +346,7 @@ gint		camel_cipher_canonical_to_stream
 						 CamelStream *ostream,
 						 GCancellable *cancellable,
 						 GError **error);
+gboolean	camel_cipher_can_load_photos	(void);
 
 G_END_DECLS
 

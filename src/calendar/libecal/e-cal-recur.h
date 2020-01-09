@@ -4,19 +4,19 @@
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Author: Damon Chaplin <damon@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Damon Chaplin <damon@ximian.com>
  */
 
 #if !defined (__LIBECAL_H_INSIDE__) && !defined (LIBECAL_COMPILATION)
@@ -26,9 +26,36 @@
 #ifndef E_CAL_RECUR_H
 #define E_CAL_RECUR_H
 
+#include <glib.h>
+#include <gio/gio.h>
+
+#include <libical/ical.h>
 #include <libecal/e-cal-component.h>
 
 G_BEGIN_DECLS
+
+typedef icaltimezone * (* ECalRecurResolveTimezoneCb)	(const gchar *tzid,
+							 gpointer user_data,
+							 GCancellable *cancellable,
+							 GError **error);
+
+typedef gboolean (* ECalRecurInstanceCb)		(icalcomponent *comp,
+							 struct icaltimetype instance_start,
+							 struct icaltimetype instance_end,
+							 gpointer user_data,
+							 GCancellable *cancellable,
+							 GError **error);
+
+gboolean	e_cal_recur_generate_instances_sync	(icalcomponent *comp,
+							 struct icaltimetype interval_start,
+							 struct icaltimetype interval_end,
+							 ECalRecurInstanceCb callback,
+							 gpointer callback_user_data,
+							 ECalRecurResolveTimezoneCb get_tz_callback,
+							 gpointer get_tz_callback_user_data,
+							 icaltimezone *default_timezone,
+							 GCancellable *cancellable,
+							 GError **error);
 
 typedef gboolean (* ECalRecurInstanceFn) (ECalComponent *comp,
 					 time_t        instance_start,

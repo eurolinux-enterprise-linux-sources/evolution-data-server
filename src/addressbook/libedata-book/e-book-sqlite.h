@@ -3,20 +3,19 @@
  *
  * Copyright (C) 2013 Intel Corporation
  *
- * Authors:
- *     Tristan Van Berkom <tristanvb@openismus.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Tristan Van Berkom <tristanvb@openismus.com>
  */
 
 #if !defined (__LIBEDATA_BOOK_H_INSIDE__) && !defined (LIBEDATA_BOOK_COMPILATION)
@@ -257,6 +256,20 @@ struct _EBookSqlite {
 struct _EBookSqliteClass {
 	/*< private >*/
 	GObjectClass parent_class;
+
+	/* Signals */
+	gboolean	(*before_insert_contact) (EBookSqlite *ebsql,
+						  gpointer db, /* sqlite3 */
+						  EContact *contact,
+						  const gchar *extra,
+						  gboolean replace,
+						  GCancellable *cancellable,
+						  GError **error);
+	gboolean	(*before_remove_contact) (EBookSqlite *ebsql,
+						  gpointer db, /* sqlite3 */
+						  const gchar *contact_uid,
+						  GCancellable *cancellable,
+						  GError **error);
 };
 
 /**
@@ -307,9 +320,11 @@ GQuark		e_book_sqlite_error_quark	(void);
 void		e_book_sqlite_search_data_free	(EbSqlSearchData *data);
 
 EBookSqlite *	e_book_sqlite_new		(const gchar *path,
+						 ESource *source,
 						 GCancellable *cancellable,
 						 GError **error);
 EBookSqlite *	e_book_sqlite_new_full		(const gchar *path,
+						 ESource *source,
 						 ESourceBackendSummarySetup *setup,
 						 EbSqlVCardCallback vcard_callback,
 						 EbSqlChangeCallback change_callback,
@@ -333,6 +348,8 @@ gboolean	e_book_sqlite_get_locale	(EBookSqlite *ebsql,
 						 GError **error);
 
 ECollator *	e_book_sqlite_ref_collator	(EBookSqlite *ebsql);
+
+ESource *	e_book_sqlite_ref_source	(EBookSqlite *ebsql);
 
 /* Adding / Removing / Searching contacts */
 gboolean	e_book_sqlite_add_contact	(EBookSqlite *ebsql,
@@ -364,7 +381,17 @@ gboolean	e_book_sqlite_get_contact	(EBookSqlite *ebsql,
 						 gboolean meta_contact,
 						 EContact **ret_contact,
 						 GError **error);
+gboolean	ebsql_get_contact_unlocked	(EBookSqlite *ebsql,
+						 const gchar *uid,
+						 gboolean meta_contact,
+						 EContact **ret_contact,
+						 GError **error);
 gboolean	e_book_sqlite_get_vcard		(EBookSqlite *ebsql,
+						 const gchar *uid,
+						 gboolean meta_contact,
+						 gchar **ret_vcard,
+						 GError **error);
+gboolean	ebsql_get_vcard_unlocked	(EBookSqlite *ebsql,
 						 const gchar *uid,
 						 gboolean meta_contact,
 						 gchar **ret_vcard,
@@ -374,6 +401,11 @@ gboolean	e_book_sqlite_set_contact_extra	(EBookSqlite *ebsql,
 						 const gchar *extra,
 						 GError **error);
 gboolean	e_book_sqlite_get_contact_extra	(EBookSqlite *ebsql,
+						 const gchar *uid,
+						 gchar **ret_extra,
+						 GError **error);
+gboolean	ebsql_get_contact_extra_unlocked
+						(EBookSqlite *ebsql,
 						 const gchar *uid,
 						 gchar **ret_extra,
 						 GError **error);

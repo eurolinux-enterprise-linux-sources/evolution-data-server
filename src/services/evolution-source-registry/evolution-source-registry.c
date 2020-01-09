@@ -1,17 +1,17 @@
 /*
  * evolution-source-registry.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
- * This library is distributed in the hope that it will be useful, but
+ * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -24,6 +24,7 @@
 #include <gtk/gtk.h>
 #endif
 
+#include <libedataserver/libedataserver.h>
 #include <libebackend/libebackend.h>
 
 #include "evolution-source-registry-resource.h"
@@ -144,11 +145,26 @@ main (gint argc,
 	GOptionContext *context;
 	EDBusServer *server;
 	EDBusServerExitCode exit_code;
+	GSettings *settings;
 	GError *error = NULL;
+
+#ifdef G_OS_WIN32
+	e_util_win32_initialize ();
+#endif
 
 	setlocale (LC_ALL, "");
 	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
+
+	/* Workaround https://bugzilla.gnome.org/show_bug.cgi?id=674885 */
+	g_type_ensure (G_TYPE_DBUS_CONNECTION);
+
+#if defined (ENABLE_MAINTAINER_MODE) && defined (HAVE_GTK)
+	if (g_getenv ("EDS_TESTING") == NULL)
+		/* This is only to load gtk-modules, like
+		 * bug-buddy's gnomesegvhandler, if possible */
+		gtk_init_check (&argc, &argv);
+#endif
 
 	context = g_option_context_new (NULL);
 	g_option_context_add_main_entries (context, entries, GETTEXT_PACKAGE);
@@ -160,18 +176,15 @@ main (gint argc,
 		exit (EXIT_FAILURE);
 	}
 
-#if defined (ENABLE_MAINTAINER_MODE) && defined (HAVE_GTK)
-	if (g_getenv ("EDS_TESTING") == NULL)
-		/* This is only to load gtk-modules, like
-		 * bug-buddy's gnomesegvhandler, if possible */
-		gtk_init_check (&argc, &argv);
-#endif
-
 	e_gdbus_templates_init_main_thread ();
 
 reload:
 
-	if (!opt_disable_migration) {
+	settings = g_settings_new ("org.gnome.evolution-data-server");
+
+	if (!opt_disable_migration && !g_settings_get_boolean (settings, "migrated")) {
+		g_settings_set_boolean (settings, "migrated", TRUE);
+
 		/* Migrate user data from ~/.evolution to XDG base directories. */
 		evolution_source_registry_migrate_basedir ();
 
@@ -179,7 +192,13 @@ reload:
 		 * Do this AFTER XDG base directory migration since the key
 		 * files are saved according to XDG base directory settings. */
 		evolution_source_registry_migrate_sources ();
+	} else if (opt_disable_migration) {
+		e_source_registry_debug_print (" * Skipping old account data migration, disabled on command line\n");
+	} else {
+		e_source_registry_debug_print (" * Skipping old account data migration, already migrated\n");
 	}
+
+	g_object_unref (settings);
 
 	server = e_source_registry_server_new ();
 

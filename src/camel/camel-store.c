@@ -1,24 +1,22 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/* camel-store.c : Abstract class for an email store */
-
-/*
- * Authors:
- *  Bertrand Guiheneuf <bertrand@helixcode.com>
- *  Dan Winship <danw@ximian.com>
+/* camel-store.c : Abstract class for an email store
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
+ *          Dan Winship <danw@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -57,6 +55,7 @@ typedef struct _SignalClosure SignalClosure;
 struct _CamelStorePrivate {
 	GMutex signal_emission_lock;
 	gboolean folder_info_stale_scheduled;
+	volatile gint maintenance_lock;
 };
 
 struct _AsyncContext {
@@ -64,6 +63,7 @@ struct _AsyncContext {
 	gchar *folder_name_2;
 	gboolean expunge;
 	guint32 flags;
+	GHashTable *save_setup;
 };
 
 struct _SignalClosure {
@@ -93,9 +93,19 @@ G_DEFINE_ABSTRACT_TYPE_WITH_CODE (
 	G_IMPLEMENT_INTERFACE (
 		G_TYPE_INITABLE, camel_store_initable_init))
 
+G_DEFINE_BOXED_TYPE (CamelFolderInfo,
+		camel_folder_info,
+		camel_folder_info_clone,
+		camel_folder_info_free)
+
 static void
 async_context_free (AsyncContext *async_context)
 {
+	if (async_context->save_setup) {
+		g_hash_table_destroy (async_context->save_setup);
+		async_context->save_setup = NULL;
+	}
+
 	g_free (async_context->folder_name_1);
 	g_free (async_context->folder_name_2);
 
@@ -216,10 +226,10 @@ store_emit_folder_info_stale_cb (gpointer user_data)
 	return FALSE;
 }
 
-/**
+/*
  * ignore_no_such_table_exception:
- * Clears the exception 'ex' when it's the 'no such table' exception.
- **/
+ * Clears the error 'error' when it's the 'no such table' error.
+ */
 static void
 ignore_no_such_table_exception (GError **error)
 {
@@ -271,7 +281,7 @@ cs_delete_cached_folder (CamelStore *store,
 
 static CamelFolder *
 store_get_special (CamelStore *store,
-                   camel_vtrash_folder_t type)
+                   CamelVTrashFolderType type)
 {
 	CamelFolder *folder;
 	GPtrArray *folders;
@@ -306,7 +316,7 @@ store_maybe_connect_sync (CamelStore *store,
 	service = CAMEL_SERVICE (store);
 	session = camel_service_ref_session (service);
 	status = camel_service_get_connection_status (service);
-	connect = camel_session_get_online (session) && (status != CAMEL_SERVICE_CONNECTED);
+	connect = session && camel_session_get_online (session) && (status != CAMEL_SERVICE_CONNECTED);
 	g_clear_object (&session);
 
 	if (connect && CAMEL_IS_NETWORK_SERVICE (store)) {
@@ -428,6 +438,8 @@ store_synchronize_sync (CamelStore *store,
 		/* ensure all folders are used when expunging */
 		CamelFolderInfo *root, *fi;
 
+		(void) g_atomic_int_add (&store->priv->maintenance_lock, 1);
+
 		folders = g_ptr_array_new ();
 		root = camel_store_get_folder_info_sync (
 			store, NULL,
@@ -490,6 +502,14 @@ store_synchronize_sync (CamelStore *store,
 		g_object_unref (folder);
 	}
 
+	/* Unlock it before the call, thus it's actually done. */
+	if (expunge)
+		(void) g_atomic_int_add (&store->priv->maintenance_lock, -1);
+
+	if (!local_error && expunge) {
+		camel_store_maybe_run_db_maintenance (store, &local_error);
+	}
+
 	if (local_error != NULL) {
 		g_propagate_error (error, local_error);
 		success = FALSE;
@@ -498,6 +518,15 @@ store_synchronize_sync (CamelStore *store,
 	g_ptr_array_free (folders, TRUE);
 
 	return success;
+}
+
+static gboolean
+store_initial_setup_sync (CamelStore *store,
+			  GHashTable *out_save_setup,
+			  GCancellable *cancellable,
+			  GError **error)
+{
+	return TRUE;
 }
 
 static gboolean
@@ -570,6 +599,7 @@ camel_store_class_init (CamelStoreClass *class)
 	class->get_junk_folder_sync = store_get_junk_folder_sync;
 	class->get_trash_folder_sync = store_get_trash_folder_sync;
 	class->synchronize_sync = store_synchronize_sync;
+	class->initial_setup_sync = store_initial_setup_sync;
 
 	signals[FOLDER_CREATED] = g_signal_new (
 		"folder-created",
@@ -660,6 +690,7 @@ camel_store_init (CamelStore *store)
 		CAMEL_STORE_CAN_EDIT_FOLDERS;
 
 	store->mode = CAMEL_STORE_READ | CAMEL_STORE_WRITE;
+	store->priv->maintenance_lock = 0;
 }
 
 G_DEFINE_QUARK (camel-store-error-quark, camel_store_error)
@@ -687,6 +718,8 @@ camel_store_folder_created (CamelStore *store,
 	g_return_if_fail (folder_info != NULL);
 
 	session = camel_service_ref_session (CAMEL_SERVICE (store));
+	if (!session)
+		return;
 
 	signal_closure = g_slice_new0 (SignalClosure);
 	g_weak_ref_init (&signal_closure->store, store);
@@ -725,6 +758,8 @@ camel_store_folder_deleted (CamelStore *store,
 	g_return_if_fail (folder_info != NULL);
 
 	session = camel_service_ref_session (CAMEL_SERVICE (store));
+	if (!session)
+		return;
 
 	signal_closure = g_slice_new0 (SignalClosure);
 	g_weak_ref_init (&signal_closure->store, store);
@@ -763,6 +798,8 @@ camel_store_folder_opened (CamelStore *store,
 	g_return_if_fail (CAMEL_IS_FOLDER (folder));
 
 	session = camel_service_ref_session (CAMEL_SERVICE (store));
+	if (!session)
+		return;
 
 	signal_closure = g_slice_new0 (SignalClosure);
 	g_weak_ref_init (&signal_closure->store, store);
@@ -804,6 +841,8 @@ camel_store_folder_renamed (CamelStore *store,
 	g_return_if_fail (folder_info != NULL);
 
 	session = camel_service_ref_session (CAMEL_SERVICE (store));
+	if (!session)
+		return;
 
 	signal_closure = g_slice_new0 (SignalClosure);
 	g_weak_ref_init (&signal_closure->store, store);
@@ -842,6 +881,8 @@ camel_store_folder_info_stale (CamelStore *store)
 	g_return_if_fail (CAMEL_IS_STORE (store));
 
 	session = camel_service_ref_session (CAMEL_SERVICE (store));
+	if (!session)
+		return;
 
 	g_mutex_lock (&store->priv->signal_emission_lock);
 
@@ -895,11 +936,11 @@ add_special_info (CamelStore *store,
 		g_free (vinfo->full_name);
 		g_free (vinfo->display_name);
 	} else {
+		g_return_if_fail (parent != NULL);
+
 		/* There wasn't a Trash/Junk folder so create a new
 		 * folder entry. */
 		vinfo = camel_folder_info_new ();
-
-		g_assert (parent != NULL);
 
 		vinfo->flags |=
 			CAMEL_FOLDER_NOINFERIORS |
@@ -983,7 +1024,7 @@ folder_info_cmp (gconstpointer ap,
 
 /**
  * camel_folder_info_build:
- * @folders: an array of #CamelFolderInfo
+ * @folders: (element-type CamelFolderInfo): an array of #CamelFolderInfo
  * @namespace_: an ignorable prefix on the folder names
  * @separator: the hieararchy separator character
  * @short_names: %TRUE if the (short) name of a folder is the part after
@@ -1000,6 +1041,7 @@ folder_info_cmp (gconstpointer ap,
  * NOTE: This is deprected, do not use this.
  * FIXME: remove this/move it to imap, which is the only user of it now.
  *
+ * Deprecated:
  * Returns: the top level of the tree of linked folder info.
  **/
 CamelFolderInfo *
@@ -1175,7 +1217,7 @@ camel_store_can_refresh_folder (CamelStore *store,
  *
  * Gets a specific folder object from @store by name.
  *
- * Returns: the requested #CamelFolder object, or %NULL on error
+ * Returns: (transfer full): the requested #CamelFolder object, or %NULL on error
  *
  * Since: 3.0
  **/
@@ -1204,8 +1246,12 @@ camel_store_get_folder_sync (CamelStore *store,
 try_again:
 	/* Try cache first. */
 	folder = camel_object_bag_reserve (store->folders, folder_name);
-	if (folder != NULL)
+	if (folder != NULL) {
+		if ((flags & CAMEL_STORE_FOLDER_INFO_REFRESH) != 0)
+			camel_folder_prepare_content_refresh (folder);
+
 		return folder;
+	}
 
 	store_uses_vjunk =
 		((store->flags & CAMEL_STORE_VJUNK) != 0);
@@ -1362,6 +1408,9 @@ try_again:
 		}
 	}
 
+	if (folder && (flags & CAMEL_STORE_FOLDER_INFO_REFRESH) != 0)
+		camel_folder_prepare_content_refresh (folder);
+
 	return folder;
 }
 
@@ -1451,7 +1500,7 @@ camel_store_get_folder (CamelStore *store,
  *
  * Finishes the operation started with camel_store_get_folder().
  *
- * Returns: the requested #CamelFolder object, or %NULL on error
+ * Returns: (transfer full): the requested #CamelFolder object, or %NULL on error
  *
  * Since: 3.0
  **/
@@ -1767,7 +1816,7 @@ camel_store_get_folder_info_finish (CamelStore *store,
  *
  * Gets the folder in @store into which new mail is delivered.
  *
- * Returns: the inbox folder for @store, or %NULL on error or if no such
+ * Returns: (transfer full): the inbox folder for @store, or %NULL on error or if no such
  * folder exists
  *
  * Since: 3.0
@@ -1860,7 +1909,7 @@ camel_store_get_inbox_folder (CamelStore *store,
  *
  * Finishes the operation started with camel_store_get_inbox_folder().
  *
- * Returns: the inbox folder for @store, or %NULL on error or if no such
+ * Returns: (transfer full): the inbox folder for @store, or %NULL on error or if no such
  * folder exists
  *
  * Since: 3.0
@@ -1888,7 +1937,7 @@ camel_store_get_inbox_folder_finish (CamelStore *store,
  *
  * Gets the folder in @store into which junk is delivered.
  *
- * Returns: the junk folder for @store, or %NULL on error or if no such
+ * Returns: (transfer full): the junk folder for @store, or %NULL on error or if no such
  * folder exists
  *
  * Since: 3.0
@@ -1986,7 +2035,7 @@ camel_store_get_junk_folder (CamelStore *store,
  *
  * Finishes the operation started with camel_store_get_junk_folder().
  *
- * Returns: the junk folder for @store, or %NULL on error or if no such
+ * Returns: (transfer full): the junk folder for @store, or %NULL on error or if no such
  * folder exists
  *
  * Since: 3.0
@@ -2014,7 +2063,7 @@ camel_store_get_junk_folder_finish (CamelStore *store,
  *
  * Gets the folder in @store into which trash is delivered.
  *
- * Returns: the trash folder for @store, or %NULL on error or if no such
+ * Returns:(transfer full):  the trash folder for @store, or %NULL on error or if no such
  * folder exists
  *
  * Since: 3.0
@@ -2113,7 +2162,7 @@ camel_store_get_trash_folder (CamelStore *store,
  *
  * Finishes the operation started with camel_store_get_trash_folder().
  *
- * Returns: the trash folder for @store, or %NULL on error or if no such
+ * Returns: (transfer full): the trash folder for @store, or %NULL on error or if no such
  * folder exists
  *
  * Since: 3.0
@@ -2897,3 +2946,198 @@ camel_store_synchronize_finish (CamelStore *store,
 	return g_task_propagate_boolean (G_TASK (result), error);
 }
 
+/**
+ * camel_store_initial_setup_sync:
+ * @store: a #CamelStore
+ * @out_save_setup: (out) (transfer container) (element-type utf8 utf8): setup values to save
+ * @cancellable: optional #GCancellable object, or %NULL
+ * @error: return location for a #GError, or %NULL
+ *
+ * Runs initial setup for the @store. It's meant to preset some
+ * values the first time the account connects to the server after
+ * it had been created. The function should return %TRUE even if
+ * it didn't populate anything. The default implementation does
+ * just that.
+ *
+ * The save_setup result, if not %NULL, should be freed using
+ * g_hash_table_destroy(). It's not an error to have it %NULL,
+ * it only means the @store doesn't have anything to save.
+ * Both the key and the value in the hash are newly allocated
+ * UTF-8 strings, owned by the hash table.
+ *
+ * The @store advertises support of this function by including
+ * CAMEL_STORE_SUPPORTS_INITIAL_SETUP in CamelStore::flags.
+ *
+ * Returns: %TRUE on success, %FALSE on error
+ *
+ * Since: 3.20
+ **/
+gboolean
+camel_store_initial_setup_sync (CamelStore *store,
+				GHashTable **out_save_setup,
+				GCancellable *cancellable,
+				GError **error)
+{
+	GHashTable *save_setup;
+	CamelStoreClass *class;
+	gboolean success;
+
+	g_return_val_if_fail (CAMEL_IS_STORE (store), FALSE);
+	g_return_val_if_fail (out_save_setup != NULL, FALSE);
+
+	*out_save_setup = NULL;
+
+	class = CAMEL_STORE_GET_CLASS (store);
+	g_return_val_if_fail (class->initial_setup_sync != NULL, FALSE);
+
+	save_setup = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_free);
+
+	success = class->initial_setup_sync (store, save_setup, cancellable, error);
+
+	if (!success || !g_hash_table_size (save_setup)) {
+		g_hash_table_destroy (save_setup);
+		save_setup = NULL;
+	}
+
+	CAMEL_CHECK_GERROR (store, initial_setup_sync, success, error);
+
+	*out_save_setup = save_setup;
+
+	return success;
+}
+
+static void
+store_initial_setup_thread (GTask *task,
+			    gpointer source_object,
+			    gpointer task_data,
+			    GCancellable *cancellable)
+{
+	gboolean success;
+	AsyncContext *async_context;
+	GError *local_error = NULL;
+
+	async_context = (AsyncContext *) task_data;
+
+	success = camel_store_initial_setup_sync (
+		CAMEL_STORE (source_object),
+		&async_context->save_setup,
+		cancellable, &local_error);
+
+	if (local_error != NULL) {
+		g_task_return_error (task, local_error);
+	} else {
+		g_task_return_boolean (task, success);
+	}
+}
+
+/**
+ * camel_store_initial_setup:
+ * @store: a #CamelStore
+ * @io_priority: the I/O priority of the request
+ * @cancellable: optional #GCancellable object, or %NULL
+ * @callback: a #GAsyncReadyCallback to call when the request is satisfied
+ * @user_data: data to pass to the callback function
+ *
+ * Runs initial setup for the @store asynchronously.
+ *
+ * When the operation is finished, @callback will be called. You can then
+ * call camel_store_initial_setup_finish() to get the result of the operation.
+ *
+ * The @store advertises support of this function by including
+ * CAMEL_STORE_SUPPORTS_INITIAL_SETUP in CamelStore::flags.
+ *
+ * Since: 3.20
+ **/
+void
+camel_store_initial_setup (CamelStore *store,
+			   gint io_priority,
+			   GCancellable *cancellable,
+			   GAsyncReadyCallback callback,
+			   gpointer user_data)
+{
+	GTask *task;
+	AsyncContext *async_context;
+
+	g_return_if_fail (CAMEL_IS_STORE (store));
+
+	async_context = g_slice_new0 (AsyncContext);
+
+	task = g_task_new (store, cancellable, callback, user_data);
+	g_task_set_source_tag (task, camel_store_initial_setup);
+	g_task_set_priority (task, io_priority);
+
+	g_task_set_task_data (
+		task, async_context,
+		(GDestroyNotify) async_context_free);
+
+	g_task_run_in_thread (task, store_initial_setup_thread);
+
+	g_object_unref (task);
+}
+
+/**
+ * camel_store_initial_setup_finish:
+ * @store: a #CamelStore
+ * @result: a #GAsyncResult
+ * @out_save_setup: (out) (transfer container) (element-type utf8 utf8): setup values to save
+ * @error: return location for a #GError, or %NULL
+ *
+ * Finishes the operation started with camel_store_initial_setup().
+ *
+ * The save_setup result, if not %NULL, should be freed using
+ * g_hash_table_destroy(). It's not an error to have it %NULL,
+ * it only means the @store doesn't have anything to save.
+ *
+ * Returns: %TRUE on success, %FALSE on error
+ *
+ * Since: 3.20
+ **/
+gboolean
+camel_store_initial_setup_finish (CamelStore *store,
+				  GAsyncResult *result,
+				  GHashTable **out_save_setup,
+				  GError **error)
+{
+	AsyncContext *async_context;
+
+	g_return_val_if_fail (CAMEL_IS_STORE (store), FALSE);
+	g_return_val_if_fail (out_save_setup != NULL, FALSE);
+	g_return_val_if_fail (g_task_is_valid (result, store), FALSE);
+
+	g_return_val_if_fail (
+		g_async_result_is_tagged (
+		result, camel_store_initial_setup), FALSE);
+
+	async_context = g_task_get_task_data (G_TASK (result));
+	*out_save_setup = async_context->save_setup;
+	async_context->save_setup = NULL;
+
+	return g_task_propagate_boolean (G_TASK (result), error);
+}
+
+/**
+ * camel_store_maybe_run_db_maintenance:
+ * @store: a #CamelStore instance
+ * @error: (allow-none): return location for a #GError, or %NULL
+ *
+ * Checks the state of the current CamelDB used for the @store and eventually
+ * runs maintenance routines on it.
+ *
+ * Returns: Whether succeeded.
+ *
+ * Since: 3.16
+ **/
+gboolean
+camel_store_maybe_run_db_maintenance (CamelStore *store,
+				      GError **error)
+{
+	g_return_val_if_fail (CAMEL_IS_STORE (store), FALSE);
+
+	if (g_atomic_int_get (&store->priv->maintenance_lock) > 0)
+		return TRUE;
+
+	if (!store->cdb_w)
+		return TRUE;
+
+	return camel_db_maybe_run_maintenance (store->cdb_w, error);
+}

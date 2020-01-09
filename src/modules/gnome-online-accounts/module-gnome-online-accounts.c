@@ -1,17 +1,17 @@
 /*
  * module-gnome-online-accounts.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -23,7 +23,6 @@
 
 #include "goaewsclient.h"
 #include "e-goa-client.h"
-#include "e-goa-password-based.h"
 
 /* Standard GObject macros */
 #define E_TYPE_GNOME_ONLINE_ACCOUNTS \
@@ -163,20 +162,6 @@ gnome_online_accounts_provider_type_to_backend_name (GBinding *binding,
 	return TRUE;
 }
 
-static gboolean
-gnome_online_accounts_object_is_non_null (GBinding *binding,
-                                          const GValue *source_value,
-                                          GValue *target_value,
-                                          gpointer unused)
-{
-	gpointer v_object;
-
-	v_object = g_value_get_object (source_value);
-	g_value_set_boolean (target_value, v_object != NULL);
-
-	return TRUE;
-}
-
 static GoaObject *
 gnome_online_accounts_ref_account (EGnomeOnlineAccounts *extension,
                                    ESource *source)
@@ -232,24 +217,6 @@ gnome_online_accounts_new_source (EGnomeOnlineAccounts *extension)
 	}
 
 	return source;
-}
-
-static void
-replace_host (gchar **url,
-              const gchar *host)
-{
-	SoupURI *uri;
-
-	uri = soup_uri_new (*url);
-	if (!uri)
-		return;
-
-	soup_uri_set_host (uri, host);
-
-	g_free (*url);
-	*url = soup_uri_to_string (uri, FALSE);
-
-	soup_uri_free (uri);
 }
 
 static void
@@ -317,17 +284,14 @@ gnome_online_accounts_config_exchange (EGnomeOnlineAccounts *extension,
 	if (source_extension != NULL) {
 		GoaAccount *goa_account;
 		CamelSettings *settings;
-		gchar *host, *user, *email;
+		SoupURI *suri;
+		gchar *user, *email;
 
 		goa_account = goa_object_peek_account (goa_object);
-		host = goa_exchange_dup_host (goa_exchange);
 		user = goa_account_dup_identity (goa_account);
 		email = goa_account_dup_presentation_identity (goa_account);
 
-		if (host && *host) {
-			replace_host (&as_url, host);
-			replace_host (&oab_url, host);
-		}
+		suri = soup_uri_new (as_url);
 
 		g_object_set (
 			source_extension,
@@ -341,12 +305,12 @@ gnome_online_accounts_config_exchange (EGnomeOnlineAccounts *extension,
 
 		g_object_set (
 			settings,
-			"host", host,
+			"host", soup_uri_get_host (suri),
 			"user", user,
 			"email", email,
 			NULL);
 
-		g_free (host);
+		soup_uri_free (suri);
 		g_free (user);
 		g_free (email);
 	} else {
@@ -578,7 +542,7 @@ gnome_online_accounts_config_collection (EGnomeOnlineAccounts *extension,
 	goa_calendar = goa_object_get_calendar (goa_object);
 	goa_contacts = goa_object_get_contacts (goa_object);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		goa_account, "presentation-identity",
 		source, "display-name",
 		G_BINDING_SYNC_CREATE);
@@ -586,20 +550,20 @@ gnome_online_accounts_config_collection (EGnomeOnlineAccounts *extension,
 	extension_name = E_SOURCE_EXTENSION_GOA;
 	source_extension = e_source_get_extension (source, extension_name);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		goa_account, "id",
 		source_extension, "account-id",
 		G_BINDING_SYNC_CREATE);
 
 	if (goa_calendar != NULL) {
-		g_object_bind_property (
+		e_binding_bind_property (
 			goa_calendar, "uri",
 			source_extension, "calendar-url",
 			G_BINDING_SYNC_CREATE);
 	}
 
 	if (goa_contacts != NULL) {
-		g_object_bind_property (
+		e_binding_bind_property (
 			goa_contacts, "uri",
 			source_extension, "contacts-url",
 			G_BINDING_SYNC_CREATE);
@@ -608,7 +572,7 @@ gnome_online_accounts_config_collection (EGnomeOnlineAccounts *extension,
 	extension_name = E_SOURCE_EXTENSION_COLLECTION;
 	source_extension = e_source_get_extension (source, extension_name);
 
-	g_object_bind_property_full (
+	e_binding_bind_property_full (
 		goa_account, "provider-type",
 		source_extension, "backend-name",
 		G_BINDING_SYNC_CREATE,
@@ -616,34 +580,25 @@ gnome_online_accounts_config_collection (EGnomeOnlineAccounts *extension,
 		NULL,
 		NULL, (GDestroyNotify) NULL);
 
-	g_object_bind_property (
+	e_binding_bind_property (
 		goa_account, "identity",
 		source_extension, "identity",
 		G_BINDING_SYNC_CREATE);
 
-	g_object_bind_property_full (
-		goa_object, "calendar",
+	e_binding_bind_property (
+		goa_account, "calendar-disabled",
 		source_extension, "calendar-enabled",
-		G_BINDING_SYNC_CREATE,
-		gnome_online_accounts_object_is_non_null,
-		NULL,
-		NULL, (GDestroyNotify) NULL);
+		G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
 
-	g_object_bind_property_full (
-		goa_object, "contacts",
+	e_binding_bind_property (
+		goa_account, "contacts-disabled",
 		source_extension, "contacts-enabled",
-		G_BINDING_SYNC_CREATE,
-		gnome_online_accounts_object_is_non_null,
-		NULL,
-		NULL, (GDestroyNotify) NULL);
+		G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
 
-	g_object_bind_property_full (
-		goa_object, "mail",
+	e_binding_bind_property (
+		goa_account, "mail-disabled",
 		source_extension, "mail-enabled",
-		G_BINDING_SYNC_CREATE,
-		gnome_online_accounts_object_is_non_null,
-		NULL,
-		NULL, (GDestroyNotify) NULL);
+		G_BINDING_SYNC_CREATE | G_BINDING_INVERT_BOOLEAN);
 
 	g_clear_object (&goa_account);
 	g_clear_object (&goa_calendar);
@@ -652,16 +607,10 @@ gnome_online_accounts_config_collection (EGnomeOnlineAccounts *extension,
 	/* Handle optional GOA interfaces. */
 	gnome_online_accounts_config_exchange (extension, source, goa_object);
 
-	/* The data source should not be removable by clients. */
-	e_server_side_source_set_removable (
-		E_SERVER_SIDE_SOURCE (source), FALSE);
+	e_server_side_source_set_writable (E_SERVER_SIDE_SOURCE (source), TRUE);
 
-	if (goa_object_peek_password_based (goa_object) != NULL) {
-		/* Obtain passwords from the OnlineAccounts service. */
-		e_server_side_source_set_auth_session_type (
-			E_SERVER_SIDE_SOURCE (source),
-			E_TYPE_GOA_PASSWORD_BASED);
-	}
+	/* The data source should not be removable by clients. */
+	e_server_side_source_set_removable (E_SERVER_SIDE_SOURCE (source), FALSE);
 
 	if (goa_object_peek_oauth2_based (goa_object) != NULL) {
 		/* This module provides OAuth 2.0 support to the collection.
@@ -700,22 +649,54 @@ gnome_online_accounts_config_mail_identity (EGnomeOnlineAccounts *extension,
                                             GoaObject *goa_object)
 {
 	GoaMail *goa_mail;
-	ESourceExtension *source_extension;
 	EServerSideSource *server_side_source;
+	ESourceMailIdentity *mail_identity;
+	ESourceMailSubmission *mail_submission;
+	ESourceMailComposition *mail_composition;
 	const gchar *extension_name;
+	gchar *tmp;
 
 	goa_mail = goa_object_get_mail (goa_object);
-	g_return_if_fail (goa_mail != NULL);
+	/* NULL, when the Mail part is disabled */
+	if (!goa_mail)
+		return;
 
 	extension_name = E_SOURCE_EXTENSION_MAIL_IDENTITY;
-	source_extension = e_source_get_extension (source, extension_name);
+	mail_identity = e_source_get_extension (source, extension_name);
 
-	g_object_bind_property (
+	tmp = e_source_mail_identity_dup_address (mail_identity);
+	if (!tmp || !*tmp) {
+		/* Set the Name only if the mail is not set yet, because users can change the Name,
+		   even to an empty string, but the email is fixed with the one from GoaMail.
+		*/
+		g_free (tmp);
+
+		tmp = goa_mail_dup_name (goa_mail);
+		if (tmp && *tmp)
+			e_source_mail_identity_set_name (mail_identity, tmp);
+	}
+	g_free (tmp);
+
+	e_binding_bind_property (
 		goa_mail, "email-address",
-		source_extension, "address",
+		mail_identity, "address",
 		G_BINDING_SYNC_CREATE);
 
 	g_object_unref (goa_mail);
+
+	/* Set default Sent folder to the On This Computer/Sent */
+	mail_submission = e_source_get_extension (source, E_SOURCE_EXTENSION_MAIL_SUBMISSION);
+	tmp = e_source_mail_submission_dup_sent_folder (mail_submission);
+	if (!tmp || !*tmp)
+		e_source_mail_submission_set_sent_folder (mail_submission, "folder://local/Sent");
+	g_free (tmp);
+
+	/* Set default Drafts folder to the On This Computer/Drafts */
+	mail_composition = e_source_get_extension (source, E_SOURCE_EXTENSION_MAIL_COMPOSITION);
+	tmp = e_source_mail_composition_dup_drafts_folder (mail_composition);
+	if (!tmp || !*tmp)
+		e_source_mail_composition_set_drafts_folder (mail_composition, "folder://local/Drafts");
+	g_free (tmp);
 
 	/* Clients may change the source by may not remove it. */
 	server_side_source = E_SERVER_SIDE_SOURCE (source);
@@ -915,7 +896,7 @@ gnome_online_accounts_account_added_cb (EGoaClient *goa_client,
 
 	if (source_uid == NULL && backend_name != NULL)
 		backend_factory = e_data_factory_ref_backend_factory (
-			E_DATA_FACTORY (server), backend_name);
+			E_DATA_FACTORY (server), backend_name, E_SOURCE_EXTENSION_COLLECTION);
 
 	if (backend_factory != NULL) {
 		gnome_online_accounts_create_collection (
@@ -1038,6 +1019,13 @@ gnome_online_accounts_populate_accounts_table (EGnomeOnlineAccounts *extension,
 
 		if (account_id == NULL)
 			continue;
+
+		if (g_hash_table_lookup (extension->goa_to_eds, account_id)) {
+			/* There are more ESource-s referencing the same GOA account;
+			   delete the later. */
+			g_queue_push_tail (&trash, source);
+			continue;
+		}
 
 		/* Verify the GOA account still exists. */
 		match = g_list_find_custom (
@@ -1337,7 +1325,6 @@ G_MODULE_EXPORT void
 e_module_load (GTypeModule *type_module)
 {
 	e_goa_client_type_register (type_module);
-	e_goa_password_based_type_register (type_module);
 	e_gnome_online_accounts_register_type (type_module);
 }
 

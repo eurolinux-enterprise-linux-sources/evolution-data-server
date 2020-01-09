@@ -2,17 +2,17 @@
 /*
  * Copyright (C) 2012,2013 Intel Corporation
  *
- * This program is free software; you can redistribute it and/or modify it
+ * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
- * This library is distributed in the hope that it will be useful, but
+ * This program is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  * Authors: Tristan Van Berkom <tristanvb@openismus.com>
  *          Mathias Hasselmann <mathias@openismus.com>
@@ -421,6 +421,38 @@ main (gint argc,
 			suites[i].custom,
 			FALSE);
 
+		/* Evolution's addressbook autocompletion search.
+		 * This should ideally be indexed, and should *definitely*
+		 * not be a fallback query. It should also correctly
+		 * return results for which there is no email address
+		 * listed. */
+		add_client_test (
+			suites[i].prefix,
+			"/Autocomplete",
+			suites[i].func,
+			e_book_query_orv (
+				e_book_query_field_test (
+					E_CONTACT_NICKNAME,
+					E_BOOK_QUERY_BEGINS_WITH,
+					"P"),
+				e_book_query_field_test (
+					E_CONTACT_EMAIL,
+					E_BOOK_QUERY_BEGINS_WITH,
+					"P"),
+				e_book_query_field_test (
+					E_CONTACT_FULL_NAME,
+					E_BOOK_QUERY_BEGINS_WITH,
+					"P"),
+				e_book_query_field_test (
+					E_CONTACT_FILE_AS,
+					E_BOOK_QUERY_BEGINS_WITH,
+					"P"),
+				NULL),
+			3,
+			suites[i].direct,
+			suites[i].custom,
+			FALSE);
+
 		/* Add search tests that fetch contacts */
 		add_client_test (
 			suites[i].prefix,
@@ -758,6 +790,30 @@ main (gint argc,
 					NULL),
 				NULL),
 			2,
+			suites[i].direct,
+			suites[i].custom,
+			FALSE);
+
+		add_client_test (
+			suites[i].prefix,
+			"/Exists/Email",
+			suites[i].func,
+			e_book_query_field_exists (
+				E_CONTACT_EMAIL),
+			/* There are 13 contacts with email addresses */
+			13,
+			suites[i].direct,
+			suites[i].custom,
+			FALSE);
+
+		add_client_test (
+			suites[i].prefix,
+			"/Exists/X509",
+			suites[i].func,
+			e_book_query_field_exists (
+				E_CONTACT_X509_CERT),
+			/* There is 1 contact with a cert listed */
+			1,
 			suites[i].direct,
 			suites[i].custom,
 			FALSE);

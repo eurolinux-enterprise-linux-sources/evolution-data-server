@@ -1,17 +1,17 @@
 /*
  * camel-imapx-store-summary.c
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -57,7 +57,7 @@ namespace_load (FILE *in)
 	 *     delete all this cruft. */
 
 	for (j = 0; j < 3; j++) {
-		gint32 i, n;
+		gint32 i, n = 0;
 
 		if (camel_file_util_decode_fixed_int32 (in, &n) == -1)
 			goto exit;
@@ -187,6 +187,7 @@ imapx_store_summary_store_info_load (CamelStoreSummary *summary,
 
 	if (camel_file_util_decode_string (in, &mailbox_name) == -1) {
 		camel_store_summary_info_unref (summary, si);
+		g_free (separator);
 		return NULL;
 	}
 
@@ -324,6 +325,8 @@ camel_imapx_store_summary_mailbox (CamelStoreSummary *summary,
 	return (CamelIMAPXStoreInfo *) match;
 }
 
+/* The returned CamelIMAPXStoreInfo is referenced, unref it with
+   camel_store_summary_info_unref() when no longer needed */
 CamelIMAPXStoreInfo *
 camel_imapx_store_summary_add_from_mailbox (CamelStoreSummary *summary,
                                             CamelIMAPXMailbox *mailbox)
@@ -340,11 +343,8 @@ camel_imapx_store_summary_add_from_mailbox (CamelStoreSummary *summary,
 	separator = camel_imapx_mailbox_get_separator (mailbox);
 
 	info = camel_imapx_store_summary_mailbox (summary, mailbox_name);
-	if (info != NULL) {
-		camel_store_summary_info_unref (
-			summary, (CamelStoreInfo *) info);
+	if (info != NULL)
 		return info;
-	}
 
 	folder_path = camel_imapx_mailbox_to_folder_path (
 		mailbox_name, separator);
@@ -355,6 +355,8 @@ camel_imapx_store_summary_add_from_mailbox (CamelStoreSummary *summary,
 	g_free (folder_path);
 
 	g_return_val_if_fail (info != NULL, NULL);
+
+	camel_store_summary_info_ref (summary, (CamelStoreInfo *) info);
 
 	info->mailbox_name = g_strdup (mailbox_name);
 	info->separator = separator;

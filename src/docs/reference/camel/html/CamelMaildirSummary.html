@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelMaildirSummary</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelMaildirSummary: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Local.html" title="Local Services">
 <link rel="prev" href="CamelMaildirStore.html" title="CamelMaildirStore">
 <link rel="next" href="CamelMboxFolder.html" title="CamelMboxFolder">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -34,7 +34,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelMaildirSummary.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -50,7 +50,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 </td>
 <td class="function_name">
 <a class="link" href="CamelMaildirSummary.html#camel-maildir-summary-info-to-name" title="camel_maildir_summary_info_to_name ()">camel_maildir_summary_info_to_name</a> <span class="c_punctuation">()</span>
@@ -58,7 +58,7 @@
 </tr>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelMaildirSummary.html#camel-maildir-summary-name-to-info" title="camel_maildir_summary_name_to_info ()">camel_maildir_summary_name_to_info</a> <span class="c_punctuation">()</span>
@@ -81,26 +81,30 @@
 </div>
 <div class="refsect1">
 <a name="CamelMaildirSummary.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
 </colgroup>
 <tbody>
 <tr>
-<td class="datatype_keyword"> </td>
-<td class="function_name"><a class="link" href="CamelMaildirSummary.html#CamelMaildirMessageInfo" title="CamelMaildirMessageInfo">CamelMaildirMessageInfo</a></td>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="CamelMaildirSummary.html#CAMEL-MAILDIR-FLAG-SEP:CAPS" title="CAMEL_MAILDIR_FLAG_SEP">CAMEL_MAILDIR_FLAG_SEP</a></td>
 </tr>
 <tr>
-<td class="datatype_keyword">struct</td>
-<td class="function_name"><a class="link" href="CamelMaildirSummary.html#CamelMaildirSummary-struct" title="struct CamelMaildirSummary">CamelMaildirSummary</a></td>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="CamelMaildirSummary.html#CAMEL-MAILDIR-FLAG-SEP-S:CAPS" title="CAMEL_MAILDIR_FLAG_SEP_S">CAMEL_MAILDIR_FLAG_SEP_S</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="CamelMaildirSummary.html#CamelMaildirMessageInfo" title="CamelMaildirMessageInfo">CamelMaildirMessageInfo</a></td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelMaildirSummary.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelFolderSummary.html" title="CamelFolderSummary">CamelFolderSummary</a>
         <span class="lineart">╰──</span> <a class="link" href="CamelLocalSummary.html" title="CamelLocalSummary">CamelLocalSummary</a>
             <span class="lineart">╰──</span> CamelMaildirSummary
@@ -115,12 +119,12 @@
 <a name="camel-maildir-summary-new"></a><h3>camel_maildir_summary_new ()</h3>
 <pre class="programlisting"><a class="link" href="CamelMaildirSummary.html" title="CamelMaildirSummary"><span class="returnvalue">CamelMaildirSummary</span></a> *
 camel_maildir_summary_new (<em class="parameter"><code><span class="type">struct _CamelFolder</span> *folder</code></em>,
-                           <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *maildirdir</code></em>,
+                           <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *maildirdir</code></em>,
                            <em class="parameter"><code><a class="link" href="CamelIndex.html" title="CamelIndex"><span class="type">CamelIndex</span></a> *index</code></em>);</pre>
 <p>Create a new CamelMaildirSummary object.</p>
 <div class="refsect3">
-<a name="id-1.3.2.7.7.2.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-maildir-summary-new.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -141,23 +145,22 @@ camel_maildir_summary_new (<em class="parameter"><code><span class="type">struct
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.3.2.7.7.2.6"></a><h4>Returns</h4>
+<a name="camel-maildir-summary-new.returns"></a><h4>Returns</h4>
 <p> A new <a class="link" href="CamelMaildirSummary.html" title="CamelMaildirSummary"><span class="type">CamelMaildirSummary</span></a> object.</p>
-<p></p>
 </div>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-maildir-summary-info-to-name"></a><h3>camel_maildir_summary_info_to_name ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
 camel_maildir_summary_info_to_name (<em class="parameter"><code>const <a class="link" href="CamelMaildirSummary.html#CamelMaildirMessageInfo" title="CamelMaildirMessageInfo"><span class="type">CamelMaildirMessageInfo</span></a> *info</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
 <a name="camel-maildir-summary-name-to-info"></a><h3>camel_maildir_summary_name_to_info ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
 camel_maildir_summary_name_to_info (<em class="parameter"><code><a class="link" href="CamelMaildirSummary.html#CamelMaildirMessageInfo" title="CamelMaildirMessageInfo"><span class="type">CamelMaildirMessageInfo</span></a> *info</code></em>,
-                                    <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+                                    <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 </div>
 <hr>
 <div class="refsect2">
@@ -175,6 +178,18 @@ camel_maildir_summary_name_to_info (<em class="parameter"><code><a class="link" 
 <div class="refsect1">
 <a name="CamelMaildirSummary.other_details"></a><h2>Types and Values</h2>
 <div class="refsect2">
+<a name="CAMEL-MAILDIR-FLAG-SEP:CAPS"></a><h3>CAMEL_MAILDIR_FLAG_SEP</h3>
+<pre class="programlisting">#define CAMEL_MAILDIR_FLAG_SEP '!'
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAMEL-MAILDIR-FLAG-SEP-S:CAPS"></a><h3>CAMEL_MAILDIR_FLAG_SEP_S</h3>
+<pre class="programlisting">#define CAMEL_MAILDIR_FLAG_SEP_S "!"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
 <a name="CamelMaildirMessageInfo"></a><h3>CamelMaildirMessageInfo</h3>
 <pre class="programlisting">typedef struct {
 	CamelLocalMessageInfo info;
@@ -183,15 +198,9 @@ camel_maildir_summary_name_to_info (<em class="parameter"><code><a class="link" 
 } CamelMaildirMessageInfo;
 </pre>
 </div>
-<hr>
-<div class="refsect2">
-<a name="CamelMaildirSummary-struct"></a><h3>struct CamelMaildirSummary</h3>
-<pre class="programlisting">struct CamelMaildirSummary;</pre>
-</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

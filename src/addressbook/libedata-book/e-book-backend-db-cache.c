@@ -3,19 +3,19 @@
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Devashish Sharma <sdevashish@novell.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Devashish Sharma <sdevashish@novell.com>
  */
 
 /**
@@ -97,7 +97,10 @@ e_book_backend_db_cache_set_filename (DB *db,
  * e_book_backend_db_cache_get_filename:
  * @db:  DB Handle
  *
- * Get the filename for db cacahe file.
+ * Get the filename for db cache file.
+ *
+ * Returns: The filename for db cache file. Free with g_free()
+ *   when done with it.
  *
  * Deprecated: 3.12: Use #EBookSqlite instead
  **/

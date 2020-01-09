@@ -1,19 +1,19 @@
 /*
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifndef CAMEL_POP3_ENGINE_H
@@ -131,6 +131,10 @@ struct _CamelPOP3Engine {
 	GQueue done;	/* list of done commands, awaiting free */
 
 	CamelPOP3Command *current; /* currently busy (downloading) response */
+
+	GMutex busy_lock;
+	GCond busy_cond;
+	gboolean is_busy;
 };
 
 struct _CamelPOP3EngineClass {
@@ -151,6 +155,10 @@ gint		camel_pop3_engine_iterate	(CamelPOP3Engine *pe,
 						 CamelPOP3Command *pc,
 						 GCancellable *cancellable,
 						 GError **error);
+gboolean	camel_pop3_engine_busy_lock	(CamelPOP3Engine *pe,
+						 GCancellable *cancellable,
+						 GError **error);
+void		camel_pop3_engine_busy_unlock	(CamelPOP3Engine *pe);
 CamelPOP3Command *
 		camel_pop3_engine_command_new	(CamelPOP3Engine *pe,
 						 guint32 flags,

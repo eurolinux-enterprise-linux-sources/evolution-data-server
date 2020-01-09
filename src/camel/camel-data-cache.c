@@ -1,21 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* camel-message-cache.c: Class for a Camel cache.
  *
- * Authors: Michael Zucchi <notzed@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -245,6 +245,8 @@ void
 camel_data_cache_set_expire_age (CamelDataCache *cdc,
                                  time_t when)
 {
+	g_return_if_fail (CAMEL_IS_DATA_CACHE (cdc));
+
 	cdc->priv->expire_age = when;
 }
 
@@ -267,6 +269,8 @@ void
 camel_data_cache_set_expire_access (CamelDataCache *cdc,
                                     time_t when)
 {
+	g_return_if_fail (CAMEL_IS_DATA_CACHE (cdc));
+
 	cdc->priv->expire_access = when;
 }
 
@@ -370,7 +374,7 @@ data_cache_path (CamelDataCache *cdc,
  * The returned #GIOStream is referenced for thread-safety and must be
  * unreferenced with g_object_unref() when finished with it.
  *
- * Returns: a #GIOStream for the new cache item, or %NULL
+ * Returns: (transfer full): a #GIOStream for the new cache item, or %NULL
  **/
 GIOStream *
 camel_data_cache_add (CamelDataCache *cdc,
@@ -381,6 +385,8 @@ camel_data_cache_add (CamelDataCache *cdc,
 	gchar *real;
 	GFileIOStream *stream;
 	GFile *file;
+
+	g_return_val_if_fail (CAMEL_IS_DATA_CACHE (cdc), NULL);
 
 	real = data_cache_path (cdc, TRUE, path, key);
 	/* need to loop 'cause otherwise we can call bag_add/bag_abort
@@ -424,7 +430,7 @@ camel_data_cache_add (CamelDataCache *cdc,
  * The returned #GIOStream is referenced for thread-safety and must be
  * unreferenced with g_object_unref() when finished with it.
  *
- * Returns: a #GIOStream for the requested cache item, or %NULL
+ * Returns: (transfer full): a #GIOStream for the requested cache item, or %NULL
  **/
 GIOStream *
 camel_data_cache_get (CamelDataCache *cdc,
@@ -436,6 +442,8 @@ camel_data_cache_get (CamelDataCache *cdc,
 	GFile *file;
 	struct stat st;
 	gchar *real;
+
+	g_return_val_if_fail (CAMEL_IS_DATA_CACHE (cdc), NULL);
 
 	real = data_cache_path (cdc, FALSE, path, key);
 	stream = camel_object_bag_reserve (cdc->priv->busy_bag, real);
@@ -483,6 +491,8 @@ camel_data_cache_get_filename (CamelDataCache *cdc,
                                const gchar *path,
                                const gchar *key)
 {
+	g_return_val_if_fail (CAMEL_IS_DATA_CACHE (cdc), NULL);
+
 	return data_cache_path (cdc, FALSE, path, key);
 }
 
@@ -506,6 +516,8 @@ camel_data_cache_remove (CamelDataCache *cdc,
 	GIOStream *stream;
 	gchar *real;
 	gint ret;
+
+	g_return_val_if_fail (CAMEL_IS_DATA_CACHE (cdc), -1);
 
 	real = data_cache_path (cdc, FALSE, path, key);
 	stream = camel_object_bag_get (cdc->priv->busy_bag, real);
@@ -549,7 +561,7 @@ camel_data_cache_clear (CamelDataCache *cdc,
 	const gchar *dname;
 	struct stat st;
 
-	g_return_if_fail (cdc != NULL);
+	g_return_if_fail (CAMEL_IS_DATA_CACHE (cdc));
 	g_return_if_fail (path != NULL);
 
 	base_dir = g_build_filename (cdc->priv->path, path, NULL);

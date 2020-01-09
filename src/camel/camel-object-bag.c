@@ -2,17 +2,18 @@
 /*
  * Copyright (C) 2008 Novell, Inc.
  *
- * This library is free software; you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 #include "camel-object-bag.h"
@@ -151,10 +152,10 @@ wref_free_func (gpointer p)
 
 /**
  * camel_object_bag_new:
- * @key_hash_func: a hashing function for keys
- * @key_equal_func: a comparison function for keys
- * @key_copy_func: a function to copy keys
- * @key_free_func: a function to free keys
+ * @key_hash_func: (scope call): a hashing function for keys
+ * @key_equal_func: (scope call): a comparison function for keys
+ * @key_copy_func: (scope call): a function to copy keys
+ * @key_free_func: (scope call): a function to free keys
  *
  * Returns a new object bag.  Object bags are keyed hash tables of objects
  * that can be updated atomically using transaction semantics.  Use
@@ -208,7 +209,8 @@ camel_object_bag_new (GHashFunc key_hash_func,
  * caller owns the reference to the returned object.  Use g_object_unref ()
  * to unreference it.
  *
- * Returns: the object corresponding to @key, or %NULL if not found
+ * Returns: (transfer full) (nullable): the object corresponding to @key, or
+ * %NULL if not found
  **/
 gpointer
 camel_object_bag_get (CamelObjectBag *bag,
@@ -283,7 +285,8 @@ camel_object_bag_get (CamelObjectBag *bag,
  * Unlink other "peek" operations, the caller owns the returned object
  * reference.  Use g_object_unref () to unreference it.
  *
- * Returns: the object for @key, or %NULL if @key is reserved or not found
+ * Returns: (transfer full) (nullable): the object for @key, or %NULL if @key
+ * is reserved or not found
  **/
 gpointer
 camel_object_bag_peek (CamelObjectBag *bag,
@@ -319,7 +322,8 @@ camel_object_bag_peek (CamelObjectBag *bag,
  * %NULL, signifying that you MUST call either camel_object_bag_add() or
  * camel_object_bag_abort().
  *
- * Returns: the object for @key, or %NULL if @key is not found
+ * Returns: (transfer full) (nullable): the object for @key, or %NULL if @key
+ * is not found
  **/
 gpointer
 camel_object_bag_reserve (CamelObjectBag *bag,
@@ -531,7 +535,7 @@ camel_object_bag_rekey (CamelObjectBag *bag,
  *   </programlisting>
  * </informalexample>
  *
- * Returns: an array of objects in @bag
+ * Returns: (element-type GObject) (transfer full): an array of objects in @bag
  **/
 GPtrArray *
 camel_object_bag_list (CamelObjectBag *bag)

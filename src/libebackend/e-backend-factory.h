@@ -1,17 +1,17 @@
 /*
  * e-backend-factory.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -22,8 +22,8 @@
 #ifndef E_BACKEND_FACTORY_H
 #define E_BACKEND_FACTORY_H
 
+#include <libedataserver/libedataserver.h>
 #include <libebackend/e-backend.h>
-#include <libebackend/e-extension.h>
 
 /* Standard GObject macros */
 #define E_TYPE_BACKEND_FACTORY \
@@ -68,6 +68,8 @@ struct _EBackendFactory {
  * EBackendFactoryClass:
  * @get_hash_key: Get the hash key for this factory
  * @new_backend: Create a new #EBackend of the appropriate type for the passed #ESource
+ * @e_module: An #EModule associated with this backend factory
+ * @share_subprocess: Whether subporcesses for this backend factory should share one process
  *
  * Base class structure for the #EBackendFactory class
  *
@@ -83,14 +85,22 @@ struct _EBackendFactoryClass {
 	EBackend *	(*new_backend)		(EBackendFactory *factory,
 						 ESource *source);
 
+	struct _EModule	*e_module;
+	gboolean	share_subprocess;
+
 	/*< private >*/
-	gpointer reserved[16];
+	gpointer reserved[15];
 };
 
 GType		e_backend_factory_get_type	(void) G_GNUC_CONST;
 const gchar *	e_backend_factory_get_hash_key	(EBackendFactory *factory);
 EBackend *	e_backend_factory_new_backend	(EBackendFactory *factory,
 						 ESource *source);
+const gchar *  e_backend_factory_get_module_filename
+						(EBackendFactory *factory);
+gboolean	e_backend_factory_share_subprocess
+						(EBackendFactory *factory);
+
 
 G_END_DECLS
 

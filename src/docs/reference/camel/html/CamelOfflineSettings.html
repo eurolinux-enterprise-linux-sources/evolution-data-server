@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Camel Reference Manual: CamelOfflineSettings</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<title>CamelOfflineSettings: Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Services.html" title="Services">
 <link rel="prev" href="CamelLocalSettings.html" title="CamelLocalSettings">
 <link rel="next" href="Filters.html" title="Filters">
-<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.25 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -35,7 +35,7 @@
 </tr></table></div>
 <div class="refsect1">
 <a name="CamelOfflineSettings.functions"></a><h2>Functions</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="functions_return">
 <col class="functions_name">
@@ -43,7 +43,7 @@
 <tbody>
 <tr>
 <td class="function_type">
-<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 </td>
 <td class="function_name">
 <a class="link" href="CamelOfflineSettings.html#camel-offline-settings-get-stay-synchronized" title="camel_offline_settings_get_stay_synchronized ()">camel_offline_settings_get_stay_synchronized</a> <span class="c_punctuation">()</span>
@@ -57,27 +57,50 @@
 <a class="link" href="CamelOfflineSettings.html#camel-offline-settings-set-stay-synchronized" title="camel_offline_settings_set_stay_synchronized ()">camel_offline_settings_set_stay_synchronized</a> <span class="c_punctuation">()</span>
 </td>
 </tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelOfflineSettings.html#camel-offline-settings-get-store-changes-interval" title="camel_offline_settings_get_store_changes_interval ()">camel_offline_settings_get_store_changes_interval</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="CamelOfflineSettings.html#camel-offline-settings-set-store-changes-interval" title="camel_offline_settings_set_store_changes_interval ()">camel_offline_settings_set_store_changes_interval</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
 </tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelOfflineSettings.properties"></a><h2>Properties</h2>
-<div class="informaltable"><table border="0">
+<div class="informaltable"><table class="informaltable" border="0">
 <colgroup>
 <col width="150px" class="properties_type">
 <col width="300px" class="properties_name">
 <col width="200px" class="properties_flags">
 </colgroup>
-<tbody><tr>
-<td class="property_type"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></td>
+<tbody>
+<tr>
+<td class="property_type"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a></td>
 <td class="property_name"><a class="link" href="CamelOfflineSettings.html#CamelOfflineSettings--stay-synchronized" title="The “stay-synchronized” property">stay-synchronized</a></td>
 <td class="property_flags">Read / Write / Construct</td>
-</tr></tbody>
+</tr>
+<tr>
+<td class="property_type"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a></td>
+<td class="property_name"><a class="link" href="CamelOfflineSettings.html#CamelOfflineSettings--store-changes-interval" title="The “store-changes-interval” property">store-changes-interval</a></td>
+<td class="property_flags">Read / Write / Construct</td>
+</tr>
+</tbody>
 </table></div>
 </div>
 <div class="refsect1">
 <a name="CamelOfflineSettings.other"></a><h2>Types and Values</h2>
-<div class="informaltable"><table width="100%" border="0">
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="name">
 <col class="description">
@@ -90,7 +113,7 @@
 </div>
 <div class="refsect1">
 <a name="CamelOfflineSettings.object-hierarchy"></a><h2>Object Hierarchy</h2>
-<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+<pre class="screen">    <a href="/usr/share/gtk-doc/html/gobjectgobject-The-Base-Object-Type.html#GObject-struct">GObject</a>
     <span class="lineart">╰──</span> <a class="link" href="CamelSettings.html" title="CamelSettings">CamelSettings</a>
         <span class="lineart">╰──</span> <a class="link" href="CamelStoreSettings.html" title="CamelStoreSettings">CamelStoreSettings</a>
             <span class="lineart">╰──</span> CamelOfflineSettings
@@ -105,15 +128,15 @@
 <a name="CamelOfflineSettings.functions_details"></a><h2>Functions</h2>
 <div class="refsect2">
 <a name="camel-offline-settings-get-stay-synchronized"></a><h3>camel_offline_settings_get_stay_synchronized ()</h3>
-<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="returnvalue">gboolean</span></a>
 camel_offline_settings_get_stay_synchronized
                                (<em class="parameter"><code><a class="link" href="CamelOfflineSettings.html" title="CamelOfflineSettings"><span class="type">CamelOfflineSettings</span></a> *settings</code></em>);</pre>
 <p>Returns whether to synchronize the local cache with the remote server
 before switching to offline mode, so the store's content can still be
 read while offline.</p>
 <div class="refsect3">
-<a name="id-1.2.5.15.8.2.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-offline-settings-get-stay-synchronized.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -127,11 +150,10 @@ read while offline.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.2.5.15.8.2.6"></a><h4>Returns</h4>
+<a name="camel-offline-settings-get-stay-synchronized.returns"></a><h4>Returns</h4>
 <p> whether to stay synchronized with the remote server</p>
-<p></p>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -139,13 +161,13 @@ read while offline.</p>
 <pre class="programlisting"><span class="returnvalue">void</span>
 camel_offline_settings_set_stay_synchronized
                                (<em class="parameter"><code><a class="link" href="CamelOfflineSettings.html" title="CamelOfflineSettings"><span class="type">CamelOfflineSettings</span></a> *settings</code></em>,
-                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> stay_synchronized</code></em>);</pre>
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a> stay_synchronized</code></em>);</pre>
 <p>Sets whether to synchronize the local cache with the remote server before
 switching to offline mode, so the store's content can still be read while
 offline.</p>
 <div class="refsect3">
-<a name="id-1.2.5.15.8.3.5"></a><h4>Parameters</h4>
-<div class="informaltable"><table width="100%" border="0">
+<a name="camel-offline-settings-set-stay-synchronized.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
 <col class="parameters_description">
@@ -165,7 +187,71 @@ offline.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-offline-settings-get-store-changes-interval"></a><h3>camel_offline_settings_get_store_changes_interval ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+camel_offline_settings_get_store_changes_interval
+                               (<em class="parameter"><code><a class="link" href="CamelOfflineSettings.html" title="CamelOfflineSettings"><span class="type">CamelOfflineSettings</span></a> *settings</code></em>);</pre>
+<p>Returns the interval, in seconds, for the changes in the folder being
+saved automatically. 0 means immediately, while -1 means turning off
+automatic folder change saving.</p>
+<div class="refsect3">
+<a name="camel-offline-settings-get-store-changes-interval.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>settings</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelOfflineSettings.html" title="CamelOfflineSettings"><span class="type">CamelOfflineSettings</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="camel-offline-settings-get-store-changes-interval.returns"></a><h4>Returns</h4>
+<p> the interval for automatic store of folder changes</p>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.18.html" title="Index of new symbols in 3.18">3.18</a></p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-offline-settings-set-store-changes-interval"></a><h3>camel_offline_settings_set_store_changes_interval ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+camel_offline_settings_set_store_changes_interval
+                               (<em class="parameter"><code><a class="link" href="CamelOfflineSettings.html" title="CamelOfflineSettings"><span class="type">CamelOfflineSettings</span></a> *settings</code></em>,
+                                <em class="parameter"><code><a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a> interval</code></em>);</pre>
+<p>Sets the interval, in seconds, for the changes in the folder being
+saved automatically. 0 means immediately, while -1 means turning off
+automatic folder change saving.</p>
+<div class="refsect3">
+<a name="camel-offline-settings-set-store-changes-interval.parameters"></a><h4>Parameters</h4>
+<div class="informaltable"><table class="informaltable" width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>settings</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelOfflineSettings.html" title="CamelOfflineSettings"><span class="type">CamelOfflineSettings</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>interval</p></td>
+<td class="parameter_description"><p>the interval, in seconds</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since: <a class="link" href="api-index-3.18.html" title="Index of new symbols in 3.18">3.18</a></p>
 </div>
 </div>
 <div class="refsect1">
@@ -175,22 +261,29 @@ offline.</p>
 <pre class="programlisting">struct CamelOfflineSettings;</pre>
 <p>Contains only private data that should be read and manipulated using the
 functions below.</p>
-<p class="since">Since 3.2</p>
+<p class="since">Since: <a class="link" href="api-index-3.2.html" title="Index of new symbols in 3.2">3.2</a></p>
 </div>
 </div>
 <div class="refsect1">
 <a name="CamelOfflineSettings.property-details"></a><h2>Property Details</h2>
 <div class="refsect2">
 <a name="CamelOfflineSettings--stay-synchronized"></a><h3>The <code class="literal">“stay-synchronized”</code> property</h3>
-<pre class="programlisting">  “stay-synchronized”        <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a></pre>
+<pre class="programlisting">  “stay-synchronized”        <a class="link" href="CamelIMAPXServer.html#gboolean" title="gboolean ()"><span class="type">gboolean</span></a></pre>
 <p>Stay synchronized with the remote server.</p>
 <p>Flags: Read / Write / Construct</p>
 <p>Default value: FALSE</p>
 </div>
+<hr>
+<div class="refsect2">
+<a name="CamelOfflineSettings--store-changes-interval"></a><h3>The <code class="literal">“store-changes-interval”</code> property</h3>
+<pre class="programlisting">  “store-changes-interval”   <a href="/usr/share/gtk-doc/html/glibglib-Basic-Types.html#gint"><span class="type">gint</span></a></pre>
+<p>Interval, in seconds, to store folder changes.</p>
+<p>Flags: Read / Write / Construct</p>
+<p>Default value: 3</p>
+</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21</div>
+<hr>Generated by GTK-Doc V1.25</div>
 </body>
 </html>

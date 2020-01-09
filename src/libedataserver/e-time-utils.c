@@ -1,11 +1,21 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
-/*
- * Time utility functions
- *
- * Author:
- *   Damon Chaplin (damon@ximian.com)
+/* Time utility functions
  *
  * (C) 2001 Ximian, Inc.
+ *
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Damon Chaplin (damon@ximian.com)
  */
 
 #include <config.h>
@@ -13,7 +23,8 @@
 #define _XOPEN_SOURCE_EXTENDED 1  /* for strptime */
 
 /* For tm_gmtoff */
-#define _BSD_SOURCE
+#define _BSD_SOURCE 1
+#define _DEFAULT_SOURCE 1
 
 #include <time.h>
 #include <sys/time.h>
@@ -178,7 +189,7 @@ enum ptime_locale_status { not, loc, raw };
  *
  * The GNU C Library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
@@ -1576,9 +1587,28 @@ static gboolean
 locale_supports_12_hour_format (void)
 {
 	struct tm tmp_tm = { 0 };
-	gchar s[16];
+	gchar s[40];
+
+	/* Fill the struct tm with some sane values. */
+	tmp_tm.tm_year = 2000;
+	tmp_tm.tm_mon = 0;
+	tmp_tm.tm_mday = 1;
+	tmp_tm.tm_sec = 0;
+	tmp_tm.tm_isdst = 0;
+	tmp_tm.tm_hour = 1;
+	tmp_tm.tm_min = 0;
+	tmp_tm.tm_wday = 6;
+	tmp_tm.tm_yday = 6;
 
 	e_utf8_strftime (s, sizeof (s), "%p", &tmp_tm);
+
+	if (!s[0]) {
+		tmp_tm.tm_hour = 13;
+		tmp_tm.tm_min = 0;
+
+		e_utf8_strftime (s, sizeof (s), "%p", &tmp_tm);
+	}
+
 	return s[0] != '\0';
 }
 

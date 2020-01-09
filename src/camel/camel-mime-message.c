@@ -1,24 +1,23 @@
 /* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8; fill-column: 160 -*- */
-/* camel-mime-message.c : class for a mime_message */
-
-/*
- * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
- *	    Michael Zucchi <notzed@ximian.com>
- *          Jeffrey Stedfast <fejj@ximian.com>
+/* camel-mime-message.c : class for a mime_message
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Bertrand Guiheneuf <bertrand@helixcode.com>
+ *	    Michael Zucchi <notzed@ximian.com>
+ *          Jeffrey Stedfast <fejj@ximian.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -184,8 +183,6 @@ mime_message_ensure_required_headers (CamelMimeMessage *message)
 	CamelMedium *medium = CAMEL_MEDIUM (message);
 
 	if (message->from == NULL) {
-		/* FIXME: should we just abort?  Should we make one up? */
-		g_warning ("No from set for message");
 		camel_medium_set_header (medium, "From", "");
 	}
 	if (!camel_medium_get_header (medium, "Date"))
@@ -449,7 +446,7 @@ camel_mime_message_set_date (CamelMimeMessage *message,
 {
 	gchar *datestr;
 
-	g_assert (message);
+	g_return_if_fail (message);
 
 	if (date == CAMEL_MESSAGE_DATE_CURRENT) {
 		struct tm local;
@@ -530,14 +527,26 @@ camel_mime_message_set_message_id (CamelMimeMessage *mime_message,
 {
 	gchar *id;
 
-	g_assert (mime_message);
+	g_return_if_fail (mime_message);
 
 	g_free (mime_message->message_id);
 
 	if (message_id) {
 		id = g_strstrip (g_strdup (message_id));
 	} else {
-		id = camel_header_msgid_generate ();
+		CamelInternetAddress *from;
+		const gchar *domain = NULL;
+
+		from = camel_mime_message_get_from (mime_message);
+		if (from && camel_internet_address_get (from, 0, NULL, &domain) && domain) {
+			const gchar *at = strchr (domain, '@');
+			if (at)
+				domain = at + 1;
+			else
+				domain = NULL;
+		}
+
+		id = camel_header_msgid_generate (domain);
 	}
 
 	mime_message->message_id = id;
@@ -557,7 +566,7 @@ camel_mime_message_set_message_id (CamelMimeMessage *mime_message,
 const gchar *
 camel_mime_message_get_message_id (CamelMimeMessage *mime_message)
 {
-	g_assert (mime_message);
+	g_return_val_if_fail (mime_message, NULL);
 
 	return mime_message->message_id;
 }
@@ -577,7 +586,7 @@ camel_mime_message_set_reply_to (CamelMimeMessage *msg,
 {
 	gchar *addr;
 
-	g_assert (msg);
+	g_return_if_fail (msg);
 
 	if (msg->reply_to) {
 		g_object_unref (msg->reply_to);
@@ -601,12 +610,12 @@ camel_mime_message_set_reply_to (CamelMimeMessage *msg,
  *
  * Get the Reply-To of a message.
  *
- * Returns: the Reply-Toa ddress of the message
+ * Returns: (transfer none): the Reply-To address of the message
  **/
 CamelInternetAddress *
 camel_mime_message_get_reply_to (CamelMimeMessage *mime_message)
 {
-	g_assert (mime_message);
+	g_return_val_if_fail (mime_message, NULL);
 
 	/* TODO: ref for threading? */
 
@@ -628,7 +637,7 @@ camel_mime_message_set_subject (CamelMimeMessage *message,
 {
 	gchar *text;
 
-	g_assert (message);
+	g_return_if_fail (message);
 
 	g_free (message->subject);
 
@@ -655,7 +664,7 @@ camel_mime_message_set_subject (CamelMimeMessage *message,
 const gchar *
 camel_mime_message_get_subject (CamelMimeMessage *mime_message)
 {
-	g_assert (mime_message);
+	g_return_val_if_fail (mime_message, NULL);
 
 	return mime_message->subject;
 }
@@ -679,7 +688,7 @@ camel_mime_message_set_from (CamelMimeMessage *msg,
 {
 	gchar *addr;
 
-	g_assert (msg);
+	g_return_if_fail (msg);
 
 	if (msg->from) {
 		g_object_unref (msg->from);
@@ -703,12 +712,12 @@ camel_mime_message_set_from (CamelMimeMessage *msg,
  *
  * Get the from address of a message.
  *
- * Returns: the from address of the message
+ * Returns: (transfer none): the from address of the message
  **/
 CamelInternetAddress *
 camel_mime_message_get_from (CamelMimeMessage *mime_message)
 {
-	g_assert (mime_message);
+	g_return_val_if_fail (mime_message, NULL);
 
 	/* TODO: we should really ref this for multi-threading to work */
 
@@ -733,7 +742,7 @@ camel_mime_message_set_recipients (CamelMimeMessage *mime_message,
 	gchar *text;
 	CamelInternetAddress *addr;
 
-	g_assert (mime_message);
+	g_return_if_fail (mime_message);
 
 	addr = g_hash_table_lookup (mime_message->recipients, type);
 	if (addr == NULL) {
@@ -763,13 +772,13 @@ camel_mime_message_set_recipients (CamelMimeMessage *mime_message,
  *
  * Get the message recipients of a specified type.
  *
- * Returns: the requested recipients
+ * Returns: (transfer none): the requested recipients
  **/
 CamelInternetAddress *
 camel_mime_message_get_recipients (CamelMimeMessage *mime_message,
                                    const gchar *type)
 {
-	g_assert (mime_message);
+	g_return_val_if_fail (mime_message, NULL);
 
 	return g_hash_table_lookup (mime_message->recipients, type);
 }
@@ -1169,7 +1178,7 @@ check_content_id (CamelMimeMessage *message,
  *
  * Get a MIME part by id from a message.
  *
- * Returns: the MIME part with the requested id or %NULL if not found
+ * Returns: (transfer none): the MIME part with the requested id or %NULL if not found
  **/
 CamelMimePart *
 camel_mime_message_get_part_by_content_id (CamelMimeMessage *message,
@@ -1222,7 +1231,7 @@ camel_mime_message_build_mbox_from (CamelMimeMessage *message)
 	if (tmp == NULL)
 		tmp = camel_header_raw_find (&header, "From", NULL);
 	if (tmp != NULL) {
-		struct _camel_header_address *addr = camel_header_address_decode (tmp, NULL);
+		CamelHeaderAddress *addr = camel_header_address_decode (tmp, NULL);
 
 		tmp = NULL;
 		if (addr) {
@@ -1299,9 +1308,21 @@ find_attachment (CamelMimeMessage *msg,
 
 		*found = (cd->disposition && g_ascii_strcasecmp (cd->disposition, "attachment") == 0);
 
-		for (param = cd->params; param && !(*found); param = param->next) {
-			if (param->name && param->value && *param->value && g_ascii_strcasecmp (param->name, "filename") == 0)
-				*found = TRUE;
+		/* If the Content-Disposition isn't an attachment, then call everything with a "filename"
+		   parameter an attachment, but only if there is no Content-Disposition header, or it's
+		   not the "inline" or it's neither text/... nor image/... Content-Type, which can be usually
+		   shown in the UI inline.
+
+		   The test for Content-Type was added for Apple Mail, which marks also for example .pdf
+		   attachments as 'inline', which broke the previous logic here.
+		*/
+		if (!*found && (!cd->disposition ||
+		    g_ascii_strcasecmp (cd->disposition, "inline") != 0 ||
+		    (!camel_content_type_is (ct, "text", "*") && !camel_content_type_is (ct, "image", "*")))) {
+			for (param = cd->params; param && !(*found); param = param->next) {
+				if (param->name && param->value && *param->value && g_ascii_strcasecmp (param->name, "filename") == 0)
+					*found = TRUE;
+			}
 		}
 	}
 

@@ -1,17 +1,17 @@
 /*
  * camel-imapx-settings.h
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
  * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -55,11 +55,11 @@ struct _CamelIMAPXSettingsClass {
 };
 
 GType		camel_imapx_settings_get_type	(void) G_GNUC_CONST;
-guint		camel_imapx_settings_get_batch_fetch_count
+guint		camel_imapx_settings_get_use_multi_fetch
 						(CamelIMAPXSettings *settings);
-void		camel_imapx_settings_set_batch_fetch_count
+void		camel_imapx_settings_set_use_multi_fetch
 						(CamelIMAPXSettings *settings,
-						 guint batch_fetch_count);
+						 guint use_multi_fetch);
 gboolean	camel_imapx_settings_get_check_all
 						(CamelIMAPXSettings *settings);
 void		camel_imapx_settings_set_check_all

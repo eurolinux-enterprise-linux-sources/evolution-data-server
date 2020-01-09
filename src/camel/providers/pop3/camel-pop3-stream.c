@@ -1,20 +1,19 @@
 /*
- * Author:
- *  Michael Zucchi <notzed@ximian.com>
- *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
  *
- * This library is free software you can redistribute it and/or modify it
+ * This library is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation.
  *
  * This library is distributed in the hope that it will be useful, but
  * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- *for more details.
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
+ * for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this program; if not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Michael Zucchi <notzed@ximian.com>
  */
 
 /* This is *identical* to the camel-nntp-stream, so should probably
@@ -26,6 +25,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 
 #include "camel-pop3-stream.h"
 
@@ -79,8 +79,20 @@ stream_fill (CamelPOP3Stream *is,
 			is->source, (gchar *) is->end,
 			CAMEL_POP3_STREAM_SIZE - (is->end - is->buf),
 			cancellable, &local_error);
-		if (local_error) {
+
+		/* It's the End Of Stream marker */
+		if (left == 0 && !local_error) {
+			g_set_error_literal (error, G_IO_ERROR, G_IO_ERROR_BROKEN_PIPE,
+				g_strerror (
+					#ifdef EPIPE
+					EPIPE
+					#else
+					32 /* Also EPIPE; it should be always available, but just in case it isn't */
+					#endif
+				));
+		} else if (local_error) {
 			g_propagate_error (error, local_error);
+			left = 0;
 		}
 
 		if (left > 0) {
