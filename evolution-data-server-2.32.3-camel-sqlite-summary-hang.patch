@@ -1,0 +1,958 @@
+diff -up evolution-data-server-2.32.3/camel/camel-db.c.eds evolution-data-server-2.32.3/camel/camel-db.c
+--- evolution-data-server-2.32.3/camel/camel-db.c.eds	2014-01-14 10:04:12.989575864 +0100
++++ evolution-data-server-2.32.3/camel/camel-db.c	2014-01-14 10:05:07.462573556 +0100
+@@ -41,6 +41,12 @@
+ /* how long to wait before invoking sync on the file */
+ #define SYNC_TIMEOUT_SECONDS 5
+ 
++#define READER_LOCK(cdb) g_static_rw_lock_reader_lock (&cdb->priv->rwlock)
++#define READER_UNLOCK(cdb) g_static_rw_lock_reader_unlock (&cdb->priv->rwlock)
++#define WRITER_LOCK(cdb) g_static_rw_lock_writer_lock (&cdb->priv->rwlock)
++#define WRITER_UNLOCK(cdb) g_static_rw_lock_writer_unlock (&cdb->priv->rwlock)
++
++
+ static sqlite3_vfs *old_vfs = NULL;
+ 
+ typedef struct {
+@@ -353,14 +359,24 @@ init_sqlite_vfs (void)
+ 
+ struct _CamelDBPrivate {
+ 	GTimer *timer;
++	GStaticRWLock rwlock;
+ 	gchar *file_name;
++	gboolean transaction_is_on;
+ };
+ 
+-static GStaticRecMutex trans_lock = G_STATIC_REC_MUTEX_INIT;
+-
++/**
++ * cdb_sql_exec 
++ * @db: 
++ * @stmt: 
++ * @error: 
++ * 
++ * Callers should hold the lock
++ **/
+ static gint
+ cdb_sql_exec (sqlite3 *db,
+               const gchar *stmt,
++	      gint (*callback)(void*,gint,gchar**,gchar**),
++	      gpointer data,
+               GError **error)
+ {
+ 	gchar *errmsg = NULL;
+@@ -368,7 +384,7 @@ cdb_sql_exec (sqlite3 *db,
+ 
+ 	d(g_print("Camel SQL Exec:\n%s\n", stmt));
+ 
+-	ret = sqlite3_exec(db, stmt, 0, 0, &errmsg);
++	ret = sqlite3_exec (db, stmt, callback, data, &errmsg);
+ 	while (ret == SQLITE_BUSY || ret == SQLITE_LOCKED || ret == -1) {
+ 		if (errmsg) {
+ 			sqlite3_free (errmsg);
+@@ -476,9 +492,9 @@ camel_db_open (const gchar *path,
+ 
+ 	cdb = g_new (CamelDB, 1);
+ 	cdb->db = db;
+-	cdb->lock = g_mutex_new ();
+-	cdb->priv = g_new(CamelDBPrivate, 1);
+-	cdb->priv->file_name = g_strdup(path);
++	cdb->priv = g_new (CamelDBPrivate, 1);
++	cdb->priv->file_name = g_strdup (path);
++	g_static_rw_lock_init (&cdb->priv->rwlock);
+ 	cdb->priv->timer = NULL;
+ 	d(g_print ("\nDatabase succesfully opened  \n"));
+ 
+@@ -528,7 +544,9 @@ camel_db_close (CamelDB *cdb)
+ {
+ 	if (cdb) {
+ 		sqlite3_close (cdb->db);
+-		g_mutex_free (cdb->lock);
++		g_static_rw_lock_free (&cdb->priv->rwlock);
++		g_free (cdb->priv->file_name);
++		g_free (cdb->priv);
+ 		g_free (cdb);
+ 		d(g_print ("\nDatabase succesfully closed \n"));
+ 	}
+@@ -547,11 +565,11 @@ camel_db_set_collate (CamelDB *cdb, cons
+ 		if (!cdb)
+ 			return 0;
+ 
+-		g_mutex_lock (cdb->lock);
++		WRITER_LOCK (cdb);
+ 		d(g_print("Creating Collation %s on %s with %p\n", collate, col, (gpointer) func));
+ 		if (collate && func)
+-			ret = sqlite3_create_collation(cdb->db, collate, SQLITE_UTF8,  NULL, func);
+-		g_mutex_unlock (cdb->lock);
++			ret = sqlite3_create_collation (cdb->db, collate, SQLITE_UTF8,  NULL, func);
++		WRITER_UNLOCK (cdb);
+ 
+ 		return ret;
+ }
+@@ -570,12 +588,15 @@ camel_db_command (CamelDB *cdb,
+ 
+ 	if (!cdb)
+ 		return TRUE;
+-	g_mutex_lock (cdb->lock);
++	
++	WRITER_LOCK (cdb);
+ 
+-	START(stmt);
+-	ret = cdb_sql_exec (cdb->db, stmt, error);
++	START (stmt);
++	ret = cdb_sql_exec (cdb->db, stmt, NULL, NULL, error);
+ 	END;
+-	g_mutex_unlock (cdb->lock);
++	
++	WRITER_UNLOCK (cdb);
++
+ 
+ 	return ret;
+ }
+@@ -591,13 +612,13 @@ camel_db_begin_transaction (CamelDB *cdb
+ {
+ 	if (!cdb)
+ 		return -1;
+-	if (g_getenv("SQLITE_TRANSLOCK"))
+-		g_static_rec_mutex_lock (&trans_lock);
+ 
+-	g_mutex_lock (cdb->lock);
++	WRITER_LOCK (cdb);
+ 	STARTTS("BEGIN");
+ 
+-	return (cdb_sql_exec (cdb->db, "BEGIN", error));
++	cdb->priv->transaction_is_on = TRUE;
++
++	return (cdb_sql_exec (cdb->db, "BEGIN", NULL, NULL, error));
+ }
+ 
+ /**
+@@ -613,12 +634,11 @@ camel_db_end_transaction (CamelDB *cdb,
+ 	if (!cdb)
+ 		return -1;
+ 
+-	ret = cdb_sql_exec (cdb->db, "COMMIT", error);
++	ret = cdb_sql_exec (cdb->db, "COMMIT", NULL, NULL, error);
++	cdb->priv->transaction_is_on = FALSE;
++	
+ 	ENDTS;
+-	g_mutex_unlock (cdb->lock);
+-	if (g_getenv("SQLITE_TRANSLOCK"))
+-		g_static_rec_mutex_unlock (&trans_lock);
+-
++	WRITER_UNLOCK (cdb);
+ 	CAMEL_DB_RELEASE_SQLITE_MEMORY;
+ 
+ 	return ret;
+@@ -635,10 +655,10 @@ camel_db_abort_transaction (CamelDB *cdb
+ {
+ 	gint ret;
+ 
+-	ret = cdb_sql_exec (cdb->db, "ROLLBACK", error);
+-	g_mutex_unlock (cdb->lock);
+-	if (g_getenv("SQLITE_TRANSLOCK"))
+-		g_static_rec_mutex_unlock (&trans_lock);
++	ret = cdb_sql_exec (cdb->db, "ROLLBACK", NULL, NULL, error);
++	cdb->priv->transaction_is_on = FALSE;
++
++	WRITER_UNLOCK (cdb);
+ 	CAMEL_DB_RELEASE_SQLITE_MEMORY;
+ 
+ 	return ret;
+@@ -657,7 +677,9 @@ camel_db_add_to_transaction (CamelDB *cd
+ 	if (!cdb)
+ 		return -1;
+ 
+-	return (cdb_sql_exec (cdb->db, stmt, error));
++	g_assert (cdb->priv->transaction_is_on == TRUE);
++
++	return (cdb_sql_exec (cdb->db, stmt, NULL, NULL, error));
+ }
+ 
+ /**
+@@ -676,24 +698,25 @@ camel_db_transaction_command (CamelDB *c
+ 	if (!cdb)
+ 		return -1;
+ 
+-	g_mutex_lock (cdb->lock);
++	WRITER_LOCK (cdb);
++
+ 	STARTTS("BEGIN");
+-	ret = cdb_sql_exec (cdb->db, "BEGIN", error);
++	ret = cdb_sql_exec (cdb->db, "BEGIN", NULL, NULL, error);
+ 	if (ret)
+ 		goto end;
+ 
+ 	while (qry_list) {
+ 		query = qry_list->data;
+-		ret = cdb_sql_exec (cdb->db, query, error);
++		ret = cdb_sql_exec (cdb->db, query, NULL, NULL, error);
+ 		if (ret)
+ 			goto end;
+ 		qry_list = g_slist_next (qry_list);
+ 	}
+ 
+-	ret = cdb_sql_exec (cdb->db, "COMMIT", error);
++	ret = cdb_sql_exec (cdb->db, "COMMIT", NULL, NULL, error);
+ 	ENDTS;
+ end:
+-	g_mutex_unlock (cdb->lock);
++	WRITER_UNLOCK (cdb);
+ 	return ret;
+ }
+ 
+@@ -723,41 +746,18 @@ camel_db_count_message_info (CamelDB *cd
+                              GError **error)
+ {
+ 	gint ret = -1;
+-	gchar *errmsg = NULL;
+-
+-	g_mutex_lock (cdb->lock);
+ 
+-	START(query);
+-	ret = sqlite3_exec(cdb->db, query, count_cb, count, &errmsg);
+-	while (ret == SQLITE_BUSY || ret == SQLITE_LOCKED) {
+-		if (errmsg) {
+-			sqlite3_free (errmsg);
+-			errmsg = NULL;
+-		}
+-
+-		ret = sqlite3_exec (cdb->db, query, count_cb, count, &errmsg);
+-	}
+ 
++	READER_LOCK (cdb);
++	
++	START (query);
++	ret = cdb_sql_exec (cdb->db, query, count_cb, count, error);
+ 	END;
+ 
+-	g_mutex_unlock (cdb->lock);
++	READER_UNLOCK (cdb);
+ 
+ 	CAMEL_DB_RELEASE_SQLITE_MEMORY;
+ 
+-	if (ret != SQLITE_OK) {
+-		d(g_print ("Error in SQL SELECT statement: %s [%s]\n", query, errmsg));
+-		g_set_error (
+-			error, CAMEL_ERROR,
+-			CAMEL_ERROR_GENERIC, "%s", errmsg);
+-		sqlite3_free (errmsg);
+-		errmsg = NULL;
+-	}
+-
+-	if (errmsg) {
+-		sqlite3_free (errmsg);
+-		errmsg = NULL;
+-	}
+-
+ 	return ret;
+ }
+ 
+@@ -949,46 +949,21 @@ camel_db_select (CamelDB *cdb,
+                  gpointer data,
+                  GError **error)
+ {
+-	gchar *errmsg = NULL;
+-	/*int nrecs = 0;*/
+ 	gint ret = -1;
+ 
+ 	if (!cdb)
+ 		return ret;
+ 
+ 	d(g_print ("\n%s:\n%s \n", G_STRFUNC, stmt));
+-	g_mutex_lock (cdb->lock);
+-
+-	START(stmt);
+-	ret = sqlite3_exec(cdb->db, stmt, callback, data, &errmsg);
+-	while (ret == SQLITE_BUSY || ret == SQLITE_LOCKED) {
+-		if (errmsg) {
+-			sqlite3_free (errmsg);
+-			errmsg = NULL;
+-		}
+-
+-		ret = sqlite3_exec (cdb->db, stmt, callback, data, &errmsg);
+-	}
++	READER_LOCK (cdb);
+ 
++	START (stmt);
++	ret = cdb_sql_exec (cdb->db, stmt, callback, data, error);
+ 	END;
+ 
+-	g_mutex_unlock (cdb->lock);
++	READER_UNLOCK (cdb);
+ 	CAMEL_DB_RELEASE_SQLITE_MEMORY;
+ 
+-	if (ret != SQLITE_OK) {
+-		d(g_warning ("Error in select statement '%s' [%s].\n", stmt, errmsg));
+-		g_set_error (
+-			error, CAMEL_ERROR,
+-			CAMEL_ERROR_GENERIC, "%s", errmsg);
+-		sqlite3_free (errmsg);
+-		errmsg = NULL;
+-	}
+-
+-	if (errmsg) {
+-		sqlite3_free (errmsg);
+-		errmsg = NULL;
+-	}
+-
+ 	return ret;
+ }
+ 
+@@ -1634,25 +1609,26 @@ camel_db_write_folder_version (CamelDB *
+ }
+ 
+ static gint
++read_version_callback (gpointer ref, gint ncol, gchar ** cols, gchar ** name)
++{
++	gint *version = (gint *) ref;
++
++	if (cols [0])
++		*version = strtoul (cols [0], NULL, 10);
++
++	return 0;
++}
++
++static gint
+ camel_db_get_folder_version (CamelDB *cdb,
+                              const gchar *folder_name,
+                              GError **error)
+ {
+ 	gint version = -1, ret;
+ 	gchar *query;
+-	sqlite3_stmt *stmt = NULL;
+ 
+ 	query = sqlite3_mprintf ("SELECT version FROM '%q_version'", folder_name);
+-
+-	ret = sqlite3_prepare_v2 (cdb->db, query, -1, &stmt, NULL);
+-
+-	if (ret == SQLITE_OK)
+-		ret = sqlite3_step (stmt);
+-	if (ret == SQLITE_ROW || ret == SQLITE_OK)
+-		version = sqlite3_column_int (stmt, 0);
+-
+-	sqlite3_finalize (stmt);
+-
++	ret = camel_db_select (cdb, query, read_version_callback, &version, error);
+ 	sqlite3_free (query);
+ 
+ 	return version;
+@@ -1669,21 +1645,44 @@ camel_db_prepare_message_info_table (Cam
+                                      GError **error)
+ {
+ 	gint ret, current_version;
++	GError *err = NULL;
+ 
+ 	/* Make sure we have the table already */
+-	ret = camel_db_create_message_info_table (cdb, folder_name, error);
++	camel_db_begin_transaction (cdb, &err);
++	ret = camel_db_create_message_info_table (cdb, folder_name, &err);
++	if (err)
++		goto exit;
++
++	camel_db_end_transaction (cdb, &err);
+ 
+ 	/* Migration stage zero: version fetch */
+-	current_version = camel_db_get_folder_version (cdb, folder_name, error);
++	current_version = camel_db_get_folder_version (cdb, folder_name, &err);
+ 
++	camel_db_begin_transaction (cdb, &err);
++	
+ 	/* Migration stage one: storing the old data if necessary */
+-	ret = camel_db_migrate_folder_prepare (cdb, folder_name, current_version, error);
++	ret = camel_db_migrate_folder_prepare (cdb, folder_name, current_version, &err);
++	if (err)
++		goto exit;
+ 
+ 	/* Migration stage two: rewriting the old data if necessary */
+-	ret = camel_db_migrate_folder_recreate (cdb, folder_name, current_version, error);
++	ret = camel_db_migrate_folder_recreate (cdb, folder_name, current_version, &err);
++	if (err)
++		goto exit;
+ 
+ 	/* Final step: (over)write the current version label */
+-	ret = camel_db_write_folder_version (cdb, folder_name, current_version, error);
++	ret = camel_db_write_folder_version (cdb, folder_name, current_version, &err);
++	if (err)
++		goto exit;
++	
++	camel_db_end_transaction (cdb, &err);
++
++exit:
++	if (err && cdb->priv->transaction_is_on)
++		camel_db_abort_transaction (cdb, NULL);
++	
++	if (err)
++		g_propagate_error (error, err);
+ 
+ 	return ret;
+ }
+diff -up evolution-data-server-2.32.3/camel/camel-db.h.eds evolution-data-server-2.32.3/camel/camel-db.h
+--- evolution-data-server-2.32.3/camel/camel-db.h.eds	2014-01-14 10:04:19.677575580 +0100
++++ evolution-data-server-2.32.3/camel/camel-db.h	2014-01-14 10:05:07.463573556 +0100
+@@ -56,6 +56,8 @@ typedef gint(*CamelDBCollate)(gpointer ,
+  **/
+ struct _CamelDB {
+ 	sqlite3 *db;
++	/* this lock has been replaced with a rw lock which sits inside priv. 
++	   This is currently unused. Keeping it, not to break the ABI */
+ 	GMutex *lock;
+ 	CamelDBPrivate *priv;
+ };
+diff -up evolution-data-server-2.32.3/camel/camel-folder-summary.c.eds evolution-data-server-2.32.3/camel/camel-folder-summary.c
+--- evolution-data-server-2.32.3/camel/camel-folder-summary.c.eds	2014-01-14 10:04:25.054575353 +0100
++++ evolution-data-server-2.32.3/camel/camel-folder-summary.c	2014-01-14 10:05:07.464573556 +0100
+@@ -2202,11 +2202,15 @@ save_message_infos_to_db (CamelFolderSum
+ 		return -1;
+ 
+ 	camel_folder_summary_lock (s, CAMEL_FOLDER_SUMMARY_SUMMARY_LOCK);
++	
+ 	/* Push MessageInfo-es */
++	camel_db_begin_transaction (cdb, NULL);
+ 	g_hash_table_foreach (s->loaded_infos, save_to_db_cb, &args);
++	camel_db_end_transaction (cdb, NULL);
++	
+ 	camel_folder_summary_unlock (s, CAMEL_FOLDER_SUMMARY_SUMMARY_LOCK);
+-/* FIXME[disk-summary] make sure we free the message infos that are loaded
+- * are freed if not used anymore or should we leave that to the timer? */
++	/* FIXME[disk-summary] make sure we free the message infos that are loaded
++	 * are freed if not used anymore or should we leave that to the timer? */
+ 
+ 	return 0;
+ }
+@@ -2243,12 +2247,14 @@ camel_folder_summary_save_to_db (CamelFo
+ 
+ 	d(printf ("\ncamel_folder_summary_save_to_db called \n"));
+ 	if (CAMEL_FOLDER_SUMMARY_GET_PRIVATE(s)->need_preview && g_hash_table_size(CAMEL_FOLDER_SUMMARY_GET_PRIVATE(s)->preview_updates)) {
+-		camel_db_begin_transaction (parent_store->cdb_w, NULL);
+ 		camel_folder_summary_lock (s, CAMEL_FOLDER_SUMMARY_SUMMARY_LOCK);
++		
++		camel_db_begin_transaction (parent_store->cdb_w, NULL);
+ 		g_hash_table_foreach (CAMEL_FOLDER_SUMMARY_GET_PRIVATE(s)->preview_updates, (GHFunc)msg_save_preview, s->folder);
+ 		g_hash_table_remove_all (CAMEL_FOLDER_SUMMARY_GET_PRIVATE(s)->preview_updates);
+-		camel_folder_summary_unlock (s, CAMEL_FOLDER_SUMMARY_SUMMARY_LOCK);
+ 		camel_db_end_transaction (parent_store->cdb_w, NULL);
++		
++		camel_folder_summary_unlock (s, CAMEL_FOLDER_SUMMARY_SUMMARY_LOCK);
+ 	}
+ 
+ 	if (!(s->flags & CAMEL_SUMMARY_DIRTY))
+@@ -2260,11 +2266,8 @@ camel_folder_summary_save_to_db (CamelFo
+ 	if (!count)
+ 		return camel_folder_summary_header_save_to_db (s, error);
+ 
+-	camel_db_begin_transaction (cdb, NULL);
+-
+ 	ret = save_message_infos_to_db (s, FALSE, error);
+ 	if (ret != 0) {
+-		camel_db_abort_transaction (cdb, NULL);
+ 		/* Failed, so lets reset the flag */
+ 		s->flags |= CAMEL_SUMMARY_DIRTY;
+ 		return -1;
+@@ -2276,25 +2279,21 @@ camel_folder_summary_save_to_db (CamelFo
+ 		strstr ((*error)->message, "26 columns but 28 values") != NULL) {
+ 		const gchar *full_name;
+ 
+-		/* This is an error is previous migration. Let remigrate this folder alone. */
+-		camel_db_abort_transaction (cdb, NULL);
+ 		full_name = camel_folder_get_full_name (s->folder);
+-		camel_db_reset_folder_version (cdb, full_name, 0, NULL);
+ 		g_warning ("Fixing up a broken summary migration on %s\n", full_name);
++		
+ 		/* Begin everything again. */
+ 		camel_db_begin_transaction (cdb, NULL);
++		camel_db_reset_folder_version (cdb, full_name, 0, NULL);
++		camel_db_end_transaction (cdb, NULL);
+ 
+ 		ret = save_message_infos_to_db (s, FALSE, error);
+ 		if (ret != 0) {
+-			camel_db_abort_transaction (cdb, NULL);
+-			/* Failed, so lets reset the flag */
+ 			s->flags |= CAMEL_SUMMARY_DIRTY;
+ 			return -1;
+ 		}
+ 	}
+ 
+-	camel_db_end_transaction (cdb, NULL);
+-
+ 	record = CAMEL_FOLDER_SUMMARY_GET_CLASS (s)->summary_header_to_db (s, error);
+ 	if (!record) {
+ 		s->flags |= CAMEL_SUMMARY_DIRTY;
+diff -up evolution-data-server-2.32.3/camel/camel-folder-summary.h.eds evolution-data-server-2.32.3/camel/camel-folder-summary.h
+--- evolution-data-server-2.32.3/camel/camel-folder-summary.h.eds	2014-01-14 10:04:31.205575092 +0100
++++ evolution-data-server-2.32.3/camel/camel-folder-summary.h	2014-01-14 10:05:07.464573556 +0100
+@@ -352,7 +352,6 @@ gint camel_folder_summary_save_to_db (Ca
+ gint camel_folder_summary_load_from_db (CamelFolderSummary *s, GError **error);
+ 
+ /* only load the header */
+-gint camel_folder_summary_header_load(CamelFolderSummary *summary);
+ gint camel_folder_summary_header_load_from_db (CamelFolderSummary *s, struct _CamelStore *store, const gchar *folder_name, GError **error);
+ gint camel_folder_summary_header_save_to_db (CamelFolderSummary *s, GError **error);
+ 
+diff -up evolution-data-server-2.32.3/camel/camel-store.c.eds evolution-data-server-2.32.3/camel/camel-store.c
+--- evolution-data-server-2.32.3/camel/camel-store.c.eds	2014-01-14 10:04:38.885574767 +0100
++++ evolution-data-server-2.32.3/camel/camel-store.c	2014-01-14 10:05:07.464573556 +0100
+@@ -113,10 +113,6 @@ store_finalize (GObject *object)
+ 	if (store->cdb_r != NULL) {
+ 		camel_db_close (store->cdb_r);
+ 		store->cdb_r = NULL;
+-	}
+-
+-	if (store->cdb_w != NULL) {
+-		camel_db_close (store->cdb_w);
+ 		store->cdb_w = NULL;
+ 	}
+ 
+@@ -203,8 +199,8 @@ store_construct (CamelService *service,
+ 		return FALSE;
+ 	}
+ 
+-	/* This is for writing to the store */
+-	store->cdb_w = camel_db_clone (store->cdb_r, error);
++	/* keep cb_w to not break the ABI */
++	store->cdb_w = store->cdb_r;
+ 
+ 	if (camel_url_get_param(url, "filter"))
+ 		store->flags |= CAMEL_STORE_FILTER_INBOX;
+diff -up evolution-data-server-2.32.3/camel/camel-vee-folder.c.eds evolution-data-server-2.32.3/camel/camel-vee-folder.c
+--- evolution-data-server-2.32.3/camel/camel-vee-folder.c.eds	2014-01-14 10:04:43.189574584 +0100
++++ evolution-data-server-2.32.3/camel/camel-vee-folder.c	2014-01-14 10:10:17.225560430 +0100
+@@ -66,6 +66,10 @@ struct _update_data {
+ 	CamelVeeFolder *folder_unmatched;
+ 	GHashTable *unmatched_uids;
+ 	gboolean rebuilt, correlating;
++	
++	/* used for storing uids that needs to be updated in db later by unmatched_check_uid and
++   	   folder_added_uid */	   
++	GSList *uids_to_update;
+ };
+ 
+ struct _folder_changed_msg {
+@@ -125,12 +129,15 @@ expression_is_correlating (const gchar *
+ 
+ /* Hold all these with summary lock and unmatched summary lock held */
+ static void
+-folder_changed_add_uid (CamelFolder *sub, const gchar *uid, const gchar hash[8], CamelVeeFolder *vf, gboolean use_db)
++folder_changed_add_uid (CamelFolder *sub, 
++			const gchar *uid, 
++			const gchar hash[8], 
++			CamelVeeFolder *vf, 
++			gboolean use_db,
++			GSList **m_added_l,
++			GSList **unm_added_l)
+ {
+-	CamelFolder *folder = CAMEL_FOLDER (vf);
+-	CamelStore *parent_store;
+ 	CamelVeeMessageInfo *vinfo;
+-	const gchar *full_name;
+ 	const gchar *vuid;
+ 	gchar *oldkey;
+ 	gpointer oldval;
+@@ -138,19 +145,16 @@ folder_changed_add_uid (CamelFolder *sub
+ 	CamelVeeFolder *folder_unmatched = vf->parent_vee_store ? vf->parent_vee_store->folder_unmatched : NULL;
+ 	GHashTable *unmatched_uids = vf->parent_vee_store ? vf->parent_vee_store->unmatched_uids : NULL;
+ 
+-	parent_store = camel_folder_get_parent_store (folder);
+-
+ 	vinfo = vee_folder_add_uid (vf, sub, uid, hash);
+ 	if (vinfo == NULL)
+ 		return;
+ 
+ 	vuid = camel_pstring_strdup (camel_message_info_uid (vinfo));
+ 	camel_message_info_free ((CamelMessageInfo *) vinfo);
+-	if (use_db) {
+-		full_name = camel_folder_get_full_name (folder);
+-		camel_db_add_to_vfolder_transaction (
+-			parent_store->cdb_w, full_name, vuid, NULL);
+-	}
++	
++	if (use_db)
++		*m_added_l = g_slist_prepend (*m_added_l, (gpointer) camel_pstring_strdup (vuid));
++
+ 	camel_folder_change_info_add_uid (vf->changes,  vuid);
+ 	if ((vf->flags & CAMEL_STORE_FOLDER_PRIVATE) == 0 && !CAMEL_IS_VEE_FOLDER (sub) && folder_unmatched != NULL) {
+ 		if (g_hash_table_lookup_extended (unmatched_uids, vuid, (gpointer *)&oldkey, &oldval)) {
+@@ -162,12 +166,11 @@ folder_changed_add_uid (CamelFolder *sub
+ 		vinfo = (CamelVeeMessageInfo *)camel_folder_get_message_info ((CamelFolder *)folder_unmatched, vuid);
+ 		if (vinfo) {
+ 			camel_folder_summary_update_counts_by_flags (CAMEL_FOLDER (folder_unmatched)->summary, vinfo->old_flags, TRUE);
+-			full_name = camel_folder_get_full_name (
+-				CAMEL_FOLDER (folder_unmatched));
+ 			camel_folder_change_info_remove_uid (
+ 				folder_unmatched->changes, vuid);
+-			camel_db_delete_uid_from_vfolder_transaction (
+-				parent_store->cdb_w, full_name, vuid, NULL);
++
++			*unm_added_l = g_slist_prepend (*unm_added_l, (gpointer) camel_pstring_strdup (vuid));
++
+ 			camel_folder_summary_remove_uid_fast (
+ 				CAMEL_FOLDER (folder_unmatched)->summary, vuid);
+ 			camel_folder_free_message_info (
+@@ -180,11 +183,16 @@ folder_changed_add_uid (CamelFolder *sub
+ }
+ 
+ static void
+-folder_changed_remove_uid (CamelFolder *sub, const gchar *uid, const gchar hash[8], gint keep, CamelVeeFolder *vf, gboolean use_db)
++folder_changed_remove_uid 	(CamelFolder *sub, 
++				 const gchar *uid, 
++				 const gchar hash[8], 
++				 gint keep, 
++				 CamelVeeFolder *vf, 
++				 gboolean use_db,
++				 GSList **m_removed_l,
++				 GSList **unm_removed_l)
+ {
+ 	CamelFolder *folder = (CamelFolder *)vf;
+-	CamelStore *parent_store;
+-	const gchar *full_name;
+ 	gchar *vuid, *oldkey;
+ 	gpointer oldval;
+ 	gint n;
+@@ -196,8 +204,6 @@ folder_changed_remove_uid (CamelFolder *
+ 	memcpy (vuid, hash, 8);
+ 	strcpy (vuid+8, uid);
+ 
+-	parent_store = camel_folder_get_parent_store (folder);
+-
+ 	vinfo = (CamelVeeMessageInfo *) camel_folder_summary_uid (folder->summary, vuid);
+ 	if (vinfo) {
+ 		camel_folder_summary_update_counts_by_flags (folder->summary, vinfo->old_flags, TRUE);
+@@ -205,11 +211,9 @@ folder_changed_remove_uid (CamelFolder *
+ 	}
+ 
+ 	camel_folder_change_info_remove_uid (vf->changes, vuid);
+-	if (use_db) {
+-		full_name = camel_folder_get_full_name (folder);
+-		camel_db_delete_uid_from_vfolder_transaction (
+-			parent_store->cdb_w, full_name, vuid, NULL);
+-	}
++	if (use_db)
++		*m_removed_l = g_slist_prepend (*m_removed_l, (gpointer) camel_pstring_strdup (vuid));
++
+ 	camel_folder_summary_remove_uid_fast (folder->summary, vuid);
+ 
+ 	if ((vf->flags & CAMEL_STORE_FOLDER_PRIVATE) == 0 && !CAMEL_IS_VEE_FOLDER (sub) && folder_unmatched != NULL) {
+@@ -237,12 +241,11 @@ folder_changed_remove_uid (CamelFolder *
+ 			vinfo = (CamelVeeMessageInfo *)camel_folder_get_message_info ((CamelFolder *)folder_unmatched, vuid);
+ 			if (vinfo) {
+ 				camel_folder_summary_update_counts_by_flags (CAMEL_FOLDER (folder_unmatched)->summary, vinfo->old_flags, TRUE);
+-				full_name = camel_folder_get_full_name (
+-					CAMEL_FOLDER (folder_unmatched));
+ 				camel_folder_change_info_remove_uid (
+ 					folder_unmatched->changes, vuid);
+-				camel_db_delete_uid_from_vfolder_transaction (
+-					parent_store->cdb_w, full_name, vuid, NULL);
++
++				*unm_removed_l = g_slist_prepend (*unm_removed_l, (gpointer) camel_pstring_strdup (vuid));
++
+ 				camel_folder_summary_remove_uid_fast (
+ 					CAMEL_FOLDER (folder_unmatched)->summary, vuid);
+ 				camel_folder_free_message_info (
+@@ -265,7 +268,13 @@ update_old_flags (CamelFolderSummary *su
+ }
+ 
+ static void
+-folder_changed_change_uid (CamelFolder *sub, const gchar *uid, const gchar hash[8], CamelVeeFolder *vf, gboolean use_db)
++folder_changed_change_uid	(CamelFolder *sub, 
++				 const gchar *uid, 
++				 const gchar hash[8], 
++				 CamelVeeFolder *vf, 
++				 gboolean use_db, 
++				 GSList **m_removed_l,
++				 GSList **unm_removed_l)
+ {
+ 	gchar *vuid;
+ 	CamelVeeMessageInfo *vinfo, *uinfo = NULL;
+@@ -298,7 +307,7 @@ folder_changed_change_uid (CamelFolder *
+ 			camel_folder_free_message_info (sub, info);
+ 		} else {
+ 			if (vinfo) {
+-				folder_changed_remove_uid (sub, uid, hash, FALSE, vf, use_db);
++				folder_changed_remove_uid (sub, uid, hash, FALSE, vf, use_db, m_removed_l, unm_removed_l);
+ 				camel_message_info_free ((CamelMessageInfo *)vinfo);
+ 			}
+ 			if (uinfo)
+@@ -307,6 +316,27 @@ folder_changed_change_uid (CamelFolder *
+ 	}
+ }
+ 
++
++static void
++vfolder_add_remove_transaction	(CamelStore *parent_store, const gchar *full_name, GSList **uids, gboolean add, GError **error)
++{
++	GSList *l;
++
++	for (l = *uids; l != NULL; l = g_slist_next (l)) {
++		if (add)	
++			 camel_db_add_to_vfolder_transaction	(parent_store->cdb_w, full_name,
++				                                (const gchar *) l->data, error);
++		else
++			camel_db_delete_uid_from_vfolder_transaction 	
++								(parent_store->cdb_w, full_name, 
++								 (const gchar *) l->data, error);
++	}
++	
++	g_slist_foreach (*uids, (GFunc) camel_pstring_free, NULL);
++	g_slist_free (*uids);
++	*uids = NULL;
++}
++
+ static void
+ folder_changed_change (CamelSession *session, CamelSessionThreadMsg *msg)
+ {
+@@ -315,7 +345,6 @@ folder_changed_change (CamelSession *ses
+ 	CamelFolder *folder = (CamelFolder *)m->vee_folder;
+ 	CamelVeeFolder *vf = m->vee_folder;
+ 	CamelFolderChangeInfo *changes = m->changes;
+-	CamelStore *parent_store;
+ 	gchar *vuid = NULL, hash[8];
+ 	const gchar *uid;
+ 	CamelVeeMessageInfo *vinfo;
+@@ -330,6 +359,7 @@ folder_changed_change (CamelSession *ses
+ 	CamelVeeFolder *folder_unmatched = vf->parent_vee_store ? vf->parent_vee_store->folder_unmatched : NULL;
+ 	GHashTable *unmatched_uids = vf->parent_vee_store ? vf->parent_vee_store->unmatched_uids : NULL;
+ 	GPtrArray *present = NULL;
++	GSList *m_added_l = NULL, *m_removed_l = NULL, *unm_added_l = NULL, *unm_removed_l = NULL;
+ 
+ 	/* See vee_folder_rebuild_folder. */
+ 	gboolean correlating = expression_is_correlating (vf->expression);
+@@ -393,15 +423,10 @@ folder_changed_change (CamelSession *ses
+ 	if (folder_unmatched != NULL)
+ 		camel_vee_folder_lock (folder_unmatched, CAMEL_VEE_FOLDER_SUMMARY_LOCK);
+ 
+-	if (matches_changed || matches_added || changes->uid_removed->len||present) {
+-		parent_store = camel_folder_get_parent_store (folder);
+-		camel_db_begin_transaction (parent_store->cdb_w, NULL);
+-	}
+-
+ 	/* Always remove removed uid's, in any case */
+ 	for (i=0;i<changes->uid_removed->len;i++) {
+ 		dd (printf ("  removing uid '%s'\n", (gchar *)changes->uid_removed->pdata[i]));
+-		folder_changed_remove_uid (sub, changes->uid_removed->pdata[i], hash, FALSE, vf, !correlating);
++		folder_changed_remove_uid (sub, changes->uid_removed->pdata[i], hash, FALSE, vf, !correlating, &m_removed_l, &unm_removed_l);
+ 	}
+ 
+ 	/* Add any newly matched or to unmatched folder if they dont */
+@@ -415,7 +440,7 @@ folder_changed_change (CamelSession *ses
+ 			uid = changes->uid_added->pdata[i];
+ 			if (g_hash_table_lookup (matches_hash, uid)) {
+ 				dd (printf ("  adding uid '%s' [newly matched]\n", (gchar *)uid));
+-				folder_changed_add_uid (sub, uid, hash, vf, !correlating);
++				folder_changed_add_uid (sub, uid, hash, vf, !correlating, &m_added_l, &unm_added_l);
+ 			} else if ((vf->flags & CAMEL_STORE_FOLDER_PRIVATE) == 0) {
+ 				if (strlen (uid)+9 > vuidlen) {
+ 					vuidlen = strlen (uid)+64;
+@@ -448,12 +473,12 @@ folder_changed_change (CamelSession *ses
+ 			 * vee_folder_rebuild_folder will make any necessary removals
+ 			 * when it re-queries the entire source folder. */
+ 			for (i=0;i<always_changed->len;i++)
+-				folder_changed_change_uid (sub, always_changed->pdata[i], hash, vf, !correlating);
++				folder_changed_change_uid (sub, always_changed->pdata[i], hash, vf, !correlating, &m_removed_l, &unm_removed_l);
+ 		} else {
+ 			GHashTable *ht_present = g_hash_table_new (g_str_hash, g_str_equal);
+ 
+ 			for (i=0;present && i<present->len;i++) {
+-				folder_changed_change_uid (sub, present->pdata[i], hash, vf, !correlating);
++				folder_changed_change_uid (sub, present->pdata[i], hash, vf, !correlating, &m_removed_l, &unm_removed_l);
+ 				g_hash_table_insert (ht_present, present->pdata[i], present->pdata[i]);
+ 			}
+ 
+@@ -461,7 +486,7 @@ folder_changed_change (CamelSession *ses
+ 				if (!present || !g_hash_table_lookup (ht_present, always_changed->pdata[i]))
+ 					/* XXX: IIUC, these messages haven't been deleted from the
+ 					 * source folder, so shouldn't "keep" be set to TRUE? */
+-					folder_changed_remove_uid (sub, always_changed->pdata[i], hash, TRUE, vf, !correlating);
++					folder_changed_remove_uid (sub, always_changed->pdata[i], hash, TRUE, vf, !correlating, &m_removed_l, &unm_removed_l);
+ 			}
+ 
+ 			g_hash_table_destroy (ht_present);
+@@ -493,21 +518,21 @@ folder_changed_change (CamelSession *ses
+ 				if (g_hash_table_lookup (matches_hash, uid)) {
+ 					/* A uid we dont have, but now it matches, add it */
+ 					dd (printf ("  adding uid '%s' [newly matched]\n", uid));
+-					folder_changed_add_uid (sub, uid, hash, vf, !correlating);
++					folder_changed_add_uid (sub, uid, hash, vf, !correlating, &m_added_l, &unm_added_l);
+ 				} else {
+ 					/* A uid we still don't have, just change it (for unmatched) */
+-					folder_changed_change_uid (sub, uid, hash, vf, !correlating);
++					folder_changed_change_uid (sub, uid, hash, vf, !correlating, &m_removed_l, &unm_removed_l);
+ 				}
+ 			} else {
+ 				if ((vf->flags & CAMEL_STORE_VEE_FOLDER_AUTO) == 0
+ 				    || g_hash_table_lookup (matches_hash, uid)) {
+ 					/* still match, or we're not auto-updating, change event, (if it changed) */
+ 					dd (printf ("  changing uid '%s' [still matches]\n", uid));
+-					folder_changed_change_uid (sub, uid, hash, vf, !correlating);
++					folder_changed_change_uid (sub, uid, hash, vf, !correlating, &m_removed_l, &unm_removed_l);
+ 				} else {
+ 					/* No longer matches, remove it, but keep it in unmatched (potentially) */
+ 					dd (printf ("  removing uid '%s' [did match]\n", uid));
+-					folder_changed_remove_uid (sub, uid, hash, TRUE, vf, !correlating);
++					folder_changed_remove_uid (sub, uid, hash, TRUE, vf, !correlating, &m_removed_l, &unm_removed_l);
+ 				}
+ 				camel_message_info_free ((CamelMessageInfo *)vinfo);
+ 			}
+@@ -516,7 +541,7 @@ folder_changed_change (CamelSession *ses
+ 	} else {
+ 		/* stuff didn't match but it changed - check unmatched folder for changes */
+ 		for (i=0;i<changed->len;i++)
+-			folder_changed_change_uid (sub, changed->pdata[i], hash, vf, !correlating);
++			folder_changed_change_uid (sub, changed->pdata[i], hash, vf, !correlating, &m_removed_l, &unm_removed_l);
+ 	}
+ 
+ 	if (folder_unmatched != NULL) {
+@@ -534,9 +559,27 @@ folder_changed_change (CamelSession *ses
+ 	}
+ 
+ 	if (matches_changed || matches_added || changes->uid_removed->len || present) {
++		const gchar *full_name, *unm_full_name;
++		CamelStore *parent_store;
++
+ 		parent_store = camel_folder_get_parent_store (folder);
++		full_name = camel_folder_get_full_name (folder);
++		unm_full_name = camel_folder_get_full_name (CAMEL_FOLDER (folder_unmatched));
++		
++		camel_db_begin_transaction (parent_store->cdb_w, NULL);
++	
++		if (m_added_l)	
++			vfolder_add_remove_transaction (parent_store, full_name, &m_added_l, TRUE, NULL);
++		if (m_removed_l)
++			vfolder_add_remove_transaction (parent_store, full_name, &m_removed_l, FALSE, NULL);
++		if (unm_added_l)	
++			vfolder_add_remove_transaction (parent_store, unm_full_name, &unm_added_l, TRUE, NULL);
++		if (unm_removed_l)
++			vfolder_add_remove_transaction (parent_store, unm_full_name, &unm_removed_l, FALSE, NULL);
++		
+ 		camel_db_end_transaction (parent_store->cdb_w, NULL);
+ 	}
++
+ 	camel_vee_folder_unlock (vf, CAMEL_VEE_FOLDER_SUMMARY_LOCK);
+ 
+ 	/* Cleanup stuff on our folder */
+@@ -688,17 +731,9 @@ unmatched_check_uid (gchar *uidin, gpoin
+ 	} else {
+ 		CamelVeeMessageInfo *mi = (CamelVeeMessageInfo *)camel_folder_summary_uid (((CamelFolder *)u->folder_unmatched)->summary, uid);
+ 		if (mi) {
+-			CamelStore *parent_store;
+-			const gchar *full_name;
+-
+-			full_name = camel_folder_get_full_name (
+-				CAMEL_FOLDER (u->folder_unmatched));
+-			parent_store = camel_folder_get_parent_store (
+-				CAMEL_FOLDER (u->folder_unmatched));
++			u->uids_to_update = g_slist_prepend (u->uids_to_update, (gpointer) camel_pstring_strdup (uid));
+ 
+ 			camel_folder_summary_update_counts_by_flags (CAMEL_FOLDER (u->folder_unmatched)->summary, mi->old_flags, TRUE);
+-			camel_db_delete_uid_from_vfolder_transaction (
+-				parent_store->cdb_w, full_name, uid, NULL);
+ 			camel_folder_summary_remove_uid_fast (
+ 				((CamelFolder *)u->folder_unmatched)->summary, uid);
+ 			camel_folder_change_info_remove_uid (
+@@ -718,21 +753,9 @@ folder_added_uid (gchar *uidin, gpointer
+ 
+ 	if ((mi = vee_folder_add_uid (u->vee_folder, u->source, uidin, u->hash)) != NULL) {
+ 		camel_folder_change_info_add_uid (u->vee_folder->changes, camel_message_info_uid (mi));
+-		/* FIXME[disk-summary] Handle exceptions */
+-		/* FIXME[disk-summary] Make all these as transactions, just
+-		 * testing atm */
+-		if (u->rebuilt && !u->correlating) {
+-			CamelStore *parent_store;
+-			const gchar *full_name;
+-
+-			full_name = camel_folder_get_full_name (
+-				CAMEL_FOLDER (u->vee_folder));
+-			parent_store = camel_folder_get_parent_store (
+-				CAMEL_FOLDER (u->vee_folder));
+-			camel_db_add_to_vfolder_transaction (
+-				parent_store->cdb_w, full_name,
+-				camel_message_info_uid (mi), NULL);
+-		}
++		if (u->rebuilt && !u->correlating) 
++			u->uids_to_update = g_slist_prepend (u->uids_to_update, (gpointer) camel_pstring_strdup (camel_message_info_uid (mi)));
++		
+ 		if (!CAMEL_IS_VEE_FOLDER (u->source) && u->unmatched_uids != NULL) {
+ 			if (g_hash_table_lookup_extended (u->unmatched_uids, camel_message_info_uid (mi), (gpointer *)&oldkey, &oldval)) {
+ 				n = GPOINTER_TO_INT (oldval);
+@@ -958,7 +981,11 @@ vee_folder_dispose (GObject *object)
+ 			folder = CAMEL_FOLDER (vf);
+ 			parent_store = camel_folder_get_parent_store (folder);
+ 			record = summary_header_to_db (folder->summary, NULL);
++			
++			camel_db_begin_transaction (parent_store->cdb_w, NULL);
+ 			camel_db_write_folder_info_record (parent_store->cdb_w, record, NULL);
++			camel_db_end_transaction (parent_store->cdb_w, NULL);
++
+ 			g_free (record->folder_name);
+ 			g_free (record);
+ 		}
+@@ -1687,6 +1714,7 @@ vee_folder_rebuild_folder (CamelVeeFolde
+ 	u.unmatched_uids = unmatched_uids;
+ 	u.rebuilt = rebuilded;
+ 	u.correlating = correlating;
++	u.uids_to_update = NULL;
+ 
+ 	camel_vee_folder_lock (vee_folder, CAMEL_VEE_FOLDER_SUMMARY_LOCK);
+ 
+@@ -1771,19 +1799,18 @@ vee_folder_rebuild_folder (CamelVeeFolde
+ 		camel_folder_summary_remove_range (folder->summary, start, last);
+ 
+ 	/* now matchhash contains any new uid's, add them, etc */
+-	if (rebuilded && !correlating) {
+-		CamelStore *parent_store;
+-
+-		parent_store = camel_folder_get_parent_store (folder);
+-		camel_db_begin_transaction (parent_store->cdb_w, NULL);
+-	}
+-
+ 	g_hash_table_foreach (matchhash, (GHFunc)folder_added_uid, &u);
+ 
+-	if (rebuilded && !correlating) {
++	if (rebuilded && !correlating && u.uids_to_update) {
+ 		CamelStore *parent_store;
++		const gchar *full_name;
+ 
+ 		parent_store = camel_folder_get_parent_store (folder);
++		full_name = camel_folder_get_full_name (folder);
++
++		/* FIXME[disk-summary] Handle exceptions */
++		camel_db_begin_transaction (parent_store->cdb_w, NULL);
++		vfolder_add_remove_transaction (parent_store, full_name, &(u.uids_to_update), TRUE, NULL);
+ 		camel_db_end_transaction (parent_store->cdb_w, NULL);
+ 	}
+ 
+@@ -1815,8 +1842,23 @@ vee_folder_rebuild_folder (CamelVeeFolde
+ 		}
+ 
+ 		/* now allhash contains all potentially new uid's for the unmatched folder, process */
+-		if (!CAMEL_IS_VEE_FOLDER (source))
++		if (!CAMEL_IS_VEE_FOLDER (source)) {
+ 			g_hash_table_foreach (allhash, (GHFunc)unmatched_check_uid, &u);
++			
++			if (u.uids_to_update) {
++				CamelStore *parent_store;
++				const gchar *full_name;
++
++				full_name = camel_folder_get_full_name (
++						CAMEL_FOLDER (u.folder_unmatched));
++				parent_store = camel_folder_get_parent_store (
++						CAMEL_FOLDER (u.folder_unmatched));
++
++				camel_db_begin_transaction (parent_store->cdb_w, NULL);
++				vfolder_add_remove_transaction (parent_store, full_name, &(u.uids_to_update), FALSE, NULL);
++				camel_db_end_transaction (parent_store->cdb_w, NULL);
++			}
++		}
+ 
+ 		/* copy any changes so we can raise them outside the lock */
+ 		if (camel_folder_change_info_changed (folder_unmatched->changes)) {
+@@ -2388,8 +2430,10 @@ camel_vee_folder_sync_headers (CamelFold
+ 	start = time (NULL);
+ 	record = summary_header_to_db (vf->summary, error);
+ 	parent_store = camel_folder_get_parent_store (vf);
++	camel_db_begin_transaction (parent_store->cdb_w, NULL);
+ 	camel_db_write_folder_info_record (parent_store->cdb_w, record, error);
+ 	end = time (NULL);
++	camel_db_end_transaction (parent_store->cdb_w, NULL);
+ 
+ 	g_free (record->folder_name);
+ 	g_free (record);

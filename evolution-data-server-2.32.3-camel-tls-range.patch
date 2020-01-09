@@ -1,0 +1,90 @@
+diff -up evolution-data-server-2.32.3/camel/camel-tcp-stream-ssl.c.camel-tls-range evolution-data-server-2.32.3/camel/camel-tcp-stream-ssl.c
+--- evolution-data-server-2.32.3/camel/camel-tcp-stream-ssl.c.camel-tls-range	2014-06-09 13:55:00.744504027 +0200
++++ evolution-data-server-2.32.3/camel/camel-tcp-stream-ssl.c	2014-06-09 13:55:00.811504025 +0200
+@@ -45,6 +45,8 @@
+ #include <sslerr.h>
+ #include "nss.h"    /* Don't use <> here or it will include the system nss.h instead */
+ #include <ssl.h>
++#include <sslt.h>
++#include <sslproto.h>
+ #include <cert.h>
+ #include <certdb.h>
+ #include <pk11func.h>
+@@ -625,6 +627,9 @@ enable_ssl (CamelTcpStreamSSL *ssl, PRFi
+ {
+ 	PRFileDesc *ssl_fd;
+ 	static gchar v2_enabled = -1;
++#if NSS_VMAJOR > 3 || (NSS_VMAJOR == 3 && NSS_VMINOR >= 14)
++	SSLVersionRange versionStreamSup, versionStream;
++#endif
+ 
+ 	g_assert (fd != NULL);
+ 
+@@ -654,7 +659,7 @@ enable_ssl (CamelTcpStreamSSL *ssl, PRFi
+ 		SSL_OptionSet (ssl_fd, SSL_ENABLE_SSL2, PR_FALSE);
+ 		SSL_OptionSet (ssl_fd, SSL_V2_COMPATIBLE_HELLO, PR_FALSE);
+ 	}
+-
++#if NSS_VMAJOR < 3 || (NSS_VMAJOR == 3 && NSS_VMINOR < 14)
+ 	if (ssl->priv->flags & CAMEL_TCP_STREAM_SSL_ENABLE_SSL3)
+ 		SSL_OptionSet (ssl_fd, SSL_ENABLE_SSL3, PR_TRUE);
+ 	else
+@@ -665,6 +670,29 @@ enable_ssl (CamelTcpStreamSSL *ssl, PRFi
+ 	else
+ 		SSL_OptionSet (ssl_fd, SSL_ENABLE_TLS, PR_FALSE);
+ 
++#else
++	SSL_VersionRangeGetSupported (ssl_variant_stream, &versionStreamSup);
++
++	if (ssl->priv->flags & CAMEL_TCP_STREAM_SSL_ENABLE_SSL3)
++		versionStream.min = SSL_LIBRARY_VERSION_3_0;
++	else
++		versionStream.min = SSL_LIBRARY_VERSION_TLS_1_0;
++
++	if (ssl->priv->flags & CAMEL_TCP_STREAM_SSL_ENABLE_TLS)
++		versionStream.max = versionStreamSup.max;
++	else
++		versionStream.max = SSL_LIBRARY_VERSION_3_0;
++
++	if (versionStream.max < versionStream.min) {
++		PRUint16 tmp;
++
++		tmp = versionStream.max;
++		versionStream.max = versionStream.min;
++		versionStream.min = tmp;
++	}
++
++	SSL_VersionRangeSet (ssl_fd, &versionStream);
++#endif
+ 	SSL_SetURL (ssl_fd, ssl->priv->expected_host);
+ 
+ 	/* NSS provides a default implementation for the SSL_GetClientAuthDataHook callback
+diff -up evolution-data-server-2.32.3/camel/camel.c.camel-tls-range evolution-data-server-2.32.3/camel/camel.c
+--- evolution-data-server-2.32.3/camel/camel.c.camel-tls-range	2014-06-09 13:55:00.744504027 +0200
++++ evolution-data-server-2.32.3/camel/camel.c	2014-06-09 13:56:46.121499562 +0200
+@@ -104,6 +104,9 @@ camel_init (const gchar *configdir, gboo
+ 		gchar *nss_configdir = NULL;
+ 		gchar *nss_sql_configdir = NULL;
+ 		SECStatus status = SECFailure;
++#if NSS_VMAJOR > 3 || (NSS_VMAJOR == 3 && NSS_VMINOR >= 14)
++		SSLVersionRange versionStream;
++#endif
+ 
+ 		/* check camel-tcp-stream-ssl.c for the same "CAMEL_SSL_V2_ENABLE" */
+ 		if (v2_enabled == -1)
+@@ -205,8 +208,14 @@ skip_nss_init:
+ 
+ 		SSL_OptionSetDefault (SSL_ENABLE_SSL2, v2_enabled ? PR_TRUE : PR_FALSE);
+ 		SSL_OptionSetDefault (SSL_V2_COMPATIBLE_HELLO, PR_FALSE);
++#if NSS_VMAJOR < 3 || (NSS_VMAJOR == 3 && NSS_VMINOR < 14)
+ 		SSL_OptionSetDefault (SSL_ENABLE_SSL3, PR_TRUE);
+-		SSL_OptionSetDefault (SSL_ENABLE_TLS, PR_TRUE);
++		SSL_OptionSetDefault (SSL_ENABLE_TLS, PR_TRUE); /* Enable TLSv1.0 */
++#else
++		/* Enable all SSL/TLS versions supported by NSS (this API is for SSLv3 and newer). */
++		SSL_VersionRangeGetSupported (ssl_variant_stream, &versionStream);
++		SSL_VersionRangeSetDefault (ssl_variant_stream, &versionStream);
++#endif
+ 
+ 		PR_Unlock (nss_initlock);
+ 

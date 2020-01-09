@@ -26,7 +26,7 @@
 
 Name: evolution-data-server
 Version: 2.32.3
-Release: 18%{?dist}
+Release: 21%{?dist}
 Group: System Environment/Libraries
 Summary: Backend data server for Evolution
 License: LGPLv2+
@@ -151,6 +151,15 @@ Patch36: evolution-data-server-2.32.3-cameldb-upgrade-no-such-table.patch
 # RH bug #1014032
 Patch37: evolution-data-server-2.32.3-cameldb-prevent-crash.patch
 
+# RH bug #1040178
+Patch38: evolution-data-server-2.32.3-camel-sqlite-summary-hang.patch
+
+# RH bug #1042996
+Patch39: evolution-data-server-2.32.3-camel-tls-range.patch
+
+# RH bug #1128726
+Patch40: evolution-data-server-2.32.3-cameldb-migrate-maildir.patch
+
 ## Dependencies ###
 
 Requires: glib2 >= %{glib2_version}
@@ -270,6 +279,9 @@ This package contains developer documentation for %{name}.
 %patch35 -p1 -b .webdav-owncloud-create
 %patch36 -p1 -b .cameldb-upgrade-no-such-table
 %patch37 -p1 -b .cameldb-prevent-crash
+%patch38 -p1 -b .camel-sqlite-summary-hang
+%patch39 -p1 -b .camel-tls-range
+%patch40 -p1 -b .cameldb-migrate-maildir
 
 mkdir -p krb5-fakeprefix/include
 mkdir -p krb5-fakeprefix/lib
@@ -484,6 +496,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/libedataserverui
 
 %changelog
+* Tue Aug 26 2014 Milan Crha <mcrha@redhat.com> - 2.32.3-21.el6
+- Add patch for RH bug #1128726 (Deadlock during migration to maildir)
+
+* Mon Jun 09 2014 Milan Crha <mcrha@redhat.com> - 2.32.3-20.el6
+- Add patch for RH bug #1042996 (Camel support TLS > 1.0)
+
+* Wed Apr 09 2014 Milan Crha <mcrha@redhat.com> - 2.32.3-19.el6
+- Add patch for RH bug #1040178 (Camel SQLite summary hang)
+
 * Tue Oct 01 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-18.el6
 - Add patch for RH bug #1014032 (Prevent a crash in CamelDB)
 
