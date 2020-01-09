@@ -1,0 +1,554 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Reference Manual: EBookBackendCache</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch16.html" title="Backend Deprecated Classes">
+<link rel="prev" href="eds-EBookBackendSummary.html" title="EBookBackendSummary">
+<link rel="next" href="eds-Berkeley-DB-caching-API.html" title="Berkeley DB caching API">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-EBookBackendCache.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch16.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-EBookBackendSummary.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-Berkeley-DB-caching-API.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-EBookBackendCache"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-EBookBackendCache.top_of_page"></a>EBookBackendCache</span></h2>
+<p>EBookBackendCache — A utility for storing contact data and searching for contacts</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-EBookBackendCache.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="returnvalue">EBookBackendCache</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-new" title="e_book_backend_cache_new ()">e_book_backend_cache_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="returnvalue">EContact</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-get-contact" title="e_book_backend_cache_get_contact ()">e_book_backend_cache_get_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-add-contact" title="e_book_backend_cache_add_contact ()">e_book_backend_cache_add_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-remove-contact" title="e_book_backend_cache_remove_contact ()">e_book_backend_cache_remove_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-check-contact" title="e_book_backend_cache_check_contact ()">e_book_backend_cache_check_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-get-contacts" title="e_book_backend_cache_get_contacts ()">e_book_backend_cache_get_contacts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-set-populated" title="e_book_backend_cache_set_populated ()">e_book_backend_cache_set_populated</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-is-populated" title="e_book_backend_cache_is_populated ()">e_book_backend_cache_is_populated</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-set-time" title="e_book_backend_cache_set_time ()">e_book_backend_cache_set_time</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-get-time" title="e_book_backend_cache_get_time ()">e_book_backend_cache_get_time</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EBookBackendCache.html#e-book-backend-cache-search" title="e_book_backend_cache_search ()">e_book_backend_cache_search</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EBookBackendCache.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache">EBookBackendCache</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EBookBackendCache.html#EBookBackendCacheClass" title="struct EBookBackendCacheClass">EBookBackendCacheClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EBookBackendCache.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedata-book/libedata-book.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="eds-EBookBackendCache.description"></a><h2>Description</h2>
+<p>The <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> is deprecated, use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead.</p>
+</div>
+<div class="refsect1">
+<a name="eds-EBookBackendCache.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-book-backend-cache-new"></a><h3>e_book_backend_cache_new ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="returnvalue">EBookBackendCache</span></a> *
+e_book_backend_cache_new (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_book_backend_cache_new</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Creates a new <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a>, which implements a local cache of
+<a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="type">EContact</span></a> objects, useful for remote backends.</p>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.2.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>filename</p></td>
+<td class="parameter_description"><p>file to write cached data</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.2.7"></a><h4>Returns</h4>
+<p> a new <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a></p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-backend-cache-get-contact"></a><h3>e_book_backend_cache_get_contact ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="returnvalue">EContact</span></a> *
+e_book_backend_cache_get_contact (<em class="parameter"><code><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                  <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_book_backend_cache_get_contact</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Get a cached contact. Note that the returned <a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="type">EContact</span></a> will be
+newly created, and must be unreffed by the caller when no longer
+needed.</p>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.3.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>a unique contact ID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.3.7"></a><h4>Returns</h4>
+<p> A cached <a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="type">EContact</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>uid</code></em>
+is not cached.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-backend-cache-add-contact"></a><h3>e_book_backend_cache_add_contact ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_backend_cache_add_contact (<em class="parameter"><code><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                  <em class="parameter"><code><a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="type">EContact</span></a> *contact</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_book_backend_cache_add_contact</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Adds <em class="parameter"><code>contact</code></em>
+ to <em class="parameter"><code>cache</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.4.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="type">EContact</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.4.7"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the contact was cached successfully, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-backend-cache-remove-contact"></a><h3>e_book_backend_cache_remove_contact ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_backend_cache_remove_contact (<em class="parameter"><code><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_book_backend_cache_remove_contact</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Removes the contact identified by <em class="parameter"><code>uid</code></em>
+ from <em class="parameter"><code>cache</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.5.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>a unique contact ID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.5.7"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the contact was found and removed, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-backend-cache-check-contact"></a><h3>e_book_backend_cache_check_contact ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_backend_cache_check_contact (<em class="parameter"><code><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                    <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_book_backend_cache_check_contact</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Checks if the contact identified by <em class="parameter"><code>uid</code></em>
+ exists in <em class="parameter"><code>cache</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.6.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>a unique contact ID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.6.7"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the cache contains the contact, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-backend-cache-get-contacts"></a><h3>e_book_backend_cache_get_contacts ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_book_backend_cache_get_contacts (<em class="parameter"><code><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                   <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *query</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_book_backend_cache_get_contacts</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Returns a list of <a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="type">EContact</span></a> elements from <em class="parameter"><code>cache</code></em>
+ matching <em class="parameter"><code>query</code></em>
+.
+When done with the list, the caller must unref the contacts and
+free the list.</p>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.7.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>query</p></td>
+<td class="parameter_description"><p>an s-expression</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.7.7"></a><h4>Returns</h4>
+<p> A <a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of pointers to <a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="type">EContact</span></a>.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-backend-cache-set-populated"></a><h3>e_book_backend_cache_set_populated ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_backend_cache_set_populated (<em class="parameter"><code><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_book_backend_cache_set_populated</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Flags <em class="parameter"><code>cache</code></em>
+ as being populated - that is, it is up-to-date on the
+contents of the book it's caching.</p>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.8.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-backend-cache-is-populated"></a><h3>e_book_backend_cache_is_populated ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_book_backend_cache_is_populated (<em class="parameter"><code><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_book_backend_cache_is_populated</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Checks if <em class="parameter"><code>cache</code></em>
+ is populated.</p>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.9.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.9.7"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>cache</code></em>
+is populated, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-backend-cache-set-time"></a><h3>e_book_backend_cache_set_time ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_book_backend_cache_set_time (<em class="parameter"><code><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *t</code></em>);</pre>
+<div class="warning"><p><code class="literal">e_book_backend_cache_set_time</code> is deprecated and should not be used in newly-written code.</p></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-backend-cache-get-time"></a><h3>e_book_backend_cache_get_time ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_book_backend_cache_get_time (<em class="parameter"><code><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);</pre>
+<div class="warning"><p><code class="literal">e_book_backend_cache_get_time</code> is deprecated and should not be used in newly-written code.</p></div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-book-backend-cache-search"></a><h3>e_book_backend_cache_search ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *
+e_book_backend_cache_search (<em class="parameter"><code><a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                             <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *query</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_book_backend_cache_search</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Returns an array of pointers to unique contact ID strings for contacts
+in <em class="parameter"><code>cache</code></em>
+ matching <em class="parameter"><code>query</code></em>
+. When done with the array, the caller must
+free the ID strings and the array.</p>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.12.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>cache</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>query</p></td>
+<td class="parameter_description"><p>an s-expression</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.8.4.6.7.12.7"></a><h4>Returns</h4>
+<p> A <a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of pointers to contact ID strings.</p>
+<p></p>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-EBookBackendCache.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EBookBackendCache"></a><h3>struct EBookBackendCache</h3>
+<pre class="programlisting">struct EBookBackendCache {
+};
+</pre>
+<div class="warning">
+<p><code class="literal">EBookBackendCache</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EBookBackendCacheClass"></a><h3>struct EBookBackendCacheClass</h3>
+<pre class="programlisting">struct EBookBackendCacheClass {
+};
+</pre>
+<div class="warning">
+<p><code class="literal">EBookBackendCacheClass</code> has been deprecated since version 3.12 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookSqlite.html#EBookSqlite" title="struct EBookSqlite"><span class="type">EBookSqlite</span></a> instead</p>
+</div>
+<p>Class structure for the <a class="link" href="eds-EBookBackendCache.html#EBookBackendCache" title="struct EBookBackendCache"><span class="type">EBookBackendCache</span></a> class.</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

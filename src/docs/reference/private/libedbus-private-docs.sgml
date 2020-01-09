@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY % local.common.attrib "xmlns:xi  CDATA  #FIXED 'http://www.w3.org/2003/XInclude'">
+]>
+<book id="index" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <bookinfo>
+    <title>Evolution-Data-Server Manual: Private</title>
+  </bookinfo>
+
+  <chapter>
+    <title>D-Bus API Reference</title>
+    <xi:include href="xml/e-dbus-object.xml"/>
+    <xi:include href="xml/e-dbus-source.xml"/>
+    <xi:include href="xml/e-dbus-source-removable.xml"/>
+    <xi:include href="xml/e-dbus-source-writable.xml"/>
+    <xi:include href="xml/e-dbus-source-remote-creatable.xml"/>
+    <xi:include href="xml/e-dbus-source-remote-deletable.xml"/>
+    <xi:include href="xml/e-dbus-source-oauth2-support.xml"/>
+    <xi:include href="xml/e-dbus-source-manager.xml"/>
+    <xi:include href="xml/e-dbus-object-manager-client.xml"/>
+    <xi:include href="xml/e-dbus-authenticator.xml"/>
+    <xi:include href="xml/e-dbus-address-book.xml"/>
+    <xi:include href="xml/e-dbus-address-book-cursor.xml"/>
+    <xi:include href="xml/e-dbus-address-book-factory.xml"/>
+    <xi:include href="xml/e-dbus-calendar.xml"/>
+    <xi:include href="xml/e-dbus-calendar-factory.xml"/>
+    <xi:include href="xml/e-dbus-user-prompter.xml"/>
+  </chapter>
+
+  <chapter>
+    <title>D-Bus Interfaces</title>
+    <xi:include href="../../../private/e-dbus-source-org.gnome.evolution.dataserver.Source.xml"/>
+    <xi:include href="../../../private/e-dbus-source-org.gnome.evolution.dataserver.Source.Removable.xml"/>
+    <xi:include href="../../../private/e-dbus-source-org.gnome.evolution.dataserver.Source.Writable.xml"/>
+    <xi:include href="../../../private/e-dbus-source-org.gnome.evolution.dataserver.Source.RemoteCreatable.xml"/>
+    <xi:include href="../../../private/e-dbus-source-org.gnome.evolution.dataserver.Source.RemoteDeletable.xml"/>
+    <xi:include href="../../../private/e-dbus-source-org.gnome.evolution.dataserver.Source.OAuth2Support.xml"/>
+    <xi:include href="../../../private/e-dbus-source-manager-org.gnome.evolution.dataserver.SourceManager.xml"/>
+    <xi:include href="../../../private/e-dbus-authenticator-org.gnome.evolution.dataserver.Authenticator.xml"/>
+    <xi:include href="../../../private/e-dbus-address-book-org.gnome.evolution.dataserver.AddressBook.xml"/>
+    <xi:include href="../../../private/e-dbus-address-book-factory-org.gnome.evolution.dataserver.AddressBookFactory.xml"/>
+    <xi:include href="../../../private/e-dbus-calendar-org.gnome.evolution.dataserver.Calendar.xml"/>
+    <xi:include href="../../../private/e-dbus-calendar-factory-org.gnome.evolution.dataserver.CalendarFactory.xml"/>
+    <xi:include href="../../../private/e-dbus-user-prompter-org.gnome.evolution.dataserver.UserPrompter.xml"/>
+  </chapter>
+
+  <index id="api-index-full">
+    <title>Index</title>
+    <xi:include href="xml/api-index-full.xml"><xi:fallback /></xi:include>
+  </index>
+
+  <xi:include href="xml/annotation-glossary.xml"><xi:fallback /></xi:include>
+
+</book>

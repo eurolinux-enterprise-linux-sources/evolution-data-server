@@ -1,0 +1,5825 @@
+# translation of evolution-data-server.HEAD.ml.po to
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# FSF-India <locale@gnu.org.in>, 2003.
+# Suresh VP <mvpsuresh@yahoo.com>, 2003.
+# Ani Peter <apeter@redhat.com>, 2006, 2009.
+# Anish A <aneesh.nl@gmail.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: evolution-data-server.HEAD.ml\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=evolution-data-server&keywords=I18N+L10N&component=Misc.\n"
+"POT-Creation-Date: 2013-11-07 08:11+0000\n"
+"PO-Revision-Date: 2013-11-12 13:15+0530\n"
+"Last-Translator: Anish Sheela <aneesh.nl@gmail.com>\n"
+"Language-Team: Swatantra Malayalam Computing\n"
+"Language: ml\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: ../addressbook/backends/file/e-book-backend-file.c:117
+#, c-format
+msgid "Failed to remove file '%s': %s"
+msgstr "ഫയല്‍ '%s' നീക്കം ചെയ്യുന്നതില്‍ പരാജയം: %s"
+
+#: ../addressbook/backends/file/e-book-backend-file.c:145
+#, c-format
+msgid "Failed to make directory %s: %s"
+msgstr "ഡയറക്ടറി %s ഉണ്ടാക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../addressbook/backends/file/e-book-backend-file.c:396
+#, c-format
+msgid "Failed to create hardlink for resource '%s': %s"
+msgstr "'%s' യുടെ ഹാര്‍ഡ്ലിങ്ക് ഉണ്ടാക്കാനായില്ല : %s"
+
+#: ../addressbook/backends/file/e-book-backend-file.c:501
+#: ../addressbook/backends/file/e-book-backend-file.c:1245
+msgid "No UID in the contact"
+msgstr "സമ്പര്‍ക്കത്തല്‍ UID ഇല്ല"
+
+#: ../addressbook/backends/file/e-book-backend-file.c:847
+#, c-format
+msgid "Conflicting UIDs found in added contacts"
+msgstr ""
+
+#: ../addressbook/backends/file/e-book-backend-file.c:960
+msgid "Loading..."
+msgstr "കാത്തിരിക്കൂ..."
+
+#: ../addressbook/backends/file/e-book-backend-file.c:962
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:4423
+msgid "Searching..."
+msgstr "തിരയുന്നു..."
+
+#: ../addressbook/backends/file/e-book-backend-file.c:1275
+#, c-format
+msgid "Tried to modify contact '%s' with out of sync revision"
+msgstr ""
+
+#: ../addressbook/backends/file/e-book-backend-file.c:1450
+#: ../addressbook/backends/file/e-book-backend-file.c:1540
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:3004
+#, c-format
+msgid "Contact '%s' not found"
+msgstr "സമ്പര്‍ക്കം '%s' കണ്ടുപിടിക്കാന്‍ സാധിച്ചില്ല"
+
+#: ../addressbook/backends/file/e-book-backend-file.c:1582
+#: ../addressbook/backends/file/e-book-backend-file.c:1649
+#, fuzzy, c-format
+#| msgid "Protocol not supported"
+msgid "Query '%s' not supported"
+msgstr "പ്രക്രിയ പിന്തുണയ്ക്കപ്പെടുന്നില്ല"
+
+#: ../addressbook/backends/file/e-book-backend-file.c:1591
+#: ../addressbook/backends/file/e-book-backend-file.c:1658
+#, fuzzy, c-format
+#| msgid "Invalid query: "
+msgid "Invalid Query '%s'"
+msgstr "അസാധുവായ ആവശ്യം"
+
+#: ../addressbook/backends/file/e-book-backend-file.c:1910
+msgid "Requested to delete an unrelated cursor"
+msgstr ""
+
+#: ../addressbook/backends/file/e-book-backend-file.c:1980
+#, c-format
+msgid "Failed to rename old database from '%s' to '%s': %s"
+msgstr "ഡാറ്റാബൈസ് '%s'-നെ '%s' എന്ന പേരിലേക്ക് മാറ്റുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../addressbook/backends/file/e-book-backend-file-migrate-bdb.c:149
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:1241
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:4318
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:382
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:825
+#: ../addressbook/libebook-contacts/e-book-contacts-types.c:35
+#: ../addressbook/libebook-contacts/e-phone-number.c:58
+#: ../addressbook/libedata-book/e-book-backend-sexp.c:874
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:575
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:606
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:618
+#: ../calendar/libecal/e-cal.c:2335 ../calendar/libecal/e-cal-client.c:268
+#: ../camel/providers/imapx/camel-imapx-command.c:655
+#: ../libedataserver/e-client.c:177
+msgid "Unknown error"
+msgstr "അറിയാത്ത ഏതോ പ്രശ്നം"
+
+#. Query for new contacts asynchronously
+#: ../addressbook/backends/google/e-book-backend-google.c:838
+msgid "Querying for updated contacts…"
+msgstr "പുതുക്കിയ സമ്പര്‍ക്കങ്ങള്‍ക്കായി ചോദിക്കുന്നു…"
+
+#. Run the query asynchronously
+#: ../addressbook/backends/google/e-book-backend-google.c:990
+msgid "Querying for updated groups…"
+msgstr "പുതുക്കിയ കൂട്ടങ്ങള്‍ക്കായി ചോദിക്കുന്നു…"
+
+#: ../addressbook/backends/google/e-book-backend-google.c:1707
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:5054
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:1271
+msgid "The backend does not support bulk additions"
+msgstr "ഒന്നിച്ചുള്ള ചേര്‍ക്കല്‍ ബാക്കെന്റ് പിന്‍തുണയ്ക്കുന്നില്ല"
+
+#: ../addressbook/backends/google/e-book-backend-google.c:1856
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:5190
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:1373
+msgid "The backend does not support bulk modifications"
+msgstr "അധികമായി മാറ്റം വരുത്തിയവയില്‍ ബാക്കന്‍ഡ് പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../addressbook/backends/google/e-book-backend-google.c:2056
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:1465
+msgid "The backend does not support bulk removals"
+msgstr "ഒന്നിച്ചുള്ള നീക്കം ചെയ്യല്‍ ബാക്കെന്റ് പിന്‍തുണയ്ക്കുന്നില്ല"
+
+#: ../addressbook/backends/google/e-book-backend-google.c:2182
+msgid "Loading…"
+msgstr "ലഭ്യമാക്കുന്നു…"
+
+#. System Group: My Contacts
+#: ../addressbook/backends/google/e-book-google-utils.c:1620
+#: ../services/evolution-source-registry/builtin/system-address-book.source.in.h:1
+#: ../services/evolution-source-registry/builtin/system-calendar.source.in.h:1
+#: ../services/evolution-source-registry/builtin/system-memo-list.source.in.h:1
+#: ../services/evolution-source-registry/builtin/system-task-list.source.in.h:1
+msgid "Personal"
+msgstr "വ്യക്തിപരം"
+
+#. System Group: Friends
+#: ../addressbook/backends/google/e-book-google-utils.c:1622
+#, fuzzy
+msgid "Friends"
+msgstr "കൂട്ടുകാര്‍;വിലാസപുസ്തകം;"
+
+#. System Group: Family
+#: ../addressbook/backends/google/e-book-google-utils.c:1624
+msgid "Family"
+msgstr "കുടുംബം"
+
+#. System Group: Coworkers
+#: ../addressbook/backends/google/e-book-google-utils.c:1626
+msgid "Coworkers"
+msgstr "സഹപ്രവര്‍ത്തകര്‍"
+
+#. Translators: An error message shown to a user when trying to do an
+#. * operation on the LDAP address book which is not connected to the server
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:174
+msgid "Not connected"
+msgstr "ബന്ധിപ്പിച്ചിട്ടില്ല"
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:968
+msgid "Failed to bind using either v3 or v2 binds"
+msgstr "2, 3 പതിപ്പുകളുപയോഗിച്ച് ബെന്റ് ചെയ്യാന്‍ പറ്റുന്നില്ല"
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:1091
+msgid "Reconnecting to LDAP server..."
+msgstr "LDAP സര്‍വറിലേക്ക് വീണ്ടും കണക്ട് ചെയ്യുന്നു..."
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:1222
+msgid "Invalid DN syntax"
+msgstr "അസാധുവായ DN വ്യാകരണം"
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:1238
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:4317
+#, c-format
+msgid "LDAP error 0x%x (%s)"
+msgstr "LDAP പിഴവ് 0x%x (%s)"
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:1850
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:2173
+#, c-format
+msgid "%s: NULL returned from ldap_first_entry"
+msgstr "%s: ldap_first_entry യില്‍ നിന്ന് NULL കിട്ടി"
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:2103
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:2231
+#, c-format
+msgid "%s: Unhandled result type %d returned"
+msgstr "%s: അറിയാത്ത ഫലത്തിന്റെ തരം %d കിട്ടി"
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:2364
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:2491
+#, c-format
+msgid "%s: Unhandled search result type %d returned"
+msgstr "%s: അറിയാത്ത തിരയല്‍ ഫലത്തിന്റെ തരം %d കിട്ടി"
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:4266
+msgid "Receiving LDAP search results..."
+msgstr "LDAP-ന്‍റെ തിരച്ചില്‍ ഫലങ്ങള്‍ ലഭ്യമാകുന്നു..."
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:4445
+msgid "Error performing search"
+msgstr "തിരച്ചിലില്‍ തകരാറ്"
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:4573
+#, fuzzy, c-format
+#| msgid "Downloading contacts (%d)... "
+msgid "Downloading contacts (%d)..."
+msgstr "വിലാസങ്ങള്‍ ഡൌണ്‍‍ലോട് ചെയ്യുന്നു (%d)... "
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:5137
+msgid "Adding contact to LDAP server..."
+msgstr "LDAP സര്‍വറിലേക്ക് വിലാസങ്ങള്‍ ചേര്‍ക്കുന്നു..."
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:5212
+msgid "Modifying contact from LDAP server..."
+msgstr "LDAP സര്‍വറിലുളള വിലാസത്തില്‍ മാറ്റം വരുത്തുന്നു..."
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:5278
+msgid "Removing contact from LDAP server..."
+msgstr "LDAP സര്‍വറില്‍ നിന്നും വിലാസം നീക്കം ചെയ്യുന്നു..."
+
+#: ../addressbook/backends/ldap/e-book-backend-ldap.c:5667
+#, c-format
+msgid "Failed to get the DN for user '%s'"
+msgstr "'%s' ഉപയോക്താവിനുള്ള DN കിട്ടുന്നതില്‍ പരാജയം"
+
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:804
+msgid "Loading Addressbook summary..."
+msgstr "സമ്പര്‍ക്ക പുസ്തകത്തിന്റെ ചുരുക്കം ലഭ്യമാക്കുന്നു..."
+
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:822
+#, c-format
+msgid "PROPFIND on webdav failed with HTTP status %d (%s)"
+msgstr "webdav ല്‍ PROPFIND HTTP അവസ്ഥ %d (%s) ഓടെ പരാജയപെട്ടു"
+
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:841
+msgid "No response body in webdav PROPFIND result"
+msgstr "webdav PROPFIND ഫലത്തില്‍ പ്രതികരണ ബോഡി ഇല്ല"
+
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:883
+#, c-format
+msgid "Loading Contacts (%d%%)"
+msgstr "വിലാസങ്ങള്‍ ലഭ്യമാക്കുന്നു (%d%%)"
+
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:1194
+msgid "Cannot transform SoupURI to string"
+msgstr "SoupURI വാചകമാക്കാനാകില്ല"
+
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:1304
+#, fuzzy, c-format
+#| msgid "Create resource '%s' failed with HTTP status: %d (%s)"
+msgid "Create resource '%s' failed with HTTP status %d (%s)"
+msgstr "'%s'വിഭവം ഉണ്ടാക്കുന്നതില്‍ പരാജയപെട്ടു; HTTP അവസ്ഥ: %d (%s)"
+
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:1402
+msgid "Contact on server changed -> not modifying"
+msgstr "സേവകനിലെ സമ്പര്‍ക്കം മാറി -> മാറ്റം വരുത്തുന്നില്ല"
+
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:1410
+#, fuzzy, c-format
+#| msgid "Modify contact failed with HTTP status: %d (%s)"
+msgid "Modify contact failed with HTTP status %d (%s)"
+msgstr "HTTP അവസ്ഥ തന്ന് സമ്പര്‍ക്കം മാറ്റുന്നത് പരാജയപെട്ടു: %d (%s)"
+
+#: ../addressbook/backends/webdav/e-book-backend-webdav.c:1486
+#, c-format
+msgid "DELETE failed with HTTP status %d"
+msgstr "HTTP അവസ്ഥ %d വെച്ച് DELETE പരാജയപെട്ടു"
+
+#: ../addressbook/libebook-contacts/e-book-contacts-types.c:24
+msgid "No such book"
+msgstr "അങ്ങനെയുള്ള പുസ്തകമില്ല"
+
+#: ../addressbook/libebook-contacts/e-book-contacts-types.c:26
+#: ../addressbook/libedata-book/e-data-book.c:368
+msgid "Contact not found"
+msgstr "വിലാസം കണ്ടുപിടിക്കാന്‍ സാധിച്ചില്ല"
+
+#: ../addressbook/libebook-contacts/e-book-contacts-types.c:28
+#: ../addressbook/libedata-book/e-data-book.c:369
+msgid "Contact ID already exists"
+msgstr "വിലാസത്തിന്റെ ഐഡി നിലവിലുണ്ട്"
+
+#: ../addressbook/libebook-contacts/e-book-contacts-types.c:30
+msgid "No such source"
+msgstr "അങ്ങനെയൊരു ഉറവിടമില്ല"
+
+#: ../addressbook/libebook-contacts/e-book-contacts-types.c:32
+#: ../addressbook/libedata-book/e-data-book.c:385
+msgid "No space"
+msgstr "സ്പെയിസ് ഇല്ല"
+
+#. Dummy row as EContactField starts from 1
+#: ../addressbook/libebook-contacts/e-contact.c:123
+msgid "Unique ID"
+msgstr "അസാമാനമായ ID"
+
+#. FILE_AS is not really a structured field - we use a getter/setter
+#. * so we can generate its value if necessary in the getter
+#. Translators: This is an EContact field description, in this case it's a
+#. * preferred user's description (or display name) of the contact. Note 'File' is a verb here.
+#: ../addressbook/libebook-contacts/e-contact.c:128
+msgid "File Under"
+msgstr "എന്തിന്‍റെ കീഴിലുളള ഫയല്‍"
+
+#. URI of the book to which the contact belongs to
+#: ../addressbook/libebook-contacts/e-contact.c:130
+msgid "Book UID"
+msgstr "പുസ്തകത്തിന്റെ UID"
+
+#. Name fields
+#. FN isn't really a structured field - we use a getter/setter
+#. * so we can set the N property (since evo 1.4 works fine with
+#. * vcards that don't even have a N attribute.  *sigh*)
+#: ../addressbook/libebook-contacts/e-contact.c:136
+msgid "Full Name"
+msgstr "മുഴുവന്‍ പേര് "
+
+#: ../addressbook/libebook-contacts/e-contact.c:137
+msgid "Given Name"
+msgstr "തന്നിരിക്കുന്ന പേര് "
+
+#: ../addressbook/libebook-contacts/e-contact.c:138
+msgid "Family Name"
+msgstr "കുടുംബ പേര്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:139
+msgid "Nickname"
+msgstr "ഇരട്ടപ്പേര് "
+
+#. Email fields
+#: ../addressbook/libebook-contacts/e-contact.c:142
+msgid "Email 1"
+msgstr "ഈ മെയില്‍ 1 "
+
+#: ../addressbook/libebook-contacts/e-contact.c:143
+msgid "Email 2"
+msgstr "ഇ മെയില് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:144
+msgid "Email 3"
+msgstr "ഇ മെയില് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:145
+msgid "Email 4"
+msgstr "ഈ മെയില്‍ 4 "
+
+#: ../addressbook/libebook-contacts/e-contact.c:147
+msgid "Mailer"
+msgstr "മെയിലര്‍"
+
+#. Address Labels
+#: ../addressbook/libebook-contacts/e-contact.c:150
+msgid "Home Address Label"
+msgstr "വീട്ടിലെ വിലാസത്തിനുളള ലേബല്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:151
+msgid "Work Address Label"
+msgstr "ജോലിസ്ഥലത്തിന്‍റെ വിലാസത്തിനുളള ലേബല്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:152
+msgid "Other Address Label"
+msgstr "മറ്റ് വിലാസത്തിനുളള ലേബല്‍"
+
+#. Phone fields
+#: ../addressbook/libebook-contacts/e-contact.c:155
+msgid "Assistant Phone"
+msgstr "മറ്റ് ഫോണ്‍ നംബര്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:156
+msgid "Business Phone"
+msgstr "ഓഫീസ് ഫോണ്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:157
+msgid "Business Phone 2"
+msgstr "ഓഫീസ് ഫോണ്‍ 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:158
+msgid "Business Fax"
+msgstr "ഓഫീസ് ഫാക്സ്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:159
+msgid "Callback Phone"
+msgstr "കോള്‍ബാക്ക് ഫോണ്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:160
+msgid "Car Phone"
+msgstr "കാര്‍ ഫോണ്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:161
+msgid "Company Phone"
+msgstr "സ്ഥാപനത്തിലെ ഫോണ്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:162
+msgid "Home Phone"
+msgstr "വീട്ടിലെ ഫോണ്‍ നംബര്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:163
+msgid "Home Phone 2"
+msgstr "വീട്ടിലെ ഫോണ്‍ നംബര്‍ 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:164
+msgid "Home Fax"
+msgstr "വീട്ടിലെ ഫാക്സ്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:165
+msgid "ISDN"
+msgstr "ISDN"
+
+#: ../addressbook/libebook-contacts/e-contact.c:166
+msgid "Mobile Phone"
+msgstr "മൊബൈല്‍ ഫോണ്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:167
+msgid "Other Phone"
+msgstr "മറ്റ് ഫോണ്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:168
+msgid "Other Fax"
+msgstr "മറ്റ് ഫാക്സ്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:169
+msgid "Pager"
+msgstr "പേജര്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:170
+msgid "Primary Phone"
+msgstr "പ്രൈമറി ഫോണ്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:171
+msgid "Radio"
+msgstr "റേഡിയോ "
+
+#: ../addressbook/libebook-contacts/e-contact.c:172
+msgid "Telex"
+msgstr "Telex"
+
+#. To translators: TTY is Teletypewriter
+#: ../addressbook/libebook-contacts/e-contact.c:174
+msgid "TTY"
+msgstr "TTY"
+
+#. Organizational fields
+#: ../addressbook/libebook-contacts/e-contact.c:177
+msgid "Organization"
+msgstr "സ്ഥാപനം"
+
+#: ../addressbook/libebook-contacts/e-contact.c:178
+msgid "Organizational Unit"
+msgstr "സ്ഥാപനത്തിന്‍റെ യൂണിറ്റ്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:179
+msgid "Office"
+msgstr "കാര്യാലയം"
+
+#: ../addressbook/libebook-contacts/e-contact.c:180
+msgid "Title"
+msgstr "തലക്കെട്ട്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:181
+msgid "Role"
+msgstr "വേഷം"
+
+#: ../addressbook/libebook-contacts/e-contact.c:182
+msgid "Manager"
+msgstr "പാലകന്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:183
+msgid "Assistant"
+msgstr "സഹായി"
+
+#. Web fields
+#: ../addressbook/libebook-contacts/e-contact.c:186
+msgid "Homepage URL"
+msgstr "ഹോം പേജിന്‍റെ URL"
+
+#: ../addressbook/libebook-contacts/e-contact.c:187
+msgid "Weblog URL"
+msgstr "വെബ് ലോഗിന്‍റെ URL"
+
+#. Contact categories
+#: ../addressbook/libebook-contacts/e-contact.c:190
+msgid "Categories"
+msgstr "വിഭാഗങ്ങള്‍"
+
+#. Collaboration fields
+#: ../addressbook/libebook-contacts/e-contact.c:193
+msgid "Calendar URI"
+msgstr "കലണ്ടറിന്‍റെ URI"
+
+#: ../addressbook/libebook-contacts/e-contact.c:194
+msgid "Free/Busy URL"
+msgstr "ഫ്രീ ആയ/തിരക്കുളള URL"
+
+#: ../addressbook/libebook-contacts/e-contact.c:195
+msgid "ICS Calendar"
+msgstr "ICS കലണ്ടര്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:196
+msgid "Video Conferencing URL"
+msgstr "വീഡിയോ കോണ്‍ഫറന്‍സിങിനുളള URL"
+
+#. Misc fields
+#: ../addressbook/libebook-contacts/e-contact.c:199
+msgid "Spouse's Name"
+msgstr "ഭാര്യ/ഭര്‍ത്താവിന്‍റെ പേര്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:200
+msgid "Note"
+msgstr "കുറിപ്പ്"
+
+#. Instant messaging fields
+#: ../addressbook/libebook-contacts/e-contact.c:203
+msgid "AIM Home Screen Name 1"
+msgstr "AIM ഹോം സ്ക്രീന്‍ പേര് 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:204
+msgid "AIM Home Screen Name 2"
+msgstr "AIM ഹോം സ്ക്രീന്‍ പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:205
+msgid "AIM Home Screen Name 3"
+msgstr "AIM ഹോം സ്ക്രീന്‍ പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:206
+msgid "AIM Work Screen Name 1"
+msgstr "AIM വര്‍ക്ക് സ്ക്രീന്‍ പേര് 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:207
+msgid "AIM Work Screen Name 2"
+msgstr "AIM വര്‍ക്ക് സ്ക്രീന്‍ പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:208
+msgid "AIM Work Screen Name 3"
+msgstr "AIM വര്‍ക്ക് സ്ക്രീന്‍ പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:209
+msgid "GroupWise Home Screen Name 1"
+msgstr "ഗ്രൂപ്പ് രീതിയിലുളള ഹോം സ്ക്രീന്‍ പേര് 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:210
+msgid "GroupWise Home Screen Name 2"
+msgstr "ഗ്രൂപ്പ് രീതിയിലുളള ഹോം സ്ക്രീന്‍ പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:211
+msgid "GroupWise Home Screen Name 3"
+msgstr "ഗ്രൂപ്പ് രീതിയിലുളള ഹോം സ്ക്രീന്‍ പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:212
+msgid "GroupWise Work Screen Name 1"
+msgstr "ഗ്രൂപ്പ് രീതിയിലുളള വര്‍ക്ക് സ്ക്രീന്‍ പേര് 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:213
+msgid "GroupWise Work Screen Name 2"
+msgstr "ഗ്രൂപ്പ് രീതിയിലുളള വര്‍ക്ക് സ്ക്രീന്‍ പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:214
+msgid "GroupWise Work Screen Name 3"
+msgstr "ഗ്രൂപ്പ് രീതിയിലുളള വര്‍ക്ക് സ്ക്രീന്‍ പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:215
+msgid "Jabber Home ID 1"
+msgstr "Jabber ഹോം ID 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:216
+msgid "Jabber Home ID 2"
+msgstr "Jabber ഹോം ID 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:217
+msgid "Jabber Home ID 3"
+msgstr "Jabber ഹോം ID 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:218
+msgid "Jabber Work ID 1"
+msgstr "Jabber വര്‍ക്ക് ID 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:219
+msgid "Jabber Work ID 2"
+msgstr "Jabber വര്‍ക്ക് ID 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:220
+msgid "Jabber Work ID 3"
+msgstr "Jabber വര്‍ക്ക് ID 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:221
+msgid "Yahoo! Home Screen Name 1"
+msgstr "Yahoo! ഹോം സ്ക്രീന്‍ പേര് 1 "
+
+#: ../addressbook/libebook-contacts/e-contact.c:222
+msgid "Yahoo! Home Screen Name 2"
+msgstr "Yahoo! ഹോം സ്ക്രീന്‍ പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:223
+msgid "Yahoo! Home Screen Name 3"
+msgstr "Yahoo! ഹോം സ്ക്രീന്‍ പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:224
+msgid "Yahoo! Work Screen Name 1"
+msgstr "Yahoo! വര്‍ക്ക് സ്ക്രീന്‍ പേര് 1 "
+
+#: ../addressbook/libebook-contacts/e-contact.c:225
+msgid "Yahoo! Work Screen Name 2"
+msgstr "Yahoo! വര്‍ക്ക് സ്ക്രീന്‍ പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:226
+msgid "Yahoo! Work Screen Name 3"
+msgstr "Yahoo! വര്‍ക്ക് സ്ക്രീന്‍ പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:227
+msgid "MSN Home Screen Name 1"
+msgstr "MSN ഹോം സ്ക്രീന്‍ പേര് 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:228
+msgid "MSN Home Screen Name 2"
+msgstr "MSN ഹോം സ്ക്രീന്‍ പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:229
+msgid "MSN Home Screen Name 3"
+msgstr "MSN ഹോം സ്ക്രീന്‍ പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:230
+msgid "MSN Work Screen Name 1"
+msgstr "MSN വര്‍ക്ക് സ്ക്രീന്‍ പേര് 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:231
+msgid "MSN Work Screen Name 2"
+msgstr "MSN വര്‍ക്ക് സ്ക്രീന്‍ പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:232
+msgid "MSN Work Screen Name 3"
+msgstr "MSN വര്‍ക്ക് സ്ക്രീന്‍ പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:233
+msgid "ICQ Home ID 1"
+msgstr "ICQ ഹോം ID 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:234
+msgid "ICQ Home ID 2"
+msgstr "ICQ ഹോം ID 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:235
+msgid "ICQ Home ID 3"
+msgstr "ICQ ഹോം ID 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:236
+msgid "ICQ Work ID 1"
+msgstr "ICQ വര്‍ക്ക് ID 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:237
+msgid "ICQ Work ID 2"
+msgstr "ICQ വര്‍ക്ക് ID 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:238
+msgid "ICQ Work ID 3"
+msgstr "ICQ വര്‍ക്ക് ID 3"
+
+#. Last modified time
+#: ../addressbook/libebook-contacts/e-contact.c:241
+msgid "Last Revision"
+msgstr "അവസാനം പരിശോധിച്ചത്"
+
+#. Translators: This is an EContact field description, in this case it's a
+#. * virtual field, which returns either name of the contact or the organization
+#. * name, recognized by multiple other fields, where the first filled is used.
+#: ../addressbook/libebook-contacts/e-contact.c:245
+msgid "Name or Org"
+msgstr "പേര് അല്ലെങ്കില്‍ സ്ഥാപനം"
+
+#. Address fields
+#: ../addressbook/libebook-contacts/e-contact.c:248
+msgid "Address List"
+msgstr "മേല്‍വിലാസ പട്ടിക "
+
+#: ../addressbook/libebook-contacts/e-contact.c:249
+msgid "Home Address"
+msgstr "വീട്ടിലെ വിലാസം"
+
+#: ../addressbook/libebook-contacts/e-contact.c:250
+msgid "Work Address"
+msgstr "ജോലിസ്ഥലത്തിന്‍റെ മേല്‍വിലാസം"
+
+#: ../addressbook/libebook-contacts/e-contact.c:251
+msgid "Other Address"
+msgstr "മറ്റ് വിലാസം"
+
+#. Contact categories
+#: ../addressbook/libebook-contacts/e-contact.c:254
+msgid "Category List"
+msgstr "വിഭാഗങ്ങളുടെ പട്ടിക"
+
+#. Photo/Logo
+#: ../addressbook/libebook-contacts/e-contact.c:257
+msgid "Photo"
+msgstr "ഫോട്ടോ "
+
+#: ../addressbook/libebook-contacts/e-contact.c:258
+msgid "Logo"
+msgstr "ലോഗോ "
+
+#. Translators: This is an EContact field description, in this case it's a name
+#. * of the contact, as specified in http://tools.ietf.org/html/rfc6350#section-6.2.2
+#: ../addressbook/libebook-contacts/e-contact.c:262
+msgid "Name"
+msgstr "പേര്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:263
+msgid "Email List"
+msgstr "ഈമെയില്‍ ലിസ്റ്റ്"
+
+#. Instant messaging fields
+#: ../addressbook/libebook-contacts/e-contact.c:266
+msgid "AIM Screen Name List"
+msgstr "AIM സ്ക്രീന്‍ നെയിം ലിസ്റ്റ്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:267
+msgid "GroupWise ID List"
+msgstr "ഗ്രൂപ്പ് അനുസരിച്ചുളള ID പട്ടിക"
+
+#: ../addressbook/libebook-contacts/e-contact.c:268
+msgid "Jabber ID List"
+msgstr "ജാബര്‍ Id ലിസ്റ്റ്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:269
+msgid "Yahoo! Screen Name List"
+msgstr "Yahoo! സ്ക്രീന്‍ നെയിം ലിസ്റ്റ്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:270
+msgid "MSN Screen Name List"
+msgstr "MSN സ്ക്രീന്‍ നെയിം ലിസ്റ്റ്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:271
+msgid "ICQ ID List"
+msgstr "ICQ ID ലിസ്റ്റ്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:273
+msgid "Wants HTML Mail"
+msgstr "HTML മെയില്‍ ആവശ്യമുണ്ട്"
+
+#. Translators: This is an EContact field description, in this case it's a
+#. * field describing whether it's a Contact list (list of email addresses) or a
+#. * regular contact for one person/organization/...
+#: ../addressbook/libebook-contacts/e-contact.c:278
+msgid "List"
+msgstr "നാമാവലി"
+
+#. Translators: This is an EContact field description, in this case it's a flag
+#. * used to determine whether when sending to Contact lists the addresses should be
+#. * shown or not to other recipients - basically whether to use BCC field or CC
+#. * message header when sending messages to this Contact list.
+#: ../addressbook/libebook-contacts/e-contact.c:283
+msgid "List Shows Addresses"
+msgstr "ലിസ്റ്റ് മേല്‍വിലാസങ്ങള്‍ കാണിക്കുന്നു"
+
+#: ../addressbook/libebook-contacts/e-contact.c:285
+msgid "Birth Date"
+msgstr "ജന്മ ദിനം"
+
+#: ../addressbook/libebook-contacts/e-contact.c:286
+#: ../calendar/backends/contacts/e-cal-backend-contacts.c:887
+msgid "Anniversary"
+msgstr "വാര്‍ഷികം"
+
+#. Security fields
+#: ../addressbook/libebook-contacts/e-contact.c:289
+msgid "X.509 Certificate"
+msgstr "X.509 സര്‍ട്ടിഫിക്കേറ്റ്"
+
+#: ../addressbook/libebook-contacts/e-contact.c:291
+msgid "Gadu-Gadu Home ID 1"
+msgstr "Gadu-Gadu ഹോം Id 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:292
+msgid "Gadu-Gadu Home ID 2"
+msgstr "Gadu-Gadu ഹോം Id 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:293
+msgid "Gadu-Gadu Home ID 3"
+msgstr "Gadu-Gadu ഹോം Id 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:294
+msgid "Gadu-Gadu Work ID 1"
+msgstr "Gadu-Gadu വര്‍ക്ക് Id 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:295
+msgid "Gadu-Gadu Work ID 2"
+msgstr "Gadu-Gadu വര്‍ക്ക് Id 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:296
+msgid "Gadu-Gadu Work ID 3"
+msgstr "Gadu-Gadu വര്‍ക്ക് Id 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:297
+msgid "Gadu-Gadu ID List"
+msgstr "Gadu-Gadu Id ലിസ്റ്റ്"
+
+#. Geo information
+#: ../addressbook/libebook-contacts/e-contact.c:300
+msgid "Geographic Information"
+msgstr "സ്ഥല വിവരങ്ങള്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:302
+msgid "Telephone"
+msgstr "ടെലിഫോണ്‍"
+
+#: ../addressbook/libebook-contacts/e-contact.c:304
+msgid "Skype Home Name 1"
+msgstr "Skype ഹോം പേര് 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:305
+msgid "Skype Home Name 2"
+msgstr "Skype ഹോം പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:306
+msgid "Skype Home Name 3"
+msgstr "Skype ഹോം പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:307
+msgid "Skype Work Name 1"
+msgstr "Skype വര്‍ക്ക് പേര് 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:308
+msgid "Skype Work Name 2"
+msgstr "Skype വര്‍ക്ക് പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:309
+msgid "Skype Work Name 3"
+msgstr "Skype വര്‍ക്ക് പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:310
+msgid "Skype Name List"
+msgstr "Skype നെയിം പട്ടിക"
+
+#: ../addressbook/libebook-contacts/e-contact.c:312
+msgid "SIP address"
+msgstr "SIP വിലാസം"
+
+#: ../addressbook/libebook-contacts/e-contact.c:314
+msgid "Google Talk Home Name 1"
+msgstr "ഗൂഗിള്‍ ടാക്ക് ഹോം പേര് 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:315
+msgid "Google Talk Home Name 2"
+msgstr "ഗൂഗിള്‍ ടാക്ക് ഹോം പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:316
+msgid "Google Talk Home Name 3"
+msgstr "ഗൂഗിള്‍ ടാക്ക് ഹോം പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:317
+msgid "Google Talk Work Name 1"
+msgstr "ഗൂഗിള്‍ ടാക്ക് വര്‍ക്ക് പേര് 1"
+
+#: ../addressbook/libebook-contacts/e-contact.c:318
+msgid "Google Talk Work Name 2"
+msgstr "ഗൂഗിള്‍ ടാക്ക് വര്‍ക്ക് പേര് 2"
+
+#: ../addressbook/libebook-contacts/e-contact.c:319
+msgid "Google Talk Work Name 3"
+msgstr "ഗൂഗിള്‍ ടാക്ക് വര്‍ക്ക് പേര് 3"
+
+#: ../addressbook/libebook-contacts/e-contact.c:320
+msgid "Google Talk Name List"
+msgstr "ഗൂഗിള്‍ ടാക്ക് നെയിം പട്ടിക"
+
+#: ../addressbook/libebook-contacts/e-contact.c:322
+msgid "Twitter Name List"
+msgstr "ട്വിറ്റര്‍ നെയിം പട്ടിക"
+
+#: ../addressbook/libebook-contacts/e-contact.c:1627
+#: ../addressbook/libebook/e-destination.c:883
+msgid "Unnamed List"
+msgstr "പേരിടാത്ത പട്ടിക"
+
+#: ../addressbook/libebook-contacts/e-phone-number.c:43
+msgid "The library was built without phone number support."
+msgstr "ഈ ഗ്രന്ഥാലയം ഫോണ്‍ നമ്പര്‍ പിന്‍തുണയില്ലാതെയാണ് ഉണ്ടാക്കിയിരിക്കുന്നത്."
+
+#: ../addressbook/libebook-contacts/e-phone-number.c:45
+msgid "The phone number parser reported an yet unkown error code."
+msgstr "ഫോണ്‍ നമ്പര്‍ പാര്‍സര്‍ ഇതുവരെ അറിയാത്ത പിഴവ് കോഡ് കാണിച്ചു."
+
+#: ../addressbook/libebook-contacts/e-phone-number.c:47
+msgid "Not a phone number"
+msgstr "ഫോണ്‍ നമ്പര്‍ അല്ല"
+
+#: ../addressbook/libebook-contacts/e-phone-number.c:49
+msgid "Invalid country calling code"
+msgstr "അസാധുവായ രാജ്യ കോഡ്"
+
+#: ../addressbook/libebook-contacts/e-phone-number.c:51
+#, fuzzy
+#| msgid "Text is too short for a phone number"
+msgid ""
+"Remaining text after the country calling code is too short for a phone number"
+msgstr "ഫോണ്‍ നമ്പറിന് വേണ്ടത്ര ടെക്സ്റ്റ് ഇല്ല"
+
+#: ../addressbook/libebook-contacts/e-phone-number.c:53
+msgid "Text is too short for a phone number"
+msgstr "ഫോണ്‍ നമ്പറിന് വേണ്ടത്ര ടെക്സ്റ്റ് ഇല്ല"
+
+#: ../addressbook/libebook-contacts/e-phone-number.c:55
+msgid "Text is too long for a phone number"
+msgstr "ഫോണ്‍ നമ്പറിന് ടെക്സ്റ്റ് വളരെ കൂടുതല്‍"
+
+#: ../addressbook/libebook/e-book-client.c:799
+#, c-format
+msgid "Unknown book property '%s'"
+msgstr "അറിയാത്ത പുസ്തക സവിശേഷത '%s'"
+
+#: ../addressbook/libebook/e-book-client.c:814
+#, fuzzy, c-format
+msgid "Cannot change value of book property '%s'"
+msgstr "കലണ്ടറിന്റെ സവിശേഷത '%s'മാറ്റാന്‍ സാധ്യമല്ല"
+
+#: ../addressbook/libebook/e-book-client.c:1198
+#: ../addressbook/libebook/e-book-client.c:1373
+#: ../addressbook/libebook/e-book-client.c:1640
+#: ../calendar/libecal/e-cal-client.c:1522
+#: ../calendar/libecal/e-cal-client.c:1704
+#, c-format
+msgid "Unable to connect to '%s': "
+msgstr "'%s' -ലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമല്ല:"
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:894
+#, c-format
+msgid "Error introspecting unknown summary field '%s'"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:1504
+#, fuzzy
+#| msgid ""
+#| "Error executing search expression: %s:\n"
+#| "%s"
+msgid "Error parsing regular expression"
+msgstr "റെഗുലര്‍ എക്സ്പ്രഷന്‍ \"%s\"സമാഹാരിയ്ക്കുന്നതില്‍ പിശകു്."
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:1549
+#: ../camel/camel-db.c:547
+#, c-format
+msgid "Insufficient memory"
+msgstr "മതിയായ മെമ്മറി ലഭ്യമല്ല"
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:1686
+#, c-format
+msgid "Invalid contact field '%d' specified in summary"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:1720
+#, c-format
+msgid ""
+"Contact field '%s' of type '%s' specified in summary, but only boolean, "
+"string and string list field types are supported"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:2992
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:4079
+#, c-format
+msgid ""
+"Full search_contacts are not stored in cache. vcards cannot be returned."
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:4205
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:4286
+#, c-format
+msgid "Query contained unsupported elements"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:4209
+#, fuzzy, c-format
+#| msgid "Invalid query"
+msgid "Invalid Query"
+msgstr "അസാധുവായ ആവശ്യം"
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:4233
+#, c-format
+msgid ""
+"Full search_contacts are not stored in cache. Hence only summary query is "
+"supported."
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:4290
+#: ../addressbook/libedata-book/e-data-book.c:380
+#: ../addressbook/libedata-book/e-data-book.c:1014
+#: ../calendar/libedata-cal/e-data-cal.c:412
+#: ../calendar/libedata-cal/e-data-cal.c:1299 ../libedataserver/e-client.c:164
+#, c-format
+msgid "Invalid query"
+msgstr "അസാധുവായ ആവശ്യം"
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:4333
+#, c-format
+msgid ""
+"Full vcards are not stored in cache. Hence only summary query is supported."
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:5036
+#, c-format
+msgid "Unable to remove the db file: errno %d"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:5796
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:6182
+#, c-format
+msgid "Only summary queries are supported by EbSdbCursor"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:5802
+#, c-format
+msgid "At least one sort field must be specified to use an EbSdbCursor"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:5815
+#, c-format
+msgid "Cannot sort by a field that is not in the summary"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:5821
+#, c-format
+msgid "Cannot sort by a field which may have multiple values"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:5949
+#, c-format
+msgid ""
+"Tried to step a cursor in reverse, but cursor is already at the beginning of "
+"the contact list"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-book-backend-sqlitedb.c:5956
+#, c-format
+msgid ""
+"Tried to step a cursor forwards, but cursor is already at the end of the "
+"contact list"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-data-book.c:364
+#: ../calendar/libedata-cal/e-data-cal.c:393
+#, fuzzy
+msgid "Success"
+msgstr "വിജയം"
+
+#: ../addressbook/libedata-book/e-data-book.c:365
+#: ../calendar/libecal/e-cal.c:2303 ../calendar/libedata-cal/e-data-cal.c:394
+#: ../libedataserver/e-client.c:131
+msgid "Backend is busy"
+msgstr "ബാക്കെന്‍ഡ് തിരക്കിലാണ്"
+
+#: ../addressbook/libedata-book/e-data-book.c:366
+#: ../calendar/libedata-cal/e-data-cal.c:395 ../libedataserver/e-client.c:141
+msgid "Repository offline"
+msgstr "റിപ്പോസിറ്ററി ഓഫ് ലൈന്‍ ആണ്"
+
+#: ../addressbook/libedata-book/e-data-book.c:367
+#: ../calendar/libecal/e-cal.c:2317 ../calendar/libedata-cal/e-data-cal.c:396
+#: ../libedataserver/e-client.c:148
+msgid "Permission denied"
+msgstr "അനുവാദം നിഷേധിച്ചിരിക്കുന്നു "
+
+#: ../addressbook/libedata-book/e-data-book.c:370
+#: ../calendar/libedata-cal/e-data-cal.c:401
+msgid "Authentication Failed"
+msgstr "ആധികാരകത ഉറപ്പാക്കല്‍ പരാജയപ്പെട്ടു"
+
+#: ../addressbook/libedata-book/e-data-book.c:371
+#: ../calendar/libedata-cal/e-data-cal.c:402
+msgid "Authentication Required"
+msgstr "ആധികാരികത ഉറപ്പ് വരുത്തല്‍ ആവശ്യമുണ്ട്"
+
+#: ../addressbook/libedata-book/e-data-book.c:372
+#: ../calendar/libedata-cal/e-data-cal.c:403
+msgid "Unsupported field"
+msgstr "പിന്തുണയില്ലാത്ത ഫീള്‍ഡ്"
+
+#: ../addressbook/libedata-book/e-data-book.c:373
+#: ../calendar/libedata-cal/e-data-cal.c:405 ../libedataserver/e-client.c:156
+msgid "Unsupported authentication method"
+msgstr "പിന്തുണയില്ലാത്ത ആധികാരികത ഉറപ്പുവരുത്തല്‍ സംവിധാനം"
+
+#: ../addressbook/libedata-book/e-data-book.c:374
+#: ../calendar/libedata-cal/e-data-cal.c:406 ../libedataserver/e-client.c:158
+msgid "TLS not available"
+msgstr "TLS ലഭ്യമല്ല"
+
+#: ../addressbook/libedata-book/e-data-book.c:375
+msgid "Address book does not exist"
+msgstr "മേല്‍വിലാസ പുസ്തകം നിലവിലില്ല"
+
+#: ../addressbook/libedata-book/e-data-book.c:376
+#, fuzzy
+msgid "Book removed"
+msgstr "നീക്കം ചെയ്ത വരി"
+
+#: ../addressbook/libedata-book/e-data-book.c:377
+#: ../calendar/libedata-cal/e-data-cal.c:409
+msgid "Not available in offline mode"
+msgstr "ഓഫ് ലൈനായി ലഭ്യമല്ല"
+
+#: ../addressbook/libedata-book/e-data-book.c:378
+#: ../calendar/libedata-cal/e-data-cal.c:410 ../libedataserver/e-client.c:160
+msgid "Search size limit exceeded"
+msgstr "തെരച്ചിലിനുള്ള വ്യാപ്തിയുടെ പരിധി കവിഞ്ഞു"
+
+#: ../addressbook/libedata-book/e-data-book.c:379
+#: ../calendar/libedata-cal/e-data-cal.c:411 ../libedataserver/e-client.c:162
+msgid "Search time limit exceeded"
+msgstr "തെരച്ചിലിനുള്ള സമയ പരിധി കവിഞ്ഞു"
+
+#: ../addressbook/libedata-book/e-data-book.c:381
+#: ../calendar/libedata-cal/e-data-cal.c:413 ../libedataserver/e-client.c:166
+msgid "Query refused"
+msgstr "ആവശ്യം നിരസിച്ചിരിക്കുന്നു"
+
+#: ../addressbook/libedata-book/e-data-book.c:382
+#: ../calendar/libedata-cal/e-data-cal.c:414 ../libedataserver/e-client.c:152
+msgid "Could not cancel"
+msgstr "റദ്ദാക്കുവാന്‍ സാദ്ധ്യമായില്ല"
+
+#. { E_DATA_BOOK_STATUS_OTHER_ERROR,			N_("Other error") },
+#. { OtherError,			N_("Other error") },
+#: ../addressbook/libedata-book/e-data-book.c:384
+#: ../calendar/libedata-cal/e-data-cal.c:416
+msgid "Invalid server version"
+msgstr "അസാധുവായ സര്‍വര്‍ പതിപ്പ്"
+
+#: ../addressbook/libedata-book/e-data-book.c:386
+#: ../calendar/libecal/e-cal.c:2301 ../calendar/libedata-cal/e-data-cal.c:417
+#: ../libedataserver/e-client.c:129
+msgid "Invalid argument"
+msgstr "അസാധുവായ ആര്‍ഗ്യുമെന്‍റ്"
+
+#. Translators: The string for NOT_SUPPORTED error
+#: ../addressbook/libedata-book/e-data-book.c:388
+#: ../calendar/libecal/e-cal.c:1060 ../calendar/libecal/e-cal.c:1428
+#: ../calendar/libecal/e-cal.c:1908 ../calendar/libecal/e-cal.c:2340
+#: ../calendar/libedata-cal/e-data-cal.c:419 ../libedataserver/e-client.c:154
+#, c-format
+msgid "Not supported"
+msgstr "പിന്തുണ ലഭ്യമല്ല"
+
+#: ../addressbook/libedata-book/e-data-book.c:389
+#: ../calendar/libedata-cal/e-data-cal.c:420 ../libedataserver/e-client.c:172
+msgid "Backend is not opened yet"
+msgstr "ബാക്കെന്‍ഡ് ഇതുവരെ തുറന്നിട്ടില്ല"
+
+#: ../addressbook/libedata-book/e-data-book.c:390
+#: ../libedataserver/e-client.c:174
+msgid "Object is out of sync"
+msgstr "ഒബ്ജക്ട് സിങ്കിലല്ല"
+
+#: ../addressbook/libedata-book/e-data-book.c:398
+#: ../calendar/libedata-cal/e-data-cal.c:428 ../libedataserver/e-client.c:170
+msgid "Other error"
+msgstr "മറ്റ് പിശക്"
+
+#: ../addressbook/libedata-book/e-data-book.c:1039
+#: ../calendar/libedata-cal/e-data-cal.c:1324
+msgid "Invalid query: "
+msgstr "അസാധുവായ ആവശ്യം:"
+
+#. Translators: This is prefix to a detailed error message
+#: ../addressbook/libedata-book/e-data-book.c:1258
+msgid "Cannot open book: "
+msgstr "പുസ്തകം തുറക്കുവാന്‍ സാധ്യമല്ല: "
+
+#. Translators: This is prefix to a detailed error message
+#: ../addressbook/libedata-book/e-data-book.c:1295
+#, fuzzy
+msgid "Cannot refresh address book: "
+msgstr "ലോക്കല്‍ മേല്‍വിലാസപുസ്തകം ഉപയോഗിക്കുക"
+
+#. Translators: This is prefix to a detailed error message
+#: ../addressbook/libedata-book/e-data-book.c:1326
+msgid "Cannot get contact: "
+msgstr "സമ്പര്‍ക്കം കിട്ടിയില്ല: "
+
+#. Translators: This is prefix to a detailed error message
+#: ../addressbook/libedata-book/e-data-book.c:1364
+msgid "Cannot get contact list: "
+msgstr "സമ്പര്‍ക്ക പട്ടിക കിട്ടിയില്ല: "
+
+#. Translators: This is prefix to a detailed error message
+#: ../addressbook/libedata-book/e-data-book.c:1416
+msgid "Cannot get contact list uids: "
+msgstr "സമ്പര്‍ക്ക പട്ടികയുടെ uidകള്‍ കിട്ടിയില്ല: "
+
+#. Translators: This is prefix to a detailed error message
+#: ../addressbook/libedata-book/e-data-book.c:1463
+msgid "Cannot add contact: "
+msgstr "സമ്പര്‍ക്കം ചേര്‍ക്കാന്‍ പറ്റിയില്ല: "
+
+#. Translators: This is prefix to a detailed error message
+#: ../addressbook/libedata-book/e-data-book.c:1512
+#, fuzzy
+msgid "Cannot modify contacts: "
+msgstr "സമ്പര്‍ക്കം നിക്കം ചെയ്യാന്‍ പറ്റിയില്ല: "
+
+#. Translators: This is prefix to a detailed error message
+#: ../addressbook/libedata-book/e-data-book.c:1554
+msgid "Cannot remove contacts: "
+msgstr "സമ്പര്‍ക്കം നിക്കം ചെയ്യാന്‍ പറ്റിയില്ല: "
+
+#: ../addressbook/libedata-book/e-data-book-cursor.c:764
+msgid "Cursor does not support setting the search expression"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-data-book-cursor.c:843
+#, fuzzy
+#| msgid "Store does not support an INBOX"
+msgid "Cursor does not support step"
+msgstr "വന്ന മെയിലുകളെ ശേഖരം പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../addressbook/libedata-book/e-data-book-cursor.c:921
+#, fuzzy
+#| msgid "IMAP server %s does not support requested authentication type %s"
+msgid "Cursor does not support alphabetic indexes"
+msgstr "IMAP സര്‍വര്‍ %s-ല്‍ %s എന്ന ആധികാരികത ഉറപ്പുവരുത്തല്‍ സംവിധാനത്തിന് പിന്തുണ ലഭ്യമല്ല"
+
+#: ../addressbook/libedata-book/e-data-book-cursor-sqlite.c:267
+#, fuzzy
+msgid "Unrecognized cursor origin"
+msgstr "കര്‍സര്‍ മിന്നുന്ന സമയം"
+
+#: ../addressbook/libedata-book/e-data-book-cursor-sqlite.c:332
+msgid "Out of sync revision while moving cursor"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-data-book-cursor-sqlite.c:423
+msgid "Alphabetic index was set for incorrect locale"
+msgstr ""
+
+#: ../addressbook/libedata-book/e-data-book-factory.c:273
+#: ../calendar/libedata-cal/e-data-cal-factory.c:276
+#, fuzzy, c-format
+msgid "No backend name in source '%s'"
+msgstr "സോഴ്സ് ബാക്കെന്‍ഡ് നാമം (സ്വതവേ: 'pidgin')"
+
+#: ../addressbook/libedata-book/e-data-book-factory.c:324
+#: ../calendar/libedata-cal/e-data-cal-factory.c:330
+#, fuzzy, c-format
+msgid "Missing source UID"
+msgstr "'%s'എന്ന UID ക്ക് ഉറവിടമില്ല"
+
+#: ../addressbook/libedata-book/e-data-book-factory.c:335
+#: ../calendar/libedata-cal/e-data-cal-factory.c:340
+#, c-format
+msgid "No such source for UID '%s'"
+msgstr "'%s'എന്ന UID ക്ക് ഉറവിടമില്ല"
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:573
+#, fuzzy, c-format
+msgid "Server is unreachable (%s)"
+msgstr "ഫയല്‍ ശൂന്യമാണ്"
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:604
+#, c-format
+msgid "Failed to connect to a server using SSL: %s"
+msgstr "സുരക്ഷിത രീതിയില്‍ സര്‍വറിലേക്ക് കണക്ട് ചെയ്യുന്നതില്‍ പരാജയം: %s"
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:615
+#, c-format
+msgid "Unexpected HTTP status code %d returned (%s)"
+msgstr "അപ്രതീക്ഷിതമായി HTTP (%d) നേരിട്ടിരിക്കുന്നു (%s)"
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:634
+msgid "CalDAV backend is not loaded yet"
+msgstr ""
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:1071
+msgid "Invalid Redirect URL"
+msgstr "അസാധുവായ റീഡയറക്ട് URL"
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:2562
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:2927
+#, c-format
+msgid ""
+"Server is unreachable, calendar is opened in read-only mode.\n"
+"Error message: %s"
+msgstr ""
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:2882
+#, c-format
+msgid "Cannot create local cache folder '%s'"
+msgstr "പ്രാദേശികമായ ക്യാഷ് അറ '%s' ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല"
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:3967
+#, fuzzy
+msgid "CalDAV does not support bulk additions"
+msgstr "ഒന്നിച്ചുള്ള ചേര്‍ക്കല്‍ ബാക്കെന്റ് പിന്‍തുണയ്ക്കുന്നില്ല"
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:4070
+#, fuzzy
+msgid "CalDAV does not support bulk modifications"
+msgstr "അധികമായി മാറ്റം വരുത്തിയവയില്‍ ബാക്കന്‍ഡ് പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:4246
+#, fuzzy
+msgid "CalDAV does not support bulk removals"
+msgstr "ഒന്നിച്ചുള്ള നീക്കം ചെയ്യല്‍ ബാക്കെന്റ് പിന്‍തുണയ്ക്കുന്നില്ല"
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:4913
+msgid "Calendar doesn't support Free/Busy"
+msgstr ""
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:4922
+msgid "Schedule outbox url not found"
+msgstr ""
+
+#: ../calendar/backends/caldav/e-cal-backend-caldav.c:5019
+#, fuzzy
+msgid "Unexpected result in schedule-response"
+msgstr "webdav PROPFIND ഫലത്തില്‍ പ്രതികരണ ബോഡി ഇല്ല"
+
+#: ../calendar/backends/contacts/e-cal-backend-contacts.c:889
+msgid "Birthday"
+msgstr "പിറന്നാള്‍ "
+
+#: ../calendar/backends/contacts/e-cal-backend-contacts.c:925
+#, c-format
+msgid "Birthday: %s"
+msgstr "ജന്മ ദിനം:%s "
+
+#: ../calendar/backends/contacts/e-cal-backend-contacts.c:956
+#, c-format
+msgid "Anniversary: %s"
+msgstr "വാര്‍ഷികം: %s "
+
+#: ../calendar/backends/file/e-cal-backend-file.c:245
+msgid "Cannot save calendar data: Malformed URI."
+msgstr "കലണ്ടറിലുളള ഡേറ്റാ സൂക്ഷിക്കുവാന്‍ സാധ്യമല്ല: തെറ്റായ URI."
+
+#: ../calendar/backends/file/e-cal-backend-file.c:252
+#: ../calendar/backends/file/e-cal-backend-file.c:258
+msgid "Cannot save calendar data"
+msgstr "കലണ്ടറിലുളള ഡേറ്റാ സൂക്ഷിക്കുവാന്‍ സാധ്യമല്ല"
+
+#: ../calendar/backends/http/e-cal-backend-http.c:484
+#, c-format
+msgid "Malformed URI: %s"
+msgstr "തെറ്റായ URI: %s"
+
+#: ../calendar/backends/http/e-cal-backend-http.c:575
+#, c-format
+msgid "Redirected to Invalid URI"
+msgstr "സാധുതയില്ലാത്ത URI-യിലേക്ക് തിരിച്ചിരിക്കുന്നു"
+
+#: ../calendar/backends/http/e-cal-backend-http.c:618
+#, c-format
+msgid "Bad file format."
+msgstr "തെറ്റായ ഫയല്‍ രീതി."
+
+#: ../calendar/backends/http/e-cal-backend-http.c:628
+#, c-format
+msgid "Not a calendar."
+msgstr "ഇത് ഒരു കലണ്ടര്‍ അല്ല. "
+
+#: ../calendar/backends/http/e-cal-backend-http.c:915
+#: ../calendar/backends/weather/e-cal-backend-weather.c:515
+msgid "Could not create cache file"
+msgstr "cache ഫയല്‍ നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:174
+msgid "Could not retrieve weather data"
+msgstr "കാലാവസ്ഥ സംബന്ധിച്ചുളള വിവരങ്ങള്‍ ലഭ്യമായില്ല"
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:285
+msgid "Weather: Fog"
+msgstr "കാലാവസ്ഥ: മഞ്ഞ്"
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:286
+msgid "Weather: Cloudy Night"
+msgstr "കാലാവസ്ഥ: മഴമേഘങ്ങള്‍ നിറഞ്ഞ രാത്രി"
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:287
+msgid "Weather: Cloudy"
+msgstr "കാലാവസ്ഥ: മഴമേഘങ്ങള്‍ നിറഞ്ഞ"
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:288
+msgid "Weather: Overcast"
+msgstr "കാലാവസ്ഥ: മഴക്കാര്‍ മൂടുക"
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:289
+msgid "Weather: Showers"
+msgstr "കാലാവസ്ഥ: മഴ"
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:290
+msgid "Weather: Snow"
+msgstr "കാലാവസ്ഥ: മഞ്ഞ് വീഴ്ച"
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:291
+msgid "Weather: Clear Night"
+msgstr "കാലാവസ്ഥ: തെളിഞ്ഞ രാത്രി"
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:292
+msgid "Weather: Sunny"
+msgstr "കാലാവസ്ഥ: വെയിലുളള"
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:293
+msgid "Weather: Thunderstorms"
+msgstr "കാലാവസ്ഥ: കൊടുങ്കാറ്റ് "
+
+#: ../calendar/backends/weather/e-cal-backend-weather.c:417
+msgid "Forecast"
+msgstr "പ്രവചനം"
+
+#: ../calendar/libecal/e-cal.c:2305
+msgid "Repository is offline"
+msgstr "റിപ്പോസിറ്ററി ഓഫ് ലൈന്‍ ആണ്"
+
+#: ../calendar/libecal/e-cal.c:2307 ../calendar/libecal/e-cal-client.c:255
+msgid "No such calendar"
+msgstr "അങ്ങനെ ഒരു കലണ്ടര്‍ നിലവിലില്ല"
+
+#: ../calendar/libecal/e-cal.c:2309 ../calendar/libecal/e-cal-client.c:257
+#: ../calendar/libedata-cal/e-data-cal.c:398
+msgid "Object not found"
+msgstr "ഒബ്ജക്ട് ലഭ്യമല്ല"
+
+#: ../calendar/libecal/e-cal.c:2311 ../calendar/libecal/e-cal-client.c:259
+#: ../calendar/libedata-cal/e-data-cal.c:399
+msgid "Invalid object"
+msgstr "സാധുതയില്ലാത്ത വസ്തു"
+
+#: ../calendar/libecal/e-cal.c:2313
+msgid "URI not loaded"
+msgstr "URI ലഭ്യമല്ല"
+
+#: ../calendar/libecal/e-cal.c:2315
+msgid "URI already loaded"
+msgstr "URI ലഭ്യമാണ്"
+
+#: ../calendar/libecal/e-cal.c:2319
+msgid "Unknown User"
+msgstr "അപരിചിതമായ ഉപയോഗിക്കുന്ന ആള്‍"
+
+#: ../calendar/libecal/e-cal.c:2321 ../calendar/libecal/e-cal-client.c:263
+#: ../calendar/libedata-cal/e-data-cal.c:400
+msgid "Object ID already exists"
+msgstr "ഒബ്ജക്ട് ID നിലവിലുണ്ട്"
+
+#: ../calendar/libecal/e-cal.c:2323
+msgid "Protocol not supported"
+msgstr "കീഴ്‍വഴക്കത്തിന് പിന്തുണ ലഭ്യമല്ല "
+
+#: ../calendar/libecal/e-cal.c:2325
+msgid "Operation has been canceled"
+msgstr "പ്രവര്‍ത്തനം റദ്ദാക്കിയിരിക്കുന്നു"
+
+#: ../calendar/libecal/e-cal.c:2327
+msgid "Could not cancel operation"
+msgstr "പ്രവര്‍ത്തനം റദ്ദാക്കുവാന്‍ സാദ്ധ്യമായില്ല"
+
+#: ../calendar/libecal/e-cal.c:2329 ../libedataserver/e-client.c:137
+msgid "Authentication failed"
+msgstr "ആധികാരകത ഉറപ്പാക്കല്‍ പരാജയപ്പെട്ടു"
+
+#: ../calendar/libecal/e-cal.c:2331
+#: ../camel/providers/smtp/camel-smtp-transport.c:923
+#: ../libedataserver/e-client.c:139
+msgid "Authentication required"
+msgstr "ആധികാരികത ഉറപ്പ് വരുത്തല്‍ ആവശ്യമുണ്ട്"
+
+#: ../calendar/libecal/e-cal.c:2333
+msgid "A D-Bus exception has occurred"
+msgstr "ഒരു D-Bus എക്സപ്ഷന്‍ സംഭവിച്ചിരിക്കുന്നു"
+
+#: ../calendar/libecal/e-cal.c:2337
+msgid "No error"
+msgstr "പ്രശ്നം ഇല്ല"
+
+#: ../calendar/libecal/e-cal-client.c:261
+#: ../calendar/libedata-cal/e-data-cal.c:408
+msgid "Unknown user"
+msgstr "അപരിചിതമായ ഉപയോക്താവു്"
+
+#: ../calendar/libecal/e-cal-client.c:265
+#: ../calendar/libedata-cal/e-data-cal.c:397
+msgid "Invalid range"
+msgstr "അസാധുവായ പരിധി"
+
+#: ../calendar/libecal/e-cal-client.c:928
+#, c-format
+msgid "Unknown calendar property '%s'"
+msgstr "അറിയാത്ത കലണ്ടര്‍ സവിശേഷത '%s'"
+
+#: ../calendar/libecal/e-cal-client.c:943
+#, c-format
+msgid "Cannot change value of calendar property '%s'"
+msgstr "കലണ്ടറിന്റെ സവിശേഷത '%s'മാറ്റാന്‍ സാധ്യമല്ല"
+
+#: ../calendar/libecal/e-cal-component.c:1340
+msgid "Untitled appointment"
+msgstr "പേരില്ലാത്ത അപ്പോയിന്‍റ്മെന്‍റ്"
+
+#: ../calendar/libecal/e-cal-recur.c:4038
+msgid "1st"
+msgstr "1"
+
+#: ../calendar/libecal/e-cal-recur.c:4039
+msgid "2nd"
+msgstr "2"
+
+#: ../calendar/libecal/e-cal-recur.c:4040
+msgid "3rd"
+msgstr "3"
+
+#: ../calendar/libecal/e-cal-recur.c:4041
+msgid "4th"
+msgstr "4"
+
+#: ../calendar/libecal/e-cal-recur.c:4042
+msgid "5th"
+msgstr "5"
+
+#: ../calendar/libecal/e-cal-recur.c:4043
+msgid "6th"
+msgstr "6"
+
+#: ../calendar/libecal/e-cal-recur.c:4044
+msgid "7th"
+msgstr "7"
+
+#: ../calendar/libecal/e-cal-recur.c:4045
+msgid "8th"
+msgstr "8"
+
+#: ../calendar/libecal/e-cal-recur.c:4046
+msgid "9th"
+msgstr "9"
+
+#: ../calendar/libecal/e-cal-recur.c:4047
+msgid "10th"
+msgstr "10"
+
+#: ../calendar/libecal/e-cal-recur.c:4048
+msgid "11th"
+msgstr "11"
+
+#: ../calendar/libecal/e-cal-recur.c:4049
+msgid "12th"
+msgstr "12"
+
+#: ../calendar/libecal/e-cal-recur.c:4050
+msgid "13th"
+msgstr "13"
+
+#: ../calendar/libecal/e-cal-recur.c:4051
+msgid "14th"
+msgstr "14"
+
+#: ../calendar/libecal/e-cal-recur.c:4052
+msgid "15th"
+msgstr "15"
+
+#: ../calendar/libecal/e-cal-recur.c:4053
+msgid "16th"
+msgstr "16"
+
+#: ../calendar/libecal/e-cal-recur.c:4054
+msgid "17th"
+msgstr "17"
+
+#: ../calendar/libecal/e-cal-recur.c:4055
+msgid "18th"
+msgstr "18"
+
+#: ../calendar/libecal/e-cal-recur.c:4056
+msgid "19th"
+msgstr "19"
+
+#: ../calendar/libecal/e-cal-recur.c:4057
+msgid "20th"
+msgstr "20"
+
+#: ../calendar/libecal/e-cal-recur.c:4058
+msgid "21st"
+msgstr "21"
+
+#: ../calendar/libecal/e-cal-recur.c:4059
+msgid "22nd"
+msgstr "22"
+
+#: ../calendar/libecal/e-cal-recur.c:4060
+msgid "23rd"
+msgstr "23"
+
+#: ../calendar/libecal/e-cal-recur.c:4061
+msgid "24th"
+msgstr "24"
+
+#: ../calendar/libecal/e-cal-recur.c:4062
+msgid "25th"
+msgstr "25"
+
+#: ../calendar/libecal/e-cal-recur.c:4063
+msgid "26th"
+msgstr "26"
+
+#: ../calendar/libecal/e-cal-recur.c:4064
+msgid "27th"
+msgstr "27"
+
+#: ../calendar/libecal/e-cal-recur.c:4065
+msgid "28th"
+msgstr "28"
+
+#: ../calendar/libecal/e-cal-recur.c:4066
+msgid "29th"
+msgstr "29"
+
+#: ../calendar/libecal/e-cal-recur.c:4067
+msgid "30th"
+msgstr "30"
+
+#: ../calendar/libecal/e-cal-recur.c:4068
+msgid "31st"
+msgstr "31"
+
+#: ../calendar/libecal/e-cal-util.c:707 ../calendar/libecal/e-cal-util.c:734
+msgctxt "Priority"
+msgid "High"
+msgstr "ഉയര്‍ന്ന"
+
+#: ../calendar/libecal/e-cal-util.c:709 ../calendar/libecal/e-cal-util.c:736
+msgctxt "Priority"
+msgid "Normal"
+msgstr "സാധാരണ"
+
+#: ../calendar/libecal/e-cal-util.c:711 ../calendar/libecal/e-cal-util.c:738
+msgctxt "Priority"
+msgid "Low"
+msgstr "കുറഞ്ഞ"
+
+#. An empty string is the same as 'None'.
+#: ../calendar/libecal/e-cal-util.c:732
+msgctxt "Priority"
+msgid "Undefined"
+msgstr "വ്യക്തമല്ലാത്തത്"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:78
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1056
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1365
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1492
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1541
+#, c-format
+msgid "\"%s\" expects one argument"
+msgstr "\"%s\" ഒരു ആര്‍ഗ്യുമെന്‍റ് പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:85
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:667
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1372
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1380
+#, c-format
+msgid "\"%s\" expects the first argument to be a string"
+msgstr "ആദ്യത്തെ ആര്‍ഗ്യുമെന്‍റ് സ്ടിങ് ആയിരിക്കുമെന്ന് \"%s\" പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:160
+#, c-format
+msgid "\"%s\" expects two or three arguments"
+msgstr "\"%s\" രണ്ടോ മൂന്നോ ആര്‍ഗ്യുമെന്‍റുകള്‍ പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:167
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:256
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:318
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:817
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1063
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1441
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1499
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1548
+#, c-format
+msgid "\"%s\" expects the first argument to be a time_t"
+msgstr "ആദ്യത്തെ ആര്‍ഗ്യുമെന്‍റ് time_t ആയിരിക്കുമെന്ന് \"%s\" പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:176
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:264
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:328
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:826
+#, c-format
+msgid "\"%s\" expects the second argument to be a time_t"
+msgstr "രണ്ടാമത്തെ ആര്‍ഗ്യുമെന്‍റ് ഒരു time_t ആയിരിക്കുമെന്ന് \"%s\" പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:186
+#, c-format
+msgid "\"%s\" expects the third argument to be a string"
+msgstr "മൂന്നാമത്തെ ആര്‍ഗ്യുമെന്‍റ് സ്ടിങ് ആയിരിക്കുമെന്ന് \"%s\" പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:248
+#, c-format
+msgid "\"%s\" expects none or two arguments"
+msgstr "\"%s\" പൂജ്യമോ രണ്ടോ ആര്‍ഗ്യുമെന്‍റുകള്‍ പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:311
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:660
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:810
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1434
+#, c-format
+msgid "\"%s\" expects two arguments"
+msgstr "\"%s\" രണ്ട് ആര്‍ഗ്യുമെന്‍റുകള്‍ പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:596
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:619
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:742
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:774
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:981
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1014
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1326
+#, c-format
+msgid "\"%s\" expects no arguments"
+msgstr "\"%s\" ആര്‍ഗ്യുമെന്‍റുകള്‍ പ്രതീക്ഷിക്കുന്നില്ല"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:676
+#, c-format
+msgid "\"%s\" expects the second argument to be a string"
+msgstr "രണ്ടാമത്തെ ആര്‍ഗ്യുമെന്‍റ് ഒരു സ്ട്രിങ് ആയിരിക്കുമെന്ന് \"%s\" പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:707
+#, c-format
+msgid ""
+"\"%s\" expects the first argument to be either \"any\", \"summary\", or "
+"\"description\", or \"location\", or \"attendee\", or \"organizer\", or "
+"\"classification\""
+msgstr ""
+"ആദ്യത്തെ ആര്‍ഗ്യുമെന്‍റ് \"any\", \"summary\", \"description\",  \"location\", "
+"\"attendee\", \"organizer\", \"classification\" എന്നിവയില്‍ ഒന്നായിരിക്കുമെന്ന് \"%s"
+"\" പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:878
+#, c-format
+msgid "\"%s\" expects at least one argument"
+msgstr "\"%s\" ഒരു ആര്‍ഗ്യുമെന്‍റെങ്കിലും പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:893
+#, c-format
+msgid ""
+"\"%s\" expects all arguments to be strings or one and only one argument to "
+"be a boolean false (#f)"
+msgstr ""
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1389
+#, c-format
+msgid "\"%s\" expects the first argument to be an ISO 8601 date/time string"
+msgstr ""
+"ആദ്യത്തെ ആര്‍ഗ്യുമെന്‍റ് ഒരു ISO 8601 തീയതി/സമയത്തിന്‍റെ സ്ടിങ് ആയിരിക്കുമെന്ന് \"%s\" "
+"പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-cal-backend-sexp.c:1450
+#, c-format
+msgid "\"%s\" expects the second argument to be an integer"
+msgstr "രണ്ടാമത്തെ ആര്‍ഗ്യുമെന്‍റ് ഒരു ഇന്‍റിജര്‍ ആയിരിക്കുമെന്ന് \"%s\" പ്രതീക്ഷിക്കുന്നു"
+
+#: ../calendar/libedata-cal/e-data-cal.c:404
+msgid "Unsupported method"
+msgstr "പിന്തുണയില്ലാത്ത മാര്‍ഗ്ഗം"
+
+#: ../calendar/libedata-cal/e-data-cal.c:407
+msgid "Calendar does not exist"
+msgstr "കലണ്ടര്‍ നിലവിലില്ല"
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:1495
+msgid "Cannot open calendar: "
+msgstr "കലണ്ടര്‍ തുറക്കാന്‍ സാധ്യമല്ല: "
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:1532
+msgid "Cannot refresh calendar: "
+msgstr "കലണ്ടര്‍ റിഫ്രഷ് ചെയ്യാനാകുന്നില്ല: "
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:1573
+#, fuzzy
+#| msgid "Cannot save calendar data"
+msgid "Cannot retrieve calendar object path: "
+msgstr "കലണ്ടറിലുളള ഡേറ്റാ സൂക്ഷിക്കുവാന്‍ സാധ്യമല്ല"
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:1625
+#, fuzzy
+#| msgid "Cannot save calendar data"
+msgid "Cannot retrieve calendar object list: "
+msgstr "കലണ്ടറിലുളള ഡേറ്റാ സൂക്ഷിക്കുവാന്‍ സാധ്യമല്ല"
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:1676
+#, fuzzy
+#| msgid "Cannot save calendar data"
+msgid "Cannot retrieve calendar free/busy list: "
+msgstr "കലണ്ടറിലുളള ഡേറ്റാ സൂക്ഷിക്കുവാന്‍ സാധ്യമല്ല"
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:1719
+#, fuzzy
+#| msgid "Cannot save calendar data"
+msgid "Cannot create calendar object: "
+msgstr "കലണ്ടറിലുളള ഡേറ്റാ സൂക്ഷിക്കുവാന്‍ സാധ്യമല്ല"
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:1787
+#, fuzzy
+#| msgid "Cannot save calendar data"
+msgid "Cannot modify calendar object: "
+msgstr "കലണ്ടറിലുളള ഡേറ്റാ സൂക്ഷിക്കുവാന്‍ സാധ്യമല്ല"
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:1865
+#, fuzzy
+#| msgid "Cannot save calendar data"
+msgid "Cannot remove calendar object: "
+msgstr "കലണ്ടറിലുളള ഡേറ്റാ സൂക്ഷിക്കുവാന്‍ സാധ്യമല്ല"
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:1951
+#, fuzzy
+#| msgid "Cannot save calendar data"
+msgid "Cannot receive calendar objects: "
+msgstr "കലണ്ടറിലുളള ഡേറ്റാ സൂക്ഷിക്കുവാന്‍ സാധ്യമല്ല"
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:1994
+#, fuzzy
+#| msgid "Cannot save calendar data"
+msgid "Cannot send calendar objects: "
+msgstr "കലണ്ടറിലുളള ഡേറ്റാ സൂക്ഷിക്കുവാന്‍ സാധ്യമല്ല"
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:2046
+#, fuzzy
+#| msgid "Could not retrieve weather data"
+msgid "Could not retrieve attachment uris: "
+msgstr "അറ്റാച്ച്മെന്റ് സൂക്ഷിയ്ക്കുവാന്‍ സാധ്യമല്ല."
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:2091
+#, fuzzy
+#| msgid "Could not store folder: %s"
+msgid "Could not discard reminder: "
+msgstr "\"%s\"രേഖ തുറക്കുവാന്‍ സാധിച്ചില്ല."
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:2132
+#, fuzzy
+#| msgid "Could not retrieve weather data"
+msgid "Could not retrieve calendar time zone: "
+msgstr "കാലാവസ്ഥ സംബന്ധിച്ചുളള വിവരങ്ങള്‍ ലഭ്യമായില്ല"
+
+#. Translators: This is prefix to a detailed error message
+#: ../calendar/libedata-cal/e-data-cal.c:2172
+#, fuzzy
+#| msgid "Could not rename folder: %s"
+msgid "Could not add calendar time zone: "
+msgstr "ഫോള്‍ഡറിന്‍റെ പേര് മാറ്റുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/camel-cipher-context.c:208
+#, c-format
+msgid "Signing is not supported by this cipher"
+msgstr "ഈ സിഫര്‍ ഒപ്പിടല്‍ പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../camel/camel-cipher-context.c:221
+#, c-format
+msgid "Verifying is not supported by this cipher"
+msgstr "ഈ സിഫര്‍ ഉറപ്പുവരുത്തല്‍ പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../camel/camel-cipher-context.c:237
+#, c-format
+msgid "Encryption is not supported by this cipher"
+msgstr "ഈ സിഫര്‍ രഹസ്യഭാഷ പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../camel/camel-cipher-context.c:251
+#, c-format
+msgid "Decryption is not supported by this cipher"
+msgstr "ഈ സിഫര്‍ രഹസ്യഭാഷയില്‍ മാറ്റുന്നത് പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../camel/camel-cipher-context.c:646
+msgid "Signing message"
+msgstr "സന്ദേശത്തിലേക്ക് പ്രവേശിക്കുന്നു"
+
+#: ../camel/camel-cipher-context.c:887
+msgid "Encrypting message"
+msgstr "സന്ദേശം രഹസ്യഭാഷയിലാക്കുന്നു"
+
+#: ../camel/camel-cipher-context.c:1014
+msgid "Decrypting message"
+msgstr "സന്ദേശത്തിന്‍റെ രഹസ്യഭാഷ മാറ്റുന്നു"
+
+#: ../camel/camel-data-cache.c:181
+#, c-format
+msgid "Unable to create cache path"
+msgstr "cache-നുളള പാഥ് നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-data-cache.c:451
+#, fuzzy
+msgid "Empty cache file"
+msgstr "ഫയല്‍ ശൂന്യമാണ്"
+
+#: ../camel/camel-data-cache.c:523
+#, c-format
+msgid "Could not remove cache entry: %s: %s"
+msgstr "cache എന്‍ട്രി നീക്കം ചെയ്യുവാന്‍ സാധ്യമല്ല: %s: %s"
+
+#: ../camel/camel-disco-diary.c:207
+#, c-format
+msgid ""
+"Could not write log entry: %s\n"
+"Further operations on this server will not be replayed when you\n"
+"reconnect to the network."
+msgstr ""
+"ലോഗ് എന്‍ട്രി എഴുതുവാന്‍ സാധ്യമായില്ല: %s\n"
+"നിങ്ങള്‍ സര്‍വറിലേക്ക് വീണ്ടും കണക്ട് ചെയ്യുന്പോള്‍ ഇനിയുളള\n"
+"പ്രക്രിയകള്‍ വീണ്ടും പ്രവര്‍ത്തിക്കുന്നതല്ല."
+
+#: ../camel/camel-disco-diary.c:279
+#, c-format
+msgid ""
+"Could not open '%s':\n"
+"%s\n"
+"Changes made to this folder will not be resynchronized."
+msgstr ""
+"`%s' തുറക്കുവാന്‍ സാധ്യമല്ല:\n"
+"%s\n"
+"Changes made to this folder will not be resynchronized."
+
+#: ../camel/camel-disco-diary.c:326
+msgid "Resynchronizing with server"
+msgstr "Resynchronizing with server"
+
+#: ../camel/camel-disco-folder.c:76 ../camel/camel-offline-folder.c:93
+msgid "Downloading new messages for offline mode"
+msgstr "ഓഫ് ലൈന്‍ മോഡിലേക്ക് പുതിയ സന്ദേശങ്ങള്‍ ഡൌണ്‍‍ലോട് ചെയ്യുന്നു"
+
+#: ../camel/camel-disco-folder.c:422
+#, c-format
+msgid "Preparing folder '%s' for offline"
+msgstr "ഓഫ് ലൈനിലായി '%s' തയ്യാറാക്കുന്നു"
+
+#: ../camel/camel-disco-folder.c:489 ../camel/camel-offline-folder.c:336
+#, fuzzy
+#| msgid "Copy folder content locally for offline operation"
+msgid "Copy folder content locally for _offline operation"
+msgstr "ഓഫ് ലൈന്‍ പ്രക്രിയയ്ക്കായി ഫോള്‍ഡറിലുളളവ ലോക്കലായി പകര്‍ത്തുക"
+
+#: ../camel/camel-disco-store.c:518
+#: ../camel/providers/imapx/camel-imapx-store.c:1058
+#: ../camel/providers/imapx/camel-imapx-store.c:2638
+#: ../camel/providers/pop3/camel-pop3-folder.c:607
+#: ../camel/providers/pop3/camel-pop3-folder.c:750
+#: ../camel/providers/pop3/camel-pop3-folder.c:991
+#: ../camel/providers/pop3/camel-pop3-folder.c:1213
+#: ../camel/providers/pop3/camel-pop3-store.c:301
+#: ../camel/providers/pop3/camel-pop3-store.c:529
+#: ../camel/providers/pop3/camel-pop3-store.c:577
+#: ../camel/providers/pop3/camel-pop3-store.c:669
+#: ../camel/providers/pop3/camel-pop3-store.c:1073
+#, c-format
+msgid "You must be working online to complete this operation"
+msgstr "ഈ പ്രക്രിയ പൂര്‍ത്തിയാക്കുന്നതിനായി നിങ്ങള്‍ ഓണ്‍ ലൈന്‍ ആയിരിക്കണം"
+
+#: ../camel/camel-filter-driver.c:916 ../camel/camel-filter-search.c:797
+#, c-format
+msgid "Failed to create child process '%s': %s"
+msgstr "ചൈള്‍ഡ് പ്രക്രിയ '%s' നിര്‍മ്മിക്കുന്നതില്‍ പരാജയം: %s"
+
+#: ../camel/camel-filter-driver.c:964
+#, c-format
+msgid "Invalid message stream received from %s: %s"
+msgstr "%s-ല്‍ നിന്നും അസാധുവായ സന്ദേശം ലഭിച്ചിരിക്കുന്നു: %s"
+
+#: ../camel/camel-filter-driver.c:1171 ../camel/camel-filter-driver.c:1180
+msgid "Syncing folders"
+msgstr "ഫോള്‍ഡറുകള്‍ സിന്‍ക് ചെയ്യുന്നു"
+
+#: ../camel/camel-filter-driver.c:1278
+#, c-format
+msgid "Error parsing filter: %s: %s"
+msgstr "ഫില്‍റ്റര്‍ പാര്‍സ് ചെയ്യുന്നതില്‍ പിശക്: %s: %s"
+
+#: ../camel/camel-filter-driver.c:1289
+#, c-format
+msgid "Error executing filter: %s: %s"
+msgstr "ഫില്‍റ്റര്‍ നടപ്പാക്കുന്നതില്‍ പിശക്: %s: %s"
+
+#: ../camel/camel-filter-driver.c:1385
+#, c-format
+msgid "Unable to open spool folder"
+msgstr "സ്പൂള്‍ ഫോള്‍ഡര്‍ തുറക്കുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/camel-filter-driver.c:1397
+#, c-format
+msgid "Unable to process spool folder"
+msgstr "സ്പൂള്‍ ഫോള്‍ഡര്‍ പ്രവര്‍ത്തിപ്പിക്കുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/camel-filter-driver.c:1420
+#, c-format
+msgid "Getting message %d (%d%%)"
+msgstr "സന്ദേശം ലഭ്യമാകുന്നു %d (%d%%)"
+
+#: ../camel/camel-filter-driver.c:1429 ../camel/camel-filter-driver.c:1451
+#, c-format
+msgid "Failed on message %d"
+msgstr "%d സന്ദേശത്തില്‍ പരാജയപ്പെട്ടു"
+
+#: ../camel/camel-filter-driver.c:1470 ../camel/camel-filter-driver.c:1584
+msgid "Syncing folder"
+msgstr "ഫോള്‍ഡര്‍ സിന്‍ക് ചെയ്യുന്നു"
+
+#: ../camel/camel-filter-driver.c:1475 ../camel/camel-filter-driver.c:1592
+msgid "Complete"
+msgstr "പൂര്‍ത്തിയായിരിക്കുന്നു"
+
+#: ../camel/camel-filter-driver.c:1538
+#, c-format
+msgid "Getting message %d of %d"
+msgstr "%d-ന്‍റെ %d സന്ദേശം ലഭ്യമാകുന്നു"
+
+#: ../camel/camel-filter-driver.c:1556
+#, c-format
+msgid "Failed at message %d of %d"
+msgstr "%d-ന്‍റെ %d-ല്‍ സന്ദേശം പരാജയപ്പെട്ടിരിക്കുന്നു"
+
+#: ../camel/camel-filter-driver.c:1752 ../camel/camel-filter-driver.c:1779
+#, fuzzy, c-format
+#| msgid "Error executing filter: %s: %s"
+msgid "Execution of filter '%s' failed: "
+msgstr "പൈത്തണ്‍ ആജ്ഞ (%s)-ഇന്റെ പ്രവര്‍ത്തനം പരയാജയപെട്ടു: %s"
+
+#: ../camel/camel-filter-driver.c:1769
+#, fuzzy, c-format
+#| msgid "Error parsing filter: %s: %s"
+msgid "Error parsing filter '%s': %s: %s"
+msgstr "ഫില്‍റ്റര്‍ പാര്‍സ് ചെയ്യുന്നതില്‍ പിശക്: %s: %s"
+
+#: ../camel/camel-filter-driver.c:1788
+#, fuzzy, c-format
+#| msgid "Error executing filter: %s: %s"
+msgid "Error executing filter '%s': %s: %s"
+msgstr "ഫില്‍റ്റര്‍ നടപ്പാക്കുന്നതില്‍ പിശക്: %s: %s"
+
+#: ../camel/camel-filter-search.c:138
+msgid "Failed to retrieve message"
+msgstr "സന്ദേശം ലഭ്യമാക്കുന്നതില്‍ പിശക്"
+
+#: ../camel/camel-filter-search.c:537
+msgid "Invalid arguments to (system-flag)"
+msgstr "അസാധുവായ ആര്‍ഗ്യുമെന്‍റുകള്‍ (system-flag)"
+
+#: ../camel/camel-filter-search.c:555
+msgid "Invalid arguments to (user-tag)"
+msgstr "അസാധുവായ ആര്‍ഗ്യുമെന്‍റുകള്‍ (user-tag)"
+
+#: ../camel/camel-filter-search.c:1046 ../camel/camel-filter-search.c:1055
+#, c-format
+msgid "Error executing filter search: %s: %s"
+msgstr "ഫില്‍റ്റര്‍ തിരച്ചില്‍ നടപ്പാക്കുന്നതില്‍ പിശക്: %s: %s"
+
+#: ../camel/camel-folder.c:309
+#, fuzzy, c-format
+#| msgid "Scanning for changed messages in %s"
+msgid "Learning new spam message in '%s'"
+msgid_plural "Learning new spam messages in '%s'"
+msgstr[0] "തിരഞ്ഞെടുത്ത സന്ദേശം മറ്റൊരാള്‍ക്ക് പുതിയ സന്ദേശമായി അയയ്ക്കുക"
+msgstr[1] "%s-ല്‍ മാറ്റം വന്നിരിക്കുന്ന സന്ദേശങ്ങള്‍ക്കായി പരിശോധിക്കുന്നു"
+
+#: ../camel/camel-folder.c:349
+#, fuzzy, c-format
+#| msgid "Scanning for changed messages in %s"
+msgid "Learning new ham message in '%s'"
+msgid_plural "Learning new ham messages in '%s'"
+msgstr[0] "തിരഞ്ഞെടുത്ത സന്ദേശം മറ്റൊരാള്‍ക്ക് പുതിയ സന്ദേശമായി അയയ്ക്കുക"
+msgstr[1] "%s-ല്‍ മാറ്റം വന്നിരിക്കുന്ന സന്ദേശങ്ങള്‍ക്കായി പരിശോധിക്കുന്നു"
+
+#: ../camel/camel-folder.c:397
+#, fuzzy, c-format
+#| msgid "Filtering new message(s)"
+msgid "Filtering new message in '%s'"
+msgid_plural "Filtering new messages in '%s'"
+msgstr[0] "തിരഞ്ഞെടുത്ത സന്ദേശം മറ്റൊരാള്‍ക്ക് പുതിയ സന്ദേശമായി അയയ്ക്കുക"
+msgstr[1] "പുതിയ സന്ദേശങ്ങള്‍ ഫില്‍റ്റര്‍ ചെയ്യുക"
+
+#: ../camel/camel-folder.c:989
+#: ../camel/providers/local/camel-maildir-folder.c:321
+msgid "Moving messages"
+msgstr "സന്ദേശങ്ങള്‍ മാറ്റുന്നു"
+
+#: ../camel/camel-folder.c:992
+msgid "Copying messages"
+msgstr "സന്ദേശങ്ങള്‍ പകര്‍ത്തുന്നു"
+
+#: ../camel/camel-folder.c:1312
+#, c-format
+msgid "Quota information not supported for folder '%s'"
+msgstr ""
+
+#: ../camel/camel-folder.c:3486
+#, fuzzy, c-format
+#| msgid "Expunging old messages"
+msgid "Expunging folder '%s'"
+msgstr "ഒരു ഫോള്‍ഡര്‍ എടുത്ത് _കളയുമ്പോള്‍ ഉറപ്പ് വരുത്തുക "
+
+#: ../camel/camel-folder.c:3718
+#, fuzzy, c-format
+#| msgid "Retrieving POP message %d"
+msgid "Retrieving message '%s' in %s"
+msgstr "സന്ദേശത്തില്‍ _കണ്ടുപിടിക്കുക... "
+
+#: ../camel/camel-folder.c:3873
+#, fuzzy, c-format
+#| msgid "Fetching summary information for new messages in %s"
+msgid "Retrieving quota information for '%s'"
+msgstr "പ്രോഗ്രാമിനുളള Copyright വിവരങ്ങള്‍"
+
+#: ../camel/camel-folder.c:4113
+#, fuzzy, c-format
+#| msgid "No such folder '%s'."
+msgid "Refreshing folder '%s'"
+msgstr "ഫോള്‍ഡര്‍ സൂക്ഷിക്കുന്നു"
+
+#. Translators: The '%s' is an element type name, part of an expressing language
+#: ../camel/camel-folder-search.c:888 ../camel/camel-folder-search.c:931
+#, c-format
+msgid "(%s) requires a single bool result"
+msgstr "(%s) ഒരു ബൂള്‍ ഫലം ആവശ്യമുണ്ട്"
+
+#. Translators: Each '%s' is an element type name, part of an expressing language
+#: ../camel/camel-folder-search.c:966
+#, c-format
+msgid "(%s) not allowed inside %s"
+msgstr "(%s)  ഉ-നുില്‍ അനുവദി%sക്കുന്നതല്ല"
+
+#. Translators: The '%s' is an element type name, part of an expressing language
+#: ../camel/camel-folder-search.c:973 ../camel/camel-folder-search.c:981
+#, c-format
+msgid "(%s) requires a match type string"
+msgstr "(%s) പൊരുത്തമുളള തരത്തിലുളള സ്ട്രിങ് ആവശ്യമുണ്ട്"
+
+#. Translators: The '%s' is an element type name, part of an expressing language
+#: ../camel/camel-folder-search.c:1009
+#, c-format
+msgid "(%s) expects an array result"
+msgstr "(%s) ഫലം ഒരു അറെ ആയി പ്രതീക്ഷിക്കുന്നു"
+
+#. Translators: The '%s' is an element type name, part of an expressing language
+#: ../camel/camel-folder-search.c:1019
+#, c-format
+msgid "(%s) requires the folder set"
+msgstr "(%s) ഒരു ഫോള്‍ഡര്‍ ആവശ്യമുണ്ട്"
+
+#: ../camel/camel-folder-search.c:1932 ../camel/camel-folder-search.c:2098
+#, c-format
+msgid ""
+"Cannot parse search expression: %s:\n"
+"%s"
+msgstr ""
+"തിരച്ചിലിനുളള പ്രയോഗം പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല: %s:\n"
+"%s"
+
+#: ../camel/camel-folder-search.c:1944 ../camel/camel-folder-search.c:2110
+#, c-format
+msgid ""
+"Error executing search expression: %s:\n"
+"%s"
+msgstr ""
+"തിരച്ചിലിനുളള പ്രയോഗം നടപ്പാക്കുന്നതില്‍ പിശക്: %s:\n"
+"%s"
+
+#: ../camel/camel-gpg-context.c:717 ../camel/camel-gpg-context.c:722
+#: ../camel/camel-gpg-context.c:1379
+#, c-format
+msgid "Failed to execute gpg: %s"
+msgstr "gpg നടപ്പിലാക്കുന്നതില്‍ പരാജയം: %s"
+
+#: ../camel/camel-gpg-context.c:722
+#: ../camel/providers/smtp/camel-smtp-transport.c:926
+msgid "Unknown"
+msgstr "അറിയപ്പെടാത്ത"
+
+#: ../camel/camel-gpg-context.c:787
+#, c-format
+msgid ""
+"Unexpected GnuPG status message encountered:\n"
+"\n"
+"%s"
+msgstr ""
+"അപ്രതീക്ഷിതമായ GnuPG-ന്‍റെ നിലവാരം കാണിക്കുന്ന സന്ദേശം നേരിട്ടിരിക്കുന്നു:\n"
+"\n"
+"%s"
+
+#: ../camel/camel-gpg-context.c:823
+#, c-format
+msgid "Failed to parse gpg userid hint."
+msgstr "gpg userid-യുടെ സൂചന പാഴ്സ് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു."
+
+#: ../camel/camel-gpg-context.c:848 ../camel/camel-gpg-context.c:863
+#, c-format
+msgid "Failed to parse gpg passphrase request."
+msgstr "gpg പാസ്സ് ഫ്രെയിസിന്‍റെ ആവശ്യം പാഴ്സ് ചെയ്യുന്നതില്‍ പരാജയപ്പെട്ടു."
+
+#: ../camel/camel-gpg-context.c:884
+#, c-format
+msgid ""
+"You need a PIN to unlock the key for your\n"
+"SmartCard: \"%s\""
+msgstr ""
+"നിങ്ങളുടെ SmartCard തുറക്കുന്നതിനുളള\n"
+"PIN ആവശ്യമുണ്ട്: \"%s\""
+
+#: ../camel/camel-gpg-context.c:888
+#, c-format
+msgid ""
+"You need a passphrase to unlock the key for\n"
+"user: \"%s\""
+msgstr ""
+"ഉപയോഗിക്കുന്ന ആളിന് ആവശ്യമുളള\n"
+"പാസ്സ് ഫ്രെയിസ് ആവശ്യമുണ്ട്: \"%s\""
+
+#: ../camel/camel-gpg-context.c:894
+#, c-format
+msgid "Unexpected request from GnuPG for '%s'"
+msgstr "`%s'-നു് GnuPG-ല്‍ നിന്നും അപ്രതീക്ഷിതമായ ആവശ്യം"
+
+#: ../camel/camel-gpg-context.c:906
+msgid ""
+"Note the encrypted content doesn't contain information about a recipient, "
+"thus there will be a password prompt for each of stored private key."
+msgstr ""
+
+#: ../camel/camel-gpg-context.c:937 ../camel/camel-net-utils.c:524
+#: ../camel/providers/nntp/camel-nntp-summary.c:403
+#: ../libedataserver/e-client.c:150
+#, fuzzy, c-format
+#| msgid "Canceled"
+msgid "Cancelled"
+msgstr "റദ്ദാക്കിയിരിക്കുന്നു"
+
+#: ../camel/camel-gpg-context.c:958
+#, c-format
+msgid "Failed to unlock secret key: 3 bad passphrases given."
+msgstr "രഹസ്യ പൂട്ട് തുറക്കുവാന്‍ പരാജയപ്പെട്ടു: 3 തെറ്റായ പാസ്സ് ഫ്രെയിസുകള്‍ നല്‍കിയിരിക്കുന്നു."
+
+#: ../camel/camel-gpg-context.c:971
+#, c-format
+msgid "Unexpected response from GnuPG: %s"
+msgstr "GnuPG-ല്‍ നിന്നും അപ്രതീക്ഷിതമായ മറുപടി: %s"
+
+#: ../camel/camel-gpg-context.c:1102
+#, c-format
+msgid "Failed to encrypt: No valid recipients specified."
+msgstr "രഹസ്യഭാഷയിലാക്കുന്നതില്‍ പരാജയപ്പെട്ടു: No valid recipients specified."
+
+#: ../camel/camel-gpg-context.c:1654 ../camel/camel-smime-context.c:846
+#, fuzzy
+#| msgid "Could not generate signing data: %s"
+msgid "Could not generate signing data: "
+msgstr "Could not generate signing data: %s"
+
+#: ../camel/camel-gpg-context.c:1703 ../camel/camel-gpg-context.c:1911
+#: ../camel/camel-gpg-context.c:2021 ../camel/camel-gpg-context.c:2170
+msgid "Failed to execute gpg."
+msgstr "gpg നടപ്പിലാക്കുന്നതില്‍ പരാജയം"
+
+#: ../camel/camel-gpg-context.c:1786 ../camel/camel-gpg-context.c:1794
+#: ../camel/camel-gpg-context.c:1802 ../camel/camel-gpg-context.c:1822
+#: ../camel/camel-smime-context.c:975 ../camel/camel-smime-context.c:989
+#: ../camel/camel-smime-context.c:998
+#, c-format
+msgid "Cannot verify message signature: Incorrect message format"
+msgstr "സന്ദേശത്തിന്റെ ഒപ്പ് പരിശോധിക്കുവാന്‍ സാധ്യമല്ല: തെറ്റായ സന്ദേശ മാതൃക"
+
+#: ../camel/camel-gpg-context.c:1864
+#, fuzzy
+#| msgid "Cannot verify message signature: Incorrect message format"
+msgid "Cannot verify message signature: "
+msgstr "സന്ദേശത്തിന്റെ ഒപ്പ് പരിശോധിക്കുവാന്‍ സാധ്യമല്ല: തെറ്റായ സന്ദേശ മാതൃക"
+
+#: ../camel/camel-gpg-context.c:1987
+#, fuzzy
+#| msgid "Could not generate encrypting data: %s"
+msgid "Could not generate encrypting data: "
+msgstr "എന്‍ക്രിപ്റ്റിങ് ഡേറ്റാ ഉണ്ടാക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/camel-gpg-context.c:2040
+msgid "This is a digitally encrypted message part"
+msgstr "ഇതു് ഡിജിറ്റലായി എന്‍ക്രിപ്റ്റ് ചെയ്ത സന്ദേശത്തിന്റെ ഭാഗമാണു്"
+
+#: ../camel/camel-gpg-context.c:2096 ../camel/camel-gpg-context.c:2105
+#: ../camel/camel-gpg-context.c:2128
+#, fuzzy, c-format
+msgid "Cannot decrypt message: Incorrect message format"
+msgstr "സന്ദേശത്തിന്റെ ഒപ്പ് പരിശോധിക്കുവാന്‍ സാധ്യമല്ല: തെറ്റായ സന്ദേശ മാതൃക"
+
+#: ../camel/camel-gpg-context.c:2116
+#, c-format
+msgid "Failed to decrypt MIME part: protocol error"
+msgstr "MIME ഭാഗം ഡീക്രിപ്റ്റ് ചെയ്യുന്നതില്‍ പരാജയം: സമ്പ്രദായത്തില്‍ പിശക്"
+
+#: ../camel/camel-gpg-context.c:2211 ../camel/camel-smime-context.c:1289
+msgid "Encrypted content"
+msgstr "എന്‍ക്രിപ്റ്റ് ചെയ്ത ഉള്ളടക്കം"
+
+#: ../camel/camel-junk-filter.c:168
+#, fuzzy
+msgid "Synchronizing junk database"
+msgstr "ഉപയോഗിക്കുന്നതിനുളള ഡേറ്റാബെയിസ്"
+
+#: ../camel/camel-lock.c:107
+#, c-format
+msgid "Could not create lock file for %s: %s"
+msgstr "%s-നുളള ലോക്ക് ഫയല്‍ ഉണ്ടാക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/camel-lock.c:150
+#, fuzzy, c-format
+#| msgid "Timed out trying to get lock file on %s. Try again later."
+msgid "Timed out trying to get lock file on %s.  Try again later."
+msgstr "%s-നുളള ലോക്ക് ഫയല്‍ ലഭ്യമാകുന്നതിനുളള സമയം കഴിഞ്ഞിരിക്കുന്നു. പിന്നീട് വീണ്ടും ശ്രമിക്കുക."
+
+#: ../camel/camel-lock.c:212
+#, c-format
+msgid "Failed to get lock using fcntl(2): %s"
+msgstr "fcnt(2) ഉപയോഗിച്ച് പൂട്ടുന്നതില്‍ പരാജയം: %s"
+
+#: ../camel/camel-lock.c:279
+#, c-format
+msgid "Failed to get lock using flock(2): %s"
+msgstr "flock(2) ഉപയോഗിച്ച് പൂട്ടുന്നതില്‍ പരാജയം: %s"
+
+#: ../camel/camel-lock-client.c:106
+#, c-format
+msgid "Cannot build locking helper pipe: %s"
+msgstr "സഹായത്തിനുളള പൈപ്പ് പൂട്ടുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../camel/camel-lock-client.c:130
+#, c-format
+msgid "Cannot fork locking helper: %s"
+msgstr "Cannot fork locking helper: %s"
+
+#: ../camel/camel-lock-client.c:211 ../camel/camel-lock-client.c:239
+#, c-format
+msgid "Could not lock '%s': protocol error with lock-helper"
+msgstr "'%s' പൂട്ടുവാന്‍ സാധ്യമായില്ല: lock-helper-ല്‍ സന്പ്രദായത്തില്‍ പിശക്"
+
+#: ../camel/camel-lock-client.c:227
+#, c-format
+msgid "Could not lock '%s'"
+msgstr "'%s' പൂട്ടുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-movemail.c:105
+#, c-format
+msgid "Could not check mail file %s: %s"
+msgstr "മെയില്‍ ഫയല്‍ %s പരിശോധിക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/camel-movemail.c:119
+#, c-format
+msgid "Could not open mail file %s: %s"
+msgstr "മെയില്‍ ഫയല്‍ %s തുറക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/camel-movemail.c:129
+#, c-format
+msgid "Could not open temporary mail file %s: %s"
+msgstr "താല്‍ക്കാലിക മെയില്‍ ഫയല്‍ %s തുറക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/camel-movemail.c:159
+#, c-format
+msgid "Failed to store mail in temp file %s: %s"
+msgstr "temp ഫയല്‍ %s-ല്‍ മെയില്‍ സൂക്ഷിക്കുന്നതില്‍ പരാജയം: %s"
+
+#: ../camel/camel-movemail.c:193
+#, c-format
+msgid "Could not create pipe: %s"
+msgstr "പൈപ്പ് നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/camel-movemail.c:207
+#, c-format
+msgid "Could not fork: %s"
+msgstr "fork ചെയ്യുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/camel-movemail.c:245
+#, c-format
+msgid "Movemail program failed: %s"
+msgstr "Movemail പ്രോഗ്രാം പരാജയപ്പെട്ടു: %s"
+
+#: ../camel/camel-movemail.c:246
+msgid "(Unknown error)"
+msgstr "(അപരിചിതമായ പിശക്)"
+
+#: ../camel/camel-movemail.c:273
+#, c-format
+msgid "Error reading mail file: %s"
+msgstr "മെയില്‍ ഫയല്‍ വായിക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/camel-movemail.c:286
+#, c-format
+msgid "Error writing mail temp file: %s"
+msgstr "മെയില്‍ ടെംപ് ഫയല്‍ എഴുതുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/camel-movemail.c:493 ../camel/camel-movemail.c:562
+#, c-format
+msgid "Error copying mail temp file: %s"
+msgstr "മെയില്‍ ടെംപ് ഫയല്‍ പകര്‍ത്തുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/camel-multipart-signed.c:275
+#, fuzzy, c-format
+#| msgid "No description available"
+msgid "No content available"
+msgstr "വിവരണം ലഭ്യമല്ല "
+
+#: ../camel/camel-multipart-signed.c:283
+#, fuzzy, c-format
+#| msgid "No description available"
+msgid "No signature available"
+msgstr "വിവരണം ലഭ്യമല്ല "
+
+#: ../camel/camel-multipart-signed.c:632
+#, c-format
+msgid "parse error"
+msgstr "പാഴ്സ് പിശക്"
+
+#: ../camel/camel-net-utils.c:704
+#, c-format
+msgid "Resolving: %s"
+msgstr "ലഭ്യമാക്കുന്നു: %s"
+
+#: ../camel/camel-net-utils.c:727
+msgid "Host lookup failed"
+msgstr "ഹോസ്റ്റ് തിരച്ചില്‍ പരാജയപ്പെട്ടു"
+
+#: ../camel/camel-net-utils.c:733
+#, c-format
+msgid "Host lookup '%s' failed. Check your host name for spelling errors."
+msgstr ""
+
+#: ../camel/camel-net-utils.c:737
+#, fuzzy, c-format
+#| msgid "Host lookup failed: %s: %s"
+msgid "Host lookup '%s' failed: %s"
+msgstr "ഹോസ്റ്റ് തിരച്ചില്‍ പരാജയപ്പെട്ടു"
+
+#: ../camel/camel-offline-folder.c:212
+#, c-format
+msgid "Syncing messages in folder '%s' to disk"
+msgstr "'%s' ഫോള്‍ഡറിലുള്ള സന്ദേശങ്ങള്‍ ഡിസ്കിലേക്ക് സിന്‍ക് ചെയ്യുന്നു"
+
+#: ../camel/camel-provider.c:58
+msgid "Virtual folder email provider"
+msgstr "വിര്‍ച്ച്വല്‍ ഫോള്‍ഡര്‍ ഈ മെയില്‍ പ്രൊവൈഡര്‍"
+
+#: ../camel/camel-provider.c:60
+msgid "For reading mail as a query of another set of folders"
+msgstr ""
+
+#: ../camel/camel-provider.c:263
+#, c-format
+msgid "Could not load %s: Module loading not supported on this system."
+msgstr "%s ലോഡ് ചെയ്യുവാന്‍ സാധ്യമല്ല: ഈ സിസ്റ്റത്തില്‍ ഘടകങ്ങള്‍ ലോഡ് ചെയ്യുന്നത് അനുവദിക്കുന്നില്ല."
+
+#: ../camel/camel-provider.c:272
+#, c-format
+msgid "Could not load %s: %s"
+msgstr "%s ലോഡ് ചെയ്യുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/camel-provider.c:281
+#, c-format
+msgid "Could not load %s: No initialization code in module."
+msgstr "%s ലോഡ് ചെയ്യുവാന്‍ സാധ്യമായില്ല: ഇനിഷ്യലൈസേഷന്‍ കോഡ് ഘടകത്തില്‍ ലഭ്യമല്ല."
+
+#: ../camel/camel-provider.c:429 ../camel/camel-session.c:406
+#, c-format
+msgid "No provider available for protocol '%s'"
+msgstr "സമ്പ്രദായം `%s'-നുളള പ്രൊവൈഡര്‍ ലഭ്യമല്ല"
+
+#: ../camel/camel-sasl-anonymous.c:35
+#: ../camel/providers/nntp/camel-nntp-provider.c:85
+msgid "Anonymous"
+msgstr "അജ്ഞാതം"
+
+#: ../camel/camel-sasl-anonymous.c:37
+msgid "This option will connect to the server using an anonymous login."
+msgstr ""
+"ഈ ഉപാധി ഉപയോഗിച്ച് നിങ്ങള്‍ക്ക് സര്‍വറിലേക്ക് ഒരു അജ്ഞാതം ലോഗിന്‍ വഴി കണക്ട് ചെയ്യാവുന്നതാണ്."
+
+#: ../camel/camel-sasl-anonymous.c:70
+#, c-format
+msgid "Authentication failed."
+msgstr "ആധികാരികത ഉറപ്പാക്കല്‍ പരാജയപ്പെട്ടു."
+
+#: ../camel/camel-sasl-anonymous.c:81
+#, c-format
+msgid ""
+"Invalid email address trace information:\n"
+"%s"
+msgstr ""
+"തെറ്റായ ഈമെയില്‍ വിലാസ വിവരം:\n"
+"%s"
+
+#: ../camel/camel-sasl-anonymous.c:95
+#, c-format
+msgid ""
+"Invalid opaque trace information:\n"
+"%s"
+msgstr ""
+"Invalid opaque trace information:\n"
+"%s"
+
+#: ../camel/camel-sasl-anonymous.c:109
+#, c-format
+msgid ""
+"Invalid trace information:\n"
+"%s"
+msgstr ""
+"Invalid trace information:\n"
+"%s"
+
+#: ../camel/camel-sasl-cram-md5.c:46
+msgid "CRAM-MD5"
+msgstr "CRAM-MD5"
+
+#: ../camel/camel-sasl-cram-md5.c:48
+msgid ""
+"This option will connect to the server using a secure CRAM-MD5 password, if "
+"the server supports it."
+msgstr ""
+"സര്‍വറിന്‍റെ പിന്തുണ ലഭ്യമെങ്കില്‍, ഈ ഉപാധി നിങ്ങളെ സര്‍വറിലേക്ക് ഒരു സുരക്ഷിത CRAM-MD5 "
+"പാസ്‍വേര്‍ഡ് ഉപയോഗിച്ച് കണക്ട് ചെയ്യിക്കുന്നു."
+
+#: ../camel/camel-sasl-digest-md5.c:59
+msgid "DIGEST-MD5"
+msgstr "DIGEST-MD5"
+
+#: ../camel/camel-sasl-digest-md5.c:61
+msgid ""
+"This option will connect to the server using a secure DIGEST-MD5 password, "
+"if the server supports it."
+msgstr ""
+"സര്‍വറിന്‍റെ പിന്തുണ ലഭ്യമെങ്കില്‍, ഈ ഉപാധി നിങ്ങളെ സര്‍വറിലേക്ക് ഒരു സുരക്ഷിത DIGEST-MD5 "
+"പാസ്‍വേര്‍ഡ് ഉപയോഗിച്ച് കണക്ട് ചെയ്യിക്കുന്നു."
+
+#: ../camel/camel-sasl-digest-md5.c:855
+#, c-format
+msgid "Server challenge too long (>2048 octets)"
+msgstr "സര്‍വര്‍ ചാലഞ്ച് വളരെ വലുതാണ് (>2048 ഒക്റ്ററ്റ്)"
+
+#: ../camel/camel-sasl-digest-md5.c:866
+#, c-format
+msgid "Server challenge invalid\n"
+msgstr "അസാധുവായ സര്‍വര്‍ ചാലഞ്ച്\n"
+
+#: ../camel/camel-sasl-digest-md5.c:874
+#, c-format
+msgid "Server challenge contained invalid \"Quality of Protection\" token"
+msgstr ""
+
+#: ../camel/camel-sasl-digest-md5.c:907
+#, c-format
+msgid "Server response did not contain authorization data"
+msgstr "സര്‍വറിന്റെ മറുപടിയില്‍ ആധികാരികത ഉറപ്പാക്കുന്ന ഡേറ്റ ലഭ്യമല്ല"
+
+#: ../camel/camel-sasl-digest-md5.c:928
+#, c-format
+msgid "Server response contained incomplete authorization data"
+msgstr "സര്‍വറിന്റെ മറുപടിയില്‍ ആധികാരികത ഉറപ്പാക്കുന്ന ഡേറ്റ പൂര്‍ണ്ണമല്ല."
+
+#: ../camel/camel-sasl-digest-md5.c:941
+#, c-format
+msgid "Server response does not match"
+msgstr "സര്‍വറിന്‍റെ മറുപടി ചേരുന്നില്ല"
+
+#: ../camel/camel-sasl-gssapi.c:91
+msgid "GSSAPI"
+msgstr "GSSAPI"
+
+#: ../camel/camel-sasl-gssapi.c:93
+msgid "This option will connect to the server using Kerberos 5 authentication."
+msgstr "Kerberos 5-ലൂടെ ആധികാരികത ഉറപ്പാക്കി ഈ ഉപാധി സര്‍വറിലേക്ക് കണക്ട് ചെയ്യുന്നു."
+
+#: ../camel/camel-sasl-gssapi.c:136
+msgid ""
+"The specified mechanism is not supported by the provided credential, or is "
+"unrecognized by the implementation."
+msgstr ""
+
+#: ../camel/camel-sasl-gssapi.c:141
+msgid "The provided target_name parameter was ill-formed."
+msgstr "തെറ്റായ രീതിയില്‍ രൂപപ്പെട്ട target_name പരാമീറ്റര്‍ നല്‍കിയിരിക്കുന്നു."
+
+#: ../camel/camel-sasl-gssapi.c:144
+msgid ""
+"The provided target_name parameter contained an invalid or unsupported type "
+"of name."
+msgstr ""
+
+#: ../camel/camel-sasl-gssapi.c:148
+msgid ""
+"The input_token contains different channel bindings to those specified via "
+"the input_chan_bindings parameter."
+msgstr ""
+
+#: ../camel/camel-sasl-gssapi.c:153
+msgid ""
+"The input_token contains an invalid signature, or a signature that could not "
+"be verified."
+msgstr ""
+
+#: ../camel/camel-sasl-gssapi.c:157
+msgid ""
+"The supplied credentials were not valid for context initiation, or the "
+"credential handle did not reference any credentials."
+msgstr ""
+
+#: ../camel/camel-sasl-gssapi.c:162
+msgid "The supplied context handle did not refer to a valid context."
+msgstr ""
+
+#: ../camel/camel-sasl-gssapi.c:165
+msgid "The consistency checks performed on the input_token failed."
+msgstr ""
+
+#: ../camel/camel-sasl-gssapi.c:168
+msgid "The consistency checks performed on the credential failed."
+msgstr ""
+
+#: ../camel/camel-sasl-gssapi.c:171
+#, fuzzy
+msgid "The referenced credentials have expired."
+msgstr "ഉപയോക്താവിന്റെ ആനുകൂല്യങ്ങളുടെ കാലാവധി അവസാനിച്ചിരിക്കുന്നു"
+
+#: ../camel/camel-sasl-gssapi.c:177 ../camel/camel-sasl-gssapi.c:354
+#: ../camel/camel-sasl-gssapi.c:402 ../camel/camel-sasl-gssapi.c:419
+#: ../camel/providers/smtp/camel-smtp-transport.c:624
+#, c-format
+msgid "Bad authentication response from server."
+msgstr "ആധികാരികത ഉറപ്പാക്കുന്നതില്‍ സര്‍വറില്‍ നിന്നും തെറ്റായ മറുപടി."
+
+#: ../camel/camel-sasl-gssapi.c:431
+#, c-format
+msgid "Unsupported security layer."
+msgstr "പിന്തുണയില്ലാത്ത സെക്ക്യൂരിറ്റി ലെയര്‍"
+
+#: ../camel/camel-sasl-login.c:40
+msgid "Login"
+msgstr "ലോഗിന്‍"
+
+#: ../camel/camel-sasl-login.c:42 ../camel/camel-sasl-plain.c:46
+msgid "This option will connect to the server using a simple password."
+msgstr "ഈ ഉപാധി നിങ്ങളെ സര്‍വറിലേക്ക് ഒരു പാസ്‍വേര്‍ഡ് ഉപയോഗിച്ച് കണക്ട് ചെയ്യുന്നു."
+
+#: ../camel/camel-sasl-login.c:110
+#, c-format
+msgid "Unknown authentication state."
+msgstr "അപരിചിതമായ ആധികാരികത ഉറപ്പാക്കുന്ന അവസ്ഥ."
+
+#: ../camel/camel-sasl-ntlm.c:48
+msgid "NTLM / SPA"
+msgstr "NTLM / SPA"
+
+#: ../camel/camel-sasl-ntlm.c:50
+msgid ""
+"This option will connect to a Windows-based server using NTLM / Secure "
+"Password Authentication."
+msgstr ""
+"NTLM / സുരക്ഷിത പാസ്‍വേര്‍ഡിലൂടെ ഒരു Windows സര്‍വറിലേക്ക് ആധികാരികത ഉറപ്പാക്കി കണ്ക്ട് "
+"ചെയ്യുന്നതിനായി ഈ ഉപാധി സഹായിക്കുന്നു "
+
+#: ../camel/camel-sasl-plain.c:44
+msgid "PLAIN"
+msgstr "PLAIN"
+
+#: ../camel/camel-sasl-popb4smtp.c:46
+msgid "POP before SMTP"
+msgstr "SMTP-യ്ക്ക് മുന്പ് POP "
+
+#: ../camel/camel-sasl-popb4smtp.c:48
+msgid "This option will authorise a POP connection before attempting SMTP"
+msgstr "SMTP ശ്രമിക്കുന്നതിന് മുന്പ് ഒരു POP കണക്ഷനെ ഈ ഉപാധി അധികാരപ്പെടുത്തുന്നു"
+
+#: ../camel/camel-sasl-popb4smtp.c:84
+#, fuzzy
+#| msgid "POP Source URI"
+msgid "POP Source UID"
+msgstr "POP Source URI"
+
+#: ../camel/camel-sasl-popb4smtp.c:98
+#, fuzzy, c-format
+#| msgid "POP Before SMTP auth using an unknown transport"
+msgid "POP Before SMTP authentication using an unknown transport"
+msgstr "SMTP auth-ന് മുന്പുളള POP ഒരു non-pop അപരിചിതമായ സംവിധാനം ഉപയോഗിക്കുന്നു"
+
+#: ../camel/camel-sasl-popb4smtp.c:110 ../camel/camel-sasl-popb4smtp.c:119
+#, c-format
+msgid "POP Before SMTP authentication attempted with a %s service"
+msgstr ""
+
+#: ../camel/camel-search-private.c:116
+#, fuzzy, c-format
+msgid "Regular expression compilation failed: %s: %s"
+msgstr "റെഗുലര്‍ എക്സ്പ്രഷന്‍ \"%s\"സമാഹാരിയ്ക്കുന്നതില്‍ പിശകു്."
+
+#: ../camel/camel-session.c:415
+#, fuzzy, c-format
+#| msgid "No provider available for protocol '%s'"
+msgid "Invalid GType registered for protocol '%s'"
+msgstr "തെറ്റായ ഐഎം വിലാസം ‘%s’, ‘%s’ സമ്പ്രദായത്തിനു് നല്‍കിയിരിയ്ക്കുന്നു: %s"
+
+#: ../camel/camel-session.c:484
+#: ../camel/providers/imapx/camel-imapx-server.c:4491
+#: ../camel/providers/pop3/camel-pop3-store.c:313
+#: ../camel/providers/pop3/camel-pop3-store.c:758
+#: ../camel/providers/smtp/camel-smtp-transport.c:517
+#, fuzzy, c-format
+#| msgid "No support for authentication type %s"
+msgid "No support for %s authentication"
+msgstr "%s എന്ന ആധികാരികത ഉറപ്പുവരുത്തല്‍ സംവിധാനത്തിന് പിന്തുണ ലഭ്യമല്ല"
+
+#: ../camel/camel-session.c:499
+#, fuzzy, c-format
+#| msgid "Authentication failed"
+msgid "%s authentication failed"
+msgstr "%s ആധികാരകത ഉറപ്പുവരുത്തല്‍ പരാജയപ്പെട്ടു"
+
+#: ../camel/camel-session.c:635
+#, fuzzy
+#| msgid "Operation not supported"
+msgid "Forwarding messages is not supported"
+msgstr "%s (%s)  തരം ഫയലുകള്‍ പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../camel/camel-smime-context.c:351 ../camel/camel-smime-context.c:1076
+#, c-format
+msgid "Cannot find certificate for '%s'"
+msgstr "'%s'-നുളള സര്‍ട്ടിഫിക്കേറ്റ് കണ്ടുപിടിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:379
+msgid "Cannot create CMS message"
+msgstr "CMS സന്ദേശം നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:384
+msgid "Cannot create CMS signed data"
+msgstr "CMS ഒപ്പുളള ഡേറ്റാ നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:390
+msgid "Cannot attach CMS signed data"
+msgstr "CMS ഒപ്പുളള ഡേറ്റാ ചേര്‍ക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:397
+msgid "Cannot attach CMS data"
+msgstr "CMS ഡേറ്റാ ചേര്‍ക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:403
+#, fuzzy
+msgid "Cannot create CMS Signer information"
+msgstr "CMS ഒപ്പുളള ഡേറ്റാ നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:409
+#, fuzzy
+msgid "Cannot find certificate chain"
+msgstr "'%s'-നുളള സര്‍ട്ടിഫിക്കേറ്റ് കണ്ടുപിടിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:415
+msgid "Cannot add CMS Signing time"
+msgstr "CMS ഒപ്പ് വയ്ക്കുന്ന സമയം ചേര്‍ക്കുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/camel-smime-context.c:439 ../camel/camel-smime-context.c:454
+#, c-format
+msgid "Encryption certificate for '%s' does not exist"
+msgstr ""
+
+#: ../camel/camel-smime-context.c:461
+msgid "Cannot add SMIMEEncKeyPrefs attribute"
+msgstr "SMIMEEncKeyPrefs വിശേഷത ചേര്‍ക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:466
+msgid "Cannot add MS SMIMEEncKeyPrefs attribute"
+msgstr "MS SMIMEEncKeyPrefs വിശേഷത ചേര്‍ക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:471
+#, fuzzy
+msgid "Cannot add encryption certificate"
+msgstr "'%s'-നുളള സര്‍ട്ടിഫിക്കേറ്റ് കണ്ടുപിടിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:477
+#, fuzzy
+msgid "Cannot add CMS Signer information"
+msgstr "CMS ഒപ്പ് വയ്ക്കുന്ന സമയം ചേര്‍ക്കുവാന്‍ സാധ്യമല്ല"
+
+#. Translators: A fallback message when couldn't verify an SMIME signature
+#: ../camel/camel-smime-context.c:510
+msgid "Unverified"
+msgstr "ഉറപ്പ് വരുത്താത്തവ"
+
+#: ../camel/camel-smime-context.c:512
+msgid "Good signature"
+msgstr "ശരിയായ ഒപ്പ്"
+
+#: ../camel/camel-smime-context.c:514
+msgid "Bad signature"
+msgstr "തെറ്റായ ഒപ്പ്"
+
+#: ../camel/camel-smime-context.c:516
+msgid "Content tampered with or altered in transit"
+msgstr ""
+
+#: ../camel/camel-smime-context.c:518
+msgid "Signing certificate not found"
+msgstr "ഒപ്പ് വയ്ക്കുന്നതിലുളള സര്‍ട്ടീഫിക്കേറ്റ് ലഭ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:520
+msgid "Signing certificate not trusted"
+msgstr "ഒപ്പ് വയ്ക്കുന്നതിലുളള സര്‍ട്ടീഫിക്കേറ്റ് വിശ്വസനീയമല്ല"
+
+#: ../camel/camel-smime-context.c:522
+msgid "Signature algorithm unknown"
+msgstr "ഒപ്പിനുളള അല്‍ഗോരിതം അപരിചിതം"
+
+#: ../camel/camel-smime-context.c:524
+msgid "Signature algorithm unsupported"
+msgstr "ഒപ്പിനുളള അല്‍ഗോരിതം പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../camel/camel-smime-context.c:526
+msgid "Malformed signature"
+msgstr "തകരാറുളള ഒപ്പ്"
+
+#: ../camel/camel-smime-context.c:528
+msgid "Processing error"
+msgstr "പ്രവര്‍ത്തനത്തില്‍ പിശക്"
+
+#: ../camel/camel-smime-context.c:573
+msgid "No signed data in signature"
+msgstr "സിഗ്നേച്ചറില്‍ ഒപ്പ് വച്ച ഡേറ്റാ ഇല്ല"
+
+#: ../camel/camel-smime-context.c:578
+msgid "Digests missing from enveloped data"
+msgstr ""
+
+#: ../camel/camel-smime-context.c:591 ../camel/camel-smime-context.c:602
+#, fuzzy
+msgid "Cannot calculate digests"
+msgstr "തിരചിത്രങ്ങളുടെ എണ്ണം കണക്കുകൂട്ടുക"
+
+#: ../camel/camel-smime-context.c:609 ../camel/camel-smime-context.c:613
+#, fuzzy
+msgid "Cannot set message digests"
+msgstr "CMS സന്ദേശം നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:623 ../camel/camel-smime-context.c:628
+msgid "Certificate import failed"
+msgstr "സര്‍ട്ടിഫിക്കേറ്റ് ഇംപോര്‍ട്ട് പ്രക്രിയ പരാജയപ്പെട്ടു"
+
+#: ../camel/camel-smime-context.c:638
+#, c-format
+msgid "Certificate is the only message, cannot verify certificates"
+msgstr ""
+
+#: ../camel/camel-smime-context.c:641
+#, c-format
+msgid "Certificate is the only message, certificates imported and verified"
+msgstr ""
+
+#: ../camel/camel-smime-context.c:645
+#, fuzzy
+msgid "Cannot find signature digests"
+msgstr "'%s'-നുളള സര്‍ട്ടിഫിക്കേറ്റ് കണ്ടുപിടിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:662
+#, c-format
+msgid "Signer: %s <%s>: %s\n"
+msgstr "ഒപ്പ് വയ്ക്കുന്ന ആള്‍: %s <%s>: %s\n"
+
+#: ../camel/camel-smime-context.c:858 ../camel/camel-smime-context.c:1150
+#, fuzzy
+msgid "Cannot create encoder context"
+msgstr "ജി.പി.ഫോടോ2 കോണ്ടെക്സ്റ്റ് ഉണ്ടാക്കാന്‍ കഴിയുന്നില്ല"
+
+#: ../camel/camel-smime-context.c:864
+msgid "Failed to add data to CMS encoder"
+msgstr "CMS എന്‍കോഡറിലേക്ക് ഡേറ്റാ ചേര്‍ക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:869 ../camel/camel-smime-context.c:1167
+msgid "Failed to encode data"
+msgstr "ഡേറ്റാ എന്‍കോഡ് ചെയ്യുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:1015 ../camel/camel-smime-context.c:1264
+msgid "Decoder failed"
+msgstr "ഡീകോഡര്‍ പരാജയപ്പെട്ടു"
+
+#: ../camel/camel-smime-context.c:1084
+msgid "Cannot find common bulk encryption algorithm"
+msgstr ""
+
+#: ../camel/camel-smime-context.c:1092
+msgid "Cannot allocate slot for encryption bulk key"
+msgstr ""
+
+#: ../camel/camel-smime-context.c:1103
+msgid "Cannot create CMS Message"
+msgstr "CMS സന്ദേശം നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:1109
+#, fuzzy
+msgid "Cannot create CMS Enveloped data"
+msgstr "CMS ഒപ്പുളള ഡേറ്റാ നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:1115
+#, fuzzy
+msgid "Cannot attach CMS Enveloped data"
+msgstr "CMS ഡേറ്റാ ഒബ്ടക്ട് ചേര്‍ക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:1121
+msgid "Cannot attach CMS data object"
+msgstr "CMS ഡേറ്റാ ഒബ്ടക്ട് ചേര്‍ക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:1130
+#, fuzzy
+msgid "Cannot create CMS Recipient information"
+msgstr "CMS ഒപ്പുളള ഡേറ്റാ നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:1135
+#, fuzzy
+msgid "Cannot add CMS Recipient information"
+msgstr "CMS ഒപ്പ് വയ്ക്കുന്ന സമയം ചേര്‍ക്കുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/camel-smime-context.c:1161
+msgid "Failed to add data to encoder"
+msgstr "എന്‍കോഡറിലേക്ക് ഡേറ്റാ ചേര്‍ക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-smime-context.c:1271
+msgid "S/MIME Decrypt: No encrypted content found"
+msgstr ""
+
+#: ../camel/camel-store.c:1928
+#, c-format
+msgid "Cannot create folder '%s': folder exists"
+msgstr "ഫോള്‍ഡര്‍ `%s'  ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല: ഫോള്‍ഡര്‍ നിലവിലുണ്ടു്"
+
+#: ../camel/camel-store.c:1971
+#, fuzzy, c-format
+#| msgid "Syncing folders"
+msgid "Opening folder '%s'"
+msgstr "ഫോള്‍ഡര്‍ സൂക്ഷിക്കുന്നു"
+
+#: ../camel/camel-store.c:2160
+#, fuzzy, c-format
+#| msgid "Scanning for changed messages in %s"
+msgid "Scanning folders in '%s'"
+msgstr "വൃക്ഷത്തിലെ അറകൾ സന്ദർശിക്കുക"
+
+#: ../camel/camel-store.c:2188 ../camel/camel-store.c:2233
+#: ../camel/camel-vtrash-folder.c:48
+msgid "Trash"
+msgstr "ചവറ്റുകുട്ട‌"
+
+#: ../camel/camel-store.c:2202 ../camel/camel-store.c:2250
+#: ../camel/camel-vtrash-folder.c:50
+msgid "Junk"
+msgstr "ആവശ്യമില്ലാത്തവ"
+
+#: ../camel/camel-store.c:2703
+#, c-format
+msgid "Cannot create folder: %s: folder exists"
+msgstr "ഫോള്‍ഡര്‍ ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല: %s: ഫോള്‍ഡര്‍ നിലവിലുണ്ട്"
+
+#: ../camel/camel-store.c:2717
+#, fuzzy, c-format
+#| msgid "Cannot get folder '%s': %s"
+msgid "Creating folder '%s'"
+msgstr "'%s' അറ ഉണ്ടാക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/camel-store.c:2835 ../camel/camel-vee-store.c:418
+#: ../camel/providers/local/camel-maildir-store.c:315
+#, c-format
+msgid "Cannot delete folder: %s: Invalid operation"
+msgstr "ഫോള്‍ഡര്‍ നീക്കം ചെയ്യുവാന്‍ സാധ്യമല്ല: %s: തെറ്റായ പ്രക്രിയ"
+
+#: ../camel/camel-store.c:2978 ../camel/camel-vee-store.c:469
+#: ../camel/providers/local/camel-maildir-store.c:840
+#, c-format
+msgid "Cannot rename folder: %s: Invalid operation"
+msgstr "ഫോള്‍ഡറിന്‍റെ പേര് മാറ്റുവാന്‍ സാധ്യമല്ല: %s: തെറ്റായ പ്രക്രിയ"
+
+#: ../camel/camel-stream.c:287 ../camel/camel-stream.c:338
+#, fuzzy, c-format
+#| msgid "Store root %s is not an absolute path"
+msgid "Stream type '%s' is not seekable"
+msgstr "\"%s\" ശരിയായ തരത്തിലുള്ള ഒരു സവിശേഷത അല്ല."
+
+#: ../camel/camel-stream-filter.c:334
+msgid "Only reset to beginning is supported with CamelStreamFilter"
+msgstr ""
+
+#: ../camel/camel-stream-null.c:78
+msgid "Only reset to beginning is supported with CamelHttpStream"
+msgstr ""
+
+#: ../camel/camel-stream-process.c:275
+#, c-format
+msgid "Connection cancelled"
+msgstr "കണക്ഷന്‍ റദ്ദാക്കിയിരിക്കുന്നു"
+
+#: ../camel/camel-stream-process.c:280
+#, c-format
+msgid "Could not connect with command \"%s\": %s"
+msgstr "\"%s\" എന്ന നിര്‍ദ്ദേശമുപയോഗിച്ച് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../camel/camel-subscribable.c:389
+#, fuzzy, c-format
+#| msgid "Syncing folders"
+msgid "Subscribing to folder '%s'"
+msgstr "ഫോള്‍ഡറിലേക്ക് പകര്‍ത്തുക"
+
+#: ../camel/camel-subscribable.c:517
+#, fuzzy, c-format
+#| msgid "Cannot unsubscribe from folder '%s': Bad command"
+msgid "Unsubscribing from folder '%s'"
+msgstr "%s ഫോള്‍ഡറില്‍ നിന്നും വീണ്ടെടുക്കുന്നു"
+
+#: ../camel/camel-url.c:331
+#, c-format
+msgid "Could not parse URL '%s'"
+msgstr "URL `%s' പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/camel-vee-folder.c:493
+#, fuzzy, c-format
+#| msgid "Cannot get folder '%s': %s"
+msgid "Updating folder '%s'"
+msgstr "ഫോള്‍ഡര്‍ സൂക്ഷിക്കുന്നു"
+
+#: ../camel/camel-vee-folder.c:853 ../camel/camel-vee-folder.c:963
+#, c-format
+msgid "Cannot copy or move messages into a Virtual Folder"
+msgstr "ഒരു വിര്‍ച്ച്വല്‍ ഫോള്‍ഡറിലേക്ക് സന്ദേശങ്ങള്‍ പകര്‍ത്തുവാനോ നീക്കുവാനോ സാധ്യമല്ല"
+
+#: ../camel/camel-vee-folder.c:886
+#, c-format
+msgid "No such message %s in %s"
+msgstr "%s-ല്‍ %s എന്ന സന്ദേശം ലഭ്യമല്ല"
+
+#: ../camel/camel-vee-folder.c:939
+#, fuzzy, c-format
+#| msgid "Error storing '%s': %s"
+msgid "Error storing '%s': "
+msgstr "`%s' സൂക്ഷിക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/camel-vee-folder.c:1169
+msgid "Automatically _update on change in source folders"
+msgstr ""
+
+#. Translators: 'Unmatched' is a folder name under Search folders where are shown
+#. * all messages not belonging into any other configured search folder
+#: ../camel/camel-vee-store.c:42
+msgid "Unmatched"
+msgstr "ചേര്‍ച്ചയില്ല"
+
+#: ../camel/camel-vee-store.c:444
+#, c-format
+msgid "Cannot delete folder: %s: No such folder"
+msgstr "ഫോള്‍ഡര്‍ നീക്കം ചെയ്യുവാന്‍ സാധ്യമല്ല: %s: ഇങ്ങനെ ഒരു ഫോള്‍ഡര്‍ നിലവിലില്ല"
+
+#: ../camel/camel-vee-store.c:479
+#, c-format
+msgid "Cannot rename folder: %s: No such folder"
+msgstr "ഫോള്‍ഡറിന്‍റെ പേര് മാറ്റുവാന്‍ സാധ്യമല്ല: %s: ഇങ്ങനെ ഒരു ഫോള്‍ഡര്‍ നിലവിലില്ല"
+
+#: ../camel/camel-vee-store.c:541
+#, fuzzy
+msgid "Enable _Unmatched folder"
+msgstr "ഫോള്‍ഡറില്‍ തിരയുക"
+
+#: ../camel/camel-vtrash-folder.c:49
+msgid "Cannot copy messages to the Trash folder"
+msgstr "ചവറ്റുകുട്ടയിലേക്ക് സന്ദേശങ്ങള്‍ പകര്‍ത്തുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/camel-vtrash-folder.c:51
+msgid "Cannot copy messages to the Junk folder"
+msgstr "ആവശ്യമില്ലാത്ത സന്ദേശങ്ങളുടെ ഫോള്‍ഡറിലേക്ക് സന്ദേശങ്ങള്‍ പകര്‍ത്തുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/providers/imapx/camel-imapx-folder.c:701
+#, fuzzy, c-format
+#| msgid "No provider available for protocol '%s'"
+msgid "No quota information available for folder '%s'"
+msgstr "സമ്പ്രദായം `%s'-നുളള പ്രൊവൈഡര്‍ ലഭ്യമല്ല"
+
+#: ../camel/providers/imapx/camel-imapx-folder.c:815
+#: ../camel/providers/imapx/camel-imapx-folder.c:908
+#, fuzzy, c-format
+msgid "No destination folder specified"
+msgstr "സ്ഥാനം ഒരു അറ അല്ല."
+
+#: ../camel/providers/imapx/camel-imapx-folder.c:843
+#, fuzzy
+#| msgid "Unable to retrieve message: %s"
+msgid "Unable to move junk messages"
+msgstr "മെറ്റാഡേറ്റാ കീ നീക്കുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/providers/imapx/camel-imapx-folder.c:936
+#, fuzzy
+#| msgid "Unable to retrieve message: %s"
+msgid "Unable to move deleted messages"
+msgstr "മെറ്റാഡേറ്റാ കീ നീക്കുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/providers/imapx/camel-imapx-folder.c:1163
+#: ../camel/providers/nntp/camel-nntp-folder.c:809
+#, fuzzy
+#| msgid "Cannot copy messages to the Trash folder"
+msgid "Apply message _filters to this folder"
+msgstr "ചവറ്റുകുട്ടയിലേക്ക് സന്ദേശങ്ങള്‍ പകര്‍ത്തുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/providers/imapx/camel-imapx-folder.c:1269
+#, fuzzy, c-format
+#| msgid "Could not load summary for %s"
+msgid "Could not create folder summary for %s"
+msgstr "ഫോള്‍ഡറിന്റെ സമ്മറി ഫയല്‍ `%s' നീക്കം ചെയ്യുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/imapx/camel-imapx-folder.c:1278
+#, fuzzy, c-format
+#| msgid "Could not create cache file"
+msgid "Could not create cache for %s: "
+msgstr "cache-നുളള ത്രെഡ് നിര്‍മ്മിക്കുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/providers/imapx/camel-imapx-folder.c:1463
+#, fuzzy, c-format
+#| msgid "No provider available for protocol '%s'"
+msgid "No IMAP mailbox available for folder '%s'"
+msgstr "സമ്പ്രദായം `%s'-നുളള പ്രൊവൈഡര്‍ ലഭ്യമല്ല"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:40
+msgid "Checking for New Mail"
+msgstr "പുതിയ മെയില്‍ ഉണ്ടോ എന്ന പരിശോധന"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:42
+msgid "C_heck for new messages in all folders"
+msgstr "എല്ലാ ഫോള്‍ഡറുകളിലും പുതിയ സന്ദേശത്തിനായി തിരയുക (_h)"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:44
+msgid "Ch_eck for new messages in subscribed folders"
+msgstr "എല്ലാ ഫോള്‍ഡറുകളിലും പുതിയ സന്ദേശങ്ങള്‍ക്കായി _തെരയുക"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:46
+msgid "Use _Quick Resync if the server supports it"
+msgstr ""
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:48
+msgid "_Listen for server change notifications"
+msgstr ""
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:51
+#: ../camel/providers/nntp/camel-nntp-provider.c:46
+msgid "Folders"
+msgstr "ഫോള്‍ഡറുകള്‍"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:53
+msgid "_Show only subscribed folders"
+msgstr "അംഗത്വമുളള ഫോള്‍ഡറുകള്‍ മാത്രം കാണിക്കുക (_S)"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:56
+msgid "O_verride server-supplied folder namespace"
+msgstr ""
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:58
+msgid "Namespace:"
+msgstr "നെയിം സ്പെയിസ്:"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:61
+#: ../camel/providers/local/camel-local-provider.c:41
+#: ../camel/providers/local/camel-local-provider.c:81
+#: ../camel/providers/local/camel-local-provider.c:101
+#: ../camel/providers/nntp/camel-nntp-provider.c:41
+msgid "Options"
+msgstr "ബദലുകള്‌"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:63
+#: ../camel/providers/nntp/camel-nntp-provider.c:43
+#, fuzzy
+#| msgid "_Apply filters to new messages in INBOX"
+msgid "Apply _filters to new messages in all folders"
+msgstr ""
+"ഈ സര്‍വറിലുളള പോയ മെയിലുകളുടെ ഫോള്‍ഡറിലുളള പുതിയ സന്ദേശങ്ങള്‍ക്ക് ഫില്‍റ്ററുകള്‍ അംഗീകരിക്കുക (_A)"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:65
+msgid "_Apply filters to new messages in Inbox on this server"
+msgstr ""
+"ഈ സര്‍വറിലുളള പോയ മെയിലുകളുടെ ഫോള്‍ഡറിലുളള പുതിയ സന്ദേശങ്ങള്‍ക്ക് ഫില്‍‌റ്ററുകള്‍ _അംഗീകരിക്കുക"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:67
+msgid "Check new messages for _Junk contents"
+msgstr "പുതിയ മെയിലുകളില്‍ അനാവശ്യമായവ ഉണ്ടോ എന്ന് പരിശോധിക്കുക (_J)"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:69
+msgid "Only check for Junk messages in the IN_BOX folder"
+msgstr "_വരുന്ന മെയിലുകളുടെ ഫോള്‍ഡറില്‍ ആവശ്യമില്ലാത്ത മെയിലുകള്‍ മാത്രം തിരയുക"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:71
+msgid "Automatically synchroni_ze remote mail locally"
+msgstr ""
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:77
+#, fuzzy
+msgid "Default IMAP port"
+msgstr "അമേരിക്ക/പോര്‍ട്ട്_ഓഫ്_സ്പയിന്‍"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:78
+#, fuzzy
+#| msgid "IMAP server %s"
+msgid "IMAP over SSL"
+msgstr "എസ്എസ്എലില്‍ മൈക്രോസോഫ്റ്റ് ഗ്ലോബര്‍ കാറ്റലോഗ്"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:85
+msgid "IMAP+"
+msgstr "IMAP+"
+
+#: ../camel/providers/imapx/camel-imapx-provider.c:87
+msgid "For reading and storing mail on IMAP servers."
+msgstr "IMAP സര്‍വറുകളില്‍ മെയില്‍ വായിക്കുന്നതിനും സൂക്ഷിക്കുന്നതിനും."
+
+#: ../camel/providers/imapx/camel-imapx-server.c:1590
+#, fuzzy
+#| msgid "Server unexpectedly disconnected: %s"
+msgid "Server disconnected"
+msgstr "അപ്രതീക്ഷിതമായി സര്‍വറിന്‍റെ കണക്ഷന്‍ വേര്‍പ്പെട്ടു: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:2032
+#, fuzzy
+#| msgid "Error writing mail temp file: %s"
+msgid "Error writing to cache stream"
+msgstr "ഇമേജ് സ്റ്റ്രീമിലേക്കു്‌ സൂക്ഷിക്കുന്നതില്‍ പരാജയം"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:2761
+#, fuzzy, c-format
+#| msgid ""
+#| "Alert from IMAP server %s@%s:\n"
+#| "%s"
+msgid ""
+"Alert from IMAP server %s:\n"
+"%s"
+msgstr ""
+"IMAP സര്‍വര്‍ %s@%s-ല്‍ നിന്നും അറിയിപ്പ്:\n"
+"%s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:3367
+#, fuzzy, c-format
+#| msgid "Failed to authenticate.\n"
+msgid "Not authenticated"
+msgstr "ഇത് ഒരു കലണ്ടര്‍ അല്ല. "
+
+#: ../camel/providers/imapx/camel-imapx-server.c:3445
+#, fuzzy
+#| msgid "Error performing search"
+msgid "Error performing IDLE"
+msgstr "തിരച്ചിലില്‍ തകരാറ്"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4352
+#, c-format
+msgid "Failed to connect to IMAP server %s in secure mode: %s"
+msgstr "സുരക്ഷിത മോഡില്‍ IMAP സര്‍വര്‍ %s-ലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4353
+#: ../camel/providers/smtp/camel-smtp-transport.c:217
+msgid "STARTTLS not supported"
+msgstr "STARTTLS പിന്തുണയ്ക്കിന്നില്ല"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4400
+#, fuzzy, c-format
+#| msgid "Failed to connect to IMAP server %s in secure mode: %s"
+msgid "Failed to connect to IMAP server %s in secure mode: "
+msgstr "സുരക്ഷിത മോഡില്‍ IMAP സര്‍വര്‍ %s-ലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4480
+#, fuzzy, c-format
+#| msgid "IMAP server %s does not support requested authentication type %s"
+msgid "IMAP server %s does not support %s authentication"
+msgstr "IMAP സര്‍വര്‍ %s-ല്‍ %s എന്ന ആധികാരികത ഉറപ്പുവരുത്തല്‍ സംവിധാനത്തിന് പിന്തുണ ലഭ്യമല്ല"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4510
+#: ../camel/providers/nntp/camel-nntp-store.c:413
+#: ../camel/providers/nntp/camel-nntp-store.c:599
+#, fuzzy
+#| msgid "Cannot authenticate to server: %s"
+msgid "Cannot authenticate without a username"
+msgstr "'-' ഉപയോഗിച്ചു് ഉപയോക്തൃനാമം ആരംഭിയ്ക്കുവാന്‍ പാടില്ല."
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4519
+#: ../camel/providers/nntp/camel-nntp-store.c:608
+#: ../camel/providers/pop3/camel-pop3-store.c:679
+#: ../camel/providers/pop3/camel-pop3-store.c:700
+#, fuzzy
+#| msgid "Authentication failed"
+msgid "Authentication password not available"
+msgstr "SMART ലഭ്യമല്ല"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4739
+#, fuzzy
+#| msgid "Encrypting message"
+msgid "Error fetching message"
+msgstr "സന്ദേശം ലഭിക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4787
+#: ../camel/providers/imapx/camel-imapx-server.c:4794
+#, fuzzy
+#| msgid "Failed to encode data"
+msgid "Failed to close the tmp stream"
+msgstr "ഫയല്‍ '%s' അടയ്ക്കുന്നതില്‍ പരാജയപ്പെട്ടു: fclose() പരാജയപ്പെട്ടു: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4829
+#, fuzzy
+#| msgid "Failed to authenticate.\n"
+msgid "Failed to copy the tmp file"
+msgstr "മോസിലയില്‍ നിന്നും കുക്കികളുടെ ഫയല്‍ പകര്‍ത്തുന്നതില്‍ പരാജയം."
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4958
+#, fuzzy
+#| msgid "Copying messages"
+msgid "Error moving messages"
+msgstr "'%s'-ലേക്ക് മെയിലുകള്‍ മാറ്റുന്നു"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:4962
+#, fuzzy
+#| msgid "Copying messages"
+msgid "Error copying messages"
+msgstr "'%s'-ലേക്കു് സന്ദേശങ്ങള്‍ പകര്‍ത്തുന്നു"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:5121
+#, fuzzy
+#| msgid "Sending message"
+msgid "Error appending message"
+msgstr "സന്ദേശം ലഭിക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:5321
+#, fuzzy
+msgid "Error fetching message headers"
+msgstr "എല്ലാ സന്ദേശ തലക്കെട്ടുകളും കാണിയ്ക്കുക"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:5497
+#, fuzzy
+#| msgid ""
+#| "Error retrieving newsgroups:\n"
+#| "\n"
+#| "%s"
+msgid "Error retrieving message"
+msgstr "POP സന്ദേശം %d ലഭ്യമാക്കുന്നു"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:5627
+#: ../camel/providers/imapx/camel-imapx-server.c:5874
+#, fuzzy, c-format
+#| msgid "Fetching summary information for new messages in %s"
+msgid "Fetching summary information for new messages in '%s'"
+msgstr "പുതിയ സന്ദേശങ്ങള്‍ക്കുളള സമ്മറി വിവരം %s-ല്‍ നിന്നും ലഭ്യമാക്കുന്നു"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:5696
+#, fuzzy, c-format
+#| msgid "Scanning for changed messages in %s"
+msgid "Scanning for changed messages in '%s'"
+msgstr "%s-ല്‍ മാറ്റം വന്നിരിക്കുന്ന സന്ദേശങ്ങള്‍ക്കായി പരിശോധിക്കുന്നു"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:5755
+#, fuzzy
+#| msgid "%s: Scanning new messages"
+msgid "Error fetching new messages"
+msgstr "പുതിയ സന്ദേശങ്ങള്‍ക്കുളള കവറുകള്‍ ലഭ്യമാക്കുന്നു"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:5985
+#, fuzzy
+#| msgid "Verifying message"
+msgid "Error while fetching messages"
+msgstr "ആല്‍ബങ്ങള്‍ ലഭ്യമാക്കുമ്പോള്‍ ഒരു പിശകുണ്ടായി."
+
+#: ../camel/providers/imapx/camel-imapx-server.c:5993
+#: ../camel/providers/imapx/camel-imapx-server.c:6026
+#, fuzzy, c-format
+#| msgid "Fetching summary information for new messages in %s"
+msgid "Fetching summary information for %d message in '%s'"
+msgid_plural "Fetching summary information for %d messages in '%s'"
+msgstr[0] "പുതിയ സന്ദേശങ്ങള്‍ക്കുളള സമ്മറി വിവരം %s-ല്‍ നിന്നും ലഭ്യമാക്കുന്നു"
+msgstr[1] "പുതിയ സന്ദേശങ്ങള്‍ക്കുളള സമ്മറി വിവരം %s-ല്‍ നിന്നും ലഭ്യമാക്കുന്നു"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6172
+#: ../camel/providers/imapx/camel-imapx-server.c:6208
+#, fuzzy
+#| msgid "Error performing search"
+msgid "Error refreshing folder"
+msgstr "'%s' അറ ഉണ്ടാക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6344
+#, fuzzy
+#| msgid "Expunging old messages"
+msgid "Error expunging message"
+msgstr "സന്ദേശം ലഭിക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6453
+#: ../camel/providers/imapx/camel-imapx-server.c:6478
+#, fuzzy
+#| msgid "Storing folder"
+msgid "Error fetching folders"
+msgstr "ആല്‍ബങ്ങള്‍ ലഭ്യമാക്കുമ്പോള്‍ ഒരു പിശകുണ്ടായി."
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6558
+#, fuzzy
+#| msgid "Storing folder"
+msgid "Error creating folder"
+msgstr "'%s' അറ ഉണ്ടാക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6610
+#, fuzzy
+#| msgid "Storing folder"
+msgid "Error deleting folder"
+msgstr "'%s' അറ ഉണ്ടാക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6677
+#, fuzzy
+#| msgid "Storing folder"
+msgid "Error renaming folder"
+msgstr "'%s' അറ ഉണ്ടാക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6764
+#, fuzzy
+#| msgid "_Show only subscribed folders"
+msgid "Error subscribing to folder"
+msgstr "ഓര്‍മ്മക്കുറിപ്പിലേയ്ക്കു് '%s' അറ ചേര്‍ക്കുക"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6824
+#, fuzzy
+#| msgid "_Show only subscribed folders"
+msgid "Error unsubscribing from folder"
+msgstr "തെരഞ്ഞെടുത്ത ഫോള്‍ഡറിലേക്കു് അംഗത്വം മാറ്റുക"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6880
+#, fuzzy
+#| msgid ""
+#| "Error retrieving newsgroups:\n"
+#| "\n"
+#| "%s"
+msgid "Error retrieving quota information"
+msgstr "കണക്ഷന്‍ സംബന്ധിച്ചുള്ള വിവരം കാണിക്കുന്നതില്‍ പിശക്"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6932
+#, fuzzy
+#| msgid "Decoder failed"
+msgid "Search failed"
+msgstr "തിരയാന്‍ സാധിച്ചില്ല: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:6994
+#, fuzzy
+#| msgid "Error performing search"
+msgid "Error performing NOOP"
+msgstr "തിരച്ചിലില്‍ തകരാറ്"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:7107
+#, fuzzy
+msgid "Error syncing changes"
+msgstr "ക്രമീകരണ ഡേറ്റാ സിന്‍ക് ചെയ്യുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:7417
+#, fuzzy
+#| msgid "Reconnecting to LDAP server..."
+msgid "Lost connection to IMAP server"
+msgstr ""
+"IMAP സര്‍വറില്‍ ആധികാരികത ഉറപ്പുവരുത്തുവാന്‍ സാധ്യമായില്ല.\n"
+"%s\n"
+"\n"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:8167
+#, c-format
+msgid "Cannot get message with message ID %s: %s"
+msgstr "സന്ദേശം ID %s ഉള്ള സന്ദേശം ലഭ്യമല്ല: %s"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:8168
+msgid "No such message available."
+msgstr "അത്തരം സന്ദേശം ലഭ്യമല്ല"
+
+#: ../camel/providers/imapx/camel-imapx-server.c:8367
+#: ../camel/providers/imapx/camel-imapx-server.c:8382
+#, fuzzy
+#| msgid "Cannot create message: %s"
+msgid "Cannot create spool file: "
+msgstr "താല്‍ക്കാലികമായ ഫയല്‍ ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല."
+
+#: ../camel/providers/imapx/camel-imapx-server.c:9162
+#, fuzzy
+#| msgid "IMAP server %s does not support requested authentication type %s"
+msgid "IMAP server does not support quotas"
+msgstr "IMAP സര്‍വര്‍ %s-ല്‍ %s എന്ന ആധികാരികത ഉറപ്പുവരുത്തല്‍ സംവിധാനത്തിന് പിന്തുണ ലഭ്യമല്ല"
+
+#. create a dummy "." parent inbox, use to scan, then put back at the top level
+#: ../camel/providers/imapx/camel-imapx-store.c:209
+#: ../camel/providers/local/camel-maildir-folder.c:473
+#: ../camel/providers/local/camel-maildir-store.c:316
+#: ../camel/providers/local/camel-maildir-store.c:752
+#: ../camel/providers/local/camel-maildir-store.c:758
+#: ../camel/providers/local/camel-maildir-store.c:841
+#: ../camel/providers/local/camel-spool-store.c:395
+msgid "Inbox"
+msgstr "ഇന്‍ബോക്സ്"
+
+#: ../camel/providers/imapx/camel-imapx-store.c:825
+#, c-format
+msgid "IMAP server %s"
+msgstr "IMAP സര്‍വര്‍ %s"
+
+#: ../camel/providers/imapx/camel-imapx-store.c:828
+#, c-format
+msgid "IMAP service for %s on %s"
+msgstr "%s-ല്‍ %s-നുളള IMAP സര്‍വീസ്"
+
+#: ../camel/providers/imapx/camel-imapx-store.c:1031
+#: ../camel/providers/nntp/camel-nntp-provider.c:95
+#: ../camel/providers/pop3/camel-pop3-provider.c:83
+msgid "Password"
+msgstr "പാസ്‍വേര്‍ഡ്"
+
+#: ../camel/providers/imapx/camel-imapx-store.c:1033
+msgid "This option will connect to the IMAP server using a plaintext password."
+msgstr "ഒരു പ്ളെയിന്‍ ടെക്സ്റ്റ് ഉപയോഗിച്ച് IMAP സര്‍വറിലേക്ക് ഈ ഉപാധി കണക്ട് ചെയ്യുന്നു."
+
+#: ../camel/providers/imapx/camel-imapx-store.c:1125
+#, c-format
+msgid "No such folder %s"
+msgstr "%s ഫോള്‍ഡര്‍ ഇല്ല"
+
+#: ../camel/providers/imapx/camel-imapx-store.c:1536
+#, c-format
+msgid "No IMAP namespace for folder path '%s'"
+msgstr ""
+
+#: ../camel/providers/imapx/camel-imapx-store.c:1685
+#, fuzzy, c-format
+#| msgid "Preparing folder '%s' for offline"
+msgid "Retrieving folder list for %s"
+msgstr "കോളത്തിലേക്ക് വേണ്ടി മൂല്യങ്ങളുടെ പട്ടിക"
+
+#: ../camel/providers/imapx/camel-imapx-store.c:2091
+#, c-format
+msgid ""
+"The folder name \"%s\" is invalid because it contains the character \"%c\""
+msgstr ""
+"\"%s\" എന്ന് ഫോള്‍ജറിന്‍റെ പേര് അസാധുവാണ്, കാരണം ഇതില്‍ \"%c\" എന്ന അക്ഷരം ഉണ്ട് എന്നതാണ്"
+
+#: ../camel/providers/imapx/camel-imapx-stream.c:98
+#, c-format
+msgid "Source stream returned no data"
+msgstr ""
+
+#: ../camel/providers/imapx/camel-imapx-stream.c:107
+#, fuzzy, c-format
+#| msgid "service unavailable"
+msgid "Source stream unavailable"
+msgstr "സോഴ്സ് സ്ട്രീം നിലവില്‍ അടച്ചിരിക്കുന്നു"
+
+#: ../camel/providers/local/camel-local-folder.c:194
+#, c-format
+msgid "~%s (%s)"
+msgstr "~%s (%s)"
+
+#: ../camel/providers/local/camel-local-folder.c:204
+#: ../camel/providers/local/camel-local-folder.c:213
+#, fuzzy, c-format
+#| msgid "mailbox:%s (%s)"
+msgid "mailbox: %s (%s)"
+msgstr "തപാല്‍ പെട്ടി:%s (%s)"
+
+#: ../camel/providers/local/camel-local-folder.c:222
+#, c-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../camel/providers/local/camel-local-folder.c:499
+#, fuzzy
+msgid "_Index message body data"
+msgstr "തിരഞ്ഞെടുത്ത സന്ദേശം മറ്റൊരാള്‍ക്ക് പുതിയ സന്ദേശമായി അയയ്ക്കുക"
+
+#: ../camel/providers/local/camel-local-folder.c:727
+#, fuzzy, c-format
+#| msgid ""
+#| "Cannot get message: %s from folder %s\n"
+#| "  %s"
+msgid ""
+"Cannot get message %s from folder %s\n"
+"%s"
+msgstr ""
+"സന്ദേശം ലഭ്യമല്ല: %s %s ഫോള്‍ഡറില്‍ നിന്ന്\n"
+"  %s"
+
+#: ../camel/providers/local/camel-local-provider.c:43
+msgid "_Use the '.folders' folder summary file (exmh)"
+msgstr "`.folders' ഫോള്‍ഡര്‍ സമ്മറി ഫയല്‍ ഉപയോഗിക്കുക (exmh)"
+
+#: ../camel/providers/local/camel-local-provider.c:50
+msgid "MH-format mail directories"
+msgstr "MH-ഫോര്‍മാറ്റിലുളള മെയില്‍ ഡയറക്ടറികള്‍"
+
+#: ../camel/providers/local/camel-local-provider.c:51
+msgid "For storing local mail in MH-like mail directories."
+msgstr "MH-പോലുളള മെയില്‍ ഡയറക്ടറികളില്‍ ലോക്കല്‍ മെയില്‍ സൂക്ഷിക്കുന്നതിന്."
+
+#: ../camel/providers/local/camel-local-provider.c:68
+msgid "Local delivery"
+msgstr "ലോക്കല്‍ ഡലിവറി"
+
+#: ../camel/providers/local/camel-local-provider.c:69
+msgid ""
+"For retrieving (moving) local mail from standard mbox-formatted spools into "
+"folders managed by Evolution."
+msgstr ""
+"mbox-ഫോര്‍മാറ്റിലുളള സ്പൂളുകളില്‍ നിന്നും Evolution കൈകാര്യം ചെയ്യുന്ന ഫോള്‍ഡറുകളിലേക്ക് ലോക്കല്‍ "
+"മെയില്‍ മാറ്റുവാന്‍ ഉപയോഗിക്കുന്നു"
+
+#: ../camel/providers/local/camel-local-provider.c:83
+#: ../camel/providers/local/camel-local-provider.c:103
+#, fuzzy
+#| msgid "_Apply filters to new messages in INBOX"
+msgid "_Apply filters to new messages in Inbox"
+msgstr "അയച്ച മെയിലുകളുടെ ഫോള്‍ഡറില്‍ ഫില്‍റ്ററുകള്‍ അംഗീകരിക്കുക"
+
+#: ../camel/providers/local/camel-local-provider.c:90
+msgid "Maildir-format mail directories"
+msgstr "Maildir-ഫോര്‍മാറ്റിലുളള മെയില്‍ ഡയറക്ടറികള്‍"
+
+#: ../camel/providers/local/camel-local-provider.c:91
+msgid "For storing local mail in maildir directories."
+msgstr "maildir ഡയറക്ടറികളില്‍ ലോക്കല്‍ മെയില്‍ സൂക്ഷിക്കുന്നതിന്."
+
+#: ../camel/providers/local/camel-local-provider.c:104
+msgid "_Store status headers in Elm/Pine/Mutt format"
+msgstr "Elm/Pine/Mutt ഫോര്‍മാറ്റില്‍ അവസ്ഥയുടെ തലക്കെട്ടുകള്‍ _ശേഖരിക്കുന്നു"
+
+#: ../camel/providers/local/camel-local-provider.c:111
+msgid "Standard Unix mbox spool file"
+msgstr "സ്റ്റാന്‍ഡേര്‍ഡ് Unix mbox spool "
+
+#: ../camel/providers/local/camel-local-provider.c:112
+#: ../camel/providers/local/camel-local-provider.c:126
+msgid ""
+"For reading and storing local mail in external standard mbox spool files.\n"
+"May also be used to read a tree of Elm, Pine, or Mutt style folders."
+msgstr ""
+"പുറത്തുളള നിലവാരമുളളmbox spool ഫയലുകളില്‍ ഉളള ലോക്കല്‍ മെയില്‍ വായിക്കുന്നതിനും "
+"സൂക്ഷിക്കുന്നതിനും.\n"
+"Elm, Pine, Mutt ശൈലിയുളള ഫോള്‍ഡറുകളിലുളള ട്രീ വായിക്കുവാനും ഇത് ഉപയോഗിക്കുന്നു."
+
+#: ../camel/providers/local/camel-local-provider.c:125
+msgid "Standard Unix mbox spool directory"
+msgstr "സ്റ്റാന്‍ഡേര്‍ഡ് Unix mbox spool ഡയറക്ടറി"
+
+#: ../camel/providers/local/camel-local-store.c:98
+#, c-format
+msgid "Could not rename folder %s to %s: %s"
+msgstr "ഫോള്‍ഡര്‍ %s-നെ %s എന്ന പേരിലേക്ക് മാറ്റുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../camel/providers/local/camel-local-store.c:180
+#, c-format
+msgid "Local mail file %s"
+msgstr "ലോക്കല്‍ മെയില്‍ ഫയല്‍ %s"
+
+#: ../camel/providers/local/camel-local-store.c:223
+#: ../camel/providers/local/camel-local-store.c:383
+#: ../camel/providers/local/camel-maildir-store.c:117
+#: ../camel/providers/local/camel-mbox-store.c:581
+#: ../camel/providers/local/camel-spool-store.c:89
+#, c-format
+msgid "Store root %s is not an absolute path"
+msgstr "സ്റ്റോര്‍ റൂട്ട് %s ഒരു മുഴുവന്‍ പാഥ് അല്ല"
+
+#: ../camel/providers/local/camel-local-store.c:232
+#, c-format
+msgid "Store root %s is not a regular directory"
+msgstr "സ്റ്റോര്‍ റൂട്ട് %s ഒരു സാധാരണ ഡയറക്ടറി അല്ല"
+
+#: ../camel/providers/local/camel-local-store.c:244
+#: ../camel/providers/local/camel-local-store.c:254
+#: ../camel/providers/local/camel-local-store.c:396
+#: ../camel/providers/local/camel-maildir-store.c:145
+#, c-format
+msgid "Cannot get folder: %s: %s"
+msgstr "ഫോള്‍ഡര്‍ ലഭ്യമല്ല: %s: %s"
+
+#: ../camel/providers/local/camel-local-store.c:291
+#, c-format
+msgid "Local stores do not have an inbox"
+msgstr "ലോക്കല്‍ ശേഖരങ്ങള്‍ക്ക് പോയ മെയിലുകളുടെ ഫോള്‍ഡര്‍ ഇല്ല"
+
+#: ../camel/providers/local/camel-local-store.c:456
+#: ../camel/providers/local/camel-mbox-store.c:748
+#, c-format
+msgid "Could not delete folder index file '%s': %s"
+msgstr "ഫോള്‍ഡറിന്റെ സൂചിക ഫയല്‍ `%s' നീക്കം ചെയ്യുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/local/camel-local-store.c:484
+#: ../camel/providers/local/camel-mbox-store.c:778
+#, c-format
+msgid "Could not delete folder meta file '%s': %s"
+msgstr "മെറ്റാ ഫയല്‍ ഫോള്‍ഡര്‍ നീക്കം ചെയ്യുവാന്‍ സാധ്യമായില്ല `%s': %s"
+
+#: ../camel/providers/local/camel-local-store.c:596
+#, c-format
+msgid "Could not rename '%s': %s"
+msgstr "'%s'-ന്‍റെ പേര് മാറ്റുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../camel/providers/local/camel-maildir-folder.c:100
+#: ../camel/providers/local/camel-maildir-folder.c:335
+#: ../camel/providers/local/camel-mbox-folder.c:117
+#: ../camel/providers/local/camel-mbox-folder.c:329
+#: ../camel/providers/local/camel-mh-folder.c:159
+msgid "No such message"
+msgstr "സന്ദേശം ലഭ്യമല്ല"
+
+#: ../camel/providers/local/camel-maildir-folder.c:225
+#, fuzzy, c-format
+#| msgid "Cannot append message to maildir folder: %s: %s"
+msgid "Cannot append message to maildir folder: %s: "
+msgstr "maildir ഫോള്‍ഡറിലേക്ക് സന്ദേശം മാറ്റുവാന്‍ സാധ്യമായില്ല: %s: %s"
+
+#: ../camel/providers/local/camel-maildir-folder.c:273
+#: ../camel/providers/local/camel-maildir-folder.c:283
+#: ../camel/providers/local/camel-mbox-folder.c:390
+#: ../camel/providers/local/camel-mh-folder.c:171
+#: ../camel/providers/local/camel-mh-folder.c:181
+#, fuzzy, c-format
+#| msgid ""
+#| "Cannot get message: %s from folder %s\n"
+#| "  %s"
+msgid "Cannot get message %s from folder %s: "
+msgstr ""
+"സന്ദേശം ലഭ്യമല്ല: %s %s ഫോള്‍ഡറില്‍ നിന്ന്\n"
+"  %s"
+
+#: ../camel/providers/local/camel-maildir-folder.c:353
+#, fuzzy, c-format
+#| msgid "Cannot append message to maildir folder: %s: %s"
+msgid "Cannot transfer message to destination folder: %s"
+msgstr "maildir ഫോള്‍ഡറിലേക്ക് സന്ദേശം മാറ്റുവാന്‍ സാധ്യമായില്ല: %s: %s"
+
+#: ../camel/providers/local/camel-maildir-store.c:125
+#: ../camel/providers/local/camel-maildir-store.c:849
+#, fuzzy, c-format
+#| msgid "Folder already exists"
+msgid "Folder %s already exists"
+msgstr "ഫോള്‍ഡര്‍ നിലവിലുണ്ട്"
+
+#: ../camel/providers/local/camel-maildir-store.c:230
+#: ../camel/providers/local/camel-maildir-store.c:261
+#: ../camel/providers/local/camel-mbox-store.c:403
+#: ../camel/providers/local/camel-mbox-store.c:424
+#, c-format
+msgid "Cannot create folder '%s': %s"
+msgstr "ഫോള്‍ഡര്‍ `%s' ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../camel/providers/local/camel-maildir-store.c:245
+#: ../camel/providers/local/camel-mbox-store.c:369
+#: ../camel/providers/local/camel-mh-store.c:524
+#, c-format
+msgid "Cannot get folder '%s': %s"
+msgstr "ഫോള്‍ഡര്‍ `%s' ലഭ്യമല്ല: %s"
+
+#: ../camel/providers/local/camel-maildir-store.c:251
+#: ../camel/providers/local/camel-mbox-store.c:379
+#: ../camel/providers/local/camel-mh-store.c:533
+#, c-format
+msgid "Cannot get folder '%s': folder does not exist."
+msgstr "ഫോള്‍ഡര്‍ `%s' ലഭ്യമല്ല: ഫോള്‍ഡര്‍ നിലവിലില്ല."
+
+#: ../camel/providers/local/camel-maildir-store.c:278
+#, c-format
+msgid "Cannot get folder '%s': not a maildir directory."
+msgstr "ഫോള്‍ഡര്‍ `%s' ലഭ്യമല്ല: ഒരു maildir ഡയറക്ടറി അല്ല."
+
+#: ../camel/providers/local/camel-maildir-store.c:283
+#: ../camel/providers/local/camel-mbox-store.c:442
+#: ../camel/providers/local/camel-mh-store.c:566
+#, c-format
+msgid "Cannot create folder '%s': folder exists."
+msgstr "ഫോള്‍ഡര്‍ `%s' നിര്‍മ്മിക്കുവാന്‍ സാധ്യമല്ല: ഫോള്‍ഡര്‍ നിലവിലുണ്ട്."
+
+#: ../camel/providers/local/camel-maildir-store.c:347
+#: ../camel/providers/local/camel-maildir-store.c:387
+#: ../camel/providers/local/camel-mh-store.c:684
+#, c-format
+msgid "Could not delete folder '%s': %s"
+msgstr "ഫോള്‍ഡര്‍ `%s' നീക്കം ചെയ്യുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../camel/providers/local/camel-maildir-store.c:349
+msgid "not a maildir directory"
+msgstr "ഒരു maildir ഡയറക്ടറി അല്ല"
+
+#: ../camel/providers/local/camel-maildir-store.c:630
+#: ../camel/providers/local/camel-maildir-store.c:1063
+#: ../camel/providers/local/camel-spool-store.c:214
+#: ../camel/providers/local/camel-spool-store.c:233
+#, c-format
+msgid "Could not scan folder '%s': %s"
+msgstr "ഫോള്‍ഡര്‍ `%s' പരിശോധിക്കുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../camel/providers/local/camel-maildir-summary.c:467
+#: ../camel/providers/local/camel-maildir-summary.c:607
+#, c-format
+msgid "Cannot open maildir directory path: %s: %s"
+msgstr "maildir ഡയറക്ടറിയുടെ പാഥ് തുറക്കുവാന്‍ സാധ്യമവല്ല: %s: %s"
+
+#: ../camel/providers/local/camel-maildir-summary.c:598
+msgid "Checking folder consistency"
+msgstr "ഫോള്‍ഡറിന്‍റെ സ്ഥിരത പരിശോധിക്കുന്നു"
+
+#: ../camel/providers/local/camel-maildir-summary.c:691
+msgid "Checking for new messages"
+msgstr "പുതിയ സന്ദേശങ്ങള്‍ക്കായി പരിശോധിക്കുന്നു"
+
+#: ../camel/providers/local/camel-maildir-summary.c:786
+#: ../camel/providers/local/camel-mbox-summary.c:462
+#: ../camel/providers/local/camel-mbox-summary.c:678
+#: ../camel/providers/local/camel-mbox-summary.c:827
+#: ../camel/providers/local/camel-spool-summary.c:141
+msgid "Storing folder"
+msgstr "ഫോള്‍ഡര്‍ സൂക്ഷിക്കുന്നു"
+
+#: ../camel/providers/local/camel-mbox-folder.c:187
+#, fuzzy, c-format
+#| msgid "Cannot open mailbox: %s: %s\n"
+msgid "Cannot open mailbox: %s: "
+msgstr "തപാല്‍ പെട്ടി തുറക്കുവാന്‍ സാധ്യമല്ല: %s: %s\n"
+
+#: ../camel/providers/local/camel-mbox-folder.c:253
+#, fuzzy, c-format
+#| msgid "Cannot append message to mbox file: %s: %s"
+msgid "Cannot append message to mbox file: %s: "
+msgstr "mbox ഫയലിലേക്ക് സന്ദേശം മാറ്റുവാന്‍ സാധ്യമാണ്: %s: %s"
+
+#: ../camel/providers/local/camel-mbox-folder.c:382
+msgid "The folder appears to be irrecoverably corrupted."
+msgstr "വീണ്ടെടുക്കുവാന്‍ പറ്റാത്ത രീതിയില്‍ ഫോള്‍ഡര്‍ തകരാറിലാണ്."
+
+#: ../camel/providers/local/camel-mbox-folder.c:439
+#: ../camel/providers/local/camel-spool-folder.c:69
+#, c-format
+msgid "Cannot create folder lock on %s: %s"
+msgstr "ഫോള്‍ഡര്‍ %s-ല്‍ പൂട്ടുണ്ടാക്കുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../camel/providers/local/camel-mbox-store.c:391
+#: ../camel/providers/local/camel-mbox-store.c:589
+#, c-format
+msgid "Cannot create a folder by this name."
+msgstr "പേര് അനുസരിച്ച് ഫോള്‍ഡര്‍ ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല."
+
+#: ../camel/providers/local/camel-mbox-store.c:435
+#, c-format
+msgid "Cannot get folder '%s': not a regular file."
+msgstr "ഫോള്‍ഡര്‍ `%s' ലഭ്യമാക്കുവാന്‍ സാധ്യമല്ല: സാധാരണ ഫയല്‍ അല്ല."
+
+#: ../camel/providers/local/camel-mbox-store.c:605
+#, c-format
+msgid "Cannot create directory '%s': %s."
+msgstr "ഡയറക്ടറി ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല: %s: %s"
+
+#: ../camel/providers/local/camel-mbox-store.c:617
+#, c-format
+msgid "Cannot create folder: %s: %s"
+msgstr "ഫോള്‍ഡര്‍ ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല: %s: %s"
+
+#: ../camel/providers/local/camel-mbox-store.c:619
+msgid "Folder already exists"
+msgstr "ഫോള്‍ഡര്‍ നിലവിലുണ്ട്"
+
+#: ../camel/providers/local/camel-mbox-store.c:659
+#: ../camel/providers/local/camel-mbox-store.c:672
+#: ../camel/providers/local/camel-mbox-store.c:701
+#, c-format
+msgid ""
+"Could not delete folder '%s':\n"
+"%s"
+msgstr ""
+"ഫോള്‍ഡര്‍ `%s' നീക്കം ചെയ്യുവാന്‍ സാധ്യമല്ല:\n"
+"%s"
+
+#: ../camel/providers/local/camel-mbox-store.c:682
+#, c-format
+msgid "'%s' is not a regular file."
+msgstr "`%s' ഒരു സാധാരണ ഫയല്‍ അല്ല."
+
+#: ../camel/providers/local/camel-mbox-store.c:691
+#, c-format
+msgid "Folder '%s' is not empty. Not deleted."
+msgstr "ഫോള്‍ഡര്‍ `%s' ശൂന്യമല്ല. നീക്കം ചെയ്തിട്ടില്ല"
+
+#: ../camel/providers/local/camel-mbox-store.c:718
+#: ../camel/providers/local/camel-mbox-store.c:733
+#, c-format
+msgid "Could not delete folder summary file '%s': %s"
+msgstr "ഫോള്‍ഡറിന്റെ സമ്മറി ഫയല്‍ `%s' നീക്കം ചെയ്യുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/local/camel-mbox-store.c:815
+#, c-format
+msgid "The new folder name is illegal."
+msgstr "പുതിയ ഫോള്‍ഡറിന്‍റെ പേര് തെറ്റാണ്."
+
+#: ../camel/providers/local/camel-mbox-store.c:831
+#, c-format
+msgid "Could not rename '%s': '%s': %s"
+msgstr "`%s'-ന്റെ പേര് മാറ്റുവാന്‍ സാധ്യമായില്ല: `%s': %s"
+
+#: ../camel/providers/local/camel-mbox-store.c:915
+#, c-format
+msgid "Could not rename '%s' to %s: %s"
+msgstr "'%s'-നെ %s എന്ന പേരില്‍ സൂക്ഷിക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:472
+#, c-format
+msgid "Could not open folder: %s: %s"
+msgstr "ഫോള്‍ഡര്‍ തുറക്കുവാന്‍ സാധ്യമായില്ല: %s: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:602
+#, c-format
+msgid "Cannot check folder: %s: %s"
+msgstr "ഫോള്‍ഡര്‍ പരിശോധിക്കുവാന്‍ സാധ്യമായില്ല: %s: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:691
+#: ../camel/providers/local/camel-mbox-summary.c:836
+#: ../camel/providers/local/camel-spool-summary.c:148
+#, c-format
+msgid "Could not open file: %s: %s"
+msgstr "ഫയല്‍ തുറക്കുവാന്‍ സാധ്യമായില്ല: %s: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:706
+#: ../camel/providers/local/camel-spool-summary.c:163
+#, c-format
+msgid "Cannot open temporary mailbox: %s"
+msgstr "താല്‍ക്കാലിക തപാല്‍ പെട്ടി തുറക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:723
+#: ../camel/providers/local/camel-mbox-summary.c:953
+#, c-format
+msgid "Could not close source folder %s: %s"
+msgstr "ഉറവിടത്തിന്‍റെ ഫോള്‍ഡര്‍ അടയ്ക്കുവാന്‍ സാധ്യമായില്ല %s: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:736
+#, c-format
+msgid "Could not close temporary folder: %s"
+msgstr "താല്‍ക്കാലിക ഫോള്‍ഡര്‍ അടയ്ക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:755
+#, c-format
+msgid "Could not rename folder: %s"
+msgstr "ഫോള്‍ഡറിന്‍റെ പേര് മാറ്റുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:850
+#: ../camel/providers/local/camel-mbox-summary.c:1119
+#, c-format
+msgid "Could not store folder: %s"
+msgstr "ഫോള്‍ഡര്‍ സൂക്ഷിക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:889
+#: ../camel/providers/local/camel-mbox-summary.c:1159
+#, c-format
+msgid ""
+"MBOX file is corrupted, please fix it. (Expected a From line, but didn't get "
+"it.)"
+msgstr ""
+
+#: ../camel/providers/local/camel-mbox-summary.c:899
+#: ../camel/providers/local/camel-mbox-summary.c:1171
+#, c-format
+msgid "Summary and folder mismatch, even after a sync"
+msgstr "ഒരു സിന്‍കിന് ശേഷവും, സമ്മറിയും ഫോള്‍ഡറും തമ്മില്‍ പൊരുത്തക്കേട്"
+
+#: ../camel/providers/local/camel-mbox-summary.c:1064
+#: ../camel/providers/local/camel-spool-summary.c:356
+#, c-format
+msgid "Unknown error: %s"
+msgstr "അപരിചിതമായ പിശക്: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:1229
+#: ../camel/providers/local/camel-mbox-summary.c:1259
+#, c-format
+msgid "Writing to temporary mailbox failed: %s"
+msgstr "താല്‍ക്കാലിക തപാല്‍ പെട്ടിയിലേക്ക് എഴുതുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/local/camel-mbox-summary.c:1248
+#, c-format
+msgid "Writing to temporary mailbox failed: %s: %s"
+msgstr "താല്‍ക്കാലിക തപാല്‍ പെട്ടിയിലേക്ക് എഴുതുവാന്‍ സാധ്യമായില്ല: %s: %s"
+
+#: ../camel/providers/local/camel-mh-folder.c:118
+#, fuzzy, c-format
+#| msgid "Cannot append message to mh folder: %s: %s"
+msgid "Cannot append message to mh folder: %s: "
+msgstr "mh ഫോള്‍ഡറിലേക്ക് സന്ദേശം മാറ്റുവാന്‍ സാധ്യമായില്ല: %s: %s"
+
+#: ../camel/providers/local/camel-mh-store.c:543
+#, c-format
+msgid "Could not create folder '%s': %s"
+msgstr "ഫോള്‍ഡര്‍`%s' ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../camel/providers/local/camel-mh-store.c:559
+#, c-format
+msgid "Cannot get folder '%s': not a directory."
+msgstr "ഫോള്‍ഡര്‍ `%s' ലഭ്യമല്ല: ഒരു ഡയറക്ടറി അല്ല."
+
+#: ../camel/providers/local/camel-mh-summary.c:233
+#, c-format
+msgid "Cannot open MH directory path: %s: %s"
+msgstr "MH ഡയറക്ടറിലേക്കുളള വഴി തുറക്കുവാന്‍ സാധ്യമല്ല: %s: %s"
+
+#: ../camel/providers/local/camel-spool-store.c:97
+#, c-format
+msgid "Spool '%s' cannot be opened: %s"
+msgstr "Spool `%s' തുറക്കുവാന്‍ സാധ്യമല്ല: %s"
+
+#: ../camel/providers/local/camel-spool-store.c:111
+#, c-format
+msgid "Spool '%s' is not a regular file or directory"
+msgstr "Spool `%s' ഒരു സാധാരണ ഫയല്‍ അല്ലെങ്കില്‍ ഡയറക്ടറി അല്ല"
+
+#: ../camel/providers/local/camel-spool-store.c:427
+#, c-format
+msgid "Spool mail file %s"
+msgstr "Spool മെയില്‍ ട്രീ %s"
+
+#: ../camel/providers/local/camel-spool-store.c:431
+#, c-format
+msgid "Spool folder tree %s"
+msgstr "Spool ഫോള്‍ഡര്‍ ട്രീ %s"
+
+#: ../camel/providers/local/camel-spool-store.c:434
+#, fuzzy
+#| msgid "Invalid purpose"
+msgid "Invalid spool"
+msgstr "സ്പൂള്‍ _ഫയല്‍: "
+
+#: ../camel/providers/local/camel-spool-store.c:483
+#, c-format
+msgid "Folder '%s/%s' does not exist."
+msgstr "ഫോള്‍ഡര്‍ `%s/%s' നിലവിലില്ല."
+
+#: ../camel/providers/local/camel-spool-store.c:496
+#, c-format
+msgid ""
+"Could not open folder '%s':\n"
+"%s"
+msgstr ""
+"ഫോള്‍ഡര്‍ `%s' തുറക്കുവാന്‍ സാധ്യമല്ല:\n"
+"%s"
+
+#: ../camel/providers/local/camel-spool-store.c:502
+#, c-format
+msgid "Folder '%s' does not exist."
+msgstr "ഫോള്‍ഡര്‍ `%s' നിലവിലില്ല."
+
+#: ../camel/providers/local/camel-spool-store.c:510
+#, c-format
+msgid ""
+"Could not create folder '%s':\n"
+"%s"
+msgstr ""
+"ഫോള്‍ഡര്‍ `%s' നിര്‍മ്മിക്കുവാന്‍ സാധ്യമല്ല:\n"
+"%s"
+
+#: ../camel/providers/local/camel-spool-store.c:523
+#, c-format
+msgid "'%s' is not a mailbox file."
+msgstr "`%s' ഒരു തപാല്‍ പെട്ടി അല്ല."
+
+#: ../camel/providers/local/camel-spool-store.c:587
+#, c-format
+msgid "Store does not support an INBOX"
+msgstr "വന്ന മെയിലുകളെ ശേഖരം പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../camel/providers/local/camel-spool-store.c:606
+#, c-format
+msgid "Spool folders cannot be deleted"
+msgstr "spool ഫോള്‍ഡറുകള്‍ നീക്കം ചെയ്യുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/providers/local/camel-spool-store.c:621
+#, c-format
+msgid "Spool folders cannot be renamed"
+msgstr "spool ഫോള്‍ഡറുകളുടെ പേര് മാറ്റുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/providers/local/camel-spool-summary.c:179
+#: ../camel/providers/local/camel-spool-summary.c:191
+#: ../camel/providers/local/camel-spool-summary.c:203
+#, fuzzy, c-format
+#| msgid "Could not sync temporary folder %s: %s"
+msgid "Could not synchronize temporary folder %s: %s"
+msgstr "താല്‍ക്കാലിക ഫോള്‍ഡര്‍ അടയ്ക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/local/camel-spool-summary.c:221
+#, fuzzy, c-format
+#| msgid "Could not sync spool folder %s: %s"
+msgid "Could not synchronize spool folder %s: %s"
+msgstr "spool ഫോള്‍ഡര്‍ %s സിന്‍ക് ചെയ്യുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/local/camel-spool-summary.c:253
+#: ../camel/providers/local/camel-spool-summary.c:272
+#: ../camel/providers/local/camel-spool-summary.c:285
+#, fuzzy, c-format
+#| msgid ""
+#| "Could not sync spool folder %s: %s\n"
+#| "Folder may be corrupt, copy saved in '%s'"
+msgid ""
+"Could not synchronize spool folder %s: %s\n"
+"Folder may be corrupt, copy saved in '%s'"
+msgstr ""
+"spool ഫോള്‍ഡര്‍ %s സിന്‍ക് ചെയ്യുവാന്‍ സാധ്യമായില്ല: %s\n"
+"ഫോള്‍ഡറില്‍ തകരാറുണ്ടാവാം, പകര്‍പ്പ്`%s'-ല്‍ ലഭ്യമാണ്"
+
+#: ../camel/providers/nntp/camel-nntp-folder.c:287
+#: ../camel/providers/nntp/camel-nntp-folder.c:397
+#: ../camel/providers/nntp/camel-nntp-folder.c:522
+#, c-format
+msgid "Internal error: UID in invalid format: %s"
+msgstr "ആന്തരിക പിശക്: UID അസാധുവായ രീതിയില്‍: %s"
+
+#: ../camel/providers/nntp/camel-nntp-folder.c:356
+#: ../camel/providers/nntp/camel-nntp-folder.c:361
+#: ../camel/providers/pop3/camel-pop3-folder.c:703
+#: ../camel/providers/pop3/camel-pop3-folder.c:1171
+#, c-format
+msgid "Cannot get message %s: %s"
+msgstr "സന്ദേശം %s ലഭ്യമായില്ല: %s"
+
+#: ../camel/providers/nntp/camel-nntp-folder.c:368
+#: ../camel/providers/nntp/camel-nntp-folder.c:551
+#: ../camel/providers/pop3/camel-pop3-folder.c:633
+#: ../camel/providers/pop3/camel-pop3-folder.c:693
+#: ../camel/providers/pop3/camel-pop3-folder.c:712
+#, fuzzy, c-format
+#| msgid "Cannot get message %s: %s"
+msgid "Cannot get message %s: "
+msgstr "സന്ദേശം %s ലഭ്യമായില്ല: %s"
+
+#: ../camel/providers/nntp/camel-nntp-folder.c:540
+#, c-format
+msgid "This message is not currently available"
+msgstr "ഈ സന്ദേശം നിലവില്‍ ലഭ്യമല്ല"
+
+#: ../camel/providers/nntp/camel-nntp-folder.c:608
+#: ../camel/providers/nntp/camel-nntp-folder.c:614
+#, c-format
+msgid "Posting failed: %s"
+msgstr "അയയ്ക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/nntp/camel-nntp-folder.c:679
+#, fuzzy
+#| msgid "Posting failed: %s"
+msgid "Posting failed: "
+msgstr "അയയ്ക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/nntp/camel-nntp-folder.c:704
+#, c-format
+msgid "You cannot post NNTP messages while working offline!"
+msgstr ""
+"ഓഫ് ലൈന്‍ ജോലിചെയ്യുന്പോള്‍ നിങ്ങള്‍ക്ക് NNTP ഫോള്‍ഡറില്‍ സന്ദേശങ്ങള്‍ സന്ദേശങ്ങള്‍ അയയ്ക്കുവാന്‍ സാധ്യമല്ല!"
+
+#: ../camel/providers/nntp/camel-nntp-folder.c:724
+#, c-format
+msgid "You cannot copy messages from a NNTP folder!"
+msgstr "നിങ്ങള്‍ക്ക് NNTP ഫോള്‍ഡറില്‍ നിന്നും സന്ദേശങ്ങള്‍ പകര്‍ത്തുവാന്‍ സാധ്യമല്ല!"
+
+#: ../camel/providers/nntp/camel-nntp-provider.c:48
+msgid ""
+"_Show folders in short notation (e.g. c.o.linux rather than comp.os.linux)"
+msgstr ""
+"ചെറിയ നൊട്ടേഷനില്‍ ഫോള്‍ഡറുകള്‍ _കാണിക്കുന്നു (ഉദാ. comp.os.linux-ന് പകരം c.o.linux)"
+
+#: ../camel/providers/nntp/camel-nntp-provider.c:51
+msgid "In the subscription _dialog, show relative folder names"
+msgstr "വരിക്കാരാകുന്നതിനുളള _ഡയലോഗ് ബോക്സില്‍, ബന്ധമുളള ഫോള്‍ഡറുകളും കാണിക്കുക"
+
+#: ../camel/providers/nntp/camel-nntp-provider.c:57
+#, fuzzy
+msgid "Default NNTP port"
+msgstr "അമേരിക്ക/പോര്‍ട്ട്_ഓഫ്_സ്പയിന്‍"
+
+#: ../camel/providers/nntp/camel-nntp-provider.c:58
+#, fuzzy
+msgid "NNTP over SSL"
+msgstr "എസ്എസ്എലില്‍ മൈക്രോസോഫ്റ്റ് ഗ്ലോബര്‍ കാറ്റലോഗ്"
+
+#: ../camel/providers/nntp/camel-nntp-provider.c:64
+msgid "USENET news"
+msgstr "USENET വാര്‍ത്തകള്‍"
+
+#: ../camel/providers/nntp/camel-nntp-provider.c:66
+msgid "This is a provider for reading from and posting to USENET newsgroups."
+msgstr ""
+"USENET വാര്‍ത്താഗ്രൂപ്പുകളിലില്‍ നിന്നും വായിക്കുവാനും അതിലേക്ക് അയയ്ക്കുവാനും സാധ്യമാകുന്ന ഒരു "
+"സംവിധാനം ആണിത്."
+
+#: ../camel/providers/nntp/camel-nntp-provider.c:87
+#, fuzzy
+#| msgid ""
+#| "This option will connect to the server using Kerberos 5 authentication."
+msgid ""
+"This option will connect to the NNTP server anonymously, without "
+"authentication."
+msgstr "Kerberos 5-ലൂടെ ആധികാരികത ഉറപ്പാക്കി ഈ ഉപാധി സര്‍വറിലേക്ക് കണക്ട് ചെയ്യുന്നു."
+
+#: ../camel/providers/nntp/camel-nntp-provider.c:97
+msgid ""
+"This option will authenticate with the NNTP server using a plaintext "
+"password."
+msgstr ""
+"പ്ളെയിന്‍ ടെക്സ്റ്റ് പാസ്‍വേര്‍ഡ് ഉപയോഗിച്ച് ഈ ഉപാധി NNTP സര്‍വറുമായി നിങ്ങളുടെ ആധികാരികത "
+"ഉറപ്പാക്കുന്നു."
+
+#: ../camel/providers/nntp/camel-nntp-store.c:390
+#, fuzzy, c-format
+#| msgid "Could not read greeting from %s: %s"
+msgid "Could not read greeting from %s: "
+msgstr "%s-ല്‍ നിന്നും ഗ്രീറ്റിങ് വായിക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/nntp/camel-nntp-store.c:398
+#, c-format
+msgid "NNTP server %s returned error code %d: %s"
+msgstr "NNTP സര്‍വര്‍ %s പിശക് കോഡ് %d നല്‍കിയിരിക്കുന്നു: %s"
+
+#: ../camel/providers/nntp/camel-nntp-store.c:559
+#, c-format
+msgid "USENET News via %s"
+msgstr "via %s വഴി USENET വാര്‍ത്തകള്‍"
+
+#: ../camel/providers/nntp/camel-nntp-store.c:1231
+#, c-format
+msgid ""
+"Error retrieving newsgroups:\n"
+"\n"
+"%s"
+msgstr ""
+"വാര്‍ത്താഗ്രൂപ്പുകള്‍ ലഭ്യമാക്കുന്നതില്‍ പിശക്:\n"
+"\n"
+"%s"
+
+#: ../camel/providers/nntp/camel-nntp-store.c:1343
+#, c-format
+msgid "You cannot create a folder in a News store: subscribe instead."
+msgstr ""
+"നിങ്ങള്‍ക്ക് വാര്‍ത്തകളുടെ ശേഖരത്തില്‍ ഒരു ഫോള്‍ഡര്‍ ഉണ്ടാക്കുവാന്‍ സാധ്യമല്ല: പകരം അംഗത്വം നേടുക."
+
+#: ../camel/providers/nntp/camel-nntp-store.c:1359
+#, c-format
+msgid "You cannot rename a folder in a News store."
+msgstr "ഒരു വാര്‍ത്തയുടെ ശേഖരത്തിലുളള ഫോള്‍ഡറിന്‍റെ പേര് നിങ്ങള്‍ക്ക് മാറ്റുവാന്‍ സാധ്യമല്ല."
+
+#: ../camel/providers/nntp/camel-nntp-store.c:1382
+#, c-format
+msgid "You cannot remove a folder in a News store: unsubscribe instead."
+msgstr ""
+"നിങ്ങള്‍ക്ക് വാര്‍ത്തകളുടെ ശേഖരത്തില്‍ നിന്ന് ഒരു ഫോള്‍ഡര്‍ നീക്കം ചെയ്യുവാന്‍ സാധ്യമല്ല: പകരം അംഗത്വം "
+"ഉപേക്ഷിക്കുക."
+
+#: ../camel/providers/nntp/camel-nntp-store.c:1601
+#, c-format
+msgid ""
+"You cannot subscribe to this newsgroup:\n"
+"\n"
+"No such newsgroup. The selected item is a probably a parent folder."
+msgstr ""
+"ഈ വാര്‍ത്താഗ്രൂപ്പില്‍ നിന്നും നിങ്ങള്‍ക്ക് അംഗത്വം നേടുവാന്‍ സാധ്യമല്ല:\n"
+"\n"
+"ഇങ്ങനെ ഒരു വാര്‍ത്താഗ്രൂപ്പ് നിലവിലില്ല. നിങ്ങള്‍ തിരഞ്ഞെടുത്ത വസ്തു മിക്കവാറും ഒരു പേരന്‍റ് ഫോള്‍ഡര്‍ "
+"ആവാം."
+
+#: ../camel/providers/nntp/camel-nntp-store.c:1668
+#, c-format
+msgid ""
+"You cannot unsubscribe to this newsgroup:\n"
+"\n"
+"newsgroup does not exist!"
+msgstr ""
+"ഈ വാര്‍ത്താഗ്രൂപ്പില്‍ നിന്നും നിങ്ങള്‍ക്ക് അംഗത്വം ഉപേക്ഷിക്കുവാന്‍ സാധ്യമല്ല:\n"
+"\n"
+"ഇങ്ങനെ ഒരു വാര്‍ത്താഗ്രൂപ്പ് നിലവിലില്ല!"
+
+#: ../camel/providers/nntp/camel-nntp-store.c:2104
+#, fuzzy
+#| msgid "NNTP Command failed: %s"
+msgid "NNTP Command failed: "
+msgstr "NNTP കമാന്‍ഡ് പരാജയപ്പെട്ടിരിക്കുന്നു: %s"
+
+#: ../camel/providers/nntp/camel-nntp-store.c:2201
+#, c-format
+msgid "Not connected."
+msgstr "കണക്ട് ചെയ്തിട്ടില്ല."
+
+#: ../camel/providers/nntp/camel-nntp-store.c:2295
+#, c-format
+msgid "No such folder: %s"
+msgstr "ഈ ഫോള്‍ഡര്‍ ലഭ്യമല്ല: %s"
+
+#: ../camel/providers/nntp/camel-nntp-summary.c:199
+#: ../camel/providers/nntp/camel-nntp-summary.c:339
+#, c-format
+msgid "%s: Scanning new messages"
+msgstr "%s: പുതിയ മെയിലുകള്‍ പരിശോധിക്കുന്നു"
+
+#: ../camel/providers/nntp/camel-nntp-summary.c:221
+#, c-format
+msgid "Unexpected server response from xover: %s"
+msgstr "xover-ല്‍ നിന്നും അപ്രതീക്ഷിതമായ സര്‍വറിന്‍റെ മറുപടി: %s"
+
+#: ../camel/providers/nntp/camel-nntp-summary.c:360
+#, c-format
+msgid "Unexpected server response from head: %s"
+msgstr "തലക്കെട്ടില്‍ നിന്നും അപ്രതീക്ഷിതമായി സര്‍വറിന്‍റെ മറുപടി: %s"
+
+#: ../camel/providers/nntp/camel-nntp-summary.c:408
+#, c-format
+msgid "Operation failed: %s"
+msgstr "പ്രക്രിയ പരാജയപ്പെട്ടിരിക്കുന്നു: %s"
+
+#: ../camel/providers/pop3/camel-pop3-folder.c:521
+#: ../camel/providers/pop3/camel-pop3-folder.c:599
+#, c-format
+msgid "No message with UID %s"
+msgstr "UID %s-ല്‍ സന്ദേശം ലഭ്യമല്ല"
+
+#: ../camel/providers/pop3/camel-pop3-folder.c:615
+#, c-format
+msgid "Retrieving POP message %d"
+msgstr "POP സന്ദേശം %d ലഭ്യമാക്കുന്നു"
+
+#: ../camel/providers/pop3/camel-pop3-folder.c:704
+msgid "Unknown reason"
+msgstr "അപരിചിതമായ കാരണം"
+
+#: ../camel/providers/pop3/camel-pop3-folder.c:755
+msgid "Retrieving POP summary"
+msgstr "POP സമ്മറി ലഭ്യമാക്കുന്നു"
+
+#: ../camel/providers/pop3/camel-pop3-folder.c:816
+#: ../camel/providers/pop3/camel-pop3-folder.c:819
+#: ../camel/providers/pop3/camel-pop3-folder.c:832
+#: ../camel/providers/pop3/camel-pop3-folder.c:845
+#: ../camel/providers/pop3/camel-pop3-folder.c:859
+#, fuzzy
+#| msgid "Cannot get POP summary: %s"
+msgid "Cannot get POP summary: "
+msgstr "POP സമ്മറി ലഭ്യമല്ല: %s"
+
+#: ../camel/providers/pop3/camel-pop3-folder.c:970
+msgid "Expunging old messages"
+msgstr "പഴയ സന്ദേശങ്ങള്‍ എടുത്ത് കളയുന്നു"
+
+#: ../camel/providers/pop3/camel-pop3-folder.c:996
+msgid "Expunging deleted messages"
+msgstr "നീക്കം ചെയ്ത സന്ദേശങ്ങള്‍ എടുത്ത് കളയുന്നു"
+
+#: ../camel/providers/pop3/camel-pop3-provider.c:39
+#, fuzzy
+#| msgid "Message storage"
+msgid "Message Storage"
+msgstr "സന്ദേശത്തിന്‍റെ ശേഖരം"
+
+#: ../camel/providers/pop3/camel-pop3-provider.c:41
+msgid "_Leave messages on server"
+msgstr "സര്‍വറില്‍ സന്ദശങ്ങള്‍ _ഉപേക്ഷിക്കുക"
+
+#. Translators: '%s' is replaced with a widget, where user can
+#. * select how many days can be message left on the server.
+#: ../camel/providers/pop3/camel-pop3-provider.c:45
+#, c-format
+msgid "_Delete after %s day(s)"
+msgstr "%s ദിവസങ്ങള്‍ക്ക് ശേഷം _മായിച്ചു കളയുക"
+
+#: ../camel/providers/pop3/camel-pop3-provider.c:47
+msgid "Delete _expunged from local Inbox"
+msgstr ""
+
+#: ../camel/providers/pop3/camel-pop3-provider.c:49
+msgid "Disable _support for all POP3 extensions"
+msgstr "എല്ലാ POP3 എക്സറ്റന്‍ഷനുകള്‍ക്കുമുളള _പിന്തുണ അപ്രാപ്യമാക്കുക"
+
+#: ../camel/providers/pop3/camel-pop3-provider.c:55
+#, fuzzy
+msgid "Default POP3 port"
+msgstr "അമേരിക്ക/പോര്‍ട്ട്_ഓഫ്_സ്പയിന്‍"
+
+#: ../camel/providers/pop3/camel-pop3-provider.c:56
+#, fuzzy
+msgid "POP3 over SSL"
+msgstr "എസ്എസ്എലില്‍ മൈക്രോസോഫ്റ്റ് ഗ്ലോബര്‍ കാറ്റലോഗ്"
+
+#: ../camel/providers/pop3/camel-pop3-provider.c:63
+msgid "POP"
+msgstr "POP"
+
+#: ../camel/providers/pop3/camel-pop3-provider.c:65
+msgid "For connecting to and downloading mail from POP servers."
+msgstr "POP സര്‍വറുകളിലേക്ക് കണക്ട് ചെയ്യുന്നതിനും മെയില്‍ ഡൌണ്‍‍ലോഡ് ചെയ്യുന്നതിനും"
+
+#: ../camel/providers/pop3/camel-pop3-provider.c:85
+msgid ""
+"This option will connect to the POP server using a plaintext password. This "
+"is the only option supported by many POP servers."
+msgstr ""
+"പ്ളെയിന്‍ ടെകസ്റ്റ് പാസ്‍വേര്‍ഡ് ഉപയോഗിച്ച് POP സര്‍വറിലേക്ക് കണക്ട് ചെയ്യുന്ന ഉപാധിയാണ് ഇത്. POP "
+"സര്‍വറുകള്‍ മാത്രം ഈ ഉപാധി പിന്തുണയ്ക്കുന്നു"
+
+#: ../camel/providers/pop3/camel-pop3-provider.c:95
+msgid ""
+"This option will connect to the POP server using an encrypted password via "
+"the APOP protocol. This may not work for all users even on servers that "
+"claim to support it."
+msgstr ""
+"APOP സന്പ്രദായം വഴി രഹസ്യ പാസ്‍വേര്‍ഡ് ഉപയോഗിച്ച് POP സര്‍വറിലേക്ക് കണക്ട് ചെയ്യുന്ന ഉപാധിയാണ് "
+"ഇത്.ഇത് പിന്തുണയ്ക്കുന്നു എന്ന് അവകാശപ്പെടുന്ന സര്‍വറുകളിലുളള ഉപയോക്താക്കള്‍ക്കും ഇത് ശരിയായി "
+"പ്രവര്‍ത്തിക്കണമെന്നില്ല."
+
+#. Translators: This is the separator between an error and an explanation
+#: ../camel/providers/pop3/camel-pop3-store.c:99
+msgid ": "
+msgstr ""
+
+#: ../camel/providers/pop3/camel-pop3-store.c:166
+#, c-format
+msgid "Failed to read a valid greeting from POP server %s"
+msgstr "POP സര്‍വര്‍ %s-ല്‍ നിന്നും ഉളള ഗ്രീറ്റിങ് വായിക്കുന്നതില്‍ പരാജയം"
+
+#: ../camel/providers/pop3/camel-pop3-store.c:181
+#, c-format
+msgid "Failed to connect to POP server %s in secure mode: %s"
+msgstr "സുരക്ഷിത രീതിയില്‍ POP സര്‍വര്‍ %s-ലേക്ക് കണക്ട് ചെയ്യുന്നതില്‍ പരാജയം: %s"
+
+#: ../camel/providers/pop3/camel-pop3-store.c:182
+msgid "STLS not supported by server"
+msgstr "STLS ഈ സര്‍വര്‍ പിന്തുണയ്ക്കുന്നില്ല"
+
+#. Translators: Last %s is an optional
+#. * explanation beginning with ": " separator.
+#: ../camel/providers/pop3/camel-pop3-store.c:203
+#, fuzzy, c-format
+#| msgid "Failed to connect to POP server %s in secure mode: %s"
+msgid "Failed to connect to POP server %s in secure mode%s"
+msgstr "സുരക്ഷിത രീതിയില്‍ POP സര്‍വര്‍ %s-ലേക്ക് കണക്ട് ചെയ്യുന്നതില്‍ പരാജയം: %s"
+
+#: ../camel/providers/pop3/camel-pop3-store.c:221
+#, fuzzy, c-format
+#| msgid "Failed to connect to POP server %s in secure mode: %s"
+msgid "Failed to connect to POP server %s in secure mode: "
+msgstr "സുരക്ഷിത രീതിയില്‍ POP സര്‍വര്‍ %s-ലേക്ക് കണക്ട് ചെയ്യുന്നതില്‍ പരാജയം: %s"
+
+#: ../camel/providers/pop3/camel-pop3-store.c:361
+#, c-format
+msgid "Cannot login to POP server %s: SASL Protocol error"
+msgstr "POP സര്‍വര്‍ %s-ലേക്ക് ലോഗിന്‍ ചെയ്യുവാന്‍ സാധ്യമല്ല: SASL സന്പ്രദായത്തില്‍ പിശക്"
+
+#: ../camel/providers/pop3/camel-pop3-store.c:383
+#, fuzzy, c-format
+#| msgid "Failed to authenticate on POP server %s: %s"
+msgid "Failed to authenticate on POP server %s: "
+msgstr "POP സര്‍വര്‍ %s-ല്‍ ആധികാരികത ഉറപ്പുവരുത്തുക: %s"
+
+#: ../camel/providers/pop3/camel-pop3-store.c:491
+#, fuzzy, c-format
+#| msgid "IMAP server %s"
+msgid "POP3 server %s"
+msgstr "ഗ്രൂപ്പ് അനുസരിച്ചുളള സര്‍വര്‍ %s"
+
+#: ../camel/providers/pop3/camel-pop3-store.c:494
+#, fuzzy, c-format
+#| msgid "IMAP service for %s on %s"
+msgid "POP3 server for %s on %s"
+msgstr "ചാവി സെര്‍വറില്‍ ചാവി തെരയുക"
+
+#: ../camel/providers/pop3/camel-pop3-store.c:714
+#, c-format
+msgid ""
+"Unable to connect to POP server %s:\tInvalid APOP ID received. Impersonation "
+"attack suspected. Please contact your admin."
+msgstr ""
+
+#: ../camel/providers/pop3/camel-pop3-store.c:769
+#, fuzzy, c-format
+#| msgid ""
+#| "Unable to connect to POP server %s.\n"
+#| "Error sending password: %s"
+msgid ""
+"Unable to connect to POP server %s.\n"
+"Error sending password: "
+msgstr ""
+"POP സര്‍വര്‍ %s-ലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമല്ല.\n"
+"പാസ്‍വേര്‍ഡ് അയയ്ക്കുന്നതില്‍ പിശക്: %s"
+
+#. Translators: Last %s is an optional explanation
+#. * beginning with ": " separator.
+#: ../camel/providers/pop3/camel-pop3-store.c:784
+#, fuzzy, c-format
+#| msgid ""
+#| "Unable to connect to POP server %s.\n"
+#| "Error sending username: %s"
+msgid ""
+"Unable to connect to POP server %s.\n"
+"Error sending username%s"
+msgstr ""
+"POP സര്‍വര്‍ %s-ലേക്ക് കണക്ട് ചെയ്യുവാന്‍ സാധ്യമല്ല.\n"
+"ഉപയോഗിക്കുന്ന ആളിന്‍റെ പേര് അയയ്ക്കുന്നതില്‍ പിശക്: %s"
+
+#: ../camel/providers/pop3/camel-pop3-store.c:866
+#, c-format
+msgid "No such folder '%s'."
+msgstr "`%s' എന്ന ഫോള്‍ഡര്‍ നിലവിലില്ല."
+
+#: ../camel/providers/pop3/camel-pop3-store.c:883
+#, c-format
+msgid "POP3 stores have no folder hierarchy"
+msgstr ""
+
+#: ../camel/providers/sendmail/camel-sendmail-provider.c:36
+#: ../services/evolution-source-registry/builtin/sendmail.source.in.h:1
+msgid "Sendmail"
+msgstr "Sendmail"
+
+#: ../camel/providers/sendmail/camel-sendmail-provider.c:38
+msgid ""
+"For delivering mail by passing it to the \"sendmail\" program on the local "
+"system."
+msgstr ""
+"ലോക്കല്‍ സിസ്റ്റത്തിലുളള \"sendmail\" പ്രോഗ്രാമിലേക്ക് മെയില്‍ അയച്ച് അത് ലക്ഷ്യസ്ഥാനത്തേക്ക് "
+"പോകുന്നു."
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:50
+msgid "sendmail"
+msgstr "sendmail"
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:52
+msgid "Mail delivery via the sendmail program"
+msgstr "sendmail പ്രോഗ്രാം വഴി മെയില്‍ അയയ്ക്കുക"
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:140
+#, fuzzy, c-format
+#| msgid "Failed to retrieve message"
+msgid "Failed to read From address"
+msgstr "ഫയല്‍ '%s'-ല്‍ നിന്നും വായിക്കുന്നതില്‍ പരാജയം: %s"
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:157
+#, fuzzy, c-format
+#| msgid "Cannot append message in offline mode: cache unavailable"
+msgid "Message send in offline mode is disabled"
+msgstr "ഓഫ് ലൈന്‍ ആകുന്പോള്‍ സന്ദേശം ലഭ്യമല്ല."
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:185
+#, c-format
+msgid "Could not parse recipient list"
+msgstr "മെയില്‍ അയച്ച വിലാസങ്ങളുടെ ലിസ്റ്റ് പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമായില്ല"
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:202
+#, fuzzy, c-format
+#| msgid "Could not parse recipient list"
+msgid "Could not parse arguments"
+msgstr "ആര്‍ഗ്യുമെന്റുകള്‍ പാഴ്സ് ചെയ്യുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:233
+#, fuzzy, c-format
+#| msgid "Could not create pipe to sendmail: %s: mail not sent"
+msgid "Could not create pipe to '%s': %s: mail not sent"
+msgstr "sendmail-ലേക്ക് പൈപ്പ് നിര്‍മ്മിക്കുവാന്‍ സാധ്യമല്ല: %s: മെയില്‍ അയച്ചിട്ടില്ല."
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:258
+#, fuzzy, c-format
+#| msgid "Could not fork sendmail: %s: mail not sent"
+msgid "Could not fork '%s': %s: mail not sent"
+msgstr "sendmail fork ചെയ്യുവാന്‍ സാധ്യമല്ല: %s: മെയില്‍ അയച്ചിട്ടില്ല."
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:307
+#, fuzzy
+#| msgid "Could not send message: %s"
+msgid "Could not send message: "
+msgstr "സന്ദേശം അയയ്ക്കുവാന്‍ സാധ്യമായില്ല: %s"
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:337
+#, fuzzy, c-format
+#| msgid "sendmail exited with signal %s: mail not sent."
+msgid "'%s' exited with signal %s: mail not sent."
+msgstr "%s സിഗ്നലില്‍ sendmail-ല്‍ നിന്നും പുറത്ത് കടന്നിരിക്കുന്നു: മെയില്‍ അയച്ചിട്ടില്ല."
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:347
+#, fuzzy, c-format
+#| msgid "Could not execute %s: mail not sent."
+msgid "Could not execute '%s': mail not sent."
+msgstr "%s നടപ്പിലാക്കുവാന്‍ സാധ്യമായില്ല: മെയില്‍ അയച്ചിട്ടില്ല."
+
+#: ../camel/providers/sendmail/camel-sendmail-transport.c:352
+#, fuzzy, c-format
+#| msgid "sendmail exited with status %d: mail not sent."
+msgid "'%s' exited with status %d: mail not sent."
+msgstr "%d നിലവാരത്തില്‍ sendmail-ല്‍ നിന്നും പുറത്ത് കടന്നിരിക്കുന്നു: മെയില്‍ അയച്ചിട്ടില്ല."
+
+#: ../camel/providers/smtp/camel-smtp-provider.c:42
+#, fuzzy
+msgid "Default SMTP port"
+msgstr "അമേരിക്ക/പോര്‍ട്ട്_ഓഫ്_സ്പയിന്‍"
+
+#: ../camel/providers/smtp/camel-smtp-provider.c:43
+#, fuzzy
+#| msgid "SMTP server %s"
+msgid "SMTP over SSL"
+msgstr "എസ്എസ്എലില്‍ മൈക്രോസോഫ്റ്റ് ഗ്ലോബര്‍ കാറ്റലോഗ്"
+
+#: ../camel/providers/smtp/camel-smtp-provider.c:44
+#, fuzzy
+msgid "Message submission port"
+msgstr "അമേരിക്ക/പോര്‍ട്ട്_ഓഫ്_സ്പയിന്‍"
+
+#: ../camel/providers/smtp/camel-smtp-provider.c:50
+msgid "SMTP"
+msgstr "SMTP"
+
+#: ../camel/providers/smtp/camel-smtp-provider.c:52
+msgid "For delivering mail by connecting to a remote mailhub using SMTP."
+msgstr "SMTP ഉപയോഗിച്ച് വിദൂരത്തുളള ഒരു mailhub-ലോട്ട് കണക്ട് ചെയ്ത് മെയില്‍ അയയ്ക്കുന്നു."
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:172
+#: ../camel/providers/smtp/camel-smtp-transport.c:180
+#, fuzzy
+#| msgid "Welcome response error"
+msgid "Welcome response error: "
+msgstr "സ്വാഗതത്തിനുളള മറുപടിയില്‍ പിശക്"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:216
+#, c-format
+msgid "Failed to connect to SMTP server %s in secure mode: %s"
+msgstr "സുരക്ഷിതമായി രീതിയില്‍ SMTP സര്‍വര്‍ %s-ലേക്കുളള കണക്ഷന്‍ പരാജയപ്പെട്ടിരിക്കുന്നു: %s"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:226
+#: ../camel/providers/smtp/camel-smtp-transport.c:240
+#: ../camel/providers/smtp/camel-smtp-transport.c:248
+#, fuzzy
+#| msgid "STARTTLS command failed: %s"
+msgid "STARTTLS command failed: "
+msgstr "STARTTLS കമാന്‍ഡ് പരാജയപ്പെട്ടു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:267
+#, fuzzy, c-format
+#| msgid "Failed to connect to SMTP server %s in secure mode: %s"
+msgid "Failed to connect to SMTP server %s in secure mode: "
+msgstr "സുരക്ഷിതമായി രീതിയില്‍ SMTP സര്‍വര്‍ %s-ലേക്കുളള കണക്ഷന്‍ പരാജയപ്പെട്ടിരിക്കുന്നു: %s"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:359
+#, c-format
+msgid "SMTP server %s"
+msgstr "SMTP സര്‍വര്‍ %s"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:362
+#, c-format
+msgid "SMTP mail delivery via %s"
+msgstr "%s വഴി SMTP മെയില്‍ അയയ്ക്കുന്നു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:436
+#, fuzzy, c-format
+#| msgid "SMTP server %s does not support requested authentication type %s."
+msgid "SMTP server %s does not support %s authentication"
+msgstr ""
+"ആവശ്യപ്പെട്ടിരിക്കുന്ന രീതിയിലുളള %s ആധികാരികത ഉറപ്പ് വരുത്തല്‍ SMTP സര്‍വര്‍ %s "
+"പിന്തുണയ്ക്കുന്നില്ല."
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:508
+#, fuzzy, c-format
+msgid "No SASL mechanism was specified"
+msgstr "ഇമേജ് ഔട്ട്പുട്ടിനുള്ള പാഥ് നല്‍കിയിട്ടില്ല"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:538
+#: ../camel/providers/smtp/camel-smtp-transport.c:549
+#: ../camel/providers/smtp/camel-smtp-transport.c:562
+#, fuzzy
+#| msgid "AUTH command failed: %s"
+msgid "AUTH command failed: "
+msgstr "AUTH കമാന്‍ഡ് പരാജയപ്പെട്ടു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:703
+#, c-format
+msgid "Cannot send message: service not connected."
+msgstr "സന്ദേശം അയയ്ക്കുവാന്‍ സാധ്യമായില്ല: സര്‍വീസ് കണക്ട് ചെയ്തിട്ടില്ല."
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:710
+#, c-format
+msgid "Cannot send message: sender address not valid."
+msgstr "സന്ദേശം അയയ്ക്കുവാന്‍ സാധ്യമായില്ല: അയച്ച മെയിലിന്‍റെ മേല്‍വിലാസം തെറ്റാണ്."
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:714
+msgid "Sending message"
+msgstr "സന്ദേശം അയയ്ക്കുന്നു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:739
+#, c-format
+msgid "Cannot send message: no recipients defined."
+msgstr "സന്ദേശം അയയ്ക്കുവാന്‍ സാധ്യമായില്ല: തെറ്റായ വിലാസം"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:752
+#, c-format
+msgid "Cannot send message: one or more invalid recipients"
+msgstr "സന്ദേശം അയയ്ക്കുവാന്‍ സാധ്യമായില്ല: ഒന്നോ അധികമോ തെറ്റായ വിലാസങ്ങള്‍"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:873
+msgid "Syntax error, command unrecognized"
+msgstr "തെറ്റായ കമാന്‍ഡ്, സിന്‍റാക്സ് പിശക്"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:875
+msgid "Syntax error in parameters or arguments"
+msgstr "പരാമീറ്ററുകള്‍ അല്ലെങ്കില്‍ ആര്‍ഗ്യുമെന്‍റുകളില്‍ സിന്‍റ്റാക്സ് പിശക്"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:877
+msgid "Command not implemented"
+msgstr "കമാന്‍ഡ് നടപ്പിലാക്കുവാന്‍ സാധ്യമല്ല"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:879
+msgid "Command parameter not implemented"
+msgstr "കമാന്‍ഡ് പരാമീറ്റര്‍ പ്രാവര്‍ത്തികമല്ല"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:881
+msgid "System status, or system help reply"
+msgstr "സിസ്റ്റത്തിന്‍റെ നിലവാരം, അല്ലെങ്കില്‍ സിസ്റ്റത്തിന്‍റെ സഹായത്തിനുളള മറുപടി"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:883
+msgid "Help message"
+msgstr "സഹായത്തിനുളള സന്ദേശം"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:885
+msgid "Service ready"
+msgstr "സേവനം തയ്യാറാണ്"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:887
+msgid "Service closing transmission channel"
+msgstr "സേവനം സംപ്രേക്ഷണത്തിനുളള ചാനല്‍ അടയ്ക്കുന്നു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:889
+msgid "Service not available, closing transmission channel"
+msgstr "സേവനം ലഭ്യമല്ല, സംപ്രേക്ഷണത്തിനുളള ചാനല്‍ അടയ്ക്കുന്നു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:891
+msgid "Requested mail action okay, completed"
+msgstr "ആവശ്യപ്പെട്ട മെയില്‍ പ്രവര്‍ത്തനം ശരിയാണ്: പൂര്‍ത്തിയായിരിക്കുന്നു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:893
+msgid "User not local; will forward to <forward-path>"
+msgstr "ഉപയോഗിക്കുന്ന ആള്‍ ഈ സിസ്റ്റത്തിലുളളതല്ല; <forward-path>-ലേക്ക് അയയ്ക്കുന്നതാണ്"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:895
+msgid "Requested mail action not taken: mailbox unavailable"
+msgstr "ആവശ്യപ്പെട്ട മെയില്‍ പ്രവര്‍ത്തനം നിര്‍ത്തിയിരിക്കുന്നു: സിസ്റ്റത്തിലുളള ശേഖരം മതിയാവില്ല"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:897
+msgid "Requested action not taken: mailbox unavailable"
+msgstr "ആവശ്യപ്പെട്ട പ്രവര്‍ത്തനം നിര്‍ത്തിയിരിക്കുന്നു: തപാല്‍ പെട്ടി ലഭ്യമല്ല"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:899
+msgid "Requested action aborted: error in processing"
+msgstr "ആവശ്യപ്പെട്ട മെയില്‍ പ്രവര്‍ത്തനം നിര്‍ത്തിയിരിക്കുന്നു: പ്രവര്‍ത്തനത്തില്‍ പിശക്"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:901
+msgid "User not local; please try <forward-path>"
+msgstr "ഉപയോഗിക്കുന്ന ആള്‍ ഈ സിസ്റ്റത്തിലുളളതല്ല; ദയവായി <forward-path> ശ്രമിക്കുക"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:903
+msgid "Requested action not taken: insufficient system storage"
+msgstr "ആവശ്യപ്പെട്ട മെയില്‍ പ്രവര്‍ത്തനം നിര്‍ത്തിയിരിക്കുന്നു: സിസ്റ്റത്തിലുളള ശേഖരം മതിയാവില്ല"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:905
+msgid "Requested mail action aborted: exceeded storage allocation"
+msgstr ""
+"ആവശ്യപ്പെട്ട മെയില്‍ പ്രവര്‍ത്തനം നിര്‍ത്തിയിരിക്കുന്നു: ശേഖരണത്തിനായുളള സ്ഥലത്തില്‍ കവിഞ്ഞിരിക്കുന്നു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:907
+msgid "Requested action not taken: mailbox name not allowed"
+msgstr "ആവശ്യപ്പെട്ട പ്രവര്‍ത്തനം എടുത്തില്ല: തപാല്‍ പെട്ടിയുടെ പേര് അനുവദിക്കുന്നതല്ല"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:909
+msgid "Start mail input; end with <CRLF>.<CRLF>"
+msgstr "മെയില്‍ ഇന്‍പുട്ട് ആരംഭിച്ച്, <CRLF>.<CRLF>-ല്‍ അവസാനിക്കുക"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:911
+msgid "Transaction failed"
+msgstr "ഇടപാടുകള്‍ പരാജയപ്പെട്ടിരിക്കുന്നു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:915
+msgid "A password transition is needed"
+msgstr "ഒരു പാസ്‍വേര്‍ഡ് സ്ഥിതിമാറ്റം ആവശ്യമുണ്ട്"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:917
+msgid "Authentication mechanism is too weak"
+msgstr "ആധികാരികത ഉറപ്പാക്കുന്ന സംവിധാനം വളരെ ദുര്‍ബലമാണ്"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:919
+msgid "Encryption required for requested authentication mechanism"
+msgstr "ആവശ്യപ്പെട്ട ആധികാരികത ഉറപ്പാക്കുന്ന സംവിധാനത്തില്‍ രഹസ്യഭാഷ ആവശ്യമുണ്ട്"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:921
+msgid "Temporary authentication failure"
+msgstr "താല്‍ക്കാലികമായിയുളള ആധികാരികത ഉറപ്പാക്കല്‍ പരാജയപ്പെട്ടു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:1209
+msgid "SMTP Greeting"
+msgstr "SMTP ഗ്രീറ്റിങ്"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:1219
+#: ../camel/providers/smtp/camel-smtp-transport.c:1233
+#: ../camel/providers/smtp/camel-smtp-transport.c:1241
+#, fuzzy
+#| msgid "HELO command failed: %s"
+msgid "HELO command failed: "
+msgstr "HELO കമാന്‍ഡ് പരാജയപ്പെട്ടു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:1316
+#: ../camel/providers/smtp/camel-smtp-transport.c:1331
+#: ../camel/providers/smtp/camel-smtp-transport.c:1341
+#, fuzzy
+#| msgid "MAIL FROM command failed"
+msgid "MAIL FROM command failed: "
+msgstr "MAIL FROM കമാന്‍ഡ് പരാജയപ്പെട്ടു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:1368
+#, fuzzy
+#| msgid "RSET command failed: %s"
+msgid "RCPT TO command failed: "
+msgstr "നിര്‍ദ്ദേശം ആരംഭിക്കുന്നില്ഡ പരാജയം"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:1385
+#: ../camel/providers/smtp/camel-smtp-transport.c:1395
+#, fuzzy, c-format
+#| msgid "RCPT TO <%s> failed"
+msgid "RCPT TO <%s> failed: "
+msgstr "RCPT TO <%s> പരാജയപ്പെട്ടു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:1438
+#: ../camel/providers/smtp/camel-smtp-transport.c:1449
+#: ../camel/providers/smtp/camel-smtp-transport.c:1460
+#: ../camel/providers/smtp/camel-smtp-transport.c:1519
+#: ../camel/providers/smtp/camel-smtp-transport.c:1539
+#: ../camel/providers/smtp/camel-smtp-transport.c:1553
+#: ../camel/providers/smtp/camel-smtp-transport.c:1562
+#, fuzzy
+#| msgid "DATA command failed"
+msgid "DATA command failed: "
+msgstr "DATA കമാന്‍ഡ് പരാജയപ്പെട്ടു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:1587
+#: ../camel/providers/smtp/camel-smtp-transport.c:1602
+#: ../camel/providers/smtp/camel-smtp-transport.c:1611
+#, fuzzy
+#| msgid "RSET command failed: %s"
+msgid "RSET command failed: "
+msgstr "RSET കമാന്‍ഡ് പരാജയപ്പെട്ടു"
+
+#: ../camel/providers/smtp/camel-smtp-transport.c:1636
+#: ../camel/providers/smtp/camel-smtp-transport.c:1650
+#: ../camel/providers/smtp/camel-smtp-transport.c:1657
+#, fuzzy
+#| msgid "QUIT command failed: %s"
+msgid "QUIT command failed: "
+msgstr "QUIT കമാന്‍ഡ് പരാജയപ്പെട്ടു"
+
+#: ../data/org.gnome.evolution-data-server.addressbook.gschema.xml.in.h:1
+#, fuzzy
+msgid "Contact UID of a user"
+msgstr "സമ്പര്‍ക്കത്തല്‍ UID ഇല്ല"
+
+#: ../data/org.gnome.evolution-data-server.calendar.gschema.xml.in.h:1
+#, fuzzy
+msgid "Birthday and anniversary reminder"
+msgstr "എല്ലാ പിറന്നാള്‍/വാര്‍ഷികത്തിനു് മുമ്പു്"
+
+#: ../data/org.gnome.evolution-data-server.calendar.gschema.xml.in.h:2
+msgid "Whether to set a reminder for birthdays and anniversaries"
+msgstr ""
+
+#: ../data/org.gnome.evolution-data-server.calendar.gschema.xml.in.h:3
+msgid "Birthday and anniversary reminder value"
+msgstr ""
+
+#: ../data/org.gnome.evolution-data-server.calendar.gschema.xml.in.h:4
+msgid "Number of units for determining a birthday or anniversary reminder"
+msgstr ""
+
+#: ../data/org.gnome.evolution-data-server.calendar.gschema.xml.in.h:5
+msgid "Birthday and anniversary reminder units"
+msgstr ""
+
+#: ../data/org.gnome.evolution-data-server.calendar.gschema.xml.in.h:6
+msgid ""
+"Units for a birthday or anniversary reminder, \"minutes\", \"hours\" or "
+"\"days\""
+msgstr ""
+
+#: ../libebackend/e-authentication-mediator.c:205
+#: ../libebackend/e-authentication-mediator.c:216
+#: ../libebackend/e-authentication-mediator.c:862
+#: ../libebackend/e-authentication-mediator.c:1199
+msgid "Bus name vanished (client terminated?)"
+msgstr ""
+
+#: ../libebackend/e-authentication-mediator.c:264
+#, fuzzy
+#| msgid "No response from the server"
+msgid "No response from client"
+msgstr "സര്‍വറില്‍ നിന്നും മറുപടി ഇല്ല"
+
+#: ../libebackend/e-authentication-mediator.c:334
+#: ../libebackend/e-authentication-mediator.c:345
+#: ../libebackend/e-authentication-mediator.c:856
+#: ../libebackend/e-authentication-mediator.c:1193
+#, fuzzy
+#| msgid "Could not cancel operation"
+msgid "Client cancelled the operation"
+msgstr "പ്രക്രിയ റദ്ദാക്കിയിരിക്കുന്നു"
+
+#: ../libebackend/e-authentication-mediator.c:416
+msgid "Client reports password was rejected"
+msgstr ""
+
+#: ../libebackend/e-authentication-session.c:569
+#, fuzzy
+msgid "Add this password to your keyring"
+msgstr "നിങ്ങളുടെ പ്രവേശന ചാവിക്കൂട്ടം തുറക്കാനായി രഹസ്യവാക്ക് നല്‍കുക"
+
+#: ../libebackend/e-authentication-session.c:674
+#, fuzzy
+msgid "Password was incorrect"
+msgstr "അടയാളവാക്കു് തെറ്റാണ്"
+
+#: ../libebackend/e-backend.c:409
+#, fuzzy, c-format
+#| msgid "IMAP server %s does not support requested authentication type %s"
+msgid "%s does not support authentication"
+msgstr "വന്ന മെയിലുകളെ ശേഖരം പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../libebackend/e-collection-backend.c:894
+#, c-format
+msgid "%s does not support creating remote resources"
+msgstr ""
+
+#: ../libebackend/e-collection-backend.c:953
+#, c-format
+msgid "%s does not support deleting remote resources"
+msgstr ""
+
+#: ../libebackend/e-data-factory.c:304
+#, c-format
+msgid "No backend factory for hash key '%s'"
+msgstr ""
+
+#: ../libebackend/e-server-side-source.c:134
+#, c-format
+msgid "Data source is missing a [%s] group"
+msgstr ""
+
+#: ../libebackend/e-server-side-source.c:1008
+#: ../libedataserver/e-source.c:1253
+#, c-format
+msgid "Data source '%s' does not support creating remote resources"
+msgstr ""
+
+#: ../libebackend/e-server-side-source.c:1022
+#, c-format
+msgid ""
+"Data source '%s' has no collection backend to create the remote resource"
+msgstr ""
+
+#: ../libebackend/e-server-side-source.c:1050
+#: ../libedataserver/e-source.c:1366
+#, c-format
+msgid "Data source '%s' does not support deleting remote resources"
+msgstr ""
+
+#: ../libebackend/e-server-side-source.c:1064
+#, c-format
+msgid ""
+"Data source '%s' has no collection backend to delete the remote resource"
+msgstr ""
+
+#: ../libebackend/e-server-side-source.c:1095
+#: ../libedataserver/e-source.c:1462
+#: ../modules/ubuntu-online-accounts/module-ubuntu-online-accounts.c:990
+#, fuzzy, c-format
+#| msgid "IMAP server %s does not support requested authentication type %s"
+msgid "Data source '%s' does not support OAuth 2.0 authentication"
+msgstr "IMAP സര്‍വര്‍ %s-ല്‍ %s എന്ന ആധികാരികത ഉറപ്പുവരുത്തല്‍ സംവിധാനത്തിന് പിന്തുണ ലഭ്യമല്ല"
+
+#: ../libebackend/e-server-side-source.c:1438
+#, fuzzy, c-format
+msgid "File must have a '.source' extension"
+msgstr "സോഴ്സ് ഫയല്‍ ഒരു ഡയറക്ടറിയാണു്"
+
+#: ../libebackend/e-source-registry-server.c:521
+#: ../libedataserver/e-source-registry.c:1879
+#, fuzzy
+#| msgid "Failed to authenticate.\n"
+msgid "The user declined to authenticate"
+msgstr "ഉപയോക്താവിനെ തിരിച്ചറിയുവാന്‍ സാധിക്കുന്നില്ല"
+
+#: ../libebackend/e-source-registry-server.c:790
+#, fuzzy, c-format
+msgid "UID '%s' is already in use"
+msgstr "ഡിവൈസ് നിലവില്‍ ഉപയോഗത്തിലാണു്."
+
+#: ../libebackend/e-user-prompter-server.c:306
+#, fuzzy, c-format
+msgid "Extension dialog '%s' not found."
+msgstr "ഒപ്പ് വയ്ക്കുന്നതിലുളള സര്‍ട്ടീഫിക്കേറ്റ് ലഭ്യമായില്ല"
+
+#: ../libedataserver/e-categories.c:46
+#, fuzzy
+#| msgid "Anniversary"
+msgctxt "CategoryName"
+msgid "Anniversary"
+msgstr "വാര്‍ഷികം"
+
+#: ../libedataserver/e-categories.c:47
+#, fuzzy
+#| msgid "Birthday"
+msgctxt "CategoryName"
+msgid "Birthday"
+msgstr "പിറന്നാള്‍ "
+
+#: ../libedataserver/e-categories.c:48
+#, fuzzy
+#| msgid "Business"
+msgctxt "CategoryName"
+msgid "Business"
+msgstr "വ്യാപാരം"
+
+#: ../libedataserver/e-categories.c:49
+#, fuzzy
+#| msgid "Competition"
+msgctxt "CategoryName"
+msgid "Competition"
+msgstr "മത്സരം"
+
+#: ../libedataserver/e-categories.c:50
+#, fuzzy
+#| msgid "Favorites"
+msgctxt "CategoryName"
+msgid "Favorites"
+msgstr "ഇഷ്ടമുളളവ"
+
+#: ../libedataserver/e-categories.c:51
+#, fuzzy
+#| msgid "Gifts"
+msgctxt "CategoryName"
+msgid "Gifts"
+msgstr "സമ്മാനങ്ങള്‍"
+
+#: ../libedataserver/e-categories.c:52
+#, fuzzy
+#| msgid "Goals/Objectives"
+msgctxt "CategoryName"
+msgid "Goals/Objectives"
+msgstr "ലക്ഷ്യങ്ങള്‍"
+
+#: ../libedataserver/e-categories.c:53
+#, fuzzy
+#| msgid "Holiday"
+msgctxt "CategoryName"
+msgid "Holiday"
+msgstr "അവധി"
+
+#: ../libedataserver/e-categories.c:54
+#, fuzzy
+#| msgid "Holiday Cards"
+msgctxt "CategoryName"
+msgid "Holiday Cards"
+msgstr "ഹോളിഡെ കാര്‍ഡുകള്‍"
+
+#. important people (e.g. new business partners)
+#: ../libedataserver/e-categories.c:56
+#, fuzzy
+#| msgid "Hot Contacts"
+msgctxt "CategoryName"
+msgid "Hot Contacts"
+msgstr "പ്രധാനപ്പെട്ട വിലാസങ്ങള്‍"
+
+#: ../libedataserver/e-categories.c:57
+#, fuzzy
+#| msgid "Ideas"
+msgctxt "CategoryName"
+msgid "Ideas"
+msgstr "ആശയങ്ങള്‍"
+
+#: ../libedataserver/e-categories.c:58
+#, fuzzy
+#| msgid "International"
+msgctxt "CategoryName"
+msgid "International"
+msgstr "ഇന്‍റര്‍നാഷണല്‍ "
+
+#: ../libedataserver/e-categories.c:59
+#, fuzzy
+#| msgid "Key Customer"
+msgctxt "CategoryName"
+msgid "Key Customer"
+msgstr "കീ കസ്റ്റമര്‍"
+
+#: ../libedataserver/e-categories.c:60
+#, fuzzy
+#| msgid "Miscellaneous"
+msgctxt "CategoryName"
+msgid "Miscellaneous"
+msgstr "പലവക"
+
+#: ../libedataserver/e-categories.c:61
+#, fuzzy
+#| msgid "Personal"
+msgctxt "CategoryName"
+msgid "Personal"
+msgstr "വ്യക്തിപരം"
+
+#: ../libedataserver/e-categories.c:62
+#, fuzzy
+#| msgid "Phone Calls"
+msgctxt "CategoryName"
+msgid "Phone Calls"
+msgstr "ഫോണ്‍ കോളുകള്‍"
+
+#. Translators: "Status" is a category name; it can mean anything user wants to
+#: ../libedataserver/e-categories.c:64
+#, fuzzy
+#| msgid "Status"
+msgctxt "CategoryName"
+msgid "Status"
+msgstr "അവസ്ഥ"
+
+#: ../libedataserver/e-categories.c:65
+#, fuzzy
+#| msgid "Strategies"
+msgctxt "CategoryName"
+msgid "Strategies"
+msgstr "തന്ത്രങ്ങള്‍"
+
+#: ../libedataserver/e-categories.c:66
+#, fuzzy
+#| msgid "Suppliers"
+msgctxt "CategoryName"
+msgid "Suppliers"
+msgstr "വിതരണക്കാര്‍"
+
+#: ../libedataserver/e-categories.c:67
+#, fuzzy
+#| msgid "Time & Expenses"
+msgctxt "CategoryName"
+msgid "Time & Expenses"
+msgstr "സമയവും ചിലവുകളും"
+
+#: ../libedataserver/e-categories.c:68
+#, fuzzy
+#| msgid "VIP"
+msgctxt "CategoryName"
+msgid "VIP"
+msgstr "VIP"
+
+#: ../libedataserver/e-categories.c:69
+#, fuzzy
+#| msgid "Waiting"
+msgctxt "CategoryName"
+msgid "Waiting"
+msgstr "കാത്തിരിക്കുന്നു"
+
+#: ../libedataserver/e-client.c:133
+#, fuzzy
+#| msgid "URI not loaded"
+msgid "Source not loaded"
+msgstr "URI ലഭ്യമല്ല"
+
+#: ../libedataserver/e-client.c:135
+#, fuzzy
+#| msgid "URI already loaded"
+msgid "Source already loaded"
+msgstr "URI ലഭ്യമാണ്"
+
+#. Translators: This means that the EClient does not
+#. * support offline mode, or it's not set to by a user,
+#. * thus it is unavailable while user is not connected.
+#: ../libedataserver/e-client.c:146
+#, fuzzy
+#| msgid "Offline mode unavailable"
+msgid "Offline unavailable"
+msgstr "ഓഫ്‌ലൈന്‍ മോഡ് ലഭ്യമല്ല"
+
+#: ../libedataserver/e-client.c:168
+#, fuzzy
+#| msgid "parse error"
+msgid "D-Bus error"
+msgstr "ബസില്‍ പിശക്"
+
+#: ../libedataserver/e-source-authenticator.c:166
+#, fuzzy
+#| msgid "Authentication required"
+msgid "Address book authentication request"
+msgstr "വിലാസപുസ്തകത്തിലേക്കുള്ള തിരിച്ചറിയല്‍ പരിശോധന പരാജയപ്പെട്ടു"
+
+#: ../libedataserver/e-source-authenticator.c:171
+#, fuzzy
+#| msgid "Authentication required"
+msgid "Calendar authentication request"
+msgstr "അനുമതികളുള്ള ഒരു ഉപയോക്താവിനോടു് ആധികാരികത ആവശ്യപ്പെടുക"
+
+#: ../libedataserver/e-source-authenticator.c:175
+#, fuzzy
+#| msgid "Authentication required"
+msgid "Mail authentication request"
+msgstr "അനുമതികളുള്ള ഒരു ഉപയോക്താവിനോടു് ആധികാരികത ആവശ്യപ്പെടുക"
+
+#. generic account prompt
+#: ../libedataserver/e-source-authenticator.c:178
+#, fuzzy
+#| msgid "Authentication required"
+msgid "Authentication request"
+msgstr "വിവരങ്ങള്‍ക്കായുളള അഭ്യര്‍ത്ഥന"
+
+#: ../libedataserver/e-source-authenticator.c:188
+#, fuzzy, c-format
+#| msgid "Please enter the %s password for %s on host %s."
+msgid "Please enter the password for address book \"%s\"."
+msgstr "ദയവായി %s പാസ്‌വേര്‍ഡ് നല്‍കുക. %s-നു് - %s ഹോസ്റ്റിലുള്ളതു്."
+
+#: ../libedataserver/e-source-authenticator.c:194
+#, fuzzy, c-format
+#| msgid "Please enter the %s password for %s on host %s."
+msgid "Please enter the password for calendar \"%s\"."
+msgstr "ദയവായി %s പാസ്‌വേര്‍ഡ് നല്‍കുക. %s-നു് - %s ഹോസ്റ്റിലുള്ളതു്."
+
+#: ../libedataserver/e-source-authenticator.c:200
+#, fuzzy, c-format
+#| msgid "Please enter the %s password for %s on host %s."
+msgid "Please enter the password for mail account \"%s\"."
+msgstr "ദയവായി %s പാസ്‌വേര്‍ഡ് നല്‍കുക. %s-നു് - %s ഹോസ്റ്റിലുള്ളതു്."
+
+#: ../libedataserver/e-source-authenticator.c:206
+#, fuzzy, c-format
+#| msgid "Please enter the %s password for %s on host %s."
+msgid "Please enter the password for mail transport \"%s\"."
+msgstr "ദയവായി %s പാസ്‌വേര്‍ഡ് നല്‍കുക. %s-നു് - %s ഹോസ്റ്റിലുള്ളതു്."
+
+#: ../libedataserver/e-source-authenticator.c:212
+#, fuzzy, c-format
+#| msgid "Please enter the %s password for %s on host %s."
+msgid "Please enter the password for memo list \"%s\"."
+msgstr "ദയവായി %s പാസ്‌വേര്‍ഡ് നല്‍കുക. %s-നു് - %s ഹോസ്റ്റിലുള്ളതു്."
+
+#: ../libedataserver/e-source-authenticator.c:218
+#, fuzzy, c-format
+#| msgid "Please enter the %s password for %s on host %s."
+msgid "Please enter the password for task list \"%s\"."
+msgstr "ദയവായി %s പാസ്‌വേര്‍ഡ് നല്‍കുക. %s-നു് - %s ഹോസ്റ്റിലുള്ളതു്."
+
+#: ../libedataserver/e-source-authenticator.c:224
+#, fuzzy, c-format
+#| msgid "Please enter the %s password for %s on host %s."
+msgid "Please enter the password for account \"%s\"."
+msgstr ""
+"അക്കൌണ്ടിനുള്ള രഹസ്യവാക്ക് നല്‍കുക\n"
+"<b>%s</b>"
+
+#: ../libedataserver/e-source.c:670
+#, c-format
+msgid "Source file is missing a [%s] group"
+msgstr ""
+
+#: ../libedataserver/e-source.c:1033
+#, fuzzy, c-format
+msgid "Data source '%s' is not removable"
+msgstr "ഡാറ്റ സംഭരണം ലഭ്യമല്ല"
+
+#: ../libedataserver/e-source.c:1156
+#, fuzzy, c-format
+msgid "Data source '%s' is not writable"
+msgstr "\"%s\"-ലുള്ള ഡിസ്കിലേക്കു് എഴുതുവാന്‍ സാധ്യമല്ല."
+
+#: ../libedataserver/e-source.c:1769
+#, fuzzy
+#| msgid "Unnamed List"
+msgid "Unnamed"
+msgstr "പേരില്ലാത്ത"
+
+#: ../libedataserver/e-source-mail-signature.c:487
+#, c-format
+msgid "Signature script must be a local file"
+msgstr ""
+
+#: ../libedataserver/e-source-proxy.c:1647
+#, fuzzy, c-format
+#| msgid "Store does not support an INBOX"
+msgid "Source '%s' does not support proxy lookups"
+msgstr "വന്ന മെയിലുകളെ ശേഖരം പിന്തുണയ്ക്കുന്നില്ല"
+
+#: ../libedataserver/e-source-webdav.c:1552
+#, c-format
+msgid ""
+"SSL certificate for host '%s', used by address book '%s', is not trusted. Do "
+"you wish to accept it?"
+msgstr ""
+
+#: ../libedataserver/e-source-webdav.c:1561
+#, c-format
+msgid ""
+"SSL certificate for host '%s', used by calendar '%s', is not trusted. Do you "
+"wish to accept it?"
+msgstr ""
+
+#: ../libedataserver/e-source-webdav.c:1570
+#, c-format
+msgid ""
+"SSL certificate for host '%s', used by memo list '%s', is not trusted. Do "
+"you wish to accept it?"
+msgstr ""
+
+#: ../libedataserver/e-source-webdav.c:1579
+#, c-format
+msgid ""
+"SSL certificate for host '%s', used by task list '%s', is not trusted. Do "
+"you wish to accept it?"
+msgstr ""
+
+#. strptime format of a weekday, a date and a time,
+#. * in 12-hour format.
+#. strftime format of a weekday, a date and a
+#. * time, in 12-hour format.
+#: ../libedataserver/e-time-utils.c:1663 ../libedataserver/e-time-utils.c:1962
+msgid "%a %m/%d/%Y %I:%M:%S %p"
+msgstr "%a %m/%d/%Y %I:%M:%S %p"
+
+#. strptime format of a weekday, a date and a time,
+#. * in 24-hour format.
+#. strftime format of a weekday, a date and a
+#. * time, in 24-hour format.
+#: ../libedataserver/e-time-utils.c:1668 ../libedataserver/e-time-utils.c:1953
+msgid "%a %m/%d/%Y %H:%M:%S"
+msgstr "%a %m/%d/%Y %H:%M:%S"
+
+#. strptime format of a weekday, a date and a time,
+#. * in 12-hour format, without seconds.
+#. strftime format of a weekday, a date and a
+#. * time, in 12-hour format, without seconds.
+#: ../libedataserver/e-time-utils.c:1673 ../libedataserver/e-time-utils.c:1958
+msgid "%a %m/%d/%Y %I:%M %p"
+msgstr "%a %m/%d/%Y %I:%M %p"
+
+#. strptime format of a weekday, a date and a time,
+#. * in 24-hour format, without seconds.
+#. strftime format of a weekday, a date and a
+#. * time, in 24-hour format, without seconds.
+#: ../libedataserver/e-time-utils.c:1678 ../libedataserver/e-time-utils.c:1949
+msgid "%a %m/%d/%Y %H:%M"
+msgstr "%a %m/%d/%Y %H:%M"
+
+#. strptime format of a weekday, a date and a time,
+#. * in 12-hour format, without minutes or seconds.
+#: ../libedataserver/e-time-utils.c:1683
+msgid "%a %m/%d/%Y %I %p"
+msgstr "%a %m/%d/%Y %I %p"
+
+#. strptime format of a weekday, a date and a time,
+#. * in 24-hour format, without minutes or seconds.
+#: ../libedataserver/e-time-utils.c:1688
+msgid "%a %m/%d/%Y %H"
+msgstr "%a %m/%d/%Y %H"
+
+#. strptime format of a weekday and a date.
+#. strftime format of a weekday and a date.
+#: ../libedataserver/e-time-utils.c:1691 ../libedataserver/e-time-utils.c:1811
+#: ../libedataserver/e-time-utils.c:1944
+msgid "%a %m/%d/%Y"
+msgstr "%a %m/%d/%Y"
+
+#. strptime format of a date and a time, in 12-hour format.
+#: ../libedataserver/e-time-utils.c:1698
+msgid "%m/%d/%Y %I:%M:%S %p"
+msgstr "%m/%d/%Y %I:%M:%S %p"
+
+#. strptime format of a date and a time, in 24-hour format.
+#: ../libedataserver/e-time-utils.c:1702
+msgid "%m/%d/%Y %H:%M:%S"
+msgstr "%m/%d/%Y %H:%M:%S"
+
+#. strptime format of a date and a time, in 12-hour format,
+#. * without seconds.
+#: ../libedataserver/e-time-utils.c:1707
+msgid "%m/%d/%Y %I:%M %p"
+msgstr "%m/%d/%Y %I:%M %p"
+
+#. strptime format of a date and a time, in 24-hour format,
+#. * without seconds.
+#: ../libedataserver/e-time-utils.c:1712
+msgid "%m/%d/%Y %H:%M"
+msgstr "%m/%d/%Y %H:%M"
+
+#. strptime format of a date and a time, in 12-hour format,
+#. * without minutes or seconds.
+#: ../libedataserver/e-time-utils.c:1717
+msgid "%m/%d/%Y %I %p"
+msgstr "%m/%d/%Y %I %p"
+
+#. strptime format of a date and a time, in 24-hour format,
+#. * without minutes or seconds.
+#: ../libedataserver/e-time-utils.c:1722
+msgid "%m/%d/%Y %H"
+msgstr "%m/%d/%Y %H"
+
+#. strptime format of a weekday and a date.
+#. This is the preferred date format for the locale.
+#: ../libedataserver/e-time-utils.c:1725 ../libedataserver/e-time-utils.c:1814
+msgid "%m/%d/%Y"
+msgstr "%m/%d/%Y"
+
+#. strptime format for a time of day, in 12-hour format.
+#. strftime format of a time in 12-hour format.
+#: ../libedataserver/e-time-utils.c:1885 ../libedataserver/e-time-utils.c:2006
+msgid "%I:%M:%S %p"
+msgstr "%I:%M:%S %p"
+
+#. strptime format for a time of day, in 24-hour format.
+#. strftime format of a time in 24-hour format.
+#: ../libedataserver/e-time-utils.c:1889 ../libedataserver/e-time-utils.c:1998
+msgid "%H:%M:%S"
+msgstr "%H:%M:%S"
+
+#. strptime format for time of day, without seconds,
+#. * in 12-hour format.
+#. strftime format of a time in 12-hour format,
+#. * without seconds.
+#: ../libedataserver/e-time-utils.c:1894 ../libedataserver/e-time-utils.c:2003
+msgid "%I:%M %p"
+msgstr "%I:%M %p"
+
+#. strptime format for time of day, without seconds 24-hour format.
+#. strftime format of a time in 24-hour format,
+#. * without seconds.
+#: ../libedataserver/e-time-utils.c:1898 ../libedataserver/e-time-utils.c:1995
+msgid "%H:%M"
+msgstr "%H:%M"
+
+#. strptime format for time of day, without seconds 24-hour format,
+#. * and no colon.
+#: ../libedataserver/e-time-utils.c:1902
+msgid "%H%M"
+msgstr "%H%M"
+
+#. strptime format for hour and AM/PM, 12-hour format.
+#: ../libedataserver/e-time-utils.c:1906
+msgid "%I %p"
+msgstr "%I %p"
+
+#: ../modules/gnome-online-accounts/e-goa-password-based.c:129
+#: ../modules/ubuntu-online-accounts/e-signon-session-password.c:365
+#, fuzzy, c-format
+#| msgid "No such folder '%s'."
+msgid "No such data source for UID '%s'"
+msgstr "`%s' എന്ന ഫോള്‍ഡര്‍ നിലവിലില്ല."
+
+#: ../modules/gnome-online-accounts/e-goa-password-based.c:141
+#, c-format
+msgid ""
+"Cannot find a corresponding account in the org.gnome.OnlineAccounts service "
+"from which to obtain a password for '%s'"
+msgstr ""
+
+#: ../modules/gnome-online-accounts/e-goa-password-based.c:213
+#, fuzzy, c-format
+#| msgid "Enter password for %s"
+msgid "Invalid password for '%s'"
+msgstr "%s-നുളള പാസ്‍വേര്‍ഡ് നല്‍കുക"
+
+#. TODO: more specific
+#: ../modules/gnome-online-accounts/goaewsclient.c:222
+#, fuzzy, c-format
+#| msgid "Unexpected response from IMAP server: %s"
+msgid "Code: %u - Unexpected response from server"
+msgstr "കോഡ്: %u - സെര്‍വറില്‍ നിന്നും അപ്രതീക്ഷിതമായ മറുപടി"
+
+#. TODO: more specific
+#: ../modules/gnome-online-accounts/goaewsclient.c:243
+#, fuzzy, c-format
+#| msgid "Failed to retrieve message"
+msgid "Failed to parse autodiscover response XML"
+msgstr "ഓട്ടോഡിസ്കവര്‍ മറുപടി എക്സ്എംഎല്‍ പാഴ്സ് ചെയ്യുന്നതില്‍ പരാജയം"
+
+#. TODO: more specific
+#: ../modules/gnome-online-accounts/goaewsclient.c:252
+#, fuzzy, c-format
+msgid "Failed to find Autodiscover element"
+msgstr "ഓട്ടോഡിസ്കവര്‍ എലമെന്റ് കണ്ടുപിടിയ്ക്കുന്നതില്‍ പരാജയം"
+
+#. TODO: more specific
+#: ../modules/gnome-online-accounts/goaewsclient.c:264
+#, fuzzy, c-format
+msgid "Failed to find Response element"
+msgstr "റസ്പോണ്‍സ് എലമെന്റ് കണ്ടുപിടിയ്ക്കുന്നതില്‍ പരാജയം"
+
+#. TODO: more specific
+#: ../modules/gnome-online-accounts/goaewsclient.c:276
+#, fuzzy, c-format
+msgid "Failed to find Account element"
+msgstr "അക്കൌണ്ട് എലമെന്റ് കണ്ടുപിടിയ്ക്കുന്നതില്‍ പരാജയം"
+
+#. TODO: more specific
+#: ../modules/gnome-online-accounts/goaewsclient.c:290
+#, fuzzy, c-format
+msgid "Failed to find ASUrl and OABUrl in autodiscover response"
+msgstr "ഓട്ടോഡിസ്കവര്‍ റസ്പോണ്‍സില്‍ ASUrl, OABUrl എന്നിവ കണ്ടുപിടിയ്ക്കുന്നതില്‍ പരാജയം"
+
+#: ../modules/gnome-online-accounts/module-gnome-online-accounts.c:1241
+#, c-format
+msgid ""
+"Cannot find a corresponding account in the org.gnome.OnlineAccounts service "
+"from which to obtain an access token for '%s'"
+msgstr ""
+
+#: ../modules/gnome-online-accounts/module-gnome-online-accounts.c:1268
+#, fuzzy, c-format
+#| msgid "Failed to store mail in temp file %s: %s"
+msgid "Failed to obtain an access token for '%s': "
+msgstr "temp ഫയല്‍ %s-ല്‍ മെയില്‍ സൂക്ഷിക്കുന്നതില്‍ പരാജയം: %s"
+
+#: ../modules/google-backend/module-google-backend.c:192
+#: ../modules/ubuntu-online-accounts/calendar.service-type.in.in.h:1
+#: ../modules/yahoo-backend/module-yahoo-backend.c:200
+msgid "Calendar"
+msgstr "കലണ്ടര്‍"
+
+#: ../modules/google-backend/module-google-backend.c:261
+#: ../modules/ubuntu-online-accounts/contacts.service-type.in.in.h:1
+#: ../services/evolution-source-registry/builtin/contacts-stub.source.in.h:1
+msgid "Contacts"
+msgstr "വിലാസങ്ങള്‍"
+
+#: ../modules/trust-prompt/module-trust-prompt.c:83
+#, fuzzy
+#| msgid "Signing certificate not found"
+msgid "The signing certificate authority is not known."
+msgstr "സാക്ഷ്യപത്രം സാക്ഷ്യപ്പെടുത്തിയ ആളിനെ അറിയില്ല."
+
+#: ../modules/trust-prompt/module-trust-prompt.c:85
+#, fuzzy
+msgid ""
+"The certificate does not match the expected identity of the site that it was "
+"retrieved from."
+msgstr "സാക്ഷ്യപത്രം കിട്ടിയ സൈറ്റിന്റെ തിരിച്ചറിയല്‍ സാക്ഷ്യപത്രവുമായി ചേരുന്നില്ല."
+
+#: ../modules/trust-prompt/module-trust-prompt.c:87
+#, fuzzy
+msgid "The certificate's activation time is still in the future."
+msgstr "ഈ സാക്ഷ്യപത്രത്തിന്റെ ആരംഭ സമയം ഭാവിയിലാണ്."
+
+#: ../modules/trust-prompt/module-trust-prompt.c:89
+#, fuzzy
+#| msgid "Certificate has expired"
+msgid "The certificate has expired."
+msgstr "സാക്ഷ്യപത്രത്തിന്റെ കാലാവധി കഴിഞ്ഞിരിക്കുന്നു."
+
+#: ../modules/trust-prompt/module-trust-prompt.c:91
+msgid ""
+"The certificate has been revoked according to the connection's certificate "
+"revocation list."
+msgstr ""
+
+#: ../modules/trust-prompt/module-trust-prompt.c:93
+#, fuzzy
+msgid "The certificate's algorithm is considered insecure."
+msgstr "സാക്ഷ്യപത്രത്തിനുപയോഗിച്ചിരിക്കുന്ന ആല്‍ഗോരിതം സുരക്ഷിതമല്ല."
+
+#: ../modules/trust-prompt/trust-prompt-gtk.c:120
+#, fuzzy
+#| msgid "Certificate untrusted"
+msgid "Certificate trust..."
+msgstr "സര്‍ട്ടിഫിക്കറ്റ് അഥോറിറ്റി ട്രസ്റ്റ്"
+
+#: ../modules/trust-prompt/trust-prompt-gtk.c:121
+#, fuzzy
+msgid "_Reject"
+msgstr "_തള്ളിക്കളയുക"
+
+#: ../modules/trust-prompt/trust-prompt-gtk.c:122
+#, fuzzy
+msgid "Accept _Temporarily"
+msgstr "ഫയലുകള്‍ _സ്വീകരിക്കുക:"
+
+#: ../modules/trust-prompt/trust-prompt-gtk.c:123
+#, fuzzy
+msgid "_Accept Permanently"
+msgstr "എന്നേക്കുമായി _നീക്കം ചെയ്യുക"
+
+#: ../modules/trust-prompt/trust-prompt-gtk.c:161
+#, fuzzy, c-format
+#| msgid ""
+#| "SSL Certificate check for %s:\n"
+#| "\n"
+#| "%s\n"
+#| "\n"
+#| "Do you wish to accept?"
+msgid "SSL certificate for '%s' is not trusted. Do you wish to accept it?"
+msgstr ""
+"%s-നുളള SSL സര്‍ട്ടീഫിക്കേറ്റ് പരിശോധന :\n"
+"\n"
+"%s\n"
+"\n"
+"നിങ്ങള്‍ക്ക് സ്വീകാര്യമാണോ?"
+
+#: ../modules/trust-prompt/trust-prompt-gtk.c:176
+#, fuzzy
+msgid "Reason:"
+msgstr "കാരണം"
+
+#: ../modules/ubuntu-online-accounts/calendar.service-type.in.in.h:2
+#, fuzzy
+msgid "Integrate your calendars"
+msgstr "ഐഎം അക്കൌണ്ടുകള്‍ ഒന്നിപ്പിക്കുക"
+
+#: ../modules/ubuntu-online-accounts/contacts.service-type.in.in.h:2
+#, fuzzy
+msgid "Integrate your contacts"
+msgstr "ഐഎം അക്കൌണ്ടുകള്‍ ഒന്നിപ്പിക്കുക"
+
+#: ../modules/ubuntu-online-accounts/e-signon-session-password.c:257
+msgid "Signon service did not return a secret"
+msgstr ""
+
+#: ../modules/ubuntu-online-accounts/evolution-data-server-uoa.desktop.in.in.h:1
+#, fuzzy
+#| msgid "Evolution Data Server logging service"
+msgid "Evolution Data Server"
+msgstr "Evolution ഡേറ്റാ സര്‍വര്‍ ലോഗ്ഗിങ് സര്‍വീസ്"
+
+#: ../modules/ubuntu-online-accounts/evolution-data-server-uoa.desktop.in.in.h:2
+msgid "Required to have EDS appear in UOA"
+msgstr ""
+
+#: ../modules/ubuntu-online-accounts/google-calendar.service.in.in.h:1
+#, fuzzy
+#| msgid "Calendar"
+msgid "Google Calendar"
+msgstr "കലണ്ടറിന്‍റെ URI"
+
+#: ../modules/ubuntu-online-accounts/google-contacts.service.in.in.h:1
+#, fuzzy
+#| msgid "Hot Contacts"
+msgid "Google Contacts"
+msgstr "<b>വിലാസങ്ങള്‍ കാണിക്കുക</b>"
+
+#: ../modules/ubuntu-online-accounts/google-gmail.service.in.in.h:1
+#, fuzzy
+#| msgid "Mailer"
+msgid "GMail"
+msgstr "മെയിലര്‍"
+
+#: ../modules/ubuntu-online-accounts/mail.service-type.in.in.h:1
+#, fuzzy
+#| msgid "Mailer"
+msgid "Mail"
+msgstr "മെയില്‍"
+
+#: ../modules/ubuntu-online-accounts/mail.service-type.in.in.h:2
+#, fuzzy
+msgid "Integrate your mailboxes"
+msgstr "ഐഎം അക്കൌണ്ടുകള്‍ ഒന്നിപ്പിക്കുക"
+
+#: ../modules/ubuntu-online-accounts/module-ubuntu-online-accounts.c:971
+#, c-format
+msgid ""
+"Cannot find a corresponding account service in the accounts database from "
+"which to obtain an access token for '%s'"
+msgstr ""
+
+#: ../modules/ubuntu-online-accounts/uoa-utils.c:79
+#, fuzzy, c-format
+msgid "Expected status 200 when requesting guid, instead got status %d (%s)"
+msgstr "Guid ന് അപേക്ഷിച്ചപ്പോള്‍ പ്രതീക്ഷിച്ച സ്ഥിതി 200 പകരം ലഭിച്ചത് സ്ഥിതി %d (%s) ആണ്"
+
+#: ../modules/ubuntu-online-accounts/uoa-utils.c:96
+#, fuzzy
+#| msgid "Error parsing filter: %s: %s"
+msgid "Error parsing response as JSON: "
+msgstr "JSON റെസ്പോണ്‍സ് പാഴ്സ് ചെയ്യുന്നതില്‍ പിശക്: "
+
+#: ../modules/ubuntu-online-accounts/uoa-utils.c:112
+#, fuzzy
+msgid "Didn't find email member in JSON data"
+msgstr "JSON ഡേറ്റയില്‍ ഇമെയില്‍ കണ്ടെത്താനായില്ല"
+
+#: ../modules/ubuntu-online-accounts/yahoo-calendar.service.in.in.h:1
+#, fuzzy
+#| msgid "Calendar"
+msgid "Yahoo! Calendar"
+msgstr "കലണ്ടറിന്‍റെ URI"
+
+#: ../modules/ubuntu-online-accounts/yahoo-mail.service.in.in.h:1
+#, fuzzy
+msgid "Yahoo! Mail"
+msgstr "ഈമെയില്‍ വിലാസം"
+
+#: ../modules/yahoo-backend/module-yahoo-backend.c:227
+msgid "Tasks"
+msgstr "ജോലികള്‍ "
+
+#: ../services/evolution-addressbook-factory/evolution-addressbook-factory.c:47
+#: ../services/evolution-calendar-factory/evolution-calendar-factory.c:51
+#: ../services/evolution-user-prompter/evolution-user-prompter.c:31
+msgid "Keep running after the last client is closed"
+msgstr ""
+
+#: ../services/evolution-addressbook-factory/evolution-addressbook-factory.c:49
+#: ../services/evolution-calendar-factory/evolution-calendar-factory.c:53
+msgid "Wait running until at least one client is connected"
+msgstr ""
+
+#: ../services/evolution-source-registry/builtin/birthdays.source.in.h:1
+#, fuzzy
+msgid "Birthdays & Anniversaries"
+msgstr "പിറന്നാളുകളും വാര്‍ഷികങ്ങളും"
+
+#: ../services/evolution-source-registry/builtin/caldav-stub.source.in.h:1
+msgid "CalDAV"
+msgstr ""
+
+#: ../services/evolution-source-registry/builtin/google-stub.source.in.h:1
+#, fuzzy
+msgid "Google"
+msgstr "ഗൂഗിള്‍"
+
+#: ../services/evolution-source-registry/builtin/ldap-stub.source.in.h:1
+#, fuzzy
+#| msgid "IMAP server %s"
+msgid "On LDAP Servers"
+msgstr "PGP ചാവി സെര്‍വറുകള്‍"
+
+#: ../services/evolution-source-registry/builtin/local.source.in.h:1
+#: ../services/evolution-source-registry/builtin/local-stub.source.in.h:1
+msgid "On This Computer"
+msgstr "ഈ കംപ്യൂട്ടറില്‍"
+
+#: ../services/evolution-source-registry/builtin/vfolder.source.in.h:1
+#, fuzzy
+#| msgid "Personal Folders"
+msgid "Search Folders"
+msgstr "ഫോള്‍ഡറുകളില്‍ തിരയുക"
+
+#: ../services/evolution-source-registry/builtin/weather-stub.source.in.h:1
+#, fuzzy
+#| msgid "Weather: Fog"
+msgid "Weather"
+msgstr "കാലാവസ്ഥ"
+
+#: ../services/evolution-source-registry/builtin/webcal-stub.source.in.h:1
+#, fuzzy
+msgid "On The Web"
+msgstr "വെബ് താള്‍"
+
+#: ../services/evolution-source-registry/builtin/webdav-stub.source.in.h:1
+#, fuzzy
+msgid "WebDAV"
+msgstr "WebDAV (HTTP)"
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:1
+#, fuzzy
+msgid "(Deprecated) Proxy type to use"
+msgstr "ഉപയോഗിക്കുന്നതിനുളള ഏതു് തരം ഓഡിയോ ഔട്ട്പുട്ട്"
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:2
+msgid ""
+"This key was deprecated in version 3.12 and should no longer be used. Proxy "
+"settings are now integrated into Evolution-Data-Server's account system. See "
+"the ESourceProxy API documentation for details."
+msgstr ""
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:3
+msgid "(Deprecated) Whether to use http-proxy"
+msgstr ""
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:4
+msgid "(Deprecated) Whether proxy server requires authentication"
+msgstr ""
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:5
+msgid "(Deprecated) Host name for HTTP requests"
+msgstr ""
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:6
+msgid "(Deprecated) Port number for HTTP requests"
+msgstr ""
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:7
+#, fuzzy
+#| msgid "Unknown authentication state."
+msgid "(Deprecated) Proxy authentication user name"
+msgstr "അപരിചിതമായ ആധികാരികത ഉറപ്പാക്കുന്ന അവസ്ഥ."
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:8
+#, fuzzy
+#| msgid "Temporary authentication failure"
+msgid "(Deprecated) Proxy authentication password"
+msgstr "ദയവായി പ്രോക്സി അടയാളവാക്കു് നല്‍കുക"
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:9
+msgid "(Deprecated) List of hosts to connect to without proxy"
+msgstr ""
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:10
+msgid "(Deprecated) Host name for HTTPS requests"
+msgstr ""
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:11
+msgid "(Deprecated) Port number for HTTPS requests"
+msgstr ""
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:12
+msgid "(Deprecated) Host name for SOCKS requests"
+msgstr ""
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:13
+msgid "(Deprecated) Port number for SOCKS requests"
+msgstr ""
+
+#: ../services/evolution-source-registry/org.gnome.evolution.shell.network-config.gschema.xml.in.h:14
+#, fuzzy
+msgid "(Deprecated) Automatic proxy configuration URL"
+msgstr "പ്രോക്സി കോണ്‍ഫിഗറേഷന്‍ മൂല്ല്യങ്ങള്‍ ലഭ്യമാക്കുന്ന URL"
+
+#: ../services/evolution-user-prompter/prompt-user-gtk.c:122
+#, fuzzy
+msgid "_Dismiss"
+msgstr "_വേണ്ടെന്നു് വയ്ക്കുക"
+
+#~ msgid "Creating new contact…"
+#~ msgstr "ഒരു പുതിയ വിലാസം ഉണ്ടാക്കുന്നു…"
+
+#~ msgid "Deleting contact…"
+#~ msgstr "ബന്ധത്തെ എടുത്തുകളയുന്നു…"
+
+#~ msgid "Modifying contact…"
+#~ msgstr "സമ്പര്‍ക്കത്തില്‍ മാറ്റം വരുത്തുന്നു…"

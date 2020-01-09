@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Reference Manual: Data Source Extensions</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="data-sources.html" title="Part I. Data Sources and Extensions">
+<link rel="prev" href="eds-ESourceAuthenticator.html" title="ESourceAuthenticator">
+<link rel="next" href="eds-ESourceExtension.html" title="ESourceExtension">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts"></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="data-sources.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-ESourceAuthenticator.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-ESourceExtension.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="chapter">
+<div class="titlepage"><div><div><h2 class="title">
+<a name="id-1.2.3"></a>Data Source Extensions</h2></div></div></div>
+<div class="toc"><dl class="toc">
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceExtension.html">ESourceExtension</a></span><span class="refpurpose">Base class for <span class="type">ESource</span> extensions</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceBackend.html">ESourceBackend</a></span><span class="refpurpose"> — Base class for backend-based data sources</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceSelectable.html">ESourceSelectable</a></span><span class="refpurpose"> — Base class for selectable data sources</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceAddressBook.html">ESourceAddressBook</a></span><span class="refpurpose"><span class="type">ESource</span> extension for an address book</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceAlarms.html">ESourceAlarms</a></span><span class="refpurpose"><span class="type">ESource</span> extension for alarm state</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceAuthentication.html">ESourceAuthentication</a></span><span class="refpurpose"><span class="type">ESource</span> extension for authentication settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceAutocomplete.html">ESourceAutocomplete</a></span><span class="refpurpose"><span class="type">ESource</span> extension for autocomplete settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceCalendar.html">ESourceCalendar</a></span><span class="refpurpose"><span class="type">ESource</span> extension for a calendar</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceCamel.html">ESourceCamel</a></span><span class="refpurpose"><span class="type">ESource</span> extension for <span class="type">CamelSettings</span></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceCollection.html">ESourceCollection</a></span><span class="refpurpose"><span class="type">ESource</span> extension for grouping related resources</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceGoa.html">ESourceGoa</a></span><span class="refpurpose"><span class="type">ESource</span> extension for GNOME Online Accounts</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceMailAccount.html">ESourceMailAccount</a></span><span class="refpurpose"><span class="type">ESource</span> extension for an email account</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceMailComposition.html">ESourceMailComposition</a></span><span class="refpurpose"><span class="type">ESource</span> extension for mail composition settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceMailIdentity.html">ESourceMailIdentity</a></span><span class="refpurpose"><span class="type">ESource</span> extension for an email identity</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceMailSignature.html">ESourceMailSignature</a></span><span class="refpurpose"><span class="type">ESource</span> extension for email signatures</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceMailSubmission.html">ESourceMailSubmission</a></span><span class="refpurpose"><span class="type">ESource</span> extension for submitting emails</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceMailTransport.html">ESourceMailTransport</a></span><span class="refpurpose"><span class="type">ESource</span> extension for an email transport</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceMDN.html">ESourceMDN</a></span><span class="refpurpose"><span class="type">ESource</span> extension for MDN settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceMemoList.html">ESourceMemoList</a></span><span class="refpurpose"><span class="type">ESource</span> extension for a memo list</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceOffline.html">ESourceOffline</a></span><span class="refpurpose"><span class="type">ESource</span> extension for offline settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceOpenPGP.html">ESourceOpenPGP</a></span><span class="refpurpose"><span class="type">ESource</span> extension for OpenPGP settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceProxy.html">ESourceProxy</a></span><span class="refpurpose"><span class="type">ESource</span> extension for network proxy settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceRefresh.html">ESourceRefresh</a></span><span class="refpurpose"><span class="type">ESource</span> extension for refresh settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceResource.html">ESourceResource</a></span><span class="refpurpose"><span class="type">ESource</span> extension for a remote resource</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceRevisionGuards.html">ESourceRevisionGuards</a></span><span class="refpurpose"><span class="type">ESource</span> extension to configure revision guards</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceSecurity.html">ESourceSecurity</a></span><span class="refpurpose"><span class="type">ESource</span> extension for security settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceSMIME.html">ESourceSMIME</a></span><span class="refpurpose"><span class="type">ESource</span> extension for S/MIME settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceTaskList.html">ESourceTaskList</a></span><span class="refpurpose"><span class="type">ESource</span> extension for a task list</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceUoa.html">ESourceUoa</a></span><span class="refpurpose"><span class="type">ESource</span> extension for Ubuntu Online Accounts</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceWebdav.html">ESourceWebdav</a></span><span class="refpurpose"><span class="type">ESource</span> extension for WebDAV settings</span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="eds-ESourceBackendSummarySetup.html">ESourceBackendSummarySetup</a></span><span class="refpurpose"><span class="type">ESource</span> extension to configure summary fields</span>
+</dt>
+</dl></div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

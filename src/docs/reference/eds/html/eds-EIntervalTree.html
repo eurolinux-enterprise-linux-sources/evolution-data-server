@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Reference Manual: EIntervalTree</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch09.html" title="Calendar Backend Classes">
+<link rel="prev" href="eds-ECalBackendSync.html" title="ECalBackendSync">
+<link rel="next" href="eds-EDataCal.html" title="EDataCal">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-EIntervalTree.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch09.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-ECalBackendSync.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-EDataCal.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-EIntervalTree"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-EIntervalTree.top_of_page"></a>EIntervalTree</span></h2>
+<p>EIntervalTree — A utility for calculating intervals and recurrances</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-EIntervalTree.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="returnvalue">EIntervalTree</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EIntervalTree.html#e-intervaltree-new" title="e_intervaltree_new ()">e_intervaltree_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EIntervalTree.html#e-intervaltree-insert" title="e_intervaltree_insert ()">e_intervaltree_insert</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EIntervalTree.html#e-intervaltree-remove" title="e_intervaltree_remove ()">e_intervaltree_remove</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EIntervalTree.html#e-intervaltree-search" title="e_intervaltree_search ()">e_intervaltree_search</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EIntervalTree.html#e-intervaltree-destroy" title="e_intervaltree_destroy ()">e_intervaltree_destroy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EIntervalTree.html#e-intervaltree-dump" title="e_intervaltree_dump ()">e_intervaltree_dump</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EIntervalTree.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-EIntervalTree.html#E-INTERVALTREE-DEBUG:CAPS" title="E_INTERVALTREE_DEBUG">E_INTERVALTREE_DEBUG</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree">EIntervalTree</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EIntervalTree.html#EIntervalTreeClass" title="struct EIntervalTreeClass">EIntervalTreeClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EIntervalTree.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedata-cal/libedata-cal.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="eds-EIntervalTree.description"></a><h2>Description</h2>
+<p>Implementation of the interval node as described in Introduction to
+Algorithms book by Cormen et al, chapter 14.3.</p>
+<p>Basically, the interval tree is the red-black tree, the node key is
+the start of the interval.</p>
+</div>
+<div class="refsect1">
+<a name="eds-EIntervalTree.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-intervaltree-new"></a><h3>e_intervaltree_new ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="returnvalue">EIntervalTree</span></a> *
+e_intervaltree_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="type">EIntervalTree</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.4.5.8.7.2.5"></a><h4>Returns</h4>
+<p> The newly-created <a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="type">EIntervalTree</span></a>.</p>
+<p></p>
+</div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-intervaltree-insert"></a><h3>e_intervaltree_insert ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_intervaltree_insert (<em class="parameter"><code><a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="type">EIntervalTree</span></a> *tree</code></em>,
+                       <em class="parameter"><code><span class="type">time_t</span> start</code></em>,
+                       <em class="parameter"><code><span class="type">time_t</span> end</code></em>,
+                       <em class="parameter"><code><a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> *comp</code></em>);</pre>
+<div class="refsect3">
+<a name="id-1.4.5.8.7.3.4"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>tree</p></td>
+<td class="parameter_description"><p>interval tree</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start</p></td>
+<td class="parameter_description"><p>start of the interval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end</p></td>
+<td class="parameter_description"><p>end of the interval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>comp</p></td>
+<td class="parameter_description"><p>Component</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-intervaltree-remove"></a><h3>e_intervaltree_remove ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_intervaltree_remove (<em class="parameter"><code><a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="type">EIntervalTree</span></a> *tree</code></em>,
+                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>);</pre>
+<div class="refsect3">
+<a name="id-1.4.5.8.7.4.4"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>tree</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="type">EIntervalTree</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>the uid of the component to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rid</p></td>
+<td class="parameter_description"><p>the recurrance id of the component to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-intervaltree-search"></a><h3>e_intervaltree_search ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_intervaltree_search (<em class="parameter"><code><a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="type">EIntervalTree</span></a> *tree</code></em>,
+                       <em class="parameter"><code><span class="type">time_t</span> start</code></em>,
+                       <em class="parameter"><code><span class="type">time_t</span> end</code></em>);</pre>
+<div class="refsect3">
+<a name="id-1.4.5.8.7.5.4"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>tree</p></td>
+<td class="parameter_description"><p>interval tree</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start</p></td>
+<td class="parameter_description"><p>start of the interval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end</p></td>
+<td class="parameter_description"><p>end of the interval</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.8.7.5.5"></a><h4>Returns</h4>
+<p> list of nodes that overlaps given interval or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<p></p>
+</div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-intervaltree-destroy"></a><h3>e_intervaltree_destroy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_intervaltree_destroy (<em class="parameter"><code><a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="type">EIntervalTree</span></a> *tree</code></em>);</pre>
+<div class="refsect3">
+<a name="id-1.4.5.8.7.6.4"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>tree</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="type">EIntervalTree</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-intervaltree-dump"></a><h3>e_intervaltree_dump ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_intervaltree_dump (<em class="parameter"><code><a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="type">EIntervalTree</span></a> *tree</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-EIntervalTree.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="E-INTERVALTREE-DEBUG:CAPS"></a><h3>E_INTERVALTREE_DEBUG</h3>
+<pre class="programlisting">#define E_INTERVALTREE_DEBUG 1
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EIntervalTree"></a><h3>struct EIntervalTree</h3>
+<pre class="programlisting">struct EIntervalTree {
+};
+</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EIntervalTreeClass"></a><h3>struct EIntervalTreeClass</h3>
+<pre class="programlisting">struct EIntervalTreeClass {
+};
+</pre>
+<p>Class structure for the <a class="link" href="eds-EIntervalTree.html#EIntervalTree" title="struct EIntervalTree"><span class="type">EIntervalTree</span></a> class.</p>
+<p class="since">Since 2.32</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

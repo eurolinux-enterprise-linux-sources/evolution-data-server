@@ -1,0 +1,11 @@
+diff -up evolution-data-server-3.12.11/camel/camel-network-service.c.camel-connect-timeout evolution-data-server-3.12.11/camel/camel-network-service.c
+--- evolution-data-server-3.12.11/camel/camel-network-service.c.camel-connect-timeout	2016-06-17 09:27:10.095179041 +0200
++++ evolution-data-server-3.12.11/camel/camel-network-service.c	2016-06-17 09:27:10.186179037 +0200
+@@ -634,6 +634,7 @@ network_service_connect_sync (CamelNetwo
+ 	g_return_val_if_fail (connectable != NULL, NULL);
+ 
+ 	client = g_socket_client_new ();
++	g_socket_client_set_timeout (client, 90);
+ 
+ 	g_signal_connect (
+ 		client, "event",

@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Reference Manual: EProxy</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch14.html" title="Common Deprecated Classes">
+<link rel="prev" href="eds-EListIterator.html" title="EListIterator">
+<link rel="next" href="eds-EUri.html" title="EUri">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-EProxy.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch14.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-EListIterator.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-EUri.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-EProxy"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-EProxy.top_of_page"></a>EProxy</span></h2>
+<p>EProxy</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-EProxy.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EProxy.html#EProxy" title="struct EProxy"><span class="returnvalue">EProxy</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EProxy.html#e-proxy-new" title="e_proxy_new ()">e_proxy_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EProxy.html#e-proxy-setup-proxy" title="e_proxy_setup_proxy ()">e_proxy_setup_proxy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="returnvalue">SoupURI</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EProxy.html#e-proxy-peek-uri-for" title="e_proxy_peek_uri_for ()">e_proxy_peek_uri_for</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EProxy.html#e-proxy-require-proxy-for-uri" title="e_proxy_require_proxy_for_uri ()">e_proxy_require_proxy_for_uri</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EProxy.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EProxy.html#EProxy" title="struct EProxy">EProxy</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EProxy.html#EProxyClass" title="struct EProxyClass">EProxyClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EProxy.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="eds-EProxy.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-proxy-new"></a><h3>e_proxy_new ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EProxy.html#EProxy" title="struct EProxy"><span class="returnvalue">EProxy</span></a> *
+e_proxy_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<div class="warning"><p><code class="literal">e_proxy_new</code> is deprecated and should not be used in newly-written code.</p></div>
+<p class="since">Since 2.24</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-proxy-setup-proxy"></a><h3>e_proxy_setup_proxy ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_proxy_setup_proxy (<em class="parameter"><code><a class="link" href="eds-EProxy.html#EProxy" title="struct EProxy"><span class="type">EProxy</span></a> *proxy</code></em>);</pre>
+<div class="warning"><p><code class="literal">e_proxy_setup_proxy</code> is deprecated and should not be used in newly-written code.</p></div>
+<p class="since">Since 2.24</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-proxy-peek-uri-for"></a><h3>e_proxy_peek_uri_for ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libsoup-2.4/SoupURI.html"><span class="returnvalue">SoupURI</span></a> *
+e_proxy_peek_uri_for (<em class="parameter"><code><a class="link" href="eds-EProxy.html#EProxy" title="struct EProxy"><span class="type">EProxy</span></a> *proxy</code></em>,
+                      <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>);</pre>
+<div class="warning"><p><code class="literal">e_proxy_peek_uri_for</code> is deprecated and should not be used in newly-written code.</p></div>
+<p class="since">Since 2.26</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-proxy-require-proxy-for-uri"></a><h3>e_proxy_require_proxy_for_uri ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_proxy_require_proxy_for_uri (<em class="parameter"><code><a class="link" href="eds-EProxy.html#EProxy" title="struct EProxy"><span class="type">EProxy</span></a> *proxy</code></em>,
+                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uri</code></em>);</pre>
+<div class="warning"><p><code class="literal">e_proxy_require_proxy_for_uri</code> is deprecated and should not be used in newly-written code.</p></div>
+<p class="since">Since 2.24</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-EProxy.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EProxy"></a><h3>struct EProxy</h3>
+<pre class="programlisting">struct EProxy {
+	GObject parent;
+	EProxyPrivate *priv;
+};
+</pre>
+<div class="warning"><p><code class="literal">EProxy</code> is deprecated and should not be used in newly-written code.</p></div>
+<p>Contains only private data that should be read and manipulated using the
+function below.</p>
+<p class="since">Since 2.24</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EProxyClass"></a><h3>struct EProxyClass</h3>
+<pre class="programlisting">struct EProxyClass {
+	GObjectClass parent_class;
+
+	/* Signals  */
+	void (*changed) (EProxy *proxy);
+};
+</pre>
+<div class="warning"><p><code class="literal">EProxyClass</code> is deprecated and should not be used in newly-written code.</p></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

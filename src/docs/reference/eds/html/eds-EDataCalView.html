@@ -1,0 +1,981 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Reference Manual: EDataCalView</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch09.html" title="Calendar Backend Classes">
+<link rel="prev" href="eds-EDataCalFactory.html" title="EDataCalFactory">
+<link rel="next" href="misc.html" title="Part IV. Miscellaneous Utilities">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-EDataCalView.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch09.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-EDataCalFactory.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="misc.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-EDataCalView"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-EDataCalView.top_of_page"></a>EDataCalView</span></h2>
+<p>EDataCalView — A server side object for issuing view notifications</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-EDataCalView.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="returnvalue">EDataCalView</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-new" title="e_data_cal_view_new ()">e_data_cal_view_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">struct <a class="link" href="eds-ECalBackend.html#ECalBackend" title="struct ECalBackend"><span class="returnvalue">_ECalBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-get-backend" title="e_data_cal_view_get_backend ()">e_data_cal_view_get_backend</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="returnvalue">GDBusConnection</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-get-connection" title="e_data_cal_view_get_connection ()">e_data_cal_view_get_connection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-get-object-path" title="e_data_cal_view_get_object_path ()">e_data_cal_view_get_object_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">struct <a class="link" href="eds-ECalBackendSExp.html#ECalBackendSExp" title="struct ECalBackendSExp"><span class="returnvalue">_ECalBackendSExp</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-get-sexp" title="e_data_cal_view_get_sexp ()">e_data_cal_view_get_sexp</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-object-matches" title="e_data_cal_view_object_matches ()">e_data_cal_view_object_matches</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-component-matches" title="e_data_cal_view_component_matches ()">e_data_cal_view_component_matches</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-is-started" title="e_data_cal_view_is_started ()">e_data_cal_view_is_started</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-is-completed" title="e_data_cal_view_is_completed ()">e_data_cal_view_is_completed</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-is-stopped" title="e_data_cal_view_is_stopped ()">e_data_cal_view_is_stopped</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-get-fields-of-interest" title="e_data_cal_view_get_fields_of_interest ()">e_data_cal_view_get_fields_of_interest</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-ECalClientView.html#ECalClientViewFlags" title="enum ECalClientViewFlags"><span class="returnvalue">ECalClientViewFlags</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-get-flags" title="e_data_cal_view_get_flags ()">e_data_cal_view_get_flags</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-get-component-string" title="e_data_cal_view_get_component_string ()">e_data_cal_view_get_component_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-notify-components-added" title="e_data_cal_view_notify_components_added ()">e_data_cal_view_notify_components_added</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-notify-components-added-1" title="e_data_cal_view_notify_components_added_1 ()">e_data_cal_view_notify_components_added_1</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-notify-components-modified" title="e_data_cal_view_notify_components_modified ()">e_data_cal_view_notify_components_modified</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-notify-components-modified-1" title="e_data_cal_view_notify_components_modified_1 ()">e_data_cal_view_notify_components_modified_1</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-notify-objects-removed" title="e_data_cal_view_notify_objects_removed ()">e_data_cal_view_notify_objects_removed</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-notify-objects-removed-1" title="e_data_cal_view_notify_objects_removed_1 ()">e_data_cal_view_notify_objects_removed_1</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-notify-progress" title="e_data_cal_view_notify_progress ()">e_data_cal_view_notify_progress</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataCalView.html#e-data-cal-view-notify-complete" title="e_data_cal_view_notify_complete ()">e_data_cal_view_notify_complete</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EDataCalView.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView">EDataCalView</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EDataCalView.html#EDataCalViewClass" title="struct EDataCalViewClass">EDataCalViewClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EDataCalView.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedata-cal/libedata-cal.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="eds-EDataCalView.description"></a><h2>Description</h2>
+<p>This class communicates with <a href="eds-ECalClientView.html#ECalClientView"><span class="type">ECalClientViews</span></a> over the bus.</p>
+<p>Calendar backends can automatically own a number of views requested
+by the client, this API can be used by the backend to issue notifications
+which will be delivered to the <a class="link" href="eds-ECalClientView.html#ECalClientView" title="struct ECalClientView"><span class="type">ECalClientView</span></a></p>
+</div>
+<div class="refsect1">
+<a name="eds-EDataCalView.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-data-cal-view-new"></a><h3>e_data_cal_view_new ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="returnvalue">EDataCalView</span></a> *
+e_data_cal_view_new (<em class="parameter"><code><span class="type">struct _ECalBackend</span> *backend</code></em>,
+                     <em class="parameter"><code><span class="type">struct _ECalBackendSExp</span> *sexp</code></em>,
+                     <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Creates a new <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> and exports its D-Bus interface on
+<em class="parameter"><code>connection</code></em>
+ at <em class="parameter"><code>object_path</code></em>
+.  If an error occurs while exporting,
+the function sets <em class="parameter"><code>error</code></em>
+ and returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-ECalBackend.html#ECalBackend" title="struct ECalBackend"><span class="type">ECalBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>sexp</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-ECalBackendSExp.html#ECalBackendSExp" title="struct ECalBackendSExp"><span class="type">ECalBackendSExp</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>connection</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>an object path for the view</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.2.6"></a><h4>Returns</h4>
+<p> an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-get-backend"></a><h3>e_data_cal_view_get_backend ()</h3>
+<pre class="programlisting">struct <a class="link" href="eds-ECalBackend.html#ECalBackend" title="struct ECalBackend"><span class="returnvalue">_ECalBackend</span></a> *
+e_data_cal_view_get_backend (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>);</pre>
+<p>Gets the backend that <em class="parameter"><code>view</code></em>
+ is querying.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.3.6"></a><h4>Returns</h4>
+<p> The associated <a class="link" href="eds-ECalBackend.html#ECalBackend" title="struct ECalBackend"><span class="type">ECalBackend</span></a>.</p>
+<p></p>
+</div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-get-connection"></a><h3>e_data_cal_view_get_connection ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="returnvalue">GDBusConnection</span></a> *
+e_data_cal_view_get_connection (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>);</pre>
+<p>Returns the <a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> on which the CalendarView D-Bus
+interface is exported.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.4.6"></a><h4>Returns</h4>
+<p> the <a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a></p>
+<p></p>
+</div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-get-object-path"></a><h3>e_data_cal_view_get_object_path ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_data_cal_view_get_object_path (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>);</pre>
+<p>Return the object path at which the CalendarView D-Bus inteface is
+exported.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.5.6"></a><h4>Returns</h4>
+<p> the object path</p>
+<p></p>
+</div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-get-sexp"></a><h3>e_data_cal_view_get_sexp ()</h3>
+<pre class="programlisting">struct <a class="link" href="eds-ECalBackendSExp.html#ECalBackendSExp" title="struct ECalBackendSExp"><span class="returnvalue">_ECalBackendSExp</span></a> *
+e_data_cal_view_get_sexp (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>);</pre>
+<p>Get the <a class="link" href="eds-ECalBackendSExp.html#ECalBackendSExp" title="struct ECalBackendSExp"><span class="type">ECalBackendSExp</span></a> object used for the given view.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.6.6"></a><h4>Returns</h4>
+<p> The expression object used to search.</p>
+<p></p>
+</div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-object-matches"></a><h3>e_data_cal_view_object_matches ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_data_cal_view_object_matches (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object</code></em>);</pre>
+<p>Compares the given <em class="parameter"><code>object</code></em>
+ to the regular expression used for the
+given view.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object</p></td>
+<td class="parameter_description"><p>Object to match.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.7.6"></a><h4>Returns</h4>
+<p> TRUE if the object matches the expression, FALSE if not.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-component-matches"></a><h3>e_data_cal_view_component_matches ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_data_cal_view_component_matches (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                   <em class="parameter"><code><a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> *component</code></em>);</pre>
+<p>Compares the given <em class="parameter"><code>component</code></em>
+ to the regular expression used for the
+given view.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>component</p></td>
+<td class="parameter_description"><p>the <a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> object to match.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.8.6"></a><h4>Returns</h4>
+<p> TRUE if the object matches the expression, FALSE if not.</p>
+<p></p>
+</div>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-is-started"></a><h3>e_data_cal_view_is_started ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_data_cal_view_is_started (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>);</pre>
+<p>Checks whether the given view has already been started.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.9.6"></a><h4>Returns</h4>
+<p> TRUE if the view has already been started, FALSE otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-is-completed"></a><h3>e_data_cal_view_is_completed ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_data_cal_view_is_completed (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>);</pre>
+<p>Checks whether the given view is already completed. Being completed means the initial
+matching of objects have been finished, not that no more notifications about
+changes will be sent. In fact, even after completed, notifications will still be sent
+if there are changes in the objects matching the view search expression.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.10.6"></a><h4>Returns</h4>
+<p> TRUE if the view is completed, FALSE if still in progress.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-is-stopped"></a><h3>e_data_cal_view_is_stopped ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_data_cal_view_is_stopped (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>);</pre>
+<p>Checks whether the given view has been stopped.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.11.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.11.6"></a><h4>Returns</h4>
+<p> TRUE if the view has been stopped, FALSE otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-get-fields-of-interest"></a><h3>e_data_cal_view_get_fields_of_interest ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Hash-Tables.html#GHashTable"><span class="returnvalue">GHashTable</span></a> *
+e_data_cal_view_get_fields_of_interest
+                               (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>);</pre>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.12.4"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.12.5"></a><h4>Returns</h4>
+<p> Hash table of field names which the listener is interested in.
+Backends can return fully populated objects, but the listener advertised
+that it will use only these. Returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> for all available fields.</p>
+<p>Note: The data pointer in the hash table has no special meaning, it's
+only GINT_TO_POINTER(1) for easier checking. Also, field names are
+compared case insensitively.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-get-flags"></a><h3>e_data_cal_view_get_flags ()</h3>
+<pre class="programlisting"><a class="link" href="eds-ECalClientView.html#ECalClientViewFlags" title="enum ECalClientViewFlags"><span class="returnvalue">ECalClientViewFlags</span></a>
+e_data_cal_view_get_flags (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>);</pre>
+<p>Gets the <a class="link" href="eds-ECalClientView.html#ECalClientViewFlags" title="enum ECalClientViewFlags"><span class="type">ECalClientViewFlags</span></a> that control the behaviour of <em class="parameter"><code>view</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.13.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.13.6"></a><h4>Returns</h4>
+<p> the flags for <em class="parameter"><code>view</code></em>
+.</p>
+<p></p>
+</div>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-get-component-string"></a><h3>e_data_cal_view_get_component_string ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_data_cal_view_get_component_string (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                      <em class="parameter"><code><a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> *component</code></em>);</pre>
+<p>This function is similar to <a class="link" href="eds-ECalComponent.html#e-cal-component-get-as-string" title="e_cal_component_get_as_string ()"><code class="function">e_cal_component_get_as_string()</code></a> except
+that it takes into account the fields-of-interest that <em class="parameter"><code>view</code></em>
+ is 
+configured with and filters out any unneeded fields.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.14.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>component</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> to get the string for.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.14.6"></a><h4>Returns</h4>
+<p> A newly allocated string representation of
+<em class="parameter"><code>component</code></em>
+suitable for <em class="parameter"><code>view</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-notify-components-added"></a><h3>e_data_cal_view_notify_components_added ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_cal_view_notify_components_added
+                               (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *ecalcomponents</code></em>);</pre>
+<p>Notifies all view listeners of the addition of a list of components.</p>
+<p>Like <code class="function">e_data_cal_view_notify_objects_added()</code> except takes a list
+of <span class="type">ECalComponent-s</span> instead of ical string representations and uses the 
+<a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a>'s fields-of-interest to filter out unwanted information 
+from ical strings sent over the bus.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.15.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ecalcomponents</p></td>
+<td class="parameter_description"><p>List of <span class="type">ECalComponent-s</span> that have been added.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-notify-components-added-1"></a><h3>e_data_cal_view_notify_components_added_1 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_cal_view_notify_components_added_1
+                               (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                <em class="parameter"><code><a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> *component</code></em>);</pre>
+<p>Notifies all the view listeners of the addition of a single object.</p>
+<p>Like <code class="function">e_data_cal_view_notify_objects_added_1()</code> except takes an <a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a>
+instead of an ical string representation and uses the <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a>'s
+fields-of-interest to filter out unwanted information from ical strings
+sent over the bus.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.16.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>component</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> that has been added.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-notify-components-modified"></a><h3>e_data_cal_view_notify_components_modified ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_cal_view_notify_components_modified
+                               (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *ecalcomponents</code></em>);</pre>
+<p>Notifies all view listeners of the modification of a list of components.</p>
+<p>Like <code class="function">e_data_cal_view_notify_objects_modified()</code> except takes a list of
+<a href="eds-ECalComponent.html#ECalComponent"><span class="type">ECalComponents</span></a> instead of a ical string representations and uses the
+<a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a>'s fields-of-interest to filter out unwanted information
+from ical strings sent over the bus.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.17.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ecalcomponents</p></td>
+<td class="parameter_description"><p>List of modified <span class="type">ECalComponent-s</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-notify-components-modified-1"></a><h3>e_data_cal_view_notify_components_modified_1 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_cal_view_notify_components_modified_1
+                               (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                <em class="parameter"><code><a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> *component</code></em>);</pre>
+<p>Notifies all view listeners of the modification of <em class="parameter"><code>component</code></em>
+.</p>
+<p>Like <code class="function">e_data_cal_view_notify_objects_modified_1()</code> except takes an
+<a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> instead of an ical string representation and uses the
+<a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a>'s fields-of-interest to filter out unwanted information
+from ical strings sent over the bus.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.18.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>component</p></td>
+<td class="parameter_description"><p>The modified <a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-notify-objects-removed"></a><h3>e_data_cal_view_notify_objects_removed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_cal_view_notify_objects_removed
+                               (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *ids</code></em>);</pre>
+<p>Notifies all view listener of the removal of a list of objects.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.19.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ids</p></td>
+<td class="parameter_description"><p>List of IDs for the objects that have been removed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-notify-objects-removed-1"></a><h3>e_data_cal_view_notify_objects_removed_1 ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_cal_view_notify_objects_removed_1
+                               (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="eds-ECalComponent.html#ECalComponentId" title="ECalComponentId"><span class="type">ECalComponentId</span></a> *id</code></em>);</pre>
+<p>Notifies all view listener of the removal of a single object.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.20.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>id</p></td>
+<td class="parameter_description"><p>ID of the removed object.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-notify-progress"></a><h3>e_data_cal_view_notify_progress ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_cal_view_notify_progress (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> percent</code></em>,
+                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);</pre>
+<p>Notifies all view listeners of progress messages.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.21.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>percent</p></td>
+<td class="parameter_description"><p>Percentage completed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>message</p></td>
+<td class="parameter_description"><p>Progress message to send to listeners.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-cal-view-notify-complete"></a><h3>e_data_cal_view_notify_complete ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_cal_view_notify_complete (<em class="parameter"><code><a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a> *view</code></em>,
+                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
+<p>Notifies all view listeners of the completion of the view, including a
+status code.</p>
+<div class="refsect3">
+<a name="id-1.4.5.11.7.22.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>view</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataCalView.html#EDataCalView" title="struct EDataCalView"><span class="type">EDataCalView</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>View completion error, if any.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-EDataCalView.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EDataCalView"></a><h3>struct EDataCalView</h3>
+<pre class="programlisting">struct EDataCalView {
+	GObject parent;
+	EDataCalViewPrivate *priv;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDataCalViewClass"></a><h3>struct EDataCalViewClass</h3>
+<pre class="programlisting">struct EDataCalViewClass {
+	GObjectClass parent_class;
+};
+</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

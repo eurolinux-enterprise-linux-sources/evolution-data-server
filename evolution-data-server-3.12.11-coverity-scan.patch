@@ -1,0 +1,277 @@
+diff -up evolution-data-server-3.12.11/addressbook/backends/google/e-book-backend-google.c.coverity-scan evolution-data-server-3.12.11/addressbook/backends/google/e-book-backend-google.c
+--- evolution-data-server-3.12.11/addressbook/backends/google/e-book-backend-google.c.coverity-scan	2015-05-28 19:51:23.209249835 +0200
++++ evolution-data-server-3.12.11/addressbook/backends/google/e-book-backend-google.c	2015-05-28 19:51:29.810208047 +0200
+@@ -545,21 +545,15 @@ process_contact_finish (EBookBackend *ba
+                         GDataEntry *entry)
+ {
+ 	EContact *new_contact;
+-	gboolean was_cached;
+ 
+ 	g_debug (G_STRFUNC);
+ 
+-	was_cached = cache_has_contact (backend, gdata_entry_get_id (entry));
+ 	new_contact = cache_add_contact (backend, entry);
+ 
+ 	if (!new_contact)
+ 		return;
+ 
+-	if (was_cached == TRUE) {
+-		e_book_backend_notify_update (backend, new_contact);
+-	} else {
+-		e_book_backend_notify_update (backend, new_contact);
+-	}
++	e_book_backend_notify_update (backend, new_contact);
+ 
+ 	g_object_unref (new_contact);
+ }
+diff -up evolution-data-server-3.12.11/addressbook/libebook-contacts/e-vcard.c.coverity-scan evolution-data-server-3.12.11/addressbook/libebook-contacts/e-vcard.c
+--- evolution-data-server-3.12.11/addressbook/libebook-contacts/e-vcard.c.coverity-scan	2014-04-23 14:37:03.000000000 +0200
++++ evolution-data-server-3.12.11/addressbook/libebook-contacts/e-vcard.c	2015-05-28 19:50:57.068415329 +0200
+@@ -1337,7 +1337,7 @@ e_vcard_to_string_vcard_30 (EVCard *evc)
+ 					gchar *value = v->data;
+ 					gchar *pval = value;
+ 					gboolean quotes = FALSE;
+-					while (*pval) {
++					while (pval && *pval) {
+ 						if (!g_unichar_isalnum (g_utf8_get_char (pval))) {
+ 							quotes = TRUE;
+ 							break;
+diff -up evolution-data-server-3.12.11/addressbook/libedata-book/e-book-sqlite.c.coverity-scan evolution-data-server-3.12.11/addressbook/libedata-book/e-book-sqlite.c
+--- evolution-data-server-3.12.11/addressbook/libedata-book/e-book-sqlite.c.coverity-scan	2015-05-28 19:50:57.061415373 +0200
++++ evolution-data-server-3.12.11/addressbook/libedata-book/e-book-sqlite.c	2015-05-28 19:50:57.069415323 +0200
+@@ -2749,7 +2749,7 @@ ebsql_init_legacy_keys (EBookSqlite *ebs
+ 		}
+ 
+ 		/* Repeat for 'sync_data' */
+-		success = ebsql_exec_printf (
++		success = success && ebsql_exec_printf (
+ 			ebsql, "SELECT sync_data FROM folders WHERE folder_id = %Q",
+ 			get_string_cb, &sync_data, NULL, error, ebsql->priv->folderid);
+ 
+@@ -5265,6 +5265,7 @@ ebsql_generate_constraints (EBookSqlite
+ 		g_warn_if_fail (test->field != NULL);
+ 
+ 		/* Generate the field test */
++		/* coverity[var_deref_op] */
+ 		generate_test_func (ebsql, string, test);
+ 	}
+ 
+diff -up evolution-data-server-3.12.11/addressbook/libedata-book/e-data-book-cursor.c.coverity-scan evolution-data-server-3.12.11/addressbook/libedata-book/e-data-book-cursor.c
+--- evolution-data-server-3.12.11/addressbook/libedata-book/e-data-book-cursor.c.coverity-scan	2014-03-24 10:07:52.000000000 +0100
++++ evolution-data-server-3.12.11/addressbook/libedata-book/e-data-book-cursor.c	2015-05-28 19:50:57.069415323 +0200
+@@ -499,9 +499,13 @@ calculate_step_position (EDataBookCursor
+                          gint results)
+ {
+ 	EDataBookCursorPrivate *priv = cursor->priv;
+-	gint new_position = priv->position;
++	gint new_position;
+ 	gint offset = results;
+ 
++	g_return_if_fail (origin == E_BOOK_CURSOR_ORIGIN_CURRENT ||
++			  origin == E_BOOK_CURSOR_ORIGIN_BEGIN ||
++			  origin == E_BOOK_CURSOR_ORIGIN_END);
++
+ 	/* If we didnt get as many contacts as asked for, it indicates that
+ 	 * we've reached the end of the list (or beginning)... in this case
+ 	 * we add 1 to the offset
+diff -up evolution-data-server-3.12.11/calendar/libedata-cal/e-cal-backend-intervaltree.c.coverity-scan evolution-data-server-3.12.11/calendar/libedata-cal/e-cal-backend-intervaltree.c
+--- evolution-data-server-3.12.11/calendar/libedata-cal/e-cal-backend-intervaltree.c.coverity-scan	2014-03-24 10:07:52.000000000 +0100
++++ evolution-data-server-3.12.11/calendar/libedata-cal/e-cal-backend-intervaltree.c	2015-05-28 19:50:57.069415323 +0200
+@@ -229,7 +229,7 @@ static void
+ fixup_min_max_fields (EIntervalTree *tree,
+                       EIntervalNode *node)
+ {
+-	while (node != tree->priv->root) {
++	while (node && node != tree->priv->root) {
+ 		node->max = MAX (node->end, MAX (node->left->max, node->right->max));
+ 		node->min = MIN (node->start, node->left->min);
+ 
+@@ -320,6 +320,9 @@ intervaltree_fixup_deletion (EIntervalTr
+ 	EIntervalNode *w;
+ 
+ 	while ((!x->red) && (root != x)) {
++		if (!x->parent)
++			break;
++
+ 		if (x == x->parent->left) {
+ 			w = x->parent->right;
+ 
+diff -up evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-server.c.coverity-scan evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-server.c
+--- evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-server.c.coverity-scan	2015-05-28 19:50:57.065415348 +0200
++++ evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-server.c	2015-05-28 19:50:57.070415316 +0200
+@@ -1244,6 +1244,7 @@ imapx_command_start (CamelIMAPXServer *i
+ 	GCancellable *cancellable = NULL;
+ 	gboolean cp_continuation;
+ 	gboolean cp_literal_plus;
++	gboolean success;
+ 	GList *head;
+ 	gchar *string;
+ 	GError *local_error = NULL;
+@@ -1309,13 +1310,13 @@ imapx_command_start (CamelIMAPXServer *i
+ 	string = g_strdup_printf (
+ 		"%c%05u %s\r\n", is->tagprefix, ic->tag, cp->data);
+ 	g_mutex_lock (&is->priv->stream_lock);
+-	g_output_stream_write_all (
++	success = g_output_stream_write_all (
+ 		output_stream, string, strlen (string),
+ 		NULL, cancellable, &local_error);
+ 	g_mutex_unlock (&is->priv->stream_lock);
+ 	g_free (string);
+ 
+-	if (local_error != NULL)
++	if (local_error != NULL || !success)
+ 		goto fail;
+ 
+ 	while (is->literal == ic && cp_literal_plus) {
+@@ -1345,7 +1346,7 @@ fail:
+ 	if (ic->complete != NULL)
+ 		ic->complete (is, ic);
+ 
+-	g_error_free (local_error);
++	g_clear_error (&local_error);
+ 
+ exit:
+ 	g_clear_object (&input_stream);
+@@ -4307,7 +4308,9 @@ imapx_server_set_streams (CamelIMAPXServ
+ static void
+ imapx_server_child_process_setup (gpointer user_data)
+ {
++#ifdef TIOCNOTTY
+ 	gint fd;
++#endif /* TIOCNOTTY */
+ 
+ 	setsid ();
+ 
+@@ -4586,6 +4589,7 @@ connected:
+ 
+ 		input_stream = camel_imapx_server_ref_input_stream (is);
+ 
++		token = NULL;
+ 		tok = camel_imapx_input_stream_token (
+ 			CAMEL_IMAPX_INPUT_STREAM (input_stream),
+ 			&token, &len, cancellable, error);
+diff -up evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-store-summary.c.coverity-scan evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-store-summary.c
+--- evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-store-summary.c.coverity-scan	2014-05-22 08:45:46.000000000 +0200
++++ evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-store-summary.c	2015-05-28 19:50:57.071415310 +0200
+@@ -187,6 +187,7 @@ imapx_store_summary_store_info_load (Cam
+ 
+ 	if (camel_file_util_decode_string (in, &mailbox_name) == -1) {
+ 		camel_store_summary_info_unref (summary, si);
++		g_free (separator);
+ 		return NULL;
+ 	}
+ 
+diff -up evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-utils.c.coverity-scan evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-utils.c
+--- evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-utils.c.coverity-scan	2014-11-21 12:38:16.000000000 +0100
++++ evolution-data-server-3.12.11/camel/providers/imapx/camel-imapx-utils.c	2015-05-28 19:50:57.071415310 +0200
+@@ -841,8 +841,17 @@ imapx_parse_ext_optional (CamelIMAPXInpu
+ 			dinfo = g_malloc0 (sizeof (*dinfo));
+ 			dinfo->refcount = 1;
+ 			/* should be string */
+-			camel_imapx_input_stream_astring (
+-				stream, &token, cancellable, NULL);
++			if (!camel_imapx_input_stream_astring (stream, &token, cancellable, &local_error)) {
++				camel_content_disposition_unref (dinfo);
++				if (!local_error)
++					g_set_error (
++						&local_error,
++						CAMEL_IMAPX_ERROR, 1,
++						"expecting string");
++				g_propagate_error (error, local_error);
++
++				return NULL;
++			}
+ 
+ 			dinfo->disposition = g_strdup ((gchar *) token);
+ 			imapx_parse_param_list (
+@@ -1039,14 +1048,20 @@ imapx_parse_address_list (CamelIMAPXInpu
+ 			addr = camel_header_address_new ();
+ 			addr->type = CAMEL_HEADER_ADDRESS_NAME;
+ 			camel_imapx_input_stream_nstring (stream, &token, cancellable, &local_error);
+-			if (local_error)
++			if (local_error) {
++				camel_header_address_unref (addr);
+ 				goto error;
++			}
+ 
+ 			addr->name = g_strdup ((gchar *) token);
+ 			/* we ignore the route, nobody uses it in the real world */
+ 			camel_imapx_input_stream_nstring (stream, &token, cancellable, &local_error);
+-			if (local_error)
++			if (local_error) {
++				camel_header_address_unref (addr);
+ 				goto error;
++			}
++
++			mbox = NULL;
+ 
+ 			/* [RFC-822] group syntax is indicated by a special
+ 			 * form of address structure in which the host name
+@@ -1057,18 +1072,23 @@ imapx_parse_address_list (CamelIMAPXInpu
+ 			 * mailbox name field holds the group name phrase. */
+ 
+ 			camel_imapx_input_stream_nstring (stream, (guchar **) &mbox, cancellable, &local_error);
+-			if (local_error)
++			if (local_error) {
++				camel_header_address_unref (addr);
+ 				goto error;
++			}
+ 
+ 			mbox = g_strdup (mbox);
+ 
+ 			camel_imapx_input_stream_nstring (stream, &host, cancellable, &local_error);
+-			if (local_error)
++			if (local_error) {
++				camel_header_address_unref (addr);
+ 				goto error;
++			}
+ 
+ 			if (host == NULL) {
+ 				if (mbox == NULL) {
+ 					group = NULL;
++					camel_header_address_unref (addr);
+ 				} else {
+ 					g_free (addr->name);
+ 					addr->name = mbox;
+@@ -1319,10 +1339,7 @@ imapx_parse_body (CamelIMAPXInputStream
+ 				stream, tok, token, len);
+ 		} while (tok == '(');
+ 
+-		camel_imapx_input_stream_astring (
+-			stream, &token, cancellable, &local_error);
+-
+-		if (local_error)
++		if (!camel_imapx_input_stream_astring (stream, &token, cancellable, &local_error) || local_error)
+ 			goto error;
+ 
+ 		cinfo->type = camel_content_type_new (
+diff -up evolution-data-server-3.12.11/camel/providers/pop3/camel-pop3-store.c.coverity-scan evolution-data-server-3.12.11/camel/providers/pop3/camel-pop3-store.c
+--- evolution-data-server-3.12.11/camel/providers/pop3/camel-pop3-store.c.coverity-scan	2014-11-21 12:38:16.000000000 +0100
++++ evolution-data-server-3.12.11/camel/providers/pop3/camel-pop3-store.c	2015-05-28 19:50:57.071415310 +0200
+@@ -343,10 +343,10 @@ try_sasl (CamelPOP3Store *store,
+ 		if (strncmp ((gchar *) line, "+ ", 2) != 0
+ 		    || camel_sasl_get_authenticated (sasl)
+ 		    || (resp = (guchar *) camel_sasl_challenge_base64_sync (sasl, (const gchar *) line + 2, cancellable, &local_error)) == NULL) {
+-			camel_stream_write_string (
+-				CAMEL_STREAM (pop3_stream), "*\r\n", cancellable, NULL);
+-			/* coverity[unchecked_value] */
+-			camel_pop3_stream_line (pop3_stream, &line, &len, cancellable, NULL);
++			if (camel_stream_write_string (CAMEL_STREAM (pop3_stream), "*\r\n", cancellable, NULL)) {
++				/* coverity[unchecked_value] */
++				camel_pop3_stream_line (pop3_stream, &line, &len, cancellable, NULL);
++			}
+ 
+ 			if (local_error) {
+ 				g_propagate_error (error, local_error);
+diff -up evolution-data-server-3.12.11/tests/test-server-utils/e-test-server-utils.c.coverity-scan evolution-data-server-3.12.11/tests/test-server-utils/e-test-server-utils.c
+--- evolution-data-server-3.12.11/tests/test-server-utils/e-test-server-utils.c.coverity-scan	2014-06-01 21:10:19.000000000 +0200
++++ evolution-data-server-3.12.11/tests/test-server-utils/e-test-server-utils.c	2015-05-28 19:50:57.071415310 +0200
+@@ -375,7 +375,7 @@ e_test_server_utils_source_added (ESourc
+ 
+ 		if (!pair->closure->use_async_connect &&
+ 		    !pair->fixture->service.book_client)
+-			g_error ("Unable to create the test book: %s", error->message);
++			g_error ("Unable to create the test book: %s", error ? error->message : "Unknown error");
+ 
+ 		break;
+ 

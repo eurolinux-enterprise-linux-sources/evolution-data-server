@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Manual: Private: org.gnome.evolution.dataserver.AddressBook</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Private">
+<link rel="up" href="ch02.html" title="D-Bus Interfaces">
+<link rel="prev" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html" title="org.gnome.evolution.dataserver.Authenticator">
+<link rel="next" href="gdbus-org.gnome.evolution.dataserver.AddressBookFactory.html" title="org.gnome.evolution.dataserver.AddressBookFactory">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gdbus-org.gnome.evolution.dataserver.AddressBook.description" class="shortcut">Description</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#gdbus-org.gnome.evolution.dataserver.AddressBook.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#gdbus-org.gnome.evolution.dataserver.AddressBook.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gdbus-org.gnome.evolution.dataserver.Authenticator.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdbus-org.gnome.evolution.dataserver.AddressBookFactory.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gdbus-org.gnome.evolution.dataserver.AddressBook"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdbus-interface-org-gnome-evolution-dataserver-AddressBook.top_of_page"></a>org.gnome.evolution.dataserver.AddressBook</span></h2>
+<p>org.gnome.evolution.dataserver.AddressBook — Address book objects</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<h2>Methods</h2>
+<pre class="synopsis">
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.Open" title="The Open() method">Open</a>               ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.Close" title="The Close() method">Close</a>              ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.Refresh" title="The Refresh() method">Refresh</a>            ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.CreateContacts" title="The CreateContacts() method">CreateContacts</a>     (IN  as vcards,
+                    OUT as uids);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.ModifyContacts" title="The ModifyContacts() method">ModifyContacts</a>     (IN  as vcards);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.RemoveContacts" title="The RemoveContacts() method">RemoveContacts</a>     (IN  as uids);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetContact" title="The GetContact() method">GetContact</a>         (IN  s  uid,
+                    OUT s  vcard);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetContactList" title="The GetContactList() method">GetContactList</a>     (IN  s  query,
+                    OUT as vcards);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetContactListUids" title="The GetContactListUids() method">GetContactListUids</a> (IN  s  query,
+                    OUT as uids);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetView" title="The GetView() method">GetView</a>            (IN  s  query,
+                    OUT o  object_path);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetCursor" title="The GetCursor() method">GetCursor</a>          (IN  s  query,
+                    IN  as sort_keys,
+                    IN  as sort_types,
+                    OUT o  object_path);
+</pre>
+</div>
+<div class="refsect1">
+<a name="id-1.3.10.4"></a><h2>Signals</h2>
+<pre class="synopsis">
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-signal-org-gnome-evolution-dataserver-AddressBook.Error" title='The "Error" signal'>Error</a> (s error_message);
+</pre>
+</div>
+<div class="refsect1">
+<a name="id-1.3.10.5"></a><h2>Properties</h2>
+<pre class="synopsis">
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.Online" title='The "Online" property'>Online</a>           readable   b
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.Revision" title='The "Revision" property'>Revision</a>         readable   s
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.Locale" title='The "Locale" property'>Locale</a>           readable   s
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.Writable" title='The "Writable" property'>Writable</a>         readable   b
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.CacheDir" title='The "CacheDir" property'>CacheDir</a>         readable   s
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.Capabilities" title='The "Capabilities" property'>Capabilities</a>     readable   as
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.RequiredFields" title='The "RequiredFields" property'>RequiredFields</a>   readable   as
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.SupportedFields" title='The "SupportedFields" property'>SupportedFields</a>  readable   as
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdbus-interface-org-gnome-evolution-dataserver-AddressBook"></a><h2>Description</h2>
+<p>    This interface allows for interaction with an address book backend.
+</p>
+<p class="since">Since 3.8</p>
+</div>
+<div class="refsect1">
+<a name="gdbus-methods-org.gnome.evolution.dataserver.AddressBook"></a><h2>Method Details</h2>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.Open"></a><h3>The Open() method</h3>
+<pre class="programlisting">
+Open ();
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.Close"></a><h3>The Close() method</h3>
+<pre class="programlisting">
+Close ();
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.Refresh"></a><h3>The Refresh() method</h3>
+<pre class="programlisting">
+Refresh ();
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.CreateContacts"></a><h3>The CreateContacts() method</h3>
+<pre class="programlisting">
+CreateContacts (IN  as vcards,
+                OUT as uids);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN as <em class="parameter"><code>vcards</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT as <em class="parameter"><code>uids</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.ModifyContacts"></a><h3>The ModifyContacts() method</h3>
+<pre class="programlisting">
+ModifyContacts (IN  as vcards);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><code class="literal">IN as <em class="parameter"><code>vcards</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.RemoveContacts"></a><h3>The RemoveContacts() method</h3>
+<pre class="programlisting">
+RemoveContacts (IN  as uids);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><code class="literal">IN as <em class="parameter"><code>uids</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetContact"></a><h3>The GetContact() method</h3>
+<pre class="programlisting">
+GetContact (IN  s uid,
+            OUT s vcard);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>uid</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>vcard</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetContactList"></a><h3>The GetContactList() method</h3>
+<pre class="programlisting">
+GetContactList (IN  s  query,
+                OUT as vcards);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>query</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT as <em class="parameter"><code>vcards</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetContactListUids"></a><h3>The GetContactListUids() method</h3>
+<pre class="programlisting">
+GetContactListUids (IN  s  query,
+                    OUT as uids);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>query</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT as <em class="parameter"><code>uids</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetView"></a><h3>The GetView() method</h3>
+<pre class="programlisting">
+GetView (IN  s query,
+         OUT o object_path);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>query</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT o <em class="parameter"><code>object_path</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetCursor"></a><h3>The GetCursor() method</h3>
+<pre class="programlisting">
+GetCursor (IN  s  query,
+           IN  as sort_keys,
+           IN  as sort_types,
+           OUT o  object_path);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>query</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN as <em class="parameter"><code>sort_keys</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN as <em class="parameter"><code>sort_types</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT o <em class="parameter"><code>object_path</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdbus-signals-org.gnome.evolution.dataserver.AddressBook"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="gdbus-signal-org-gnome-evolution-dataserver-AddressBook.Error"></a><h3>The "Error" signal</h3>
+<pre class="programlisting">
+Error (s error_message);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><code class="literal">s <em class="parameter"><code>error_message</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdbus-properties-org.gnome.evolution.dataserver.AddressBook"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-AddressBook.Online"></a><h3>The "Online" property</h3>
+<pre class="programlisting">
+Online  readable   b
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-AddressBook.Revision"></a><h3>The "Revision" property</h3>
+<pre class="programlisting">
+Revision  readable   s
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-AddressBook.Locale"></a><h3>The "Locale" property</h3>
+<pre class="programlisting">
+Locale  readable   s
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-AddressBook.Writable"></a><h3>The "Writable" property</h3>
+<pre class="programlisting">
+Writable  readable   b
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-AddressBook.CacheDir"></a><h3>The "CacheDir" property</h3>
+<pre class="programlisting">
+CacheDir  readable   s
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-AddressBook.Capabilities"></a><h3>The "Capabilities" property</h3>
+<pre class="programlisting">
+Capabilities  readable   as
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-AddressBook.RequiredFields"></a><h3>The "RequiredFields" property</h3>
+<pre class="programlisting">
+RequiredFields  readable   as
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-AddressBook.SupportedFields"></a><h3>The "SupportedFields" property</h3>
+<pre class="programlisting">
+SupportedFields  readable   as
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

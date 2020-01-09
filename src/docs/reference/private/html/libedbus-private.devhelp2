@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
+<book xmlns="http://www.devhelp.net/book" title="Evolution-Data-Server Manual: Private" link="index.html" author="" name="libedbus-private" version="2" language="c">
+  <chapters>
+    <sub name="D-Bus API Reference" link="ch01.html">
+      <sub name="EDBusObject" link="EDBusObject.html"/>
+      <sub name="EDBusSource" link="EDBusSource.html"/>
+      <sub name="EDBusSourceRemovable" link="EDBusSourceRemovable.html"/>
+      <sub name="EDBusSourceWritable" link="EDBusSourceWritable.html"/>
+      <sub name="EDBusSourceRemoteCreatable" link="EDBusSourceRemoteCreatable.html"/>
+      <sub name="EDBusSourceRemoteDeletable" link="EDBusSourceRemoteDeletable.html"/>
+      <sub name="EDBusSourceOAuth2Support" link="EDBusSourceOAuth2Support.html"/>
+      <sub name="EDBusSourceManager" link="EDBusSourceManager.html"/>
+      <sub name="EDBusObjectManagerClient" link="EDBusObjectManagerClient.html"/>
+      <sub name="EDBusAuthenticator" link="EDBusAuthenticator.html"/>
+      <sub name="EDBusAddressBook" link="EDBusAddressBook.html"/>
+      <sub name="EDBusAddressBookCursor" link="EDBusAddressBookCursor.html"/>
+      <sub name="EDBusAddressBookFactory" link="EDBusAddressBookFactory.html"/>
+      <sub name="EDBusCalendar" link="EDBusCalendar.html"/>
+      <sub name="EDBusCalendarFactory" link="EDBusCalendarFactory.html"/>
+      <sub name="EDBusUserPrompter" link="EDBusUserPrompter.html"/>
+    </sub>
+    <sub name="D-Bus Interfaces" link="ch02.html">
+      <sub name="org.gnome.evolution.dataserver.Source" link="gdbus-org.gnome.evolution.dataserver.Source.html"/>
+      <sub name="org.gnome.evolution.dataserver.Source.Removable" link="gdbus-org.gnome.evolution.dataserver.Source.Removable.html"/>
+      <sub name="org.gnome.evolution.dataserver.Source.Writable" link="gdbus-org.gnome.evolution.dataserver.Source.Writable.html"/>
+      <sub name="org.gnome.evolution.dataserver.Source.RemoteCreatable" link="gdbus-org.gnome.evolution.dataserver.Source.RemoteCreatable.html"/>
+      <sub name="org.gnome.evolution.dataserver.Source.RemoteDeletable" link="gdbus-org.gnome.evolution.dataserver.Source.RemoteDeletable.html"/>
+      <sub name="org.gnome.evolution.dataserver.Source.OAuth2Support" link="gdbus-org.gnome.evolution.dataserver.Source.OAuth2Support.html"/>
+      <sub name="org.gnome.evolution.dataserver.SourceManager" link="gdbus-org.gnome.evolution.dataserver.SourceManager.html"/>
+      <sub name="org.gnome.evolution.dataserver.Authenticator" link="gdbus-org.gnome.evolution.dataserver.Authenticator.html"/>
+      <sub name="org.gnome.evolution.dataserver.AddressBook" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html"/>
+      <sub name="org.gnome.evolution.dataserver.AddressBookFactory" link="gdbus-org.gnome.evolution.dataserver.AddressBookFactory.html"/>
+      <sub name="org.gnome.evolution.dataserver.Calendar" link="gdbus-org.gnome.evolution.dataserver.Calendar.html"/>
+      <sub name="org.gnome.evolution.dataserver.CalendarFactory" link="gdbus-org.gnome.evolution.dataserver.CalendarFactory.html"/>
+      <sub name="org.gnome.evolution.dataserver.UserPrompter" link="gdbus-org.gnome.evolution.dataserver.UserPrompter.html"/>
+    </sub>
+    <sub name="Index" link="api-index-full.html"/>
+    <sub name="Annotation Glossary" link="annotation-glossary.html"/>
+  </chapters>
+  <functions>
+    <keyword type="function" name="e_dbus_object_get_source ()" link="EDBusObject.html#e-dbus-object-get-source"/>
+    <keyword type="function" name="e_dbus_object_peek_source ()" link="EDBusObject.html#e-dbus-object-peek-source"/>
+    <keyword type="function" name="e_dbus_object_get_source_removable ()" link="EDBusObject.html#e-dbus-object-get-source-removable"/>
+    <keyword type="function" name="e_dbus_object_peek_source_removable ()" link="EDBusObject.html#e-dbus-object-peek-source-removable"/>
+    <keyword type="function" name="e_dbus_object_get_source_writable ()" link="EDBusObject.html#e-dbus-object-get-source-writable"/>
+    <keyword type="function" name="e_dbus_object_peek_source_writable ()" link="EDBusObject.html#e-dbus-object-peek-source-writable"/>
+    <keyword type="function" name="e_dbus_object_get_source_remote_creatable ()" link="EDBusObject.html#e-dbus-object-get-source-remote-creatable"/>
+    <keyword type="function" name="e_dbus_object_peek_source_remote_creatable ()" link="EDBusObject.html#e-dbus-object-peek-source-remote-creatable"/>
+    <keyword type="function" name="e_dbus_object_get_source_remote_deletable ()" link="EDBusObject.html#e-dbus-object-get-source-remote-deletable"/>
+    <keyword type="function" name="e_dbus_object_peek_source_remote_deletable ()" link="EDBusObject.html#e-dbus-object-peek-source-remote-deletable"/>
+    <keyword type="function" name="e_dbus_object_get_source_oauth2_support ()" link="EDBusObject.html#e-dbus-object-get-source-oauth2-support"/>
+    <keyword type="function" name="e_dbus_object_peek_source_oauth2_support ()" link="EDBusObject.html#e-dbus-object-peek-source-oauth2-support"/>
+    <keyword type="function" name="e_dbus_object_proxy_new ()" link="EDBusObject.html#e-dbus-object-proxy-new"/>
+    <keyword type="function" name="e_dbus_object_skeleton_new ()" link="EDBusObject.html#e-dbus-object-skeleton-new"/>
+    <keyword type="function" name="e_dbus_object_skeleton_set_source ()" link="EDBusObject.html#e-dbus-object-skeleton-set-source"/>
+    <keyword type="function" name="e_dbus_object_skeleton_set_source_writable ()" link="EDBusObject.html#e-dbus-object-skeleton-set-source-writable"/>
+    <keyword type="function" name="e_dbus_object_skeleton_set_source_removable ()" link="EDBusObject.html#e-dbus-object-skeleton-set-source-removable"/>
+    <keyword type="function" name="e_dbus_object_skeleton_set_source_remote_creatable ()" link="EDBusObject.html#e-dbus-object-skeleton-set-source-remote-creatable"/>
+    <keyword type="function" name="e_dbus_object_skeleton_set_source_remote_deletable ()" link="EDBusObject.html#e-dbus-object-skeleton-set-source-remote-deletable"/>
+    <keyword type="function" name="e_dbus_object_skeleton_set_source_oauth2_support ()" link="EDBusObject.html#e-dbus-object-skeleton-set-source-oauth2-support"/>
+    <keyword type="struct" name="EDBusObject" link="EDBusObject.html#EDBusObject-struct"/>
+    <keyword type="struct" name="struct EDBusObjectProxy" link="EDBusObject.html#EDBusObjectProxy-struct"/>
+    <keyword type="struct" name="struct EDBusObjectSkeleton" link="EDBusObject.html#EDBusObjectSkeleton-struct"/>
+    <keyword type="property" name="The “source” property" link="EDBusObject.html#EDBusObject--source"/>
+    <keyword type="property" name="The “source-oauth2-support” property" link="EDBusObject.html#EDBusObject--source-oauth2-support"/>
+    <keyword type="property" name="The “source-remote-creatable” property" link="EDBusObject.html#EDBusObject--source-remote-creatable"/>
+    <keyword type="property" name="The “source-remote-deletable” property" link="EDBusObject.html#EDBusObject--source-remote-deletable"/>
+    <keyword type="property" name="The “source-removable” property" link="EDBusObject.html#EDBusObject--source-removable"/>
+    <keyword type="property" name="The “source-writable” property" link="EDBusObject.html#EDBusObject--source-writable"/>
+    <keyword type="function" name="e_dbus_source_get_uid ()" link="EDBusSource.html#e-dbus-source-get-uid"/>
+    <keyword type="function" name="e_dbus_source_dup_uid ()" link="EDBusSource.html#e-dbus-source-dup-uid"/>
+    <keyword type="function" name="e_dbus_source_set_uid ()" link="EDBusSource.html#e-dbus-source-set-uid"/>
+    <keyword type="function" name="e_dbus_source_get_data ()" link="EDBusSource.html#e-dbus-source-get-data"/>
+    <keyword type="function" name="e_dbus_source_dup_data ()" link="EDBusSource.html#e-dbus-source-dup-data"/>
+    <keyword type="function" name="e_dbus_source_set_data ()" link="EDBusSource.html#e-dbus-source-set-data"/>
+    <keyword type="function" name="e_dbus_source_call_allow_auth_prompt_sync ()" link="EDBusSource.html#e-dbus-source-call-allow-auth-prompt-sync"/>
+    <keyword type="function" name="e_dbus_source_call_allow_auth_prompt ()" link="EDBusSource.html#e-dbus-source-call-allow-auth-prompt"/>
+    <keyword type="function" name="e_dbus_source_call_allow_auth_prompt_finish ()" link="EDBusSource.html#e-dbus-source-call-allow-auth-prompt-finish"/>
+    <keyword type="function" name="e_dbus_source_complete_allow_auth_prompt ()" link="EDBusSource.html#e-dbus-source-complete-allow-auth-prompt"/>
+    <keyword type="function" name="e_dbus_source_interface_info ()" link="EDBusSource.html#e-dbus-source-interface-info"/>
+    <keyword type="function" name="e_dbus_source_override_properties ()" link="EDBusSource.html#e-dbus-source-override-properties"/>
+    <keyword type="function" name="e_dbus_source_proxy_new_sync ()" link="EDBusSource.html#e-dbus-source-proxy-new-sync"/>
+    <keyword type="function" name="e_dbus_source_proxy_new ()" link="EDBusSource.html#e-dbus-source-proxy-new"/>
+    <keyword type="function" name="e_dbus_source_proxy_new_finish ()" link="EDBusSource.html#e-dbus-source-proxy-new-finish"/>
+    <keyword type="function" name="e_dbus_source_proxy_new_for_bus_sync ()" link="EDBusSource.html#e-dbus-source-proxy-new-for-bus-sync"/>
+    <keyword type="function" name="e_dbus_source_proxy_new_for_bus ()" link="EDBusSource.html#e-dbus-source-proxy-new-for-bus"/>
+    <keyword type="function" name="e_dbus_source_proxy_new_for_bus_finish ()" link="EDBusSource.html#e-dbus-source-proxy-new-for-bus-finish"/>
+    <keyword type="function" name="e_dbus_source_skeleton_new ()" link="EDBusSource.html#e-dbus-source-skeleton-new"/>
+    <keyword type="struct" name="EDBusSource" link="EDBusSource.html#EDBusSource-struct"/>
+    <keyword type="struct" name="struct EDBusSourceProxy" link="EDBusSource.html#EDBusSourceProxy-struct"/>
+    <keyword type="struct" name="struct EDBusSourceSkeleton" link="EDBusSource.html#EDBusSourceSkeleton-struct"/>
+    <keyword type="property" name="The “data” property" link="EDBusSource.html#EDBusSource--data"/>
+    <keyword type="property" name="The “uid” property" link="EDBusSource.html#EDBusSource--uid"/>
+    <keyword type="signal" name="The “handle-allow-auth-prompt” signal" link="EDBusSource.html#EDBusSource-handle-allow-auth-prompt"/>
+    <keyword type="function" name="e_dbus_source_removable_call_remove_sync ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-call-remove-sync"/>
+    <keyword type="function" name="e_dbus_source_removable_call_remove ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-call-remove"/>
+    <keyword type="function" name="e_dbus_source_removable_call_remove_finish ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-call-remove-finish"/>
+    <keyword type="function" name="e_dbus_source_removable_complete_remove ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-complete-remove"/>
+    <keyword type="function" name="e_dbus_source_removable_interface_info ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-interface-info"/>
+    <keyword type="function" name="e_dbus_source_removable_override_properties ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-override-properties"/>
+    <keyword type="function" name="e_dbus_source_removable_proxy_new_sync ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-proxy-new-sync"/>
+    <keyword type="function" name="e_dbus_source_removable_proxy_new ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-proxy-new"/>
+    <keyword type="function" name="e_dbus_source_removable_proxy_new_finish ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-proxy-new-finish"/>
+    <keyword type="function" name="e_dbus_source_removable_proxy_new_for_bus_sync ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-proxy-new-for-bus-sync"/>
+    <keyword type="function" name="e_dbus_source_removable_proxy_new_for_bus ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-proxy-new-for-bus"/>
+    <keyword type="function" name="e_dbus_source_removable_proxy_new_for_bus_finish ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-proxy-new-for-bus-finish"/>
+    <keyword type="function" name="e_dbus_source_removable_skeleton_new ()" link="EDBusSourceRemovable.html#e-dbus-source-removable-skeleton-new"/>
+    <keyword type="struct" name="EDBusSourceRemovable" link="EDBusSourceRemovable.html#EDBusSourceRemovable-struct"/>
+    <keyword type="struct" name="struct EDBusSourceRemovableProxy" link="EDBusSourceRemovable.html#EDBusSourceRemovableProxy-struct"/>
+    <keyword type="struct" name="struct EDBusSourceRemovableSkeleton" link="EDBusSourceRemovable.html#EDBusSourceRemovableSkeleton-struct"/>
+    <keyword type="signal" name="The “handle-remove” signal" link="EDBusSourceRemovable.html#EDBusSourceRemovable-handle-remove"/>
+    <keyword type="function" name="e_dbus_source_writable_call_write_sync ()" link="EDBusSourceWritable.html#e-dbus-source-writable-call-write-sync"/>
+    <keyword type="function" name="e_dbus_source_writable_call_write ()" link="EDBusSourceWritable.html#e-dbus-source-writable-call-write"/>
+    <keyword type="function" name="e_dbus_source_writable_call_write_finish ()" link="EDBusSourceWritable.html#e-dbus-source-writable-call-write-finish"/>
+    <keyword type="function" name="e_dbus_source_writable_complete_write ()" link="EDBusSourceWritable.html#e-dbus-source-writable-complete-write"/>
+    <keyword type="function" name="e_dbus_source_writable_interface_info ()" link="EDBusSourceWritable.html#e-dbus-source-writable-interface-info"/>
+    <keyword type="function" name="e_dbus_source_writable_override_properties ()" link="EDBusSourceWritable.html#e-dbus-source-writable-override-properties"/>
+    <keyword type="function" name="e_dbus_source_writable_proxy_new_sync ()" link="EDBusSourceWritable.html#e-dbus-source-writable-proxy-new-sync"/>
+    <keyword type="function" name="e_dbus_source_writable_proxy_new ()" link="EDBusSourceWritable.html#e-dbus-source-writable-proxy-new"/>
+    <keyword type="function" name="e_dbus_source_writable_proxy_new_finish ()" link="EDBusSourceWritable.html#e-dbus-source-writable-proxy-new-finish"/>
+    <keyword type="function" name="e_dbus_source_writable_proxy_new_for_bus_sync ()" link="EDBusSourceWritable.html#e-dbus-source-writable-proxy-new-for-bus-sync"/>
+    <keyword type="function" name="e_dbus_source_writable_proxy_new_for_bus ()" link="EDBusSourceWritable.html#e-dbus-source-writable-proxy-new-for-bus"/>
+    <keyword type="function" name="e_dbus_source_writable_proxy_new_for_bus_finish ()" link="EDBusSourceWritable.html#e-dbus-source-writable-proxy-new-for-bus-finish"/>
+    <keyword type="function" name="e_dbus_source_writable_skeleton_new ()" link="EDBusSourceWritable.html#e-dbus-source-writable-skeleton-new"/>
+    <keyword type="struct" name="EDBusSourceWritable" link="EDBusSourceWritable.html#EDBusSourceWritable-struct"/>
+    <keyword type="struct" name="struct EDBusSourceWritableProxy" link="EDBusSourceWritable.html#EDBusSourceWritableProxy-struct"/>
+    <keyword type="struct" name="struct EDBusSourceWritableSkeleton" link="EDBusSourceWritable.html#EDBusSourceWritableSkeleton-struct"/>
+    <keyword type="signal" name="The “handle-write” signal" link="EDBusSourceWritable.html#EDBusSourceWritable-handle-write"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_call_create_sync ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-call-create-sync"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_call_create ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-call-create"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_call_create_finish ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-call-create-finish"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_complete_create ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-complete-create"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_interface_info ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-interface-info"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_override_properties ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-override-properties"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_proxy_new_sync ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-proxy-new-sync"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_proxy_new ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-proxy-new"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_proxy_new_finish ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-proxy-new-finish"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_proxy_new_for_bus_sync ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-proxy-new-for-bus-sync"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_proxy_new_for_bus ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-proxy-new-for-bus"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_proxy_new_for_bus_finish ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-proxy-new-for-bus-finish"/>
+    <keyword type="function" name="e_dbus_source_remote_creatable_skeleton_new ()" link="EDBusSourceRemoteCreatable.html#e-dbus-source-remote-creatable-skeleton-new"/>
+    <keyword type="struct" name="EDBusSourceRemoteCreatable" link="EDBusSourceRemoteCreatable.html#EDBusSourceRemoteCreatable-struct"/>
+    <keyword type="struct" name="struct EDBusSourceRemoteCreatableProxy" link="EDBusSourceRemoteCreatable.html#EDBusSourceRemoteCreatableProxy-struct"/>
+    <keyword type="struct" name="struct EDBusSourceRemoteCreatableSkeleton" link="EDBusSourceRemoteCreatable.html#EDBusSourceRemoteCreatableSkeleton-struct"/>
+    <keyword type="signal" name="The “handle-create” signal" link="EDBusSourceRemoteCreatable.html#EDBusSourceRemoteCreatable-handle-create"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_call_delete_sync ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-call-delete-sync"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_call_delete ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-call-delete"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_call_delete_finish ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-call-delete-finish"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_complete_delete ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-complete-delete"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_interface_info ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-interface-info"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_override_properties ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-override-properties"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_proxy_new_sync ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-proxy-new-sync"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_proxy_new ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-proxy-new"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_proxy_new_finish ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-proxy-new-finish"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_proxy_new_for_bus_sync ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-proxy-new-for-bus-sync"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_proxy_new_for_bus ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-proxy-new-for-bus"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_proxy_new_for_bus_finish ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-proxy-new-for-bus-finish"/>
+    <keyword type="function" name="e_dbus_source_remote_deletable_skeleton_new ()" link="EDBusSourceRemoteDeletable.html#e-dbus-source-remote-deletable-skeleton-new"/>
+    <keyword type="struct" name="EDBusSourceRemoteDeletable" link="EDBusSourceRemoteDeletable.html#EDBusSourceRemoteDeletable-struct"/>
+    <keyword type="struct" name="struct EDBusSourceRemoteDeletableProxy" link="EDBusSourceRemoteDeletable.html#EDBusSourceRemoteDeletableProxy-struct"/>
+    <keyword type="struct" name="struct EDBusSourceRemoteDeletableSkeleton" link="EDBusSourceRemoteDeletable.html#EDBusSourceRemoteDeletableSkeleton-struct"/>
+    <keyword type="signal" name="The “handle-delete” signal" link="EDBusSourceRemoteDeletable.html#EDBusSourceRemoteDeletable-handle-delete"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_call_get_access_token_sync ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-call-get-access-token-sync"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_call_get_access_token ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-call-get-access-token"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_call_get_access_token_finish ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-call-get-access-token-finish"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_complete_get_access_token ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-complete-get-access-token"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_interface_info ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-interface-info"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_override_properties ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-override-properties"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_proxy_new_sync ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-proxy-new-sync"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_proxy_new ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-proxy-new"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_proxy_new_finish ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-proxy-new-finish"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_proxy_new_for_bus_sync ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-proxy-new-for-bus-sync"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_proxy_new_for_bus ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-proxy-new-for-bus"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_proxy_new_for_bus_finish ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-proxy-new-for-bus-finish"/>
+    <keyword type="function" name="e_dbus_source_oauth2_support_skeleton_new ()" link="EDBusSourceOAuth2Support.html#e-dbus-source-oauth2-support-skeleton-new"/>
+    <keyword type="struct" name="EDBusSourceOAuth2Support" link="EDBusSourceOAuth2Support.html#EDBusSourceOAuth2Support-struct"/>
+    <keyword type="struct" name="struct EDBusSourceOAuth2SupportProxy" link="EDBusSourceOAuth2Support.html#EDBusSourceOAuth2SupportProxy-struct"/>
+    <keyword type="struct" name="struct EDBusSourceOAuth2SupportSkeleton" link="EDBusSourceOAuth2Support.html#EDBusSourceOAuth2SupportSkeleton-struct"/>
+    <keyword type="signal" name="The “handle-get-access-token” signal" link="EDBusSourceOAuth2Support.html#EDBusSourceOAuth2Support-handle-get-access-token"/>
+    <keyword type="function" name="e_dbus_source_manager_call_allow_auth_prompt_all_sync ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-allow-auth-prompt-all-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_source_manager_call_allow_auth_prompt_all ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-allow-auth-prompt-all" since="3.8"/>
+    <keyword type="function" name="e_dbus_source_manager_call_allow_auth_prompt_all_finish ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-allow-auth-prompt-all-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_source_manager_complete_allow_auth_prompt_all ()" link="EDBusSourceManager.html#e-dbus-source-manager-complete-allow-auth-prompt-all" since="3.8"/>
+    <keyword type="function" name="e_dbus_source_manager_call_authenticate_sync ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-authenticate-sync"/>
+    <keyword type="function" name="e_dbus_source_manager_call_authenticate ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-authenticate"/>
+    <keyword type="function" name="e_dbus_source_manager_call_authenticate_finish ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-authenticate-finish"/>
+    <keyword type="function" name="e_dbus_source_manager_complete_authenticate ()" link="EDBusSourceManager.html#e-dbus-source-manager-complete-authenticate"/>
+    <keyword type="function" name="e_dbus_source_manager_call_create_sources_sync ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-create-sources-sync"/>
+    <keyword type="function" name="e_dbus_source_manager_call_create_sources ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-create-sources"/>
+    <keyword type="function" name="e_dbus_source_manager_call_create_sources_finish ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-create-sources-finish"/>
+    <keyword type="function" name="e_dbus_source_manager_complete_create_sources ()" link="EDBusSourceManager.html#e-dbus-source-manager-complete-create-sources"/>
+    <keyword type="function" name="e_dbus_source_manager_call_reload_sync ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-reload-sync"/>
+    <keyword type="function" name="e_dbus_source_manager_call_reload ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-reload"/>
+    <keyword type="function" name="e_dbus_source_manager_call_reload_finish ()" link="EDBusSourceManager.html#e-dbus-source-manager-call-reload-finish"/>
+    <keyword type="function" name="e_dbus_source_manager_complete_reload ()" link="EDBusSourceManager.html#e-dbus-source-manager-complete-reload"/>
+    <keyword type="function" name="e_dbus_source_manager_interface_info ()" link="EDBusSourceManager.html#e-dbus-source-manager-interface-info"/>
+    <keyword type="function" name="e_dbus_source_manager_override_properties ()" link="EDBusSourceManager.html#e-dbus-source-manager-override-properties"/>
+    <keyword type="function" name="e_dbus_source_manager_proxy_new_sync ()" link="EDBusSourceManager.html#e-dbus-source-manager-proxy-new-sync"/>
+    <keyword type="function" name="e_dbus_source_manager_proxy_new ()" link="EDBusSourceManager.html#e-dbus-source-manager-proxy-new"/>
+    <keyword type="function" name="e_dbus_source_manager_proxy_new_finish ()" link="EDBusSourceManager.html#e-dbus-source-manager-proxy-new-finish"/>
+    <keyword type="function" name="e_dbus_source_manager_proxy_new_for_bus_sync ()" link="EDBusSourceManager.html#e-dbus-source-manager-proxy-new-for-bus-sync"/>
+    <keyword type="function" name="e_dbus_source_manager_proxy_new_for_bus ()" link="EDBusSourceManager.html#e-dbus-source-manager-proxy-new-for-bus"/>
+    <keyword type="function" name="e_dbus_source_manager_proxy_new_for_bus_finish ()" link="EDBusSourceManager.html#e-dbus-source-manager-proxy-new-for-bus-finish"/>
+    <keyword type="function" name="e_dbus_source_manager_skeleton_new ()" link="EDBusSourceManager.html#e-dbus-source-manager-skeleton-new"/>
+    <keyword type="struct" name="EDBusSourceManager" link="EDBusSourceManager.html#EDBusSourceManager-struct"/>
+    <keyword type="struct" name="struct EDBusSourceManagerProxy" link="EDBusSourceManager.html#EDBusSourceManagerProxy-struct"/>
+    <keyword type="struct" name="struct EDBusSourceManagerSkeleton" link="EDBusSourceManager.html#EDBusSourceManagerSkeleton-struct"/>
+    <keyword type="signal" name="The “handle-allow-auth-prompt-all” signal" link="EDBusSourceManager.html#EDBusSourceManager-handle-allow-auth-prompt-all"/>
+    <keyword type="signal" name="The “handle-authenticate” signal" link="EDBusSourceManager.html#EDBusSourceManager-handle-authenticate"/>
+    <keyword type="signal" name="The “handle-create-sources” signal" link="EDBusSourceManager.html#EDBusSourceManager-handle-create-sources"/>
+    <keyword type="signal" name="The “handle-reload” signal" link="EDBusSourceManager.html#EDBusSourceManager-handle-reload"/>
+    <keyword type="function" name="e_dbus_object_manager_client_new_sync ()" link="EDBusObjectManagerClient.html#e-dbus-object-manager-client-new-sync"/>
+    <keyword type="function" name="e_dbus_object_manager_client_new ()" link="EDBusObjectManagerClient.html#e-dbus-object-manager-client-new"/>
+    <keyword type="function" name="e_dbus_object_manager_client_new_finish ()" link="EDBusObjectManagerClient.html#e-dbus-object-manager-client-new-finish"/>
+    <keyword type="function" name="e_dbus_object_manager_client_new_for_bus_sync ()" link="EDBusObjectManagerClient.html#e-dbus-object-manager-client-new-for-bus-sync"/>
+    <keyword type="function" name="e_dbus_object_manager_client_new_for_bus ()" link="EDBusObjectManagerClient.html#e-dbus-object-manager-client-new-for-bus"/>
+    <keyword type="function" name="e_dbus_object_manager_client_new_for_bus_finish ()" link="EDBusObjectManagerClient.html#e-dbus-object-manager-client-new-for-bus-finish"/>
+    <keyword type="function" name="e_dbus_object_manager_client_get_proxy_type ()" link="EDBusObjectManagerClient.html#e-dbus-object-manager-client-get-proxy-type"/>
+    <keyword type="struct" name="struct EDBusObjectManagerClient" link="EDBusObjectManagerClient.html#EDBusObjectManagerClient-struct"/>
+    <keyword type="function" name="e_dbus_authenticator_get_without_password ()" link="EDBusAuthenticator.html#e-dbus-authenticator-get-without-password"/>
+    <keyword type="function" name="e_dbus_authenticator_set_without_password ()" link="EDBusAuthenticator.html#e-dbus-authenticator-set-without-password"/>
+    <keyword type="function" name="e_dbus_authenticator_call_ready_sync ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-ready-sync"/>
+    <keyword type="function" name="e_dbus_authenticator_call_ready ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-ready"/>
+    <keyword type="function" name="e_dbus_authenticator_call_ready_finish ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-ready-finish"/>
+    <keyword type="function" name="e_dbus_authenticator_complete_ready ()" link="EDBusAuthenticator.html#e-dbus-authenticator-complete-ready"/>
+    <keyword type="function" name="e_dbus_authenticator_call_cancel_sync ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-cancel-sync"/>
+    <keyword type="function" name="e_dbus_authenticator_call_cancel ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-cancel"/>
+    <keyword type="function" name="e_dbus_authenticator_call_cancel_finish ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-cancel-finish"/>
+    <keyword type="function" name="e_dbus_authenticator_complete_cancel ()" link="EDBusAuthenticator.html#e-dbus-authenticator-complete-cancel"/>
+    <keyword type="function" name="e_dbus_authenticator_call_accepted_sync ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-accepted-sync"/>
+    <keyword type="function" name="e_dbus_authenticator_call_accepted ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-accepted"/>
+    <keyword type="function" name="e_dbus_authenticator_call_accepted_finish ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-accepted-finish"/>
+    <keyword type="function" name="e_dbus_authenticator_complete_accepted ()" link="EDBusAuthenticator.html#e-dbus-authenticator-complete-accepted"/>
+    <keyword type="function" name="e_dbus_authenticator_call_rejected_sync ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-rejected-sync"/>
+    <keyword type="function" name="e_dbus_authenticator_call_rejected ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-rejected"/>
+    <keyword type="function" name="e_dbus_authenticator_call_rejected_finish ()" link="EDBusAuthenticator.html#e-dbus-authenticator-call-rejected-finish"/>
+    <keyword type="function" name="e_dbus_authenticator_complete_rejected ()" link="EDBusAuthenticator.html#e-dbus-authenticator-complete-rejected"/>
+    <keyword type="function" name="e_dbus_authenticator_emit_authenticate ()" link="EDBusAuthenticator.html#e-dbus-authenticator-emit-authenticate"/>
+    <keyword type="function" name="e_dbus_authenticator_emit_dismissed ()" link="EDBusAuthenticator.html#e-dbus-authenticator-emit-dismissed"/>
+    <keyword type="function" name="e_dbus_authenticator_emit_server_error ()" link="EDBusAuthenticator.html#e-dbus-authenticator-emit-server-error"/>
+    <keyword type="function" name="e_dbus_authenticator_interface_info ()" link="EDBusAuthenticator.html#e-dbus-authenticator-interface-info"/>
+    <keyword type="function" name="e_dbus_authenticator_override_properties ()" link="EDBusAuthenticator.html#e-dbus-authenticator-override-properties"/>
+    <keyword type="function" name="e_dbus_authenticator_proxy_new_sync ()" link="EDBusAuthenticator.html#e-dbus-authenticator-proxy-new-sync"/>
+    <keyword type="function" name="e_dbus_authenticator_proxy_new ()" link="EDBusAuthenticator.html#e-dbus-authenticator-proxy-new"/>
+    <keyword type="function" name="e_dbus_authenticator_proxy_new_finish ()" link="EDBusAuthenticator.html#e-dbus-authenticator-proxy-new-finish"/>
+    <keyword type="function" name="e_dbus_authenticator_proxy_new_for_bus_sync ()" link="EDBusAuthenticator.html#e-dbus-authenticator-proxy-new-for-bus-sync"/>
+    <keyword type="function" name="e_dbus_authenticator_proxy_new_for_bus ()" link="EDBusAuthenticator.html#e-dbus-authenticator-proxy-new-for-bus"/>
+    <keyword type="function" name="e_dbus_authenticator_proxy_new_for_bus_finish ()" link="EDBusAuthenticator.html#e-dbus-authenticator-proxy-new-for-bus-finish"/>
+    <keyword type="function" name="e_dbus_authenticator_skeleton_new ()" link="EDBusAuthenticator.html#e-dbus-authenticator-skeleton-new"/>
+    <keyword type="struct" name="EDBusAuthenticator" link="EDBusAuthenticator.html#EDBusAuthenticator-struct"/>
+    <keyword type="struct" name="struct EDBusAuthenticatorProxy" link="EDBusAuthenticator.html#EDBusAuthenticatorProxy-struct"/>
+    <keyword type="struct" name="struct EDBusAuthenticatorSkeleton" link="EDBusAuthenticator.html#EDBusAuthenticatorSkeleton-struct"/>
+    <keyword type="property" name="The “without-password” property" link="EDBusAuthenticator.html#EDBusAuthenticator--without-password"/>
+    <keyword type="signal" name="The “authenticate” signal" link="EDBusAuthenticator.html#EDBusAuthenticator-authenticate"/>
+    <keyword type="signal" name="The “dismissed” signal" link="EDBusAuthenticator.html#EDBusAuthenticator-dismissed"/>
+    <keyword type="signal" name="The “handle-accepted” signal" link="EDBusAuthenticator.html#EDBusAuthenticator-handle-accepted"/>
+    <keyword type="signal" name="The “handle-cancel” signal" link="EDBusAuthenticator.html#EDBusAuthenticator-handle-cancel"/>
+    <keyword type="signal" name="The “handle-ready” signal" link="EDBusAuthenticator.html#EDBusAuthenticator-handle-ready"/>
+    <keyword type="signal" name="The “handle-rejected” signal" link="EDBusAuthenticator.html#EDBusAuthenticator-handle-rejected"/>
+    <keyword type="signal" name="The “server-error” signal" link="EDBusAuthenticator.html#EDBusAuthenticator-server-error"/>
+    <keyword type="function" name="e_dbus_address_book_get_online ()" link="EDBusAddressBook.html#e-dbus-address-book-get-online" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_set_online ()" link="EDBusAddressBook.html#e-dbus-address-book-set-online" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_get_revision ()" link="EDBusAddressBook.html#e-dbus-address-book-get-revision" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_dup_revision ()" link="EDBusAddressBook.html#e-dbus-address-book-dup-revision" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_set_revision ()" link="EDBusAddressBook.html#e-dbus-address-book-set-revision" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_get_locale ()" link="EDBusAddressBook.html#e-dbus-address-book-get-locale" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_dup_locale ()" link="EDBusAddressBook.html#e-dbus-address-book-dup-locale" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_set_locale ()" link="EDBusAddressBook.html#e-dbus-address-book-set-locale" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_get_writable ()" link="EDBusAddressBook.html#e-dbus-address-book-get-writable" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_set_writable ()" link="EDBusAddressBook.html#e-dbus-address-book-set-writable" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_get_cache_dir ()" link="EDBusAddressBook.html#e-dbus-address-book-get-cache-dir" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_dup_cache_dir ()" link="EDBusAddressBook.html#e-dbus-address-book-dup-cache-dir" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_set_cache_dir ()" link="EDBusAddressBook.html#e-dbus-address-book-set-cache-dir" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_get_capabilities ()" link="EDBusAddressBook.html#e-dbus-address-book-get-capabilities" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_dup_capabilities ()" link="EDBusAddressBook.html#e-dbus-address-book-dup-capabilities" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_set_capabilities ()" link="EDBusAddressBook.html#e-dbus-address-book-set-capabilities" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_get_required_fields ()" link="EDBusAddressBook.html#e-dbus-address-book-get-required-fields" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_dup_required_fields ()" link="EDBusAddressBook.html#e-dbus-address-book-dup-required-fields" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_set_required_fields ()" link="EDBusAddressBook.html#e-dbus-address-book-set-required-fields" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_get_supported_fields ()" link="EDBusAddressBook.html#e-dbus-address-book-get-supported-fields" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_dup_supported_fields ()" link="EDBusAddressBook.html#e-dbus-address-book-dup-supported-fields" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_set_supported_fields ()" link="EDBusAddressBook.html#e-dbus-address-book-set-supported-fields" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_open_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-open-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_open ()" link="EDBusAddressBook.html#e-dbus-address-book-call-open" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_open_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-open-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_open ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-open" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_close_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-close-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_close ()" link="EDBusAddressBook.html#e-dbus-address-book-call-close" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_close_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-close-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_close ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-close" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_refresh_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-refresh-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_refresh ()" link="EDBusAddressBook.html#e-dbus-address-book-call-refresh" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_refresh_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-refresh-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_refresh ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-refresh" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_create_contacts_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-create-contacts-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_create_contacts ()" link="EDBusAddressBook.html#e-dbus-address-book-call-create-contacts" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_create_contacts_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-create-contacts-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_create_contacts ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-create-contacts" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_modify_contacts_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-modify-contacts-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_modify_contacts ()" link="EDBusAddressBook.html#e-dbus-address-book-call-modify-contacts" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_modify_contacts_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-modify-contacts-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_modify_contacts ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-modify-contacts" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_remove_contacts_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-remove-contacts-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_remove_contacts ()" link="EDBusAddressBook.html#e-dbus-address-book-call-remove-contacts" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_remove_contacts_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-remove-contacts-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_remove_contacts ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-remove-contacts" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_contact_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-contact-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_contact ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-contact" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_contact_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-contact-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_get_contact ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-get-contact" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_contact_list_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-contact-list-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_contact_list ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-contact-list" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_contact_list_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-contact-list-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_get_contact_list ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-get-contact-list" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_contact_list_uids_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-contact-list-uids-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_contact_list_uids ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-contact-list-uids" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_contact_list_uids_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-contact-list-uids-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_get_contact_list_uids ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-get-contact-list-uids" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_view_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-view-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_view ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-view" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_view_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-view-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_get_view ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-get-view" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_cursor_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-cursor-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_cursor ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-cursor" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_call_get_cursor_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-call-get-cursor-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_complete_get_cursor ()" link="EDBusAddressBook.html#e-dbus-address-book-complete-get-cursor" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_emit_error ()" link="EDBusAddressBook.html#e-dbus-address-book-emit-error" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_interface_info ()" link="EDBusAddressBook.html#e-dbus-address-book-interface-info" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_override_properties ()" link="EDBusAddressBook.html#e-dbus-address-book-override-properties" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_proxy_new_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-proxy-new-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_proxy_new ()" link="EDBusAddressBook.html#e-dbus-address-book-proxy-new" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_proxy_new_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-proxy-new-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_proxy_new_for_bus_sync ()" link="EDBusAddressBook.html#e-dbus-address-book-proxy-new-for-bus-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_proxy_new_for_bus ()" link="EDBusAddressBook.html#e-dbus-address-book-proxy-new-for-bus" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_proxy_new_for_bus_finish ()" link="EDBusAddressBook.html#e-dbus-address-book-proxy-new-for-bus-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_skeleton_new ()" link="EDBusAddressBook.html#e-dbus-address-book-skeleton-new" since="3.8"/>
+    <keyword type="struct" name="EDBusAddressBook" link="EDBusAddressBook.html#EDBusAddressBook-struct"/>
+    <keyword type="struct" name="struct EDBusAddressBookProxy" link="EDBusAddressBook.html#EDBusAddressBookProxy-struct"/>
+    <keyword type="struct" name="struct EDBusAddressBookSkeleton" link="EDBusAddressBook.html#EDBusAddressBookSkeleton-struct"/>
+    <keyword type="property" name="The “cache-dir” property" link="EDBusAddressBook.html#EDBusAddressBook--cache-dir"/>
+    <keyword type="property" name="The “capabilities” property" link="EDBusAddressBook.html#EDBusAddressBook--capabilities"/>
+    <keyword type="property" name="The “locale” property" link="EDBusAddressBook.html#EDBusAddressBook--locale"/>
+    <keyword type="property" name="The “online” property" link="EDBusAddressBook.html#EDBusAddressBook--online"/>
+    <keyword type="property" name="The “required-fields” property" link="EDBusAddressBook.html#EDBusAddressBook--required-fields"/>
+    <keyword type="property" name="The “revision” property" link="EDBusAddressBook.html#EDBusAddressBook--revision"/>
+    <keyword type="property" name="The “supported-fields” property" link="EDBusAddressBook.html#EDBusAddressBook--supported-fields"/>
+    <keyword type="property" name="The “writable” property" link="EDBusAddressBook.html#EDBusAddressBook--writable"/>
+    <keyword type="signal" name="The “error” signal" link="EDBusAddressBook.html#EDBusAddressBook-error"/>
+    <keyword type="signal" name="The “handle-close” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-close"/>
+    <keyword type="signal" name="The “handle-create-contacts” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-create-contacts"/>
+    <keyword type="signal" name="The “handle-get-contact” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-get-contact"/>
+    <keyword type="signal" name="The “handle-get-contact-list” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-get-contact-list"/>
+    <keyword type="signal" name="The “handle-get-contact-list-uids” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-get-contact-list-uids"/>
+    <keyword type="signal" name="The “handle-get-cursor” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-get-cursor"/>
+    <keyword type="signal" name="The “handle-get-view” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-get-view"/>
+    <keyword type="signal" name="The “handle-modify-contacts” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-modify-contacts"/>
+    <keyword type="signal" name="The “handle-open” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-open"/>
+    <keyword type="signal" name="The “handle-refresh” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-refresh"/>
+    <keyword type="signal" name="The “handle-remove-contacts” signal" link="EDBusAddressBook.html#EDBusAddressBook-handle-remove-contacts"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_get_total ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-get-total" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_set_total ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-set-total" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_get_position ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-get-position" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_set_position ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-set-position" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_step_sync ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-step-sync" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_step ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-step" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_step_finish ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-step-finish" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_complete_step ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-complete-step" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_set_alphabetic_index_sync ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-set-alphabetic-index-sync" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_set_alphabetic_index ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-set-alphabetic-index" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_set_alphabetic_index_finish ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-set-alphabetic-index-finish" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_complete_set_alphabetic_index ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-complete-set-alphabetic-index" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_set_query_sync ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-set-query-sync" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_set_query ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-set-query" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_set_query_finish ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-set-query-finish" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_complete_set_query ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-complete-set-query" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_dispose_sync ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-dispose-sync" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_dispose ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-dispose" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_call_dispose_finish ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-call-dispose-finish" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_complete_dispose ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-complete-dispose" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_interface_info ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-interface-info" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_override_properties ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-override-properties" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_proxy_new_sync ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-proxy-new-sync" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_proxy_new ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-proxy-new" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_proxy_new_finish ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-proxy-new-finish" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_proxy_new_for_bus_sync ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-proxy-new-for-bus-sync" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_proxy_new_for_bus ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-proxy-new-for-bus" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_proxy_new_for_bus_finish ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-proxy-new-for-bus-finish" since="3.10"/>
+    <keyword type="function" name="e_dbus_address_book_cursor_skeleton_new ()" link="EDBusAddressBookCursor.html#e-dbus-address-book-cursor-skeleton-new" since="3.10"/>
+    <keyword type="struct" name="EDBusAddressBookCursor" link="EDBusAddressBookCursor.html#EDBusAddressBookCursor-struct"/>
+    <keyword type="struct" name="struct EDBusAddressBookCursorProxy" link="EDBusAddressBookCursor.html#EDBusAddressBookCursorProxy-struct"/>
+    <keyword type="struct" name="struct EDBusAddressBookCursorSkeleton" link="EDBusAddressBookCursor.html#EDBusAddressBookCursorSkeleton-struct"/>
+    <keyword type="property" name="The “position” property" link="EDBusAddressBookCursor.html#EDBusAddressBookCursor--position"/>
+    <keyword type="property" name="The “total” property" link="EDBusAddressBookCursor.html#EDBusAddressBookCursor--total"/>
+    <keyword type="signal" name="The “handle-dispose” signal" link="EDBusAddressBookCursor.html#EDBusAddressBookCursor-handle-dispose"/>
+    <keyword type="signal" name="The “handle-set-alphabetic-index” signal" link="EDBusAddressBookCursor.html#EDBusAddressBookCursor-handle-set-alphabetic-index"/>
+    <keyword type="signal" name="The “handle-set-query” signal" link="EDBusAddressBookCursor.html#EDBusAddressBookCursor-handle-set-query"/>
+    <keyword type="signal" name="The “handle-step” signal" link="EDBusAddressBookCursor.html#EDBusAddressBookCursor-handle-step"/>
+    <keyword type="function" name="e_dbus_address_book_factory_call_open_address_book_sync ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-call-open-address-book-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_call_open_address_book ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-call-open-address-book" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_call_open_address_book_finish ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-call-open-address-book-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_complete_open_address_book ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-complete-open-address-book" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_interface_info ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-interface-info" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_override_properties ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-override-properties" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_proxy_new_sync ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-proxy-new-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_proxy_new ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-proxy-new" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_proxy_new_finish ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-proxy-new-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_proxy_new_for_bus_sync ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-proxy-new-for-bus-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_proxy_new_for_bus ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-proxy-new-for-bus" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_proxy_new_for_bus_finish ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-proxy-new-for-bus-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_address_book_factory_skeleton_new ()" link="EDBusAddressBookFactory.html#e-dbus-address-book-factory-skeleton-new" since="3.8"/>
+    <keyword type="struct" name="EDBusAddressBookFactory" link="EDBusAddressBookFactory.html#EDBusAddressBookFactory-struct"/>
+    <keyword type="struct" name="struct EDBusAddressBookFactoryProxy" link="EDBusAddressBookFactory.html#EDBusAddressBookFactoryProxy-struct"/>
+    <keyword type="struct" name="struct EDBusAddressBookFactorySkeleton" link="EDBusAddressBookFactory.html#EDBusAddressBookFactorySkeleton-struct"/>
+    <keyword type="signal" name="The “handle-open-address-book” signal" link="EDBusAddressBookFactory.html#EDBusAddressBookFactory-handle-open-address-book"/>
+    <keyword type="function" name="e_dbus_calendar_get_online ()" link="EDBusCalendar.html#e-dbus-calendar-get-online" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_set_online ()" link="EDBusCalendar.html#e-dbus-calendar-set-online" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_get_revision ()" link="EDBusCalendar.html#e-dbus-calendar-get-revision" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_dup_revision ()" link="EDBusCalendar.html#e-dbus-calendar-dup-revision" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_set_revision ()" link="EDBusCalendar.html#e-dbus-calendar-set-revision" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_get_writable ()" link="EDBusCalendar.html#e-dbus-calendar-get-writable" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_set_writable ()" link="EDBusCalendar.html#e-dbus-calendar-set-writable" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_get_cache_dir ()" link="EDBusCalendar.html#e-dbus-calendar-get-cache-dir" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_dup_cache_dir ()" link="EDBusCalendar.html#e-dbus-calendar-dup-cache-dir" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_set_cache_dir ()" link="EDBusCalendar.html#e-dbus-calendar-set-cache-dir" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_get_capabilities ()" link="EDBusCalendar.html#e-dbus-calendar-get-capabilities" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_dup_capabilities ()" link="EDBusCalendar.html#e-dbus-calendar-dup-capabilities" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_set_capabilities ()" link="EDBusCalendar.html#e-dbus-calendar-set-capabilities" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_get_default_object ()" link="EDBusCalendar.html#e-dbus-calendar-get-default-object" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_dup_default_object ()" link="EDBusCalendar.html#e-dbus-calendar-dup-default-object" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_set_default_object ()" link="EDBusCalendar.html#e-dbus-calendar-set-default-object" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_get_cal_email_address ()" link="EDBusCalendar.html#e-dbus-calendar-get-cal-email-address" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_dup_cal_email_address ()" link="EDBusCalendar.html#e-dbus-calendar-dup-cal-email-address" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_set_cal_email_address ()" link="EDBusCalendar.html#e-dbus-calendar-set-cal-email-address" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_get_alarm_email_address ()" link="EDBusCalendar.html#e-dbus-calendar-get-alarm-email-address" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_dup_alarm_email_address ()" link="EDBusCalendar.html#e-dbus-calendar-dup-alarm-email-address" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_set_alarm_email_address ()" link="EDBusCalendar.html#e-dbus-calendar-set-alarm-email-address" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_open_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-open-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_open ()" link="EDBusCalendar.html#e-dbus-calendar-call-open" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_open_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-open-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_open ()" link="EDBusCalendar.html#e-dbus-calendar-complete-open" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_close_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-close-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_close ()" link="EDBusCalendar.html#e-dbus-calendar-call-close" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_close_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-close-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_close ()" link="EDBusCalendar.html#e-dbus-calendar-complete-close" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_refresh_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-refresh-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_refresh ()" link="EDBusCalendar.html#e-dbus-calendar-call-refresh" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_refresh_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-refresh-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_refresh ()" link="EDBusCalendar.html#e-dbus-calendar-complete-refresh" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_create_objects_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-create-objects-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_create_objects ()" link="EDBusCalendar.html#e-dbus-calendar-call-create-objects" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_create_objects_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-create-objects-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_create_objects ()" link="EDBusCalendar.html#e-dbus-calendar-complete-create-objects" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_modify_objects_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-modify-objects-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_modify_objects ()" link="EDBusCalendar.html#e-dbus-calendar-call-modify-objects" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_modify_objects_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-modify-objects-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_modify_objects ()" link="EDBusCalendar.html#e-dbus-calendar-complete-modify-objects" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_remove_objects_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-remove-objects-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_remove_objects ()" link="EDBusCalendar.html#e-dbus-calendar-call-remove-objects" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_remove_objects_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-remove-objects-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_remove_objects ()" link="EDBusCalendar.html#e-dbus-calendar-complete-remove-objects" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_receive_objects_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-receive-objects-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_receive_objects ()" link="EDBusCalendar.html#e-dbus-calendar-call-receive-objects" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_receive_objects_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-receive-objects-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_receive_objects ()" link="EDBusCalendar.html#e-dbus-calendar-complete-receive-objects" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_send_objects_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-send-objects-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_send_objects ()" link="EDBusCalendar.html#e-dbus-calendar-call-send-objects" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_send_objects_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-send-objects-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_send_objects ()" link="EDBusCalendar.html#e-dbus-calendar-complete-send-objects" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_object_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-object-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_object ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-object" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_object_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-object-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_get_object ()" link="EDBusCalendar.html#e-dbus-calendar-complete-get-object" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_object_list_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-object-list-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_object_list ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-object-list" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_object_list_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-object-list-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_get_object_list ()" link="EDBusCalendar.html#e-dbus-calendar-complete-get-object-list" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_free_busy_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-free-busy-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_free_busy ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-free-busy" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_free_busy_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-free-busy-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_get_free_busy ()" link="EDBusCalendar.html#e-dbus-calendar-complete-get-free-busy" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_attachment_uris_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-attachment-uris-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_attachment_uris ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-attachment-uris" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_attachment_uris_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-attachment-uris-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_get_attachment_uris ()" link="EDBusCalendar.html#e-dbus-calendar-complete-get-attachment-uris" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_discard_alarm_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-discard-alarm-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_discard_alarm ()" link="EDBusCalendar.html#e-dbus-calendar-call-discard-alarm" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_discard_alarm_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-discard-alarm-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_discard_alarm ()" link="EDBusCalendar.html#e-dbus-calendar-complete-discard-alarm" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_timezone_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-timezone-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_timezone ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-timezone" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_timezone_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-timezone-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_get_timezone ()" link="EDBusCalendar.html#e-dbus-calendar-complete-get-timezone" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_add_timezone_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-add-timezone-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_add_timezone ()" link="EDBusCalendar.html#e-dbus-calendar-call-add-timezone" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_add_timezone_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-add-timezone-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_add_timezone ()" link="EDBusCalendar.html#e-dbus-calendar-complete-add-timezone" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_view_sync ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-view-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_view ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-view" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_call_get_view_finish ()" link="EDBusCalendar.html#e-dbus-calendar-call-get-view-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_complete_get_view ()" link="EDBusCalendar.html#e-dbus-calendar-complete-get-view" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_emit_error ()" link="EDBusCalendar.html#e-dbus-calendar-emit-error" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_emit_free_busy_data ()" link="EDBusCalendar.html#e-dbus-calendar-emit-free-busy-data" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_interface_info ()" link="EDBusCalendar.html#e-dbus-calendar-interface-info" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_override_properties ()" link="EDBusCalendar.html#e-dbus-calendar-override-properties" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_proxy_new_sync ()" link="EDBusCalendar.html#e-dbus-calendar-proxy-new-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_proxy_new ()" link="EDBusCalendar.html#e-dbus-calendar-proxy-new" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_proxy_new_finish ()" link="EDBusCalendar.html#e-dbus-calendar-proxy-new-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_proxy_new_for_bus_sync ()" link="EDBusCalendar.html#e-dbus-calendar-proxy-new-for-bus-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_proxy_new_for_bus ()" link="EDBusCalendar.html#e-dbus-calendar-proxy-new-for-bus" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_proxy_new_for_bus_finish ()" link="EDBusCalendar.html#e-dbus-calendar-proxy-new-for-bus-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_skeleton_new ()" link="EDBusCalendar.html#e-dbus-calendar-skeleton-new" since="3.8"/>
+    <keyword type="struct" name="EDBusCalendar" link="EDBusCalendar.html#EDBusCalendar-struct"/>
+    <keyword type="struct" name="struct EDBusCalendarProxy" link="EDBusCalendar.html#EDBusCalendarProxy-struct"/>
+    <keyword type="struct" name="struct EDBusCalendarSkeleton" link="EDBusCalendar.html#EDBusCalendarSkeleton-struct"/>
+    <keyword type="property" name="The “alarm-email-address” property" link="EDBusCalendar.html#EDBusCalendar--alarm-email-address"/>
+    <keyword type="property" name="The “cache-dir” property" link="EDBusCalendar.html#EDBusCalendar--cache-dir"/>
+    <keyword type="property" name="The “cal-email-address” property" link="EDBusCalendar.html#EDBusCalendar--cal-email-address"/>
+    <keyword type="property" name="The “capabilities” property" link="EDBusCalendar.html#EDBusCalendar--capabilities"/>
+    <keyword type="property" name="The “default-object” property" link="EDBusCalendar.html#EDBusCalendar--default-object"/>
+    <keyword type="property" name="The “online” property" link="EDBusCalendar.html#EDBusCalendar--online"/>
+    <keyword type="property" name="The “revision” property" link="EDBusCalendar.html#EDBusCalendar--revision"/>
+    <keyword type="property" name="The “writable” property" link="EDBusCalendar.html#EDBusCalendar--writable"/>
+    <keyword type="signal" name="The “error” signal" link="EDBusCalendar.html#EDBusCalendar-error"/>
+    <keyword type="signal" name="The “free-busy-data” signal" link="EDBusCalendar.html#EDBusCalendar-free-busy-data"/>
+    <keyword type="signal" name="The “handle-add-timezone” signal" link="EDBusCalendar.html#EDBusCalendar-handle-add-timezone"/>
+    <keyword type="signal" name="The “handle-close” signal" link="EDBusCalendar.html#EDBusCalendar-handle-close"/>
+    <keyword type="signal" name="The “handle-create-objects” signal" link="EDBusCalendar.html#EDBusCalendar-handle-create-objects"/>
+    <keyword type="signal" name="The “handle-discard-alarm” signal" link="EDBusCalendar.html#EDBusCalendar-handle-discard-alarm"/>
+    <keyword type="signal" name="The “handle-get-attachment-uris” signal" link="EDBusCalendar.html#EDBusCalendar-handle-get-attachment-uris"/>
+    <keyword type="signal" name="The “handle-get-free-busy” signal" link="EDBusCalendar.html#EDBusCalendar-handle-get-free-busy"/>
+    <keyword type="signal" name="The “handle-get-object” signal" link="EDBusCalendar.html#EDBusCalendar-handle-get-object"/>
+    <keyword type="signal" name="The “handle-get-object-list” signal" link="EDBusCalendar.html#EDBusCalendar-handle-get-object-list"/>
+    <keyword type="signal" name="The “handle-get-timezone” signal" link="EDBusCalendar.html#EDBusCalendar-handle-get-timezone"/>
+    <keyword type="signal" name="The “handle-get-view” signal" link="EDBusCalendar.html#EDBusCalendar-handle-get-view"/>
+    <keyword type="signal" name="The “handle-modify-objects” signal" link="EDBusCalendar.html#EDBusCalendar-handle-modify-objects"/>
+    <keyword type="signal" name="The “handle-open” signal" link="EDBusCalendar.html#EDBusCalendar-handle-open"/>
+    <keyword type="signal" name="The “handle-receive-objects” signal" link="EDBusCalendar.html#EDBusCalendar-handle-receive-objects"/>
+    <keyword type="signal" name="The “handle-refresh” signal" link="EDBusCalendar.html#EDBusCalendar-handle-refresh"/>
+    <keyword type="signal" name="The “handle-remove-objects” signal" link="EDBusCalendar.html#EDBusCalendar-handle-remove-objects"/>
+    <keyword type="signal" name="The “handle-send-objects” signal" link="EDBusCalendar.html#EDBusCalendar-handle-send-objects"/>
+    <keyword type="function" name="e_dbus_calendar_factory_call_open_calendar_sync ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-call-open-calendar-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_call_open_calendar ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-call-open-calendar" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_call_open_calendar_finish ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-call-open-calendar-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_complete_open_calendar ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-complete-open-calendar" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_call_open_task_list_sync ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-call-open-task-list-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_call_open_task_list ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-call-open-task-list" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_call_open_task_list_finish ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-call-open-task-list-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_complete_open_task_list ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-complete-open-task-list" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_call_open_memo_list_sync ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-call-open-memo-list-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_call_open_memo_list ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-call-open-memo-list" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_call_open_memo_list_finish ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-call-open-memo-list-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_complete_open_memo_list ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-complete-open-memo-list" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_interface_info ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-interface-info" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_override_properties ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-override-properties" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_proxy_new_sync ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-proxy-new-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_proxy_new ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-proxy-new" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_proxy_new_finish ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-proxy-new-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_proxy_new_for_bus_sync ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-proxy-new-for-bus-sync" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_proxy_new_for_bus ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-proxy-new-for-bus" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_proxy_new_for_bus_finish ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-proxy-new-for-bus-finish" since="3.8"/>
+    <keyword type="function" name="e_dbus_calendar_factory_skeleton_new ()" link="EDBusCalendarFactory.html#e-dbus-calendar-factory-skeleton-new" since="3.8"/>
+    <keyword type="struct" name="EDBusCalendarFactory" link="EDBusCalendarFactory.html#EDBusCalendarFactory-struct"/>
+    <keyword type="struct" name="struct EDBusCalendarFactoryProxy" link="EDBusCalendarFactory.html#EDBusCalendarFactoryProxy-struct"/>
+    <keyword type="struct" name="struct EDBusCalendarFactorySkeleton" link="EDBusCalendarFactory.html#EDBusCalendarFactorySkeleton-struct"/>
+    <keyword type="signal" name="The “handle-open-calendar” signal" link="EDBusCalendarFactory.html#EDBusCalendarFactory-handle-open-calendar"/>
+    <keyword type="signal" name="The “handle-open-memo-list” signal" link="EDBusCalendarFactory.html#EDBusCalendarFactory-handle-open-memo-list"/>
+    <keyword type="signal" name="The “handle-open-task-list” signal" link="EDBusCalendarFactory.html#EDBusCalendarFactory-handle-open-task-list"/>
+    <keyword type="function" name="e_dbus_user_prompter_call_extension_prompt_sync ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-call-extension-prompt-sync"/>
+    <keyword type="function" name="e_dbus_user_prompter_call_extension_prompt ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-call-extension-prompt"/>
+    <keyword type="function" name="e_dbus_user_prompter_call_extension_prompt_finish ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-call-extension-prompt-finish"/>
+    <keyword type="function" name="e_dbus_user_prompter_complete_extension_prompt ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-complete-extension-prompt"/>
+    <keyword type="function" name="e_dbus_user_prompter_call_prompt_sync ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-call-prompt-sync"/>
+    <keyword type="function" name="e_dbus_user_prompter_call_prompt ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-call-prompt"/>
+    <keyword type="function" name="e_dbus_user_prompter_call_prompt_finish ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-call-prompt-finish"/>
+    <keyword type="function" name="e_dbus_user_prompter_complete_prompt ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-complete-prompt"/>
+    <keyword type="function" name="e_dbus_user_prompter_emit_extension_response ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-emit-extension-response"/>
+    <keyword type="function" name="e_dbus_user_prompter_emit_response ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-emit-response"/>
+    <keyword type="function" name="e_dbus_user_prompter_interface_info ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-interface-info"/>
+    <keyword type="function" name="e_dbus_user_prompter_override_properties ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-override-properties"/>
+    <keyword type="function" name="e_dbus_user_prompter_proxy_new_sync ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-proxy-new-sync"/>
+    <keyword type="function" name="e_dbus_user_prompter_proxy_new ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-proxy-new"/>
+    <keyword type="function" name="e_dbus_user_prompter_proxy_new_finish ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-proxy-new-finish"/>
+    <keyword type="function" name="e_dbus_user_prompter_proxy_new_for_bus_sync ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-proxy-new-for-bus-sync"/>
+    <keyword type="function" name="e_dbus_user_prompter_proxy_new_for_bus ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-proxy-new-for-bus"/>
+    <keyword type="function" name="e_dbus_user_prompter_proxy_new_for_bus_finish ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-proxy-new-for-bus-finish"/>
+    <keyword type="function" name="e_dbus_user_prompter_skeleton_new ()" link="EDBusUserPrompter.html#e-dbus-user-prompter-skeleton-new"/>
+    <keyword type="struct" name="EDBusUserPrompter" link="EDBusUserPrompter.html#EDBusUserPrompter-struct"/>
+    <keyword type="struct" name="struct EDBusUserPrompterProxy" link="EDBusUserPrompter.html#EDBusUserPrompterProxy-struct"/>
+    <keyword type="struct" name="struct EDBusUserPrompterSkeleton" link="EDBusUserPrompter.html#EDBusUserPrompterSkeleton-struct"/>
+    <keyword type="signal" name="The “extension-response” signal" link="EDBusUserPrompter.html#EDBusUserPrompter-extension-response"/>
+    <keyword type="signal" name="The “handle-extension-prompt” signal" link="EDBusUserPrompter.html#EDBusUserPrompter-handle-extension-prompt"/>
+    <keyword type="signal" name="The “handle-prompt” signal" link="EDBusUserPrompter.html#EDBusUserPrompter-handle-prompt"/>
+    <keyword type="signal" name="The “response” signal" link="EDBusUserPrompter.html#EDBusUserPrompter-response"/>
+    <keyword type="method" name="The AllowAuthPrompt() method" link="gdbus-org.gnome.evolution.dataserver.Source.html#gdbus-method-org-gnome-evolution-dataserver-Source.AllowAuthPrompt"/>
+    <keyword type="property" name="The &quot;UID&quot; property" link="gdbus-org.gnome.evolution.dataserver.Source.html#gdbus-property-org-gnome-evolution-dataserver-Source.UID"/>
+    <keyword type="property" name="The &quot;Data&quot; property" link="gdbus-org.gnome.evolution.dataserver.Source.html#gdbus-property-org-gnome-evolution-dataserver-Source.Data"/>
+    <keyword type="method" name="The Remove() method" link="gdbus-org.gnome.evolution.dataserver.Source.Removable.html#gdbus-method-org-gnome-evolution-dataserver-Source-Removable.Remove"/>
+    <keyword type="method" name="The Write() method" link="gdbus-org.gnome.evolution.dataserver.Source.Writable.html#gdbus-method-org-gnome-evolution-dataserver-Source-Writable.Write"/>
+    <keyword type="method" name="The Create() method" link="gdbus-org.gnome.evolution.dataserver.Source.RemoteCreatable.html#gdbus-method-org-gnome-evolution-dataserver-Source-RemoteCreatable.Create"/>
+    <keyword type="method" name="The Delete() method" link="gdbus-org.gnome.evolution.dataserver.Source.RemoteDeletable.html#gdbus-method-org-gnome-evolution-dataserver-Source-RemoteDeletable.Delete"/>
+    <keyword type="method" name="The GetAccessToken() method" link="gdbus-org.gnome.evolution.dataserver.Source.OAuth2Support.html#gdbus-method-org-gnome-evolution-dataserver-Source-OAuth2Support.GetAccessToken"/>
+    <keyword type="method" name="The AllowAuthPromptAll() method" link="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.AllowAuthPromptAll"/>
+    <keyword type="method" name="The Authenticate() method" link="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.Authenticate"/>
+    <keyword type="method" name="The CreateSources() method" link="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.CreateSources"/>
+    <keyword type="method" name="The Reload() method" link="gdbus-org.gnome.evolution.dataserver.SourceManager.html#gdbus-method-org-gnome-evolution-dataserver-SourceManager.Reload"/>
+    <keyword type="method" name="The Ready() method" link="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-method-org-gnome-evolution-dataserver-Authenticator.Ready"/>
+    <keyword type="method" name="The Cancel() method" link="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-method-org-gnome-evolution-dataserver-Authenticator.Cancel"/>
+    <keyword type="method" name="The Accepted() method" link="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-method-org-gnome-evolution-dataserver-Authenticator.Accepted"/>
+    <keyword type="method" name="The Rejected() method" link="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-method-org-gnome-evolution-dataserver-Authenticator.Rejected"/>
+    <keyword type="signal" name="The &quot;Authenticate&quot; signal" link="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-signal-org-gnome-evolution-dataserver-Authenticator.Authenticate"/>
+    <keyword type="signal" name="The &quot;Dismissed&quot; signal" link="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-signal-org-gnome-evolution-dataserver-Authenticator.Dismissed"/>
+    <keyword type="signal" name="The &quot;ServerError&quot; signal" link="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-signal-org-gnome-evolution-dataserver-Authenticator.ServerError"/>
+    <keyword type="property" name="The &quot;WithoutPassword&quot; property" link="gdbus-org.gnome.evolution.dataserver.Authenticator.html#gdbus-property-org-gnome-evolution-dataserver-Authenticator.WithoutPassword"/>
+    <keyword type="method" name="The Open() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.Open"/>
+    <keyword type="method" name="The Close() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.Close"/>
+    <keyword type="method" name="The Refresh() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.Refresh"/>
+    <keyword type="method" name="The CreateContacts() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.CreateContacts"/>
+    <keyword type="method" name="The ModifyContacts() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.ModifyContacts"/>
+    <keyword type="method" name="The RemoveContacts() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.RemoveContacts"/>
+    <keyword type="method" name="The GetContact() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetContact"/>
+    <keyword type="method" name="The GetContactList() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetContactList"/>
+    <keyword type="method" name="The GetContactListUids() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetContactListUids"/>
+    <keyword type="method" name="The GetView() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetView"/>
+    <keyword type="method" name="The GetCursor() method" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-method-org-gnome-evolution-dataserver-AddressBook.GetCursor"/>
+    <keyword type="signal" name="The &quot;Error&quot; signal" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-signal-org-gnome-evolution-dataserver-AddressBook.Error"/>
+    <keyword type="property" name="The &quot;Online&quot; property" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.Online"/>
+    <keyword type="property" name="The &quot;Revision&quot; property" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.Revision"/>
+    <keyword type="property" name="The &quot;Locale&quot; property" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.Locale"/>
+    <keyword type="property" name="The &quot;Writable&quot; property" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.Writable"/>
+    <keyword type="property" name="The &quot;CacheDir&quot; property" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.CacheDir"/>
+    <keyword type="property" name="The &quot;Capabilities&quot; property" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.Capabilities"/>
+    <keyword type="property" name="The &quot;RequiredFields&quot; property" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.RequiredFields"/>
+    <keyword type="property" name="The &quot;SupportedFields&quot; property" link="gdbus-org.gnome.evolution.dataserver.AddressBook.html#gdbus-property-org-gnome-evolution-dataserver-AddressBook.SupportedFields"/>
+    <keyword type="method" name="The OpenAddressBook() method" link="gdbus-org.gnome.evolution.dataserver.AddressBookFactory.html#gdbus-method-org-gnome-evolution-dataserver-AddressBookFactory.OpenAddressBook"/>
+    <keyword type="method" name="The Open() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Open"/>
+    <keyword type="method" name="The Close() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Close"/>
+    <keyword type="method" name="The Refresh() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Refresh"/>
+    <keyword type="method" name="The CreateObjects() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.CreateObjects"/>
+    <keyword type="method" name="The ModifyObjects() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.ModifyObjects"/>
+    <keyword type="method" name="The RemoveObjects() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.RemoveObjects"/>
+    <keyword type="method" name="The ReceiveObjects() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.ReceiveObjects"/>
+    <keyword type="method" name="The SendObjects() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.SendObjects"/>
+    <keyword type="method" name="The GetObject() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetObject"/>
+    <keyword type="method" name="The GetObjectList() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetObjectList"/>
+    <keyword type="method" name="The GetFreeBusy() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetFreeBusy"/>
+    <keyword type="method" name="The GetAttachmentUris() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetAttachmentUris"/>
+    <keyword type="method" name="The DiscardAlarm() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.DiscardAlarm"/>
+    <keyword type="method" name="The GetTimezone() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetTimezone"/>
+    <keyword type="method" name="The AddTimezone() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.AddTimezone"/>
+    <keyword type="method" name="The GetView() method" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetView"/>
+    <keyword type="signal" name="The &quot;Error&quot; signal" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-signal-org-gnome-evolution-dataserver-Calendar.Error"/>
+    <keyword type="signal" name="The &quot;FreeBusyData&quot; signal" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-signal-org-gnome-evolution-dataserver-Calendar.FreeBusyData"/>
+    <keyword type="property" name="The &quot;Online&quot; property" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.Online"/>
+    <keyword type="property" name="The &quot;Revision&quot; property" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.Revision"/>
+    <keyword type="property" name="The &quot;Writable&quot; property" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.Writable"/>
+    <keyword type="property" name="The &quot;CacheDir&quot; property" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.CacheDir"/>
+    <keyword type="property" name="The &quot;Capabilities&quot; property" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.Capabilities"/>
+    <keyword type="property" name="The &quot;DefaultObject&quot; property" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.DefaultObject"/>
+    <keyword type="property" name="The &quot;CalEmailAddress&quot; property" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.CalEmailAddress"/>
+    <keyword type="property" name="The &quot;AlarmEmailAddress&quot; property" link="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.AlarmEmailAddress"/>
+    <keyword type="method" name="The OpenCalendar() method" link="gdbus-org.gnome.evolution.dataserver.CalendarFactory.html#gdbus-method-org-gnome-evolution-dataserver-CalendarFactory.OpenCalendar"/>
+    <keyword type="method" name="The OpenTaskList() method" link="gdbus-org.gnome.evolution.dataserver.CalendarFactory.html#gdbus-method-org-gnome-evolution-dataserver-CalendarFactory.OpenTaskList"/>
+    <keyword type="method" name="The OpenMemoList() method" link="gdbus-org.gnome.evolution.dataserver.CalendarFactory.html#gdbus-method-org-gnome-evolution-dataserver-CalendarFactory.OpenMemoList"/>
+    <keyword type="method" name="The Prompt() method" link="gdbus-org.gnome.evolution.dataserver.UserPrompter.html#gdbus-method-org-gnome-evolution-dataserver-UserPrompter.Prompt"/>
+    <keyword type="method" name="The ExtensionPrompt() method" link="gdbus-org.gnome.evolution.dataserver.UserPrompter.html#gdbus-method-org-gnome-evolution-dataserver-UserPrompter.ExtensionPrompt"/>
+    <keyword type="signal" name="The &quot;Response&quot; signal" link="gdbus-org.gnome.evolution.dataserver.UserPrompter.html#gdbus-signal-org-gnome-evolution-dataserver-UserPrompter.Response"/>
+    <keyword type="signal" name="The &quot;ExtensionResponse&quot; signal" link="gdbus-org.gnome.evolution.dataserver.UserPrompter.html#gdbus-signal-org-gnome-evolution-dataserver-UserPrompter.ExtensionResponse"/>
+  </functions>
+</book>

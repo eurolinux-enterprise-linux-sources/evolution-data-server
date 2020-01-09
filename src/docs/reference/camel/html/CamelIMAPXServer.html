@@ -1,0 +1,848 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Camel Reference Manual: CamelIMAPXServer</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Camel Reference Manual">
+<link rel="up" href="IMAP.html" title="IMAP Service">
+<link rel="prev" href="CamelIMAPXSearch.html" title="CamelIMAPXSearch">
+<link rel="next" href="CamelIMAPXSettings.html" title="CamelIMAPXSettings">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXServer.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXServer.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXServer.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXServer.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="IMAP.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="CamelIMAPXSearch.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="CamelIMAPXSettings.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="CamelIMAPXServer"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CamelIMAPXServer.top_of_page"></a>CamelIMAPXServer</span></h2>
+<p>CamelIMAPXServer</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="CamelIMAPXServer.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="returnvalue">CamelIMAPXServer</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-new" title="camel_imapx_server_new ()">camel_imapx_server_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">struct <a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="returnvalue">_CamelIMAPXStore</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-ref-store" title="camel_imapx_server_ref_store ()">camel_imapx_server_ref_store</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">struct <a class="link" href="CamelIMAPXSettings.html" title="CamelIMAPXSettings"><span class="returnvalue">_CamelIMAPXSettings</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-ref-settings" title="camel_imapx_server_ref_settings ()">camel_imapx_server_ref_settings</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/gio/unstable/GInputStream.html"><span class="returnvalue">GInputStream</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-ref-input-stream" title="camel_imapx_server_ref_input_stream ()">camel_imapx_server_ref_input_stream</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/gio/unstable/GOutputStream.html"><span class="returnvalue">GOutputStream</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-ref-output-stream" title="camel_imapx_server_ref_output_stream ()">camel_imapx_server_ref_output_stream</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="returnvalue">CamelIMAPXMailbox</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-ref-selected" title="camel_imapx_server_ref_selected ()">camel_imapx_server_ref_selected</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-connect" title="camel_imapx_server_connect ()">camel_imapx_server_connect</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelService.html#CamelAuthenticationResult" title="enum CamelAuthenticationResult"><span class="returnvalue">CamelAuthenticationResult</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-authenticate" title="camel_imapx_server_authenticate ()">camel_imapx_server_authenticate</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-shutdown" title="camel_imapx_server_shutdown ()">camel_imapx_server_shutdown</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-list" title="camel_imapx_server_list ()">camel_imapx_server_list</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelFolder.html#CamelFolderChangeInfo" title="struct CamelFolderChangeInfo"><span class="returnvalue">CamelFolderChangeInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-refresh-info" title="camel_imapx_server_refresh_info ()">camel_imapx_server_refresh_info</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-sync-changes" title="camel_imapx_server_sync_changes ()">camel_imapx_server_sync_changes</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-expunge" title="camel_imapx_server_expunge ()">camel_imapx_server_expunge</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-noop" title="camel_imapx_server_noop ()">camel_imapx_server_noop</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelStream.html" title="CamelStream"><span class="returnvalue">CamelStream</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-get-message" title="camel_imapx_server_get_message ()">camel_imapx_server_get_message</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-copy-message" title="camel_imapx_server_copy_message ()">camel_imapx_server_copy_message</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-append-message" title="camel_imapx_server_append_message ()">camel_imapx_server_append_message</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-sync-message" title="camel_imapx_server_sync_message ()">camel_imapx_server_sync_message</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-create-mailbox" title="camel_imapx_server_create_mailbox ()">camel_imapx_server_create_mailbox</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-delete-mailbox" title="camel_imapx_server_delete_mailbox ()">camel_imapx_server_delete_mailbox</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-rename-mailbox" title="camel_imapx_server_rename_mailbox ()">camel_imapx_server_rename_mailbox</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-subscribe-mailbox" title="camel_imapx_server_subscribe_mailbox ()">camel_imapx_server_subscribe_mailbox</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-unsubscribe-mailbox" title="camel_imapx_server_unsubscribe_mailbox ()">camel_imapx_server_unsubscribe_mailbox</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-update-quota-info" title="camel_imapx_server_update_quota_info ()">camel_imapx_server_update_quota_info</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-uid-search" title="camel_imapx_server_uid_search ()">camel_imapx_server_uid_search</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a class="link" href="CamelIMAPXServer.html#CamelIMAPXUntaggedRespHandlerDesc" title="struct CamelIMAPXUntaggedRespHandlerDesc"><span class="returnvalue">CamelIMAPXUntaggedRespHandlerDesc</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXServer.html#camel-imapx-server-register-untagged-handler" title="camel_imapx_server_register_untagged_handler ()">camel_imapx_server_register_untagged_handler</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXServer.properties"></a><h2>Properties</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="properties_type">
+<col width="300px" class="properties_name">
+<col width="200px" class="properties_flags">
+</colgroup>
+<tbody><tr>
+<td class="property_type">
+<a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a> *</td>
+<td class="property_name"><a class="link" href="CamelIMAPXServer.html#CamelIMAPXServer--store" title="The “store” property">store</a></td>
+<td class="property_flags">Read / Write / Construct Only</td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXServer.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="CamelIMAPXServer.html#CamelIMAPXServer-mailbox-closed" title="The “mailbox-closed” signal">mailbox-closed</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="CamelIMAPXServer.html#CamelIMAPXServer-mailbox-select" title="The “mailbox-select” signal">mailbox-select</a></td>
+<td class="signal_flags">Run Last</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="CamelIMAPXServer.html#CamelIMAPXServer-shutdown" title="The “shutdown” signal">shutdown</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXServer.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="CamelIMAPXServer.html#CamelIMAPXServer-struct" title="struct CamelIMAPXServer">CamelIMAPXServer</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="CamelIMAPXServer.html#CamelIMAPXUntaggedRespHandlerDesc" title="struct CamelIMAPXUntaggedRespHandlerDesc">CamelIMAPXUntaggedRespHandlerDesc</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXServer.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> CamelIMAPXServer
+</pre>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXServer.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXServer.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="camel-imapx-server-new"></a><h3>camel_imapx_server_new ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="returnvalue">CamelIMAPXServer</span></a> *
+camel_imapx_server_new (<em class="parameter"><code><span class="type">struct _CamelIMAPXStore</span> *store</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-ref-store"></a><h3>camel_imapx_server_ref_store ()</h3>
+<pre class="programlisting">struct <a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="returnvalue">_CamelIMAPXStore</span></a> *
+camel_imapx_server_ref_store (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-ref-settings"></a><h3>camel_imapx_server_ref_settings ()</h3>
+<pre class="programlisting">struct <a class="link" href="CamelIMAPXSettings.html" title="CamelIMAPXSettings"><span class="returnvalue">_CamelIMAPXSettings</span></a> *
+camel_imapx_server_ref_settings (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-ref-input-stream"></a><h3>camel_imapx_server_ref_input_stream ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/gio/unstable/GInputStream.html"><span class="returnvalue">GInputStream</span></a> *
+camel_imapx_server_ref_input_stream (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>);</pre>
+<p>Returns the <a href="https://developer.gnome.org/gio/unstable/GInputStream.html"><span class="type">GInputStream</span></a> for <em class="parameter"><code>is</code></em>
+, which is owned by either a
+<a href="https://developer.gnome.org/gio/unstable/GTcpConnection.html"><span class="type">GTcpConnection</span></a> or a <a href="https://developer.gnome.org/gio/unstable/GSubprocess.html"><span class="type">GSubprocess</span></a>.  If the <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> is not
+yet connected or has lost its connection, the function returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<p>The returned <a href="https://developer.gnome.org/gio/unstable/GInputStream.html"><span class="type">GInputStream</span></a> is referenced for thread-safety and must
+be unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+<div class="refsect3">
+<a name="id-1.3.3.10.9.5.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>is</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.3.10.9.5.7"></a><h4>Returns</h4>
+<p> a <a href="https://developer.gnome.org/gio/unstable/GInputStream.html"><span class="type">GInputStream</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
+<p></p>
+</div>
+<p class="since">Since 3.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-ref-output-stream"></a><h3>camel_imapx_server_ref_output_stream ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/gio/unstable/GOutputStream.html"><span class="returnvalue">GOutputStream</span></a> *
+camel_imapx_server_ref_output_stream (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>);</pre>
+<p>Returns the <a href="https://developer.gnome.org/gio/unstable/GOutputStream.html"><span class="type">GOutputStream</span></a> for <em class="parameter"><code>is</code></em>
+, which is owned by either a
+<a href="https://developer.gnome.org/gio/unstable/GTcpConnection.html"><span class="type">GTcpConnection</span></a> or a <a href="https://developer.gnome.org/gio/unstable/GSubprocess.html"><span class="type">GSubprocess</span></a>.  If the <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> is not
+yet connected or has lost its connection, the function returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<p>The returned <a href="https://developer.gnome.org/gio/unstable/GOutputStream.html"><span class="type">GOutputStream</span></a> is referenced for thread-safety and must
+be unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+<div class="refsect3">
+<a name="id-1.3.3.10.9.6.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>is</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.3.10.9.6.7"></a><h4>Returns</h4>
+<p> a <a href="https://developer.gnome.org/gio/unstable/GOutputStream.html"><span class="type">GOutputStream</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
+<p></p>
+</div>
+<p class="since">Since 3.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-ref-selected"></a><h3>camel_imapx_server_ref_selected ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="returnvalue">CamelIMAPXMailbox</span></a> *
+camel_imapx_server_ref_selected (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>);</pre>
+<p>Returns the <a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> representing the currently selected
+mailbox (or mailbox <span class="emphasis"><em>being</em></span> selected if a SELECT
+command is in progress) on the IMAP server, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if no mailbox
+is currently selected or being selected on the server.</p>
+<p>The returned <a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> is reference for thread-safety and
+should be unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+<div class="refsect3">
+<a name="id-1.3.3.10.9.7.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>is</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.3.10.9.7.7"></a><h4>Returns</h4>
+<p> a <a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
+<p></p>
+</div>
+<p class="since">Since 3.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-connect"></a><h3>camel_imapx_server_connect ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_connect (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-authenticate"></a><h3>camel_imapx_server_authenticate ()</h3>
+<pre class="programlisting"><a class="link" href="CamelService.html#CamelAuthenticationResult" title="enum CamelAuthenticationResult"><span class="returnvalue">CamelAuthenticationResult</span></a>
+camel_imapx_server_authenticate (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *mechanism</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-shutdown"></a><h3>camel_imapx_server_shutdown ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+camel_imapx_server_shutdown (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                             <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
+<p>Signals the server to shut down command processing. A <a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a>
+should call this immediately before unreferencing its server instance.
+Note, the server instance may linger a short time after this function
+returns as its own worker threads finish.</p>
+<div class="refsect3">
+<a name="id-1.3.3.10.9.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>is</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> with which cancel any pending jobs</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-list"></a><h3>camel_imapx_server_list ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_list (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                         <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *pattern</code></em>,
+                         <em class="parameter"><code><a class="link" href="CamelStore.html#CamelStoreGetFolderInfoFlags" title="enum CamelStoreGetFolderInfoFlags"><span class="type">CamelStoreGetFolderInfoFlags</span></a> flags</code></em>,
+                         <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-refresh-info"></a><h3>camel_imapx_server_refresh_info ()</h3>
+<pre class="programlisting"><a class="link" href="CamelFolder.html#CamelFolderChangeInfo" title="struct CamelFolderChangeInfo"><span class="returnvalue">CamelFolderChangeInfo</span></a> *
+camel_imapx_server_refresh_info (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                 <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-sync-changes"></a><h3>camel_imapx_server_sync_changes ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_sync_changes (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                 <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-expunge"></a><h3>camel_imapx_server_expunge ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_expunge (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                            <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-noop"></a><h3>camel_imapx_server_noop ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_noop (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                         <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                         <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-get-message"></a><h3>camel_imapx_server_get_message ()</h3>
+<pre class="programlisting"><a class="link" href="CamelStream.html" title="CamelStream"><span class="returnvalue">CamelStream</span></a> *
+camel_imapx_server_get_message (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelFolderSummary.html" title="CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelDataCache.html" title="CamelDataCache"><span class="type">CamelDataCache</span></a> *message_cache</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message_uid</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-copy-message"></a><h3>camel_imapx_server_copy_message ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_copy_message (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                 <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                 <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *destination</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> *uids</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> delete_originals</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-append-message"></a><h3>camel_imapx_server_append_message ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_append_message (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                   <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                   <em class="parameter"><code><a class="link" href="CamelFolderSummary.html" title="CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                   <em class="parameter"><code><a class="link" href="CamelDataCache.html" title="CamelDataCache"><span class="type">CamelDataCache</span></a> *message_cache</code></em>,
+                                   <em class="parameter"><code><a class="link" href="CamelMimeMessage.html" title="CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> *message</code></em>,
+                                   <em class="parameter"><code>const <a class="link" href="CamelFolderSummary.html#CamelMessageInfo" title="struct CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **append_uid</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-sync-message"></a><h3>camel_imapx_server_sync_message ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_sync_message (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                 <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                 <em class="parameter"><code><a class="link" href="CamelFolderSummary.html" title="CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                 <em class="parameter"><code><a class="link" href="CamelDataCache.html" title="CamelDataCache"><span class="type">CamelDataCache</span></a> *message_cache</code></em>,
+                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message_uid</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-create-mailbox"></a><h3>camel_imapx_server_create_mailbox ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_create_mailbox (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                   <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *mailbox_name</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-delete-mailbox"></a><h3>camel_imapx_server_delete_mailbox ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_delete_mailbox (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                   <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-rename-mailbox"></a><h3>camel_imapx_server_rename_mailbox ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_rename_mailbox (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                   <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                   <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *new_mailbox_name</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                   <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-subscribe-mailbox"></a><h3>camel_imapx_server_subscribe_mailbox ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_subscribe_mailbox (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                      <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-unsubscribe-mailbox"></a><h3>camel_imapx_server_unsubscribe_mailbox ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_unsubscribe_mailbox
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-update-quota-info"></a><h3>camel_imapx_server_update_quota_info ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+camel_imapx_server_update_quota_info (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                      <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-uid-search"></a><h3>camel_imapx_server_uid_search ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *
+camel_imapx_server_uid_search (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                               <em class="parameter"><code><a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *mailbox</code></em>,
+                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *criteria</code></em>,
+                               <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-server-register-untagged-handler"></a><h3>camel_imapx_server_register_untagged_handler ()</h3>
+<pre class="programlisting">const <a class="link" href="CamelIMAPXServer.html#CamelIMAPXUntaggedRespHandlerDesc" title="struct CamelIMAPXUntaggedRespHandlerDesc"><span class="returnvalue">CamelIMAPXUntaggedRespHandlerDesc</span></a> *
+camel_imapx_server_register_untagged_handler
+                               (<em class="parameter"><code><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *is</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *untagged_response</code></em>,
+                                <em class="parameter"><code>const <a class="link" href="CamelIMAPXServer.html#CamelIMAPXUntaggedRespHandlerDesc" title="struct CamelIMAPXUntaggedRespHandlerDesc"><span class="type">CamelIMAPXUntaggedRespHandlerDesc</span></a> *desc</code></em>);</pre>
+<p>Register a new handler function for IMAP untagged responses.
+Pass in a NULL descriptor to delete an existing handler (the
+untagged response will remain known, but will no longer be acted
+upon if the handler is deleted). The return value is intended
+to be used in cases where e.g. an extension to existing handler
+code is implemented with just some new code to be run before
+or after the original handler code</p>
+<div class="refsect3">
+<a name="id-1.3.3.10.9.27.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>is</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> instance</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>untagged_response</p></td>
+<td class="parameter_description"><p>a string representation of the IMAP
+untagged response code. Must be
+all-uppercase with underscores allowed
+(see RFC 3501)</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>desc</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelIMAPXServer.html#CamelIMAPXUntaggedRespHandlerDesc" title="struct CamelIMAPXUntaggedRespHandlerDesc"><span class="type">CamelIMAPXUntaggedRespHandlerDesc</span></a> handler description
+structure. The descriptor structure is expected to
+remain stable over the lifetime of the <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a>
+instance it was registered with. It is the responsibility
+of the caller to ensure this</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.3.10.9.27.6"></a><h4>Returns</h4>
+<p> the <a class="link" href="CamelIMAPXServer.html#CamelIMAPXUntaggedRespHandlerDesc" title="struct CamelIMAPXUntaggedRespHandlerDesc"><span class="type">CamelIMAPXUntaggedRespHandlerDesc</span></a> previously
+registered for this untagged response, if any,
+NULL otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXServer.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="CamelIMAPXServer-struct"></a><h3>struct CamelIMAPXServer</h3>
+<pre class="programlisting">struct CamelIMAPXServer;</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelIMAPXUntaggedRespHandlerDesc"></a><h3>struct CamelIMAPXUntaggedRespHandlerDesc</h3>
+<pre class="programlisting">struct CamelIMAPXUntaggedRespHandlerDesc {
+	const gchar *untagged_response;
+	const CamelIMAPXUntaggedRespHandler handler;
+	const gchar *next_response;
+	gboolean skip_stream_when_done;
+};
+</pre>
+<p>IMAP untagged response handler function descriptor. Use in conjunction
+with <a class="link" href="CamelIMAPXServer.html#camel-imapx-server-register-untagged-handler" title="camel_imapx_server_register_untagged_handler ()"><code class="function">camel_imapx_server_register_untagged_handler()</code></a> to register a new
+handler function for a given untagged response code</p>
+<div class="refsect3">
+<a name="id-1.3.3.10.10.3.5"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="struct_members_name">
+<col class="struct_members_description">
+<col width="200px" class="struct_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="struct_member_name"><p>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="CamelIMAPXUntaggedRespHandlerDesc.untagged-response"></a>untagged_response</code></em>;</p></td>
+<td class="struct_member_description"><p>a string representation of the IMAP
+untagged response code. Must be
+all-uppercase with underscores allowed
+(see RFC 3501)</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p>const <span class="type">CamelIMAPXUntaggedRespHandler</span> <em class="structfield"><code><a name="CamelIMAPXUntaggedRespHandlerDesc.handler"></a>handler</code></em>;</p></td>
+<td class="struct_member_description"><p>an untagged response handler function for <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a></p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *<em class="structfield"><code><a name="CamelIMAPXUntaggedRespHandlerDesc.next-response"></a>next_response</code></em>;</p></td>
+<td class="struct_member_description"><p>the IMAP untagged code to call a registered
+handler for directly after successfully
+running <em class="parameter"><code>handler</code></em>
+. If not NULL, <em class="parameter"><code>skip_stream_when_done</code></em>
+for the current handler has no effect</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+<tr>
+<td class="struct_member_name"><p><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> <em class="structfield"><code><a name="CamelIMAPXUntaggedRespHandlerDesc.skip-stream-when-done"></a>skip_stream_when_done</code></em>;</p></td>
+<td class="struct_member_description"><p>whether or not to skip the current IMAP
+untagged response in the <a href="https://developer.gnome.org/gio/unstable/GInputStream.html"><span class="type">GInputStream</span></a>.
+Set to TRUE if your handler does not eat
+the stream up to the next response token</p></td>
+<td class="struct_member_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.6</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXServer.property-details"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="CamelIMAPXServer--store"></a><h3>The <code class="literal">“store”</code> property</h3>
+<pre class="programlisting">  “store”                    <a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a> *</pre>
+<p>IMAPX store for this server.</p>
+<p>Flags: Read / Write / Construct Only</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXServer.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="CamelIMAPXServer-mailbox-closed"></a><h3>The <code class="literal">“mailbox-closed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a>  *camelimapxserver,
+               <a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *arg1,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelIMAPXServer-mailbox-select"></a><h3>The <code class="literal">“mailbox-select”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a>  *camelimapxserver,
+               <a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *arg1,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Flags: Run Last</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelIMAPXServer-shutdown"></a><h3>The <code class="literal">“shutdown”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> *server,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>           *error,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>          user_data)</pre>
+<div class="refsect3">
+<a name="id-1.3.3.10.12.4.4"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>server</p></td>
+<td class="parameter_description"><p>the <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> which emitted the signal</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, which caused the shutdown; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data set when the signal handler was connected.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p>Flags: Run First</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

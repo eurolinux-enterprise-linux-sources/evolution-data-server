@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Camel Reference Manual: CamelIMAPXStore</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Camel Reference Manual">
+<link rel="up" href="IMAP.html" title="IMAP Service">
+<link rel="prev" href="CamelIMAPXSettings.html" title="CamelIMAPXSettings">
+<link rel="next" href="CamelIMAPXStoreSummary.html" title="CamelIMAPXStoreSummary">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXStore.description" class="shortcut">Description</a></span><span id="nav_hierarchy">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXStore.object-hierarchy" class="shortcut">Object Hierarchy</a></span><span id="nav_interfaces">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXStore.implemented-interfaces" class="shortcut">Implemented Interfaces</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#CamelIMAPXStore.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="IMAP.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="CamelIMAPXSettings.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="CamelIMAPXStoreSummary.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="CamelIMAPXStore"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="CamelIMAPXStore.top_of_page"></a>CamelIMAPXStore</span></h2>
+<p>CamelIMAPXStore</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="CamelIMAPXStore.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="returnvalue">CamelIMAPXServer</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXStore.html#camel-imapx-store-ref-server" title="camel_imapx_store_ref_server ()">camel_imapx_store_ref_server</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="CamelFolder.html#CamelFolderQuotaInfo" title="struct CamelFolderQuotaInfo"><span class="returnvalue">CamelFolderQuotaInfo</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXStore.html#camel-imapx-store-dup-quota-info" title="camel_imapx_store_dup_quota_info ()">camel_imapx_store_dup_quota_info</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="CamelIMAPXStore.html#camel-imapx-store-set-quota-info" title="camel_imapx_store_set_quota_info ()">camel_imapx_store_set_quota_info</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXStore.signals"></a><h2>Signals</h2>
+<div class="informaltable"><table border="0">
+<colgroup>
+<col width="150px" class="signals_return">
+<col width="300px" class="signals_name">
+<col width="200px" class="signals_flags">
+</colgroup>
+<tbody>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="CamelIMAPXStore.html#CamelIMAPXStore-mailbox-created" title="The “mailbox-created” signal">mailbox-created</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="CamelIMAPXStore.html#CamelIMAPXStore-mailbox-renamed" title="The “mailbox-renamed” signal">mailbox-renamed</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+<tr>
+<td class="signal_type"><span class="returnvalue">void</span></td>
+<td class="signal_name"><a class="link" href="CamelIMAPXStore.html#CamelIMAPXStore-mailbox-updated" title="The “mailbox-updated” signal">mailbox-updated</a></td>
+<td class="signal_flags">Run First</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXStore.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="CamelIMAPXStore.html#CamelIMAPXStore-struct" title="struct CamelIMAPXStore">CamelIMAPXStore</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXStore.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="screen">    <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+    <span class="lineart">╰──</span> <a class="link" href="CamelObject.html" title="CamelObject">CamelObject</a>
+        <span class="lineart">╰──</span> <a class="link" href="CamelService.html" title="CamelService">CamelService</a>
+            <span class="lineart">╰──</span> <a class="link" href="CamelStore.html" title="CamelStore">CamelStore</a>
+                <span class="lineart">╰──</span> <a class="link" href="CamelOfflineStore.html" title="CamelOfflineStore">CamelOfflineStore</a>
+                    <span class="lineart">╰──</span> CamelIMAPXStore
+</pre>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXStore.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+CamelIMAPXStore implements
+ <a href="https://developer.gnome.org/gio/unstable/GInitable.html">GInitable</a>,  <a class="link" href="CamelNetworkService.html" title="CamelNetworkService">CamelNetworkService</a> and  <a class="link" href="CamelSubscribable.html" title="CamelSubscribable">CamelSubscribable</a>.</p>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXStore.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXStore.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="camel-imapx-store-ref-server"></a><h3>camel_imapx_store_ref_server ()</h3>
+<pre class="programlisting"><a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="returnvalue">CamelIMAPXServer</span></a> *
+camel_imapx_store_ref_server (<em class="parameter"><code><a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a> *store</code></em>,
+                              <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *folder_name</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> for_expensive_job</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Returns the <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> for <em class="parameter"><code>store</code></em>
+, if available.</p>
+<p>As a convenience, if the <em class="parameter"><code>store</code></em>
+ is not currently connected to an IMAP
+server, the function sets <em class="parameter"><code>error</code></em>
+ to <code class="literal">CAMEL_SERVER_ERROR_UNAVAILABLE</code> and
+returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.  If an operation can possibly be executed while offline,
+pass <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> for <em class="parameter"><code>error</code></em>
+.</p>
+<p>The returned <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a> is referenced for thread-safety and must
+be unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+<div class="refsect3">
+<a name="id-1.3.3.12.9.2.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>store</p></td>
+<td class="parameter_description"><p>a <a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>folder_name</p></td>
+<td class="parameter_description"><p>name of a folder, for which it'll be used; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> to use ofr possible new connection creation, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.3.12.9.2.8"></a><h4>Returns</h4>
+<p> a <a class="link" href="CamelIMAPXServer.html" title="CamelIMAPXServer"><span class="type">CamelIMAPXServer</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p>
+<p></p>
+</div>
+<p class="since">Since 3.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-store-dup-quota-info"></a><h3>camel_imapx_store_dup_quota_info ()</h3>
+<pre class="programlisting"><a class="link" href="CamelFolder.html#CamelFolderQuotaInfo" title="struct CamelFolderQuotaInfo"><span class="returnvalue">CamelFolderQuotaInfo</span></a> *
+camel_imapx_store_dup_quota_info (<em class="parameter"><code><a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a> *store</code></em>,
+                                  <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *quota_root_name</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-imapx-store-set-quota-info"></a><h3>camel_imapx_store_set_quota_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+camel_imapx_store_set_quota_info (<em class="parameter"><code><a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a> *store</code></em>,
+                                  <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *quota_root_name</code></em>,
+                                  <em class="parameter"><code>const <a class="link" href="CamelFolder.html#CamelFolderQuotaInfo" title="struct CamelFolderQuotaInfo"><span class="type">CamelFolderQuotaInfo</span></a> *info</code></em>);</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXStore.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="CamelIMAPXStore-struct"></a><h3>struct CamelIMAPXStore</h3>
+<pre class="programlisting">struct CamelIMAPXStore;</pre>
+</div>
+</div>
+<div class="refsect1">
+<a name="CamelIMAPXStore.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="CamelIMAPXStore-mailbox-created"></a><h3>The <code class="literal">“mailbox-created”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a>   *camelimapxstore,
+               <a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *arg1,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelIMAPXStore-mailbox-renamed"></a><h3>The <code class="literal">“mailbox-renamed”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a>   *camelimapxstore,
+               <a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *arg1,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>             *arg2,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CamelIMAPXStore-mailbox-updated"></a><h3>The <code class="literal">“mailbox-updated”</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+user_function (<a class="link" href="CamelIMAPXStore.html" title="CamelIMAPXStore"><span class="type">CamelIMAPXStore</span></a>   *camelimapxstore,
+               <a class="link" href="CamelIMAPXMailbox.html" title="CamelIMAPXMailbox"><span class="type">CamelIMAPXMailbox</span></a> *arg1,
+               <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>           user_data)</pre>
+<p>Flags: Run First</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

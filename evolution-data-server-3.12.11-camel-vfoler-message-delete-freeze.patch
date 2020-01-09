@@ -1,0 +1,13 @@
+diff -up evolution-data-server-3.12.11/camel/camel-vee-summary.c.camel-vfoler-message-delete-freeze evolution-data-server-3.12.11/camel/camel-vee-summary.c
+--- evolution-data-server-3.12.11/camel/camel-vee-summary.c.camel-vfoler-message-delete-freeze	2014-03-24 10:07:52.000000000 +0100
++++ evolution-data-server-3.12.11/camel/camel-vee-summary.c	2015-09-07 15:02:12.699393738 +0200
+@@ -256,9 +256,7 @@ vee_info_set_flags (CamelMessageInfo *mi
+ 		if (ignore_changes)
+ 			camel_vee_folder_ignore_next_changed_event (vf, camel_folder_summary_get_folder (rmi->summary));
+ 
+-		camel_folder_freeze (camel_folder_summary_get_folder (rmi->summary));
+ 		res = camel_message_info_set_flags (rmi, flags, set);
+-		camel_folder_thaw (camel_folder_summary_get_folder (rmi->summary));
+ 
+ 		if (res) {
+ 			/* update flags on itself too */

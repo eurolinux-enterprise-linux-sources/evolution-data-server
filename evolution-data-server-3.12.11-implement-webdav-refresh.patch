@@ -1,0 +1,109 @@
+diff -up evolution-data-server-3.12.11/addressbook/backends/webdav/e-book-backend-webdav.c.implement-webdav-refresh evolution-data-server-3.12.11/addressbook/backends/webdav/e-book-backend-webdav.c
+--- evolution-data-server-3.12.11/addressbook/backends/webdav/e-book-backend-webdav.c.implement-webdav-refresh	2014-05-22 08:45:46.000000000 +0200
++++ evolution-data-server-3.12.11/addressbook/backends/webdav/e-book-backend-webdav.c	2015-05-04 19:15:14.463350678 +0200
+@@ -832,6 +832,7 @@ static gboolean
+ download_contacts (EBookBackendWebdav *webdav,
+                    EFlag *running,
+                    EDataBookView *book_view,
++		   gboolean force,
+                    GCancellable *cancellable,
+                    GError **error)
+ {
+@@ -851,7 +852,7 @@ download_contacts (EBookBackendWebdav *w
+ 
+ 	g_mutex_lock (&priv->update_lock);
+ 
+-	if (!check_addressbook_changed (webdav, &new_ctag, cancellable)) {
++	if (!force && !check_addressbook_changed (webdav, &new_ctag, cancellable)) {
+ 		g_free (new_ctag);
+ 		g_mutex_unlock (&priv->update_lock);
+ 		return TRUE;
+@@ -1072,7 +1073,7 @@ book_view_thread (gpointer data)
+ 	 * it's stopped */
+ 	g_object_ref (book_view);
+ 
+-	download_contacts (webdav, closure->running, book_view, NULL, NULL);
++	download_contacts (webdav, closure->running, book_view, FALSE, NULL, NULL);
+ 
+ 	g_object_unref (book_view);
+ 
+@@ -1218,7 +1219,7 @@ book_backend_webdav_get_backend_property
+ 	g_return_val_if_fail (prop_name != NULL, NULL);
+ 
+ 	if (g_str_equal (prop_name, CLIENT_BACKEND_PROPERTY_CAPABILITIES)) {
+-		return g_strdup ("net,do-initial-query,contact-lists");
++		return g_strdup ("net,do-initial-query,contact-lists,refresh-supported");
+ 
+ 	} else if (g_str_equal (prop_name, BOOK_BACKEND_PROPERTY_REQUIRED_FIELDS)) {
+ 		return g_strdup (e_contact_field_name (E_CONTACT_FILE_AS));
+@@ -1764,7 +1765,7 @@ book_backend_webdav_get_contact_list_syn
+ 
+ 	if (e_backend_get_online (E_BACKEND (backend))) {
+ 		/* make sure the cache is up to date */
+-		if (!download_contacts (webdav, NULL, NULL, cancellable, error))
++		if (!download_contacts (webdav, NULL, NULL, FALSE, cancellable, error))
+ 			return FALSE;
+ 	}
+ 
+@@ -1822,6 +1823,29 @@ book_backend_webdav_try_password_sync (E
+ 	return result;
+ }
+ 
++static gboolean
++e_book_backend_webdav_refresh_sync (EBookBackend *book_backend,
++				    GCancellable *cancellable,
++				    GError **error)
++{
++	EBackend *backend;
++
++	g_return_val_if_fail (E_IS_BOOK_BACKEND_WEBDAV (book_backend), FALSE);
++
++	backend = E_BACKEND (book_backend);
++
++	if (!e_backend_get_online (backend) &&
++	    e_backend_is_destination_reachable (backend, cancellable, NULL)) {
++		e_backend_set_online (backend, TRUE);
++	}
++
++	if (e_backend_get_online (backend) && !g_cancellable_is_cancelled (cancellable)) {
++		return download_contacts (E_BOOK_BACKEND_WEBDAV (book_backend), NULL, NULL, TRUE, cancellable, error);
++	}
++
++	return TRUE;
++}
++
+ static void
+ e_book_backend_webdav_class_init (EBookBackendWebdavClass *class)
+ {
+@@ -1844,6 +1868,7 @@ e_book_backend_webdav_class_init (EBookB
+ 	backend_class->get_contact_list_sync = book_backend_webdav_get_contact_list_sync;
+ 	backend_class->start_view = e_book_backend_webdav_start_view;
+ 	backend_class->stop_view = e_book_backend_webdav_stop_view;
++	backend_class->refresh_sync = e_book_backend_webdav_refresh_sync;
+ }
+ 
+ static void
+diff -up evolution-data-server-3.12.11/calendar/backends/caldav/e-cal-backend-caldav.c.implement-webdav-refresh evolution-data-server-3.12.11/calendar/backends/caldav/e-cal-backend-caldav.c
+--- evolution-data-server-3.12.11/calendar/backends/caldav/e-cal-backend-caldav.c.implement-webdav-refresh	2014-11-12 17:57:45.000000000 +0100
++++ evolution-data-server-3.12.11/calendar/backends/caldav/e-cal-backend-caldav.c	2015-05-04 19:15:14.464350669 +0200
+@@ -3013,9 +3013,17 @@ caldav_refresh (ECalBackendSync *backend
+ 	g_mutex_lock (&cbdav->priv->busy_lock);
+ 
+ 	if (!cbdav->priv->loaded
+-	    || cbdav->priv->slave_cmd == SLAVE_SHOULD_DIE
+-	    || !check_state (cbdav, &online, NULL)
+-	    || !online) {
++	    || cbdav->priv->slave_cmd == SLAVE_SHOULD_DIE) {
++		g_mutex_unlock (&cbdav->priv->busy_lock);
++		return;
++	}
++
++	if (!e_backend_get_online (E_BACKEND (backend)) &&
++	    e_backend_is_destination_reachable (E_BACKEND (backend), cancellable, NULL)) {
++		e_backend_set_online (E_BACKEND (backend), TRUE);
++	}
++
++	if (!check_state (cbdav, &online, NULL) || !online) {
+ 		g_mutex_unlock (&cbdav->priv->busy_lock);
+ 		return;
+ 	}

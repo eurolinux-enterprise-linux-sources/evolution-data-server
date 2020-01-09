@@ -1,0 +1,596 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Manual: Private: org.gnome.evolution.dataserver.Calendar</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Private">
+<link rel="up" href="ch02.html" title="D-Bus Interfaces">
+<link rel="prev" href="gdbus-org.gnome.evolution.dataserver.AddressBookFactory.html" title="org.gnome.evolution.dataserver.AddressBookFactory">
+<link rel="next" href="gdbus-org.gnome.evolution.dataserver.CalendarFactory.html" title="org.gnome.evolution.dataserver.CalendarFactory">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#gdbus-org.gnome.evolution.dataserver.Calendar.description" class="shortcut">Description</a></span><span id="nav_properties">  <span class="dim">|</span> 
+                  <a href="#gdbus-org.gnome.evolution.dataserver.Calendar.properties" class="shortcut">Properties</a></span><span id="nav_signals">  <span class="dim">|</span> 
+                  <a href="#gdbus-org.gnome.evolution.dataserver.Calendar.signals" class="shortcut">Signals</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch02.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="gdbus-org.gnome.evolution.dataserver.AddressBookFactory.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="gdbus-org.gnome.evolution.dataserver.CalendarFactory.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="gdbus-org.gnome.evolution.dataserver.Calendar"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="gdbus-interface-org-gnome-evolution-dataserver-Calendar.top_of_page"></a>org.gnome.evolution.dataserver.Calendar</span></h2>
+<p>org.gnome.evolution.dataserver.Calendar — Calendar objects</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<h2>Methods</h2>
+<pre class="synopsis">
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Open" title="The Open() method">Open</a>              ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Close" title="The Close() method">Close</a>             ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.Refresh" title="The Refresh() method">Refresh</a>           ();
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.CreateObjects" title="The CreateObjects() method">CreateObjects</a>     (IN  as    ics_objects,
+                   OUT as    uids);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.ModifyObjects" title="The ModifyObjects() method">ModifyObjects</a>     (IN  as    ics_objects,
+                   IN  s     mod_type);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.RemoveObjects" title="The RemoveObjects() method">RemoveObjects</a>     (IN  a(ss) uid_rid_array,
+                   IN  s     mod_type);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.ReceiveObjects" title="The ReceiveObjects() method">ReceiveObjects</a>    (IN  s     ics_object);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.SendObjects" title="The SendObjects() method">SendObjects</a>       (IN  s     ics_object,
+                   OUT as    users,
+                   OUT s     out_ics_object);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetObject" title="The GetObject() method">GetObject</a>         (IN  s     uid,
+                   IN  s     rid,
+                   OUT s     ics_object);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetObjectList" title="The GetObjectList() method">GetObjectList</a>     (IN  s     query,
+                   OUT as    ics_objects);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetFreeBusy" title="The GetFreeBusy() method">GetFreeBusy</a>       (IN  x     start,
+                   IN  x     end,
+                   IN  as    users);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetAttachmentUris" title="The GetAttachmentUris() method">GetAttachmentUris</a> (IN  s     uid,
+                   IN  s     rid,
+                   OUT as    uris);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.DiscardAlarm" title="The DiscardAlarm() method">DiscardAlarm</a>      (IN  s     uid,
+                   IN  s     rid,
+                   IN  s     alarm_uid);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetTimezone" title="The GetTimezone() method">GetTimezone</a>       (IN  s     tz_id,
+                   OUT s     tz_object);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.AddTimezone" title="The AddTimezone() method">AddTimezone</a>       (IN  s     tz_object);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-method-org-gnome-evolution-dataserver-Calendar.GetView" title="The GetView() method">GetView</a>           (IN  s     query,
+                   OUT o     object_path);
+</pre>
+</div>
+<div class="refsect1">
+<a name="id-1.3.12.4"></a><h2>Signals</h2>
+<pre class="synopsis">
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-signal-org-gnome-evolution-dataserver-Calendar.Error" title='The "Error" signal'>Error</a>        (s  error_message);
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-signal-org-gnome-evolution-dataserver-Calendar.FreeBusyData" title='The "FreeBusyData" signal'>FreeBusyData</a> (as ics_objects);
+</pre>
+</div>
+<div class="refsect1">
+<a name="id-1.3.12.5"></a><h2>Properties</h2>
+<pre class="synopsis">
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.Online" title='The "Online" property'>Online</a>             readable   b
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.Revision" title='The "Revision" property'>Revision</a>           readable   s
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.Writable" title='The "Writable" property'>Writable</a>           readable   b
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.CacheDir" title='The "CacheDir" property'>CacheDir</a>           readable   s
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.Capabilities" title='The "Capabilities" property'>Capabilities</a>       readable   as
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.DefaultObject" title='The "DefaultObject" property'>DefaultObject</a>      readable   s
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.CalEmailAddress" title='The "CalEmailAddress" property'>CalEmailAddress</a>    readable   s
+<a class="link" href="gdbus-org.gnome.evolution.dataserver.Calendar.html#gdbus-property-org-gnome-evolution-dataserver-Calendar.AlarmEmailAddress" title='The "AlarmEmailAddress" property'>AlarmEmailAddress</a>  readable   s
+</pre>
+</div>
+<div class="refsect1">
+<a name="gdbus-interface-org-gnome-evolution-dataserver-Calendar"></a><h2>Description</h2>
+<p>    This interface allows for interaction with a calendar backend.
+</p>
+<p class="since">Since 3.8</p>
+</div>
+<div class="refsect1">
+<a name="gdbus-methods-org.gnome.evolution.dataserver.Calendar"></a><h2>Method Details</h2>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.Open"></a><h3>The Open() method</h3>
+<pre class="programlisting">
+Open ();
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.Close"></a><h3>The Close() method</h3>
+<pre class="programlisting">
+Close ();
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.Refresh"></a><h3>The Refresh() method</h3>
+<pre class="programlisting">
+Refresh ();
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.CreateObjects"></a><h3>The CreateObjects() method</h3>
+<pre class="programlisting">
+CreateObjects (IN  as ics_objects,
+               OUT as uids);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN as <em class="parameter"><code>ics_objects</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT as <em class="parameter"><code>uids</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.ModifyObjects"></a><h3>The ModifyObjects() method</h3>
+<pre class="programlisting">
+ModifyObjects (IN  as ics_objects,
+               IN  s  mod_type);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN as <em class="parameter"><code>ics_objects</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>mod_type</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.RemoveObjects"></a><h3>The RemoveObjects() method</h3>
+<pre class="programlisting">
+RemoveObjects (IN  a(ss) uid_rid_array,
+               IN  s     mod_type);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN a(ss) <em class="parameter"><code>uid_rid_array</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>mod_type</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.ReceiveObjects"></a><h3>The ReceiveObjects() method</h3>
+<pre class="programlisting">
+ReceiveObjects (IN  s ics_object);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>ics_object</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.SendObjects"></a><h3>The SendObjects() method</h3>
+<pre class="programlisting">
+SendObjects (IN  s  ics_object,
+             OUT as users,
+             OUT s  out_ics_object);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>ics_object</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT as <em class="parameter"><code>users</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>out_ics_object</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.GetObject"></a><h3>The GetObject() method</h3>
+<pre class="programlisting">
+GetObject (IN  s uid,
+           IN  s rid,
+           OUT s ics_object);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>uid</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>rid</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>ics_object</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.GetObjectList"></a><h3>The GetObjectList() method</h3>
+<pre class="programlisting">
+GetObjectList (IN  s  query,
+               OUT as ics_objects);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>query</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT as <em class="parameter"><code>ics_objects</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.GetFreeBusy"></a><h3>The GetFreeBusy() method</h3>
+<pre class="programlisting">
+GetFreeBusy (IN  x  start,
+             IN  x  end,
+             IN  as users);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN x <em class="parameter"><code>start</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN x <em class="parameter"><code>end</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN as <em class="parameter"><code>users</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.GetAttachmentUris"></a><h3>The GetAttachmentUris() method</h3>
+<pre class="programlisting">
+GetAttachmentUris (IN  s  uid,
+                   IN  s  rid,
+                   OUT as uris);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>uid</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>rid</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT as <em class="parameter"><code>uris</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.DiscardAlarm"></a><h3>The DiscardAlarm() method</h3>
+<pre class="programlisting">
+DiscardAlarm (IN  s uid,
+              IN  s rid,
+              IN  s alarm_uid);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>uid</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>rid</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>alarm_uid</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.GetTimezone"></a><h3>The GetTimezone() method</h3>
+<pre class="programlisting">
+GetTimezone (IN  s tz_id,
+             OUT s tz_object);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>tz_id</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT s <em class="parameter"><code>tz_object</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.AddTimezone"></a><h3>The AddTimezone() method</h3>
+<pre class="programlisting">
+AddTimezone (IN  s tz_object);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>tz_object</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-method-org-gnome-evolution-dataserver-Calendar.GetView"></a><h3>The GetView() method</h3>
+<pre class="programlisting">
+GetView (IN  s query,
+         OUT o object_path);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td><p><span class="term"><code class="literal">IN s <em class="parameter"><code>query</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+<tr>
+<td><p><span class="term"><code class="literal">OUT o <em class="parameter"><code>object_path</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdbus-signals-org.gnome.evolution.dataserver.Calendar"></a><h2>Signal Details</h2>
+<div class="refsect2">
+<a name="gdbus-signal-org-gnome-evolution-dataserver-Calendar.Error"></a><h3>The "Error" signal</h3>
+<pre class="programlisting">
+Error (s error_message);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><code class="literal">s <em class="parameter"><code>error_message</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-signal-org-gnome-evolution-dataserver-Calendar.FreeBusyData"></a><h3>The "FreeBusyData" signal</h3>
+<pre class="programlisting">
+FreeBusyData (as ics_objects);
+</pre>
+<p></p>
+<div class="variablelist"><table border="0" class="variablelist">
+<colgroup>
+<col align="left" valign="top">
+<col>
+</colgroup>
+<tbody><tr>
+<td><p><span class="term"><code class="literal">as <em class="parameter"><code>ics_objects</code></em></code>:</span></p></td>
+<td><p></p></td>
+</tr></tbody>
+</table></div>
+<p class="since">Since 3.8</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="gdbus-properties-org.gnome.evolution.dataserver.Calendar"></a><h2>Property Details</h2>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-Calendar.Online"></a><h3>The "Online" property</h3>
+<pre class="programlisting">
+Online  readable   b
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-Calendar.Revision"></a><h3>The "Revision" property</h3>
+<pre class="programlisting">
+Revision  readable   s
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-Calendar.Writable"></a><h3>The "Writable" property</h3>
+<pre class="programlisting">
+Writable  readable   b
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-Calendar.CacheDir"></a><h3>The "CacheDir" property</h3>
+<pre class="programlisting">
+CacheDir  readable   s
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-Calendar.Capabilities"></a><h3>The "Capabilities" property</h3>
+<pre class="programlisting">
+Capabilities  readable   as
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-Calendar.DefaultObject"></a><h3>The "DefaultObject" property</h3>
+<pre class="programlisting">
+DefaultObject  readable   s
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-Calendar.CalEmailAddress"></a><h3>The "CalEmailAddress" property</h3>
+<pre class="programlisting">
+CalEmailAddress  readable   s
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="gdbus-property-org-gnome-evolution-dataserver-Calendar.AlarmEmailAddress"></a><h3>The "AlarmEmailAddress" property</h3>
+<pre class="programlisting">
+AlarmEmailAddress  readable   s
+</pre>
+<p></p>
+<p class="since">Since 3.8</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

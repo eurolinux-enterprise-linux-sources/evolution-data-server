@@ -1,0 +1,1448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Reference Manual: Calendar utilities</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch13.html" title="Calendar related utilities">
+<link rel="prev" href="eds-Calendar-time-utilities.html" title="Calendar time utilities">
+<link rel="next" href="eds-Calendar-system-timezone.html" title="Calendar system timezone">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-Calendar-utilities.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch13.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-Calendar-time-utilities.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-Calendar-system-timezone.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-Calendar-utilities"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-Calendar-utilities.top_of_page"></a>Calendar utilities</span></h2>
+<p>Calendar utilities</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-Calendar-utilities.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#cal-obj-instance-list-free" title="cal_obj_instance_list_free ()">cal_obj_instance_list_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#cal-obj-uid-list-free" title="cal_obj_uid_list_free ()">cal_obj_uid_list_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">icalcomponent</span> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-new-top-level" title="e_cal_util_new_top_level ()">e_cal_util_new_top_level</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">icalcomponent</span> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-new-component" title="e_cal_util_new_component ()">e_cal_util_new_component</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">icalcomponent</span> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-parse-ics-string" title="e_cal_util_parse_ics_string ()">e_cal_util_parse_ics_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">icalcomponent</span> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-parse-ics-file" title="e_cal_util_parse_ics_file ()">e_cal_util_parse_ics_file</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-ECalComponent.html#ECalComponentAlarms" title="ECalComponentAlarms"><span class="returnvalue">ECalComponentAlarms</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-generate-alarms-for-comp" title="e_cal_util_generate_alarms_for_comp ()">e_cal_util_generate_alarms_for_comp</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-generate-alarms-for-list" title="e_cal_util_generate_alarms_for_list ()">e_cal_util_generate_alarms_for_list</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-priority-to-string" title="e_cal_util_priority_to_string ()">e_cal_util_priority_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-priority-from-string" title="e_cal_util_priority_from_string ()">e_cal_util_priority_from_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-add-timezones-from-component" title="e_cal_util_add_timezones_from_component ()">e_cal_util_add_timezones_from_component</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-component-is-instance" title="e_cal_util_component_is_instance ()">e_cal_util_component_is_instance</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-component-has-alarms" title="e_cal_util_component_has_alarms ()">e_cal_util_component_has_alarms</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-component-has-organizer" title="e_cal_util_component_has_organizer ()">e_cal_util_component_has_organizer</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-component-has-recurrences" title="e_cal_util_component_has_recurrences ()">e_cal_util_component_has_recurrences</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-component-has-rdates" title="e_cal_util_component_has_rdates ()">e_cal_util_component_has_rdates</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-component-has-rrules" title="e_cal_util_component_has_rrules ()">e_cal_util_component_has_rrules</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-component-has-attendee" title="e_cal_util_component_has_attendee ()">e_cal_util_component_has_attendee</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-event-dates-match" title="e_cal_util_event_dates_match ()">e_cal_util_event_dates_match</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">icalcomponent</span> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-construct-instance" title="e_cal_util_construct_instance ()">e_cal_util_construct_instance</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-remove-instances" title="e_cal_util_remove_instances ()">e_cal_util_remove_instances</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-get-system-timezone-location" title="e_cal_util_get_system_timezone_location ()">e_cal_util_get_system_timezone_location</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">icaltimezone</span> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-get-system-timezone" title="e_cal_util_get_system_timezone ()">e_cal_util_get_system_timezone</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#e-cal-util-get-component-occur-times" title="e_cal_util_get_component_occur_times ()">e_cal_util_get_component_occur_times</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name">
+<a class="link" href="eds-Calendar-utilities.html#cal-mode-to-corba" title="cal_mode_to_corba()">cal_mode_to_corba</a><span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-Calendar-utilities.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CalObjInstance" title="CalObjInstance">CalObjInstance</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-ALARM-REPEAT:CAPS" title="CAL_STATIC_CAPABILITY_NO_ALARM_REPEAT">CAL_STATIC_CAPABILITY_NO_ALARM_REPEAT</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-AUDIO-ALARMS:CAPS" title="CAL_STATIC_CAPABILITY_NO_AUDIO_ALARMS">CAL_STATIC_CAPABILITY_NO_AUDIO_ALARMS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-DISPLAY-ALARMS:CAPS" title="CAL_STATIC_CAPABILITY_NO_DISPLAY_ALARMS">CAL_STATIC_CAPABILITY_NO_DISPLAY_ALARMS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-EMAIL-ALARMS:CAPS" title="CAL_STATIC_CAPABILITY_NO_EMAIL_ALARMS">CAL_STATIC_CAPABILITY_NO_EMAIL_ALARMS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-PROCEDURE-ALARMS:CAPS" title="CAL_STATIC_CAPABILITY_NO_PROCEDURE_ALARMS">CAL_STATIC_CAPABILITY_NO_PROCEDURE_ALARMS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-TASK-ASSIGNMENT:CAPS" title="CAL_STATIC_CAPABILITY_NO_TASK_ASSIGNMENT">CAL_STATIC_CAPABILITY_NO_TASK_ASSIGNMENT</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-THISANDFUTURE:CAPS" title="CAL_STATIC_CAPABILITY_NO_THISANDFUTURE">CAL_STATIC_CAPABILITY_NO_THISANDFUTURE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-THISANDPRIOR:CAPS" title="CAL_STATIC_CAPABILITY_NO_THISANDPRIOR">CAL_STATIC_CAPABILITY_NO_THISANDPRIOR</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-TRANSPARENCY:CAPS" title="CAL_STATIC_CAPABILITY_NO_TRANSPARENCY">CAL_STATIC_CAPABILITY_NO_TRANSPARENCY</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-MEMO-START-DATE:CAPS" title="CAL_STATIC_CAPABILITY_NO_MEMO_START_DATE">CAL_STATIC_CAPABILITY_NO_MEMO_START_DATE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-ALARM-DESCRIPTION:CAPS" title="CAL_STATIC_CAPABILITY_ALARM_DESCRIPTION">CAL_STATIC_CAPABILITY_ALARM_DESCRIPTION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-ALARM-AFTER-START:CAPS" title="CAL_STATIC_CAPABILITY_NO_ALARM_AFTER_START">CAL_STATIC_CAPABILITY_NO_ALARM_AFTER_START</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-BULK-ADDS:CAPS" title="CAL_STATIC_CAPABILITY_BULK_ADDS">CAL_STATIC_CAPABILITY_BULK_ADDS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-BULK-MODIFIES:CAPS" title="CAL_STATIC_CAPABILITY_BULK_MODIFIES">CAL_STATIC_CAPABILITY_BULK_MODIFIES</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-BULK-REMOVES:CAPS" title="CAL_STATIC_CAPABILITY_BULK_REMOVES">CAL_STATIC_CAPABILITY_BULK_REMOVES</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-REMOVE-ONLY-THIS:CAPS" title="CAL_STATIC_CAPABILITY_REMOVE_ONLY_THIS">CAL_STATIC_CAPABILITY_REMOVE_ONLY_THIS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-ONE-ALARM-ONLY:CAPS" title="CAL_STATIC_CAPABILITY_ONE_ALARM_ONLY">CAL_STATIC_CAPABILITY_ONE_ALARM_ONLY</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-ORGANIZER-MUST-ATTEND:CAPS" title="CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ATTEND">CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ATTEND</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-ORGANIZER-NOT-EMAIL-ADDRESS:CAPS" title="CAL_STATIC_CAPABILITY_ORGANIZER_NOT_EMAIL_ADDRESS">CAL_STATIC_CAPABILITY_ORGANIZER_NOT_EMAIL_ADDRESS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-REMOVE-ALARMS:CAPS" title="CAL_STATIC_CAPABILITY_REMOVE_ALARMS">CAL_STATIC_CAPABILITY_REMOVE_ALARMS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-CREATE-MESSAGES:CAPS" title="CAL_STATIC_CAPABILITY_CREATE_MESSAGES">CAL_STATIC_CAPABILITY_CREATE_MESSAGES</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-SAVE-SCHEDULES:CAPS" title="CAL_STATIC_CAPABILITY_SAVE_SCHEDULES">CAL_STATIC_CAPABILITY_SAVE_SCHEDULES</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-CONV-TO-ASSIGN-TASK:CAPS" title="CAL_STATIC_CAPABILITY_NO_CONV_TO_ASSIGN_TASK">CAL_STATIC_CAPABILITY_NO_CONV_TO_ASSIGN_TASK</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-CONV-TO-RECUR:CAPS" title="CAL_STATIC_CAPABILITY_NO_CONV_TO_RECUR">CAL_STATIC_CAPABILITY_NO_CONV_TO_RECUR</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-GEN-OPTIONS:CAPS" title="CAL_STATIC_CAPABILITY_NO_GEN_OPTIONS">CAL_STATIC_CAPABILITY_NO_GEN_OPTIONS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-REQ-SEND-OPTIONS:CAPS" title="CAL_STATIC_CAPABILITY_REQ_SEND_OPTIONS">CAL_STATIC_CAPABILITY_REQ_SEND_OPTIONS</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-RECURRENCES-NO-MASTER:CAPS" title="CAL_STATIC_CAPABILITY_RECURRENCES_NO_MASTER">CAL_STATIC_CAPABILITY_RECURRENCES_NO_MASTER</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-ORGANIZER-MUST-ACCEPT:CAPS" title="CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ACCEPT">CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ACCEPT</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-DELEGATE-SUPPORTED:CAPS" title="CAL_STATIC_CAPABILITY_DELEGATE_SUPPORTED">CAL_STATIC_CAPABILITY_DELEGATE_SUPPORTED</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-NO-ORGANIZER:CAPS" title="CAL_STATIC_CAPABILITY_NO_ORGANIZER">CAL_STATIC_CAPABILITY_NO_ORGANIZER</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-DELEGATE-TO-MANY:CAPS" title="CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY">CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-HAS-UNACCEPTED-MEETING:CAPS" title="CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING">CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CAL-STATIC-CAPABILITY-REFRESH-SUPPORTED:CAPS" title="CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED">CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="eds-Calendar-utilities.html#CalMode" title="enum CalMode">CalMode</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-Calendar-utilities.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="eds-Calendar-utilities.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="cal-obj-instance-list-free"></a><h3>cal_obj_instance_list_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+cal_obj_instance_list_free (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list</code></em>);</pre>
+<p>Frees a list of <a class="link" href="eds-Calendar-utilities.html#CalObjInstance" title="CalObjInstance"><span class="type">CalObjInstance</span></a> structures.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.2.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>List of <a class="link" href="eds-Calendar-utilities.html#CalObjInstance" title="CalObjInstance"><span class="type">CalObjInstance</span></a> structures.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cal-obj-uid-list-free"></a><h3>cal_obj_uid_list_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+cal_obj_uid_list_free (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *list</code></em>);</pre>
+<p>Frees a list of unique identifiers for calendar objects.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>list</p></td>
+<td class="parameter_description"><p>List of strings with unique identifiers.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-new-top-level"></a><h3>e_cal_util_new_top_level ()</h3>
+<pre class="programlisting"><span class="returnvalue">icalcomponent</span> *
+e_cal_util_new_top_level (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new VCALENDAR component.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.4.5"></a><h4>Returns</h4>
+<p> the newly created top level component.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-new-component"></a><h3>e_cal_util_new_component ()</h3>
+<pre class="programlisting"><span class="returnvalue">icalcomponent</span> *
+e_cal_util_new_component (<em class="parameter"><code><span class="type">icalcomponent_kind</span> kind</code></em>);</pre>
+<p>Creates a new <span class="type">icalcomponent</span> of the specified kind.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>Kind of the component to create.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.5.6"></a><h4>Returns</h4>
+<p> the newly created component.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-parse-ics-string"></a><h3>e_cal_util_parse_ics_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">icalcomponent</span> *
+e_cal_util_parse_ics_string (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *string</code></em>);</pre>
+<p>Parses an iCalendar string and returns a new <span class="type">icalcomponent</span> representing
+that string. Note that this function deals with multiple VCALENDAR's in the
+string, something that Mozilla used to do and which libical does not
+support.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>string</p></td>
+<td class="parameter_description"><p>iCalendar string to be parsed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.6.6"></a><h4>Returns</h4>
+<p> a newly created <span class="type">icalcomponent</span> or NULL if the string isn't a
+valid iCalendar string.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-parse-ics-file"></a><h3>e_cal_util_parse_ics_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">icalcomponent</span> *
+e_cal_util_parse_ics_file (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
+<p>Parses the given file, and, if it contains a valid iCalendar object,
+parse it and return a new <span class="type">icalcomponent</span>.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>filename</p></td>
+<td class="parameter_description"><p>Name of the file to be parsed.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.7.6"></a><h4>Returns</h4>
+<p> a newly created <span class="type">icalcomponent</span> or NULL if the file doesn't
+contain a valid iCalendar object.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-generate-alarms-for-comp"></a><h3>e_cal_util_generate_alarms_for_comp ()</h3>
+<pre class="programlisting"><a class="link" href="eds-ECalComponent.html#ECalComponentAlarms" title="ECalComponentAlarms"><span class="returnvalue">ECalComponentAlarms</span></a> *
+e_cal_util_generate_alarms_for_comp (<em class="parameter"><code><a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> *comp</code></em>,
+                                     <em class="parameter"><code><span class="type">time_t</span> start</code></em>,
+                                     <em class="parameter"><code><span class="type">time_t</span> end</code></em>,
+                                     <em class="parameter"><code><a class="link" href="eds-ECalComponent.html#ECalComponentAlarmAction" title="enum ECalComponentAlarmAction"><span class="type">ECalComponentAlarmAction</span></a> *omit</code></em>,
+                                     <em class="parameter"><code><a class="link" href="eds-Calendar-recurrences.html#ECalRecurResolveTimezoneFn" title="ECalRecurResolveTimezoneFn ()"><span class="type">ECalRecurResolveTimezoneFn</span></a> resolve_tzid</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                     <em class="parameter"><code><span class="type">icaltimezone</span> *default_timezone</code></em>);</pre>
+<p>Generates alarm instances for a calendar component.  Returns the instances
+structure, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if no alarm instances occurred in the specified time
+range.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>comp</p></td>
+<td class="parameter_description"><p>The <a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> to generate alarms from</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start</p></td>
+<td class="parameter_description"><p>Start time</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end</p></td>
+<td class="parameter_description"><p>End time</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>omit</p></td>
+<td class="parameter_description"><p>Alarm types to omit</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>resolve_tzid</p></td>
+<td class="parameter_description"><p> Callback for resolving
+timezones. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym> user_data][<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p> Data to be passed to the resolve_tzid callback. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>default_timezone</p></td>
+<td class="parameter_description"><p>The timezone used to resolve DATE and floating DATE-TIME
+values.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.8.6"></a><h4>Returns</h4>
+<p> a list of all the alarms found for the
+given component in the given time range. The list of alarms should be freed
+by using <code class="function">e_cal_component_free_alarm_list()</code>. </p>
+<p><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-generate-alarms-for-list"></a><h3>e_cal_util_generate_alarms_for_list ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_cal_util_generate_alarms_for_list (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *comps</code></em>,
+                                     <em class="parameter"><code><span class="type">time_t</span> start</code></em>,
+                                     <em class="parameter"><code><span class="type">time_t</span> end</code></em>,
+                                     <em class="parameter"><code><a class="link" href="eds-ECalComponent.html#ECalComponentAlarmAction" title="enum ECalComponentAlarmAction"><span class="type">ECalComponentAlarmAction</span></a> *omit</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> **comp_alarms</code></em>,
+                                     <em class="parameter"><code><a class="link" href="eds-Calendar-recurrences.html#ECalRecurResolveTimezoneFn" title="ECalRecurResolveTimezoneFn ()"><span class="type">ECalRecurResolveTimezoneFn</span></a> resolve_tzid</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>,
+                                     <em class="parameter"><code><span class="type">icaltimezone</span> *default_timezone</code></em>);</pre>
+<p>Iterates through all the components in the <em class="parameter"><code>comps</code></em>
+ list and generates alarm
+instances for them; putting them in the <em class="parameter"><code>comp_alarms</code></em>
+ list.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>comps</p></td>
+<td class="parameter_description"><p> List of <a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a>s. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> ECalComponent]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start</p></td>
+<td class="parameter_description"><p>Start time</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end</p></td>
+<td class="parameter_description"><p>End time</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>omit</p></td>
+<td class="parameter_description"><p>Alarm types to omit</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>comp_alarms</p></td>
+<td class="parameter_description"><p> List
+to be returned. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> ECalComponentAlarms]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>resolve_tzid</p></td>
+<td class="parameter_description"><p> Callback for resolving
+timezones. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym> user_data][<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p> Data to be passed to the resolve_tzid callback. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>default_timezone</p></td>
+<td class="parameter_description"><p>The timezone used to resolve DATE and floating DATE-TIME
+values.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.9.6"></a><h4>Returns</h4>
+<p> the number of elements it added to the list</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-priority-to-string"></a><h3>e_cal_util_priority_to_string ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_cal_util_priority_to_string (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> priority</code></em>);</pre>
+<p>Converts an iCalendar PRIORITY value to a translated string. Any unknown
+priority value (i.e. not 0-9) will be returned as "" (undefined).</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>priority</p></td>
+<td class="parameter_description"><p>Priority value.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.10.6"></a><h4>Returns</h4>
+<p> a string representing the PRIORITY value. This value is a
+constant, so it should never be freed.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-priority-from-string"></a><h3>e_cal_util_priority_from_string ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_cal_util_priority_from_string (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *string</code></em>);</pre>
+<p>Converts a translated priority string to an iCalendar priority value.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.11.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>string</p></td>
+<td class="parameter_description"><p>A string representing the PRIORITY value.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.11.6"></a><h4>Returns</h4>
+<p> the priority (0-9) or -1 if the priority string is not valid.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-add-timezones-from-component"></a><h3>e_cal_util_add_timezones_from_component ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_cal_util_add_timezones_from_component
+                               (<em class="parameter"><code><span class="type">icalcomponent</span> *vcal_comp</code></em>,
+                                <em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp</code></em>);</pre>
+<p>Adds VTIMEZONE components to a VCALENDAR for all tzid's
+in the given <em class="parameter"><code>icalcomp</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.12.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>vcal_comp</p></td>
+<td class="parameter_description"><p>A VCALENDAR component.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icalcomp</p></td>
+<td class="parameter_description"><p>An iCalendar component, of any type.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-component-is-instance"></a><h3>e_cal_util_component_is_instance ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_cal_util_component_is_instance (<em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp</code></em>);</pre>
+<p>Checks whether an <span class="type">icalcomponent</span> is an instance of a recurring appointment.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.13.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icalcomp</p></td>
+<td class="parameter_description"><p>An <span class="type">icalcomponent</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.13.6"></a><h4>Returns</h4>
+<p> TRUE if it is an instance, FALSE if not.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-component-has-alarms"></a><h3>e_cal_util_component_has_alarms ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_cal_util_component_has_alarms (<em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp</code></em>);</pre>
+<p>Checks whether an <span class="type">icalcomponent</span> has any alarm.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.14.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icalcomp</p></td>
+<td class="parameter_description"><p>An <span class="type">icalcomponent</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.14.6"></a><h4>Returns</h4>
+<p> TRUE if it has alarms, FALSE otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-component-has-organizer"></a><h3>e_cal_util_component_has_organizer ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_cal_util_component_has_organizer (<em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp</code></em>);</pre>
+<p>Checks whether an <span class="type">icalcomponent</span> has an organizer.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.15.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icalcomp</p></td>
+<td class="parameter_description"><p>An <span class="type">icalcomponent</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.15.6"></a><h4>Returns</h4>
+<p> TRUE if there is an organizer, FALSE if not.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-component-has-recurrences"></a><h3>e_cal_util_component_has_recurrences ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_cal_util_component_has_recurrences (<em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp</code></em>);</pre>
+<p>Checks if an <span class="type">icalcomponent</span> has recurrence dates or rules.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.16.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icalcomp</p></td>
+<td class="parameter_description"><p>An <span class="type">icalcomponent</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.16.6"></a><h4>Returns</h4>
+<p> TRUE if there are recurrence dates/rules, FALSE if not.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-component-has-rdates"></a><h3>e_cal_util_component_has_rdates ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_cal_util_component_has_rdates (<em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp</code></em>);</pre>
+<p>Checks if an <span class="type">icalcomponent</span> has recurrence dates.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.17.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icalcomp</p></td>
+<td class="parameter_description"><p>An <span class="type">icalcomponent</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.17.6"></a><h4>Returns</h4>
+<p> TRUE if there are recurrence dates, FALSE if not.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-component-has-rrules"></a><h3>e_cal_util_component_has_rrules ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_cal_util_component_has_rrules (<em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp</code></em>);</pre>
+<p>Checks if an <span class="type">icalcomponent</span> has recurrence rules.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.18.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icalcomp</p></td>
+<td class="parameter_description"><p>An <span class="type">icalcomponent</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.18.6"></a><h4>Returns</h4>
+<p> TRUE if there are recurrence rules, FALSE if not.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-component-has-attendee"></a><h3>e_cal_util_component_has_attendee ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_cal_util_component_has_attendee (<em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp</code></em>);</pre>
+<p>Checks if an <span class="type">icalcomponent</span> has any attendees.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.19.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>icalcomp</p></td>
+<td class="parameter_description"><p>An <span class="type">icalcomponent</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.19.6"></a><h4>Returns</h4>
+<p> TRUE if there are attendees, FALSE if not.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-event-dates-match"></a><h3>e_cal_util_event_dates_match ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_cal_util_event_dates_match (<em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp1</code></em>,
+                              <em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp2</code></em>);</pre>
+<p>Compare the dates of two <span class="type">icalcomponent</span>'s to check if they match.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.20.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icalcomp1</p></td>
+<td class="parameter_description"><p>An <span class="type">icalcomponent</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>icalcomp2</p></td>
+<td class="parameter_description"><p>An <span class="type">icalcomponent</span>.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.20.6"></a><h4>Returns</h4>
+<p> TRUE if the dates of both components match, FALSE otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-construct-instance"></a><h3>e_cal_util_construct_instance ()</h3>
+<pre class="programlisting"><span class="returnvalue">icalcomponent</span> *
+e_cal_util_construct_instance (<em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp</code></em>,
+                               <em class="parameter"><code><span class="type">struct icaltimetype</span> rid</code></em>);</pre>
+<p>This checks that <em class="parameter"><code>rid</code></em>
+ indicates a valid recurrence of <em class="parameter"><code>icalcomp</code></em>
+, and
+if so, generates a copy of <em class="parameter"><code>comp</code></em>
+ containing a RECURRENCE-ID of <em class="parameter"><code>rid</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.21.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icalcomp</p></td>
+<td class="parameter_description"><p>A recurring <span class="type">icalcomponent</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rid</p></td>
+<td class="parameter_description"><p>The RECURRENCE-ID to construct a component for</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.21.6"></a><h4>Returns</h4>
+<p> the instance, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-remove-instances"></a><h3>e_cal_util_remove_instances ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_cal_util_remove_instances (<em class="parameter"><code><span class="type">icalcomponent</span> *icalcomp</code></em>,
+                             <em class="parameter"><code><span class="type">struct icaltimetype</span> rid</code></em>,
+                             <em class="parameter"><code><span class="type">ECalObjModType</span> mod</code></em>);</pre>
+<p>Removes one or more instances from <em class="parameter"><code>comp</code></em>
+ according to <em class="parameter"><code>rid</code></em>
+ and <em class="parameter"><code>mod</code></em>
+.</p>
+<p>FIXME: should probably have a return value indicating whether <em class="parameter"><code>icalcomp</code></em>
+
+       still has any instances</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.22.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>icalcomp</p></td>
+<td class="parameter_description"><p>A (recurring) <span class="type">icalcomponent</span></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>rid</p></td>
+<td class="parameter_description"><p>The base RECURRENCE-ID to remove</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>mod</p></td>
+<td class="parameter_description"><p>How to interpret <em class="parameter"><code>rid</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-get-system-timezone-location"></a><h3>e_cal_util_get_system_timezone_location ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_cal_util_get_system_timezone_location
+                               (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Fetches system timezone localtion string.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.23.5"></a><h4>Returns</h4>
+<p> system timezone location string, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on an error. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since 2.28</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-get-system-timezone"></a><h3>e_cal_util_get_system_timezone ()</h3>
+<pre class="programlisting"><span class="returnvalue">icaltimezone</span> *
+e_cal_util_get_system_timezone (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Fetches system timezone icaltimezone object.</p>
+<p>The returned pointer is part of the built-in timezones and should not be freed.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.24.6"></a><h4>Returns</h4>
+<p> The icaltimezone object of the system timezone, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on an error. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since 2.28</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-cal-util-get-component-occur-times"></a><h3>e_cal_util_get_component_occur_times ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_cal_util_get_component_occur_times (<em class="parameter"><code><a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a> *comp</code></em>,
+                                      <em class="parameter"><code><span class="type">time_t</span> *start</code></em>,
+                                      <em class="parameter"><code><span class="type">time_t</span> *end</code></em>,
+                                      <em class="parameter"><code><a class="link" href="eds-Calendar-recurrences.html#ECalRecurResolveTimezoneFn" title="ECalRecurResolveTimezoneFn ()"><span class="type">ECalRecurResolveTimezoneFn</span></a> tz_cb</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> tz_cb_data</code></em>,
+                                      <em class="parameter"><code>const <span class="type">icaltimezone</span> *default_timezone</code></em>,
+                                      <em class="parameter"><code><span class="type">icalcomponent_kind</span> kind</code></em>);</pre>
+<p>Find out when the component starts and stops, being careful about
+recurrences.</p>
+<div class="refsect3">
+<a name="id-1.5.5.4.6.25.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>comp</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-ECalComponent.html#ECalComponent" title="struct ECalComponent"><span class="type">ECalComponent</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>start</p></td>
+<td class="parameter_description"><p> Location to store the start time. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>end</p></td>
+<td class="parameter_description"><p> Location to store the end time. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tz_cb</p></td>
+<td class="parameter_description"><p> The <a class="link" href="eds-Calendar-recurrences.html#ECalRecurResolveTimezoneFn" title="ECalRecurResolveTimezoneFn ()"><span class="type">ECalRecurResolveTimezoneFn</span></a> to call. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym> tz_cb_data][<acronym title="The callback is valid only during the call to the method."><span class="acronym">scope call</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>tz_cb_data</p></td>
+<td class="parameter_description"><p> User data to be passed to the <em class="parameter"><code>tz_cb</code></em>
+callback. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="This parameter is a 'user_data', for callbacks; many bindings can pass NULL here."><span class="acronym">closure</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>default_timezone</p></td>
+<td class="parameter_description"><p>The default timezone</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>kind</p></td>
+<td class="parameter_description"><p>the type of component, indicated with an icalcomponent_kind</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="cal-mode-to-corba"></a><h3>cal_mode_to_corba()</h3>
+<pre class="programlisting">#define             cal_mode_to_corba(mode)</pre>
+<div class="warning"><p><code class="literal">cal_mode_to_corba</code> is deprecated and should not be used in newly-written code.</p></div>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-Calendar-utilities.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="CalObjInstance"></a><h3>CalObjInstance</h3>
+<pre class="programlisting">typedef struct {
+	gchar *uid;			/* UID of the object */
+	time_t start;			/* Start time of instance */
+	time_t end;			/* End time of instance */
+} CalObjInstance;
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-ALARM-REPEAT:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_ALARM_REPEAT</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_ALARM_REPEAT		"no-alarm-repeat"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-AUDIO-ALARMS:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_AUDIO_ALARMS</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_AUDIO_ALARMS		"no-audio-alarms"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-DISPLAY-ALARMS:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_DISPLAY_ALARMS</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_DISPLAY_ALARMS		"no-display-alarms"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-EMAIL-ALARMS:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_EMAIL_ALARMS</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_EMAIL_ALARMS		"no-email-alarms"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-PROCEDURE-ALARMS:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_PROCEDURE_ALARMS</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_PROCEDURE_ALARMS "no-procedure-alarms"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-TASK-ASSIGNMENT:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_TASK_ASSIGNMENT</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_TASK_ASSIGNMENT "no-task-assignment"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-THISANDFUTURE:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_THISANDFUTURE</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_THISANDFUTURE		"no-thisandfuture"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-THISANDPRIOR:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_THISANDPRIOR</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_THISANDPRIOR		"no-thisandprior"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-TRANSPARENCY:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_TRANSPARENCY</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_TRANSPARENCY		"no-transparency"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-MEMO-START-DATE:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_MEMO_START_DATE</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_MEMO_START_DATE "no-memo-start-date"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-ALARM-DESCRIPTION:CAPS"></a><h3>CAL_STATIC_CAPABILITY_ALARM_DESCRIPTION</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_ALARM_DESCRIPTION		"alarm-description"
+</pre>
+<p>Flag indicating that the backend supports alarm description</p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-ALARM-AFTER-START:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_ALARM_AFTER_START</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_ALARM_AFTER_START "no-alarm-after-start"
+</pre>
+<p>Flag indicating that the backend does not support alarm after start the event</p>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-BULK-ADDS:CAPS"></a><h3>CAL_STATIC_CAPABILITY_BULK_ADDS</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_BULK_ADDS			"bulk-adds"
+</pre>
+<p>Flag indicating that the backend supports bulk additions.</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-BULK-MODIFIES:CAPS"></a><h3>CAL_STATIC_CAPABILITY_BULK_MODIFIES</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_BULK_MODIFIES		"bulk-modifies"
+</pre>
+<p>Flag indicating that the backend supports bulk modifications.</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-BULK-REMOVES:CAPS"></a><h3>CAL_STATIC_CAPABILITY_BULK_REMOVES</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_BULK_REMOVES		"bulk-removes"
+</pre>
+<p>Flag indicating that the backend supports bulk removals.</p>
+<p class="since">Since 3.6</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-REMOVE-ONLY-THIS:CAPS"></a><h3>CAL_STATIC_CAPABILITY_REMOVE_ONLY_THIS</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_REMOVE_ONLY_THIS		"remove-only-this"
+</pre>
+<p>FIXME: Document me.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-ONE-ALARM-ONLY:CAPS"></a><h3>CAL_STATIC_CAPABILITY_ONE_ALARM_ONLY</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_ONE_ALARM_ONLY		"one-alarm-only"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-ORGANIZER-MUST-ATTEND:CAPS"></a><h3>CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ATTEND</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ATTEND "organizer-must-attend"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-ORGANIZER-NOT-EMAIL-ADDRESS:CAPS"></a><h3>CAL_STATIC_CAPABILITY_ORGANIZER_NOT_EMAIL_ADDRESS</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_ORGANIZER_NOT_EMAIL_ADDRESS "organizer-not-email-address"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-REMOVE-ALARMS:CAPS"></a><h3>CAL_STATIC_CAPABILITY_REMOVE_ALARMS</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_REMOVE_ALARMS		"remove-alarms"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-CREATE-MESSAGES:CAPS"></a><h3>CAL_STATIC_CAPABILITY_CREATE_MESSAGES</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_CREATE_MESSAGES		"create-messages"
+</pre>
+<p class="since">Since 2.26</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-SAVE-SCHEDULES:CAPS"></a><h3>CAL_STATIC_CAPABILITY_SAVE_SCHEDULES</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_SAVE_SCHEDULES		"save-schedules"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-CONV-TO-ASSIGN-TASK:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_CONV_TO_ASSIGN_TASK</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_CONV_TO_ASSIGN_TASK "no-conv-to-assign-task"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-CONV-TO-RECUR:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_CONV_TO_RECUR</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_CONV_TO_RECUR		"no-conv-to-recur"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-GEN-OPTIONS:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_GEN_OPTIONS</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_GEN_OPTIONS		"no-general-options"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-REQ-SEND-OPTIONS:CAPS"></a><h3>CAL_STATIC_CAPABILITY_REQ_SEND_OPTIONS</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_REQ_SEND_OPTIONS		"require-send-options"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-RECURRENCES-NO-MASTER:CAPS"></a><h3>CAL_STATIC_CAPABILITY_RECURRENCES_NO_MASTER</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_RECURRENCES_NO_MASTER "recurrences-no-master-object"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-ORGANIZER-MUST-ACCEPT:CAPS"></a><h3>CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ACCEPT</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ACCEPT "organizer-must-accept"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-DELEGATE-SUPPORTED:CAPS"></a><h3>CAL_STATIC_CAPABILITY_DELEGATE_SUPPORTED</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_DELEGATE_SUPPORTED "delegate-support"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-NO-ORGANIZER:CAPS"></a><h3>CAL_STATIC_CAPABILITY_NO_ORGANIZER</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_NO_ORGANIZER		"no-organizer"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-DELEGATE-TO-MANY:CAPS"></a><h3>CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY		"delegate-to-many"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-HAS-UNACCEPTED-MEETING:CAPS"></a><h3>CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING "has-unaccepted-meeting"
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CAL-STATIC-CAPABILITY-REFRESH-SUPPORTED:CAPS"></a><h3>CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED</h3>
+<pre class="programlisting">#define CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED		"refresh-supported"
+</pre>
+<p class="since">Since 2.30</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CalMode"></a><h3>enum CalMode</h3>
+<div class="warning"><p><code class="literal">CalMode</code> is deprecated and should not be used in newly-written code.</p></div>
+<div class="refsect3">
+<a name="id-1.5.5.4.7.36.4"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="CAL-MODE-INVALID:CAPS"></a>CAL_MODE_INVALID</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="CAL-MODE-LOCAL:CAPS"></a>CAL_MODE_LOCAL</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="CAL-MODE-REMOTE:CAPS"></a>CAL_MODE_REMOTE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="CAL-MODE-ANY:CAPS"></a>CAL_MODE_ANY</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+diff -up evolution-data-server-3.12.11/modules/google-backend/module-google-backend.c.goa-sources-auth-method evolution-data-server-3.12.11/modules/google-backend/module-google-backend.c
+--- evolution-data-server-3.12.11/modules/google-backend/module-google-backend.c.goa-sources-auth-method	2015-06-12 10:43:57.533099647 +0200
++++ evolution-data-server-3.12.11/modules/google-backend/module-google-backend.c	2015-06-12 10:43:57.539099593 +0200
+@@ -618,6 +618,10 @@ google_backend_child_added (ECollectionB
+ 	const gchar *extension_name;
+ 	gboolean is_mail = FALSE;
+ 
++	/* Chain up to parent's child_added() method. */
++	E_COLLECTION_BACKEND_CLASS (e_google_backend_parent_class)->
++		child_added (backend, child_source);
++
+ 	collection_source = e_backend_get_source (E_BACKEND (backend));
+ 
+ 	extension_name = E_SOURCE_EXTENSION_MAIL_ACCOUNT;
+@@ -685,10 +689,6 @@ google_backend_child_added (ECollectionB
+ 			G_CALLBACK (google_backend_contacts_update_auth_method),
+ 			NULL);
+ 	}
+-
+-	/* Chain up to parent's child_added() method. */
+-	E_COLLECTION_BACKEND_CLASS (e_google_backend_parent_class)->
+-		child_added (backend, child_source);
+ }
+ 
+ static void
+diff -up evolution-data-server-3.12.11/modules/outlook-backend/module-outlook-backend.c.goa-sources-auth-method evolution-data-server-3.12.11/modules/outlook-backend/module-outlook-backend.c
+--- evolution-data-server-3.12.11/modules/outlook-backend/module-outlook-backend.c.goa-sources-auth-method	2014-03-24 10:07:52.000000000 +0100
++++ evolution-data-server-3.12.11/modules/outlook-backend/module-outlook-backend.c	2015-06-12 10:43:57.539099593 +0200
+@@ -96,6 +96,10 @@ outlook_backend_child_added (ECollection
+ 	const gchar *extension_name;
+ 	gboolean is_mail = FALSE;
+ 
++	/* Chain up to parent's child_added() method. */
++	E_COLLECTION_BACKEND_CLASS (e_outlook_backend_parent_class)->
++		child_added (backend, child_source);
++
+ 	collection_source = e_backend_get_source (E_BACKEND (backend));
+ 
+ 	extension_name = E_SOURCE_EXTENSION_MAIL_ACCOUNT;
+@@ -135,10 +139,6 @@ outlook_backend_child_added (ECollection
+ 				auth_child_extension,
+ 				collection_identity);
+ 	}
+-
+-	/* Chain up to parent's child_added() method. */
+-	E_COLLECTION_BACKEND_CLASS (e_outlook_backend_parent_class)->
+-		child_added (backend, child_source);
+ }
+ 
+ static void
+diff -up evolution-data-server-3.12.11/modules/yahoo-backend/module-yahoo-backend.c.goa-sources-auth-method evolution-data-server-3.12.11/modules/yahoo-backend/module-yahoo-backend.c
+--- evolution-data-server-3.12.11/modules/yahoo-backend/module-yahoo-backend.c.goa-sources-auth-method	2014-06-06 16:08:31.000000000 +0200
++++ evolution-data-server-3.12.11/modules/yahoo-backend/module-yahoo-backend.c	2015-06-12 10:43:57.539099593 +0200
+@@ -282,6 +282,10 @@ yahoo_backend_child_added (ECollectionBa
+ 	const gchar *extension_name;
+ 	gboolean is_mail = FALSE;
+ 
++	/* Chain up to parent's child_added() method. */
++	E_COLLECTION_BACKEND_CLASS (e_yahoo_backend_parent_class)->
++		child_added (backend, child_source);
++
+ 	yahoo_backend = E_YAHOO_BACKEND (backend);
+ 	collection_source = e_backend_get_source (E_BACKEND (backend));
+ 
+@@ -330,10 +334,6 @@ yahoo_backend_child_added (ECollectionBa
+ 				auth_child_extension,
+ 				collection_identity);
+ 	}
+-
+-	/* Chain up to parent's child_added() method. */
+-	E_COLLECTION_BACKEND_CLASS (e_yahoo_backend_parent_class)->
+-		child_added (backend, child_source);
+ }
+ 
+ static void

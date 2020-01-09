@@ -1,0 +1,1473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Reference Manual: EDestination</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch12.html" title="Addressbook related utilities">
+<link rel="prev" href="eds-Addressbook-related-types.html" title="Addressbook related types">
+<link rel="next" href="eds-EAddressWestern.html" title="EAddressWestern">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-EDestination.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch12.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-Addressbook-related-types.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-EAddressWestern.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-EDestination"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-EDestination.top_of_page"></a>EDestination</span></h2>
+<p>EDestination</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-EDestination.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="returnvalue">EDestination</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-new" title="e_destination_new ()">e_destination_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="returnvalue">EDestination</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-copy" title="e_destination_copy ()">e_destination_copy</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-empty" title="e_destination_empty ()">e_destination_empty</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-equal" title="e_destination_equal ()">e_destination_equal</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-set-contact" title="e_destination_set_contact ()">e_destination_set_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-set-contact-uid" title="e_destination_set_contact_uid ()">e_destination_set_contact_uid</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-set-client" title="e_destination_set_client ()">e_destination_set_client</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="returnvalue">EContact</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-get-contact" title="e_destination_get_contact ()">e_destination_get_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-get-source-uid" title="e_destination_get_source_uid ()">e_destination_get_source_uid</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-get-contact-uid" title="e_destination_get_contact_uid ()">e_destination_get_contact_uid</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-get-email-num" title="e_destination_get_email_num ()">e_destination_get_email_num</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-set-name" title="e_destination_set_name ()">e_destination_set_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-set-email" title="e_destination_set_email ()">e_destination_set_email</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-get-name" title="e_destination_get_name ()">e_destination_get_name</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-get-email" title="e_destination_get_email ()">e_destination_get_email</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-get-address" title="e_destination_get_address ()">e_destination_get_address</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-is-evolution-list" title="e_destination_is_evolution_list ()">e_destination_is_evolution_list</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-list-show-addresses" title="e_destination_list_show_addresses ()">e_destination_list_show_addresses</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-list-get-dests" title="e_destination_list_get_dests ()">e_destination_list_get_dests</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-list-get-root-dests" title="e_destination_list_get_root_dests ()">e_destination_list_get_root_dests</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-is-ignored" title="e_destination_is_ignored ()">e_destination_is_ignored</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-set-ignored" title="e_destination_set_ignored ()">e_destination_set_ignored</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-get-html-mail-pref" title="e_destination_get_html_mail_pref ()">e_destination_get_html_mail_pref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-set-html-mail-pref" title="e_destination_set_html_mail_pref ()">e_destination_set_html_mail_pref</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-is-auto-recipient" title="e_destination_is_auto_recipient ()">e_destination_is_auto_recipient</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-set-auto-recipient" title="e_destination_set_auto_recipient ()">e_destination_set_auto_recipient</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-set-raw" title="e_destination_set_raw ()">e_destination_set_raw</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-get-textrep" title="e_destination_get_textrep ()">e_destination_get_textrep</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-get-textrepv" title="e_destination_get_textrepv ()">e_destination_get_textrepv</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-export" title="e_destination_export ()">e_destination_export</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-exportv" title="e_destination_exportv ()">e_destination_exportv</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="returnvalue">EDestination</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-import" title="e_destination_import ()">e_destination_import</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="returnvalue">EDestination</span></a> **
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-importv" title="e_destination_importv ()">e_destination_importv</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-export-to-vcard-attribute" title="e_destination_export_to_vcard_attribute ()">e_destination_export_to_vcard_attribute</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-freev" title="e_destination_freev ()">e_destination_freev</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDestination.html#e-destination-set-book" title="e_destination_set_book ()">e_destination_set_book</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EDestination.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination">EDestination</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EDestination.html#EDestinationClass" title="struct EDestinationClass">EDestinationClass</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EDestination.description"></a><h2>Description</h2>
+</div>
+<div class="refsect1">
+<a name="eds-EDestination.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-destination-new"></a><h3>e_destination_new ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="returnvalue">EDestination</span></a> *
+e_destination_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> with blank values.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.2.5"></a><h4>Returns</h4>
+<p> A newly created <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a>.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-copy"></a><h3>e_destination_copy ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="returnvalue">EDestination</span></a> *
+e_destination_copy (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Creates a new <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> identical to <em class="parameter"><code>dest</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.3.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.3.6"></a><h4>Returns</h4>
+<p> A newly created <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a>, identical to <em class="parameter"><code>dest</code></em>
+. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-empty"></a><h3>e_destination_empty ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_destination_empty (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Checks if <em class="parameter"><code>dest</code></em>
+ is blank.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.4.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>dest</code></em>
+is empty, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-equal"></a><h3>e_destination_equal ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_destination_equal (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *a</code></em>,
+                     <em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *b</code></em>);</pre>
+<p>Checks if <em class="parameter"><code>a</code></em>
+ and <em class="parameter"><code>b</code></em>
+ are equal.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>a</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>b</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.5.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the destinations are equal, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-set-contact"></a><h3>e_destination_set_contact ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_set_contact (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                           <em class="parameter"><code><a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="type">EContact</span></a> *contact</code></em>,
+                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> email_num</code></em>);</pre>
+<p>Sets <em class="parameter"><code>dest</code></em>
+ to point to one of <em class="parameter"><code>contact</code></em>
+'s e-mail addresses
+indicated by <em class="parameter"><code>email_num</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>contact</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="type">EContact</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>email_num</p></td>
+<td class="parameter_description"><p>an email index</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-set-contact-uid"></a><h3>e_destination_set_contact_uid ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_set_contact_uid (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> email_num</code></em>);</pre>
+<p>Sets <em class="parameter"><code>dest</code></em>
+ to point to one of the contact specified by <em class="parameter"><code>uid</code></em>
+'s e-mail
+addresses indicated by <em class="parameter"><code>email_num</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>uid</p></td>
+<td class="parameter_description"><p>a unique contact ID</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>email_num</p></td>
+<td class="parameter_description"><p>an email index</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-set-client"></a><h3>e_destination_set_client ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_set_client (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                          <em class="parameter"><code><a class="link" href="eds-EBookClient.html#EBookClient" title="struct EBookClient"><span class="type">EBookClient</span></a> *client</code></em>);</pre>
+<p>Specify the source <em class="parameter"><code>dest</code></em>
+'s contact comes from. This is useful
+if you need to update the contact later.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBookClient.html#EBookClient" title="struct EBookClient"><span class="type">EBookClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-get-contact"></a><h3>e_destination_get_contact ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="returnvalue">EContact</span></a> *
+e_destination_get_contact (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Gets the contact <em class="parameter"><code>dest</code></em>
+ is pointing to, if any.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.9.6"></a><h4>Returns</h4>
+<p> An <a class="link" href="eds-EContact.html#EContact" title="struct EContact"><span class="type">EContact</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if none was set. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-get-source-uid"></a><h3>e_destination_get_source_uid ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_destination_get_source_uid (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Gets the unique source ID <em class="parameter"><code>dest</code></em>
+ is pointing to, if any. The source
+ID specifies which address book <em class="parameter"><code>dest</code></em>
+'s contact came from.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.10.6"></a><h4>Returns</h4>
+<p> A unique source ID, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if none was set.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-get-contact-uid"></a><h3>e_destination_get_contact_uid ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_destination_get_contact_uid (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Gets the unique contact ID <em class="parameter"><code>dest</code></em>
+ is pointing to, if any.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.11.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.11.6"></a><h4>Returns</h4>
+<p> A unique contact ID, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if none was set.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-get-email-num"></a><h3>e_destination_get_email_num ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>
+e_destination_get_email_num (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Gets the index of the e-mail address of the contact that
+<em class="parameter"><code>dest</code></em>
+ is pointing to, if any.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.12.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.12.6"></a><h4>Returns</h4>
+<p> The e-mail index, or -1 if none was set.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-set-name"></a><h3>e_destination_set_name ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_set_name (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                        <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
+<p>Sets the full name of <em class="parameter"><code>dest</code></em>
+'s addressee.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.13.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>name</p></td>
+<td class="parameter_description"><p>the destination's full name</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-set-email"></a><h3>e_destination_set_email ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_set_email (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                         <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *email</code></em>);</pre>
+<p>Sets the e-mail address of <em class="parameter"><code>dest</code></em>
+'s addressee.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.14.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>email</p></td>
+<td class="parameter_description"><p>the destination's e-mail address</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-get-name"></a><h3>e_destination_get_name ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_destination_get_name (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Gets the full name of <em class="parameter"><code>dest</code></em>
+'s addressee, or if the addressee is
+a contact list, the name the list was filed under.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.15.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.15.6"></a><h4>Returns</h4>
+<p> The full name of the addressee, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if none was set.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-get-email"></a><h3>e_destination_get_email ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_destination_get_email (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Gets the e-mail address of <em class="parameter"><code>dest</code></em>
+'s addressee.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.16.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.16.6"></a><h4>Returns</h4>
+<p> An e-mail address, or an empty string if none was set.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-get-address"></a><h3>e_destination_get_address ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_destination_get_address (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Gets the encoded name and email address, or in the case of lists, the
+encoded list of email addresses, from <em class="parameter"><code>dest</code></em>
+.  The returned string is
+suitable for use in an email header, but not for displaying to users.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.17.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.17.6"></a><h4>Returns</h4>
+<p> an encoded destination string suitable for use in an
+email header, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the destination was empty</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-is-evolution-list"></a><h3>e_destination_is_evolution_list ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_destination_is_evolution_list (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Checks if <em class="parameter"><code>dest</code></em>
+ is a list of addresses.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.18.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.18.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if destination is a list, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if it is an individual.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-list-show-addresses"></a><h3>e_destination_list_show_addresses ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_destination_list_show_addresses (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>If <em class="parameter"><code>dest</code></em>
+ is a list, checks if the addresses in the list
+should be presented to the user during interaction.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.19.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.19.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if addresses should be shown, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-list-get-dests"></a><h3>e_destination_list_get_dests ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_destination_list_get_dests (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>If <em class="parameter"><code>dest</code></em>
+ is a list, gets recursively list of all destinations.
+Everything returned from this function belongs to <em class="parameter"><code>dest</code></em>
+ and
+thus should not be freed.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.20.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.20.6"></a><h4>Returns</h4>
+<p> A list of elements of type <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EDestination][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-list-get-root-dests"></a><h3>e_destination_list_get_root_dests ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *
+e_destination_list_get_root_dests (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>If <em class="parameter"><code>dest</code></em>
+ is a list, gets the list of EDestinations assigned directly
+to <em class="parameter"><code>dest</code></em>
+.
+The list and its elements belong to <em class="parameter"><code>dest</code></em>
+, and should not be freed.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.21.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.21.6"></a><h4>Returns</h4>
+<p> A list of elements of type <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> EDestination][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-is-ignored"></a><h3>e_destination_is_ignored ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_destination_is_ignored (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Check if <em class="parameter"><code>dest</code></em>
+ is to be ignored.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.22.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.22.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this destination should be ignored, else <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-set-ignored"></a><h3>e_destination_set_ignored ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_set_ignored (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> ignored</code></em>);</pre>
+<p>Set the ignore flag on a <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.23.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>ignored</p></td>
+<td class="parameter_description"><p><a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> should be ignored.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-get-html-mail-pref"></a><h3>e_destination_get_html_mail_pref ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_destination_get_html_mail_pref (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Check if <em class="parameter"><code>dest</code></em>
+ wants to get mail formatted as HTML.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.24.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.24.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if destination wants HTML, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if not.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-set-html-mail-pref"></a><h3>e_destination_set_html_mail_pref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_set_html_mail_pref (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                                  <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> flag</code></em>);</pre>
+<p>Specifies whether <em class="parameter"><code>dest</code></em>
+ wants to get mail formatted as HTML.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.25.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>flag</p></td>
+<td class="parameter_description"><p>whether the destination wants HTML mail</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-is-auto-recipient"></a><h3>e_destination_is_auto_recipient ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_destination_is_auto_recipient (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Checks if <em class="parameter"><code>dest</code></em>
+ is flagged as an automatic recipient, meaning
+it was not explicitly specified by the user. This can be used
+to hide it from some UI elements.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.26.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.26.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if destination is an auto recipient, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-set-auto-recipient"></a><h3>e_destination_set_auto_recipient ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_set_auto_recipient (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                                  <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> value</code></em>);</pre>
+<p>Sets the flag indicating if <em class="parameter"><code>dest</code></em>
+ is an automatic recipient, meaning
+it was not explicitly specified by the user. This can be used
+to hide it from some UI elements.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.27.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>value</p></td>
+<td class="parameter_description"><p>the auto recipient flag</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-set-raw"></a><h3>e_destination_set_raw ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_set_raw (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *raw</code></em>);</pre>
+<p>Sets <em class="parameter"><code>dest</code></em>
+ to point to the name and e-mail address resulting from
+parsing the supplied string. Useful for user input.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.28.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>raw</p></td>
+<td class="parameter_description"><p>an unparsed string</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-get-textrep"></a><h3>e_destination_get_textrep ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_destination_get_textrep (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                           <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> include_email</code></em>);</pre>
+<p>Generates a textual representation of <em class="parameter"><code>dest</code></em>
+, suitable for referring
+to the destination during user interaction.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.29.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>include_email</p></td>
+<td class="parameter_description"><p>whether to include the e-mail address</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.29.6"></a><h4>Returns</h4>
+<p> A textual representation of the destination.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-get-textrepv"></a><h3>e_destination_get_textrepv ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_destination_get_textrepv (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> **destv</code></em>);</pre>
+<p>Generates a joint text representation of all the <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a>
+elements in <em class="parameter"><code>destv</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.30.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>destv</p></td>
+<td class="parameter_description"><p><a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of pointers to <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.30.6"></a><h4>Returns</h4>
+<p> The text representation of <em class="parameter"><code>destv</code></em>
+.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-export"></a><h3>e_destination_export ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_destination_export (<em class="parameter"><code>const <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>);</pre>
+<p>Exports a destination to an XML document.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.31.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.31.6"></a><h4>Returns</h4>
+<p> An XML string, allocated with g_malloc.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-exportv"></a><h3>e_destination_exportv ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_destination_exportv (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> **destv</code></em>);</pre>
+<p>Exports multiple <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> elements to a single XML document.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.32.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>destv</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of pointers to <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.32.6"></a><h4>Returns</h4>
+<p> An XML string, allocated with g_malloc.</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-import"></a><h3>e_destination_import ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="returnvalue">EDestination</span></a> *
+e_destination_import (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *str</code></em>);</pre>
+<p>Creates an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> from an XML document.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.33.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>an XML string</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.33.6"></a><h4>Returns</h4>
+<p> An <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if the document was not
+well-formed. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-importv"></a><h3>e_destination_importv ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="returnvalue">EDestination</span></a> **
+e_destination_importv (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *str</code></em>);</pre>
+<p>Creates an array of pointers to <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> elements
+from an XML document.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.34.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>str</p></td>
+<td class="parameter_description"><p>an XML string</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.34.6"></a><h4>Returns</h4>
+<p>A <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of pointers to
+<a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> elements. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-export-to-vcard-attribute"></a><h3>e_destination_export_to_vcard_attribute ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_export_to_vcard_attribute
+                               (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                                <em class="parameter"><code><a class="link" href="eds-EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
+<p>Exports the contact information from <em class="parameter"><code>dest</code></em>
+ to parameters
+and values in <em class="parameter"><code>attr</code></em>
+, suitable for an address book.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.35.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>attr</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-freev"></a><h3>e_destination_freev ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_freev (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> **destv</code></em>);</pre>
+<p>Unrefs the elements of <em class="parameter"><code>destv</code></em>
+ and frees <em class="parameter"><code>destv</code></em>
+ itself.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.36.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>destv</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of pointers to <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-destination-set-book"></a><h3>e_destination_set_book ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_destination_set_book (<em class="parameter"><code><a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a> *dest</code></em>,
+                        <em class="parameter"><code><a class="link" href="eds-EBook.html#EBook" title="struct EBook"><span class="type">EBook</span></a> *book</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_destination_set_book</code> has been deprecated since version 3.2 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EDestination.html#e-destination-set-client" title="e_destination_set_client ()"><code class="function">e_destination_set_client()</code></a> instead.</p>
+</div>
+<p>Specify the source <em class="parameter"><code>dest</code></em>
+'s contact comes from. This is useful
+if you need to update the contact later.</p>
+<div class="refsect3">
+<a name="id-1.5.4.3.6.37.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dest</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDestination.html#EDestination" title="struct EDestination"><span class="type">EDestination</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>book</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBook.html#EBook" title="struct EBook"><span class="type">EBook</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-EDestination.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EDestination"></a><h3>struct EDestination</h3>
+<pre class="programlisting">struct EDestination {
+	GObject object;
+	EDestinationPrivate *priv;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDestinationClass"></a><h3>struct EDestinationClass</h3>
+<pre class="programlisting">struct EDestinationClass {
+	GObjectClass parent_class;
+
+	/* Signals */
+	void		(*changed)		(EDestination *destination);
+
+	/* Padding for future expansion */
+	void		(*_ebook_reserved1) (void);
+	void		(*_ebook_reserved2) (void);
+	void		(*_ebook_reserved3) (void);
+	void		(*_ebook_reserved4) (void);
+};
+</pre>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

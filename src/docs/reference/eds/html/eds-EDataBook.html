@@ -1,0 +1,656 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Reference Manual: EDataBook</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch08.html" title="Addressbook Backend Classes">
+<link rel="prev" href="eds-EBookSqlite.html" title="EBookSqlite">
+<link rel="next" href="eds-EDataBookDirect.html" title="EDataBookDirect">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-EDataBook.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch08.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="eds-EBookSqlite.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="eds-EDataBookDirect.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-EDataBook"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-EDataBook.top_of_page"></a>EDataBook</span></h2>
+<p>EDataBook — Server side D-Bus layer to communicate with addressbooks</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-EDataBook.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-error-quark" title="e_data_book_error_quark ()">e_data_book_error_quark</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-create-error" title="e_data_book_create_error ()">e_data_book_create_error</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-create-error-fmt" title="e_data_book_create_error_fmt ()">e_data_book_create_error_fmt</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-status-to-string" title="e_data_book_status_to_string ()">e_data_book_status_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="returnvalue">EDataBook</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-new" title="e_data_book_new ()">e_data_book_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">struct <a class="link" href="eds-EBookBackend.html#EBookBackend" title="struct EBookBackend"><span class="returnvalue">_EBookBackend</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-ref-backend" title="e_data_book_ref_backend ()">e_data_book_ref_backend</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="returnvalue">GDBusConnection</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-get-connection" title="e_data_book_get_connection ()">e_data_book_get_connection</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-get-object-path" title="e_data_book_get_object_path ()">e_data_book_get_object_path</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-set-locale" title="e_data_book_set_locale ()">e_data_book_set_locale</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-respond-open" title="e_data_book_respond_open ()">e_data_book_respond_open</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-respond-refresh" title="e_data_book_respond_refresh ()">e_data_book_respond_refresh</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-respond-create-contacts" title="e_data_book_respond_create_contacts ()">e_data_book_respond_create_contacts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-respond-remove-contacts" title="e_data_book_respond_remove_contacts ()">e_data_book_respond_remove_contacts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-respond-modify-contacts" title="e_data_book_respond_modify_contacts ()">e_data_book_respond_modify_contacts</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-respond-get-contact" title="e_data_book_respond_get_contact ()">e_data_book_respond_get_contact</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-respond-get-contact-list" title="e_data_book_respond_get_contact_list ()">e_data_book_respond_get_contact_list</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-respond-get-contact-list-uids" title="e_data_book_respond_get_contact_list_uids ()">e_data_book_respond_get_contact_list_uids</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-report-error" title="e_data_book_report_error ()">e_data_book_report_error</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-report-backend-property-changed" title="e_data_book_report_backend_property_changed ()">e_data_book_report_backend_property_changed</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EDataBook.html#e-data-book-string-slist-to-comma-string" title="e_data_book_string_slist_to_comma_string ()">e_data_book_string_slist_to_comma_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EDataBook.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook">EDataBook</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EDataBook.html#EDataBookClass" title="struct EDataBookClass">EDataBookClass</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-EDataBook.html#E-DATA-BOOK-ERROR:CAPS" title="E_DATA_BOOK_ERROR">E_DATA_BOOK_ERROR</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EDataBook.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedata-book/libedata-book.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="eds-EDataBook.description"></a><h2>Description</h2>
+<p>This class communicates with <a href="eds-EBookClient.html#EBookClient"><span class="type">EBookClients</span></a> over the bus and accesses
+an <a class="link" href="eds-EBookBackend.html#EBookBackend" title="struct EBookBackend"><span class="type">EBookBackend</span></a> to satisfy client requests.</p>
+</div>
+<div class="refsect1">
+<a name="eds-EDataBook.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-data-book-error-quark"></a><h3>e_data_book_error_quark ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>
+e_data_book_error_quark (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-create-error"></a><h3>e_data_book_create_error ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> *
+e_data_book_create_error (<em class="parameter"><code><a class="link" href="eds-Addressbook-related-types.html#EDataBookStatus" title="enum EDataBookStatus"><span class="type">EDataBookStatus</span></a> status</code></em>,
+                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *custom_msg</code></em>);</pre>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.3.4"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>status</p></td>
+<td class="parameter_description"><p><a class="link" href="eds-Addressbook-related-types.html#EDataBookStatus" title="enum EDataBookStatus"><span class="type">EDataBookStatus</span></a> code</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>custom_msg</p></td>
+<td class="parameter_description"><p>Custom message to use for the error. When NULL,
+then uses a default message based on the <em class="parameter"><code>status</code></em>
+code.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.3.5"></a><h4>Returns</h4>
+<p> NULL, when the <em class="parameter"><code>status</code></em>
+is E_DATA_BOOK_STATUS_SUCCESS,
+or a newly allocated GError, which should be freed
+with <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#g-error-free"><code class="function">g_error_free()</code></a> call.</p>
+<p></p>
+</div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-create-error-fmt"></a><h3>e_data_book_create_error_fmt ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> *
+e_data_book_create_error_fmt (<em class="parameter"><code><a class="link" href="eds-Addressbook-related-types.html#EDataBookStatus" title="enum EDataBookStatus"><span class="type">EDataBookStatus</span></a> status</code></em>,
+                              <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *custom_msg_fmt</code></em>,
+                              <em class="parameter"><code>...</code></em>);</pre>
+<p>Similar as <a class="link" href="eds-EDataBook.html#e-data-book-create-error" title="e_data_book_create_error ()"><code class="function">e_data_book_create_error()</code></a>, only here, instead of custom_msg,
+is used a <code class="function">printf()</code> format to create a custom_msg for the error.</p>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-status-to-string"></a><h3>e_data_book_status_to_string ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_data_book_status_to_string (<em class="parameter"><code><a class="link" href="eds-Addressbook-related-types.html#EDataBookStatus" title="enum EDataBookStatus"><span class="type">EDataBookStatus</span></a> status</code></em>);</pre>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-new"></a><h3>e_data_book_new ()</h3>
+<pre class="programlisting"><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="returnvalue">EDataBook</span></a> *
+e_data_book_new (<em class="parameter"><code><span class="type">struct _EBookBackend</span> *backend</code></em>,
+                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Creates a new <a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> and exports the AddressBook D-Bus interface
+on <em class="parameter"><code>connection</code></em>
+ at <em class="parameter"><code>object_path</code></em>
+.  The <a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> handles incoming remote
+method invocations and forwards them to the <em class="parameter"><code>backend</code></em>
+.  If the AddressBook
+interface fails to export, the function sets <em class="parameter"><code>error</code></em>
+ and returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.6.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>backend</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EBookBackend.html#EBookBackend" title="struct EBookBackend"><span class="type">EBookBackend</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>connection</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>object_path</p></td>
+<td class="parameter_description"><p>object path for the D-Bus interface</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>return location for a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.6.6"></a><h4>Returns</h4>
+<p> an <a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a>, or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> on error</p>
+<p></p>
+</div>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-ref-backend"></a><h3>e_data_book_ref_backend ()</h3>
+<pre class="programlisting">struct <a class="link" href="eds-EBookBackend.html#EBookBackend" title="struct EBookBackend"><span class="returnvalue">_EBookBackend</span></a> *
+e_data_book_ref_backend (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>);</pre>
+<p>Returns the <a class="link" href="eds-EBookBackend.html#EBookBackend" title="struct EBookBackend"><span class="type">EBookBackend</span></a> to which incoming remote method invocations
+are being forwarded.</p>
+<p>The returned <a class="link" href="eds-EBookBackend.html#EBookBackend" title="struct EBookBackend"><span class="type">EBookBackend</span></a> is referenced for thread-safety and should
+be unreferenced with <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> when finished with it.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.7.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>book</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.7.7"></a><h4>Returns</h4>
+<p> an <a class="link" href="eds-EBookBackend.html#EBookBackend" title="struct EBookBackend"><span class="type">EBookBackend</span></a></p>
+<p></p>
+</div>
+<p class="since">Since 3.10</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-get-connection"></a><h3>e_data_book_get_connection ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="returnvalue">GDBusConnection</span></a> *
+e_data_book_get_connection (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>);</pre>
+<p>Returns the <a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> on which the AddressBook D-Bus interface
+is exported.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>book</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.8.6"></a><h4>Returns</h4>
+<p> the <a href="https://developer.gnome.org/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a></p>
+<p></p>
+</div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-get-object-path"></a><h3>e_data_book_get_object_path ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_data_book_get_object_path (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>);</pre>
+<p>Returns the object path at which the AddressBook D-Bus interface is
+exported.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>book</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.9.6"></a><h4>Returns</h4>
+<p> the object path</p>
+<p></p>
+</div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-set-locale"></a><h3>e_data_book_set_locale ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_data_book_set_locale (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                        <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *locale</code></em>,
+                        <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                        <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Set's the locale for this addressbook, this can result in renormalization of
+locale sensitive data.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>book</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> </p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>locale</p></td>
+<td class="parameter_description"><p>the new locale to set for this book</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a location to store any error which might occur. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.10.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> on success, otherwise <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> is returned and <em class="parameter"><code>error</code></em>
+is set appropriately.</p>
+<p></p>
+</div>
+<p class="since">Since 3.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-respond-open"></a><h3>e_data_book_respond_open ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_book_respond_open (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                          <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-respond-refresh"></a><h3>e_data_book_respond_refresh ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_book_respond_refresh (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                             <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
+<p>Notifies listeners of the completion of the refresh method call.</p>
+<div class="refsect3">
+<a name="id-1.4.4.6.7.12.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>book</p></td>
+<td class="parameter_description"><p>An addressbook client interface.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p>Operation error, if any, automatically freed if passed it.</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-respond-create-contacts"></a><h3>e_data_book_respond_create_contacts ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_book_respond_create_contacts (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *contacts</code></em>);</pre>
+<p>FIXME: Document me!</p>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-respond-remove-contacts"></a><h3>e_data_book_respond_remove_contacts ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_book_respond_remove_contacts (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *ids</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-respond-modify-contacts"></a><h3>e_data_book_respond_modify_contacts ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_book_respond_modify_contacts (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                     <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *contacts</code></em>);</pre>
+<p>FIXME: Document me!</p>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-respond-get-contact"></a><h3>e_data_book_respond_get_contact ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_book_respond_get_contact (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-respond-get-contact-list"></a><h3>e_data_book_respond_get_contact_list ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_book_respond_get_contact_list (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                      <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *cards</code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-respond-get-contact-list-uids"></a><h3>e_data_book_respond_get_contact_list_uids ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_book_respond_get_contact_list_uids
+                               (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *uids</code></em>);</pre>
+<p>FIXME: Document me.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-report-error"></a><h3>e_data_book_report_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_book_report_error (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                          <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);</pre>
+<p>FIXME: Document me.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-report-backend-property-changed"></a><h3>e_data_book_report_backend_property_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_data_book_report_backend_property_changed
+                               (<em class="parameter"><code><a class="link" href="eds-EDataBook.html#EDataBook" title="struct EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prop_name</code></em>,
+                                <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prop_value</code></em>);</pre>
+<p>FIXME: Document me.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-data-book-string-slist-to-comma-string"></a><h3>e_data_book_string_slist_to_comma_string ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_data_book_string_slist_to_comma_string
+                               (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *strings</code></em>);</pre>
+<p>Takes a list of strings and converts it to a comma-separated string of
+values; free returned pointer with <a href="https://developer.gnome.org/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a></p>
+<p class="since">Since 3.2</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-EDataBook.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="EDataBook"></a><h3>struct EDataBook</h3>
+<pre class="programlisting">struct EDataBook {
+	GObject parent;
+	EDataBookPrivate *priv;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EDataBookClass"></a><h3>struct EDataBookClass</h3>
+<pre class="programlisting">struct EDataBookClass {
+	GObjectClass parent_class;
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="E-DATA-BOOK-ERROR:CAPS"></a><h3>E_DATA_BOOK_ERROR</h3>
+<pre class="programlisting">#define E_DATA_BOOK_ERROR e_data_book_error_quark ()
+</pre>
+<p class="since">Since 2.30</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

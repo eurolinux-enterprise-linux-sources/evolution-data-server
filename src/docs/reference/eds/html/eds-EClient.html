@@ -1,0 +1,2459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Evolution-Data-Server Reference Manual: EClient</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Evolution-Data-Server Reference Manual">
+<link rel="up" href="ch03.html" title="Shared Interaces">
+<link rel="prev" href="ch03.html" title="Shared Interaces">
+<link rel="next" href="ch04.html" title="Addressbook">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#eds-EClient.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="ch03.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="ch03.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="ch04.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="eds-EClient"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="eds-EClient.top_of_page"></a>EClient</span></h2>
+<p>EClient — Base class for client handles</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="eds-EClient.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-error-quark" title="e_client_error_quark ()">e_client_error_quark</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-error-to-string" title="e_client_error_to_string ()">e_client_error_to_string</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a class="link" href="eds-ESource.html#ESource" title="struct ESource"><span class="returnvalue">ESource</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-get-source" title="e_client_get_source ()">e_client_get_source</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-get-capabilities" title="e_client_get_capabilities ()">e_client_get_capabilities</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="returnvalue">GMainContext</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-ref-main-context" title="e_client_ref_main_context ()">e_client_ref_main_context</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-check-capability" title="e_client_check_capability ()">e_client_check_capability</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-check-refresh-supported" title="e_client_check_refresh_supported ()">e_client_check_refresh_supported</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-is-readonly" title="e_client_is_readonly ()">e_client_is_readonly</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-is-online" title="e_client_is_online ()">e_client_is_online</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-get-backend-property" title="e_client_get_backend_property ()">e_client_get_backend_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-get-backend-property-finish" title="e_client_get_backend_property_finish ()">e_client_get_backend_property_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-get-backend-property-sync" title="e_client_get_backend_property_sync ()">e_client_get_backend_property_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-refresh" title="e_client_refresh ()">e_client_refresh</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-refresh-finish" title="e_client_refresh_finish ()">e_client_refresh_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-refresh-sync" title="e_client_refresh_sync ()">e_client_refresh_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-util-parse-comma-strings" title="e_client_util_parse_comma_strings ()">e_client_util_parse_comma_strings</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-error-create" title="e_client_error_create ()">e_client_error_create</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-is-opened" title="e_client_is_opened ()">e_client_is_opened</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-cancel-all" title="e_client_cancel_all ()">e_client_cancel_all</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-unwrap-dbus-error" title="e_client_unwrap_dbus_error ()">e_client_unwrap_dbus_error</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-retrieve-capabilities" title="e_client_retrieve_capabilities ()">e_client_retrieve_capabilities</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-retrieve-capabilities-finish" title="e_client_retrieve_capabilities_finish ()">e_client_retrieve_capabilities_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-retrieve-capabilities-sync" title="e_client_retrieve_capabilities_sync ()">e_client_retrieve_capabilities_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-set-backend-property" title="e_client_set_backend_property ()">e_client_set_backend_property</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-set-backend-property-finish" title="e_client_set_backend_property_finish ()">e_client_set_backend_property_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-set-backend-property-sync" title="e_client_set_backend_property_sync ()">e_client_set_backend_property_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-open" title="e_client_open ()">e_client_open</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-open-finish" title="e_client_open_finish ()">e_client_open_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-open-sync" title="e_client_open_sync ()">e_client_open_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-remove" title="e_client_remove ()">e_client_remove</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-remove-finish" title="e_client_remove_finish ()">e_client_remove_finish</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-remove-sync" title="e_client_remove_sync ()">e_client_remove_sync</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-util-slist-to-strv" title="e_client_util_slist_to_strv ()">e_client_util_slist_to_strv</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-util-strv-to-slist" title="e_client_util_strv_to_slist ()">e_client_util_strv_to_slist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-util-copy-string-slist" title="e_client_util_copy_string_slist ()">e_client_util_copy_string_slist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-util-copy-object-slist" title="e_client_util_copy_object_slist ()">e_client_util_copy_object_slist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-util-free-string-slist" title="e_client_util_free_string_slist ()">e_client_util_free_string_slist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-util-free-object-slist" title="e_client_util_free_object_slist ()">e_client_util_free_object_slist</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+</td>
+<td class="function_name">
+<a class="link" href="eds-EClient.html#e-client-util-unwrap-dbus-error" title="e_client_util_unwrap_dbus_error ()">e_client_util_unwrap_dbus_error</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EClient.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#CLIENT-BACKEND-PROPERTY-ONLINE:CAPS" title="CLIENT_BACKEND_PROPERTY_ONLINE">CLIENT_BACKEND_PROPERTY_ONLINE</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#CLIENT-BACKEND-PROPERTY-READONLY:CAPS" title="CLIENT_BACKEND_PROPERTY_READONLY">CLIENT_BACKEND_PROPERTY_READONLY</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#CLIENT-BACKEND-PROPERTY-CACHE-DIR:CAPS" title="CLIENT_BACKEND_PROPERTY_CACHE_DIR">CLIENT_BACKEND_PROPERTY_CACHE_DIR</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#CLIENT-BACKEND-PROPERTY-CAPABILITIES:CAPS" title="CLIENT_BACKEND_PROPERTY_CAPABILITIES">CLIENT_BACKEND_PROPERTY_CAPABILITIES</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#CLIENT-BACKEND-PROPERTY-REVISION:CAPS" title="CLIENT_BACKEND_PROPERTY_REVISION">CLIENT_BACKEND_PROPERTY_REVISION</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#E-CLIENT-ERROR:CAPS" title="E_CLIENT_ERROR">E_CLIENT_ERROR</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">enum</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#EClientError" title="enum EClientError">EClientError</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#EClient" title="struct EClient">EClient</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#EClientClass" title="struct EClientClass">EClientClass</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#CLIENT-BACKEND-PROPERTY-OPENED:CAPS" title="CLIENT_BACKEND_PROPERTY_OPENED">CLIENT_BACKEND_PROPERTY_OPENED</a></td>
+</tr>
+<tr>
+<td class="define_keyword">#define</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#CLIENT-BACKEND-PROPERTY-OPENING:CAPS" title="CLIENT_BACKEND_PROPERTY_OPENING">CLIENT_BACKEND_PROPERTY_OPENING</a></td>
+</tr>
+<tr>
+<td class="datatype_keyword">struct</td>
+<td class="function_name"><a class="link" href="eds-EClient.html#EClientErrorsList" title="struct EClientErrorsList">EClientErrorsList</a></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="eds-EClient.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;libedataserver/libedataserver.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="eds-EClient.description"></a><h2>Description</h2>
+<p>This class provides some base functionality for clients
+such as <a class="link" href="eds-EBookClient.html#EBookClient" title="struct EBookClient"><span class="type">EBookClient</span></a> and <a class="link" href="eds-ECalClient.html#ECalClient" title="struct ECalClient"><span class="type">ECalClient</span></a>.</p>
+</div>
+<div class="refsect1">
+<a name="eds-EClient.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="e-client-error-quark"></a><h3>e_client_error_quark ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>
+e_client_error_quark (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-error-to-string"></a><h3>e_client_error_to_string ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *
+e_client_error_to_string (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClientError" title="enum EClientError"><span class="type">EClientError</span></a> code</code></em>);</pre>
+<p>FIXME: Document me.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-get-source"></a><h3>e_client_get_source ()</h3>
+<pre class="programlisting"><a class="link" href="eds-ESource.html#ESource" title="struct ESource"><span class="returnvalue">ESource</span></a> *
+e_client_get_source (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>);</pre>
+<p>Get the <a class="link" href="eds-ESource.html#ESource" title="struct ESource"><span class="type">ESource</span></a> that this client has assigned.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.4.6"></a><h4>Returns</h4>
+<p> The source. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-get-capabilities"></a><h3>e_client_get_capabilities ()</h3>
+<pre class="programlisting">const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+e_client_get_capabilities (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>);</pre>
+<p>Get list of strings with capabilities advertised by a backend.
+This list, together with inner strings, is owned by the <em class="parameter"><code>client</code></em>
+.
+To check for individual capabilities use <a class="link" href="eds-EClient.html#e-client-check-capability" title="e_client_check_capability ()"><code class="function">e_client_check_capability()</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.5.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.5.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of const strings
+of capabilities. </p>
+<p><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-ref-main-context"></a><h3>e_client_ref_main_context ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="returnvalue">GMainContext</span></a> *
+e_client_ref_main_context (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>);</pre>
+<p>Returns the <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> on which event sources for <em class="parameter"><code>client</code></em>
+ are to
+be attached.</p>
+<p>The returned <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a> is referenced for thread-safety and must be
+unreferenced with <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#g-main-context-unref"><code class="function">g_main_context_unref()</code></a> when finished with it.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.6.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.6.7"></a><h4>Returns</h4>
+<p> a <a href="https://developer.gnome.org/glib/unstable/glib-The-Main-Event-Loop.html#GMainContext"><span class="type">GMainContext</span></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since 3.8</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-check-capability"></a><h3>e_client_check_capability ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_check_capability (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                           <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *capability</code></em>);</pre>
+<p>Check if backend supports particular capability.
+To get all capabilities use <a class="link" href="eds-EClient.html#e-client-get-capabilities" title="e_client_get_capabilities ()"><code class="function">e_client_get_capabilities()</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.7.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>capability</p></td>
+<td class="parameter_description"><p>a capability</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.7.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of const strings of capabilities</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-check-refresh-supported"></a><h3>e_client_check_refresh_supported ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_check_refresh_supported (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>);</pre>
+<p>Checks whether a client supports explicit refreshing
+(see <a class="link" href="eds-EClient.html#e-client-refresh" title="e_client_refresh ()"><code class="function">e_client_refresh()</code></a>).</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.8.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>A client.</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.8.6"></a><h4>Returns</h4>
+<p> TRUE if the client supports refreshing, FALSE otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-is-readonly"></a><h3>e_client_is_readonly ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_is_readonly (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>);</pre>
+<p>Check if this <em class="parameter"><code>client</code></em>
+ is read-only.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.9.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.9.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this <em class="parameter"><code>client</code></em>
+is read-only, otherwise <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-is-online"></a><h3>e_client_is_online ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_is_online (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>);</pre>
+<p>Check if this <em class="parameter"><code>client</code></em>
+ is connected.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.10.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.10.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if this <em class="parameter"><code>client</code></em>
+is connected, otherwise <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-get-backend-property"></a><h3>e_client_get_backend_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_client_get_backend_property (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prop_name</code></em>,
+                               <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                               <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Queries <em class="parameter"><code>client</code></em>
+'s backend for a property of name <em class="parameter"><code>prop_name</code></em>
+.
+The call is finished by <a class="link" href="eds-EClient.html#e-client-get-backend-property-finish" title="e_client_get_backend_property_finish ()"><code class="function">e_client_get_backend_property_finish()</code></a>
+from the <em class="parameter"><code>callback</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.11.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop_name</p></td>
+<td class="parameter_description"><p>property name, whose value to retrieve; cannot be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>callback to call when a result is ready</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data for the <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-get-backend-property-finish"></a><h3>e_client_get_backend_property_finish ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_get_backend_property_finish (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **prop_value</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes previous call of <a class="link" href="eds-EClient.html#e-client-get-backend-property" title="e_client_get_backend_property ()"><code class="function">e_client_get_backend_property()</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.12.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop_value</p></td>
+<td class="parameter_description"><p> Retrieved backend property value; cannot be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.12.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-get-backend-property-sync"></a><h3>e_client_get_backend_property_sync ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_get_backend_property_sync (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                                    <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prop_name</code></em>,
+                                    <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **prop_value</code></em>,
+                                    <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                    <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Queries <em class="parameter"><code>client</code></em>
+'s backend for a property of name <em class="parameter"><code>prop_name</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.13.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop_name</p></td>
+<td class="parameter_description"><p>property name, whose value to retrieve; cannot be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop_value</p></td>
+<td class="parameter_description"><p> Retrieved backend property value; cannot be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.13.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-refresh"></a><h3>e_client_refresh ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_client_refresh (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                  <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                  <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                  <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<p>Initiates refresh on the <em class="parameter"><code>client</code></em>
+. Finishing the method doesn't mean
+that the refresh is done, backend only notifies whether it started
+refreshing or not. Use <a class="link" href="eds-EClient.html#e-client-check-refresh-supported" title="e_client_check_refresh_supported ()"><code class="function">e_client_check_refresh_supported()</code></a> to check
+whether the backend supports this method.
+The call is finished by <a class="link" href="eds-EClient.html#e-client-refresh-finish" title="e_client_refresh_finish ()"><code class="function">e_client_refresh_finish()</code></a> from the <em class="parameter"><code>callback</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.14.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>callback to call when a result is ready</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data for the <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-refresh-finish"></a><h3>e_client_refresh_finish ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_refresh_finish (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                         <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                         <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Finishes previous call of <a class="link" href="eds-EClient.html#e-client-refresh" title="e_client_refresh ()"><code class="function">e_client_refresh()</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.15.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.15.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-refresh-sync"></a><h3>e_client_refresh_sync ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_refresh_sync (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                       <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>Initiates refresh on the <em class="parameter"><code>client</code></em>
+. Finishing the method doesn't mean
+that the refresh is done, backend only notifies whether it started
+refreshing or not. Use <a class="link" href="eds-EClient.html#e-client-check-refresh-supported" title="e_client_check_refresh_supported ()"><code class="function">e_client_check_refresh_supported()</code></a> to check
+whether the backend supports this method.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.16.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.16.6"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-util-parse-comma-strings"></a><h3>e_client_util_parse_comma_strings ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+e_client_util_parse_comma_strings (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *strings</code></em>);</pre>
+<p>Parses comma-separated list of values into <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a>.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.17.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>strings</p></td>
+<td class="parameter_description"><p>string of comma-separated values</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.17.6"></a><h4>Returns</h4>
+<p> Newly allocated <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of
+newly allocated strings corresponding to values parsed from <em class="parameter"><code>strings</code></em>
+.
+Free the returned pointer with <a class="link" href="eds-EClient.html#e-client-util-free-string-slist" title="e_client_util_free_string_slist ()"><code class="function">e_client_util_free_string_slist()</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-error-create"></a><h3>e_client_error_create ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="returnvalue">GError</span></a> *
+e_client_error_create (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClientError" title="enum EClientError"><span class="type">EClientError</span></a> code</code></em>,
+                       <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *custom_msg</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_error_create</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Just use the <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> API directly.</p>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.18.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>code</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClientError" title="enum EClientError"><span class="type">EClientError</span></a> code to create</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>custom_msg</p></td>
+<td class="parameter_description"><p>custom message to use for the error; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.18.7"></a><h4>Returns</h4>
+<p> a new <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> containing an E_CLIENT_ERROR of the given
+<em class="parameter"><code>code</code></em>
+. If the <em class="parameter"><code>custom_msg</code></em>
+is NULL, then the error message is
+the one returned from <a class="link" href="eds-EClient.html#e-client-error-to-string" title="e_client_error_to_string ()"><code class="function">e_client_error_to_string()</code></a> for the <em class="parameter"><code>code</code></em>
+,
+otherwise the given message is used.</p>
+<p>Returned pointer should be freed with <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#g-error-free"><code class="function">g_error_free()</code></a>.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-is-opened"></a><h3>e_client_is_opened ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_is_opened (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_is_opened</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Clients don't need to care if they're fully opened
+                 anymore.  This function always returns <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</p>
+</div>
+<p>Check if this <em class="parameter"><code>client</code></em>
+ is fully opened. This includes
+everything from <a class="link" href="eds-EClient.html#e-client-open" title="e_client_open ()"><code class="function">e_client_open()</code></a> call up to the authentication,
+if required by a backend. Client cannot do any other operation
+during the opening phase except of authenticate or cancel it.
+Every other operation results in an <a class="link" href="eds-EClient.html#E-CLIENT-ERROR-BUSY:CAPS"><code class="literal">E_CLIENT_ERROR_BUSY</code></a> error.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.19.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.19.8"></a><h4>Returns</h4>
+<p> always <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a></p>
+<p></p>
+</div>
+<p class="since">Since 3.2.</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-cancel-all"></a><h3>e_client_cancel_all ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_client_cancel_all (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_cancel_all</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>The function no longer does anything.</p>
+</div>
+<p>Cancels all pending operations started on <em class="parameter"><code>client</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.20.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-unwrap-dbus-error"></a><h3>e_client_unwrap_dbus_error ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_client_unwrap_dbus_error (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *dbus_error</code></em>,
+                            <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **out_error</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_unwrap_dbus_error</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a href="https://developer.gnome.org/gio/unstable/gio-GDBusError.html#g-dbus-error-strip-remote-error"><code class="function">g_dbus_error_strip_remote_error()</code></a> instead.</p>
+</div>
+<p>Unwraps D-Bus error to local error. <em class="parameter"><code>dbus_error</code></em>
+ is automatically freed.
+<em class="parameter"><code>dbus_erorr</code></em>
+ and <em class="parameter"><code>out_error</code></em>
+ can point to the same variable.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.21.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>dbus_error</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> returned bu D-Bus</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>out_error</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> variable where to store the result</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-retrieve-capabilities"></a><h3>e_client_retrieve_capabilities ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_client_retrieve_capabilities (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                                <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_retrieve_capabilities</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EClient.html#e-client-get-capabilities" title="e_client_get_capabilities ()"><code class="function">e_client_get_capabilities()</code></a> instead.</p>
+</div>
+<p>Initiates retrieval of capabilities on the <em class="parameter"><code>client</code></em>
+. This is usually
+required only once, after the <em class="parameter"><code>client</code></em>
+ is opened. The returned value
+is cached and any subsequent call of <a class="link" href="eds-EClient.html#e-client-get-capabilities" title="e_client_get_capabilities ()"><code class="function">e_client_get_capabilities()</code></a> and
+<a class="link" href="eds-EClient.html#e-client-check-capability" title="e_client_check_capability ()"><code class="function">e_client_check_capability()</code></a> is using the cached value.
+The call is finished by <a class="link" href="eds-EClient.html#e-client-retrieve-capabilities-finish" title="e_client_retrieve_capabilities_finish ()"><code class="function">e_client_retrieve_capabilities_finish()</code></a>
+from the <em class="parameter"><code>callback</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.22.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>callback to call when a result is ready</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data for the <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-retrieve-capabilities-finish"></a><h3>e_client_retrieve_capabilities_finish ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_retrieve_capabilities_finish (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                                       <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **capabilities</code></em>,
+                                       <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_retrieve_capabilities_finish</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EClient.html#e-client-get-capabilities" title="e_client_get_capabilities ()"><code class="function">e_client_get_capabilities()</code></a> instead.</p>
+</div>
+<p>Finishes previous call of <a class="link" href="eds-EClient.html#e-client-retrieve-capabilities" title="e_client_retrieve_capabilities ()"><code class="function">e_client_retrieve_capabilities()</code></a>.
+Returned value of <em class="parameter"><code>capabilities</code></em>
+ should be freed with <a href="https://developer.gnome.org/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>,
+when no longer needed.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.23.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>capabilities</p></td>
+<td class="parameter_description"><p> Comma-separated list of capabilities of the <em class="parameter"><code>client</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.23.8"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-retrieve-capabilities-sync"></a><h3>e_client_retrieve_capabilities_sync ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_retrieve_capabilities_sync (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **capabilities</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                     <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_retrieve_capabilities_sync</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EClient.html#e-client-get-capabilities" title="e_client_get_capabilities ()"><code class="function">e_client_get_capabilities()</code></a> instead.</p>
+</div>
+<p>Initiates retrieval of capabilities on the <em class="parameter"><code>client</code></em>
+. This is usually
+required only once, after the <em class="parameter"><code>client</code></em>
+ is opened. The returned value
+is cached and any subsequent call of <a class="link" href="eds-EClient.html#e-client-get-capabilities" title="e_client_get_capabilities ()"><code class="function">e_client_get_capabilities()</code></a> and
+<a class="link" href="eds-EClient.html#e-client-check-capability" title="e_client_check_capability ()"><code class="function">e_client_check_capability()</code></a> is using the cached value. Returned value
+of <em class="parameter"><code>capabilities</code></em>
+ should be freed with <a href="https://developer.gnome.org/glib/unstable/glib-Memory-Allocation.html#g-free"><code class="function">g_free()</code></a>, when no longer needed.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.24.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>capabilities</p></td>
+<td class="parameter_description"><p> Comma-separated list of capabilities of the <em class="parameter"><code>client</code></em>
+. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.24.8"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-set-backend-property"></a><h3>e_client_set_backend_property ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_client_set_backend_property (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prop_name</code></em>,
+                               <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prop_value</code></em>,
+                               <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                               <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_set_backend_property</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Clients cannot set backend properties.  Any attempt
+                 will fail with an <a class="link" href="eds-EClient.html#E-CLIENT-ERROR-NOT-SUPPORTED:CAPS"><code class="literal">E_CLIENT_ERROR_NOT_SUPPORTED</code></a> error.</p>
+</div>
+<p>Sets <em class="parameter"><code>client</code></em>
+'s backend property of name <em class="parameter"><code>prop_name</code></em>
+
+to value <em class="parameter"><code>prop_value</code></em>
+. The call is finished
+by <a class="link" href="eds-EClient.html#e-client-set-backend-property-finish" title="e_client_set_backend_property_finish ()"><code class="function">e_client_set_backend_property_finish()</code></a> from the <em class="parameter"><code>callback</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.25.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop_name</p></td>
+<td class="parameter_description"><p>property name, whose value to change; cannot be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop_value</p></td>
+<td class="parameter_description"><p>property value, to set; cannot be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>callback to call when a result is ready</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data for the <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-set-backend-property-finish"></a><h3>e_client_set_backend_property_finish ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_set_backend_property_finish (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_set_backend_property_finish</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Clients cannot set backend properties.  Any attempt
+                 will fail with an <a class="link" href="eds-EClient.html#E-CLIENT-ERROR-NOT-SUPPORTED:CAPS"><code class="literal">E_CLIENT_ERROR_NOT_SUPPORTED</code></a> error.</p>
+</div>
+<p>Finishes previous call of <a class="link" href="eds-EClient.html#e-client-set-backend-property" title="e_client_set_backend_property ()"><code class="function">e_client_set_backend_property()</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.26.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.26.8"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-set-backend-property-sync"></a><h3>e_client_set_backend_property_sync ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_set_backend_property_sync (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                                    <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prop_name</code></em>,
+                                    <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *prop_value</code></em>,
+                                    <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                                    <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_set_backend_property_sync</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Clients cannot set backend properties.  Any attempt
+                 will fail with an <a class="link" href="eds-EClient.html#E-CLIENT-ERROR-NOT-SUPPORTED:CAPS"><code class="literal">E_CLIENT_ERROR_NOT_SUPPORTED</code></a> error.</p>
+</div>
+<p>Sets <em class="parameter"><code>client</code></em>
+'s backend property of name <em class="parameter"><code>prop_name</code></em>
+
+to value <em class="parameter"><code>prop_value</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.27.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop_name</p></td>
+<td class="parameter_description"><p>property name, whose value to change; cannot be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>prop_value</p></td>
+<td class="parameter_description"><p>property value, to set; cannot be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.27.8"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-open"></a><h3>e_client_open ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_client_open (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> only_if_exists</code></em>,
+               <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+               <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+               <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_open</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookClient.html#e-book-client-connect" title="e_book_client_connect ()"><code class="function">e_book_client_connect()</code></a> and
+                 <a class="link" href="eds-EBookClient.html#e-book-client-connect-finish" title="e_book_client_connect_finish ()"><code class="function">e_book_client_connect_finish()</code></a> or
+                 <a class="link" href="eds-ECalClient.html#e-cal-client-connect" title="e_cal_client_connect ()"><code class="function">e_cal_client_connect()</code></a> and
+                 <a class="link" href="eds-ECalClient.html#e-cal-client-connect-finish" title="e_cal_client_connect_finish ()"><code class="function">e_cal_client_connect_finish()</code></a> instead.</p>
+</div>
+<p>Opens the <em class="parameter"><code>client</code></em>
+, making it ready for queries and other operations.
+The call is finished by <a class="link" href="eds-EClient.html#e-client-open-finish" title="e_client_open_finish ()"><code class="function">e_client_open_finish()</code></a> from the <em class="parameter"><code>callback</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.28.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>only_if_exists</p></td>
+<td class="parameter_description"><p>if <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, fail if this book doesn't already exist,
+otherwise create it first</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>callback to call when a result is ready</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data for the <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-open-finish"></a><h3>e_client_open_finish ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_open_finish (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                      <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_open_finish</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookClient.html#e-book-client-connect" title="e_book_client_connect ()"><code class="function">e_book_client_connect()</code></a> and
+                 <a class="link" href="eds-EBookClient.html#e-book-client-connect-finish" title="e_book_client_connect_finish ()"><code class="function">e_book_client_connect_finish()</code></a> or
+                 <a class="link" href="eds-ECalClient.html#e-cal-client-connect" title="e_cal_client_connect ()"><code class="function">e_cal_client_connect()</code></a> and
+                 <a class="link" href="eds-ECalClient.html#e-cal-client-connect-finish" title="e_cal_client_connect_finish ()"><code class="function">e_cal_client_connect_finish()</code></a> instead.</p>
+</div>
+<p>Finishes previous call of <a class="link" href="eds-EClient.html#e-client-open" title="e_client_open ()"><code class="function">e_client_open()</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.29.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.29.8"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-open-sync"></a><h3>e_client_open_sync ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_open_sync (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                    <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> only_if_exists</code></em>,
+                    <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                    <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_open_sync</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-EBookClient.html#e-book-client-connect-sync" title="e_book_client_connect_sync ()"><code class="function">e_book_client_connect_sync()</code></a> or
+                 <a class="link" href="eds-ECalClient.html#e-cal-client-connect-sync" title="e_cal_client_connect_sync ()"><code class="function">e_cal_client_connect_sync()</code></a> instead.</p>
+</div>
+<p>Opens the <em class="parameter"><code>client</code></em>
+, making it ready for queries and other operations.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.30.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>only_if_exists</p></td>
+<td class="parameter_description"><p>if <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, fail if this book doesn't already exist,
+otherwise create it first</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.30.8"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-remove"></a><h3>e_client_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_client_remove (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                 <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> callback</code></em>,
+                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_remove</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-ESource.html#e-source-remove" title="e_source_remove ()"><code class="function">e_source_remove()</code></a> instead.</p>
+</div>
+<p>Removes the backing data for this <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a>. For example, with the file
+backend this deletes the database file. You cannot get it back!
+The call is finished by <a class="link" href="eds-EClient.html#e-client-remove-finish" title="e_client_remove_finish ()"><code class="function">e_client_remove_finish()</code></a> from the <em class="parameter"><code>callback</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.31.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>callback</p></td>
+<td class="parameter_description"><p>callback to call when a result is ready</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>user_data</p></td>
+<td class="parameter_description"><p>user data for the <em class="parameter"><code>callback</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-remove-finish"></a><h3>e_client_remove_finish ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_remove_finish (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                        <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                        <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_remove_finish</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-ESource.html#e-source-remove-finish" title="e_source_remove_finish ()"><code class="function">e_source_remove_finish()</code></a> instead.</p>
+</div>
+<p>Finishes previous call of <a class="link" href="eds-EClient.html#e-client-remove" title="e_client_remove ()"><code class="function">e_client_remove()</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.32.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.32.8"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-remove-sync"></a><h3>e_client_remove_sync ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_remove_sync (<em class="parameter"><code><a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> *client</code></em>,
+                      <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a> *cancellable</code></em>,
+                      <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_remove_sync</code> has been deprecated since version 3.6 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-ESource.html#e-source-remove-sync" title="e_source_remove_sync ()"><code class="function">e_source_remove_sync()</code></a> instead.</p>
+</div>
+<p>Removes the backing data for this <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a>. For example, with the file
+backend this deletes the database file. You cannot get it back!</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.33.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>client</p></td>
+<td class="parameter_description"><p>an <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>cancellable</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GCancellable.html"><span class="type">GCancellable</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>error</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set an error, if any. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.33.8"></a><h4>Returns</h4>
+<p> <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if successful, <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-util-slist-to-strv"></a><h3>e_client_util_slist_to_strv ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> **
+e_client_util_slist_to_strv (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *strings</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_util_slist_to_strv</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-Main-Utility-Toolbox.html#e-util-slist-to-strv" title="e_util_slist_to_strv ()"><code class="function">e_util_slist_to_strv()</code></a> instead.</p>
+</div>
+<p>Convert a list of strings into a <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of strings.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.34.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>strings</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of strings (const gchar *). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.34.8"></a><h4>Returns</h4>
+<p> Newly allocated <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of strings.
+The returned pointer should be freed with <a href="https://developer.gnome.org/glib/unstable/glib-String-Utility-Functions.html#g-strfreev"><code class="function">g_strfreev()</code></a>.</p>
+<p>Note: Paired function for this is <a class="link" href="eds-EClient.html#e-client-util-strv-to-slist" title="e_client_util_strv_to_slist ()"><code class="function">e_client_util_strv_to_slist()</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-util-strv-to-slist"></a><h3>e_client_util_strv_to_slist ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+e_client_util_strv_to_slist (<em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> * const *strv</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_util_strv_to_slist</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-Main-Utility-Toolbox.html#e-util-strv-to-slist" title="e_util_strv_to_slist ()"><code class="function">e_util_strv_to_slist()</code></a> instead.</p>
+</div>
+<p>Convert a <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of strings to a list of strings.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.35.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>strv</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated array of strings (const gchar *)</p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.35.8"></a><h4>Returns</h4>
+<p> Newly allocated <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of
+newly allocated strings. The returned pointer should be freed with
+<a class="link" href="eds-EClient.html#e-client-util-free-string-slist" title="e_client_util_free_string_slist ()"><code class="function">e_client_util_free_string_slist()</code></a>.</p>
+<p>Note: Paired function for this is <a class="link" href="eds-EClient.html#e-client-util-slist-to-strv" title="e_client_util_slist_to_strv ()"><code class="function">e_client_util_slist_to_strv()</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-util-copy-string-slist"></a><h3>e_client_util_copy_string_slist ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+e_client_util_copy_string_slist (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *copy_to</code></em>,
+                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *strings</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_util_copy_string_slist</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-Main-Utility-Toolbox.html#e-util-copy-string-slist" title="e_util_copy_string_slist ()"><code class="function">e_util_copy_string_slist()</code></a> instead.</p>
+</div>
+<p>Copies the <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of strings to the end of <em class="parameter"><code>copy_to</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.36.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>copy_to</p></td>
+<td class="parameter_description"><p> Where to copy; may be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>strings</p></td>
+<td class="parameter_description"><p> <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of strings to be copied. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.36.8"></a><h4>Returns</h4>
+<p> New head of <em class="parameter"><code>copy_to</code></em>
+.
+The returned pointer can be freed with <a class="link" href="eds-EClient.html#e-client-util-free-string-slist" title="e_client_util_free_string_slist ()"><code class="function">e_client_util_free_string_slist()</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-util-copy-object-slist"></a><h3>e_client_util_copy_object_slist ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *
+e_client_util_copy_object_slist (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *copy_to</code></em>,
+                                 <em class="parameter"><code>const <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *objects</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_util_copy_object_slist</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a class="link" href="eds-Main-Utility-Toolbox.html#e-util-copy-object-slist" title="e_util_copy_object_slist ()"><code class="function">e_util_copy_object_slist()</code></a> instead.</p>
+</div>
+<p>Copies a <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>s to the end of <em class="parameter"><code>copy_to</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.37.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>copy_to</p></td>
+<td class="parameter_description"><p> Where to copy; may be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GObject][<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>objects</p></td>
+<td class="parameter_description"><p> <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>s to be copied. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GObject]</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.37.8"></a><h4>Returns</h4>
+<p> New head of <em class="parameter"><code>copy_to</code></em>
+.
+The returned pointer can be freed with <a class="link" href="eds-EClient.html#e-client-util-free-object-slist" title="e_client_util_free_object_slist ()"><code class="function">e_client_util_free_object_slist()</code></a>. </p>
+<p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GObject]</span></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-util-free-string-slist"></a><h3>e_client_util_free_string_slist ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_client_util_free_string_slist (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *strings</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_util_free_string_slist</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#g-slist-free-full"><code class="function">g_slist_free_full()</code></a> instead.</p>
+</div>
+<p>Frees memory previously allocated by <a class="link" href="eds-EClient.html#e-client-util-strv-to-slist" title="e_client_util_strv_to_slist ()"><code class="function">e_client_util_strv_to_slist()</code></a>.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.38.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>strings</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of strings (gchar *). </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-util-free-object-slist"></a><h3>e_client_util_free_object_slist ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+e_client_util_free_object_slist (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> *objects</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_util_free_object_slist</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Use <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#g-slist-free-full"><code class="function">g_slist_free_full()</code></a> instead.</p>
+</div>
+<p>Calls <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-unref"><code class="function">g_object_unref()</code></a> on each member of <em class="parameter"><code>objects</code></em>
+ and then frees <em class="parameter"><code>objects</code></em>
+
+itself.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.39.7"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>objects</p></td>
+<td class="parameter_description"><p> a <a href="https://developer.gnome.org/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="type">GSList</span></a> of <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a>s. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> GObject]</span></td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="e-client-util-unwrap-dbus-error"></a><h3>e_client_util_unwrap_dbus_error ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>
+e_client_util_unwrap_dbus_error (<em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *dbus_error</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **client_error</code></em>,
+                                 <em class="parameter"><code>const <a class="link" href="eds-EClient.html#EClientErrorsList" title="struct EClientErrorsList"><span class="type">EClientErrorsList</span></a> *known_errors</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#guint"><span class="type">guint</span></a> known_errors_count</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Quarks.html#GQuark"><span class="type">GQuark</span></a> known_errors_domain</code></em>,
+                                 <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> fail_when_none_matched</code></em>);</pre>
+<div class="warning">
+<p><code class="literal">e_client_util_unwrap_dbus_error</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>This function is no longer used.</p>
+</div>
+<p>The function takes a <em class="parameter"><code>dbus_error</code></em>
+ and tries to find a match in <em class="parameter"><code>known_errors</code></em>
+
+for it, if it is a G_IO_ERROR, G_IO_ERROR_DBUS_ERROR. If it is anything else
+then the <em class="parameter"><code>dbus_error</code></em>
+ is moved to <em class="parameter"><code>client_error</code></em>
+.</p>
+<p>The <em class="parameter"><code>fail_when_none_matched</code></em>
+ influences behaviour. If it's <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>, and none of
+<em class="parameter"><code>known_errors</code></em>
+ matches, or this is not a G_IO_ERROR_DBUS_ERROR, then <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>
+is returned and the <em class="parameter"><code>client_error</code></em>
+ is left without change. Otherwise, the
+<em class="parameter"><code>fail_when_none_matched</code></em>
+ is <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>, the error is always processed and will
+result in E_CLIENT_ERROR, E_CLIENT_ERROR_OTHER_ERROR if none of <em class="parameter"><code>known_error</code></em>
+
+matches.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.40.8"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>dbus_error</p></td>
+<td class="parameter_description"><p>DBus <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to unwrap</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>client_error</p></td>
+<td class="parameter_description"><p> Resulting <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a>; can be <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>. </p></td>
+<td class="parameter_annotations"><span class="annotation">[<acronym title="Parameter for returning results. Default is transfer full."><span class="acronym">out</span></acronym>]</span></td>
+</tr>
+<tr>
+<td class="parameter_name"><p>known_errors</p></td>
+<td class="parameter_description"><p>List of known errors against which try to match</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>known_errors_count</p></td>
+<td class="parameter_description"><p>How many items are stored in <em class="parameter"><code>known_errors</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>known_errors_domain</p></td>
+<td class="parameter_description"><p>Error domain for <em class="parameter"><code>known_errors</code></em>
+</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>fail_when_none_matched</p></td>
+<td class="parameter_description"><p>Whether to fail when none of <em class="parameter"><code>known_errors</code></em>
+matches</p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.3.2.2.7.40.9"></a><h4>Returns</h4>
+<p> Whether was <em class="parameter"><code>dbus_error</code></em>
+processed into <em class="parameter"><code>client_error</code></em>
+.</p>
+<p>Note: The <em class="parameter"><code>dbus_error</code></em>
+is automatically freed if returned <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</p>
+<p></p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="eds-EClient.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="CLIENT-BACKEND-PROPERTY-ONLINE:CAPS"></a><h3>CLIENT_BACKEND_PROPERTY_ONLINE</h3>
+<pre class="programlisting">#define CLIENT_BACKEND_PROPERTY_ONLINE			"online"
+</pre>
+<p>The "online" property is "TRUE" when the client is fully opened and
+online, "FALSE" at all other times.  See also <a class="link" href="eds-EClient.html#e-client-is-online" title="e_client_is_online ()"><code class="function">e_client_is_online()</code></a>.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CLIENT-BACKEND-PROPERTY-READONLY:CAPS"></a><h3>CLIENT_BACKEND_PROPERTY_READONLY</h3>
+<pre class="programlisting">#define CLIENT_BACKEND_PROPERTY_READONLY		"readonly"
+</pre>
+<p>The "online" property is "TRUE" if the backend has only read access
+to its data, "FALSE" if the backend can modify its data.  See also
+<a class="link" href="eds-EClient.html#e-client-is-readonly" title="e_client_is_readonly ()"><code class="function">e_client_is_readonly()</code></a>.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CLIENT-BACKEND-PROPERTY-CACHE-DIR:CAPS"></a><h3>CLIENT_BACKEND_PROPERTY_CACHE_DIR</h3>
+<pre class="programlisting">#define CLIENT_BACKEND_PROPERTY_CACHE_DIR		"cache-dir"
+</pre>
+<p>The "cache-dir" property indicates the backend's local directory for
+cached data.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CLIENT-BACKEND-PROPERTY-CAPABILITIES:CAPS"></a><h3>CLIENT_BACKEND_PROPERTY_CAPABILITIES</h3>
+<pre class="programlisting">#define             CLIENT_BACKEND_PROPERTY_CAPABILITIES</pre>
+<p>FIXME: Document me.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CLIENT-BACKEND-PROPERTY-REVISION:CAPS"></a><h3>CLIENT_BACKEND_PROPERTY_REVISION</h3>
+<pre class="programlisting">#define CLIENT_BACKEND_PROPERTY_REVISION		"revision"
+</pre>
+<p>The current overall revision string, this can be used as
+a quick check to see if data has changed at all since the
+last time the revision was observed.</p>
+<p class="since">Since 3.4</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="E-CLIENT-ERROR:CAPS"></a><h3>E_CLIENT_ERROR</h3>
+<pre class="programlisting">#define E_CLIENT_ERROR		e_client_error_quark ()
+</pre>
+<p>Error domain for <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> operations.  Errors in this domain will be
+from the <a class="link" href="eds-EClient.html#EClientError" title="enum EClientError"><span class="type">EClientError</span></a> enumeration.  See <a href="https://developer.gnome.org/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> for more information
+on error domains.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EClientError"></a><h3>enum EClientError</h3>
+<p>FIXME Document each code.</p>
+<p>Error codes for <a class="link" href="eds-EClient.html#EClient" title="struct EClient"><span class="type">EClient</span></a> operations.</p>
+<div class="refsect3">
+<a name="id-1.3.2.2.8.8.5"></a><h4>Members</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="300px" class="enum_members_name">
+<col class="enum_members_description">
+<col width="200px" class="enum_members_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-INVALID-ARG:CAPS"></a>E_CLIENT_ERROR_INVALID_ARG</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-BUSY:CAPS"></a>E_CLIENT_ERROR_BUSY</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-SOURCE-NOT-LOADED:CAPS"></a>E_CLIENT_ERROR_SOURCE_NOT_LOADED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-SOURCE-ALREADY-LOADED:CAPS"></a>E_CLIENT_ERROR_SOURCE_ALREADY_LOADED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-AUTHENTICATION-FAILED:CAPS"></a>E_CLIENT_ERROR_AUTHENTICATION_FAILED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-AUTHENTICATION-REQUIRED:CAPS"></a>E_CLIENT_ERROR_AUTHENTICATION_REQUIRED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-REPOSITORY-OFFLINE:CAPS"></a>E_CLIENT_ERROR_REPOSITORY_OFFLINE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-OFFLINE-UNAVAILABLE:CAPS"></a>E_CLIENT_ERROR_OFFLINE_UNAVAILABLE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-PERMISSION-DENIED:CAPS"></a>E_CLIENT_ERROR_PERMISSION_DENIED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-CANCELLED:CAPS"></a>E_CLIENT_ERROR_CANCELLED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-COULD-NOT-CANCEL:CAPS"></a>E_CLIENT_ERROR_COULD_NOT_CANCEL</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-NOT-SUPPORTED:CAPS"></a>E_CLIENT_ERROR_NOT_SUPPORTED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-TLS-NOT-AVAILABLE:CAPS"></a>E_CLIENT_ERROR_TLS_NOT_AVAILABLE</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-UNSUPPORTED-AUTHENTICATION-METHOD:CAPS"></a>E_CLIENT_ERROR_UNSUPPORTED_AUTHENTICATION_METHOD</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-SEARCH-SIZE-LIMIT-EXCEEDED:CAPS"></a>E_CLIENT_ERROR_SEARCH_SIZE_LIMIT_EXCEEDED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-SEARCH-TIME-LIMIT-EXCEEDED:CAPS"></a>E_CLIENT_ERROR_SEARCH_TIME_LIMIT_EXCEEDED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-INVALID-QUERY:CAPS"></a>E_CLIENT_ERROR_INVALID_QUERY</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-QUERY-REFUSED:CAPS"></a>E_CLIENT_ERROR_QUERY_REFUSED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-DBUS-ERROR:CAPS"></a>E_CLIENT_ERROR_DBUS_ERROR</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-OTHER-ERROR:CAPS"></a>E_CLIENT_ERROR_OTHER_ERROR</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-NOT-OPENED:CAPS"></a>E_CLIENT_ERROR_NOT_OPENED</p></td>
+<td> </td>
+<td> </td>
+</tr>
+<tr>
+<td class="enum_member_name"><p><a name="E-CLIENT-ERROR-OUT-OF-SYNC:CAPS"></a>E_CLIENT_ERROR_OUT_OF_SYNC</p></td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EClient"></a><h3>struct EClient</h3>
+<pre class="programlisting">struct EClient {
+	GObject parent;
+	EClientPrivate *priv;
+};
+</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EClientClass"></a><h3>struct EClientClass</h3>
+<pre class="programlisting">struct EClientClass {
+	GObjectClass parent;
+
+	/* This method is deprecated. */
+	GDBusProxy * (*get_dbus_proxy) (EClient *client);
+
+	/* This method is deprecated. */
+	void		(*unwrap_dbus_error) (EClient *client,
+						 GError *dbus_error,
+						 GError **out_error);
+
+	/* This method is deprecated. */
+	void		(*retrieve_capabilities)
+						(EClient *client,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+	gboolean (*retrieve_capabilities_finish)
+						(EClient *client,
+						 GAsyncResult *result,
+						 gchar **capabilities,
+						 GError **error);
+	gboolean (*retrieve_capabilities_sync)
+						(EClient *client,
+						 gchar **capabilities,
+						 GCancellable *cancellable,
+						 GError **error);
+
+	void		(*get_backend_property) (EClient *client,
+						 const gchar *prop_name,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+	gboolean (*get_backend_property_finish)
+						(EClient *client,
+						 GAsyncResult *result,
+						 gchar **prop_value,
+						 GError **error);
+	gboolean (*get_backend_property_sync)
+						(EClient *client,
+						 const gchar *prop_name,
+						 gchar **prop_value,
+						 GCancellable *cancellable,
+						 GError **error);
+
+	/* This method is deprecated. */
+	void		(*set_backend_property) (EClient *client,
+						 const gchar *prop_name,
+						 const gchar *prop_value,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+	gboolean (*set_backend_property_finish)
+						(EClient *client,
+						 GAsyncResult *result,
+						 GError **error);
+	gboolean (*set_backend_property_sync)
+						(EClient *client,
+						 const gchar *prop_name,
+						 const gchar *prop_value,
+						 GCancellable *cancellable,
+						 GError **error);
+
+	void		(*open)			(EClient *client,
+						 gboolean only_if_exists,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+	gboolean (*open_finish)		(EClient *client,
+						 GAsyncResult *result,
+						 GError **error);
+	gboolean (*open_sync)		(EClient *client,
+						 gboolean only_if_exists,
+						 GCancellable *cancellable,
+						 GError **error);
+
+	void		(*remove)		(EClient *client,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+	gboolean (*remove_finish) (EClient *client,
+						 GAsyncResult *result,
+						 GError **error);
+	gboolean (*remove_sync)		(EClient *client,
+						 GCancellable *cancellable,
+						 GError **error);
+
+	void		(*refresh)		(EClient *client,
+						 GCancellable *cancellable,
+						 GAsyncReadyCallback callback,
+						 gpointer user_data);
+	gboolean (*refresh_finish) (EClient *client,
+						 GAsyncResult *result,
+						 GError **error);
+	gboolean (*refresh_sync)		(EClient *client,
+						 GCancellable *cancellable,
+						 GError **error);
+
+	void		(*opened)		(EClient *client,
+						 const GError *error);
+	void		(*backend_error) (EClient *client,
+						 const gchar *error_msg);
+	void		(*backend_died)		(EClient *client);
+	void		(*backend_property_changed)
+						(EClient *client,
+						 const gchar *prop_name,
+						 const gchar *prop_value);
+};
+</pre>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CLIENT-BACKEND-PROPERTY-OPENED:CAPS"></a><h3>CLIENT_BACKEND_PROPERTY_OPENED</h3>
+<pre class="programlisting">#define CLIENT_BACKEND_PROPERTY_OPENED			"opened"
+</pre>
+<div class="warning">
+<p><code class="literal">CLIENT_BACKEND_PROPERTY_OPENED</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Clients don't need to care if they're fully opened
+                 anymore.  This property will always return <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.</p>
+</div>
+<p>The "opened" property is "TRUE" when the client is fully opened,
+"FALSE" at all other times.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="CLIENT-BACKEND-PROPERTY-OPENING:CAPS"></a><h3>CLIENT_BACKEND_PROPERTY_OPENING</h3>
+<pre class="programlisting">#define CLIENT_BACKEND_PROPERTY_OPENING			"opening"
+</pre>
+<div class="warning">
+<p><code class="literal">CLIENT_BACKEND_PROPERTY_OPENING</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>Clients don't need to care if they're fully opened
+                 anymore.  This property will always return <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a>.</p>
+</div>
+<p>The "opening" property is "TRUE" when the client is in the process of
+opening, "FALSE" at all other times.</p>
+<p class="since">Since 3.2</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="EClientErrorsList"></a><h3>struct EClientErrorsList</h3>
+<pre class="programlisting">struct EClientErrorsList {
+	const gchar *name;
+	gint err_code;
+};
+</pre>
+<div class="warning">
+<p><code class="literal">EClientErrorsList</code> has been deprecated since version 3.8 and should not be used in newly-written code.</p>
+<p>This structure is no longer used.</p>
+</div>
+<p class="since">Since 3.2</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>

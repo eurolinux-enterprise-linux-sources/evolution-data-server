@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Camel Reference Manual: CamelAsyncClosure</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.78.1">
+<link rel="home" href="index.html" title="Camel Reference Manual">
+<link rel="up" href="Utilities.html" title="Utilities">
+<link rel="prev" href="Utilities.html" title="Utilities">
+<link rel="next" href="camel-camel-charset-map.html" title="camel-charset-map">
+<meta name="generator" content="GTK-Doc V1.21 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="5"><tr valign="middle">
+<td width="100%" align="left" class="shortcuts">
+<a href="#" class="shortcut">Top</a><span id="nav_description">  <span class="dim">|</span> 
+                  <a href="#camel-CamelAsyncClosure.description" class="shortcut">Description</a></span>
+</td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="16" height="16" border="0" alt="Home"></a></td>
+<td><a accesskey="u" href="Utilities.html"><img src="up.png" width="16" height="16" border="0" alt="Up"></a></td>
+<td><a accesskey="p" href="Utilities.html"><img src="left.png" width="16" height="16" border="0" alt="Prev"></a></td>
+<td><a accesskey="n" href="camel-camel-charset-map.html"><img src="right.png" width="16" height="16" border="0" alt="Next"></a></td>
+</tr></table>
+<div class="refentry">
+<a name="camel-CamelAsyncClosure"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="camel-CamelAsyncClosure.top_of_page"></a>CamelAsyncClosure</span></h2>
+<p>CamelAsyncClosure — Run asynchronous functions synchronously</p>
+</td>
+<td class="gallery_image" valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsect1">
+<a name="camel-CamelAsyncClosure.functions"></a><h2>Functions</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="functions_return">
+<col class="functions_name">
+</colgroup>
+<tbody>
+<tr>
+<td class="function_type">
+<a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="returnvalue">CamelAsyncClosure</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="camel-CamelAsyncClosure.html#camel-async-closure-new" title="camel_async_closure_new ()">camel_async_closure_new</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="returnvalue">GAsyncResult</span></a> *
+</td>
+<td class="function_name">
+<a class="link" href="camel-CamelAsyncClosure.html#camel-async-closure-wait" title="camel_async_closure_wait ()">camel_async_closure_wait</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="camel-CamelAsyncClosure.html#camel-async-closure-free" title="camel_async_closure_free ()">camel_async_closure_free</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+<tr>
+<td class="function_type">
+<span class="returnvalue">void</span>
+</td>
+<td class="function_name">
+<a class="link" href="camel-CamelAsyncClosure.html#camel-async-closure-callback" title="camel_async_closure_callback ()">camel_async_closure_callback</a> <span class="c_punctuation">()</span>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="camel-CamelAsyncClosure.other"></a><h2>Types and Values</h2>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="name">
+<col class="description">
+</colgroup>
+<tbody><tr>
+<td class="datatype_keyword"> </td>
+<td class="function_name"><a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure">CamelAsyncClosure</a></td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect1">
+<a name="camel-CamelAsyncClosure.includes"></a><h2>Includes</h2>
+<pre class="synopsis">#include &lt;camel/camel.h&gt;
+</pre>
+</div>
+<div class="refsect1">
+<a name="camel-CamelAsyncClosure.description"></a><h2>Description</h2>
+<p><a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a> provides a simple way to run an asynchronous function
+synchronously without blocking the current thread.</p>
+<p>1) Create a <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a> with <a class="link" href="camel-CamelAsyncClosure.html#camel-async-closure-new" title="camel_async_closure_new ()"><code class="function">camel_async_closure_new()</code></a>.</p>
+<p>2) Call the asynchronous function passing <a class="link" href="camel-CamelAsyncClosure.html#camel-async-closure-callback" title="camel_async_closure_callback ()"><code class="function">camel_async_closure_callback()</code></a>
+   as the <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> argument and the <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a> as the
+   data argument.</p>
+<p>3) Call <a class="link" href="camel-CamelAsyncClosure.html#camel-async-closure-wait" title="camel_async_closure_wait ()"><code class="function">camel_async_closure_wait()</code></a> and collect the <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a>.</p>
+<p>4) Call the corresponding asynchronous "finish" function, passing the
+   <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> returned by <a class="link" href="camel-CamelAsyncClosure.html#camel-async-closure-wait" title="camel_async_closure_wait ()"><code class="function">camel_async_closure_wait()</code></a>.</p>
+<p>5) If needed, repeat steps 2-4 for additional asynchronous functions
+   using the same <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a>.</p>
+<p>6) Finally, free the <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a> with <a class="link" href="camel-CamelAsyncClosure.html#camel-async-closure-free" title="camel_async_closure_free ()"><code class="function">camel_async_closure_free()</code></a>.</p>
+</div>
+<div class="refsect1">
+<a name="camel-CamelAsyncClosure.functions_details"></a><h2>Functions</h2>
+<div class="refsect2">
+<a name="camel-async-closure-new"></a><h3>camel_async_closure_new ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="returnvalue">CamelAsyncClosure</span></a> *
+camel_async_closure_new (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>Creates a new <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a> for use with asynchronous functions.</p>
+<div class="refsect3">
+<a name="id-1.2.13.2.7.2.5"></a><h4>Returns</h4>
+<p> a new <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a></p>
+<p></p>
+</div>
+<p class="since">Since 3.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-async-closure-wait"></a><h3>camel_async_closure_wait ()</h3>
+<pre class="programlisting"><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="returnvalue">GAsyncResult</span></a> *
+camel_async_closure_wait (<em class="parameter"><code><a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a> *closure</code></em>);</pre>
+<p>Call this function immediately after starting an asynchronous operation.
+The function waits for the asynchronous operation to complete and returns
+its <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> to be passed to the operation's "finish" function.</p>
+<p>This function can be called repeatedly on the same <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a> to
+easily string together multiple asynchronous operations.</p>
+<div class="refsect3">
+<a name="id-1.2.13.2.7.3.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>closure</p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<div class="refsect3">
+<a name="id-1.2.13.2.7.3.7"></a><h4>Returns</h4>
+<p> a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> which is owned by the closure. </p>
+<p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
+</div>
+<p class="since">Since 3.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-async-closure-free"></a><h3>camel_async_closure_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+camel_async_closure_free (<em class="parameter"><code><a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a> *closure</code></em>);</pre>
+<p>Frees the <em class="parameter"><code>closure</code></em>
+ and the resources it holds.</p>
+<div class="refsect3">
+<a name="id-1.2.13.2.7.4.5"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody><tr>
+<td class="parameter_name"><p>closure</p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr></tbody>
+</table></div>
+</div>
+<p class="since">Since 3.12</p>
+</div>
+<hr>
+<div class="refsect2">
+<a name="camel-async-closure-callback"></a><h3>camel_async_closure_callback ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>
+camel_async_closure_callback (<em class="parameter"><code><a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> *source_object</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a> *result</code></em>,
+                              <em class="parameter"><code><a href="https://developer.gnome.org/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> closure</code></em>);</pre>
+<p>Pass this function as the <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html#GAsyncReadyCallback"><span class="type">GAsyncReadyCallback</span></a> argument of an asynchronous
+function, and the <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a> as the data argument.</p>
+<p>This causes <a class="link" href="camel-CamelAsyncClosure.html#camel-async-closure-wait" title="camel_async_closure_wait ()"><code class="function">camel_async_closure_wait()</code></a> to terminate and return <em class="parameter"><code>result</code></em>
+.</p>
+<div class="refsect3">
+<a name="id-1.2.13.2.7.5.6"></a><h4>Parameters</h4>
+<div class="informaltable"><table width="100%" border="0">
+<colgroup>
+<col width="150px" class="parameters_name">
+<col class="parameters_description">
+<col width="200px" class="parameters_annotations">
+</colgroup>
+<tbody>
+<tr>
+<td class="parameter_name"><p>source_object</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#GObject"><span class="type">GObject</span></a> or <a href="https://developer.gnome.org/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>result</p></td>
+<td class="parameter_description"><p>a <a href="https://developer.gnome.org/gio/unstable/GAsyncResult.html"><span class="type">GAsyncResult</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+<tr>
+<td class="parameter_name"><p>closure</p></td>
+<td class="parameter_description"><p>a <a class="link" href="camel-CamelAsyncClosure.html#CamelAsyncClosure" title="CamelAsyncClosure"><span class="type">CamelAsyncClosure</span></a></p></td>
+<td class="parameter_annotations"> </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p class="since">Since 3.12</p>
+</div>
+</div>
+<div class="refsect1">
+<a name="camel-CamelAsyncClosure.other_details"></a><h2>Types and Values</h2>
+<div class="refsect2">
+<a name="CamelAsyncClosure"></a><h3>CamelAsyncClosure</h3>
+<pre class="programlisting">typedef struct _CamelAsyncClosure CamelAsyncClosure;</pre>
+<p>Contains only private data that should be read and manipulated using the
+functions below.</p>
+<p class="since">Since 3.12</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.21</div>
+</body>
+</html>
