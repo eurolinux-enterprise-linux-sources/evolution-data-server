@@ -1,0 +1,51 @@
+diff -up evolution-data-server-3.22.7/modules/gnome-online-accounts/module-gnome-online-accounts.c.goa-prefer-ssl evolution-data-server-3.22.7/modules/gnome-online-accounts/module-gnome-online-accounts.c
+--- evolution-data-server-3.22.7/modules/gnome-online-accounts/module-gnome-online-accounts.c.goa-prefer-ssl	2017-03-20 10:07:46.000000000 +0100
++++ evolution-data-server-3.22.7/modules/gnome-online-accounts/module-gnome-online-accounts.c	2017-10-19 17:31:45.489348625 +0200
+@@ -392,13 +392,11 @@ gnome_online_accounts_config_imap (EGnom
+ 		CAMEL_NETWORK_SETTINGS (settings),
+ 		goa_mail_get_imap_user_name (goa_mail));
+ 
+-	/* Prefer "use_tls" over "use_ssl" if both are set. */
++	/* Prefer "use_ssl" over "use_tls" if both are set. */
+ 	camel_network_settings_set_security_method (
+ 		CAMEL_NETWORK_SETTINGS (settings),
+-		use_tls ?
+-		CAMEL_NETWORK_SECURITY_METHOD_STARTTLS_ON_STANDARD_PORT :
+-		use_ssl ?
+-		CAMEL_NETWORK_SECURITY_METHOD_SSL_ON_ALTERNATE_PORT :
++		use_ssl ? CAMEL_NETWORK_SECURITY_METHOD_SSL_ON_ALTERNATE_PORT :
++		use_tls ? CAMEL_NETWORK_SECURITY_METHOD_STARTTLS_ON_STANDARD_PORT :
+ 		CAMEL_NETWORK_SECURITY_METHOD_NONE);
+ 
+ 	g_object_unref (network_address);
+@@ -477,13 +475,11 @@ gnome_online_accounts_config_smtp (EGnom
+ 		CAMEL_NETWORK_SETTINGS (settings),
+ 		gnome_online_accounts_get_smtp_auth (goa_mail));
+ 
+-	/* Prefer "use_tls" over "use_ssl" if both are set. */
++	/* Prefer "use_ssl" over "use_tls" if both are set. */
+ 	camel_network_settings_set_security_method (
+ 		CAMEL_NETWORK_SETTINGS (settings),
+-		use_tls ?
+-		CAMEL_NETWORK_SECURITY_METHOD_STARTTLS_ON_STANDARD_PORT :
+-		use_ssl ?
+-		CAMEL_NETWORK_SECURITY_METHOD_SSL_ON_ALTERNATE_PORT :
++		use_ssl ? CAMEL_NETWORK_SECURITY_METHOD_SSL_ON_ALTERNATE_PORT :
++		use_tls ? CAMEL_NETWORK_SECURITY_METHOD_STARTTLS_ON_STANDARD_PORT :
+ 		CAMEL_NETWORK_SECURITY_METHOD_NONE);
+ 
+ 	g_object_unref (network_address);
+diff -up evolution-data-server-3.22.7/modules/google-backend/module-google-backend.c.goa-prefer-ssl evolution-data-server-3.22.7/modules/google-backend/module-google-backend.c
+--- evolution-data-server-3.22.7/modules/google-backend/module-google-backend.c.goa-prefer-ssl	2017-03-20 10:07:46.000000000 +0100
++++ evolution-data-server-3.22.7/modules/google-backend/module-google-backend.c	2017-10-19 17:31:52.929348522 +0200
+@@ -49,8 +49,8 @@
+ /* SMTP Configuration Details */
+ #define GOOGLE_SMTP_BACKEND_NAME	"smtp"
+ #define GOOGLE_SMTP_HOST		"smtp.googlemail.com"
+-#define GOOGLE_SMTP_PORT		587
+-#define GOOGLE_SMTP_SECURITY_METHOD	METHOD (STARTTLS_ON_STANDARD_PORT)
++#define GOOGLE_SMTP_PORT		465
++#define GOOGLE_SMTP_SECURITY_METHOD	METHOD (SSL_ON_ALTERNATE_PORT)
+ 
+ /* Contacts Configuration Details */
+ #define GOOGLE_CONTACTS_BACKEND_NAME	"google"

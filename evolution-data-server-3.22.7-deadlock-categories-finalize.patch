@@ -1,0 +1,62 @@
+diff -up evolution-data-server-3.22.7/libedataserver/e-categories.c.deadlock-categories-finalize evolution-data-server-3.22.7/libedataserver/e-categories.c
+--- evolution-data-server-3.22.7/libedataserver/e-categories.c.deadlock-categories-finalize	2017-03-20 10:07:46.000000000 +0100
++++ evolution-data-server-3.22.7/libedataserver/e-categories.c	2017-10-19 17:44:13.306338284 +0200
+@@ -224,8 +224,9 @@ hash_to_xml_string (gpointer key,
+ 	g_string_append_len (string, "/>\n", 3);
+ }
+ 
+-static gboolean
+-idle_saver_cb (gpointer user_data)
++/* Called with the @categories lock locked */
++static void
++idle_saver_save (void)
+ {
+ 	GString *buffer;
+ 	gchar *contents;
+@@ -234,8 +235,6 @@ idle_saver_cb (gpointer user_data)
+ 	EChangedListener *emit_listeners = NULL;  /* owned */
+ 	GError *error = NULL;
+ 
+-	G_LOCK (categories);
+-
+ 	if (!save_is_pending)
+ 		goto exit;
+ 
+@@ -269,14 +268,26 @@ idle_saver_cb (gpointer user_data)
+ exit:
+ 	idle_id = 0;
+ 
+-	G_UNLOCK (categories);
+-
+ 	/* Emit the signal with the lock released to avoid re-entrancy
+ 	 * deadlocks. Hold a reference to @listeners until this is complete. */
+ 	if (emit_listeners) {
++		G_UNLOCK (categories);
++
+ 		g_signal_emit_by_name (emit_listeners, "changed");
+ 		g_object_unref (emit_listeners);
++
++		G_LOCK (categories);
+ 	}
++}
++
++static gboolean
++idle_saver_cb (gpointer user_data)
++{
++	G_LOCK (categories);
++
++	idle_saver_save ();
++
++	G_UNLOCK (categories);
+ 
+ 	return FALSE;
+ }
+@@ -462,7 +473,7 @@ finalize_categories (void)
+ 	G_LOCK (categories);
+ 
+ 	if (save_is_pending)
+-		idle_saver_cb (NULL);
++		idle_saver_save ();
+ 
+ 	if (idle_id > 0) {
+ 		g_source_remove (idle_id);

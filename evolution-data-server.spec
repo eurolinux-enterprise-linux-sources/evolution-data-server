@@ -35,7 +35,7 @@
 
 Name: evolution-data-server
 Version: 3.22.7
-Release: 6%{?dist}
+Release: 8%{?dist}
 Group: System Environment/Libraries
 Summary: Backend data server for Evolution
 License: LGPLv2+
@@ -72,6 +72,15 @@ Patch07: evolution-data-server-3.22.7-imapx-subscriptions.patch
 
 # RH bug #1444075
 Patch08: evolution-data-server-3.22.7-imapx-idle-server-leak.patch
+
+# RH bug #1504071
+Patch09: evolution-data-server-3.22.7-goa-prefer-ssl.patch
+
+# RH bug #1476329
+Patch10: evolution-data-server-3.22.7-deadlock-categories-finalize.patch
+
+# RH bug #1512860
+Patch11: evolution-data-server-3.22.7-gtype-init-workaround.patch
 
 ### Dependencies ###
 
@@ -189,6 +198,9 @@ the functionality of the installed %{name} package.
 %patch06 -p1 -b .use-after-free-component-summary-set
 %patch07 -p1 -b .imapx-subscriptions
 %patch08 -p1 -b .imapx-idle-server-leak
+%patch09 -p1 -b .goa-prefer-ssl
+%patch10 -p1 -b .deadlock-categories-finalize
+%patch11 -p1 -b .gtype-init-workaround
 
 %build
 %if %{ldap_support}
@@ -461,6 +473,13 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Thu Nov 16 2017 Milan Crha <mcrha@redhat.com> - 3.22.7-8
+- Add patch for RH bug #1512860 (Add workaround for glib type init deadlock)
+
+* Thu Oct 19 2017 Milan Crha <mcrha@redhat.com> - 3.22.7-7
+- Add patch for RH bug #1504071 (Prefer SSL over STARTTLS for mail when both are set in GOA)
+- Add patch for RH bug #1476329 (Deadlock on exit under e-categories.c:finalize_categories())
+
 * Mon Jun 05 2017 Milan Crha <mcrha@redhat.com> - 3.22.7-6
 - Add patch for RH bug #1444075 ([IMAPx] Fix a memory leak of CamelIMAPXServer)
 
