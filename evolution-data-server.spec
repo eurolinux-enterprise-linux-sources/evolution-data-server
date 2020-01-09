@@ -26,7 +26,7 @@
 
 Name: evolution-data-server
 Version: 2.32.3
-Release: 21%{?dist}
+Release: 23%{?dist}
 Group: System Environment/Libraries
 Summary: Backend data server for Evolution
 License: LGPLv2+
@@ -160,6 +160,12 @@ Patch39: evolution-data-server-2.32.3-camel-tls-range.patch
 # RH bug #1128726
 Patch40: evolution-data-server-2.32.3-cameldb-migrate-maildir.patch
 
+# RH bug #1163375
+Patch41: evolution-data-server-2.32.3-camel-poodle-enable-tls.patch
+
+# RH bug #1141760
+Patch42: evolution-data-server-2.32.3-cal-factory-close-on-logout.patch
+
 ## Dependencies ###
 
 Requires: glib2 >= %{glib2_version}
@@ -282,6 +288,8 @@ This package contains developer documentation for %{name}.
 %patch38 -p1 -b .camel-sqlite-summary-hang
 %patch39 -p1 -b .camel-tls-range
 %patch40 -p1 -b .cameldb-migrate-maildir
+%patch41 -p1 -b .camel-poodle-enable-tls
+%patch42 -p1 -b .cal-factory-close-on-logout
 
 mkdir -p krb5-fakeprefix/include
 mkdir -p krb5-fakeprefix/lib
@@ -496,6 +504,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/libedataserverui
 
 %changelog
+* Thu Jan 08 2015 Milan Crha <mcrha@redhat.com> - 2.32.3-23.el6
+- Add patch for RH bug #1141760 (e-calendar-factory process does not close on logout)
+
+* Mon Jan 05 2015 Milan Crha <mcrha@redhat.com> - 2.32.3-22.el6
+- Add patch for RH bug #1163375 (CVE-2014-3566 POODLE - Enable TLS for SSL Camel connections)
+
 * Tue Aug 26 2014 Milan Crha <mcrha@redhat.com> - 2.32.3-21.el6
 - Add patch for RH bug #1128726 (Deadlock during migration to maildir)
 

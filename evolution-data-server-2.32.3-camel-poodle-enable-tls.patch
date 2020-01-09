@@ -1,0 +1,36 @@
+diff -up evolution-data-server-2.32.3/camel/providers/nntp/camel-nntp-store.c.camel-poodle-enable-tls evolution-data-server-2.32.3/camel/providers/nntp/camel-nntp-store.c
+--- evolution-data-server-2.32.3/camel/providers/nntp/camel-nntp-store.c.camel-poodle-enable-tls	2015-01-05 08:43:30.100095712 +0100
++++ evolution-data-server-2.32.3/camel/providers/nntp/camel-nntp-store.c	2015-01-05 08:43:30.194095708 +0100
+@@ -200,7 +200,7 @@ enum {
+ };
+ 
+ #ifdef CAMEL_HAVE_SSL
+-#define SSL_PORT_FLAGS (CAMEL_TCP_STREAM_SSL_ENABLE_SSL2 | CAMEL_TCP_STREAM_SSL_ENABLE_SSL3)
++#define SSL_PORT_FLAGS (CAMEL_TCP_STREAM_SSL_ENABLE_SSL2 | CAMEL_TCP_STREAM_SSL_ENABLE_SSL3 | CAMEL_TCP_STREAM_SSL_ENABLE_TLS)
+ #define STARTTLS_FLAGS (CAMEL_TCP_STREAM_SSL_ENABLE_TLS)
+ #endif
+ 
+diff -up evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-store.c.camel-poodle-enable-tls evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-store.c
+--- evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-store.c.camel-poodle-enable-tls	2015-01-05 08:43:30.108095712 +0100
++++ evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-store.c	2015-01-05 08:43:30.194095708 +0100
+@@ -59,7 +59,7 @@ enum {
+ };
+ 
+ #ifdef CAMEL_HAVE_SSL
+-#define SSL_PORT_FLAGS (CAMEL_TCP_STREAM_SSL_ENABLE_SSL2 | CAMEL_TCP_STREAM_SSL_ENABLE_SSL3)
++#define SSL_PORT_FLAGS (CAMEL_TCP_STREAM_SSL_ENABLE_SSL2 | CAMEL_TCP_STREAM_SSL_ENABLE_SSL3 | CAMEL_TCP_STREAM_SSL_ENABLE_TLS)
+ #define STARTTLS_FLAGS (CAMEL_TCP_STREAM_SSL_ENABLE_TLS)
+ #endif
+ 
+diff -up evolution-data-server-2.32.3/camel/providers/smtp/camel-smtp-transport.c.camel-poodle-enable-tls evolution-data-server-2.32.3/camel/providers/smtp/camel-smtp-transport.c
+--- evolution-data-server-2.32.3/camel/providers/smtp/camel-smtp-transport.c.camel-poodle-enable-tls	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/smtp/camel-smtp-transport.c	2015-01-05 08:43:30.195095708 +0100
+@@ -177,7 +177,7 @@ enum {
+ };
+ 
+ #ifdef CAMEL_HAVE_SSL
+-#define SSL_PORT_FLAGS (CAMEL_TCP_STREAM_SSL_ENABLE_SSL2 | CAMEL_TCP_STREAM_SSL_ENABLE_SSL3)
++#define SSL_PORT_FLAGS (CAMEL_TCP_STREAM_SSL_ENABLE_SSL2 | CAMEL_TCP_STREAM_SSL_ENABLE_SSL3 | CAMEL_TCP_STREAM_SSL_ENABLE_TLS)
+ #define STARTTLS_FLAGS (CAMEL_TCP_STREAM_SSL_ENABLE_TLS)
+ #endif
+ 
