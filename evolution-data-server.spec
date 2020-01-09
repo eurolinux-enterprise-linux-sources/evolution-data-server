@@ -32,7 +32,7 @@
 
 Name: evolution-data-server
 Version: 3.28.5
-Release: 1%{?dist}
+Release: 3%{?dist}
 Group: System Environment/Libraries
 Summary: Backend data server for Evolution
 License: LGPLv2+
@@ -54,6 +54,9 @@ Obsoletes: compat-evolution-data-server310-libcamel < 3.12
 
 Patch02: evolution-data-server-3.28.2-cmake-version.patch
 Patch03: evolution-data-server-3.28.2-sqlite-deterministic.patch
+
+# RH bug #1610744
+Patch04: evolution-data-server-3.28.5-test-cal-client-get-revision.patch
 
 ### Dependencies ###
 
@@ -176,6 +179,7 @@ the functionality of the installed %{name} package.
 
 %patch02 -p1 -b .cmake-version
 %patch03 -p1 -b .sqlite-deterministic
+%patch04 -p1 -b .test-cal-client-get-revision
 
 %build
 
@@ -437,6 +441,12 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &>/dev/null || :
 %{_datadir}/installed-tests
 
 %changelog
+* Thu May 23 2019 Milan Crha <mcrha@redhat.com> - 3.28.5-3
+- Update patch for RH bug #1610744 (test-cal-client-get-revision could fail)
+
+* Fri Feb 01 2019 Milan Crha <mcrha@redhat.com> - 3.28.5-2
+- Add patch for RH bug #1610744 (test-cal-client-get-revision could fail)
+
 * Mon Jul 30 2018 Milan Crha <mcrha@redhat.com> - 3.28.5-1
 - Update to 3.28.5
 
