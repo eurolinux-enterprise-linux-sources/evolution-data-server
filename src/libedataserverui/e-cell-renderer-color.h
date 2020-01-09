@@ -21,9 +21,9 @@
 #ifndef _E_CELL_RENDERER_COLOR_H_
 #define _E_CELL_RENDERER_COLOR_H_
 
-#include <glib.h>
 #include <gtk/gtk.h>
 
+/* Standard GObject macros */
 #define E_TYPE_CELL_RENDERER_COLOR \
 	(e_cell_renderer_color_get_type ())
 #define E_CELL_RENDERER_COLOR(obj) \
@@ -47,6 +47,11 @@ typedef struct _ECellRendererColor ECellRendererColor;
 typedef struct _ECellRendererColorClass ECellRendererColorClass;
 typedef struct _ECellRendererColorPrivate ECellRendererColorPrivate;
 
+/**
+ * ECellRendererColor:
+ *
+ * Since: 2.22
+ **/
 struct _ECellRendererColor {
 	GtkCellRenderer parent;
 	ECellRendererColorPrivate *priv;

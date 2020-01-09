@@ -1,0 +1,13 @@
+diff -up evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c.alarm-description-for-file-calendars evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c
+--- evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c.alarm-description-for-file-calendars	2013-07-24 08:06:03.210435026 +0200
++++ evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c	2013-07-24 08:06:03.261435026 +0200
+@@ -446,7 +446,8 @@ e_cal_backend_file_get_static_capabiliti
+ 	*capabilities = g_strdup (CAL_STATIC_CAPABILITY_NO_EMAIL_ALARMS ","
+ 				  CAL_STATIC_CAPABILITY_NO_THISANDFUTURE ","
+ 				  CAL_STATIC_CAPABILITY_DELEGATE_SUPPORTED ","
+-				  CAL_STATIC_CAPABILITY_NO_THISANDPRIOR);
++				  CAL_STATIC_CAPABILITY_NO_THISANDPRIOR ","
++				  "alarm-description"); /* CAL_STATIC_CAPABILITY_ALARM_DESCRIPTION from 3.8.4 */
+ }
+ 
+ /* function to resolve timezones */

@@ -1,0 +1,68 @@
+diff -up evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend-summary.c.book-summary-query-check evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend-summary.c
+--- evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend-summary.c.book-summary-query-check	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend-summary.c	2013-06-19 12:48:22.437927970 +0200
+@@ -908,6 +908,7 @@ func_check(struct _ESExp *f, gint argc, 
+ {
+ 	ESExpResult *r;
+ 	gint truth = FALSE;
++	gboolean *pretval = data;
+ 
+ 	if (argc == 2
+ 	    && argv[0]->type == ESEXP_RES_STRING
+@@ -925,6 +926,9 @@ func_check(struct _ESExp *f, gint argc, 
+ 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
+ 	r->value.boolean = truth;
+ 
++	if (pretval)
++		*pretval = (*pretval) && truth;
++
+ 	return r;
+ }
+ 
+@@ -939,7 +943,8 @@ static const struct {
+ 	{ "is", func_check, 0 },
+ 	{ "beginswith", func_check, 0 },
+ 	{ "endswith", func_check, 0 },
+-	{ "exists", func_check, 0 }
++	{ "exists", func_check, 0 },
++	{ "exists_vcard", func_check, 0 }
+ };
+ 
+ /**
+@@ -957,7 +962,7 @@ e_book_backend_summary_is_summary_query 
+ {
+ 	ESExp *sexp;
+ 	ESExpResult *r;
+-	gboolean retval;
++	gboolean retval = TRUE;
+ 	gint i;
+ 	gint esexp_error;
+ 
+@@ -968,10 +973,10 @@ e_book_backend_summary_is_summary_query 
+ 	for (i = 0; i < G_N_ELEMENTS (check_symbols); i++) {
+ 		if (check_symbols[i].type == 1) {
+ 			e_sexp_add_ifunction(sexp, 0, check_symbols[i].name,
+-					     (ESExpIFunc *)check_symbols[i].func, summary);
++					     (ESExpIFunc *)check_symbols[i].func, &retval);
+ 		} else {
+ 			e_sexp_add_function(sexp, 0, check_symbols[i].name,
+-					    check_symbols[i].func, summary);
++					    check_symbols[i].func, &retval);
+ 		}
+ 	}
+ 
+@@ -979,12 +984,13 @@ e_book_backend_summary_is_summary_query 
+ 	esexp_error = e_sexp_parse(sexp);
+ 
+ 	if (esexp_error == -1) {
++		e_sexp_unref (sexp);
+ 		return FALSE;
+ 	}
+ 
+ 	r = e_sexp_eval(sexp);
+ 
+-	retval = (r && r->type == ESEXP_RES_BOOL && r->value.boolean);
++	retval = retval && (r && r->type == ESEXP_RES_BOOL && r->value.boolean);
+ 
+ 	e_sexp_result_free(sexp, r);
+ 

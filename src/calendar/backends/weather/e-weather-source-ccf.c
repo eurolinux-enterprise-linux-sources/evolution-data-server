@@ -39,10 +39,9 @@
 
 #include "libedataserver/e-data-server-util.h"
 
-/* The localtime_r() in <pthread.h> doesn't guard against localtime()
- * returning NULL
- */
+#ifdef localtime_r
 #undef localtime_r
+#endif
 
 /* The localtime() in Microsoft's C library is MT-safe */
 #define localtime_r(tp,tmp) (localtime(tp)?(*(tmp)=*localtime(tp),(tmp)):0)
@@ -53,6 +52,8 @@
  */
 #define strtok_r(s,sep,lasts) (*(lasts)=strtok((s),(sep)))
 #endif
+
+G_DEFINE_TYPE (EWeatherSourceCCF, e_weather_source_ccf, E_TYPE_WEATHER_SOURCE)
 
 struct search_struct
 {
@@ -92,15 +93,15 @@ find_location (const gchar *code_name, gboolean is_old)
 
 	ids = g_strsplit (code_name, "/", 2);
 
-	if (!ids || !ids [0] || !ids [1])
+	if (!ids || !ids[0] || !ids[1])
 		goto done;
 
 	model = gweather_xml_load_locations ();
 	if (!model)
 		goto done;
 
-	search.code = ids [0];
-	search.name = ids [1];
+	search.code = ids[0];
+	search.name = ids[1];
 	search.is_old = is_old;
 	search.location = NULL;
 
@@ -455,26 +456,4 @@ e_weather_source_ccf_init (EWeatherSourceCCF *source)
 {
 	source->location = NULL;
 	source->info = NULL;
-}
-
-GType
-e_weather_source_ccf_get_type (void)
-{
-	static GType e_weather_source_ccf_type = 0;
-
-	if (!e_weather_source_ccf_type) {
-		static GTypeInfo info = {
-			sizeof (EWeatherSourceCCFClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) e_weather_source_ccf_class_init,
-			NULL, NULL,
-			sizeof (EWeatherSourceCCF),
-			0,
-			(GInstanceInitFunc) e_weather_source_ccf_init
-		};
-		e_weather_source_ccf_type = g_type_register_static (E_TYPE_WEATHER_SOURCE, "EWeatherSourceCCF", &info, 0);
-	}
-
-	return e_weather_source_ccf_type;
 }

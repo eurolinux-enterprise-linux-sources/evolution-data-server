@@ -22,14 +22,18 @@
  * USA
  */
 
-#ifndef CAMEL_MOVEMAIL_H
-#define CAMEL_MOVEMAIL_H 1
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
 
-#include <camel/camel-exception.h>
+#ifndef CAMEL_MOVEMAIL_H
+#define CAMEL_MOVEMAIL_H
+
+#include <glib.h>
 
 G_BEGIN_DECLS
 
-gint camel_movemail (const gchar *source, const gchar *dest, CamelException *ex);
+gint camel_movemail (const gchar *source, const gchar *dest, GError **error);
 
 G_END_DECLS
 

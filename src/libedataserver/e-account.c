@@ -33,6 +33,8 @@
 
 #include <gconf/gconf-client.h>
 
+#include <libedataserver/e-data-server-util.h>
+
 #define d(x)
 
 enum {
@@ -158,8 +160,10 @@ finalize (GObject *object)
 	g_free (account->bcc_addrs);
 
 	g_free (account->pgp_key);
+	g_free (account->pgp_hash_algorithm);
 	g_free (account->smime_sign_key);
 	g_free (account->smime_encrypt_key);
+	g_free (account->smime_hash_algorithm);
 
 	g_free (account->parent_uid);
 
@@ -169,7 +173,7 @@ finalize (GObject *object)
 /**
  * e_account_new:
  *
- * Return value: a blank new account which can be filled in and
+ * Returns: a blank new account which can be filled in and
  * added to an #EAccountList.
  **/
 EAccount *
@@ -187,7 +191,7 @@ e_account_new (void)
  * e_account_new_from_xml:
  * @xml: an XML account description
  *
- * Return value: a new #EAccount based on the data in @xml, or %NULL
+ * Returns: a new #EAccount based on the data in @xml, or %NULL
  * if @xml could not be parsed as valid account data.
  **/
 EAccount *
@@ -408,6 +412,93 @@ xml_set_service (xmlNodePtr node, EAccountService *service)
 	return changed;
 }
 
+static void
+fix_mbox_folder_uri (gchar **folder_uri)
+{
+	const gchar *user_data_dir;
+	gchar *folder_name;
+	gchar *filename;
+	gchar *path;
+	gchar *uri;
+	gchar *cp;
+
+	/* XXX Local mbox URLs use absolute paths, so we may need to
+	 *     adjust them for the move to XDG base directories.  All
+	 *     this XML crap should be going away soon, so this is
+	 *     hopefully a short-lived hack, */
+
+	user_data_dir = e_get_user_data_dir ();
+
+	if (folder_uri == NULL || *folder_uri == NULL)
+		return;
+
+	/* We're only interested in mbox URIs. */
+	if (!g_str_has_prefix (*folder_uri, "mbox:"))
+		return;
+
+	/* Check for evidence of the legacy data directory. */
+	if (g_strstr_len (*folder_uri, -1, ".evolution") == NULL)
+		return;
+
+	/* Take ownership of the URI string we were given.  If we fail
+	 * at some point, the EAccount setting will be left NULL, but
+	 * we've already determined the URI is obsolete anyway. */
+	uri = *folder_uri;
+	*folder_uri = NULL;
+
+	/* Change the mbox: scheme to file: so we can convert it to a
+	 * filename.  Both are 4 letters so we can do this in-place. */
+	uri[0] = 'f';
+	uri[1] = 'i';
+	uri[2] = 'l';
+	uri[3] = 'e';
+
+	/* The folder name is denoted with a pound sign at the end of
+	 * the URI: mbox:/home/user/.evolution/mail/local#folder_name
+	 * Copy it for later, and then change the pound sign to NUL.
+	 * The remaining URI -should- be a valid local path. */
+	cp = strrchr (uri, '#');
+	folder_name = g_strdup (cp);
+	if (cp != NULL)
+		*cp = '\0';
+
+	/* Try the URI-to-filename conversion.  Bail if we fail. */
+	filename = g_filename_from_uri (uri, NULL, NULL);
+	if (filename == NULL)
+		goto exit;
+
+	/* Preserve the path segment after the ".evolution" part.
+	 * This should not fail, but if it does emit a warning so
+	 * we know there's a bug here. */
+	cp = g_strstr_len (filename, -1, ".evolution");
+	g_return_if_fail (cp != NULL);
+	path = g_strdup (cp + 10);
+
+	g_free (filename);
+	g_free (uri);
+
+	/* Now build a new URI from the pieces.  Again, emit a
+	 * warning if we fail so we know there's a bug here. */
+	filename = g_build_filename (user_data_dir, path, NULL);
+	uri = g_filename_to_uri (filename, NULL, NULL);
+	g_return_if_fail (uri != NULL);
+
+	/* Change the URI scheme as we did before. */
+	uri[0] = 'm';
+	uri[1] = 'b';
+	uri[2] = 'o';
+	uri[3] = 'x';
+
+	/* And finally, append the folder name. */
+	*folder_uri = g_strconcat (uri, folder_name, NULL);
+
+	g_free (filename);
+
+exit:
+	g_free (folder_name);
+	g_free (uri);
+}
+
 /**
  * e_account_set_from_xml:
  * @account: an #EAccount
@@ -415,7 +506,7 @@ xml_set_service (xmlNodePtr node, EAccountService *service)
  *
  * Changes @account to match @xml.
  *
- * Return value: %TRUE if @account was changed, %FALSE if @account
+ * Returns: %TRUE if @account was changed, %FALSE if @account
  * already matched @xml or @xml could not be parsed
  **/
 gboolean
@@ -464,6 +555,7 @@ e_account_set_from_xml (EAccount *account, const gchar *xml)
 			changed |= xml_set_bool (node, "always-trust", &account->pgp_always_trust);
 			changed |= xml_set_bool (node, "always-sign", &account->pgp_always_sign);
 			changed |= xml_set_bool (node, "no-imip-sign", &account->pgp_no_imip_sign);
+			changed |= xml_set_prop (node, "hash-algo", &account->pgp_hash_algorithm);
 
 			if (node->children) {
 				for (cur = node->children; cur; cur = cur->next) {
@@ -477,6 +569,7 @@ e_account_set_from_xml (EAccount *account, const gchar *xml)
 			changed |= xml_set_bool (node, "sign-default", &account->smime_sign_default);
 			changed |= xml_set_bool (node, "encrypt-to-self", &account->smime_encrypt_to_self);
 			changed |= xml_set_bool (node, "encrypt-default", &account->smime_encrypt_default);
+			changed |= xml_set_prop (node, "hash-algo", &account->smime_hash_algorithm);
 
 			if (node->children) {
 				for (cur = node->children; cur; cur = cur->next) {
@@ -501,6 +594,9 @@ e_account_set_from_xml (EAccount *account, const gchar *xml)
 	}
 
 	xmlFreeDoc (doc);
+
+	fix_mbox_folder_uri (&account->drafts_folder_uri);
+	fix_mbox_folder_uri (&account->sent_folder_uri);
 
 	g_signal_emit(account, signals[CHANGED], 0, -1);
 
@@ -561,6 +657,8 @@ e_account_import (EAccount *dest, EAccount *src)
 
 	g_free (dest->pgp_key);
 	dest->pgp_key = g_strdup (src->pgp_key);
+	g_free (dest->pgp_hash_algorithm);
+	dest->pgp_hash_algorithm = g_strdup (src->pgp_hash_algorithm);
 	dest->pgp_encrypt_to_self = src->pgp_encrypt_to_self;
 	dest->pgp_always_sign = src->pgp_always_sign;
 	dest->pgp_no_imip_sign = src->pgp_no_imip_sign;
@@ -569,6 +667,8 @@ e_account_import (EAccount *dest, EAccount *src)
 	dest->smime_sign_default = src->smime_sign_default;
 	g_free (dest->smime_sign_key);
 	dest->smime_sign_key = g_strdup (src->smime_sign_key);
+	g_free (dest->smime_hash_algorithm);
+	dest->smime_hash_algorithm = g_strdup (src->smime_hash_algorithm);
 
 	dest->smime_encrypt_default = src->smime_encrypt_default;
 	dest->smime_encrypt_to_self = src->smime_encrypt_to_self;
@@ -582,7 +682,7 @@ e_account_import (EAccount *dest, EAccount *src)
  * e_account_to_xml:
  * @account: an #EAccount
  *
- * Return value: an XML representation of @account, which the caller
+ * Returns: an XML representation of @account, which the caller
  * must free.
  **/
 gchar *
@@ -651,6 +751,8 @@ e_account_to_xml (EAccount *account)
 	xmlSetProp (node, (xmlChar*)"always-trust", (xmlChar*)(account->pgp_always_trust ? "true" : "false"));
 	xmlSetProp (node, (xmlChar*)"always-sign", (xmlChar*)(account->pgp_always_sign ? "true" : "false"));
 	xmlSetProp (node, (xmlChar*)"no-imip-sign", (xmlChar*)(account->pgp_no_imip_sign ? "true" : "false"));
+	if (account->pgp_hash_algorithm && *account->pgp_hash_algorithm)
+		xmlSetProp (node, (xmlChar*)"hash-algo", (xmlChar*) account->pgp_hash_algorithm);
 	if (account->pgp_key)
 		xmlNewTextChild (node, NULL, (xmlChar*)"key-id", (xmlChar*)account->pgp_key);
 
@@ -658,6 +760,8 @@ e_account_to_xml (EAccount *account)
 	xmlSetProp (node, (xmlChar*)"sign-default", (xmlChar*)(account->smime_sign_default ? "true" : "false"));
 	xmlSetProp (node, (xmlChar*)"encrypt-default", (xmlChar*)(account->smime_encrypt_default ? "true" : "false"));
 	xmlSetProp (node, (xmlChar*)"encrypt-to-self", (xmlChar*)(account->smime_encrypt_to_self ? "true" : "false"));
+	if (account->smime_hash_algorithm && *account->smime_hash_algorithm)
+		xmlSetProp (node, (xmlChar*)"hash-algo", (xmlChar*) account->smime_hash_algorithm);
 	if (account->smime_sign_key)
 		xmlNewTextChild (node, NULL, (xmlChar*)"sign-key-id", (xmlChar*)account->smime_sign_key);
 	if (account->smime_encrypt_key)
@@ -684,7 +788,7 @@ e_account_to_xml (EAccount *account)
  * e_account_uid_from_xml:
  * @xml: an XML account description
  *
- * Return value: the permanent UID of the account described by @xml
+ * Returns: the permanent UID of the account described by @xml
  * (or %NULL if @xml could not be parsed or did not contain a uid).
  * The caller must free this string.
  **/
@@ -784,6 +888,7 @@ static struct _account_info {
 	{ /* E_ACCOUNT_RECEIPT_POLICY */ 0, TYPE_INT, G_STRUCT_OFFSET(EAccount, receipt_policy) },
 
 	{ /* E_ACCOUNT_PGP_KEY */ 0, TYPE_STRING, G_STRUCT_OFFSET(EAccount, pgp_key) },
+	{ /* E_ACCOUNT_PGP_HASH_ALGORITHM */ 0, TYPE_STRING, G_STRUCT_OFFSET(EAccount, pgp_hash_algorithm) },
 	{ /* E_ACCOUNT_PGP_ENCRYPT_TO_SELF */ 0, TYPE_BOOL, G_STRUCT_OFFSET(EAccount, pgp_encrypt_to_self) },
 	{ /* E_ACCOUNT_PGP_ALWAYS_SIGN */ 0, TYPE_BOOL, G_STRUCT_OFFSET(EAccount, pgp_always_sign) },
 	{ /* E_ACCOUNT_PGP_NO_IMIP_SIGN */ 0, TYPE_BOOL, G_STRUCT_OFFSET(EAccount, pgp_no_imip_sign) },
@@ -791,6 +896,7 @@ static struct _account_info {
 
 	{ /* E_ACCOUNT_SMIME_SIGN_KEY */ 0, TYPE_STRING, G_STRUCT_OFFSET(EAccount, smime_sign_key) },
 	{ /* E_ACCOUNT_SMIME_ENCRYPT_KEY */ 0, TYPE_STRING, G_STRUCT_OFFSET(EAccount, smime_encrypt_key) },
+	{ /* E_ACCOUNT_SMIME_HASH_ALGORITHM */ 0, TYPE_STRING, G_STRUCT_OFFSET(EAccount, smime_hash_algorithm) },
 	{ /* E_ACCOUNT_SMIME_SIGN_DEFAULT */ 0, TYPE_BOOL, G_STRUCT_OFFSET(EAccount, smime_sign_default) },
 	{ /* E_ACCOUNT_SMIME_ENCRYPT_TO_SELF */ 0, TYPE_BOOL, G_STRUCT_OFFSET(EAccount, smime_encrypt_to_self) },
 	{ /* E_ACCOUNT_SMIME_ENCRYPT_DEFAULT */ 0, TYPE_BOOL, G_STRUCT_OFFSET(EAccount, smime_encrypt_default) },
@@ -854,13 +960,13 @@ ea_setting_setup (void)
 		return;
 
 	ea_option_table = g_hash_table_new(g_str_hash, g_str_equal);
-	for (i=0;i<sizeof(ea_option_list)/sizeof(ea_option_list[0]);i++)
+	for (i = 0; i < G_N_ELEMENTS (ea_option_list); i++)
 		g_hash_table_insert(ea_option_table, (gpointer) ea_option_list[i].key, &ea_option_list[i]);
 
 	gconf_client_add_dir(gconf, LOCK_BASE, GCONF_CLIENT_PRELOAD_NONE, NULL);
 
 	ea_system_table = g_hash_table_new(g_str_hash, g_str_equal);
-	for (i=0;i<sizeof(system_perms)/sizeof(system_perms[0]);i++) {
+	for (i = 0; i < G_N_ELEMENTS (system_perms); i++) {
 		g_hash_table_insert(ea_system_table, (gchar *)system_perms[i].key, &system_perms[i]);
 		sprintf(key, LOCK_BASE "/%s", system_perms[i].key);
 		entry = gconf_client_get_entry(gconf, key, NULL, TRUE, &err);

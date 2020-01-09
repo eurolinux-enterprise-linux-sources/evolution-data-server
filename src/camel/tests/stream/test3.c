@@ -8,14 +8,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "camel/camel-stream-mem.h"
-#include "camel/camel-stream-fs.h"
-#include "camel/camel-seekable-substream.h"
-
-#define ARRAY_LEN(x) (sizeof(x)/sizeof(x[0]))
-
 struct {
-	off_t lower, upper;
+	goffset lower, upper;
 } ranges[] = {
 	{ 3, 10241 },
 	{ 0, 1024 },
@@ -35,7 +29,8 @@ struct {
 	{ 10245, CAMEL_STREAM_UNBOUND },
 };
 
-gint main(gint argc, gchar **argv)
+gint
+main(gint argc, gchar **argv)
 {
 	CamelSeekableStream *ss = NULL;
 	gint i, j;
@@ -48,7 +43,7 @@ gint main(gint argc, gchar **argv)
 		push("testing writing method %d", j);
 		ss = (CamelSeekableStream *)camel_stream_mem_new();
 		check(ss != NULL);
-		for (i=0;i<ARRAY_LEN(ranges);i++) {
+		for (i = 0; i < G_N_ELEMENTS (ranges); i++) {
 			push("stream subrange %d-%d", ranges[i].lower, ranges[i].upper);
 			sus = (CamelSeekableSubstream *)camel_seekable_substream_new(ss, ranges[i].lower, ranges[i].upper);
 			check(sus != NULL);
@@ -75,9 +70,9 @@ gint main(gint argc, gchar **argv)
 	camel_test_start("CamelSeekableSubstream, file backing");
 	for (j=0;j<SEEKABLE_SUBSTREAM_WAYS;j++) {
 		push("testing writing method %d", j);
-		ss = (CamelSeekableStream *)camel_stream_fs_new_with_name("stream.txt", O_RDWR|O_CREAT|O_TRUNC, 0600);
+		ss = (CamelSeekableStream *)camel_stream_fs_new_with_name("stream.txt", O_RDWR|O_CREAT|O_TRUNC, 0600, NULL);
 		check(ss != NULL);
-		for (i=0;i<ARRAY_LEN(ranges);i++) {
+		for (i = 0; i < G_N_ELEMENTS (ranges); i++) {
 			push("stream subrange %d-%d", ranges[i].lower, ranges[i].upper);
 			sus = (CamelSeekableSubstream *)camel_seekable_substream_new(ss, ranges[i].lower, ranges[i].upper);
 			check(sus != NULL);

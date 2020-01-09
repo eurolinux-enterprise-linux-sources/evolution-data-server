@@ -1,0 +1,1283 @@
+Set of post 2.32.3 release bug fixes from gnome-2-32 branch
+
+commit e37ca87c8e24e3bf8e9a481d0a444026810a7439
+    Bug 628142 - Fix handling of simultaneous get_message requests
+
+commit e548cb7206938f371399b4bcee6ca3f99a429515
+    Bug #525565 - Crash in find_book_by_contact at e-name-selector-entry.c
+
+commit 739f9dd88c88d0f3ace5faa54527a71a343a4c68
+    Bug #639469 - WebDAV addressbook only uses https
+
+commit c57982be54de8703c2392cbd73a56fa123603373
+    Bug #639165 - maildir expunge not working as expected
+
+commit bdc460ebc1f7d13cc020849cb16e5541aaee4991
+    Bug #630358 - Google contacts doesn't sync birthday and URL
+
+commit 6d970474ee578f443d86b96b64193052cd1e0528
+    Bug 649433 - e-calendar-factory SIGSEGV while reading hash_table
+
+commit 08f6003736a72c0c50becf76919c55f2c1c9e548
+    Bug #628563 - Use-after-free crash in objects_added_cb()
+
+commit 00ecef7054c38e423acde619df71c68e6355edbc
+    Bug #627788 - EDataCalView is never freed in a factory process
+
+commit 3b146b852d2620aa8632afa539adad3c31870764
+    Bug 632687 - Doesn't build against gtk+ 2.91.1
+
+commit 26ff15a20e4ffd3f6e02777431a2d86db406f86d
+    Workaround GtkComboBoxText in .ui file
+
+commit 5388a319326fa5db8b137bbce225a5cc2a445d4a
+    addressbook file backend: libdb must be initialized for concurrent read/write
+
+commit fa84c4c187ea3d0e05a268c46c9c82d642f35a67
+    Bug #650950 - entry_compare() should iterate over attributes with the same name
+
+commit 32119f9b6ae3255d9b9e05442694a5578d8f7d0f
+    Bug #650952 - Remove unknown EContact field name runtime warning
+
+commit 6bdc604cd9b0b8715fad4270e076a5c74a445462
+    Bug #651054 - Support queries based on "photo" contact field
+
+commit 8f3cf08316330ec7115529662d508db65ec6b8c7
+    Bug #651113 - [libebook] Querying date fields is not supported
+
+commit 0a5cca7e367807e776a0818e526f9cdc670a14ca
+    Bug #651226 - e_book_new_system_addressbook() should create source in GConf
+
+commit a57f215d73b306168b37757f7ec05803bb120b1b
+    Bug #645845 - Fix memory leak in get_changes()
+
+diff --git a/addressbook/backends/file/e-book-backend-file.c b/addressbook/backends/file/e-book-backend-file.c
+index dc6a703..dd2d8e8 100644
+--- a/addressbook/backends/file/e-book-backend-file.c
++++ b/addressbook/backends/file/e-book-backend-file.c
+@@ -736,9 +736,9 @@ e_book_backend_file_changes_foreach_key (const gchar *key, gpointer user_data)
+ 						vcard_string);
+ 
+ 		g_object_unref (contact);
+-
+-		g_free (vcard_dbt.data);
+ 	}
++
++	g_free (vcard_dbt.data);
+ }
+ 
+ static void
+@@ -1143,7 +1143,18 @@ e_book_backend_file_load_source (EBookBackend           *backend,
+ 				(gpointer (*)(gpointer , gsize))g_try_realloc,
+ 				g_free);
+ 
+-		db_error = (*env->open) (env, NULL, DB_CREATE | DB_INIT_MPOOL | DB_PRIVATE | DB_THREAD, 0);
++		/*
++		 * We need either DB_INIT_CDB or DB_INIT_LOCK, because we will have
++		 * multiple threads reading and writing concurrently without
++		 * any locking above libdb.
++		 *
++		 * DB_INIT_CDB enforces multiple reader/single writer by locking inside
++		 * the database. It is used instead of DB_INIT_LOCK because DB_INIT_LOCK
++		 * may deadlock, which would have to be called in a separate thread.
++		 * Considered too complicated for not enough gain (= concurrent writes)
++		 * at this point.
++		 */
++		db_error = (*env->open) (env, NULL, DB_INIT_CDB | DB_CREATE | DB_INIT_MPOOL | DB_PRIVATE | DB_THREAD, 0);
+ 		if (db_error != 0) {
+ 			env->close(env, 0);
+ 			g_warning ("db_env_open failed with %s", db_strerror (db_error));
+diff --git a/addressbook/backends/google/e-book-backend-google.c b/addressbook/backends/google/e-book-backend-google.c
+index 58302e3..2498f67 100644
+--- a/addressbook/backends/google/e-book-backend-google.c
++++ b/addressbook/backends/google/e-book-backend-google.c
+@@ -511,7 +511,11 @@ get_new_contacts_in_chunks (EBookBackend *backend, gint chunk_size, GError **err
+ 		GTimeVal updated;
+ 
+ 		g_assert (g_time_val_from_iso8601 (last_updated, &updated) == TRUE);
++		#ifdef HAVE_GDATA_07
++		gdata_query_set_updated_min (query, updated.tv_sec);
++		#else
+ 		gdata_query_set_updated_min (query, &updated);
++		#endif
+ 		gdata_contacts_query_set_show_deleted (GDATA_CONTACTS_QUERY (query), TRUE);
+ 	}
+ 
+@@ -788,11 +792,18 @@ e_book_backend_google_modify_contact (EBookBackendSync *backend, EDataBook *book
+ 	g_free (xml);
+ 
+ 	/* Update the contact on the server */
++	#ifdef HAVE_GDATA_07
++	new_entry = gdata_service_update_entry (
++			GDATA_SERVICE (priv->service),
++			entry,
++			NULL, &error);
++	#else
+ 	new_entry = GDATA_ENTRY (
+ 		gdata_contacts_service_update_contact (
+ 			GDATA_CONTACTS_SERVICE (priv->service),
+ 			GDATA_CONTACTS_CONTACT (entry),
+ 			NULL, &error));
++	#endif
+ 	g_object_unref (entry);
+ 
+ 	if (!new_entry) {
+@@ -1189,6 +1200,11 @@ e_book_backend_google_get_supported_fields (EBookBackendSync *backend, EDataBook
+ 		E_CONTACT_ORG_UNIT,
+ 		E_CONTACT_TITLE,
+ 		E_CONTACT_ROLE,
++		#ifdef HAVE_GDATA_07
++		E_CONTACT_HOMEPAGE_URL,
++		E_CONTACT_BLOG_URL,
++		E_CONTACT_BIRTH_DATE,
++		#endif
+ 		E_CONTACT_NOTE
+ 	};
+ 
+@@ -1470,7 +1486,7 @@ data_book_error_from_gdata_error (GError **dest_err, GError *error)
+ 			g_propagate_error (dest_err, EDB_ERROR (REPOSITORY_OFFLINE));
+ 			return;
+ 		case GDATA_SERVICE_ERROR_PROTOCOL_ERROR:
+-			g_propagate_error (dest_err, EDB_ERROR (INVALID_QUERY));
++			g_propagate_error (dest_err, e_data_book_create_error (E_DATA_BOOK_STATUS_INVALID_QUERY, error->message));
+ 			return;
+ 		case GDATA_SERVICE_ERROR_ENTRY_ALREADY_INSERTED:
+ 			g_propagate_error (dest_err, EDB_ERROR (CONTACTID_ALREADY_EXISTS));
+@@ -1488,7 +1504,7 @@ data_book_error_from_gdata_error (GError **dest_err, GError *error)
+ 			g_propagate_error (dest_err, EDB_ERROR (QUERY_REFUSED));
+ 			return;
+ 		case GDATA_SERVICE_ERROR_BAD_QUERY_PARAMETER:
+-			g_propagate_error (dest_err, EDB_ERROR (INVALID_QUERY));
++			g_propagate_error (dest_err, e_data_book_create_error (E_DATA_BOOK_STATUS_INVALID_QUERY, error->message));
+ 			return;
+ 		default:
+ 			break;
+diff --git a/addressbook/backends/google/util.c b/addressbook/backends/google/util.c
+index e3e7166..56c5367 100644
+--- a/addressbook/backends/google/util.c
++++ b/addressbook/backends/google/util.c
+@@ -20,6 +20,7 @@
+  * Author: Joergen Scheibengruber <joergen.scheibengruber AT googlemail.com>
+  */
+ 
++#include <config.h>
+ #include <string.h>
+ #include <libsoup/soup.h>
+ #include <gdata/gdata.h>
+@@ -69,6 +70,10 @@ _gdata_entry_update_from_e_contact (GDataEntry *entry, EContact *contact)
+ 	gboolean have_postal_primary = FALSE;
+ 	gboolean have_org_primary = FALSE;
+ 	const gchar *title, *role, *note;
++	#ifdef HAVE_GDATA_07
++	EContactDate *bdate;
++	const gchar *url;
++	#endif
+ 
+ 	attributes = e_vcard_get_attributes (E_VCARD (contact));
+ 
+@@ -214,6 +219,40 @@ _gdata_entry_update_from_e_contact (GDataEntry *entry, EContact *contact)
+ 			gdata_gd_organization_set_job_description (org, role);
+ 	}
+ 
++	#ifdef HAVE_GDATA_07
++	gdata_contacts_contact_remove_all_websites (GDATA_CONTACTS_CONTACT (entry));
++
++	url = e_contact_get_const (contact, E_CONTACT_HOMEPAGE_URL);
++	if (url && *url) {
++		GDataGContactWebsite *website = gdata_gcontact_website_new (url, GDATA_GCONTACT_WEBSITE_HOME_PAGE, NULL, FALSE);
++		if (website) {
++			gdata_contacts_contact_add_website (GDATA_CONTACTS_CONTACT (entry), website);
++			g_object_unref (website);
++		}
++	}
++
++	url = e_contact_get_const (contact, E_CONTACT_BLOG_URL);
++	if (url && *url) {
++		GDataGContactWebsite *website = gdata_gcontact_website_new (url, GDATA_GCONTACT_WEBSITE_BLOG, NULL, FALSE);
++		if (website) {
++			gdata_contacts_contact_add_website (GDATA_CONTACTS_CONTACT (entry), website);
++			g_object_unref (website);
++		}
++	}
++
++	gdata_contacts_contact_set_birthday (GDATA_CONTACTS_CONTACT (entry), NULL, TRUE);
++	bdate = e_contact_get (contact, E_CONTACT_BIRTH_DATE);
++	if (bdate) {
++		GDate *gdate = g_date_new_dmy (bdate->day, bdate->month, bdate->year);
++
++		if (gdate) {
++			gdata_contacts_contact_set_birthday (GDATA_CONTACTS_CONTACT (entry), gdate, TRUE);
++			g_date_free (gdate);
++		}
++		e_contact_date_free (bdate);
++	}
++	#endif
++
+ 	return TRUE;
+ }
+ 
+@@ -241,6 +280,11 @@ _e_contact_new_from_gdata_entry (GDataEntry *entry)
+ 	GDataGDPostalAddress *postal_address;
+ 	GDataGDOrganization *org;
+ 	GHashTable *extended_props;
++	#ifdef HAVE_GDATA_07
++	GList *websites;
++	GDate bdate;
++	gboolean bdate_has_year;
++	#endif
+ 
+ 	uid = gdata_entry_get_id (entry);
+ 	if (NULL == uid)
+@@ -352,6 +396,44 @@ _e_contact_new_from_gdata_entry (GDataEntry *entry)
+ 	extended_props = gdata_contacts_contact_get_extended_properties (GDATA_CONTACTS_CONTACT (entry));
+ 	g_hash_table_foreach (extended_props, (GHFunc) foreach_extended_props_cb, vcard);
+ 
++	#ifdef HAVE_GDATA_07
++	websites = gdata_contacts_contact_get_websites (GDATA_CONTACTS_CONTACT (entry));
++	for (itr = websites; itr != NULL; itr = itr->next) {
++		GDataGContactWebsite *website = itr->data;
++		const gchar *uri, *reltype;
++
++		if (!website)
++			continue;
++
++		uri = gdata_gcontact_website_get_uri (website);
++		reltype = gdata_gcontact_website_get_relation_type (website);
++
++		if (!uri || !*uri || !reltype)
++			continue;
++
++		if (g_str_equal (reltype, GDATA_GCONTACT_WEBSITE_HOME_PAGE))
++			e_contact_set (E_CONTACT (vcard), E_CONTACT_HOMEPAGE_URL, uri);
++		else if (g_str_equal (reltype, GDATA_GCONTACT_WEBSITE_BLOG))
++			e_contact_set (E_CONTACT (vcard), E_CONTACT_BLOG_URL, uri);
++	}
++
++	g_date_clear (&bdate, 1);
++	bdate_has_year = gdata_contacts_contact_get_birthday (GDATA_CONTACTS_CONTACT (entry), &bdate);
++	/* ignore birthdays without year */
++	if (g_date_valid (&bdate) && bdate_has_year) {
++		EContactDate *date = e_contact_date_new ();
++
++		if (date) {
++			date->day = g_date_get_day (&bdate);
++			date->month =  g_date_get_month (&bdate);
++			date->year = g_date_get_year (&bdate);
++
++			e_contact_set (E_CONTACT (vcard), E_CONTACT_BIRTH_DATE, date);
++			e_contact_date_free (date);
++		}
++	}
++	#endif
++
+ 	return E_CONTACT (vcard);
+ }
+ 
+diff --git a/addressbook/backends/webdav/e-book-backend-webdav.c b/addressbook/backends/webdav/e-book-backend-webdav.c
+index bff0879..843bafb 100644
+--- a/addressbook/backends/webdav/e-book-backend-webdav.c
++++ b/addressbook/backends/webdav/e-book-backend-webdav.c
+@@ -1234,7 +1234,7 @@ e_book_backend_webdav_load_source(EBookBackend *backend,
+ 	if (use_ssl != NULL && strcmp (use_ssl, "1") == 0) {
+ 		soup_uri_set_scheme (suri, "https");
+ 	} else {
+-		soup_uri_set_scheme (suri, "https");
++		soup_uri_set_scheme (suri, "http");
+ 	}
+ 
+ 	/* append slash if missing */
+diff --git a/addressbook/libebook/e-book-view.c b/addressbook/libebook/e-book-view.c
+index 2d1bab4..cbf48b4 100644
+--- a/addressbook/libebook/e-book-view.c
++++ b/addressbook/libebook/e-book-view.c
+@@ -286,6 +286,7 @@ e_book_view_dispose (GObject *object)
+ 	if (book_view->priv->gdbus_bookview) {
+ 		GError *error = NULL;
+ 
++		g_signal_handlers_disconnect_matched (book_view->priv->gdbus_bookview, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, book_view);
+ 		e_gdbus_book_view_call_dispose_sync (book_view->priv->gdbus_bookview, NULL, &error);
+ 		g_object_unref (book_view->priv->gdbus_bookview);
+ 		book_view->priv->gdbus_bookview = NULL;
+diff --git a/addressbook/libebook/e-book.c b/addressbook/libebook/e-book.c
+index 0239485..b747bcc 100644
+--- a/addressbook/libebook/e-book.c
++++ b/addressbook/libebook/e-book.c
+@@ -3201,9 +3201,16 @@ check_uri (ESource *source, gpointer uri)
+ 		g_free (my_uri);
+ 
+ 		return res;
+-	}
++	} else {
++		gboolean ret;
++		gchar *suri2;
+ 
+-	return FALSE;
++		suri2 = e_source_get_uri (source);
++		ret = !g_ascii_strcasecmp (suri2, uri);
++		g_free (suri2);
++
++		return ret;
++	}
+ }
+ 
+ /**
+@@ -3275,6 +3282,67 @@ check_system (ESource *source, gpointer data)
+ 	return FALSE;
+ }
+ 
++static EBook *
++get_local_source (GError **error)
++{
++	ESourceGroup *on_this_computer;
++	ESourceList *sources;
++	GSList *local_sources, *iter;
++	ESource *personal = NULL;
++	const gchar *name;
++	gchar *source_uri = NULL;
++	EBook *book;
++
++	if (e_book_get_addressbooks (&sources, error)) {
++		on_this_computer = e_source_list_ensure_group (
++		        sources, _("On This Computer"), "local:", TRUE);
++
++		if (on_this_computer) {
++			local_sources = e_source_group_peek_sources (on_this_computer);
++
++			/* Make sure this group includes a "Personal" source. */
++			for (iter = local_sources; iter != NULL; iter = iter->next) {
++				ESource *source = iter->data;
++				const gchar *relative_uri;
++
++				relative_uri = e_source_peek_relative_uri (source);
++				if (g_strcmp0 (relative_uri, "system") == 0) {
++				        personal = source;
++				        break;
++				}
++			}
++
++			name = _("Personal");
++
++			if (personal == NULL) {
++				ESource *source;
++
++				/* Create the default Personal address book. */
++				source = e_source_new (name, "system");
++				e_source_group_add_source (on_this_computer, source, -1);
++				e_source_set_property (source, "completion", "true");
++
++				source_uri = e_source_get_uri (source);
++				g_object_unref(source);
++			} else {
++				/* Force the source name to the current locale. */
++				e_source_set_name (personal, name);
++
++				source_uri = e_source_get_uri (personal);
++			}
++
++			g_object_unref (on_this_computer);
++		}
++
++		g_object_unref (sources);
++	}
++
++	book = e_book_new_from_uri (source_uri?:"local:system", error);
++	g_free (source_uri);
++
++	return book;
++}
++
+ /**
+  * e_book_new_system_addressbook:
+  * @error: A #GError pointer
+@@ -3314,7 +3382,7 @@ e_book_new_system_addressbook (GError **error)
+ 		book = e_book_new (system_source, &err);
+ 		g_object_unref (system_source);
+ 	} else {
+-		book = e_book_new_from_uri (csd.uri, &err);
++		book = get_local_source (&err);
+ 	}
+ 
+ 	if (csd.uri_source)
+diff --git a/addressbook/libebook/e-contact.c b/addressbook/libebook/e-contact.c
+index 9875103..033694f 100644
+--- a/addressbook/libebook/e-contact.c
++++ b/addressbook/libebook/e-contact.c
+@@ -1355,7 +1355,6 @@ e_contact_field_id (const gchar *field_name)
+ 			return field_info[i].field_id;
+ 	}
+ 
+-	g_warning ("unknown field name `%s'", field_name);
+ 	return 0;
+ }
+ 
+diff --git a/addressbook/libedata-book/e-book-backend-sexp.c b/addressbook/libedata-book/e-book-backend-sexp.c
+index 492ec20..42caefb 100644
+--- a/addressbook/libedata-book/e-book-backend-sexp.c
++++ b/addressbook/libedata-book/e-book-backend-sexp.c
+@@ -181,6 +181,26 @@ compare_name (EContact *contact, const gchar *str,
+ }
+ 
+ static gboolean
++compare_photo_uri (EContact *contact, const gchar *str,
++		  gchar *(*compare)(const gchar *, const gchar *))
++{
++	EContactPhoto *photo;
++	gboolean ret_val = FALSE;
++
++	photo = e_contact_get (contact, E_CONTACT_PHOTO);
++
++	if (photo) {
++		/* Compare the photo uri with the string */
++		if ((photo->type == E_CONTACT_PHOTO_TYPE_URI) 
++		     && compare(photo->data.uri, str)) {
++			ret_val = TRUE;	
++		}
++		e_contact_photo_free (photo);
++	}
++	return ret_val;
++}
++
++static gboolean
+ compare_address (EContact *contact, const gchar *str,
+ 		 gchar *(*compare)(const gchar *, const gchar *))
+ {
+@@ -235,9 +255,26 @@ compare_category (EContact *contact, const gchar *str,
+ 	return ret_val;
+ }
+ 
++static gboolean
++compare_date (EContactDate *date, const gchar *str,
++		  gchar *(*compare)(const gchar *, const gchar *))
++{
++	gchar *date_str = e_contact_date_to_string (date);
++	gboolean ret_val = FALSE;
++
++	if (date_str) {
++		if (compare(date_str, str)) {
++			ret_val = TRUE;
++		}
++		g_free (date_str);
++	}
++	return ret_val;
++}
++
+ enum prop_type {
+ 	PROP_TYPE_NORMAL,
+-	PROP_TYPE_LIST
++	PROP_TYPE_LIST,
++	PROP_TYPE_DATE
+ };
+ 
+ static struct prop_info {
+@@ -250,11 +287,15 @@ static struct prop_info {
+ } prop_info_table[] = {
+ #define NORMAL_PROP(f,q) {f, q, PROP_TYPE_NORMAL, NULL}
+ #define LIST_PROP(q,c) {0, q, PROP_TYPE_LIST, c}
++#define DATE_PROP(f,q) {f, q, PROP_TYPE_DATE, NULL}
+ 
+ 	/* query prop,   type,              list compare function */
+ 	NORMAL_PROP ( E_CONTACT_FILE_AS, "file_as" ),
+ 	NORMAL_PROP ( E_CONTACT_UID, "id" ),
+ 	LIST_PROP ( "full_name", compare_name), /* not really a list, but we need to compare both full and surname */
++	LIST_PROP ( "photo", compare_photo_uri ), /* not really a list, but we need to compare the uri in the struct */
++	DATE_PROP ( E_CONTACT_BIRTH_DATE, "birth_date" ),
++	DATE_PROP ( E_CONTACT_ANNIVERSARY, "anniversary" ),
+ 	NORMAL_PROP ( E_CONTACT_GIVEN_NAME, "given_name"),
+ 	NORMAL_PROP ( E_CONTACT_FAMILY_NAME, "family_name"),
+ 	NORMAL_PROP ( E_CONTACT_HOMEPAGE_URL, "url"),
+@@ -339,6 +380,17 @@ entry_compare(SearchContext *ctx, struct _ESExp *f,
+ 					/* the special searches that match any of the list elements */
+ 					truth = info->list_compare (ctx->contact, argv[1]->value.string, compare);
+ 				}
++				else if (info->prop_type == PROP_TYPE_DATE) {
++					/* the special searches that match dates */
++					EContactDate *date;
++					
++					date = e_contact_get (ctx->contact, info->field_id);
++
++					if (date) {
++						truth = compare_date (date, argv[1]->value.string, compare);
++						e_contact_date_free (date);	
++					}
++				}
+ 
+ 				/* if we're looking at all fields and find a match,
+ 				   or if we're just looking at this one field,
+@@ -368,16 +420,21 @@ entry_compare(SearchContext *ctx, struct _ESExp *f,
+ 			} else {
+ 				/* it is not direct EContact known field, so try to find
+ 				   it in EVCard attributes */
+-				EVCardAttribute *attr = e_vcard_get_attribute (E_VCARD (ctx->contact), propname);
+-				GList *l, *values = attr ? e_vcard_attribute_get_values (attr) : NULL;
+-
+-				for (l = values; l && !truth; l = l->next) {
+-					const gchar *value = l->data;
+-
+-					if (value && compare (value, argv[1]->value.string)) {
+-						truth = TRUE;
+-					} else if ((!value) && compare ("", argv[1]->value.string)) {
+-						truth = TRUE;
++				GList *a, *attrs = e_vcard_get_attributes (E_VCARD (ctx->contact));
++				for (a = attrs; a && !truth; a = a->next) {
++					EVCardAttribute *attr = (EVCardAttribute *) a->data;
++                			if (g_ascii_strcasecmp (e_vcard_attribute_get_name (attr), propname) == 0) {
++						GList *l, *values = e_vcard_attribute_get_values (attr);
++
++						for (l = values; l && !truth; l = l->next) {
++							const gchar *value = l->data;
++
++							if (value && compare (value, argv[1]->value.string)) {
++								truth = TRUE;
++							} else if ((!value) && compare ("", argv[1]->value.string)) {
++								truth = TRUE;
++							}
++						}
+ 					}
+ 				}
+ 			}
+diff --git a/addressbook/tests/ebook/test-stress-bookviews.c b/addressbook/tests/ebook/test-stress-bookviews.c
+index 4f6e871..d7522fe 100644
+--- a/addressbook/tests/ebook/test-stress-bookviews.c
++++ b/addressbook/tests/ebook/test-stress-bookviews.c
+@@ -100,6 +100,7 @@ main (gint argc, gchar **argv)
+ 	g_object_unref (view);
+ 
+ 	e_book_query_unref (query);
++	g_object_unref (book);
+ 
+ 	return 0;
+ }
+diff --git a/calendar/libecal/e-cal-view.c b/calendar/libecal/e-cal-view.c
+index 0470e9c..af132ca 100644
+--- a/calendar/libecal/e-cal-view.c
++++ b/calendar/libecal/e-cal-view.c
+@@ -193,8 +193,8 @@ e_cal_view_set_property (GObject *object, guint property_id, const GValue *value
+ 
+ 	switch (property_id) {
+ 	case PROP_VIEW:
+-		if (priv->gdbus_calview != NULL)
+-			g_object_unref (priv->gdbus_calview);
++		/* gdbus_calview can be set only once */
++		g_return_if_fail (priv->gdbus_calview == NULL);
+ 
+ 		priv->gdbus_calview = g_object_ref (g_value_get_pointer (value));
+ 		g_signal_connect (priv->gdbus_calview, "objects-added", G_CALLBACK (objects_added_cb), view);
+@@ -247,8 +247,19 @@ e_cal_view_finalize (GObject *object)
+ 	view = E_CAL_VIEW (object);
+ 	priv = view->priv;
+ 
+-	if (priv->gdbus_calview != NULL)
++	if (priv->gdbus_calview != NULL) {
++		GError *error = NULL;
++
++		g_signal_handlers_disconnect_matched (priv->gdbus_calview, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, view);
++		e_gdbus_cal_view_call_dispose_sync (priv->gdbus_calview, NULL, &error);
+ 		g_object_unref (priv->gdbus_calview);
++		priv->gdbus_calview = NULL;
++
++		if (error) {
++			g_warning ("Failed to dispose cal view: %s", error->message);
++			g_error_free (error);
++		}
++	}
+ 
+ 	g_object_unref (priv->client);
+ 
+diff --git a/calendar/libedata-cal/e-cal-backend.c b/calendar/libedata-cal/e-cal-backend.c
+index eb2cc0f..f654c24 100644
+--- a/calendar/libedata-cal/e-cal-backend.c
++++ b/calendar/libedata-cal/e-cal-backend.c
+@@ -44,8 +44,6 @@
+ struct _ECalBackendPrivate {
+ 	/* The source for this backend */
+ 	ESource *source;
+-	/* signal handler ID for source's 'changed' signal */
+-	gulong source_changed_id;
+ 
+ 	/* URI, from source. This is cached, since we return const. */
+ 	gchar *uri;
+@@ -161,17 +159,12 @@ cal_backend_set_source (ECalBackend *backend,
+                         ESource *source)
+ {
+ 	if (backend->priv->source != NULL) {
+-		if (backend->priv->source_changed_id > 0) {
+-			g_signal_handler_disconnect (
+-				backend->priv->source,
+-				backend->priv->source_changed_id);
+-			backend->priv->source_changed_id = 0;
+-		}
++		g_signal_handlers_disconnect_matched (backend->priv->source, G_SIGNAL_MATCH_FUNC | G_SIGNAL_MATCH_DATA, 0, 0, NULL, source_changed_cb, backend);
+ 		g_object_unref (backend->priv->source);
+ 	}
+ 
+ 	if (source != NULL)
+-		backend->priv->source_changed_id = g_signal_connect (
++		g_signal_connect (
+ 			g_object_ref (source), "changed",
+ 			G_CALLBACK (source_changed_cb), backend);
+ 
+@@ -283,11 +276,10 @@ cal_backend_finalize (GObject *object)
+ 	g_free (priv->uri);
+ 	g_free (priv->cache_dir);
+ 
+-	if (priv->source_changed_id && priv->source) {
+-		g_signal_handler_disconnect (priv->source, priv->source_changed_id);
+-		priv->source_changed_id = 0;
++	if (priv->source) {
++		g_signal_handlers_disconnect_matched (priv->source, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, object);
++		g_object_unref (priv->source);
+ 	}
+-	g_object_unref (priv->source);
+ 
+ 	/* Chain up to parent's finalize() method. */
+ 	G_OBJECT_CLASS (e_cal_backend_parent_class)->finalize (object);
+@@ -376,8 +368,8 @@ e_cal_backend_init (ECalBackend *backend)
+ 	backend->priv->clients_mutex = g_mutex_new ();
+ 
+ 	backend->priv->queries = e_list_new (
+-		(EListCopyFunc) g_object_ref,
+-		(EListFreeFunc) g_object_unref, NULL);
++		(EListCopyFunc) NULL,
++		(EListFreeFunc) NULL, NULL);
+ 	backend->priv->queries_mutex = g_mutex_new ();
+ }
+ 
+diff --git a/calendar/libedata-cal/e-data-cal-factory.c b/calendar/libedata-cal/e-data-cal-factory.c
+index a69e323..db9cc1c 100644
+--- a/calendar/libedata-cal/e-data-cal-factory.c
++++ b/calendar/libedata-cal/e-data-cal-factory.c
+@@ -557,6 +557,15 @@ e_data_cal_factory_init (EDataCalFactory *factory)
+ }
+ 
+ static void
++unref_backend_cb (gpointer key, gpointer value, gpointer user_data)
++{
++	ECalBackend *backend = value;
++
++	if (backend)
++		g_object_unref (backend);
++}
++
++static void
+ e_data_cal_factory_finalize (GObject *object)
+ {
+ 	EDataCalFactory *factory = E_DATA_CAL_FACTORY (object);
+@@ -565,6 +574,8 @@ e_data_cal_factory_finalize (GObject *object)
+ 
+ 	g_object_unref (factory->priv->gdbus_object);
+ 
++	g_hash_table_foreach (factory->priv->backends, unref_backend_cb, NULL);
++
+ 	g_hash_table_destroy (factory->priv->methods);
+ 	g_hash_table_destroy (factory->priv->backends);
+ 	g_hash_table_destroy (factory->priv->calendars);
+diff --git a/calendar/libedata-cal/e-data-cal-view.c b/calendar/libedata-cal/e-data-cal-view.c
+index 52de14f..394acf0 100644
+--- a/calendar/libedata-cal/e-data-cal-view.c
++++ b/calendar/libedata-cal/e-data-cal-view.c
+@@ -328,6 +328,16 @@ impl_DataCalView_stop (EGdbusCalView *object, GDBusMethodInvocation *invocation,
+ 	return TRUE;
+ }
+ 
++static gboolean
++impl_DataCalView_dispose (EGdbusCalView *object, GDBusMethodInvocation *invocation, EDataCalView *query)
++{
++	e_gdbus_cal_view_complete_dispose (object, invocation);
++
++	g_object_unref (query);
++
++	return TRUE;
++}
++
+ static void
+ e_data_cal_view_set_property (GObject *object, guint property_id, const GValue *value, GParamSpec *pspec)
+ {
+@@ -383,6 +393,7 @@ e_data_cal_view_init (EDataCalView *query)
+ 	priv->gdbus_object = e_gdbus_cal_view_stub_new ();
+ 	g_signal_connect (priv->gdbus_object, "handle-start", G_CALLBACK (impl_DataCalView_start), query);
+ 	g_signal_connect (priv->gdbus_object, "handle-stop", G_CALLBACK (impl_DataCalView_stop), query);
++	g_signal_connect (priv->gdbus_object, "handle-dispose", G_CALLBACK (impl_DataCalView_dispose), query);
+ 
+ 	priv->backend = NULL;
+ 	priv->started = FALSE;
+@@ -413,6 +424,7 @@ e_data_cal_view_dispose (GObject *object)
+ 	priv = query->priv;
+ 
+ 	if (priv->backend) {
++		e_cal_backend_remove_query (priv->backend, query);
+ 		g_object_unref (priv->backend);
+ 		priv->backend = NULL;
+ 	}
+diff --git a/calendar/libedata-cal/e-data-cal-view.xml b/calendar/libedata-cal/e-data-cal-view.xml
+index 44ed68a..beb32d9 100644
+--- a/calendar/libedata-cal/e-data-cal-view.xml
++++ b/calendar/libedata-cal/e-data-cal-view.xml
+@@ -11,6 +11,10 @@
+     <method name="stop">
+       <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_EDataCalView_stop"/>
+     </method>
++
++    <method name="dispose">
++      <annotation name="org.freedesktop.DBus.GLib.CSymbol" value="impl_EDataCalView_dispose"/>
++    </method>
+     
+     <signal name="ObjectsAdded">
+       <arg name="objects" type="as"/>
+diff --git a/calendar/libegdbus/e-gdbus-egdbuscalview.c b/calendar/libegdbus/e-gdbus-egdbuscalview.c
+index 065cd5b..c917c90 100644
+--- a/calendar/libegdbus/e-gdbus-egdbuscalview.c
++++ b/calendar/libegdbus/e-gdbus-egdbuscalview.c
+@@ -71,6 +71,7 @@ enum
+   __DONE_SIGNAL,
+   __START_METHOD,
+   __STOP_METHOD,
++  __DISPOSE_METHOD,
+   __LAST_SIGNAL
+ };
+ 
+@@ -345,6 +346,7 @@ e_gdbus_cal_view_default_init (EGdbusCalViewIface *iface)
+   _property_name_to_gname = g_hash_table_new (g_str_hash, g_str_equal);
+   g_hash_table_insert (_method_name_to_id, (gpointer) "start", GUINT_TO_POINTER (__START_METHOD));
+   g_hash_table_insert (_method_name_to_id, (gpointer) "stop", GUINT_TO_POINTER (__STOP_METHOD));
++  g_hash_table_insert (_method_name_to_id, (gpointer) "dispose", GUINT_TO_POINTER (__DISPOSE_METHOD));
+   g_hash_table_insert (_signal_name_to_id, (gpointer) "ObjectsAdded", GUINT_TO_POINTER (__OBJECTS_ADDED_SIGNAL));
+   g_hash_table_insert (_signal_name_to_id, (gpointer) "ObjectsModified", GUINT_TO_POINTER (__OBJECTS_MODIFIED_SIGNAL));
+   g_hash_table_insert (_signal_name_to_id, (gpointer) "ObjectsRemoved", GUINT_TO_POINTER (__OBJECTS_REMOVED_SIGNAL));
+@@ -556,6 +558,31 @@ e_gdbus_cal_view_default_init (EGdbusCalViewIface *iface)
+                   1,
+                   G_TYPE_DBUS_METHOD_INVOCATION);
+ 
++  /**
++   * EGdbusCalView::handle-dispose:
++   * @object: The exported object emitting the signal.
++   * @invocation: A #GDBusMethodInvocation object that can be used to return a value or error.
++   *
++   * On exported objects, this signal is emitted when a remote process (identified by @invocation) invokes the <literal>dispose</literal> D-Bus method on @object. Use e_gdbus_cal_view_complete_dispose() to return a value or g_dbus_method_invocation_return_error() to return an error.
++   *
++   * The signal is emitted in the thread-default main loop of the thread that e_gdbus_cal_view_register_object() was called from.
++   *
++   * On proxies, this signal is never emitted.
++   *
++   * Returns: %TRUE if you want to handle the method call (will stop further handlers from being called), %FALSE otherwise.
++   */
++  signals[__DISPOSE_METHOD] =
++    g_signal_new ("handle-dispose",
++                  G_TYPE_FROM_INTERFACE (iface),
++                  G_SIGNAL_RUN_LAST,
++                  G_STRUCT_OFFSET (EGdbusCalViewIface, handle_dispose),
++                  g_signal_accumulator_true_handled,
++                  NULL,
++                  _e_gdbus_gdbus_cclosure_marshaller_BOOLEAN__OBJECT,
++                  G_TYPE_BOOLEAN,
++                  1,
++                  G_TYPE_DBUS_METHOD_INVOCATION);
++
+   /* GObject property definitions for D-Bus properties: */
+ }
+ 
+@@ -762,6 +789,106 @@ _out:
+ }
+ 
+ /**
++ * e_gdbus_cal_view_call_dispose:
++ * @proxy: A #EGdbusCalView.
++ * @cancellable: A #GCancellable or %NULL.
++ * @callback: A #GAsyncReadyCallback to call when the request is satisfied or %NULL if you don't care about the result of the method invocation.
++ * @user_data: Data to pass to @callback.
++ *
++ * Invokes the <literal>org.gnome.evolution.dataserver.calendar.CalView.dispose</literal>
++ * D-Bus method on the remote object represented by @proxy.
++ *
++ * This is an asynchronous method. When the operation is finished,
++ * callback will be invoked in the thread-default main loop of the
++ * thread you are calling this method from. You can then call
++ * e_gdbus_cal_view_call_dispose_finish() to get the result of the operation.
++ *
++ * See e_gdbus_cal_view_call_dispose_sync() for the synchronous version of this method.
++ */
++void e_gdbus_cal_view_call_dispose (
++        EGdbusCalView *proxy,
++        GCancellable *cancellable,
++        GAsyncReadyCallback callback,
++        gpointer user_data)
++{
++  GVariant *_params;
++  _params = NULL;
++  g_dbus_proxy_call (G_DBUS_PROXY (proxy),
++                     "dispose",
++                     _params,
++                     G_DBUS_CALL_FLAGS_NONE,
++                     -1,
++                     cancellable,
++                     callback,
++                     user_data);
++}
++
++/**
++ * e_gdbus_cal_view_call_dispose_finish:
++ * @proxy: A #EGdbusCalView.
++ * @res: A #GAsyncResult obtained from the #GAsyncReadyCallback passed to e_gdbus_cal_view_call_dispose().
++ * @error: Return location for error or %NULL.
++ *
++ * Finishes invoking the <literal>org.gnome.evolution.dataserver.calendar.CalView.dispose</literal>
++ * D-Bus method on the remote object represented by @proxy.
++ *
++ * Returns: %TRUE if the call succeeded, %FALSE if @error is set.
++ */
++gboolean e_gdbus_cal_view_call_dispose_finish (
++        EGdbusCalView *proxy,
++        GAsyncResult *res,
++        GError **error)
++{
++  gboolean _ret = FALSE;
++  GVariant *_result;
++  _result = g_dbus_proxy_call_finish (G_DBUS_PROXY (proxy), res, error);
++  if (_result == NULL)
++    goto _out;
++  g_variant_unref (_result);
++  _ret = TRUE;
++_out:
++  return _ret;
++}
++
++/**
++ * e_gdbus_cal_view_call_dispose_sync:
++ * @proxy: A #EGdbusCalView.
++ * @cancellable: A #GCancellable or %NULL.
++ * @error: Return location for error or %NULL.
++ *
++ * Synchronously invokes the <literal>org.gnome.evolution.dataserver.calendar.CalView.dispose</literal>
++ * D-Bus method on the remote object represented by @proxy.
++ *
++ * The calling thread is blocked until a reply is received. See
++ * e_gdbus_cal_view_call_dispose() for the asynchronous version of this method.
++ *
++ * Returns: %TRUE if the call succeeded, %FALSE if @error is set.
++ */
++gboolean e_gdbus_cal_view_call_dispose_sync (
++        EGdbusCalView *proxy,
++        GCancellable *cancellable,
++        GError **error)
++{
++  gboolean _ret = FALSE;
++  GVariant *_params;
++  GVariant *_result;
++  _params = NULL;
++  _result = g_dbus_proxy_call_sync (G_DBUS_PROXY (proxy),
++                                   "dispose",
++                                   _params,
++                                   G_DBUS_CALL_FLAGS_NONE,
++                                   -1,
++                                   cancellable,
++                                   error);
++  if (_result == NULL)
++    goto _out;
++  g_variant_unref (_result);
++  _ret = TRUE;
++_out:
++  return _ret;
++}
++
++/**
+  * e_gdbus_cal_view_complete_start:
+  * @object: A #EGdbusCalView.
+  * @invocation: A #GDBusMethodInvocation.
+@@ -802,6 +929,26 @@ void e_gdbus_cal_view_complete_stop (
+ }
+ 
+ /**
++ * e_gdbus_cal_view_complete_dispose:
++ * @object: A #EGdbusCalView.
++ * @invocation: A #GDBusMethodInvocation.
++ *
++ * Completes handling the <literal>org.gnome.evolution.dataserver.calendar.CalView.dispose</literal>
++ * D-Bus method invocation by returning a value.
++ *
++ * If you want to return an error, use g_dbus_method_invocation_return_error()
++ * or similar instead.
++ *
++ * This method will free @invocation, you cannot use it afterwards.
++ */
++void e_gdbus_cal_view_complete_dispose (
++        EGdbusCalView *object,
++        GDBusMethodInvocation *invocation)
++{
++  g_dbus_method_invocation_return_value (invocation, NULL);
++}
++
++/**
+  * e_gdbus_cal_view_emit_objects_added:
+  * @object: A #EGdbusCalView.
+  * @arg_objects: Signal parameter.
+@@ -1029,10 +1176,20 @@ static const GDBusMethodInfo e_gdbus_cal_view_method_stop =
+   (GDBusAnnotationInfo **) NULL,
+ };
+ 
++static const GDBusMethodInfo e_gdbus_cal_view_method_dispose =
++{
++  -1,
++  (gchar *) "dispose",
++  (GDBusArgInfo **) NULL,
++  (GDBusArgInfo **) NULL,
++  (GDBusAnnotationInfo **) NULL,
++};
++
+ static const GDBusMethodInfo * const e_gdbus_cal_view_method_info_pointers[] =
+ {
+   &e_gdbus_cal_view_method_start,
+   &e_gdbus_cal_view_method_stop,
++  &e_gdbus_cal_view_method_dispose,
+   NULL
+ };
+ 
+@@ -1083,6 +1240,18 @@ handle_method_call (GDBusConnection       *connection,
+       }
+       break;
+ 
++    case __DISPOSE_METHOD:
++      {
++        EGdbusCalView *object = E_GDBUS_CAL_VIEW (user_data);
++        gboolean handled;
++        g_signal_emit (object,
++                       signals[method_id],
++                       0, invocation, &handled);
++        if (!handled)
++          goto not_implemented;
++      }
++      break;
++
+     default:
+ not_implemented:
+       g_dbus_method_invocation_return_error (invocation,
+diff --git a/calendar/libegdbus/e-gdbus-egdbuscalview.h b/calendar/libegdbus/e-gdbus-egdbuscalview.h
+index 2dde043..b3361d0 100644
+--- a/calendar/libegdbus/e-gdbus-egdbuscalview.h
++++ b/calendar/libegdbus/e-gdbus-egdbuscalview.h
+@@ -35,6 +35,7 @@ typedef struct _EGdbusCalView EGdbusCalView; /* Dummy typedef */
+  * @done: Handler for the #EGdbusCalView::done signal.
+  * @handle_start: Handler for the #EGdbusCalView::handle-start signal.
+  * @handle_stop: Handler for the #EGdbusCalView::handle-stop signal.
++ * @handle_dispose: Handler for the #EGdbusCalView::handle-dispose signal.
+  *
+  * Virtual table.
+  */
+@@ -189,6 +190,9 @@ struct _EGdbusCalViewIface
+   gboolean (*handle_stop) (
+         EGdbusCalView *object,
+         GDBusMethodInvocation *invocation);
++  gboolean (*handle_dispose) (
++        EGdbusCalView *object,
++        GDBusMethodInvocation *invocation);
+ };
+ 
+ /* C Bindings for properties */
+@@ -226,6 +230,22 @@ gboolean e_gdbus_cal_view_call_stop_sync (
+         GCancellable *cancellable,
+         GError **error);
+ 
++void e_gdbus_cal_view_call_dispose (
++        EGdbusCalView *proxy,
++        GCancellable *cancellable,
++        GAsyncReadyCallback callback,
++        gpointer user_data);
++
++gboolean e_gdbus_cal_view_call_dispose_finish (
++        EGdbusCalView *proxy,
++        GAsyncResult *res,
++        GError **error);
++
++gboolean e_gdbus_cal_view_call_dispose_sync (
++        EGdbusCalView *proxy,
++        GCancellable *cancellable,
++        GError **error);
++
+ /* D-Bus Methods Completion Helpers */
+ void e_gdbus_cal_view_complete_start (
+         EGdbusCalView *object,
+@@ -235,6 +255,10 @@ void e_gdbus_cal_view_complete_stop (
+         EGdbusCalView *object,
+         GDBusMethodInvocation *invocation);
+ 
++void e_gdbus_cal_view_complete_dispose (
++        EGdbusCalView *object,
++        GDBusMethodInvocation *invocation);
++
+ /* D-Bus Signal Emission Helpers */
+ void e_gdbus_cal_view_emit_objects_added (
+         EGdbusCalView *object,
+diff --git a/camel/providers/imapx/camel-imapx-server.c b/camel/providers/imapx/camel-imapx-server.c
+index 179252d..f54e6a8 100644
+--- a/camel/providers/imapx/camel-imapx-server.c
++++ b/camel/providers/imapx/camel-imapx-server.c
+@@ -4807,7 +4807,8 @@ imapx_server_finalize (GObject *object)
+ 
+ 	g_static_rec_mutex_free(&is->queue_lock);
+ 	g_static_rec_mutex_free (&is->ostream_lock);
+-	g_hash_table_destroy (is->uid_eflags);
++	g_mutex_free (is->fetch_mutex);
++	g_cond_free (is->fetch_cond);
+ 
+ 	camel_folder_change_info_free (is->changes);
+ 
+@@ -4929,7 +4930,8 @@ camel_imapx_server_init (CamelIMAPXServer *is)
+ 	is->changes = camel_folder_change_info_new ();
+ 	is->parser_quit = FALSE;
+ 
+-	is->uid_eflags = g_hash_table_new_full (g_str_hash, g_str_equal, (GDestroyNotify)g_free, (GDestroyNotify) e_flag_free);
++	is->fetch_mutex = g_mutex_new ();
++	is->fetch_cond = g_cond_new ();
+ }
+ 
+ CamelIMAPXServer *
+@@ -5016,20 +5018,36 @@ imapx_server_get_message (CamelIMAPXServer *is, CamelFolder *folder, CamelOperat
+ 	CamelIMAPXJob *job;
+ 	CamelMessageInfo *mi;
+ 	gboolean registered;
+-	EFlag *flag = NULL;
+ 	gboolean success;
+ 
+ 	QUEUE_LOCK (is);
+ 
+ 	if ((job = imapx_is_job_in_queue (is, folder, IMAPX_JOB_GET_MESSAGE, uid))) {
+-		flag = g_hash_table_lookup (is->uid_eflags, uid);
+-
+ 		if (pri > job->pri)
+ 			job->pri = pri;
+ 
+-		QUEUE_UNLOCK (is);
++		/* Wait for the job to finish. This would be so much nicer if
++		   we could just use the queue lock with a GCond, but instead
++		   we have to use a GMutex. I miss the kernel waitqueues. */
++		do {
++			int this;
++
++			g_mutex_lock (is->fetch_mutex);
++			this = is->fetch_count;
++
++			QUEUE_UNLOCK (is);
++
++			while (is->fetch_count == this)
++				g_cond_wait (is->fetch_cond, is->fetch_mutex);
+ 
+-		e_flag_wait (flag);
++			g_mutex_unlock (is->fetch_mutex);
++
++			QUEUE_LOCK (is);
++
++		} while (imapx_is_job_in_queue (is, folder,
++						IMAPX_JOB_GET_MESSAGE, uid));
++
++		QUEUE_UNLOCK (is);
+ 
+ 		stream = camel_data_cache_get (
+ 			ifolder->cache, "cur", uid, error);
+@@ -5067,24 +5085,20 @@ imapx_server_get_message (CamelIMAPXServer *is, CamelFolder *folder, CamelOperat
+ 	job->u.get_message.size = ((CamelMessageInfoBase *) mi)->size;
+ 	camel_message_info_free (mi);
+ 	registered = imapx_register_job (is, job, error);
+-	flag = e_flag_new ();
+-	g_hash_table_insert (is->uid_eflags, g_strdup (uid), flag);
+ 
+ 	QUEUE_UNLOCK (is);
+ 
+ 	success = registered && imapx_run_job (is, job, error);
+ 
+-	e_flag_set (flag);
+-
+ 	if (success)
+ 		stream = job->u.get_message.stream;
+ 
+ 	g_free(job);
+ 
+-	/* HACK FIXME just sleep for sometime so that the other waiting locks gets released by that time. Think of a
+-	 better way..*/
+-	g_usleep (1000);
+-	g_hash_table_remove (is->uid_eflags, uid);
++	g_mutex_lock (is->fetch_mutex);
++	is->fetch_count++;
++	g_cond_broadcast (is->fetch_cond);
++	g_mutex_unlock (is->fetch_mutex);
+ 
+ 	return stream;
+ }
+diff --git a/camel/providers/imapx/camel-imapx-server.h b/camel/providers/imapx/camel-imapx-server.h
+index 1f9e884..1050fec 100644
+--- a/camel/providers/imapx/camel-imapx-server.h
++++ b/camel/providers/imapx/camel-imapx-server.h
+@@ -119,8 +119,10 @@ struct _CamelIMAPXServer {
+ 
+ 	gboolean use_qresync;
+ 
+-	/* used for storing eflags to syncronize duplicate get_message requests */
+-	GHashTable *uid_eflags;
++	/* used to synchronize duplicate get_message requests */
++	GCond *fetch_cond;
++	GMutex *fetch_mutex;
++	int fetch_count;
+ };
+ 
+ struct _CamelIMAPXServerClass {
+diff --git a/camel/providers/local/camel-local-provider.c b/camel/providers/local/camel-local-provider.c
+index c853d84..1eb11fa 100644
+--- a/camel/providers/local/camel-local-provider.c
++++ b/camel/providers/local/camel-local-provider.c
+@@ -164,7 +164,7 @@ local_url_hash (gconstpointer v)
+ 	const CamelURL *u = v;
+ 	guint hash = 0;
+ 
+-#define ADD_HASH(s) if (s) hash ^= g_str_hash (s);
++#define ADD_HASH(s) if (s && *s) hash ^= g_str_hash (s);
+ 
+ 	ADD_HASH (u->protocol);
+ 	ADD_HASH (u->user);
+diff --git a/configure.ac b/configure.ac
+index d38cd85..081157d 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -325,11 +325,13 @@ PKG_CHECK_MODULES(GNOME_PLATFORM,
+ 	libsoup-2.4 >= libsoup_minimum_version
+ 	libgdata >= libgdata_minimum_version])
+ 
+-dnl libgdata 0.7 will break API.  We're not going to deal with
+-dnl that on a stable branch, so cap the supported version.
++ac_cv_have_gdata_07=no
++dnl libgdata 0.7 breaks API, thus deal with it.
+ if $PKG_CONFIG --atleast-version=0.7 libgdata; then
+-	AC_MSG_ERROR([libgdata 0.7 is not supported, use 0.6 instead])
++	ac_cv_have_gdata_07=yes
++	AC_DEFINE(HAVE_GDATA_07, 1, [libgdata is 0.7 or higher])
+ fi
++AC_MSG_RESULT([$ac_cv_have_gdata_07])
+ 
+ LIBICAL_REQUIRED=libical_minimum_version
+ AC_SUBST(LIBICAL_REQUIRED)
+diff --git a/libebackend/e-data-server-module.c b/libebackend/e-data-server-module.c
+index 52fb35b..a4f2c4c 100644
+--- a/libebackend/e-data-server-module.c
++++ b/libebackend/e-data-server-module.c
+@@ -74,7 +74,8 @@ e_data_server_module_load (GTypeModule *gmodule)
+ 
+ 	module = E_DATA_SERVER_MODULE (gmodule);
+ 
+-	module->library = g_module_open (module->path, G_MODULE_BIND_LAZY);
++	module->library = g_module_open (module->path,
++				G_MODULE_BIND_LAZY | G_MODULE_BIND_LOCAL);
+ 
+ 	if (!module->library) {
+ 		g_warning ("%s", g_module_error ());
+diff --git a/libedataserverui/e-name-selector-dialog.c b/libedataserverui/e-name-selector-dialog.c
+index 4fbb8a7..fa15bd2 100644
+--- a/libedataserverui/e-name-selector-dialog.c
++++ b/libedataserverui/e-name-selector-dialog.c
+@@ -38,11 +38,16 @@
+ #include "libedataserver/libedataserver-private.h"
+ #include "e-name-selector-dialog.h"
+ #include "e-name-selector-entry.h"
++#include "gtk-compat.h"
+ 
+ #define E_NAME_SELECTOR_DIALOG_GET_PRIVATE(obj) \
+ 	(G_TYPE_INSTANCE_GET_PRIVATE \
+ 	((obj), E_TYPE_NAME_SELECTOR_DIALOG, ENameSelectorDialogPrivate))
+ 
++#if !GTK_CHECK_VERSION (2,23,0)
++	ENSURE_GTK_COMBO_BOX_TEXT_TYPE
++#endif
++
+ typedef struct {
+ 	gchar        *name;
+ 
+@@ -124,10 +129,9 @@ e_name_selector_dialog_populate_categories (ENameSelectorDialog *name_selector_d
+ 		if (!e_categories_is_searchable (iter->data))
+ 			continue;
+ 
+-		gtk_combo_box_append_text (
+-			GTK_COMBO_BOX (combo_box), iter->data);
++		gtk_combo_box_text_append_text (
++			GTK_COMBO_BOX_TEXT (combo_box), iter->data);
+ 	}
+-
+ 	g_list_free (category_list);
+ 
+ 	g_signal_connect_swapped (
+@@ -891,7 +895,7 @@ search_changed (ENameSelectorDialog *name_selector_dialog)
+ 	if (gtk_combo_box_get_active (GTK_COMBO_BOX (combo_box)) == -1)
+ 		gtk_combo_box_set_active (GTK_COMBO_BOX (combo_box), 0);
+ 
+-	category = gtk_combo_box_get_active_text (GTK_COMBO_BOX (combo_box));
++	category = gtk_combo_box_text_get_active_text (GTK_COMBO_BOX_TEXT (combo_box));
+ 	category_escaped = escape_sexp_string (category);
+ 
+ 	text = gtk_entry_get_text (name_selector_dialog->priv->search_entry);
+diff --git a/libedataserverui/e-name-selector-dialog.ui b/libedataserverui/e-name-selector-dialog.ui
+index 58b98d9..85f281e 100644
+--- a/libedataserverui/e-name-selector-dialog.ui
++++ b/libedataserverui/e-name-selector-dialog.ui
+@@ -224,7 +224,7 @@
+                   </packing>
+                 </child>
+                 <child>
+-                  <object class="GtkComboBox" id="combobox-category">
++                  <object class="GtkComboBoxText" id="combobox-category">
+                     <property name="visible">True</property>
+                     <property name="add_tearoffs">False</property>
+                     <property name="focus_on_click">True</property>
+diff --git a/libedataserverui/e-name-selector-entry.c b/libedataserverui/e-name-selector-entry.c
+index 39e1d26..6d83b11 100644
+--- a/libedataserverui/e-name-selector-entry.c
++++ b/libedataserverui/e-name-selector-entry.c
+@@ -2282,7 +2282,7 @@ find_book_by_contact (GList *books, const gchar *contact_uid)
+ 
+ 	for (l = books; l; l = g_list_next (l)) {
+ 		EBook    *book = l->data;
+-		EContact *contact;
++		EContact *contact = NULL;
+ 		gboolean  result;
+ 
+ 		result = e_book_get_contact (book, contact_uid, &contact, NULL);
+@@ -2332,7 +2332,6 @@ editor_closed_cb (GtkObject *editor, gpointer data)
+ 
+ 	g_free (contact_uid);
+ 	g_object_unref (contact);
+-	g_object_unref (editor);
+ 	g_object_unref (name_selector_entry);
+ }
+ 
+diff --git a/libedataserverui/gtk-compat.h b/libedataserverui/gtk-compat.h
+index 7e894e9..e444ffb 100644
+--- a/libedataserverui/gtk-compat.h
++++ b/libedataserverui/gtk-compat.h
+@@ -21,6 +21,34 @@
+ #define gdk_drag_context_get_selected_action(context)  gdk_drag_context_get_action(context)
+ #endif
+ 
++#if !GTK_CHECK_VERSION (2,23,0)
++#define gtk_combo_box_text_new			gtk_combo_box_new_text
++#define gtk_combo_box_text_append_text		gtk_combo_box_append_text
++#define gtk_combo_box_text_get_active_text	gtk_combo_box_get_active_text
++#define GTK_COMBO_BOX_TEXT			GTK_COMBO_BOX
++
++/* The below can be used only once in sources */
++#define ENSURE_GTK_COMBO_BOX_TEXT_TYPE						\
++	GType gtk_combo_box_text_get_type (void);				\
++	typedef struct _GtkComboBoxText GtkComboBoxText;			\
++	typedef struct _GtkComboBoxTextClass GtkComboBoxTextClass;		\
++										\
++	struct _GtkComboBoxText {						\
++		GtkComboBox parent;						\
++	};									\
++										\
++	struct _GtkComboBoxTextClass {						\
++		GtkComboBoxClass parent_class;					\
++	};									\
++										\
++										\
++	G_DEFINE_TYPE (GtkComboBoxText, gtk_combo_box_text, GTK_TYPE_COMBO_BOX)	\
++										\
++	static void gtk_combo_box_text_init (GtkComboBoxText *cbt) {}		\
++	static void gtk_combo_box_text_class_init (GtkComboBoxTextClass *kl) {}
++
++#endif
++
+ #if GTK_CHECK_VERSION (2,90,5)
+ 
+ /* Recreate GdkRegion until we drop GTK2 compatibility. */

@@ -33,8 +33,9 @@
 #include <unistd.h>
 #include <glib/gstdio.h>
 #include <glib/gi18n-lib.h>
-#include "libedataserver/e-xml-hash-utils.h"
-#include "libedataserver/e-url.h"
+#include <libedataserver/e-data-server-util.h>
+#include <libedataserver/e-xml-hash-utils.h>
+#include <libedataserver/e-url.h>
 #include <libedata-cal/e-cal-backend-cache.h>
 #include <libedata-cal/e-cal-backend-file-store.h>
 #include <libedata-cal/e-cal-backend-util.h>
@@ -49,17 +50,23 @@
 #endif
 
 #ifdef G_OS_WIN32
-/* Undef the similar macro from pthread.h, it doesn't check if
- * gmtime() returns NULL.
- */
+#ifdef gmtime_r
 #undef gmtime_r
+#endif
 
 /* The gmtime() in Microsoft's C library is MT-safe */
 #define gmtime_r(tp,tmp) (gmtime(tp)?(*(tmp)=*gmtime(tp),(tmp)):0)
 #endif
 
 #define SERVER_UTC_TIME "server_utc_time"
+#define LOCAL_UTC_TIME "local_utc_time"
 #define CACHE_MARKER "populated"
+
+#define EDC_ERROR(_code) e_data_cal_create_error (_code, NULL)
+#define EDC_ERROR_EX(_code, _msg) e_data_cal_create_error (_code, _msg)
+#define EDC_ERROR_FAILED_STATUS(_code, _status) e_data_cal_create_error_fmt (_code, "Failed with status 0x%x", _status)
+
+G_DEFINE_TYPE (ECalBackendGroupwise, e_cal_backend_groupwise, E_TYPE_CAL_BACKEND_SYNC)
 
 typedef struct {
 	GCond *cond;
@@ -69,8 +76,6 @@ typedef struct {
 
 /* Private part of the CalBackendGroupwise structure */
 struct _ECalBackendGroupwisePrivate {
-	/* A mutex to control access to the private structure */
-	GMutex *mutex;
 	EGwConnection *cnc;
 	ECalBackendStore *store;
 	gboolean read_only;
@@ -80,7 +85,6 @@ struct _ECalBackendGroupwisePrivate {
 	gchar *container_id;
 	CalMode mode;
 	gboolean mode_changed;
-	icaltimezone *default_zone;
 	GHashTable *categories_by_id;
 	GHashTable *categories_by_name;
 
@@ -92,18 +96,23 @@ struct _ECalBackendGroupwisePrivate {
 
 	/* fields for storing info while offline */
 	gchar *user_email;
-	gchar *local_attachments_store;
 
+	gboolean first_delta_fetch;
+
+	/* A mutex to control access to the private structure for the following */
+	GStaticRecMutex rec_mutex;
+	icaltimezone *default_zone;
 	guint timeout_id;
 	GThread *dthread;
 	SyncDelta *dlock;
 };
 
+#define PRIV_LOCK(p)   (g_static_rec_mutex_lock (&(p)->rec_mutex))
+#define PRIV_UNLOCK(p) (g_static_rec_mutex_unlock (&(p)->rec_mutex))
+
 static void e_cal_backend_groupwise_dispose (GObject *object);
 static void e_cal_backend_groupwise_finalize (GObject *object);
-static void sanitize_component (ECalBackendSync *backend, ECalComponent *comp, gchar *server_uid);
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_add_timezone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj);
+static void e_cal_backend_groupwise_add_timezone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj, GError **perror);
 static const gchar * get_gw_item_id (icalcomponent *icalcomp);
 static void get_retract_data (ECalComponent *comp, const gchar **retract_comment, gboolean *all_instances);
 static const gchar * get_element_type (icalcomponent_kind kind);
@@ -150,7 +159,23 @@ e_cal_backend_groupwise_get_default_zone (ECalBackendGroupwise *cbgw) {
 	return cbgw->priv->default_zone;
 }
 
-static GMutex *mutex = NULL;
+const gchar *
+e_cal_backend_groupwise_get_container_id (ECalBackendGroupwise *cbgw)
+{
+	return cbgw->priv->container_id;
+}
+
+void
+e_cal_backend_groupwise_priv_lock (ECalBackendGroupwise *cbgw)
+{
+       PRIV_LOCK (cbgw->priv);
+}
+
+void
+e_cal_backend_groupwise_priv_unlock (ECalBackendGroupwise *cbgw)
+{
+       PRIV_UNLOCK (cbgw->priv);
+}
 
 static const gchar *
 get_element_type (icalcomponent_kind kind)
@@ -167,6 +192,38 @@ get_element_type (icalcomponent_kind kind)
 
 	return type;
 
+}
+
+/* TODO Do not replicate this in every backend */
+static icaltimezone *
+resolve_tzid (const gchar *tzid, gpointer user_data)
+{
+	icaltimezone *zone;
+
+	zone = (!strcmp (tzid, "UTC"))
+		? icaltimezone_get_utc_timezone ()
+		: icaltimezone_get_builtin_timezone_from_tzid (tzid);
+
+	if (!zone)
+		zone = e_cal_backend_internal_get_timezone (E_CAL_BACKEND (user_data), tzid);
+
+	return zone;
+}
+
+static void
+put_component_to_store (ECalBackendGroupwise *cbgw,
+			ECalComponent *comp)
+{
+	time_t time_start, time_end;
+	ECalBackendGroupwisePrivate *priv;
+
+	priv = cbgw->priv;
+
+	e_cal_util_get_component_occur_times (comp, &time_start, &time_end,
+				   resolve_tzid, cbgw, priv->default_zone,
+				   e_cal_backend_get_kind (E_CAL_BACKEND (cbgw)));
+
+	e_cal_backend_store_put_component_with_time_range (priv->store, comp, time_start, time_end);
 }
 
 /* Initialy populate the cache from the server */
@@ -194,12 +251,6 @@ populate_cache (ECalBackendGroupwise *cbgw)
 	priv = cbgw->priv;
 	kind = e_cal_backend_get_kind (E_CAL_BACKEND (cbgw));
 	total = priv->total_count;
-
-	if (!mutex) {
-		mutex = g_mutex_new ();
-	}
-
-	g_mutex_lock (mutex);
 
 	type = get_element_type (kind);
 
@@ -237,7 +288,6 @@ populate_cache (ECalBackendGroupwise *cbgw)
 				"recipients message recipientStatus attachments default peek", filter[i], &cursor);
 		if (status != E_GW_CONNECTION_STATUS_OK) {
 			e_cal_backend_groupwise_notify_error_code (cbgw, status);
-			g_mutex_unlock (mutex);
 			return status;
 		}
 		done = FALSE;
@@ -257,7 +307,6 @@ populate_cache (ECalBackendGroupwise *cbgw)
 			status = e_gw_connection_read_cursor (priv->cnc, priv->container_id, cursor, forward, CURSOR_ITEM_LIMIT, position, &list);
 			if (status != E_GW_CONNECTION_STATUS_OK) {
 				e_cal_backend_groupwise_notify_error_code (cbgw, status);
-				g_mutex_unlock (mutex);
 				return status;
 			}
 			for (l = list; l != NULL; l = g_list_next(l)) {
@@ -288,7 +337,7 @@ populate_cache (ECalBackendGroupwise *cbgw)
 					comp_str = e_cal_component_get_as_string (comp);
 					e_cal_backend_notify_object_created (E_CAL_BACKEND (cbgw), (const gchar *) comp_str);
 					g_free (comp_str);
-					e_cal_backend_store_put_component (priv->store, comp);
+					put_component_to_store (cbgw, comp);
 					g_object_unref (comp);
 				}
 				g_free (progress_string);
@@ -305,29 +354,44 @@ populate_cache (ECalBackendGroupwise *cbgw)
 	}
 	e_cal_backend_notify_view_progress (E_CAL_BACKEND (cbgw), "", 100);
 
-	g_mutex_unlock (mutex);
 	return E_GW_CONNECTION_STATUS_OK;
 }
+
+typedef struct
+{
+	EGwItemCalId *calid;
+	ECalBackendStore *store;
+} CompareIdData;
 
 static gint
 compare_ids (gconstpointer a, gconstpointer b)
 {
 	ECalComponentId *cache_id = (ECalComponentId *) a;
-	ECalComponentId *server_id = (ECalComponentId *) b;
+	CompareIdData *data = (CompareIdData *) b;
+	EGwItemCalId *calid = data->calid;
+	ECalBackendStore *store = data->store;
 
-	if (g_str_equal (cache_id->uid, server_id->uid)) {
-		if (cache_id->rid && server_id->rid) {
-			if (g_str_equal (cache_id->rid, server_id->rid))
-				return 0;
-			else
-				return 1;
-		} else if (!cache_id->rid && !server_id->rid)
-			return 0;
+	if (!calid->recur_key)
+		return g_strcmp0 (cache_id->uid, calid->ical_id);
+	else {
+		ECalComponent *comp;
+		gint ret = 1;
+		const gchar *cache_item_id;
 
-		return 1;
-	} else
-		return 1;
+		if (strcmp (cache_id->uid, calid->recur_key))
+			return 1;
+
+		comp = e_cal_backend_store_get_component (store, cache_id->uid, cache_id->rid);
+		cache_item_id = e_cal_component_get_gw_id (comp);
+		if (!strcmp (cache_item_id, calid->item_id))
+			ret = 0;
+
+		g_object_unref (comp);
+		return ret;
+	}
 }
+
+#define ATTEMPTS_KEY "attempts"
 
 static gboolean
 get_deltas (gpointer handle)
@@ -341,17 +405,11 @@ get_deltas (gpointer handle)
 	GList *item_list = NULL, *total_list = NULL, *l;
 	GSList *cache_ids = NULL, *ls;
 	GPtrArray *uid_array = NULL;
-	gchar *time_string = NULL;
-	gchar t_str [26];
-	const gchar *serv_time;
-	static GStaticMutex connecting = G_STATIC_MUTEX_INIT;
-	const gchar *key = "attempts";
-	const gchar *attempts;
-	const gchar *position;
-
+	gchar t_str[26];
+	const gchar *local_utc_time = NULL, *time_string = NULL, *serv_time, *position;
+	gchar *attempts;
+	icaltimetype current;
 	EGwFilter *filter;
-	gint time_interval;
-	icaltimetype temp;
 	gboolean done = FALSE;
 	gint cursor = 0;
 	struct tm tm;
@@ -360,42 +418,27 @@ get_deltas (gpointer handle)
 
 	if (!handle)
 		return FALSE;
-	cbgw = (ECalBackendGroupwise *) handle;
-	priv= cbgw->priv;
-	kind = e_cal_backend_get_kind (E_CAL_BACKEND (cbgw));
-	cnc = priv->cnc;
-	store = priv->store;
-	item_list = NULL;
 
+	cbgw = (ECalBackendGroupwise *) handle;
+	priv = cbgw->priv;
 	if (priv->mode == CAL_MODE_LOCAL)
 		return FALSE;
 
-	attempts = e_cal_backend_store_get_key_value (store, key);
+	kind = e_cal_backend_get_kind (E_CAL_BACKEND (cbgw));
+	cnc = priv->cnc;
 
-	g_static_mutex_lock (&connecting);
+	store = priv->store;
+	item_list = NULL;
+
+	attempts = g_strdup (e_cal_backend_store_get_key_value (store, ATTEMPTS_KEY));
 
 	serv_time = e_cal_backend_store_get_key_value (store, SERVER_UTC_TIME);
 	if (serv_time) {
-		icaltimetype tmp;
-		g_strlcpy (t_str, e_cal_backend_store_get_key_value (store, SERVER_UTC_TIME), 26);
-		if (!*t_str || !strcmp (t_str, "")) {
-			/* FIXME: When time-stamp is crashed, getting changes from current time */
-			g_warning ("\n\a Could not get the correct time stamp. \n\a");
-			tmp = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
-			current_time = icaltime_as_timet_with_zone (tmp, icaltimezone_get_utc_timezone ());
-			gmtime_r (&current_time, &tm);
-			strftime (t_str, 26, "%Y-%m-%dT%H:%M:%SZ", &tm);
-		}
-	} else {
-		icaltimetype tmp;
-		/* FIXME: When time-stamp is crashed, getting changes from current time */
-		g_warning ("\n\a Could not get the correct time stamp. \n\a");
-		tmp = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
-		current_time = icaltime_as_timet_with_zone (tmp, icaltimezone_get_utc_timezone ());
-		gmtime_r (&current_time, &tm);
-		strftime (t_str, 26, "%Y-%m-%dT%H:%M:%SZ", &tm);
-	}
-	time_string = g_strdup (t_str);
+		time_string = e_cal_backend_store_get_key_value (store, SERVER_UTC_TIME);
+		if (!time_string || !*time_string)
+			time_string = e_gw_connection_get_server_time (priv->cnc);
+	} else
+		time_string = e_gw_connection_get_server_time (priv->cnc);
 
 	filter = e_gw_filter_new ();
 	/* Items modified after the time-stamp */
@@ -403,31 +446,32 @@ get_deltas (gpointer handle)
 	e_gw_filter_add_filter_component (filter, E_GW_FILTER_OP_EQUAL, "@type", get_element_type (kind));
 	e_gw_filter_group_conditions (filter, E_GW_FILTER_OP_AND, 2);
 
-	status = e_gw_connection_get_items (cnc, cbgw->priv->container_id, "attachments recipients message recipientStatus default peek", filter, &item_list);
+	status = e_gw_connection_get_items (cnc, priv->container_id, "attachments recipients message recipientStatus default peek", filter, &item_list);
 	if (status == E_GW_CONNECTION_STATUS_INVALID_CONNECTION)
-		status = e_gw_connection_get_items (cnc, cbgw->priv->container_id, "attachments recipients message recipientStatus default peek", filter, &item_list);
+		status = e_gw_connection_get_items (cnc, priv->container_id, "attachments recipients message recipientStatus default peek", filter, &item_list);
+
 	g_object_unref (filter);
 
 	if (status != E_GW_CONNECTION_STATUS_OK) {
 
 		const gchar *msg = NULL;
+		gint failures;
 
-		if (!attempts) {
-			e_cal_backend_store_put_key_value (store, key, "2");
-		} else {
-			gint failures;
-			failures = g_ascii_strtod(attempts, NULL) + 1;
-			e_cal_backend_store_put_key_value (store, key, GINT_TO_POINTER (failures));
-		}
+		if (!attempts)
+			failures = 2;
+		else
+			failures = g_ascii_strtod (attempts, NULL) + 1;
+		g_free (attempts);
+		attempts = g_strdup_printf ("%d", failures);
+		e_cal_backend_store_put_key_value (store, ATTEMPTS_KEY, attempts);
+		g_free (attempts);
 
 		if (status == E_GW_CONNECTION_STATUS_NO_RESPONSE) {
-			g_static_mutex_unlock (&connecting);
 			return TRUE;
 		}
 
 		msg = e_gw_connection_get_error_message (status);
 
-		g_static_mutex_unlock (&connecting);
 		return TRUE;
 	}
 
@@ -444,7 +488,6 @@ get_deltas (gpointer handle)
 		item = E_GW_ITEM(item_list->data);
 		modified_comp = e_gw_item_to_cal_component (item, cbgw);
 		if (!modified_comp) {
-			g_message ("Invalid component returned in update");
 			continue;
 		}
 		if ((r_key = e_gw_item_get_recurrence_key (item)) != 0)
@@ -476,7 +519,7 @@ get_deltas (gpointer handle)
 			g_free (modif_comp_str);
 			g_free (cache_comp_str);
 			cache_comp_str = NULL;
-			e_cal_backend_store_put_component (store, modified_comp);
+			put_component_to_store (cbgw, modified_comp);
 		}
 
 		e_cal_component_free_icaltimetype (tt);
@@ -491,25 +534,44 @@ get_deltas (gpointer handle)
 	}
 	e_cal_backend_store_thaw_changes (store);
 
-	temp = icaltime_from_string (time_string);
-	current_time = icaltime_as_timet_with_zone (temp, icaltimezone_get_utc_timezone ());
-	gmtime_r (&current_time, &tm);
+	/* Server utc time is the time when we lasted updated changes from server. local_utc_time is the system utc time. As
+	   there is no way to get the server time on demand, we use the store system utc time to calculate server's time */
+	local_utc_time = e_cal_backend_store_get_key_value (store, LOCAL_UTC_TIME);
+	current = icaltime_current_time_with_zone (icaltimezone_get_utc_timezone ());
 
-	time_interval = get_cache_refresh_interval (cbgw) / 60000;
+	if (priv->first_delta_fetch || !local_utc_time || !*local_utc_time) {
+		e_cal_backend_store_put_key_value (store, SERVER_UTC_TIME, e_gw_connection_get_server_time (cnc));
+	} else {
+		icaltimetype old_local, server_utc;
+		struct icaldurationtype dur;
+
+		old_local = icaltime_from_string (local_utc_time);
+
+		dur = icaltime_subtract (current, old_local);
+		server_utc = icaltime_from_string (time_string);
+		icaltime_adjust (&server_utc, dur.days, dur.hours, dur.minutes, dur.seconds);
+
+		current_time = icaltime_as_timet_with_zone (server_utc, icaltimezone_get_utc_timezone ());
+		gmtime_r (&current_time, &tm);
+
+		strftime (t_str, 26, "%Y-%m-%dT%H:%M:%SZ", &tm);
+		time_string = t_str;
+
+		e_cal_backend_store_put_key_value (store, SERVER_UTC_TIME, time_string);
+	}
+
+	priv->first_delta_fetch = FALSE;
+
+	current_time = icaltime_as_timet_with_zone (current, icaltimezone_get_utc_timezone ());
+	gmtime_r (&current_time, &tm);
+	strftime (t_str, 26, "%Y-%m-%dT%H:%M:%SZ", &tm);
+	time_string = t_str;
+	e_cal_backend_store_put_key_value (store, LOCAL_UTC_TIME, time_string);
 
 	if (attempts) {
-		tm.tm_min += (time_interval * g_ascii_strtod (attempts, NULL));
-		e_cal_backend_store_put_key_value (store, key, NULL);
-	} else {
-		tm.tm_min += time_interval;
+		e_cal_backend_store_put_key_value (store, ATTEMPTS_KEY, NULL);
+		g_free (attempts);
 	}
-	strftime (t_str, 26, "%Y-%m-%dT%H:%M:%SZ", &tm);
-	time_string = g_strdup (t_str);
-
-	e_cal_backend_store_put_key_value (store, SERVER_UTC_TIME, time_string);
-
-	g_free (time_string);
-	time_string = NULL;
 
 	if (item_list) {
 		g_list_free (item_list);
@@ -523,17 +585,16 @@ get_deltas (gpointer handle)
 	filter = e_gw_filter_new ();
 	e_gw_filter_add_filter_component (filter, E_GW_FILTER_OP_EQUAL, "@type", get_element_type (kind));
 
-	status = e_gw_connection_create_cursor (cnc, cbgw->priv->container_id, "id iCalId recurrenceKey startDate", filter, &cursor);
+	status = e_gw_connection_create_cursor (cnc, priv->container_id, "id iCalId recurrenceKey startDate", filter, &cursor);
+
 	g_object_unref (filter);
 
 	if (status != E_GW_CONNECTION_STATUS_OK) {
 		if (status == E_GW_CONNECTION_STATUS_NO_RESPONSE) {
-			g_static_mutex_unlock (&connecting);
 			return TRUE;
 		}
 
 		e_cal_backend_groupwise_notify_error_code (cbgw, status);
-		g_static_mutex_unlock (&connecting);
 		return TRUE;
 	}
 
@@ -541,7 +602,7 @@ get_deltas (gpointer handle)
 
 	done = FALSE;
 	while (!done) {
-		status = e_gw_connection_read_cal_ids (cnc, cbgw->priv->container_id, cursor, FALSE, CURSOR_ICALID_LIMIT, position, &item_list);
+		status = e_gw_connection_read_cal_ids (cnc, priv->container_id, cursor, FALSE, CURSOR_ICALID_LIMIT, position, &item_list);
 		if (status != E_GW_CONNECTION_STATUS_OK) {
 			if (status == E_GW_CONNECTION_STATUS_NO_RESPONSE) {
 				goto err_done;
@@ -564,40 +625,25 @@ get_deltas (gpointer handle)
 		position = E_GW_CURSOR_POSITION_CURRENT;
 
 	}
-	e_gw_connection_destroy_cursor (cnc, cbgw->priv->container_id, cursor);
+	e_gw_connection_destroy_cursor (cnc, priv->container_id, cursor);
 	e_cal_backend_store_freeze_changes (store);
 
 	uid_array = g_ptr_array_new ();
 	for (l = total_list; l != NULL; l = g_list_next (l)) {
 		EGwItemCalId *calid = (EGwItemCalId *)	l->data;
 		GSList *remove = NULL;
-		ECalComponentId *id = NULL;
+		CompareIdData data;
 
-		id = g_new0 (ECalComponentId, 1);
+		data.calid = calid;
+		data.store = store;
 
-		if (calid->recur_key && calid->start_date) {
-			gchar *rid = NULL;
-
-			icaltimetype tt = icaltime_from_string (calid->start_date);
-
-			tt = icaltime_convert_to_zone (tt, priv->default_zone);
-			icaltime_set_timezone (&tt, priv->default_zone);
-			rid = icaltime_as_ical_string_r (tt);
-
-			id->uid = g_strdup (calid->recur_key);
-			id->rid = rid;
-		} else
-			id->uid = g_strdup (calid->ical_id);
-
-		if (!(remove = g_slist_find_custom (cache_ids, id,  (GCompareFunc) compare_ids))) {
+		if (!(remove = g_slist_find_custom (cache_ids, &data,  (GCompareFunc) compare_ids))) {
 			g_ptr_array_add (uid_array, g_strdup (calid->item_id));
 			needs_to_get = TRUE;
 		} else  {
 			cache_ids = g_slist_remove_link (cache_ids, remove);
 			e_cal_component_free_id (remove->data);
 		}
-
-		e_cal_component_free_id (id);
 	}
 
 	for (ls = cache_ids; ls; ls = g_slist_next (ls)) {
@@ -627,10 +673,10 @@ get_deltas (gpointer handle)
 	}
 
 	if (needs_to_get) {
-		e_gw_connection_get_items_from_ids (priv->cnc,
-				priv->container_id,
-				"attachments recipients message recipientStatus default peek",
-				uid_array, &item_list);
+		e_gw_connection_get_items_from_ids (
+			cnc, priv->container_id,
+			"attachments recipients message recipientStatus recurrenceKey default peek",
+			uid_array, &item_list);
 
 		for (l = item_list; l != NULL; l = l->next) {
 			ECalComponent *comp = NULL;
@@ -641,9 +687,7 @@ get_deltas (gpointer handle)
 			comp = e_gw_item_to_cal_component (item, cbgw);
 			if (comp) {
 				e_cal_component_commit_sequence (comp);
-				sanitize_component (E_CAL_BACKEND_SYNC (cbgw), comp, (gchar *) e_gw_item_get_id (item));
-				e_cal_backend_store_put_component (store, comp);
-
+				put_component_to_store (cbgw, comp);
 				if (kind == icalcomponent_isa (e_cal_component_get_icalcomponent (comp))) {
 					tmp = e_cal_component_get_as_string (comp);
 					e_cal_backend_notify_object_created (E_CAL_BACKEND (cbgw), tmp);
@@ -677,7 +721,6 @@ get_deltas (gpointer handle)
 		g_slist_free (cache_ids);
 	}
 
-	g_static_mutex_unlock (&connecting);
 	return TRUE;
 }
 
@@ -789,9 +832,9 @@ e_cal_backend_groupwise_refresh_calendar (ECalBackendGroupwise *cbgw)
 	if (priv->mode == CAL_MODE_LOCAL)
 		return;
 
-	g_mutex_lock (priv->mutex);
+	PRIV_LOCK (priv);
 	delta_started = fetch_deltas (cbgw);
-	g_mutex_unlock (priv->mutex);
+	PRIV_UNLOCK (priv);
 
 	/* Emit the signal if the delta is already running */
 	if (!delta_started)
@@ -890,21 +933,20 @@ cache_init (ECalBackendGroupwise *cbgw)
 		}
 	}
 
-	g_mutex_lock (priv->mutex);
+	PRIV_LOCK (priv);
 	fetch_deltas (cbgw);
-	g_mutex_unlock (priv->mutex);
+	PRIV_UNLOCK (priv);
 
 	return NULL;
 }
 
-static ECalBackendSyncStatus
-set_container_id_with_count (ECalBackendGroupwise *cbgw)
+static gboolean
+set_container_id_with_count (ECalBackendGroupwise *cbgw, GError **perror)
 {
 	ECalBackendGroupwisePrivate *priv;
 	GList *container_list = NULL, *l;
 	EGwConnectionStatus status;
 	icalcomponent_kind kind;
-	ECalBackendSyncStatus res;
 
 	priv = cbgw->priv;
 
@@ -918,7 +960,8 @@ set_container_id_with_count (ECalBackendGroupwise *cbgw)
 		break;
 	default:
 		priv->container_id = NULL;
-		return GNOME_Evolution_Calendar_UnsupportedMethod;
+		g_propagate_error (perror, EDC_ERROR (UnsupportedMethod));
+		return FALSE;
 	}
 
 	status = e_gw_connection_get_container_list (priv->cnc, "folders", &container_list);
@@ -926,10 +969,11 @@ set_container_id_with_count (ECalBackendGroupwise *cbgw)
 	if (status == E_GW_CONNECTION_STATUS_INVALID_CONNECTION)
 		status = e_gw_connection_get_container_list (priv->cnc, "folders", &container_list);
 
-	if (status != E_GW_CONNECTION_STATUS_OK)
-		return GNOME_Evolution_Calendar_OtherError;
+	if (status != E_GW_CONNECTION_STATUS_OK) {
+		g_propagate_error (perror, EDC_ERROR_FAILED_STATUS (OtherError, status));
+		return FALSE;
+	}
 
-	res =  GNOME_Evolution_Calendar_ObjectNotFound;
 	for (l = container_list; l != NULL; l = l->next) {
 		EGwContainer *container = E_GW_CONTAINER (l->data);
 
@@ -938,23 +982,26 @@ set_container_id_with_count (ECalBackendGroupwise *cbgw)
 
 			priv->container_id = g_strdup (e_gw_container_get_id (container));
 			priv->total_count = e_gw_container_get_total_count (container);
-			res = GNOME_Evolution_Calendar_Success;
 			break;
 		}
 	}
 
+	if (l == NULL) {
+		g_propagate_error (perror, EDC_ERROR (ObjectNotFound));
+		return FALSE;
+	}
+
 	e_gw_connection_free_container_list (container_list);
 
-	return res;
+	return TRUE;
 }
 
-static ECalBackendSyncStatus
-connect_to_server (ECalBackendGroupwise *cbgw)
+static void
+connect_to_server (ECalBackendGroupwise *cbgw, GError **perror)
 {
 	gchar *real_uri;
 	ECalBackendGroupwisePrivate *priv;
 	ESource *source;
-	ECalSourceType source_type;
 	const gchar *use_ssl;
 	gchar *http_uri;
 	gint permissions;
@@ -972,9 +1019,12 @@ connect_to_server (ECalBackendGroupwise *cbgw)
 	use_ssl = e_source_get_property (source, "use_ssl");
 
 	if (!real_uri) {
-		e_cal_backend_notify_error (E_CAL_BACKEND (cbgw), _("Invalid server URI"));
-		return GNOME_Evolution_Calendar_NoSuchCal;
+		g_propagate_error (perror, EDC_ERROR_EX (NoSuchCal, _("Invalid server URI")));
+		return;
 	}
+
+	errors.status = E_GW_CONNECTION_STATUS_OK;
+	errors.description = NULL;
 
 	kind = e_cal_backend_get_kind (E_CAL_BACKEND (cbgw));
 
@@ -991,8 +1041,8 @@ connect_to_server (ECalBackendGroupwise *cbgw)
 		}
 
 		if (!cnc) {
-			e_cal_backend_notify_error (E_CAL_BACKEND (cbgw), _("Authentication failed"));
-			return GNOME_Evolution_Calendar_AuthenticationFailed;
+			g_propagate_error (perror, EDC_ERROR (AuthenticationFailed));
+			return;
 		}
 
 		priv->cnc = e_gw_connection_get_proxy_connection (cnc, parent_user, priv->password, priv->username, &permissions);
@@ -1000,8 +1050,8 @@ connect_to_server (ECalBackendGroupwise *cbgw)
 		g_object_unref(cnc);
 
 		if (!priv->cnc) {
-			e_cal_backend_notify_error (E_CAL_BACKEND (cbgw), _("Authentication failed"));
-			return GNOME_Evolution_Calendar_AuthenticationFailed;
+			g_propagate_error (perror, EDC_ERROR (AuthenticationFailed));
+			return;
 		}
 
 		cbgw->priv->read_only = TRUE;
@@ -1034,54 +1084,47 @@ connect_to_server (ECalBackendGroupwise *cbgw)
 				fetch_deltas (cbgw);
 			}
 
-			return GNOME_Evolution_Calendar_Success;
+			return;
 		}
 	} else {
-		if (errors.status == E_GW_CONNECTION_STATUS_INVALID_PASSWORD)
-			return GNOME_Evolution_Calendar_AuthenticationFailed;
+		if (errors.status == E_GW_CONNECTION_STATUS_INVALID_PASSWORD) {
+			g_propagate_error (perror, EDC_ERROR (AuthenticationFailed));
+			return;
+		} else if (errors.status == E_GW_CONNECTION_STATUS_UNKNOWN) {
+			g_propagate_error (perror,EDC_ERROR (OtherError));
+			return;
+		}
 
-		e_cal_backend_notify_error (E_CAL_BACKEND (cbgw), _(errors.description));
-		return GNOME_Evolution_Calendar_OtherError;
+		g_propagate_error (perror, EDC_ERROR_EX (OtherError, _(errors.description)));
+		if (errors.description)
+			g_free (errors.description);
+		return;
 	}
 	priv->mode_changed = FALSE;
 
-	switch (kind) {
-	case ICAL_VEVENT_COMPONENT:
-		source_type = E_CAL_SOURCE_TYPE_EVENT;
-		break;
-	case ICAL_VTODO_COMPONENT:
-		source_type = E_CAL_SOURCE_TYPE_TODO;
-		break;
-	case ICAL_VJOURNAL_COMPONENT:
-		source_type = E_CAL_SOURCE_TYPE_JOURNAL;
-		break;
-	default:
-		source_type = E_CAL_SOURCE_TYPE_EVENT;
-
-	}
-
 	if (E_IS_GW_CONNECTION (priv->cnc)) {
-		ECalBackendSyncStatus status;
-		const gchar *uri = e_cal_backend_get_uri (E_CAL_BACKEND (cbgw));
+		ECalBackend *backend;
+		const gchar *cache_dir;
 
 		/* get the ID for the container */
 		if (priv->container_id)
 			g_free (priv->container_id);
 
-		if ((status = set_container_id_with_count (cbgw)) != GNOME_Evolution_Calendar_Success) {
-			return status;
+		if (!set_container_id_with_count (cbgw, perror)) {
+			return;
 		}
 
-		e_cal_backend_cache_remove (uri, source_type);
-		priv->store = (ECalBackendStore *) e_cal_backend_file_store_new (uri, source_type);
+		backend = E_CAL_BACKEND (cbgw);
+		cache_dir = e_cal_backend_get_cache_dir (backend);
+
+		e_cal_backend_cache_remove (cache_dir, "cache.xml");
+		priv->store = e_cal_backend_file_store_new (cache_dir);
 		if (!priv->store) {
-			g_mutex_unlock (priv->mutex);
-			e_cal_backend_notify_error (E_CAL_BACKEND (cbgw), _("Could not create cache file"));
-			return GNOME_Evolution_Calendar_OtherError;
+			g_propagate_error (perror, EDC_ERROR_EX (OtherError, _("Could not create cache file")));
+			return;
 		}
 
 		e_cal_backend_store_load (priv->store);
-		e_cal_backend_store_set_default_timezone (priv->store, priv->default_zone);
 
 		/* spawn a new thread for opening the calendar */
 		thread = g_thread_create ((GThreadFunc) cache_init, cbgw, FALSE, &error);
@@ -1089,19 +1132,18 @@ connect_to_server (ECalBackendGroupwise *cbgw)
 			g_warning (G_STRLOC ": %s", error->message);
 			g_error_free (error);
 
-			e_cal_backend_notify_error (E_CAL_BACKEND (cbgw), _("Could not create thread for populating cache"));
-			return GNOME_Evolution_Calendar_OtherError;
+			g_propagate_error (perror, EDC_ERROR_EX (OtherError, _("Could not create thread for populating cache")));
+			return;
 		}
 
 	} else {
-		e_cal_backend_notify_error (E_CAL_BACKEND (cbgw), _("Authentication failed"));
-		return GNOME_Evolution_Calendar_AuthenticationFailed;
+		g_propagate_error (perror, EDC_ERROR (AuthenticationFailed));
+		return;
 	}
 
-	if (!e_gw_connection_get_version (priv->cnc))
-		return GNOME_Evolution_Calendar_InvalidServerVersion;
-
-	return GNOME_Evolution_Calendar_Success;
+	if (!e_gw_connection_get_version (priv->cnc)) {
+		g_propagate_error (perror, EDC_ERROR (InvalidServerVersion));
+	}
 }
 
 /* Dispose handler for the file backend */
@@ -1154,10 +1196,7 @@ e_cal_backend_groupwise_finalize (GObject *object)
 		priv->dthread = NULL;
 	}
 
-	if (priv->mutex) {
-		g_mutex_free (priv->mutex);
-		priv->mutex = NULL;
-	}
+	g_static_rec_mutex_free (&priv->rec_mutex);
 
 	if (priv->cnc) {
 		g_object_unref (priv->cnc);
@@ -1189,11 +1228,6 @@ e_cal_backend_groupwise_finalize (GObject *object)
 		priv->user_email = NULL;
 	}
 
-	if (priv->local_attachments_store) {
-		g_free (priv->local_attachments_store);
-		priv->local_attachments_store = NULL;
-	}
-
 	if (priv->sendoptions_sync_timeout) {
 		g_source_remove (priv->sendoptions_sync_timeout);
 		priv->sendoptions_sync_timeout = 0;
@@ -1214,20 +1248,18 @@ e_cal_backend_groupwise_finalize (GObject *object)
 /* Calendar backend methods */
 
 /* Is_read_only handler for the file backend */
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_is_read_only (ECalBackendSync *backend, EDataCal *cal, gboolean *read_only)
+static void
+e_cal_backend_groupwise_is_read_only (ECalBackendSync *backend, EDataCal *cal, gboolean *read_only, GError **perror)
 {
 	ECalBackendGroupwise *cbgw;
 
 	cbgw = E_CAL_BACKEND_GROUPWISE(backend);
 	*read_only = cbgw->priv->read_only;
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-/* return email address of the person who opened the calender */
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_get_cal_address (ECalBackendSync *backend, EDataCal *cal, gchar **address)
+/* return email address of the person who opened the calendar */
+static void
+e_cal_backend_groupwise_get_cal_address (ECalBackendSync *backend, EDataCal *cal, gchar **address, GError **perror)
 {
 	ECalBackendGroupwise *cbgw;
 	ECalBackendGroupwisePrivate *priv;
@@ -1243,33 +1275,27 @@ e_cal_backend_groupwise_get_cal_address (ECalBackendSync *backend, EDataCal *cal
 	}
 
 	*address = g_strdup (priv->user_email);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_get_ldap_attribute (ECalBackendSync *backend, EDataCal *cal, gchar **attribute)
+static void
+e_cal_backend_groupwise_get_ldap_attribute (ECalBackendSync *backend, EDataCal *cal, gchar **attribute, GError **perror)
 {
 	/* ldap attribute is specific to Sun ONE connector to get free busy information*/
 	/* retun NULL here as group wise backend know how to get free busy information */
 
 	*attribute = NULL;
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_get_alarm_email_address (ECalBackendSync *backend, EDataCal *cal, gchar **address)
+static void
+e_cal_backend_groupwise_get_alarm_email_address (ECalBackendSync *backend, EDataCal *cal, gchar **address, GError **perror)
 {
 	/*group wise does not support email based alarms */
 
 	*address = NULL;
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_get_static_capabilities (ECalBackendSync *backend, EDataCal *cal, gchar **capabilities)
+static void
+e_cal_backend_groupwise_get_static_capabilities (ECalBackendSync *backend, EDataCal *cal, gchar **capabilities, GError **perror)
 {
 	*capabilities = g_strdup (CAL_STATIC_CAPABILITY_NO_EMAIL_ALARMS ","
 				  CAL_STATIC_CAPABILITY_ONE_ALARM_ONLY ","
@@ -1287,8 +1313,6 @@ e_cal_backend_groupwise_get_static_capabilities (ECalBackendSync *backend, EData
 				  CAL_STATIC_CAPABILITY_RECURRENCES_NO_MASTER ","
 				  CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING ","
 				  CAL_STATIC_CAPABILITY_SAVE_SCHEDULES);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
 static void
@@ -1319,42 +1343,22 @@ in_offline (ECalBackendGroupwise *cbgw) {
 }
 
 /* Open handler for the file backend */
-static ECalBackendSyncStatus
+static void
 e_cal_backend_groupwise_open (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists,
-			      const gchar *username, const gchar *password)
+			      const gchar *username, const gchar *password, GError **perror)
 {
 	ECalBackendGroupwise *cbgw;
 	ECalBackendGroupwisePrivate *priv;
-	ECalBackendSyncStatus status;
-	ECalSourceType source_type;
-	const gchar *source = NULL;
-	gchar *filename;
-	gchar *mangled_uri;
-	gint i;
+	const gchar *cache_dir;
 
 	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
 	priv = cbgw->priv;
 
-	g_mutex_lock (priv->mutex);
+	cache_dir = e_cal_backend_get_cache_dir (E_CAL_BACKEND (backend));
+
+	PRIV_LOCK (priv);
 
 	cbgw->priv->read_only = FALSE;
-
-	switch (e_cal_backend_get_kind (E_CAL_BACKEND (backend))) {
-	case ICAL_VEVENT_COMPONENT:
-		source_type = E_CAL_SOURCE_TYPE_EVENT;
-		source = "calendar";
-		break;
-	case ICAL_VTODO_COMPONENT:
-		source_type = E_CAL_SOURCE_TYPE_TODO;
-		source = "tasks";
-		break;
-	case ICAL_VJOURNAL_COMPONENT:
-		source_type = E_CAL_SOURCE_TYPE_JOURNAL;
-		source = "journal";
-		break;
-	default:
-		source_type = E_CAL_SOURCE_TYPE_EVENT;
-	}
 
 	if (priv->mode == CAL_MODE_LOCAL) {
 		ESource *esource;
@@ -1365,65 +1369,38 @@ e_cal_backend_groupwise_open (ECalBackendSync *backend, EDataCal *cal, gboolean 
 		display_contents = e_source_get_property (esource, "offline_sync");
 
 		if (!display_contents || !g_str_equal (display_contents, "1")) {
-			g_mutex_unlock (priv->mutex);
-			return GNOME_Evolution_Calendar_RepositoryOffline;
+			PRIV_UNLOCK (priv);
+			g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
+			return;
 		}
 
 		if (!priv->store) {
-			const gchar *uri = e_cal_backend_get_uri (E_CAL_BACKEND (cbgw));
-
 			/* remove the old cache while migrating to ECalBackendStore */
-			e_cal_backend_cache_remove (uri, source_type);
-			priv->store = (ECalBackendStore *) e_cal_backend_file_store_new (uri, source_type);
+			e_cal_backend_cache_remove (cache_dir, "cache.xml");
+			priv->store = e_cal_backend_file_store_new (cache_dir);
 			if (!priv->store) {
-				g_mutex_unlock (priv->mutex);
-				e_cal_backend_notify_error (E_CAL_BACKEND (cbgw), _("Could not create cache file"));
-
-				return GNOME_Evolution_Calendar_OtherError;
+				PRIV_UNLOCK (priv);
+				g_propagate_error (perror, EDC_ERROR_EX (OtherError, _("Could not create cache file")));
+				return;
 			}
 		}
 
-		e_cal_backend_store_set_default_timezone (priv->store, priv->default_zone);
-
-		g_mutex_unlock (priv->mutex);
-		return GNOME_Evolution_Calendar_Success;
+		e_cal_backend_store_load (priv->store);
+		PRIV_UNLOCK (priv);
+		return;
 	}
 
 	priv->username = g_strdup (username);
 	priv->password = g_strdup (password);
 
-	/* Set the local attachment store*/
-	mangled_uri = g_strdup (e_cal_backend_get_uri (E_CAL_BACKEND (cbgw)));
-	/* mangle the URI to not contain invalid characters */
-	for (i = 0; i < strlen (mangled_uri); i++) {
-		switch (mangled_uri[i]) {
-		case ':' :
-		case '/' :
-			mangled_uri[i] = '_';
-		}
-	}
-
-	filename = g_build_filename (g_get_home_dir (),
-				     ".evolution/cache/", source,
-				     mangled_uri,
-				     NULL);
-	g_free (mangled_uri);
-	if (priv->local_attachments_store)
-		g_free (priv->local_attachments_store);
-
-	priv->local_attachments_store =
-		g_filename_to_uri (filename, NULL, NULL);
-	g_free (filename);
-
 	/* FIXME: no need to set it online here when we implement the online/offline stuff correctly */
-	status = connect_to_server (cbgw);
+	connect_to_server (cbgw, perror);
 
-	g_mutex_unlock (priv->mutex);
-	return status;
+	PRIV_UNLOCK (priv);
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_remove (ECalBackendSync *backend, EDataCal *cal)
+static void
+e_cal_backend_groupwise_remove (ECalBackendSync *backend, EDataCal *cal, GError **perror)
 {
 	ECalBackendGroupwise *cbgw;
 	ECalBackendGroupwisePrivate *priv;
@@ -1431,15 +1408,13 @@ e_cal_backend_groupwise_remove (ECalBackendSync *backend, EDataCal *cal)
 	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
 	priv = cbgw->priv;
 
-	g_mutex_lock (priv->mutex);
+	PRIV_LOCK (priv);
 
 	/* remove the cache */
 	if (priv->store)
 		e_cal_backend_store_remove (priv->store);
 
-	g_mutex_unlock (priv->mutex);
-
-	return GNOME_Evolution_Calendar_Success;
+	PRIV_UNLOCK (priv);
 }
 
 /* is_loaded handler for the file backend */
@@ -1479,20 +1454,19 @@ e_cal_backend_groupwise_set_mode (ECalBackend *backend, CalMode mode)
 	priv = cbgw->priv;
 
 	if (priv->mode == mode) {
-		e_cal_backend_notify_mode (backend, GNOME_Evolution_Calendar_CalListener_MODE_SET,
+		e_cal_backend_notify_mode (backend, ModeSet,
 					   cal_mode_to_corba (mode));
 		return;
 	}
 
-	g_mutex_lock (priv->mutex);
+	PRIV_LOCK (priv);
 
 	priv->mode_changed = TRUE;
 	switch (mode) {
 	case CAL_MODE_REMOTE :/* go online */
 		priv->mode = CAL_MODE_REMOTE;
 		priv->read_only = FALSE;
-		e_cal_backend_notify_mode (backend, GNOME_Evolution_Calendar_CalListener_MODE_SET,
-						    GNOME_Evolution_Calendar_MODE_REMOTE);
+		e_cal_backend_notify_mode (backend, ModeSet, Remote);
 		e_cal_backend_notify_readonly (backend, priv->read_only);
 		if (e_cal_backend_groupwise_is_loaded (backend))
 			      e_cal_backend_notify_auth_required(backend);
@@ -1503,20 +1477,19 @@ e_cal_backend_groupwise_set_mode (ECalBackend *backend, CalMode mode)
 		priv->mode = CAL_MODE_LOCAL;
 		in_offline (cbgw);
 		e_cal_backend_notify_readonly (backend, priv->read_only);
-		e_cal_backend_notify_mode (backend, GNOME_Evolution_Calendar_CalListener_MODE_SET,
-					   GNOME_Evolution_Calendar_MODE_LOCAL);
+		e_cal_backend_notify_mode (backend, ModeSet, Local);
 
 		break;
 	default :
-		e_cal_backend_notify_mode (backend, GNOME_Evolution_Calendar_CalListener_MODE_NOT_SUPPORTED,
+		e_cal_backend_notify_mode (backend, ModeNotSupported,
 					   cal_mode_to_corba (mode));
 	}
 
-	g_mutex_unlock (priv->mutex);
+	PRIV_UNLOCK (priv);
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_get_default_object (ECalBackendSync *backend, EDataCal *cal, gchar **object)
+static void
+e_cal_backend_groupwise_get_default_object (ECalBackendSync *backend, EDataCal *cal, gchar **object, GError **perror)
 {
 
 	ECalComponent *comp;
@@ -1532,33 +1505,32 @@ e_cal_backend_groupwise_get_default_object (ECalBackendSync *backend, EDataCal *
 		break;
 	default:
 		g_object_unref (comp);
-		return GNOME_Evolution_Calendar_ObjectNotFound;
+		g_propagate_error (perror, EDC_ERROR (ObjectNotFound));
+		return;
 	}
 
 	*object = e_cal_component_get_as_string (comp);
 	g_object_unref (comp);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
 /* Get_object_component handler for the groupwise backend */
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_get_object (ECalBackendSync *backend, EDataCal *cal, const gchar *uid, const gchar *rid, gchar **object)
+static void
+e_cal_backend_groupwise_get_object (ECalBackendSync *backend, EDataCal *cal, const gchar *uid, const gchar *rid, gchar **object, GError **error)
 {
 	ECalComponent *comp;
 	ECalBackendGroupwisePrivate *priv;
 	ECalBackendGroupwise *cbgw = (ECalBackendGroupwise *) backend;
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), GNOME_Evolution_Calendar_OtherError);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), InvalidArg);
 
 	priv = cbgw->priv;
 
-	g_mutex_lock (priv->mutex);
+	PRIV_LOCK (priv);
 
 	/* search the object in the cache */
 	comp = e_cal_backend_store_get_component (priv->store, uid, rid);
 	if (comp) {
-		g_mutex_unlock (priv->mutex);
+		PRIV_UNLOCK (priv);
 		if (e_cal_backend_get_kind (E_CAL_BACKEND (backend)) ==
 		    icalcomponent_isa (e_cal_component_get_icalcomponent (comp)))
 			*object = e_cal_component_get_as_string (comp);
@@ -1567,49 +1539,20 @@ e_cal_backend_groupwise_get_object (ECalBackendSync *backend, EDataCal *cal, con
 
 		g_object_unref (comp);
 
-		return *object ? GNOME_Evolution_Calendar_Success : GNOME_Evolution_Calendar_ObjectNotFound;
+		if (!*object)
+			g_propagate_error (error, EDC_ERROR (ObjectNotFound));
+		return;
 	}
 
-	g_mutex_unlock (priv->mutex);
+	PRIV_UNLOCK (priv);
 
 	/* callers will never have a uuid that is in server but not in cache */
-	return GNOME_Evolution_Calendar_ObjectNotFound;
-}
-
-/* Get_timezone_object handler for the groupwise backend */
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_get_timezone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzid, gchar **object)
-{
-	ECalBackendGroupwise *cbgw;
-        ECalBackendGroupwisePrivate *priv;
-        icaltimezone *zone;
-        icalcomponent *icalcomp;
-
-        cbgw = E_CAL_BACKEND_GROUPWISE (backend);
-        priv = cbgw->priv;
-
-        g_return_val_if_fail (tzid != NULL, GNOME_Evolution_Calendar_ObjectNotFound);
-
-        if (!strcmp (tzid, "UTC")) {
-                zone = icaltimezone_get_utc_timezone ();
-        } else {
-		zone = icaltimezone_get_builtin_timezone_from_tzid (tzid);
-		if (!zone)
-			return GNOME_Evolution_Calendar_ObjectNotFound;
-        }
-
-        icalcomp = icaltimezone_get_component (zone);
-        if (!icalcomp)
-                return GNOME_Evolution_Calendar_InvalidObject;
-
-        *object = icalcomponent_as_ical_string_r (icalcomp);
-
-        return GNOME_Evolution_Calendar_Success;
+	g_propagate_error (error, EDC_ERROR (ObjectNotFound));
 }
 
 /* Add_timezone handler for the groupwise backend */
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_add_timezone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj)
+static void
+e_cal_backend_groupwise_add_timezone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj, GError **error)
 {
 	icalcomponent *tz_comp;
 	ECalBackendGroupwise *cbgw;
@@ -1617,14 +1560,16 @@ e_cal_backend_groupwise_add_timezone (ECalBackendSync *backend, EDataCal *cal, c
 
 	cbgw = (ECalBackendGroupwise *) backend;
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), GNOME_Evolution_Calendar_OtherError);
-	g_return_val_if_fail (tzobj != NULL, GNOME_Evolution_Calendar_OtherError);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), InvalidArg);
+	e_return_data_cal_error_if_fail (tzobj != NULL, InvalidArg);
 
 	priv = cbgw->priv;
 
 	tz_comp = icalparser_parse_string (tzobj);
-	if (!tz_comp)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (!tz_comp) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
+	}
 
 	if (icalcomponent_isa (tz_comp) == ICAL_VTIMEZONE_COMPONENT) {
 		icaltimezone *zone;
@@ -1633,15 +1578,15 @@ e_cal_backend_groupwise_add_timezone (ECalBackendSync *backend, EDataCal *cal, c
 		icaltimezone_set_component (zone, tz_comp);
 		if (e_cal_backend_store_put_timezone (priv->store, zone) == FALSE) {
 			icaltimezone_free (zone, 1);
-			return GNOME_Evolution_Calendar_OtherError;
+			g_propagate_error (error, EDC_ERROR_EX (OtherError, "Put timezone failed"));
+			return;
 		}
 		icaltimezone_free (zone, 1);
 	}
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_set_default_zone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj)
+static void
+e_cal_backend_groupwise_set_default_zone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj, GError **error)
 {
 	icalcomponent *tz_comp;
 	ECalBackendGroupwise *cbgw;
@@ -1650,17 +1595,21 @@ e_cal_backend_groupwise_set_default_zone (ECalBackendSync *backend, EDataCal *ca
 
 	cbgw = (ECalBackendGroupwise *) backend;
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), GNOME_Evolution_Calendar_OtherError);
-	g_return_val_if_fail (tzobj != NULL, GNOME_Evolution_Calendar_OtherError);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), InvalidArg);
+	e_return_data_cal_error_if_fail (tzobj != NULL, InvalidArg);
 
 	priv = cbgw->priv;
 
 	tz_comp = icalparser_parse_string (tzobj);
-	if (!tz_comp)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (!tz_comp) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
+	}
 
 	zone = icaltimezone_new ();
 	icaltimezone_set_component (zone, tz_comp);
+
+	PRIV_LOCK (priv);
 
 	if (priv->default_zone)
 		icaltimezone_free (priv->default_zone, 1);
@@ -1668,46 +1617,50 @@ e_cal_backend_groupwise_set_default_zone (ECalBackendSync *backend, EDataCal *ca
 	/* Set the default timezone to it. */
 	priv->default_zone = zone;
 
-	return GNOME_Evolution_Calendar_Success;
+	PRIV_UNLOCK (priv);
 }
 
 /* Gets the list of attachments */
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_get_attachment_list (ECalBackendSync *backend, EDataCal *cal, const gchar *uid, const gchar *rid, GSList **list)
+static void
+e_cal_backend_groupwise_get_attachment_list (ECalBackendSync *backend, EDataCal *cal, const gchar *uid, const gchar *rid, GSList **list, GError **perror)
 {
 	/* TODO implement the function */
-	return GNOME_Evolution_Calendar_Success;
 }
 
 /* Get_objects_in_range handler for the groupwise backend */
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_get_object_list (ECalBackendSync *backend, EDataCal *cal, const gchar *sexp, GList **objects)
+static void
+e_cal_backend_groupwise_get_object_list (ECalBackendSync *backend, EDataCal *cal, const gchar *sexp, GList **objects, GError **perror)
 {
 	ECalBackendGroupwise *cbgw;
 	ECalBackendGroupwisePrivate *priv;
         GSList *components, *l;
 	ECalBackendSExp *cbsexp;
 	gboolean search_needed = TRUE;
+	time_t occur_start = -1, occur_end = -1;
+	gboolean prunning_by_time;
 
 	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
 	priv = cbgw->priv;
-
-	g_mutex_lock (priv->mutex);
-
-	g_message (G_STRLOC ": Getting object list (%s)", sexp);
 
 	if (!strcmp (sexp, "#t"))
 		search_needed = FALSE;
 
 	cbsexp = e_cal_backend_sexp_new (sexp);
 	if (!cbsexp) {
-		g_mutex_unlock (priv->mutex);
-		return GNOME_Evolution_Calendar_InvalidQuery;
+		g_propagate_error (perror, EDC_ERROR (InvalidQuery));
+		return;
 	}
 
 	*objects = NULL;
-	components = e_cal_backend_store_get_components (priv->store);
-        for (l = components; l != NULL; l = l->next) {
+
+	prunning_by_time = e_cal_backend_sexp_evaluate_occur_times(cbsexp,
+									    &occur_start,
+									    &occur_end);
+	components = prunning_by_time ?
+		e_cal_backend_store_get_components_occuring_in_range (priv->store, occur_start, occur_end)
+		: e_cal_backend_store_get_components (priv->store);
+
+	for (l = components; l != NULL; l = l->next) {
                 ECalComponent *comp = E_CAL_COMPONENT (l->data);
 
 		if (e_cal_backend_get_kind (E_CAL_BACKEND (backend)) ==
@@ -1722,30 +1675,25 @@ e_cal_backend_groupwise_get_object_list (ECalBackendSync *backend, EDataCal *cal
 	g_object_unref (cbsexp);
 	g_slist_foreach (components, (GFunc) g_object_unref, NULL);
 	g_slist_free (components);
-
-	g_mutex_unlock (priv->mutex);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
 /* get_query handler for the groupwise backend */
 static void
 e_cal_backend_groupwise_start_query (ECalBackend *backend, EDataCalView *query)
 {
-        ECalBackendSyncStatus status;
 	ECalBackendGroupwise *cbgw;
 	ECalBackendGroupwisePrivate *priv;
         GList *objects = NULL;
+	GError *err = NULL;
 
 	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
 	priv = cbgw->priv;
 
-	g_message (G_STRLOC ": Starting query (%s)", e_data_cal_view_get_text (query));
-
-        status = e_cal_backend_groupwise_get_object_list (E_CAL_BACKEND_SYNC (backend), NULL,
-							  e_data_cal_view_get_text (query), &objects);
-        if (status != GNOME_Evolution_Calendar_Success) {
-		e_data_cal_view_notify_done (query, status);
+        e_cal_backend_groupwise_get_object_list (E_CAL_BACKEND_SYNC (backend), NULL,
+							  e_data_cal_view_get_text (query), &objects, &err);
+        if (err) {
+		e_data_cal_view_notify_done (query, err);
+		g_error_free (err);
                 return;
 	}
 
@@ -1758,13 +1706,13 @@ e_cal_backend_groupwise_start_query (ECalBackend *backend, EDataCalView *query)
 		g_list_free (objects);
 	}
 
-	e_data_cal_view_notify_done (query, GNOME_Evolution_Calendar_Success);
+	e_data_cal_view_notify_done (query, NULL);
 }
 
 /* Get_free_busy handler for the file backend */
-static ECalBackendSyncStatus
+static void
 e_cal_backend_groupwise_get_free_busy (ECalBackendSync *backend, EDataCal *cal, GList *users,
-				       time_t start, time_t end, GList **freebusy)
+				       time_t start, time_t end, GList **freebusy, GError **perror)
 {
        EGwConnectionStatus status;
        ECalBackendGroupwise *cbgw;
@@ -1773,19 +1721,19 @@ e_cal_backend_groupwise_get_free_busy (ECalBackendSync *backend, EDataCal *cal, 
        cbgw = E_CAL_BACKEND_GROUPWISE (backend);
        cnc = cbgw->priv->cnc;
 
-       if (cbgw->priv->mode == CAL_MODE_LOCAL) {
-	       in_offline (cbgw);
-	       return GNOME_Evolution_Calendar_RepositoryOffline;
-       }
+	if (cbgw->priv->mode == CAL_MODE_LOCAL) {
+		in_offline (cbgw);
+		g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
+		return;
+	}
 
-       status = e_gw_connection_get_freebusy_info (cnc, users, start, end, freebusy, cbgw->priv->default_zone);
+	status = e_gw_connection_get_freebusy_info (cbgw, users, start, end, freebusy);
 
-       if (status == E_GW_CONNECTION_STATUS_INVALID_CONNECTION)
-	       status = e_gw_connection_get_freebusy_info (cnc, users, start, end, freebusy, cbgw->priv->default_zone);
+	if (status == E_GW_CONNECTION_STATUS_INVALID_CONNECTION)
+		status = e_gw_connection_get_freebusy_info (cbgw, users, start, end, freebusy);
 
-       if (status != E_GW_CONNECTION_STATUS_OK)
-               return GNOME_Evolution_Calendar_OtherError;
-       return GNOME_Evolution_Calendar_Success;
+	if (status != E_GW_CONNECTION_STATUS_OK)
+		g_propagate_error (perror, EDC_ERROR_FAILED_STATUS (OtherError, status));
 }
 
 typedef struct {
@@ -1817,16 +1765,16 @@ e_cal_backend_groupwise_compute_changes_foreach_key (const gchar *key, const gch
 	}
 }
 
-static ECalBackendSyncStatus
+static void
 e_cal_backend_groupwise_compute_changes (ECalBackendGroupwise *cbgw, const gchar *change_id,
-					 GList **adds, GList **modifies, GList **deletes)
+					 GList **adds, GList **modifies, GList **deletes, GError **perror)
 {
-        ECalBackendSyncStatus status;
 	gchar    *filename;
 	EXmlHash *ehash;
 	ECalBackendGroupwiseComputeChangesData be_data;
 	GList *i, *list = NULL;
 	gchar *unescaped_uri;
+	GError *err = NULL;
 
 	/* FIXME Will this always work? */
 	unescaped_uri = g_uri_unescape_string (cbgw->priv->uri, "");
@@ -1835,9 +1783,11 @@ e_cal_backend_groupwise_compute_changes (ECalBackendGroupwise *cbgw, const gchar
 	g_free (filename);
 	g_free (unescaped_uri);
 
-        status = e_cal_backend_groupwise_get_object_list (E_CAL_BACKEND_SYNC (cbgw), NULL, "#t", &list);
-        if (status != GNOME_Evolution_Calendar_Success)
-                return status;
+        e_cal_backend_groupwise_get_object_list (E_CAL_BACKEND_SYNC (cbgw), NULL, "#t", &list, &err);
+        if (err) {
+		g_propagate_error (perror, err);
+                return;
+	}
 
         /* Calculate adds and modifies */
 	for (i = list; i != NULL; i = g_list_next (i)) {
@@ -1881,30 +1831,27 @@ e_cal_backend_groupwise_compute_changes (ECalBackendGroupwise *cbgw, const gchar
 
 	e_xmlhash_write (ehash);
 	e_xmlhash_destroy (ehash);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
 /* Get_changes handler for the groupwise backend */
-static ECalBackendSyncStatus
+static void
 e_cal_backend_groupwise_get_changes (ECalBackendSync *backend, EDataCal *cal, const gchar *change_id,
-				     GList **adds, GList **modifies, GList **deletes)
+				     GList **adds, GList **modifies, GList **deletes, GError **error)
 {
         ECalBackendGroupwise *cbgw;
 	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), GNOME_Evolution_Calendar_InvalidObject);
-	g_return_val_if_fail (change_id != NULL, GNOME_Evolution_Calendar_ObjectNotFound);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), InvalidArg);
+	e_return_data_cal_error_if_fail (change_id != NULL, InvalidArg);
 
-	return e_cal_backend_groupwise_compute_changes (cbgw, change_id, adds, modifies, deletes);
-
+	e_cal_backend_groupwise_compute_changes (cbgw, change_id, adds, modifies, deletes, error);
 }
 
 /* Discard_alarm handler for the file backend */
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_discard_alarm (ECalBackendSync *backend, EDataCal *cal, const gchar *uid, const gchar *auid)
+static void
+e_cal_backend_groupwise_discard_alarm (ECalBackendSync *backend, EDataCal *cal, const gchar *uid, const gchar *auid, GError **perror)
 {
-	return GNOME_Evolution_Calendar_OtherError;
+	g_propagate_error (perror, EDC_ERROR (NotSupported));
 }
 
 static icaltimezone *
@@ -1918,47 +1865,20 @@ e_cal_backend_groupwise_internal_get_default_timezone (ECalBackend *backend)
 static icaltimezone *
 e_cal_backend_groupwise_internal_get_timezone (ECalBackend *backend, const gchar *tzid)
 {
-	icaltimezone *zone;
+	icaltimezone *zone = NULL;
+	ECalBackendGroupwise *cbgw;
 
-	zone = icaltimezone_get_builtin_timezone_from_tzid (tzid);
+	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
+	g_return_val_if_fail (cbgw != NULL, NULL);
+	g_return_val_if_fail (cbgw->priv != NULL, NULL);
+
+	if (cbgw->priv->store)
+		zone = (icaltimezone *) e_cal_backend_store_get_timezone (cbgw->priv->store, tzid);
 
 	if (!zone && E_CAL_BACKEND_CLASS (parent_class)->internal_get_timezone)
 		zone = E_CAL_BACKEND_CLASS (parent_class)->internal_get_timezone (backend, tzid);
 
-	if (!zone)
-		return icaltimezone_get_utc_timezone();
-
 	return zone;
-}
-
-static void
-sanitize_component (ECalBackendSync *backend, ECalComponent *comp, gchar *server_uid)
-{
-	ECalBackendGroupwise *cbgw;
-	icalproperty *icalprop;
-	gint i;
-	GString *str = g_string_new ("");;
-
-	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
-	if (server_uid) {
-
-		/* the ID returned by sendItemResponse includes the container ID of the
-		   inbox folder, so we need to replace that with our container ID */
-		for (i = 0; i < strlen (server_uid); i++) {
-			str = g_string_append_c (str, server_uid[i]);
-			if (server_uid[i] == ':') {
-				str = g_string_append (str, cbgw->priv->container_id);
-				break;
-			}
-		}
-
-		/* add the extra property to the component */
-		icalprop = icalproperty_new_x (str->str);
-		icalproperty_set_x_name (icalprop, "X-GWRECORDID");
-		icalcomponent_add_property (e_cal_component_get_icalcomponent (comp), icalprop);
-
-	}
-	g_string_free (str, TRUE);
 }
 
 static EGwConnectionStatus
@@ -1987,7 +1907,7 @@ update_from_server (ECalBackendGroupwise *cbgw, GSList *uid_list, gchar **calobj
 
 	if (stat != E_GW_CONNECTION_STATUS_OK || (list == NULL) || (g_list_length (list) == 0)) {
 		g_ptr_array_free (uid_array, TRUE);
-		return GNOME_Evolution_Calendar_OtherError;
+		return stat;
 	}
 
 	comp = g_object_ref ( (ECalComponent *) list->data );
@@ -1999,8 +1919,7 @@ update_from_server (ECalBackendGroupwise *cbgw, GSList *uid_list, gchar **calobj
 		item = (EGwItem *) tmp->data;
 		e_cal_comp = e_gw_item_to_cal_component (item, cbgw);
 		e_cal_component_commit_sequence (e_cal_comp);
-		sanitize_component (backend, e_cal_comp, g_ptr_array_index (uid_array, i));
-		e_cal_backend_store_put_component (priv->store, e_cal_comp);
+		put_component_to_store (cbgw, e_cal_comp);
 
 		if (i == 0) {
 			*calobj = e_cal_component_get_as_string (e_cal_comp);
@@ -2020,8 +1939,8 @@ update_from_server (ECalBackendGroupwise *cbgw, GSList *uid_list, gchar **calobj
 	return E_GW_CONNECTION_STATUS_OK;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_create_object (ECalBackendSync *backend, EDataCal *cal, gchar **calobj, gchar **uid)
+static void
+e_cal_backend_groupwise_create_object (ECalBackendSync *backend, EDataCal *cal, gchar **calobj, gchar **uid, GError **error)
 {
 	ECalBackendGroupwise *cbgw;
         ECalBackendGroupwisePrivate *priv;
@@ -2033,22 +1952,26 @@ e_cal_backend_groupwise_create_object (ECalBackendSync *backend, EDataCal *cal, 
 	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
 	priv = cbgw->priv;
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), GNOME_Evolution_Calendar_InvalidObject);
-	g_return_val_if_fail (calobj != NULL && *calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), InvalidArg);
+	e_return_data_cal_error_if_fail (calobj != NULL && *calobj != NULL, InvalidArg);
 
 	if (priv->mode == CAL_MODE_LOCAL) {
 		in_offline(cbgw);
-		return GNOME_Evolution_Calendar_RepositoryOffline;
+		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
+		return;
 	}
 
 	/* check the component for validity */
 	icalcomp = icalparser_parse_string (*calobj);
-	if (!icalcomp)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (!icalcomp) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
+	}
 
 	if (e_cal_backend_get_kind (E_CAL_BACKEND (backend)) != icalcomponent_isa (icalcomp)) {
 		icalcomponent_free (icalcomp);
-		return GNOME_Evolution_Calendar_InvalidObject;
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
 	}
 
 	comp = e_cal_component_new ();
@@ -2067,25 +1990,30 @@ e_cal_backend_groupwise_create_object (ECalBackendSync *backend, EDataCal *cal, 
 		if (status != E_GW_CONNECTION_STATUS_OK) {
 			g_object_unref (comp);
 
-			if (status == E_GW_CONNECTION_STATUS_UNKNOWN_USER)
-				return GNOME_Evolution_Calendar_UnknownUser;
-			else if (status == E_GW_CONNECTION_STATUS_OVER_QUOTA)
-				return GNOME_Evolution_Calendar_PermissionDenied;
-			else
-				return GNOME_Evolution_Calendar_OtherError;
+			if (status == E_GW_CONNECTION_STATUS_UNKNOWN_USER) {
+				g_propagate_error (error, EDC_ERROR (UnknownUser));
+				return;
+			} else if (status == E_GW_CONNECTION_STATUS_OVER_QUOTA) {
+				g_propagate_error (error, EDC_ERROR (PermissionDenied));
+				return;
+			} else {
+				g_propagate_error (error, EDC_ERROR_FAILED_STATUS (OtherError, status));
+				return;
+			}
 		}
 
 		/* If delay deliver has been set, server will not send the uid */
 		if (!uid_list || ((e_cal_component_get_vtype (comp) == E_CAL_COMPONENT_JOURNAL) && e_cal_component_has_organizer (comp))) {
-			*calobj = NULL;
 			g_object_unref (comp);
-			return GNOME_Evolution_Calendar_Success;
+			return;
 		}
 
 		/* Get the item back from server to update the last-modified time */
 		status = update_from_server (cbgw, uid_list, calobj, comp);
-		if (status != E_GW_CONNECTION_STATUS_OK)
-			return GNOME_Evolution_Calendar_OtherError;
+		if (status != E_GW_CONNECTION_STATUS_OK) {
+			g_propagate_error (error, EDC_ERROR_FAILED_STATUS (OtherError, status));
+			return;
+		}
 
 		break;
 	default :
@@ -2093,8 +2021,6 @@ e_cal_backend_groupwise_create_object (ECalBackendSync *backend, EDataCal *cal, 
 	}
 
 	g_object_unref (comp);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
 static void
@@ -2135,9 +2061,9 @@ get_retract_data (ECalComponent *comp, const gchar **retract_comment, gboolean *
 	}
 }
 
-static ECalBackendSyncStatus
+static void
 e_cal_backend_groupwise_modify_object (ECalBackendSync *backend, EDataCal *cal, const gchar *calobj,
-				       CalObjModType mod, gchar **old_object, gchar **new_object)
+				       CalObjModType mod, gchar **old_object, gchar **new_object, GError **error)
 {
 	ECalBackendGroupwise *cbgw;
         ECalBackendGroupwisePrivate *priv;
@@ -2152,18 +2078,21 @@ e_cal_backend_groupwise_modify_object (ECalBackendSync *backend, EDataCal *cal, 
 	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
 	priv = cbgw->priv;
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), GNOME_Evolution_Calendar_InvalidObject);
-	g_return_val_if_fail (calobj != NULL, GNOME_Evolution_Calendar_InvalidObject);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), InvalidArg);
+	e_return_data_cal_error_if_fail (calobj != NULL, InvalidArg);
 
 	if (priv->mode == CAL_MODE_LOCAL) {
 		in_offline (cbgw);
-		return GNOME_Evolution_Calendar_RepositoryOffline;
+		g_propagate_error (error, EDC_ERROR (RepositoryOffline));
+		return;
 	}
 
 	/* check the component for validity */
 	icalcomp = icalparser_parse_string (calobj);
-	if (!icalcomp)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (!icalcomp) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
+	}
 	comp = e_cal_component_new ();
 	e_cal_component_set_icalcomponent (comp, icalcomp);
 	e_cal_component_get_uid (comp, &uid);
@@ -2176,9 +2105,10 @@ e_cal_backend_groupwise_modify_object (ECalBackendSync *backend, EDataCal *cal, 
 		/* when online, send the item to the server */
 		cache_comp = e_cal_backend_store_get_component (priv->store, uid, rid);
 		if (!cache_comp) {
-			g_message ("CRITICAL : Could not find the object in cache");
+			g_critical ("Could not find the object in cache");
 			g_free (rid);
-			return GNOME_Evolution_Calendar_ObjectNotFound;
+			g_propagate_error (error, EDC_ERROR (ObjectNotFound));
+			return;
 		}
 
 		if (e_cal_component_has_attendees (comp) &&
@@ -2200,10 +2130,11 @@ e_cal_backend_groupwise_modify_object (ECalBackendSync *backend, EDataCal *cal, 
 				g_object_unref (comp);
 				g_object_unref (cache_comp);
 				g_free (rid);
-				return GNOME_Evolution_Calendar_OtherError;
+				g_propagate_error (error, EDC_ERROR_FAILED_STATUS (OtherError, status));
+				return;
 			}
 
-			e_cal_backend_store_put_component (priv->store, comp);
+			put_component_to_store (cbgw, comp);
 			*new_object = e_cal_component_get_as_string (comp);
 			break;
 		}
@@ -2227,12 +2158,15 @@ e_cal_backend_groupwise_modify_object (ECalBackendSync *backend, EDataCal *cal, 
 					g_object_unref (cache_comp);
 					g_free (rid);
 
-					if (status == E_GW_CONNECTION_STATUS_OVER_QUOTA)
-						return GNOME_Evolution_Calendar_PermissionDenied;
+					if (status == E_GW_CONNECTION_STATUS_OVER_QUOTA) {
+						g_propagate_error (error, EDC_ERROR (PermissionDenied));
+						return;
+					}
 
-					return GNOME_Evolution_Calendar_OtherError;
+					g_propagate_error (error, EDC_ERROR_FAILED_STATUS (OtherError, status));
+					return;
 				}
-				e_cal_backend_store_put_component (priv->store, comp);
+				put_component_to_store (cbgw, comp);
 				break;
 			}
 		}
@@ -2249,13 +2183,14 @@ e_cal_backend_groupwise_modify_object (ECalBackendSync *backend, EDataCal *cal, 
 			g_object_unref (comp);
 			g_object_unref (cache_comp);
 			g_free (rid);
-			return GNOME_Evolution_Calendar_OtherError;
+			g_propagate_error (error, EDC_ERROR_FAILED_STATUS (OtherError, status));
+			return;
 		}
 		/* if successful, update the cache */
 
 	case CAL_MODE_LOCAL :
 		/* in offline mode, we just update the cache */
-		e_cal_backend_store_put_component (priv->store, comp);
+		put_component_to_store (cbgw, comp);
 		break;
 	default :
 		break;
@@ -2265,7 +2200,6 @@ e_cal_backend_groupwise_modify_object (ECalBackendSync *backend, EDataCal *cal, 
 	g_object_unref (cache_comp);
 	g_object_unref (comp);
 	g_free (rid);
-	return GNOME_Evolution_Calendar_Success;
 }
 
 static const gchar *
@@ -2290,15 +2224,17 @@ get_gw_item_id (icalcomponent *icalcomp)
 }
 
 /* Remove_object handler for the file backend */
-static ECalBackendSyncStatus
+static void
 e_cal_backend_groupwise_remove_object (ECalBackendSync *backend, EDataCal *cal,
 				       const gchar *uid, const gchar *rid,
 				       CalObjModType mod, gchar **old_object,
-				       gchar **object)
+				       gchar **object, GError **perror)
 {
 	ECalBackendGroupwise *cbgw;
         ECalBackendGroupwisePrivate *priv;
+	EGwConnectionStatus status;
 	gchar *calobj = NULL;
+	GError *err = NULL;
 
 	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
 	priv = cbgw->priv;
@@ -2307,18 +2243,20 @@ e_cal_backend_groupwise_remove_object (ECalBackendSync *backend, EDataCal *cal,
 
 	/* if online, remove the item from the server */
 	if (priv->mode == CAL_MODE_REMOTE) {
-		ECalBackendSyncStatus status;
 		const gchar *id_to_remove = NULL;
 		icalcomponent *icalcomp;
 
-		status = e_cal_backend_groupwise_get_object (backend, cal, uid, rid, &calobj);
-		if (status != GNOME_Evolution_Calendar_Success)
-			return status;
+		e_cal_backend_groupwise_get_object (backend, cal, uid, rid, &calobj, &err);
+		if (err) {
+			g_propagate_error (perror, err);
+			return;
+		}
 
 		icalcomp = icalparser_parse_string (calobj);
 		if (!icalcomp) {
 			g_free (calobj);
-			return GNOME_Evolution_Calendar_InvalidObject;
+			g_propagate_error (perror, EDC_ERROR (InvalidObject));
+			return;
 		}
 
 		if (mod == CALOBJ_MOD_THIS) {
@@ -2339,15 +2277,17 @@ e_cal_backend_groupwise_remove_object (ECalBackendSync *backend, EDataCal *cal,
 				/* remove the component from the cache */
 				if (!e_cal_backend_store_remove_component (priv->store, uid, rid)) {
 					g_free (calobj);
-					return GNOME_Evolution_Calendar_ObjectNotFound;
+					g_propagate_error (perror, EDC_ERROR (ObjectNotFound));
+					return;
 				}
 				*object = NULL;
 				*old_object = strdup (calobj);
 				g_free (calobj);
-				return GNOME_Evolution_Calendar_Success;
+				return;
 			} else {
 				g_free (calobj);
-				return GNOME_Evolution_Calendar_OtherError;
+				g_propagate_error (perror, EDC_ERROR_FAILED_STATUS (OtherError, status));
+				return;
 			}
 		} else if (mod == CALOBJ_MOD_ALL) {
 			GSList *l, *comp_list = e_cal_backend_store_get_components_by_uid (priv->store, uid);
@@ -2399,19 +2339,24 @@ e_cal_backend_groupwise_remove_object (ECalBackendSync *backend, EDataCal *cal,
 				*old_object = strdup (calobj);
 				*object = NULL;
 				g_free (calobj);
-				return GNOME_Evolution_Calendar_Success;
+				return;
 			} else {
 				g_free (calobj);
-				return GNOME_Evolution_Calendar_OtherError;
+				g_propagate_error (perror, EDC_ERROR_FAILED_STATUS (OtherError, status));
+				return;
 			}
-		} else
-			return GNOME_Evolution_Calendar_UnsupportedMethod;
+		} else {
+			g_propagate_error (perror, EDC_ERROR (UnsupportedMethod));
+			return;
+		}
 	} else if (priv->mode == CAL_MODE_LOCAL) {
 		in_offline (cbgw);
-		return GNOME_Evolution_Calendar_RepositoryOffline;
-	} else
-		return GNOME_Evolution_Calendar_CalListener_MODE_NOT_SUPPORTED;
-
+		g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
+		return;
+	} else {
+		g_propagate_error (perror, EDC_ERROR_EX (OtherError, "Incorrect online mode set"));
+		return;
+	}
 }
 
 /* This function is largely duplicated in
@@ -2422,15 +2367,15 @@ fetch_attachments (ECalBackendGroupwise *cbgw, ECalComponent *comp)
 {
 	GSList *attach_list = NULL, *new_attach_list = NULL;
 	GSList *l;
-	gchar  *attach_store;
 	gchar *dest_url, *dest_file;
 	gint fd;
+	const gchar *cache_dir;
 	const gchar *uid;
 
 	e_cal_component_get_attachment_list (comp, &attach_list);
 	e_cal_component_get_uid (comp, &uid);
 	/*FIXME  get the uri rather than computing the path */
-	attach_store = g_strdup (e_cal_backend_groupwise_get_local_attachments_store (cbgw));
+	cache_dir = e_cal_backend_get_cache_dir (E_CAL_BACKEND (cbgw));
 
 	for (l = attach_list; l; l = l->next) {
 		gchar *sfname = (gchar *)l->data;
@@ -2440,25 +2385,20 @@ fetch_attachments (ECalBackendGroupwise *cbgw, ECalComponent *comp)
 
 		mapped_file = g_mapped_file_new (sfname, FALSE, &error);
 		if (!mapped_file) {
-			g_message ("DEBUG: could not map %s: %s\n",
-				   sfname, error->message);
 			g_error_free (error);
 			continue;
 		}
 		filename = g_path_get_basename (sfname);
 		new_filename = g_strconcat (uid, "-", filename, NULL);
 		g_free (filename);
-		dest_file = g_build_filename (attach_store, new_filename, NULL);
+		dest_file = g_build_filename (cache_dir, new_filename, NULL);
 		g_free (new_filename);
 		fd = g_open (dest_file, O_RDWR|O_CREAT|O_TRUNC|O_BINARY, 0600);
 		if (fd == -1) {
 			/* TODO handle error conditions */
-			g_message ("DEBUG: could not open %s for writing\n",
-				   dest_file);
 		} else if (write (fd, g_mapped_file_get_contents (mapped_file),
 				  g_mapped_file_get_length (mapped_file)) == -1) {
 			/* TODO handle error condition */
-			g_message ("DEBUG: attachment write failed.\n");
 		}
 
 #if GLIB_CHECK_VERSION(2,21,3)
@@ -2472,7 +2412,6 @@ fetch_attachments (ECalBackendGroupwise *cbgw, ECalComponent *comp)
 		g_free (dest_file);
 		new_attach_list = g_slist_append (new_attach_list, dest_url);
 	}
-	g_free (attach_store);
 	e_cal_component_set_attachment_list (comp, new_attach_list);
 
 	for (l = new_attach_list; l != NULL; l = l->next)
@@ -2528,8 +2467,8 @@ change_status (ECalComponent *comp, icalparameter_partstat status, const gchar *
 	}
 }
 
-static ECalBackendSyncStatus
-receive_object (ECalBackendGroupwise *cbgw, EDataCal *cal, icalcomponent *icalcomp)
+static void
+receive_object (ECalBackendGroupwise *cbgw, EDataCal *cal, icalcomponent *icalcomp, GError **perror)
 {
 	ECalComponent *comp, *modif_comp = NULL;
 	ECalBackendGroupwisePrivate *priv;
@@ -2627,8 +2566,7 @@ receive_object (ECalBackendGroupwise *cbgw, EDataCal *cal, icalcomponent *icalco
 				change_status (component, pstatus, e_gw_connection_get_user_email (priv->cnc));
 				e_cal_component_get_transparency (comp, &transp);
 				e_cal_component_set_transparency (component, transp);
-
-				e_cal_backend_store_put_component (priv->store, component);
+				put_component_to_store (cbgw, comp);
 				comp_str = e_cal_component_get_as_string (component);
 
 				if (found)
@@ -2644,40 +2582,43 @@ receive_object (ECalBackendGroupwise *cbgw, EDataCal *cal, icalcomponent *icalco
 		g_slist_free (comps);
 		g_object_unref (comp);
 		g_object_unref (modif_comp);
-		return GNOME_Evolution_Calendar_Success;
-
 	}
 
 	g_object_unref (comp);
-	if (status == E_GW_CONNECTION_STATUS_INVALID_OBJECT) {
-		return  GNOME_Evolution_Calendar_InvalidObject;
-	} else if (status == E_GW_CONNECTION_STATUS_OVER_QUOTA)
-		return GNOME_Evolution_Calendar_PermissionDenied;
-
-	return GNOME_Evolution_Calendar_OtherError;
+	if (status == E_GW_CONNECTION_STATUS_OK)
+		return;
+	else if (status == E_GW_CONNECTION_STATUS_INVALID_OBJECT)
+		g_propagate_error (perror, EDC_ERROR (InvalidObject));
+	else if (status == E_GW_CONNECTION_STATUS_OVER_QUOTA)
+		g_propagate_error (perror, EDC_ERROR (PermissionDenied));
+	else
+		g_propagate_error (perror, EDC_ERROR_FAILED_STATUS (OtherError, status));
 }
 
 /* Update_objects handler for the file backend. */
-static ECalBackendSyncStatus
-e_cal_backend_groupwise_receive_objects (ECalBackendSync *backend, EDataCal *cal, const gchar *calobj)
+static void
+e_cal_backend_groupwise_receive_objects (ECalBackendSync *backend, EDataCal *cal, const gchar *calobj, GError **perror)
 {
 	ECalBackendGroupwise *cbgw;
         ECalBackendGroupwisePrivate *priv;
 	icalcomponent *icalcomp, *subcomp;
 	icalcomponent_kind kind;
-	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_Success;
+	GError *err = NULL;
 
 	cbgw = E_CAL_BACKEND_GROUPWISE (backend);
 	priv = cbgw->priv;
 
 	if (priv->mode == CAL_MODE_LOCAL) {
 		in_offline (cbgw);
-		return GNOME_Evolution_Calendar_RepositoryOffline;
+		g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
+		return;
 	}
 
 	icalcomp = icalparser_parse_string (calobj);
-	if (!icalcomp)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (!icalcomp) {
+		g_propagate_error (perror, EDC_ERROR (InvalidObject));
+		return;
+	}
 
 	kind = icalcomponent_isa (icalcomp);
 	if (kind == ICAL_VCALENDAR_COMPONENT) {
@@ -2685,28 +2626,28 @@ e_cal_backend_groupwise_receive_objects (ECalBackendSync *backend, EDataCal *cal
 							     e_cal_backend_get_kind (E_CAL_BACKEND (backend)));
 		while (subcomp) {
 			icalcomponent_set_method (subcomp, icalcomponent_get_method (icalcomp));
-			status = receive_object (cbgw, cal, subcomp);
-			if (status != GNOME_Evolution_Calendar_Success)
+			receive_object (cbgw, cal, subcomp, &err);
+			if (err)
 				break;
 			subcomp = icalcomponent_get_next_component (icalcomp,
 								    e_cal_backend_get_kind (E_CAL_BACKEND (backend)));
 		}
 	} else if (kind == e_cal_backend_get_kind (E_CAL_BACKEND (backend))) {
-		status = receive_object (cbgw, cal, icalcomp);
+		receive_object (cbgw, cal, icalcomp, &err);
 	} else
-		status = GNOME_Evolution_Calendar_InvalidObject;
+		err = EDC_ERROR (InvalidObject);
 
 	icalcomponent_free (icalcomp);
 
-	return status;
+	if (err)
+		g_propagate_error (perror, err);
 }
 
-static ECalBackendSyncStatus
-send_object (ECalBackendGroupwise *cbgw, EDataCal *cal, icalcomponent *icalcomp, icalproperty_method method)
+static void
+send_object (ECalBackendGroupwise *cbgw, EDataCal *cal, icalcomponent *icalcomp, icalproperty_method method, GError **perror)
 {
 	ECalComponent *comp, *found_comp = NULL;
 	ECalBackendGroupwisePrivate *priv;
-	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_OtherError;
 	const gchar *uid = NULL;
 	gchar *rid = NULL;
 
@@ -2723,7 +2664,8 @@ send_object (ECalBackendGroupwise *cbgw, EDataCal *cal, icalcomponent *icalcomp,
 
 	if (!found_comp) {
 		g_object_unref (comp);
-		return GNOME_Evolution_Calendar_ObjectNotFound;
+		g_propagate_error (perror, EDC_ERROR (ObjectNotFound));
+		return;
 	}
 
 	switch (priv->mode) {
@@ -2733,6 +2675,7 @@ send_object (ECalBackendGroupwise *cbgw, EDataCal *cal, icalcomponent *icalcomp,
 			const gchar *retract_comment = NULL;
 			gboolean all_instances = FALSE;
 			const gchar *id = NULL;
+			EGwConnectionStatus status;
 
 			get_retract_data (comp, &retract_comment, &all_instances);
 			id = get_gw_item_id (icalcomp);
@@ -2742,32 +2685,34 @@ send_object (ECalBackendGroupwise *cbgw, EDataCal *cal, icalcomponent *icalcomp,
 			if (status == E_GW_CONNECTION_STATUS_INVALID_CONNECTION)
 				status = e_gw_connection_retract_request (priv->cnc, id, retract_comment,
 						all_instances, FALSE);
+
+			if (status != E_GW_CONNECTION_STATUS_OK)
+				g_propagate_error (perror, EDC_ERROR_FAILED_STATUS (OtherError, status));
 		}
 		break;
 	case CAL_MODE_LOCAL :
 		/* in offline mode, we just update the cache */
-		status = GNOME_Evolution_Calendar_RepositoryOffline;
+		g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
 		break;
 	default:
+		g_propagate_error (perror, EDC_ERROR (OtherError));
 		break;
 	}
 
 	g_object_unref (comp);
 	g_object_unref (found_comp);
-
-	return status;
 }
 
-static ECalBackendSyncStatus
+static void
 e_cal_backend_groupwise_send_objects (ECalBackendSync *backend, EDataCal *cal, const gchar *calobj, GList **users,
-				      gchar **modified_calobj)
+				      gchar **modified_calobj, GError **perror)
 {
-	ECalBackendSyncStatus status = GNOME_Evolution_Calendar_OtherError;
 	icalcomponent *icalcomp, *subcomp;
 	icalcomponent_kind kind;
 	icalproperty_method method;
 	ECalBackendGroupwise *cbgw;
 	ECalBackendGroupwisePrivate *priv;
+	GError *err = NULL;
 
 	*users = NULL;
 	*modified_calobj = NULL;
@@ -2777,12 +2722,15 @@ e_cal_backend_groupwise_send_objects (ECalBackendSync *backend, EDataCal *cal, c
 
 	if (priv->mode == CAL_MODE_LOCAL) {
 		in_offline (cbgw);
-		return GNOME_Evolution_Calendar_RepositoryOffline;
+		g_propagate_error (perror, EDC_ERROR (RepositoryOffline));
+		return;
 	}
 
 	icalcomp = icalparser_parse_string (calobj);
-	if (!icalcomp)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (!icalcomp) {
+		g_propagate_error (perror, EDC_ERROR (InvalidObject));
+		return;
+	}
 
 	method = icalcomponent_get_method (icalcomp);
 	kind = icalcomponent_isa (icalcomp);
@@ -2791,18 +2739,19 @@ e_cal_backend_groupwise_send_objects (ECalBackendSync *backend, EDataCal *cal, c
 							     e_cal_backend_get_kind (E_CAL_BACKEND (backend)));
 		while (subcomp) {
 
-			status = send_object (cbgw, cal, subcomp, method);
-			if (status != GNOME_Evolution_Calendar_Success)
+			send_object (cbgw, cal, subcomp, method, &err);
+			if (err)
 				break;
 			subcomp = icalcomponent_get_next_component (icalcomp,
 								    e_cal_backend_get_kind (E_CAL_BACKEND (backend)));
 		}
 	} else if (kind == e_cal_backend_get_kind (E_CAL_BACKEND (backend))) {
-		status = send_object (cbgw, cal, icalcomp, method);
-	} else
-		status = GNOME_Evolution_Calendar_InvalidObject;
+		send_object (cbgw, cal, icalcomp, method, &err);
+	} else {
+		err = EDC_ERROR (InvalidObject);
+	}
 
-	if (status == GNOME_Evolution_Calendar_Success) {
+	if (!err) {
 		ECalComponent *comp;
 
 		comp = e_cal_component_new ();
@@ -2824,12 +2773,13 @@ e_cal_backend_groupwise_send_objects (ECalBackendSync *backend, EDataCal *cal, c
 	}
 	icalcomponent_free (icalcomp);
 
-	return status;
+	if (err)
+		g_propagate_error (perror, err);
 }
 
 /* Object initialization function for the file backend */
 static void
-e_cal_backend_groupwise_init (ECalBackendGroupwise *cbgw, ECalBackendGroupwiseClass *class)
+e_cal_backend_groupwise_init (ECalBackendGroupwise *cbgw)
 {
 	ECalBackendGroupwisePrivate *priv;
 
@@ -2837,9 +2787,10 @@ e_cal_backend_groupwise_init (ECalBackendGroupwise *cbgw, ECalBackendGroupwiseCl
 
 	priv->cnc = NULL;
 	priv->sendoptions_sync_timeout = 0;
+	priv->first_delta_fetch = TRUE;
 
 	/* create the mutex for thread safety */
-	priv->mutex = g_mutex_new ();
+	g_static_rec_mutex_init (&priv->rec_mutex);
 
 	cbgw->priv = priv;
 
@@ -2880,7 +2831,6 @@ e_cal_backend_groupwise_class_init (ECalBackendGroupwiseClass *class)
 	sync_class->get_object_sync = e_cal_backend_groupwise_get_object;
 	sync_class->get_object_list_sync = e_cal_backend_groupwise_get_object_list;
 	sync_class->get_attachment_list_sync = e_cal_backend_groupwise_get_attachment_list;
-	sync_class->get_timezone_sync = e_cal_backend_groupwise_get_timezone;
 	sync_class->add_timezone_sync = e_cal_backend_groupwise_add_timezone;
 	sync_class->set_default_zone_sync = e_cal_backend_groupwise_set_default_zone;
 	sync_class->get_freebusy_sync = e_cal_backend_groupwise_get_free_busy;
@@ -2894,38 +2844,6 @@ e_cal_backend_groupwise_class_init (ECalBackendGroupwiseClass *class)
 	backend_class->internal_get_timezone = e_cal_backend_groupwise_internal_get_timezone;
 }
 
-/**
- * e_cal_backend_groupwise_get_type:
- * @void:
- *
- * Registers the #ECalBackendGroupwise class if necessary, and returns the type ID
- * associated to it.
- *
- * Return value: The type ID of the #ECalBackendGroupwise class.
- **/
-GType
-e_cal_backend_groupwise_get_type (void)
-{
-	static GType e_cal_backend_groupwise_type = 0;
-
-	if (!e_cal_backend_groupwise_type) {
-		static GTypeInfo info = {
-                        sizeof (ECalBackendGroupwiseClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) e_cal_backend_groupwise_class_init,
-                        NULL, NULL,
-                        sizeof (ECalBackendGroupwise),
-                        0,
-                        (GInstanceInitFunc) e_cal_backend_groupwise_init
-                };
-		e_cal_backend_groupwise_type = g_type_register_static (E_TYPE_CAL_BACKEND_SYNC,
-								  "ECalBackendGroupwise", &info, 0);
-	}
-
-	return e_cal_backend_groupwise_type;
-}
-
 void
 e_cal_backend_groupwise_notify_error_code (ECalBackendGroupwise *cbgw, EGwConnectionStatus status)
 {
@@ -2936,11 +2854,4 @@ e_cal_backend_groupwise_notify_error_code (ECalBackendGroupwise *cbgw, EGwConnec
 	msg = e_gw_connection_get_error_message (status);
 	if (msg)
 		e_cal_backend_notify_error (E_CAL_BACKEND (cbgw), msg);
-}
-
-const gchar *
-e_cal_backend_groupwise_get_local_attachments_store (ECalBackendGroupwise *cbgw)
-{
-	g_return_val_if_fail (E_IS_CAL_BACKEND_GROUPWISE (cbgw), NULL);
-	return cbgw->priv->local_attachments_store;
 }

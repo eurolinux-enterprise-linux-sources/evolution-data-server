@@ -25,8 +25,29 @@ CamelDiscoFolder
 
 </para>
 
-@parent_object: 
+
+<!-- ##### ARG CamelDiscoFolder:offline-sync ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION camel_disco_folder_get_offline_sync ##### -->
+<para>
+
+</para>
+
+@disco_folder: 
+@Returns: 
+
+
+<!-- ##### FUNCTION camel_disco_folder_set_offline_sync ##### -->
+<para>
+
+</para>
+
+@disco_folder: 
 @offline_sync: 
+
 
 <!-- ##### FUNCTION camel_disco_folder_expunge_uids ##### -->
 <para>
@@ -35,7 +56,8 @@ CamelDiscoFolder
 
 @folder: 
 @uids: 
-@ex: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_disco_folder_cache_message ##### -->
@@ -45,7 +67,8 @@ CamelDiscoFolder
 
 @disco_folder: 
 @uid: 
-@ex: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_disco_folder_prepare_for_offline ##### -->
@@ -55,6 +78,7 @@ CamelDiscoFolder
 
 @disco_folder: 
 @expression: 
-@ex: 
+@error: 
+@Returns: 
 
 

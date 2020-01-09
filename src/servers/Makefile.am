@@ -1,7 +1,3 @@
-if ENABLE_LDAP
-EXCHANGE = exchange
-else
-EXCHANGE =
-endif
+SUBDIRS = groupwise
 
-SUBDIRS = groupwise $(EXCHANGE) google
+-include $(top_srcdir)/git.mk

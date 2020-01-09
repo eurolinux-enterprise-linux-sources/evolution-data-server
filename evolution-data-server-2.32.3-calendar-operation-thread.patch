@@ -1,0 +1,753 @@
+diff -up evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal.c.calendar-operation-thread evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal.c
+--- evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal.c.calendar-operation-thread	2013-07-26 20:05:43.761077741 +0200
++++ evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal.c	2013-07-26 20:05:43.826077741 +0200
+@@ -195,6 +195,348 @@ data_cal_return_error (GDBusMethodInvoca
+ 	g_error_free (error);
+ }
+ 
++/* Function to get a new EDataCalView path, used by getQuery below */
++static gchar *
++construct_calview_path (void)
++{
++	static guint counter = 1;
++	return g_strdup_printf ("/org/gnome/evolution/dataserver/calendar/CalView/%d/%d", getpid(), counter++);
++}
++
++static void
++cal_getQuery (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *sexp, EDataCal *cal)
++{
++	EDataCalView *query;
++	ECalBackendSExp *obj_sexp;
++	gchar *path;
++	GError *error = NULL;
++
++	/* we handle this entirely here, since it doesn't require any
++	   backend involvement now that we have e_cal_view_start to
++	   actually kick off the search. */
++
++	obj_sexp = e_cal_backend_sexp_new (sexp);
++	if (!obj_sexp) {
++		e_data_cal_notify_query (cal, invocation, EDC_ERROR (InvalidQuery), NULL);
++		return;
++	}
++
++	query = e_data_cal_view_new (cal->priv->backend, obj_sexp);
++	g_object_unref (obj_sexp);
++	e_debug_log (FALSE, E_DEBUG_LOG_DOMAIN_CAL_QUERIES, "%p;%p;NEW;%s;%s", cal, query, sexp, G_OBJECT_TYPE_NAME (cal->priv->backend));
++	if (!query) {
++		e_data_cal_notify_query (cal, invocation, EDC_ERROR (OtherError), NULL);
++		return;
++	}
++
++	/* log query to evaluate cache performance */
++	e_debug_log (FALSE, E_DEBUG_LOG_DOMAIN_CAL_QUERIES, "%p;%p;REUSED;%s;%s", cal, query, sexp, G_OBJECT_TYPE_NAME (cal->priv->backend));
++
++	path = construct_calview_path ();
++	e_data_cal_view_register_gdbus_object (query, g_dbus_method_invocation_get_connection (invocation), path, &error);
++
++	if (error) {
++		g_object_unref (query);
++		e_data_cal_notify_query (cal, invocation, EDC_ERROR_EX (OtherError, error->message), NULL);
++		g_error_free (error);
++		g_free (path);
++
++		return;
++	}
++
++	e_cal_backend_add_query (cal->priv->backend, query);
++
++	e_data_cal_notify_query (cal, invocation, EDC_ERROR (Success), path);
++
++	g_free (path);
++}
++
++typedef enum _EOperationType {
++	OP_open,
++	OP_refresh,
++	OP_close,
++	OP_remove,
++	OP_isReadOnly,
++	OP_getCalAddress,
++	OP_getAlarmEmailAddress,
++	OP_getLdapAttribute,
++	OP_getSchedulingInformation,
++	OP_setMode,
++	OP_getDefaultObject,
++	OP_getObject,
++	OP_getObjectList,
++	OP_getChanges,
++	OP_getFreeBusy,
++	OP_discardAlarm,
++	OP_createObject,
++	OP_modifyObject,
++	OP_removeObject,
++	OP_receiveObjects,
++	OP_sendObjects,
++	OP_getAttachmentList,
++	OP_getQuery,
++	OP_getTimezone,
++	OP_addTimezone,
++	OP_setDefaultTimezone
++} EOperationType;
++
++typedef struct _OperationData
++{
++	EGdbusCal *object;
++	GDBusMethodInvocation *invocation;
++	EDataCal *cal;
++	EOperationType type;
++
++	union {
++		struct _open {
++			gboolean only_if_exists;
++			gchar *username;
++			gchar *password;
++		} open;
++
++		struct _setMode {
++			EDataCalMode mode;
++		} setMode;
++
++		struct _uidRid {
++			gchar *uid;
++			gchar *rid;
++			EDataCalObjModType mod;
++		} uidRid;
++
++		struct _sexp {
++			gchar *sexp;
++		} sexp;
++
++		struct _getChanges {
++			gchar *change_id;
++		} getChanges;
++
++		struct _getFreeBusy {
++			gchar **user_list;
++			guint start;
++			guint end;
++		} getFreeBusy;
++
++		struct _discardAlarm {
++			gchar *uid;
++			gchar *auid;
++		} discardAlarm;
++
++		struct _calObj {
++			gchar *calobj;
++			EDataCalObjModType mod;
++		} calObj;
++
++		struct _tz {
++			gchar *tz;
++		} tz;
++	} d;
++} OperationData;
++
++static OperationData *
++operation_data_create (EGdbusCal *object,
++		       GDBusMethodInvocation *invocation,
++		       EDataCal *cal,
++		       EOperationType type)
++{
++	OperationData *op = g_new0 (OperationData, 1);
++
++	op->object = g_object_ref (object);
++	op->invocation = g_object_ref (invocation);
++	op->cal = g_object_ref (cal);
++	op->type = type;
++
++	return op;
++}
++
++static void
++operation_data_free (OperationData *op)
++{
++	g_return_if_fail (op != NULL);
++
++	g_object_unref (op->object);
++	g_object_unref (op->invocation);
++	g_object_unref (op->cal);
++
++	switch (op->type) {
++		case OP_open:
++			if (op->d.open.username)
++				memset (op->d.open.username, 0, strlen (op->d.open.username));
++			if (op->d.open.password)
++				memset (op->d.open.password, 0, strlen (op->d.open.password));
++			g_free (op->d.open.username);
++			g_free (op->d.open.password);
++			break;
++		case OP_getObject:
++		case OP_removeObject:
++		case OP_getAttachmentList:
++			g_free (op->d.uidRid.uid);
++			g_free (op->d.uidRid.rid);
++			break;
++		case OP_getObjectList:
++		case OP_getQuery:
++			g_free (op->d.sexp.sexp);
++			break;
++		case OP_getChanges:
++			g_free (op->d.getChanges.change_id);
++			break;
++		case OP_getFreeBusy:
++			g_strfreev (op->d.getFreeBusy.user_list);
++			break;
++		case OP_discardAlarm:
++			g_free (op->d.discardAlarm.uid);
++			g_free (op->d.discardAlarm.auid);
++			break;
++		case OP_createObject:
++		case OP_modifyObject:
++		case OP_receiveObjects:
++		case OP_sendObjects:
++			g_free (op->d.calObj.calobj);
++			break;
++		case OP_getTimezone:
++		case OP_addTimezone:
++		case OP_setDefaultTimezone:
++			g_free (op->d.tz.tz);
++			break;
++		default:
++			break;
++	}
++
++	g_free (op);
++}
++
++static void
++cal_operation_thread (gpointer data,
++		      gpointer user_data)
++{
++	OperationData *op = data;
++	GList *users = NULL;
++
++	g_return_if_fail (op != NULL);
++
++	switch (op->type) {
++		case OP_open:
++			e_cal_backend_open (op->cal->priv->backend, op->cal, op->invocation, op->d.open.only_if_exists, op->d.open.username, op->d.open.password);
++			break;
++		case OP_refresh:
++			e_cal_backend_refresh (op->cal->priv->backend, op->cal, op->invocation);
++			break;
++		case OP_close:
++			e_cal_backend_remove_client (op->cal->priv->backend, op->cal);
++			e_gdbus_cal_complete_close (op->object, op->invocation);
++			/* one reference down, to free the cal itself */
++			g_object_unref (op->cal);
++			break;
++		case OP_remove:
++			e_cal_backend_remove (op->cal->priv->backend, op->cal, op->invocation);
++			break;
++		case OP_isReadOnly:
++			e_cal_backend_is_read_only (op->cal->priv->backend, op->cal);
++			e_gdbus_cal_complete_is_read_only (op->object, op->invocation);
++			break;
++		case OP_getCalAddress:
++			e_cal_backend_get_cal_address (op->cal->priv->backend, op->cal, op->invocation);
++			break;
++		case OP_getAlarmEmailAddress:
++			e_cal_backend_get_alarm_email_address (op->cal->priv->backend, op->cal, op->invocation);
++			break;
++		case OP_getLdapAttribute:
++			e_cal_backend_get_ldap_attribute (op->cal->priv->backend, op->cal, op->invocation);
++			break;
++		case OP_getSchedulingInformation:
++			e_cal_backend_get_static_capabilities (op->cal->priv->backend, op->cal, op->invocation);
++			break;
++		case OP_setMode:
++			e_cal_backend_set_mode (op->cal->priv->backend, op->d.setMode.mode);
++			e_gdbus_cal_complete_set_mode (op->object, op->invocation);
++			break;
++		case OP_getDefaultObject:
++			e_cal_backend_get_default_object (op->cal->priv->backend, op->cal, op->invocation);
++			break;
++		case OP_getObject:
++			e_cal_backend_get_object (op->cal->priv->backend, op->cal, op->invocation, op->d.uidRid.uid, op->d.uidRid.rid);
++			break;
++		case OP_getObjectList:
++			e_cal_backend_get_object_list (op->cal->priv->backend, op->cal, op->invocation, op->d.sexp.sexp);
++			break;
++		case OP_getChanges:
++			e_cal_backend_get_changes (op->cal->priv->backend, op->cal, op->invocation, op->d.getChanges.change_id);
++			break;
++		case OP_getFreeBusy:
++			if (op->d.getFreeBusy.user_list) {
++				gint i;
++
++				for (i = 0; op->d.getFreeBusy.user_list[i]; i++)
++					users = g_list_append (users, op->d.getFreeBusy.user_list[i]);
++			}
++
++			e_cal_backend_get_free_busy (op->cal->priv->backend, op->cal, op->invocation, users, (time_t) op->d.getFreeBusy.start, (time_t) op->d.getFreeBusy.end);
++			break;
++		case OP_discardAlarm:
++			e_cal_backend_discard_alarm (op->cal->priv->backend, op->cal, op->invocation, op->d.discardAlarm.uid, op->d.discardAlarm.auid);
++			break;
++		case OP_createObject:
++			e_cal_backend_create_object (op->cal->priv->backend, op->cal, op->invocation, op->d.calObj.calobj);
++			break;
++		case OP_modifyObject:
++			e_cal_backend_modify_object (op->cal->priv->backend, op->cal, op->invocation, op->d.calObj.calobj, op->d.calObj.mod);
++			break;
++		case OP_removeObject:
++			e_cal_backend_remove_object (op->cal->priv->backend, op->cal, op->invocation, op->d.uidRid.uid, op->d.uidRid.rid, op->d.uidRid.mod);
++			break;
++		case OP_receiveObjects:
++			e_cal_backend_receive_objects (op->cal->priv->backend, op->cal, op->invocation, op->d.calObj.calobj);
++			break;
++		case OP_sendObjects:
++			e_cal_backend_send_objects (op->cal->priv->backend, op->cal, op->invocation, op->d.calObj.calobj);
++			break;
++		case OP_getAttachmentList:
++			e_cal_backend_get_attachment_list (op->cal->priv->backend, op->cal, op->invocation, op->d.uidRid.uid, op->d.uidRid.rid);
++			break;
++		case OP_getQuery:
++			cal_getQuery (op->object, op->invocation, op->d.sexp.sexp, op->cal);
++			break;
++		case OP_getTimezone:
++			/* d.tz.tz is a tzid here */
++			e_cal_backend_get_timezone (op->cal->priv->backend, op->cal, op->invocation, op->d.tz.tz);
++			break;
++		case OP_addTimezone:
++			e_cal_backend_add_timezone (op->cal->priv->backend, op->cal, op->invocation, op->d.tz.tz);
++			break;
++		case OP_setDefaultTimezone:
++			e_cal_backend_set_default_zone (op->cal->priv->backend, op->cal, op->invocation, op->d.tz.tz);
++			break;
++	}
++
++	operation_data_free (op);
++}
++
++static void
++operation_data_push (OperationData *op)
++{
++	static GThreadPool *pool = NULL;
++	GError *error = NULL;
++
++	if (!pool) {
++		pool = g_thread_pool_new (cal_operation_thread, NULL, 10, FALSE, &error);
++		if (error) {
++			g_warning ("%s: Failed to create a thread pool: %s", G_STRFUNC, error->message);
++			g_clear_error (&error);
++		}
++	}
++
++	g_return_if_fail (op != NULL);
++	g_return_if_fail (pool != NULL);
++
++	g_thread_pool_push (pool, op, &error);
++
++	if (error) {
++		g_warning ("%s: Failed to push operation into the thread pool: %s", G_STRFUNC, error->message);
++		g_clear_error (&error);
++	}
++}
++
+ /**
+  * e_data_cal_get_source:
+  * @cal: an #EDataCal
+@@ -239,7 +581,13 @@ impl_Cal_getCacheDir (EGdbusCal *object,
+ static gboolean
+ impl_Cal_open (EGdbusCal *object, GDBusMethodInvocation *invocation, gboolean only_if_exists, const gchar *username, const gchar *password, EDataCal *cal)
+ {
+-	e_cal_backend_open (cal->priv->backend, cal, invocation, only_if_exists, username, password);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_open);
++
++	op->d.open.only_if_exists = only_if_exists;
++	op->d.open.username = g_strdup (username);
++	op->d.open.password = g_strdup (password);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -248,7 +596,9 @@ impl_Cal_open (EGdbusCal *object, GDBusM
+ static gboolean
+ impl_Cal_refresh (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
+ {
+-	e_cal_backend_refresh (cal->priv->backend, cal, invocation);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_refresh);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -257,10 +607,9 @@ impl_Cal_refresh (EGdbusCal *object, GDB
+ static gboolean
+ impl_Cal_close (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
+ {
+-	e_cal_backend_remove_client (cal->priv->backend, cal);
+-	e_gdbus_cal_complete_close (object, invocation);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_close);
+ 
+-	g_object_unref (cal);
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -269,7 +618,9 @@ impl_Cal_close (EGdbusCal *object, GDBus
+ static gboolean
+ impl_Cal_remove (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
+ {
+-	e_cal_backend_remove (cal->priv->backend, cal, invocation);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_remove);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -278,8 +629,9 @@ impl_Cal_remove (EGdbusCal *object, GDBu
+ static gboolean
+ impl_Cal_isReadOnly (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
+ {
+-	e_cal_backend_is_read_only (cal->priv->backend, cal);
+-	e_gdbus_cal_complete_is_read_only (object, invocation);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_isReadOnly);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -288,7 +640,9 @@ impl_Cal_isReadOnly (EGdbusCal *object, 
+ static gboolean
+ impl_Cal_getCalAddress (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
+ {
+-	e_cal_backend_get_cal_address (cal->priv->backend, cal, invocation);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getCalAddress);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -297,7 +651,9 @@ impl_Cal_getCalAddress (EGdbusCal *objec
+ static gboolean
+ impl_Cal_getAlarmEmailAddress (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
+ {
+-	e_cal_backend_get_alarm_email_address (cal->priv->backend, cal, invocation);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getAlarmEmailAddress);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -306,7 +662,9 @@ impl_Cal_getAlarmEmailAddress (EGdbusCal
+ static gboolean
+ impl_Cal_getLdapAttribute (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
+ {
+-	e_cal_backend_get_ldap_attribute (cal->priv->backend, cal, invocation);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getLdapAttribute);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -315,7 +673,9 @@ impl_Cal_getLdapAttribute (EGdbusCal *ob
+ static gboolean
+ impl_Cal_getSchedulingInformation (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
+ {
+-	e_cal_backend_get_static_capabilities (cal->priv->backend, cal, invocation);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getSchedulingInformation);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -324,8 +684,11 @@ impl_Cal_getSchedulingInformation (EGdbu
+ static gboolean
+ impl_Cal_setMode (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCalMode mode, EDataCal *cal)
+ {
+-	e_cal_backend_set_mode (cal->priv->backend, mode);
+-	e_gdbus_cal_complete_set_mode (object, invocation);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_setMode);
++
++	op->d.setMode.mode = mode;
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -334,7 +697,9 @@ impl_Cal_setMode (EGdbusCal *object, GDB
+ static gboolean
+ impl_Cal_getDefaultObject (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
+ {
+-	e_cal_backend_get_default_object (cal->priv->backend, cal, invocation);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getDefaultObject);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -343,7 +708,12 @@ impl_Cal_getDefaultObject (EGdbusCal *ob
+ static gboolean
+ impl_Cal_getObject (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *uid, const gchar *rid, EDataCal *cal)
+ {
+-	e_cal_backend_get_object (cal->priv->backend, cal, invocation, uid, rid);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getObject);
++
++	op->d.uidRid.uid = g_strdup (uid);
++	op->d.uidRid.rid = g_strdup (rid);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -352,7 +722,11 @@ impl_Cal_getObject (EGdbusCal *object, G
+ static gboolean
+ impl_Cal_getObjectList (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *sexp, EDataCal *cal)
+ {
+-	e_cal_backend_get_object_list (cal->priv->backend, cal, invocation, sexp);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getObjectList);
++
++	op->d.sexp.sexp = g_strdup (sexp);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -361,7 +735,11 @@ impl_Cal_getObjectList (EGdbusCal *objec
+ static gboolean
+ impl_Cal_getChanges (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *change_id, EDataCal *cal)
+ {
+-	e_cal_backend_get_changes (cal->priv->backend, cal, invocation, change_id);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getChanges);
++
++	op->d.getChanges.change_id = g_strdup (change_id);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -370,17 +748,23 @@ impl_Cal_getChanges (EGdbusCal *object, 
+ static gboolean
+ impl_Cal_getFreeBusy (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar **user_list, guint start, guint end, EDataCal *cal)
+ {
+-	GList *users = NULL;
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getFreeBusy);
++	gchar **user_list_copy = NULL;
+ 
+ 	if (user_list) {
+-		gint i;
++		guint length = g_strv_length ((gchar **) user_list), ii;
+ 
+-		for (i = 0; user_list[i]; i++)
+-			users = g_list_append (users, (gpointer)user_list[i]);
++		user_list_copy = g_new0 (gchar *, length + 1);
++		for (ii = 0; user_list[ii]; ii++) {
++			user_list_copy[ii] = g_strdup (user_list[ii]);
++		}
+ 	}
+ 
+-	/* call the backend's get_free_busy method */
+-	e_cal_backend_get_free_busy (cal->priv->backend, cal, invocation, users, (time_t)start, (time_t)end);
++	op->d.getFreeBusy.user_list = user_list_copy;
++	op->d.getFreeBusy.start = start;
++	op->d.getFreeBusy.end = end;
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -389,7 +773,12 @@ impl_Cal_getFreeBusy (EGdbusCal *object,
+ static gboolean
+ impl_Cal_discardAlarm (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *uid, const gchar *auid, EDataCal *cal)
+ {
+-	e_cal_backend_discard_alarm (cal->priv->backend, cal, invocation, uid, auid);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_discardAlarm);
++
++	op->d.discardAlarm.uid = g_strdup (uid);
++	op->d.discardAlarm.auid = g_strdup (auid);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -398,7 +787,11 @@ impl_Cal_discardAlarm (EGdbusCal *object
+ static gboolean
+ impl_Cal_createObject (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *calobj, EDataCal *cal)
+ {
+-	e_cal_backend_create_object (cal->priv->backend, cal, invocation, calobj);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_createObject);
++
++	op->d.calObj.calobj = g_strdup (calobj);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -407,7 +800,12 @@ impl_Cal_createObject (EGdbusCal *object
+ static gboolean
+ impl_Cal_modifyObject (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *calobj, EDataCalObjModType mod, EDataCal *cal)
+ {
+-	e_cal_backend_modify_object (cal->priv->backend, cal, invocation, calobj, mod);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_modifyObject);
++
++	op->d.calObj.calobj = g_strdup (calobj);
++	op->d.calObj.mod = mod;
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -416,10 +814,16 @@ impl_Cal_modifyObject (EGdbusCal *object
+ static gboolean
+ impl_Cal_removeObject (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *uid, const gchar *rid, EDataCalObjModType mod, EDataCal *cal)
+ {
++	OperationData *op = operation_data_create (object, invocation, cal, OP_removeObject);
++
+ 	if (rid[0] == '\0')
+ 		rid = NULL;
+ 
+-	e_cal_backend_remove_object (cal->priv->backend, cal, invocation, uid, rid, mod);
++	op->d.uidRid.uid = g_strdup (uid);
++	op->d.uidRid.rid = g_strdup (rid);
++	op->d.uidRid.mod = mod;
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -428,7 +832,11 @@ impl_Cal_removeObject (EGdbusCal *object
+ static gboolean
+ impl_Cal_receiveObjects (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *calobj, EDataCal *cal)
+ {
+-	e_cal_backend_receive_objects (cal->priv->backend, cal, invocation, calobj);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_receiveObjects);
++
++	op->d.calObj.calobj = g_strdup (calobj);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -437,7 +845,11 @@ impl_Cal_receiveObjects (EGdbusCal *obje
+ static gboolean
+ impl_Cal_sendObjects (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *calobj, EDataCal *cal)
+ {
+-	e_cal_backend_send_objects (cal->priv->backend, cal, invocation, calobj);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_sendObjects);
++
++	op->d.calObj.calobj = g_strdup (calobj);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -446,66 +858,25 @@ impl_Cal_sendObjects (EGdbusCal *object,
+ static gboolean
+ impl_Cal_getAttachmentList (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *uid, const gchar *rid, EDataCal *cal)
+ {
+-	e_cal_backend_get_attachment_list (cal->priv->backend, cal, invocation, uid, rid);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getAttachmentList);
+ 
+-	return TRUE;
+-}
++	op->d.uidRid.uid = g_strdup (uid);
++	op->d.uidRid.rid = g_strdup (rid);
+ 
+-/* Function to get a new EDataCalView path, used by getQuery below */
+-static gchar *
+-construct_calview_path (void)
+-{
+-	static guint counter = 1;
+-	return g_strdup_printf ("/org/gnome/evolution/dataserver/calendar/CalView/%d/%d", getpid(), counter++);
++	operation_data_push (op);
++
++	return TRUE;
+ }
+ 
+ /* EDataCal::getQuery method */
+ static gboolean
+ impl_Cal_getQuery (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *sexp, EDataCal *cal)
+ {
+-	EDataCalView *query;
+-	ECalBackendSExp *obj_sexp;
+-	gchar *path;
+-	GError *error = NULL;
+-
+-	/* we handle this entirely here, since it doesn't require any
+-	   backend involvement now that we have e_cal_view_start to
+-	   actually kick off the search. */
+-
+-	obj_sexp = e_cal_backend_sexp_new (sexp);
+-	if (!obj_sexp) {
+-		e_data_cal_notify_query (cal, invocation, EDC_ERROR (InvalidQuery), NULL);
+-		return TRUE;
+-	}
+-
+-	query = e_data_cal_view_new (cal->priv->backend, obj_sexp);
+-	g_object_unref (obj_sexp);
+-	e_debug_log (FALSE, E_DEBUG_LOG_DOMAIN_CAL_QUERIES, "%p;%p;NEW;%s;%s", cal, query, sexp, G_OBJECT_TYPE_NAME (cal->priv->backend));
+-	if (!query) {
+-		e_data_cal_notify_query (cal, invocation, EDC_ERROR (OtherError), NULL);
+-		return TRUE;
+-	}
+-
+-	/* log query to evaluate cache performance */
+-	e_debug_log (FALSE, E_DEBUG_LOG_DOMAIN_CAL_QUERIES, "%p;%p;REUSED;%s;%s", cal, query, sexp, G_OBJECT_TYPE_NAME (cal->priv->backend));
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getQuery);
+ 
+-	path = construct_calview_path ();
+-	e_data_cal_view_register_gdbus_object (query, g_dbus_method_invocation_get_connection (invocation), path, &error);
++	op->d.sexp.sexp = g_strdup (sexp);
+ 
+-	if (error) {
+-		g_object_unref (query);
+-		e_data_cal_notify_query (cal, invocation, EDC_ERROR_EX (OtherError, error->message), NULL);
+-		g_error_free (error);
+-		g_free (path);
+-
+-		return TRUE;
+-	}
+-
+-	e_cal_backend_add_query (cal->priv->backend, query);
+-
+-	e_data_cal_notify_query (cal, invocation, EDC_ERROR (Success), path);
+-
+-        g_free (path);
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -514,7 +885,11 @@ impl_Cal_getQuery (EGdbusCal *object, GD
+ static gboolean
+ impl_Cal_getTimezone (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *tzid, EDataCal *cal)
+ {
+-	e_cal_backend_get_timezone (cal->priv->backend, cal, invocation, tzid);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_getTimezone);
++
++	op->d.tz.tz = g_strdup (tzid);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -523,7 +898,11 @@ impl_Cal_getTimezone (EGdbusCal *object,
+ static gboolean
+ impl_Cal_addTimezone (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *tz, EDataCal *cal)
+ {
+-	e_cal_backend_add_timezone (cal->priv->backend, cal, invocation, tz);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_addTimezone);
++
++	op->d.tz.tz = g_strdup (tz);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }
+@@ -532,7 +911,11 @@ impl_Cal_addTimezone (EGdbusCal *object,
+ static gboolean
+ impl_Cal_setDefaultTimezone (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *tz, EDataCal *cal)
+ {
+-	e_cal_backend_set_default_zone (cal->priv->backend, cal, invocation, tz);
++	OperationData *op = operation_data_create (object, invocation, cal, OP_setDefaultTimezone);
++
++	op->d.tz.tz = g_strdup (tz);
++
++	operation_data_push (op);
+ 
+ 	return TRUE;
+ }

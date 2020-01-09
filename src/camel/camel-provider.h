@@ -24,12 +24,15 @@
  * USA
  */
 
-#ifndef CAMEL_PROVIDER_H
-#define CAMEL_PROVIDER_H 1
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
 
-#include <camel/camel-types.h>
+#ifndef CAMEL_PROVIDER_H
+#define CAMEL_PROVIDER_H
+
 #include <camel/camel-object.h>
-#include <camel/camel-exception.h>
+#include <camel/camel-object-bag.h>
 #include <camel/camel-url.h>
 
 #define CAMEL_PROVIDER(obj) ((CamelProvider *)(obj))
@@ -65,6 +68,20 @@ extern gchar *camel_provider_type_name[CAMEL_NUM_PROVIDER_TYPES];
 #define CAMEL_PROVIDER_SUPPORTS_SSL	(1 << 5)
 #define CAMEL_PROVIDER_HAS_LICENSE      (1 << 6)
 #define CAMEL_PROVIDER_DISABLE_SENT_FOLDER (1 << 7)
+
+/**
+ * CAMEL_PROVIDER_ALLOW_REAL_TRASH_FOLDER:
+ *
+ * Since: 2.32
+ **/
+#define CAMEL_PROVIDER_ALLOW_REAL_TRASH_FOLDER (1 << 8)
+
+/**
+ * CAMEL_PROVIDER_ALLOW_REAL_JUNK_FOLDER:
+ *
+ * Since: 2.32
+ **/
+#define CAMEL_PROVIDER_ALLOW_REAL_JUNK_FOLDER  (1 << 9)
 
 /* Flags for url_flags. "ALLOW" means the config dialog will let the
  * user configure it. "NEED" implies "ALLOW" but means the user must
@@ -141,7 +158,7 @@ typedef struct {
 #define CAMEL_PROVIDER_CONF_DEFAULT_HOSTNAME  { CAMEL_PROVIDER_CONF_LABEL, "hostname", NULL, N_("_Host:"), NULL }
 #define CAMEL_PROVIDER_CONF_DEFAULT_PATH      { CAMEL_PROVIDER_CONF_ENTRY, "path", NULL, N_("_Path:"), "" }
 
-typedef gint (*CamelProviderAutoDetectFunc) (CamelURL *url, GHashTable **auto_detected, CamelException *ex);
+typedef gint (*CamelProviderAutoDetectFunc) (CamelURL *url, GHashTable **auto_detected, GError **error);
 
 typedef struct {
 	/* Provider name used in CamelURLs. */
@@ -176,12 +193,12 @@ typedef struct {
 	/* auto-detection function */
 	CamelProviderAutoDetectFunc auto_detect;
 
-	/* CamelType(s) of its store and/or transport. If both are
+	/* GType(s) of its store and/or transport. If both are
 	 * set, then they are assumed to be linked together and the
 	 * transport type can only be used in an account that also
 	 * uses the store type (eg, Exchange or NNTP).
 	 */
-	CamelType object_types[CAMEL_NUM_PROVIDER_TYPES];
+	GType object_types[CAMEL_NUM_PROVIDER_TYPES];
 
 	/* GList of CamelServiceAuthTypes the provider supports */
 	GList *authtypes;
@@ -218,18 +235,21 @@ struct _CamelProviderModule {
 	guint loaded:1;
 };
 
-void camel_provider_init(void);
-
-void camel_provider_load(const gchar *path, CamelException *ex);
-void camel_provider_register(CamelProvider *provider);
-GList *camel_provider_list(gboolean load);
-CamelProvider *camel_provider_get(const gchar *url_string, CamelException *ex);
+void		camel_provider_init		(void);
+gboolean	camel_provider_load		(const gchar *path,
+						 GError **error);
+void		camel_provider_register		(CamelProvider *provider);
+GList *		camel_provider_list		(gboolean load);
+CamelProvider *	camel_provider_get		(const gchar *url_string,
+						 GError **error);
 
 /* This is defined by each module, not by camel-provider.c. */
-void camel_provider_module_init(void);
+void		camel_provider_module_init	(void);
 
-gint camel_provider_auto_detect (CamelProvider *provider, CamelURL *url,
-				GHashTable **auto_detected, CamelException *ex);
+gint		camel_provider_auto_detect	(CamelProvider *provider,
+						 CamelURL *url,
+						 GHashTable **auto_detected,
+						 GError **error);
 
 G_END_DECLS
 

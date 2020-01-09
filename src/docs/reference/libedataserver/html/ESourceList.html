@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ESourceList</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
 <link rel="prev" href="ESourceGroup.html" title="ESourceGroup">
 <link rel="next" href="libedataserver-e-time-utils.html" title="Time-Related Utility Functions">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -30,7 +30,7 @@
                   <a href="#ESourceList.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="ESourceList">
 <a name="ESourceList"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,57 +39,56 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="ESourceList.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">                    <a class="link" href="ESourceList.html#ESourceList-struct" title="ESourceList">ESourceList</a>;
 <a class="link" href="ESourceList.html" title="ESourceList"><span class="returnvalue">ESourceList</span></a> *       <a class="link" href="ESourceList.html#e-source-list-new" title="e_source_list_new ()">e_source_list_new</a>                   (<em class="parameter"><code><span class="type">void</span></code></em>);
 <a class="link" href="ESourceList.html" title="ESourceList"><span class="returnvalue">ESourceList</span></a> *       <a class="link" href="ESourceList.html#e-source-list-new-for-gconf" title="e_source_list_new_for_gconf ()">e_source_list_new_for_gconf</a>         (<em class="parameter"><code><span class="type">GConfClient</span> *client</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>);
-<a class="link" href="ESourceList.html" title="ESourceList"><span class="returnvalue">ESourceList</span></a> *       <a class="link" href="ESourceList.html#e-source-list-new-for-gconf-default" title="e_source_list_new_for_gconf_default ()">e_source_list_new_for_gconf_default</a> (<em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>);
-<span class="returnvalue">GSList</span> *            <a class="link" href="ESourceList.html#e-source-list-peek-groups" title="e_source_list_peek_groups ()">e_source_list_peek_groups</a>           (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *path</code></em>);
+<a class="link" href="ESourceList.html" title="ESourceList"><span class="returnvalue">ESourceList</span></a> *       <a class="link" href="ESourceList.html#e-source-list-new-for-gconf-default" title="e_source_list_new_for_gconf_default ()">e_source_list_new_for_gconf_default</a> (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *path</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *            <a class="link" href="ESourceList.html#e-source-list-peek-groups" title="e_source_list_peek_groups ()">e_source_list_peek_groups</a>           (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);
 <a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      <a class="link" href="ESourceList.html#e-source-list-peek-group-by-uid" title="e_source_list_peek_group_by_uid ()">e_source_list_peek_group_by_uid</a>     (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
-<a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      <a class="link" href="ESourceList.html#e-source-list-peek-group-by-name" title="e_source_list_peek_group_by_name ()">e_source_list_peek_group_by_name</a>    (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);
 <a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      <a class="link" href="ESourceList.html#e-source-list-peek-group-by-base-uri" title="e_source_list_peek_group_by_base_uri ()">e_source_list_peek_group_by_base_uri</a>
                                                         (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *base_uri</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *base_uri</code></em>);
 <a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      <a class="link" href="ESourceList.html#e-source-list-peek-group-by-properties" title="e_source_list_peek_group_by_properties ()">e_source_list_peek_group_by_properties</a>
                                                         (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *property_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
                                                          <em class="parameter"><code>...</code></em>);
 <a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceList.html#e-source-list-peek-source-by-uid" title="e_source_list_peek_source_by_uid ()">e_source_list_peek_source_by_uid</a>    (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);
 <a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceList.html#e-source-list-peek-source-any" title="e_source_list_peek_source_any ()">e_source_list_peek_source_any</a>       (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESourceList.html#e-source-list-add-group" title="e_source_list_add_group ()">e_source_list_add_group</a>             (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceList.html#e-source-list-peek-default-source" title="e_source_list_peek_default_source ()">e_source_list_peek_default_source</a>   (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceList.html#e-source-list-add-group" title="e_source_list_add_group ()">e_source_list_add_group</a>             (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
                                                          <em class="parameter"><code><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="type">ESourceGroup</span></a> *group</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> position</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESourceList.html#e-source-list-remove-group" title="e_source_list_remove_group ()">e_source_list_remove_group</a>          (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> position</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceList.html#e-source-list-remove-group" title="e_source_list_remove_group ()">e_source_list_remove_group</a>          (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
                                                          <em class="parameter"><code><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="type">ESourceGroup</span></a> *group</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESourceList.html#e-source-list-remove-group-by-uid" title="e_source_list_remove_group_by_uid ()">e_source_list_remove_group_by_uid</a>   (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceList.html#e-source-list-remove-group-by-uid" title="e_source_list_remove_group_by_uid ()">e_source_list_remove_group_by_uid</a>   (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);
 <a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      <a class="link" href="ESourceList.html#e-source-list-ensure-group" title="e_source_list_ensure_group ()">e_source_list_ensure_group</a>          (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *base_uri</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> ret_it</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESourceList.html#e-source-list-remove-group-by-base-uri" title="e_source_list_remove_group_by_base_uri ()">e_source_list_remove_group_by_base_uri</a>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *base_uri</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> ret_it</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceList.html#e-source-list-remove-group-by-base-uri" title="e_source_list_remove_group_by_base_uri ()">e_source_list_remove_group_by_base_uri</a>
                                                         (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *base_uri</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESourceList.html#e-source-list-remove-source-by-uid" title="e_source_list_remove_source_by_uid ()">e_source_list_remove_source_by_uid</a>  (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uidj</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESourceList.html#e-source-list-sync" title="e_source_list_sync ()">e_source_list_sync</a>                  (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESourceList.html#e-source-list-is-gconf-updated" title="e_source_list_is_gconf_updated ()">e_source_list_is_gconf_updated</a>      (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *base_uri</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceList.html#e-source-list-remove-source-by-uid" title="e_source_list_remove_source_by_uid ()">e_source_list_remove_source_by_uid</a>  (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uidj</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceList.html#e-source-list-sync" title="e_source_list_sync ()">e_source_list_sync</a>                  (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESourceList.html#e-source-list-is-gconf-updated" title="e_source_list_is_gconf_updated ()">e_source_list_is_gconf_updated</a>      (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
 <a name="ESourceList.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  GObject
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----ESourceList
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Signals">
 <a name="ESourceList.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
   "<a class="link" href="ESourceList.html#ESourceList-changed" title='The "changed" signal'>changed</a>"                                        : Run Last
@@ -97,21 +96,21 @@
   "<a class="link" href="ESourceList.html#ESourceList-group-removed" title='The "group-removed" signal'>group-removed</a>"                                  : Run Last
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="ESourceList.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="ESourceList.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="ESourceList">
 <a name="ESourceList-struct"></a><h3>ESourceList</h3>
 <pre class="programlisting">typedef struct _ESourceList ESourceList;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_new ()">
 <a name="e-source-list-new"></a><h3>e_source_list_new ()</h3>
 <pre class="programlisting"><a class="link" href="ESourceList.html" title="ESourceList"><span class="returnvalue">ESourceList</span></a> *       e_source_list_new                   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
@@ -126,10 +125,10 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_new_for_gconf ()">
 <a name="e-source-list-new-for-gconf"></a><h3>e_source_list_new_for_gconf ()</h3>
 <pre class="programlisting"><a class="link" href="ESourceList.html" title="ESourceList"><span class="returnvalue">ESourceList</span></a> *       e_source_list_new_for_gconf         (<em class="parameter"><code><span class="type">GConfClient</span> *client</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *path</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -154,9 +153,9 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_new_for_gconf_default ()">
 <a name="e-source-list-new-for-gconf-default"></a><h3>e_source_list_new_for_gconf_default ()</h3>
-<pre class="programlisting"><a class="link" href="ESourceList.html" title="ESourceList"><span class="returnvalue">ESourceList</span></a> *       e_source_list_new_for_gconf_default (<em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="ESourceList.html" title="ESourceList"><span class="returnvalue">ESourceList</span></a> *       e_source_list_new_for_gconf_default (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *path</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -176,9 +175,9 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_peek_groups ()">
 <a name="e-source-list-peek-groups"></a><h3>e_source_list_peek_groups ()</h3>
-<pre class="programlisting"><span class="returnvalue">GSList</span> *            e_source_list_peek_groups           (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *            e_source_list_peek_groups           (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -198,10 +197,10 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_peek_group_by_uid ()">
 <a name="e-source-list-peek-group-by-uid"></a><h3>e_source_list_peek_group_by_uid ()</h3>
 <pre class="programlisting"><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      e_source_list_peek_group_by_uid     (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -226,43 +225,11 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
-<a name="e-source-list-peek-group-by-name"></a><h3>e_source_list_peek_group_by_name ()</h3>
-<pre class="programlisting"><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      e_source_list_peek_group_by_name    (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
-<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
-<h3 class="title">Warning</h3>
-<p><code class="literal">e_source_list_peek_group_by_name</code> is deprecated and should not be used in newly-written code.</p>
-</div>
-<p>
-</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
-<td>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
-<td>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_peek_group_by_base_uri ()">
 <a name="e-source-list-peek-group-by-base-uri"></a><h3>e_source_list_peek_group_by_base_uri ()</h3>
 <pre class="programlisting"><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      e_source_list_peek_group_by_base_uri
                                                         (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *base_uri</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *base_uri</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -278,19 +245,27 @@
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
+<td>the first group which base uri begins with a base_uri.
+
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.28</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_peek_group_by_properties ()">
 <a name="e-source-list-peek-group-by-properties"></a><h3>e_source_list_peek_group_by_properties ()</h3>
 <pre class="programlisting"><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      e_source_list_peek_group_by_properties
                                                         (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *property_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property_name</code></em>,
                                                          <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Peeks group by its properties. Parameters are pairs of strings
+property_name, property_value, terminated by NULL! ESourceGroup
+is returned only if matches all the properties. Values are compared
+case insensitively.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -316,12 +291,13 @@
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.28</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_peek_source_by_uid ()">
 <a name="e-source-list-peek-source-by-uid"></a><h3>e_source_list_peek_source_by_uid ()</h3>
 <pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_list_peek_source_by_uid    (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -346,7 +322,7 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_peek_source_any ()">
 <a name="e-source-list-peek-source-any"></a><h3>e_source_list_peek_source_any ()</h3>
 <pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_list_peek_source_any       (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);</pre>
 <p>
@@ -368,11 +344,39 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_peek_default_source ()">
+<a name="e-source-list-peek-default-source"></a><h3>e_source_list_peek_default_source ()</h3>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_list_peek_default_source   (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);</pre>
+<p>
+Attempts to find a default <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> in <em class="parameter"><code>source_list</code></em> by looking for
+a source with a property named "default", or else a source with a
+property named "system".  If no such <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> exists, the function
+returns <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the default <a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> in <em class="parameter"><code>source_list</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2" title="e_source_list_add_group ()">
 <a name="e-source-list-add-group"></a><h3>e_source_list_add_group ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_list_add_group             (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_list_add_group             (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
                                                          <em class="parameter"><code><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="type">ESourceGroup</span></a> *group</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> position</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> position</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -402,9 +406,9 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_remove_group ()">
 <a name="e-source-list-remove-group"></a><h3>e_source_list_remove_group ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_list_remove_group          (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_list_remove_group          (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
                                                          <em class="parameter"><code><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="type">ESourceGroup</span></a> *group</code></em>);</pre>
 <p>
 </p>
@@ -430,10 +434,10 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_remove_group_by_uid ()">
 <a name="e-source-list-remove-group-by-uid"></a><h3>e_source_list_remove_group_by_uid ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_list_remove_group_by_uid   (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_list_remove_group_by_uid   (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -458,12 +462,17 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_ensure_group ()">
 <a name="e-source-list-ensure-group"></a><h3>e_source_list_ensure_group ()</h3>
 <pre class="programlisting"><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      e_source_list_ensure_group          (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *base_uri</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> ret_it</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *base_uri</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> ret_it</code></em>);</pre>
+<p>
+Ensures group with the <em class="parameter"><code>base_uri</code></em> will exists in the <em class="parameter"><code>list</code></em> and its name will be <em class="parameter"><code>name</code></em>.
+If ret_it will be TRUE the group will be also returned, in that case caller should
+g_object_unref the group. Otherwise it returns NULL.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -494,13 +503,17 @@
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.28</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_remove_group_by_base_uri ()">
 <a name="e-source-list-remove-group-by-base-uri"></a><h3>e_source_list_remove_group_by_base_uri ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_list_remove_group_by_base_uri
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_list_remove_group_by_base_uri
                                                         (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *base_uri</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *base_uri</code></em>);</pre>
+<p>
+Removes group with given base_uri.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -516,17 +529,19 @@
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
+<td>TRUE if group was found.
+
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.28</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_remove_source_by_uid ()">
 <a name="e-source-list-remove-source-by-uid"></a><h3>e_source_list_remove_source_by_uid ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_list_remove_source_by_uid  (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uidj</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_list_remove_source_by_uid  (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uidj</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -551,10 +566,10 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_sync ()">
 <a name="e-source-list-sync"></a><h3>e_source_list_sync ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_list_sync                  (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_list_sync                  (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -579,9 +594,9 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_list_is_gconf_updated ()">
 <a name="e-source-list-is-gconf-updated"></a><h3>e_source_list_is_gconf_updated ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_list_is_gconf_updated      (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_list_is_gconf_updated      (<em class="parameter"><code><a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *list</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -601,12 +616,12 @@
 </table></div>
 </div>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Signal Details">
 <a name="ESourceList.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title='The "changed" signal'>
 <a name="ESourceList-changed"></a><h3>The <code class="literal">"changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *esourcelist,
-                                                        <span class="type">gpointer</span>     user_data)        : Run Last</pre>
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)        : Run Last</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -625,11 +640,11 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title='The "group-added" signal'>
 <a name="ESourceList-group-added"></a><h3>The <code class="literal">"group-added"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *esourcelist,
-                                                        <span class="type">gpointer</span>     arg1,
-                                                        <span class="type">gpointer</span>     user_data)        : Run Last</pre>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a>  *esourcelist,
+                                                        <a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="type">ESourceGroup</span></a> *arg1,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)        : Run Last</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -653,11 +668,11 @@
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title='The "group-removed" signal'>
 <a name="ESourceList-group-removed"></a><h3>The <code class="literal">"group-removed"</code> signal</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a> *esourcelist,
-                                                        <span class="type">gpointer</span>     arg1,
-                                                        <span class="type">gpointer</span>     user_data)        : Run Last</pre>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceList.html" title="ESourceList"><span class="type">ESourceList</span></a>  *esourcelist,
+                                                        <a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="type">ESourceGroup</span></a> *arg1,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)        : Run Last</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -684,6 +699,6 @@
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

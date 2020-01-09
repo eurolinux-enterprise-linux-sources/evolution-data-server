@@ -4,18 +4,24 @@
   <chapters>
     <sub name="Evolution-Data-Server Manual: Address Book Client (libebook)" link="ch01.html">
       <sub name="EBook" link="EBook.html"/>
-      <sub name="EBookListener" link="EBookListener.html"/>
       <sub name="e-book-query" link="libebook-e-book-query.html"/>
       <sub name="e-book-types" link="libebook-e-book-types.html"/>
       <sub name="EBookView" link="EBookView.html"/>
-      <sub name="EBookViewListener" link="EBookViewListener.html"/>
       <sub name="EVCard" link="EVCard.html"/>
       <sub name="EContact" link="EContact.html"/>
       <sub name="EDestination" link="EDestination.html"/>
       <sub name="e-address-western" link="libebook-EAddressWestern.html"/>
       <sub name="e-name-western" link="libebook-ENameWestern.html"/>
     </sub>
-    <sub name="Index" link="ix01.html"/>
+    <sub name="Index" link="api-index-full.html"/>
+    <sub name="Index of deprecated symbols" link="api-index-deprecated.html"/>
+    <sub name="Index of new symbols in 2.32" link="api-index-2.32.html"/>
+    <sub name="Index of new symbols in 2.30" link="api-index-2.30.html"/>
+    <sub name="Index of new symbols in 2.28" link="api-index-2.28.html"/>
+    <sub name="Index of new symbols in 2.26" link="api-index-2.26.html"/>
+    <sub name="Index of new symbols in 2.24" link="api-index-2.24.html"/>
+    <sub name="Index of new symbols in 2.22" link="api-index-2.22.html"/>
+    <sub name="Index of new symbols in 1.12" link="api-index-1.12.html"/>
   </chapters>
   <functions>
     <keyword type="struct" name="EBook" link="EBook.html#EBook-struct"/>
@@ -48,43 +54,61 @@
     <keyword type="function" name="e_book_check_static_capability ()" link="EBook.html#e-book-check-static-capability"/>
     <keyword type="function" name="e_book_is_writable ()" link="EBook.html#e-book-is-writable"/>
     <keyword type="function" name="e_book_cancel ()" link="EBook.html#e-book-cancel"/>
-    <keyword type="function" name="e_book_cancel_async_op ()" link="EBook.html#e-book-cancel-async-op"/>
+    <keyword type="function" name="e_book_cancel_async_op ()" link="EBook.html#e-book-cancel-async-op" since="2.24"/>
     <keyword type="function" name="e_book_get_self ()" link="EBook.html#e-book-get-self"/>
     <keyword type="function" name="e_book_set_self ()" link="EBook.html#e-book-set-self"/>
     <keyword type="function" name="e_book_is_self ()" link="EBook.html#e-book-is-self"/>
     <keyword type="function" name="e_book_get_addressbooks ()" link="EBook.html#e-book-get-addressbooks"/>
-    <keyword type="function" name="EBookCallback ()" link="EBook.html#EBookCallback"/>
-    <keyword type="function" name="EBookOpenProgressCallback ()" link="EBook.html#EBookOpenProgressCallback"/>
-    <keyword type="function" name="EBookIdCallback ()" link="EBook.html#EBookIdCallback"/>
-    <keyword type="function" name="EBookEListCallback ()" link="EBook.html#EBookEListCallback"/>
-    <keyword type="function" name="EBookListCallback ()" link="EBook.html#EBookListCallback"/>
-    <keyword type="function" name="EBookContactCallback ()" link="EBook.html#EBookContactCallback"/>
-    <keyword type="function" name="EBookBookViewCallback ()" link="EBook.html#EBookBookViewCallback"/>
-    <keyword type="function" name="e_book_async_open ()" link="EBook.html#e-book-async-open"/>
-    <keyword type="function" name="e_book_async_remove ()" link="EBook.html#e-book-async-remove"/>
-    <keyword type="function" name="e_book_async_get_supported_fields ()" link="EBook.html#e-book-async-get-supported-fields"/>
-    <keyword type="function" name="e_book_async_get_supported_auth_methods ()" link="EBook.html#e-book-async-get-supported-auth-methods"/>
-    <keyword type="function" name="e_book_async_authenticate_user ()" link="EBook.html#e-book-async-authenticate-user"/>
-    <keyword type="function" name="e_book_async_get_contact ()" link="EBook.html#e-book-async-get-contact"/>
-    <keyword type="function" name="e_book_async_get_contacts ()" link="EBook.html#e-book-async-get-contacts"/>
-    <keyword type="function" name="e_book_async_remove_contact ()" link="EBook.html#e-book-async-remove-contact"/>
-    <keyword type="function" name="e_book_async_remove_contact_by_id ()" link="EBook.html#e-book-async-remove-contact-by-id"/>
-    <keyword type="function" name="e_book_async_remove_contacts ()" link="EBook.html#e-book-async-remove-contacts"/>
-    <keyword type="function" name="e_book_async_add_contact ()" link="EBook.html#e-book-async-add-contact"/>
-    <keyword type="function" name="e_book_async_commit_contact ()" link="EBook.html#e-book-async-commit-contact"/>
-    <keyword type="function" name="e_book_async_get_book_view ()" link="EBook.html#e-book-async-get-book-view"/>
-    <keyword type="function" name="e_book_async_get_changes ()" link="EBook.html#e-book-async-get-changes"/>
-    <keyword type="function" name="e_book_async_get_required_fields ()" link="EBook.html#e-book-async-get-required-fields"/>
+    <keyword type="macro" name="e_return_error_if_fail()" link="EBook.html#e-return-error-if-fail" since="2.30"/>
+    <keyword type="macro" name="e_return_async_error_if_fail()" link="EBook.html#e-return-async-error-if-fail" since="2.32"/>
+    <keyword type="macro" name="e_return_ex_async_error_val_if_fail()" link="EBook.html#e-return-ex-async-error-val-if-fail" since="2.32"/>
+    <keyword type="function" name="EBookAsyncCallback ()" link="EBook.html#EBookAsyncCallback" since="2.32"/>
+    <keyword type="function" name="EBookOpenProgressCallback ()" link="EBook.html#EBookOpenProgressCallback" since="2.32"/>
+    <keyword type="function" name="EBookIdAsyncCallback ()" link="EBook.html#EBookIdAsyncCallback" since="2.32"/>
+    <keyword type="function" name="EBookContactAsyncCallback ()" link="EBook.html#EBookContactAsyncCallback" since="2.32"/>
+    <keyword type="function" name="EBookListAsyncCallback ()" link="EBook.html#EBookListAsyncCallback" since="2.32"/>
+    <keyword type="function" name="EBookBookViewAsyncCallback ()" link="EBook.html#EBookBookViewAsyncCallback" since="2.32"/>
+    <keyword type="function" name="EBookEListAsyncCallback ()" link="EBook.html#EBookEListAsyncCallback" since="2.32"/>
+    <keyword type="function" name="EBookCallback ()" link="EBook.html#EBookCallback" deprecated=""/>
+    <keyword type="function" name="EBookIdCallback ()" link="EBook.html#EBookIdCallback" deprecated=""/>
+    <keyword type="function" name="EBookEListCallback ()" link="EBook.html#EBookEListCallback" deprecated=""/>
+    <keyword type="function" name="EBookListCallback ()" link="EBook.html#EBookListCallback" deprecated=""/>
+    <keyword type="function" name="EBookContactCallback ()" link="EBook.html#EBookContactCallback" deprecated=""/>
+    <keyword type="function" name="EBookBookViewCallback ()" link="EBook.html#EBookBookViewCallback" deprecated=""/>
+    <keyword type="function" name="e_book_open_async ()" link="EBook.html#e-book-open-async" since="2.32"/>
+    <keyword type="function" name="e_book_remove_async ()" link="EBook.html#e-book-remove-async" since="2.32"/>
+    <keyword type="function" name="e_book_get_supported_fields_async ()" link="EBook.html#e-book-get-supported-fields-async" since="2.32"/>
+    <keyword type="function" name="e_book_get_supported_auth_methods_async ()" link="EBook.html#e-book-get-supported-auth-methods-async" since="2.32"/>
+    <keyword type="function" name="e_book_authenticate_user_async ()" link="EBook.html#e-book-authenticate-user-async" since="2.32"/>
+    <keyword type="function" name="e_book_get_contact_async ()" link="EBook.html#e-book-get-contact-async" since="2.32"/>
+    <keyword type="function" name="e_book_get_contacts_async ()" link="EBook.html#e-book-get-contacts-async" since="2.32"/>
+    <keyword type="function" name="e_book_remove_contact_async ()" link="EBook.html#e-book-remove-contact-async" since="2.32"/>
+    <keyword type="function" name="e_book_remove_contact_by_id_async ()" link="EBook.html#e-book-remove-contact-by-id-async" since="2.32"/>
+    <keyword type="function" name="e_book_remove_contacts_async ()" link="EBook.html#e-book-remove-contacts-async" since="2.32"/>
+    <keyword type="function" name="e_book_add_contact_async ()" link="EBook.html#e-book-add-contact-async" since="2.32"/>
+    <keyword type="function" name="e_book_commit_contact_async ()" link="EBook.html#e-book-commit-contact-async" since="2.32"/>
+    <keyword type="function" name="e_book_get_book_view_async ()" link="EBook.html#e-book-get-book-view-async" since="2.32"/>
+    <keyword type="function" name="e_book_get_changes_async ()" link="EBook.html#e-book-get-changes-async" since="2.32"/>
+    <keyword type="function" name="e_book_get_required_fields_async ()" link="EBook.html#e-book-get-required-fields-async" since="2.32"/>
+    <keyword type="function" name="e_book_async_open ()" link="EBook.html#e-book-async-open" deprecated="3.0: Use e_book_open_async() instead."/>
+    <keyword type="function" name="e_book_async_remove ()" link="EBook.html#e-book-async-remove" deprecated="3.0: Use e_book_remove_async() instead."/>
+    <keyword type="function" name="e_book_async_get_supported_fields ()" link="EBook.html#e-book-async-get-supported-fields" deprecated="3.0: Use e_book_get_supported_fields_async() instead."/>
+    <keyword type="function" name="e_book_async_get_supported_auth_methods ()" link="EBook.html#e-book-async-get-supported-auth-methods" deprecated="3.0: Use e_book_get_supported_auth_methods_async() instead."/>
+    <keyword type="function" name="e_book_async_authenticate_user ()" link="EBook.html#e-book-async-authenticate-user" deprecated="3.0: Use e_book_authenticate_user_async() instead."/>
+    <keyword type="function" name="e_book_async_get_contact ()" link="EBook.html#e-book-async-get-contact" deprecated="3.0: Use e_book_get_contact_async() instead."/>
+    <keyword type="function" name="e_book_async_get_contacts ()" link="EBook.html#e-book-async-get-contacts" deprecated="3.0: Use e_book_get_contacts_async() instead."/>
+    <keyword type="function" name="e_book_async_remove_contact ()" link="EBook.html#e-book-async-remove-contact" deprecated="3.0: Use e_book_remove_contact_async() instead."/>
+    <keyword type="function" name="e_book_async_remove_contact_by_id ()" link="EBook.html#e-book-async-remove-contact-by-id" deprecated="3.0: Use e_book_remove_contact_by_id_async() instead."/>
+    <keyword type="function" name="e_book_async_remove_contacts ()" link="EBook.html#e-book-async-remove-contacts" deprecated="3.0: Use e_book_remove_contacts_async() instead."/>
+    <keyword type="function" name="e_book_async_add_contact ()" link="EBook.html#e-book-async-add-contact" deprecated="3.0: Use e_book_add_contact_async() instead."/>
+    <keyword type="function" name="e_book_async_commit_contact ()" link="EBook.html#e-book-async-commit-contact" deprecated="3.0: Use e_book_commit_contact_async() instead."/>
+    <keyword type="function" name="e_book_async_get_book_view ()" link="EBook.html#e-book-async-get-book-view" deprecated="3.0: Use e_book_get_book_view_async() instead."/>
+    <keyword type="function" name="e_book_async_get_changes ()" link="EBook.html#e-book-async-get-changes" deprecated="3.0: Use e_book_get_changes_async() instead."/>
+    <keyword type="function" name="e_book_async_get_required_fields ()" link="EBook.html#e-book-async-get-required-fields" deprecated="3.0: Use e_book_get_required_fields_async() instead."/>
     <keyword type="signal" name="The &quot;auth-required&quot; signal" link="EBook.html#EBook-auth-required"/>
     <keyword type="signal" name="The &quot;backend-died&quot; signal" link="EBook.html#EBook-backend-died"/>
     <keyword type="signal" name="The &quot;connection-status&quot; signal" link="EBook.html#EBook-connection-status"/>
     <keyword type="signal" name="The &quot;writable-status&quot; signal" link="EBook.html#EBook-writable-status"/>
-    <keyword type="struct" name="EBookListener" link="EBookListener.html#EBookListener-struct"/>
-    <keyword type="struct" name="EBookListenerResponse" link="EBookListener.html#EBookListenerResponse"/>
-    <keyword type="enum" name="enum EBookListenerOperation" link="EBookListener.html#EBookListenerOperation"/>
-    <keyword type="function" name="e_book_listener_new ()" link="EBookListener.html#e-book-listener-new"/>
-    <keyword type="function" name="e_book_listener_stop ()" link="EBookListener.html#e-book-listener-stop"/>
-    <keyword type="signal" name="The &quot;response&quot; signal" link="EBookListener.html#EBookListener-response"/>
     <keyword type="typedef" name="EBookQuery" link="libebook-e-book-query.html#EBookQuery"/>
     <keyword type="enum" name="enum EBookQueryTest" link="libebook-e-book-query.html#EBookQueryTest"/>
     <keyword type="function" name="e_book_query_from_string ()" link="libebook-e-book-query.html#e-book-query-from-string"/>
@@ -99,33 +123,26 @@
     <keyword type="function" name="e_book_query_field_exists ()" link="libebook-e-book-query.html#e-book-query-field-exists"/>
     <keyword type="function" name="e_book_query_vcard_field_exists ()" link="libebook-e-book-query.html#e-book-query-vcard-field-exists"/>
     <keyword type="function" name="e_book_query_field_test ()" link="libebook-e-book-query.html#e-book-query-field-test"/>
-    <keyword type="function" name="e_book_query_vcard_field_test ()" link="libebook-e-book-query.html#e-book-query-vcard-field-test"/>
+    <keyword type="function" name="e_book_query_vcard_field_test ()" link="libebook-e-book-query.html#e-book-query-vcard-field-test" since="2.22"/>
     <keyword type="function" name="e_book_query_any_field_contains ()" link="libebook-e-book-query.html#e-book-query-any-field-contains"/>
     <keyword type="function" name="e_book_query_copy ()" link="libebook-e-book-query.html#e-book-query-copy"/>
     <keyword type="macro" name="E_BOOK_ERROR" link="libebook-e-book-types.html#E-BOOK-ERROR:CAPS"/>
     <keyword type="function" name="e_book_error_quark ()" link="libebook-e-book-types.html#e-book-error-quark"/>
     <keyword type="enum" name="enum EBookStatus" link="libebook-e-book-types.html#EBookStatus"/>
+    <keyword type="macro" name="E_BOOK_ERROR_CORBA_EXCEPTION" link="libebook-e-book-types.html#E-BOOK-ERROR-CORBA-EXCEPTION:CAPS" deprecated=""/>
     <keyword type="enum" name="enum EBookViewStatus" link="libebook-e-book-types.html#EBookViewStatus"/>
     <keyword type="enum" name="enum EBookChangeType" link="libebook-e-book-types.html#EBookChangeType"/>
     <keyword type="struct" name="EBookChange" link="libebook-e-book-types.html#EBookChange"/>
     <keyword type="struct" name="EBookView" link="EBookView.html#EBookView-struct"/>
-    <keyword type="function" name="e_book_view_new ()" link="EBookView.html#e-book-view-new"/>
     <keyword type="function" name="e_book_view_start ()" link="EBookView.html#e-book-view-start"/>
     <keyword type="function" name="e_book_view_stop ()" link="EBookView.html#e-book-view-stop"/>
-    <keyword type="function" name="e_book_view_set_book ()" link="EBookView.html#e-book-view-set-book"/>
-    <keyword type="function" name="e_book_view_get_book ()" link="EBookView.html#e-book-view-get-book"/>
+    <keyword type="function" name="e_book_view_get_book ()" link="EBookView.html#e-book-view-get-book" since="2.22"/>
     <keyword type="signal" name="The &quot;contacts-added&quot; signal" link="EBookView.html#EBookView-contacts-added"/>
     <keyword type="signal" name="The &quot;contacts-changed&quot; signal" link="EBookView.html#EBookView-contacts-changed"/>
     <keyword type="signal" name="The &quot;contacts-removed&quot; signal" link="EBookView.html#EBookView-contacts-removed"/>
     <keyword type="signal" name="The &quot;sequence-complete&quot; signal" link="EBookView.html#EBookView-sequence-complete"/>
     <keyword type="signal" name="The &quot;status-message&quot; signal" link="EBookView.html#EBookView-status-message"/>
-    <keyword type="struct" name="EBookViewListener" link="EBookViewListener.html#EBookViewListener-struct"/>
-    <keyword type="struct" name="EBookViewListenerResponse" link="EBookViewListener.html#EBookViewListenerResponse"/>
-    <keyword type="enum" name="enum EBookViewListenerOperation" link="EBookViewListener.html#EBookViewListenerOperation"/>
-    <keyword type="function" name="e_book_view_listener_new ()" link="EBookViewListener.html#e-book-view-listener-new"/>
-    <keyword type="function" name="e_book_view_listener_start ()" link="EBookViewListener.html#e-book-view-listener-start"/>
-    <keyword type="function" name="e_book_view_listener_stop ()" link="EBookViewListener.html#e-book-view-listener-stop"/>
-    <keyword type="signal" name="The &quot;response&quot; signal" link="EBookViewListener.html#EBookViewListener-response"/>
+    <keyword type="signal" name="The &quot;view-complete&quot; signal" link="EBookView.html#EBookView-view-complete"/>
     <keyword type="struct" name="EVCard" link="EVCard.html#EVCard-struct"/>
     <keyword type="enum" name="enum EVCardFormat" link="EVCard.html#EVCardFormat"/>
     <keyword type="struct" name="EVCardAttribute" link="EVCard.html#EVCardAttribute"/>
@@ -139,6 +156,9 @@
     <keyword type="function" name="e_vcard_attribute_copy ()" link="EVCard.html#e-vcard-attribute-copy"/>
     <keyword type="function" name="e_vcard_remove_attributes ()" link="EVCard.html#e-vcard-remove-attributes"/>
     <keyword type="function" name="e_vcard_remove_attribute ()" link="EVCard.html#e-vcard-remove-attribute"/>
+    <keyword type="function" name="e_vcard_append_attribute ()" link="EVCard.html#e-vcard-append-attribute" since="2.32"/>
+    <keyword type="function" name="e_vcard_append_attribute_with_value ()" link="EVCard.html#e-vcard-append-attribute-with-value" since="2.32"/>
+    <keyword type="function" name="e_vcard_append_attribute_with_values ()" link="EVCard.html#e-vcard-append-attribute-with-values" since="2.32"/>
     <keyword type="function" name="e_vcard_add_attribute ()" link="EVCard.html#e-vcard-add-attribute"/>
     <keyword type="function" name="e_vcard_add_attribute_with_value ()" link="EVCard.html#e-vcard-add-attribute-with-value"/>
     <keyword type="function" name="e_vcard_add_attribute_with_values ()" link="EVCard.html#e-vcard-add-attribute-with-values"/>
@@ -148,7 +168,7 @@
     <keyword type="function" name="e_vcard_attribute_remove_values ()" link="EVCard.html#e-vcard-attribute-remove-values"/>
     <keyword type="function" name="e_vcard_attribute_remove_value ()" link="EVCard.html#e-vcard-attribute-remove-value"/>
     <keyword type="function" name="e_vcard_attribute_remove_params ()" link="EVCard.html#e-vcard-attribute-remove-params"/>
-    <keyword type="function" name="e_vcard_attribute_remove_param ()" link="EVCard.html#e-vcard-attribute-remove-param"/>
+    <keyword type="function" name="e_vcard_attribute_remove_param ()" link="EVCard.html#e-vcard-attribute-remove-param" since="1.12"/>
     <keyword type="function" name="e_vcard_attribute_remove_param_value ()" link="EVCard.html#e-vcard-attribute-remove-param-value"/>
     <keyword type="function" name="e_vcard_attribute_param_new ()" link="EVCard.html#e-vcard-attribute-param-new"/>
     <keyword type="function" name="e_vcard_attribute_param_free ()" link="EVCard.html#e-vcard-attribute-param-free"/>
@@ -183,7 +203,7 @@
     <keyword type="macro" name="EVC_ENCODING" link="EVCard.html#EVC-ENCODING:CAPS"/>
     <keyword type="macro" name="EVC_FBURL" link="EVCard.html#EVC-FBURL:CAPS"/>
     <keyword type="macro" name="EVC_FN" link="EVCard.html#EVC-FN:CAPS"/>
-    <keyword type="macro" name="EVC_GEO" link="EVCard.html#EVC-GEO:CAPS"/>
+    <keyword type="macro" name="EVC_GEO" link="EVCard.html#EVC-GEO:CAPS" since="1.12"/>
     <keyword type="macro" name="EVC_ICSCALENDAR" link="EVCard.html#EVC-ICSCALENDAR:CAPS"/>
     <keyword type="macro" name="EVC_KEY" link="EVCard.html#EVC-KEY:CAPS"/>
     <keyword type="macro" name="EVC_LABEL" link="EVCard.html#EVC-LABEL:CAPS"/>
@@ -218,7 +238,7 @@
     <keyword type="macro" name="EVC_X_LIST" link="EVCard.html#EVC-X-LIST:CAPS"/>
     <keyword type="macro" name="EVC_X_MANAGER" link="EVCard.html#EVC-X-MANAGER:CAPS"/>
     <keyword type="macro" name="EVC_X_MSN" link="EVCard.html#EVC-X-MSN:CAPS"/>
-    <keyword type="macro" name="EVC_X_SKYPE" link="EVCard.html#EVC-X-SKYPE:CAPS"/>
+    <keyword type="macro" name="EVC_X_SKYPE" link="EVCard.html#EVC-X-SKYPE:CAPS" since="2.26"/>
     <keyword type="macro" name="EVC_X_WANTS_HTML" link="EVCard.html#EVC-X-WANTS-HTML:CAPS"/>
     <keyword type="macro" name="EVC_X_YAHOO" link="EVCard.html#EVC-X-YAHOO:CAPS"/>
     <keyword type="macro" name="EVC_X_BOOK_URI" link="EVCard.html#EVC-X-BOOK-URI:CAPS"/>
@@ -232,7 +252,7 @@
     <keyword type="macro" name="EVC_X_DEST_SOURCE_UID" link="EVCard.html#EVC-X-DEST-SOURCE-UID:CAPS"/>
     <keyword type="macro" name="EVC_X_GROUPWISE" link="EVCard.html#EVC-X-GROUPWISE:CAPS"/>
     <keyword type="macro" name="EVC_X_RADIO" link="EVCard.html#EVC-X-RADIO:CAPS"/>
-    <keyword type="macro" name="EVC_X_SIP" link="EVCard.html#EVC-X-SIP:CAPS"/>
+    <keyword type="macro" name="EVC_X_SIP" link="EVCard.html#EVC-X-SIP:CAPS" since="2.26"/>
     <keyword type="macro" name="EVC_X_SPOUSE" link="EVCard.html#EVC-X-SPOUSE:CAPS"/>
     <keyword type="macro" name="EVC_X_TELEX" link="EVCard.html#EVC-X-TELEX:CAPS"/>
     <keyword type="macro" name="EVC_X_TTYTDD" link="EVCard.html#EVC-X-TTYTDD:CAPS"/>
@@ -240,7 +260,7 @@
     <keyword type="struct" name="EContact" link="EContact.html#EContact-struct"/>
     <keyword type="enum" name="enum EContactField" link="EContact.html#EContactField"/>
     <keyword type="struct" name="EContactName" link="EContact.html#EContactName"/>
-    <keyword type="struct" name="EContactGeo" link="EContact.html#EContactGeo"/>
+    <keyword type="struct" name="EContactGeo" link="EContact.html#EContactGeo" since="1.12"/>
     <keyword type="struct" name="EContactPhoto" link="EContact.html#EContactPhoto"/>
     <keyword type="struct" name="EContactAddress" link="EContact.html#EContactAddress"/>
     <keyword type="struct" name="EContactDate" link="EContact.html#EContactDate"/>
@@ -262,12 +282,12 @@
     <keyword type="function" name="e_contact_date_free ()" link="EContact.html#e-contact-date-free"/>
     <keyword type="function" name="e_contact_name_free ()" link="EContact.html#e-contact-name-free"/>
     <keyword type="function" name="e_contact_photo_free ()" link="EContact.html#e-contact-photo-free"/>
-    <keyword type="function" name="e_contact_geo_free ()" link="EContact.html#e-contact-geo-free"/>
+    <keyword type="function" name="e_contact_geo_free ()" link="EContact.html#e-contact-geo-free" since="1.12"/>
     <keyword type="function" name="e_contact_address_free ()" link="EContact.html#e-contact-address-free"/>
     <keyword type="function" name="e_contact_field_name ()" link="EContact.html#e-contact-field-name"/>
     <keyword type="function" name="e_contact_pretty_name ()" link="EContact.html#e-contact-pretty-name"/>
     <keyword type="function" name="e_contact_field_id ()" link="EContact.html#e-contact-field-id"/>
-    <keyword type="function" name="e_contact_field_id_from_vcard ()" link="EContact.html#e-contact-field-id-from-vcard"/>
+    <keyword type="function" name="e_contact_field_id_from_vcard ()" link="EContact.html#e-contact-field-id-from-vcard" since="2.26"/>
     <keyword type="function" name="e_contact_cert_free ()" link="EContact.html#e-contact-cert-free"/>
     <keyword type="function" name="e_contact_get_attributes ()" link="EContact.html#e-contact-get-attributes"/>
     <keyword type="function" name="e_contact_set_attributes ()" link="EContact.html#e-contact-set-attributes"/>

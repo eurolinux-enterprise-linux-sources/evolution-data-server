@@ -29,6 +29,8 @@
 	(G_TYPE_INSTANCE_GET_PRIVATE \
 	((obj), E_TYPE_CATEGORY_COMPLETION, ECategoryCompletionPrivate))
 
+G_DEFINE_TYPE (ECategoryCompletion, e_category_completion, GTK_TYPE_ENTRY_COMPLETION)
+
 struct _ECategoryCompletionPrivate {
 	GtkWidget *last_known_entry;
 	gchar *create;
@@ -66,6 +68,12 @@ category_completion_build_model (GtkEntryCompletion *completion)
 		gchar *casefolded;
 		GdkPixbuf *pixbuf = NULL;
 		GtkTreeIter iter;
+
+		/* Only add user-visible categories. */
+		if (!e_categories_is_searchable (category)) {
+			list = g_list_delete_link (list, list);
+			continue;
+		}
 
 		filename = e_categories_get_icon_file_for (category);
 		if (filename != NULL && *filename != '\0')
@@ -154,7 +162,7 @@ category_completion_complete (GtkEntryCompletion *completion,
 	/* Complete the partially typed category. */
 	gtk_editable_delete_text (editable, start_pos, end_pos);
 	gtk_editable_insert_text (editable, category, -1, &start_pos);
-	gtk_editable_insert_text (editable, ", ", 2, &start_pos);
+	gtk_editable_insert_text (editable, ",", 1, &start_pos);
 	gtk_editable_set_position (editable, start_pos);
 }
 
@@ -292,6 +300,33 @@ category_completion_update_prefix (GtkEntryCompletion *completion)
 	g_free (input);
 }
 
+static gboolean
+category_completion_sanitize_suffix (GtkEntry *entry, GdkEventFocus *event, GtkEntryCompletion *completion)
+{
+	const gchar *text;
+
+	g_return_val_if_fail (entry != NULL, FALSE);
+	g_return_val_if_fail (completion != NULL, FALSE);
+
+	text = gtk_entry_get_text (entry);
+	if (text) {
+		gint len = strlen (text), old_len = len;
+
+		while (len > 0 && (text[len -1] == ' ' || text[len - 1] == ','))
+			len--;
+
+		if (old_len != len) {
+			gchar *tmp = g_strndup (text, len);
+
+			gtk_entry_set_text (entry, tmp);
+
+			g_free (tmp);
+		}
+	}
+
+	return FALSE;
+}
+
 static void
 category_completion_track_entry (GtkEntryCompletion *completion)
 {
@@ -322,6 +357,10 @@ category_completion_track_entry (GtkEntryCompletion *completion)
 	g_signal_connect_swapped (
 		priv->last_known_entry, "notify::text",
 		G_CALLBACK (category_completion_update_prefix), completion);
+
+	g_signal_connect (
+		priv->last_known_entry, "focus-out-event",
+		G_CALLBACK (category_completion_sanitize_suffix), completion);
 
 	category_completion_update_prefix (completion);
 }
@@ -393,7 +432,7 @@ category_completion_action_activated (GtkEntryCompletion *completion,
 }
 
 static void
-category_completion_class_init (ECategoryCompletionClass *class)
+e_category_completion_class_init (ECategoryCompletionClass *class)
 {
 	GObjectClass *object_class;
 	GtkEntryCompletionClass *entry_completion_class;
@@ -411,7 +450,7 @@ category_completion_class_init (ECategoryCompletionClass *class)
 }
 
 static void
-category_completion_init (ECategoryCompletion *category_completion)
+e_category_completion_init (ECategoryCompletion *category_completion)
 {
 	GtkCellRenderer *renderer;
 	GtkEntryCompletion *completion;
@@ -443,33 +482,11 @@ category_completion_init (ECategoryCompletion *category_completion)
 	category_completion_build_model (completion);
 }
 
-GType
-e_category_completion_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (ECategoryCompletionClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) category_completion_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (ECategoryCompletion),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) category_completion_init,
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			GTK_TYPE_ENTRY_COMPLETION, "ECategoryCompletion",
-			&type_info, 0);
-	}
-
-	return type;
-}
-
+/**
+ * e_category_completion_new:
+ *
+ * Since: 2.26
+ **/
 GtkEntryCompletion *
 e_category_completion_new (void)
 {

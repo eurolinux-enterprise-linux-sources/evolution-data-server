@@ -22,35 +22,65 @@
  * USA
  */
 
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
 #ifndef CAMEL_SERVICE_H
-#define CAMEL_SERVICE_H 1
+#define CAMEL_SERVICE_H
 
 #include <camel/camel-object.h>
 #include <camel/camel-url.h>
 #include <camel/camel-provider.h>
 #include <camel/camel-operation.h>
 
-#define CAMEL_SERVICE_TYPE     (camel_service_get_type ())
-#define CAMEL_SERVICE(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_SERVICE_TYPE, CamelService))
-#define CAMEL_SERVICE_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_SERVICE_TYPE, CamelServiceClass))
-#define CAMEL_IS_SERVICE(o)    (CAMEL_CHECK_TYPE((o), CAMEL_SERVICE_TYPE))
+/* Standard GObject macros */
+#define CAMEL_TYPE_SERVICE \
+	(camel_service_get_type ())
+#define CAMEL_SERVICE(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_SERVICE, CamelService))
+#define CAMEL_SERVICE_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_SERVICE, CamelServiceClass))
+#define CAMEL_IS_SERVICE(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_SERVICE))
+#define CAMEL_IS_SERVICE_CLASS(obj) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_SERVICE))
+#define CAMEL_SERVICE_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_SERVICE, CamelServiceClass))
+
+/**
+ * CAMEL_SERVICE_ERROR:
+ *
+ * Since: 2.32
+ **/
+#define CAMEL_SERVICE_ERROR \
+	(camel_service_error_quark ())
 
 G_BEGIN_DECLS
 
-enum {
-	CAMEL_SERVICE_ARG_FIRST  = CAMEL_ARG_FIRST + 100,
-	CAMEL_SERVICE_ARG_USERNAME,
-	CAMEL_SERVICE_ARG_AUTH,
-	CAMEL_SERVICE_ARG_HOSTNAME,
-	CAMEL_SERVICE_ARG_PORT,
-	CAMEL_SERVICE_ARG_PATH
-};
+struct _CamelSession;
 
-#define CAMEL_SERVICE_USERNAME     (CAMEL_SERVICE_ARG_USERNAME | CAMEL_ARG_STR)
-#define CAMEL_SERVICE_AUTH         (CAMEL_SERVICE_ARG_AUTH | CAMEL_ARG_STR)
-#define CAMEL_SERVICE_HOSTNAME     (CAMEL_SERVICE_ARG_HOSTNAME | CAMEL_ARG_STR)
-#define CAMEL_SERVICE_PORT         (CAMEL_SERVICE_ARG_PORT | CAMEL_ARG_INT)
-#define CAMEL_SERVICE_PATH         (CAMEL_SERVICE_ARG_PATH | CAMEL_ARG_STR)
+typedef struct _CamelService CamelService;
+typedef struct _CamelServiceClass CamelServiceClass;
+typedef struct _CamelServicePrivate CamelServicePrivate;
+
+/**
+ * CamelServiceError:
+ *
+ * Since: 2.32
+ **/
+typedef enum {
+	CAMEL_SERVICE_ERROR_INVALID,
+	CAMEL_SERVICE_ERROR_URL_INVALID,
+	CAMEL_SERVICE_ERROR_UNAVAILABLE,
+	CAMEL_SERVICE_ERROR_CANT_AUTHENTICATE,
+	CAMEL_SERVICE_ERROR_NOT_CONNECTED
+} CamelServiceError;
 
 typedef enum {
 	CAMEL_SERVICE_DISCONNECTED,
@@ -59,41 +89,47 @@ typedef enum {
 	CAMEL_SERVICE_DISCONNECTING
 } CamelServiceConnectionStatus;
 
-struct _CamelService {
-	CamelObject parent_object;
-	struct _CamelServicePrivate *priv;
+/**
+ * CamelServiceLock:
+ *
+ * Since: 2.32
+ **/
+typedef enum {
+	CAMEL_SERVICE_REC_CONNECT_LOCK,
+	CAMEL_SERVICE_CONNECT_OP_LOCK
+} CamelServiceLock;
 
-	CamelSession *session;
+struct _CamelService {
+	CamelObject parent;
+	CamelServicePrivate *priv;
+
+	struct _CamelSession *session;
 	CamelProvider *provider;
 	CamelServiceConnectionStatus status;
 	CamelOperation *connect_op;
 	CamelURL *url;
 };
 
-typedef struct {
+struct _CamelServiceClass {
 	CamelObjectClass parent_class;
 
-	void      (*construct)         (CamelService *service,
-					CamelSession *session,
-					CamelProvider *provider,
-					CamelURL *url,
-					CamelException *ex);
-
-	gboolean  (*connect)           (CamelService *service,
-					CamelException *ex);
-	gboolean  (*disconnect)        (CamelService *service,
-					gboolean clean,
-					CamelException *ex);
-	void      (*cancel_connect)    (CamelService *service);
-
-	GList *   (*query_auth_types)  (CamelService *service,
-					CamelException *ex);
-
-	gchar *    (*get_name)          (CamelService *service,
-					gboolean brief);
-	gchar *    (*get_path)          (CamelService *service);
-
-} CamelServiceClass;
+	gboolean	(*construct)		(CamelService *service,
+						 struct _CamelSession *session,
+						 CamelProvider *provider,
+						 CamelURL *url,
+						 GError **error);
+	gboolean	(*connect)		(CamelService *service,
+						 GError **error);
+	gboolean	(*disconnect)		(CamelService *service,
+						 gboolean clean,
+						 GError **error);
+	void		(*cancel_connect)	(CamelService *service);
+	GList *		(*query_auth_types)	(CamelService *service,
+						 GError **error);
+	gchar *		(*get_name)		(CamelService *service,
+						 gboolean brief);
+	gchar *		(*get_path)		(CamelService *service);
+};
 
 /* query_auth_types returns a GList of these */
 typedef struct {
@@ -104,29 +140,32 @@ typedef struct {
 	gboolean need_password;   /* needs a password to authenticate */
 } CamelServiceAuthType;
 
-/* public methods */
-void                camel_service_construct          (CamelService *service,
-						      CamelSession *session,
-						      CamelProvider *provider,
-						      CamelURL *url,
-						      CamelException *ex);
-gboolean            camel_service_connect            (CamelService *service,
-						      CamelException *ex);
-gboolean            camel_service_disconnect         (CamelService *service,
-						      gboolean clean,
-						      CamelException *ex);
-void                camel_service_cancel_connect     (CamelService *service);
-gchar *              camel_service_get_url            (CamelService *service);
-gchar *              camel_service_get_name           (CamelService *service,
-						      gboolean brief);
-gchar *              camel_service_get_path           (CamelService *service);
-CamelSession *      camel_service_get_session        (CamelService *service);
-CamelProvider *     camel_service_get_provider       (CamelService *service);
-GList *             camel_service_query_auth_types   (CamelService *service,
-						      CamelException *ex);
-
-/* Standard Camel function */
-CamelType camel_service_get_type (void);
+GType		camel_service_get_type		(void);
+GQuark		camel_service_error_quark	(void) G_GNUC_CONST;
+gboolean	camel_service_construct		(CamelService *service,
+						 struct _CamelSession *session,
+						 CamelProvider *provider,
+						 CamelURL *url,
+						 GError **error);
+gboolean	camel_service_connect		(CamelService *service,
+						 GError **error);
+gboolean	camel_service_disconnect	(CamelService *service,
+						 gboolean clean,
+						 GError **error);
+void		camel_service_cancel_connect	(CamelService *service);
+gchar *		camel_service_get_url		(CamelService *service);
+gchar *		camel_service_get_name		(CamelService *service,
+						 gboolean brief);
+gchar *		camel_service_get_path		(CamelService *service);
+struct _CamelSession *
+		camel_service_get_session	(CamelService *service);
+CamelProvider *	camel_service_get_provider	(CamelService *service);
+GList *		camel_service_query_auth_types	(CamelService *service,
+						 GError **error);
+void		camel_service_lock		(CamelService *service,
+						 CamelServiceLock lock);
+void		camel_service_unlock		(CamelService *service,
+						 CamelServiceLock lock);
 
 G_END_DECLS
 

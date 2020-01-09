@@ -34,11 +34,15 @@
 
 #define WEATHER_UID_EXT "-weather"
 
+#define EDC_ERROR(_code) e_data_cal_create_error (_code, NULL)
+#define EDC_ERROR_EX(_code, _msg) e_data_cal_create_error (_code, _msg)
+
+G_DEFINE_TYPE (ECalBackendWeather, e_cal_backend_weather, E_TYPE_CAL_BACKEND_SYNC)
+
 static gboolean reload_cb (ECalBackendWeather *cbw);
 static gboolean begin_retrieval_cb (ECalBackendWeather *cbw);
 static ECalComponent* create_weather (ECalBackendWeather *cbw, WeatherInfo *report, gboolean is_forecast);
-static ECalBackendSyncStatus
-e_cal_backend_weather_add_timezone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj);
+static void e_cal_backend_weather_add_timezone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj, GError **perror);
 
 /* Private part of the ECalBackendWeather structure */
 struct _ECalBackendWeatherPrivate {
@@ -135,6 +139,38 @@ maybe_start_reload_timeout (ECalBackendWeather *cbw)
 
 }
 
+/* TODO Do not replicate this in every backend */
+static icaltimezone *
+resolve_tzid (const gchar *tzid, gpointer user_data)
+{
+	icaltimezone *zone;
+
+	zone = (!strcmp (tzid, "UTC"))
+		? icaltimezone_get_utc_timezone ()
+		: icaltimezone_get_builtin_timezone_from_tzid (tzid);
+
+	if (!zone)
+		zone = e_cal_backend_internal_get_timezone (E_CAL_BACKEND (user_data), tzid);
+
+	return zone;
+}
+
+static void
+put_component_to_store (ECalBackendWeather *cb,
+			ECalComponent *comp)
+{
+	time_t time_start, time_end;
+	ECalBackendWeatherPrivate *priv;
+
+	priv = cb->priv;
+
+	e_cal_util_get_component_occur_times (comp, &time_start, &time_end,
+				   resolve_tzid, cb, priv->default_zone,
+				   e_cal_backend_get_kind (E_CAL_BACKEND (cb)));
+
+	e_cal_backend_store_put_component_with_time_range (priv->store, comp, time_start, time_end);
+}
+
 static void
 finished_retrieval_cb (WeatherInfo *info, ECalBackendWeather *cbw)
 {
@@ -153,6 +189,7 @@ finished_retrieval_cb (WeatherInfo *info, ECalBackendWeather *cbw)
 
 	/* update cache */
 	l = e_cal_backend_store_get_components (priv->store);
+
 	for (; l != NULL; l = g_slist_next (l)) {
 		ECalComponentId *id;
 		gchar *obj;
@@ -177,7 +214,7 @@ finished_retrieval_cb (WeatherInfo *info, ECalBackendWeather *cbw)
 	if (comp) {
 		GSList *forecasts;
 
-		e_cal_backend_store_put_component (priv->store, comp);
+		put_component_to_store (cbw, comp);
 		icomp = e_cal_component_get_icalcomponent (comp);
 		obj = icalcomponent_as_ical_string_r (icomp);
 		e_cal_backend_notify_object_created (E_CAL_BACKEND (cbw), obj);
@@ -195,7 +232,7 @@ finished_retrieval_cb (WeatherInfo *info, ECalBackendWeather *cbw)
 				if (nfo) {
 					comp = create_weather (cbw, nfo, TRUE);
 					if (comp) {
-						e_cal_backend_store_put_component (priv->store, comp);
+						put_component_to_store (cbw, comp);
 						icomp = e_cal_component_get_icalcomponent (comp);
 						obj = icalcomponent_as_ical_string_r (icomp);
 						e_cal_backend_notify_object_created (E_CAL_BACKEND (cbw), obj);
@@ -247,13 +284,13 @@ getCategory (WeatherInfo *report)
 		const gchar *icon_name;
 	} categories[] = {
 		{ N_("Weather: Fog"),		"weather-fog" },
-		{ N_("Weather: Cloudy"),	"weather-few-clouds" },
 		{ N_("Weather: Cloudy Night"),	"weather-few-clouds-night" },
+		{ N_("Weather: Cloudy"),	"weather-few-clouds" },
 		{ N_("Weather: Overcast"),	"weather-overcast" },
 		{ N_("Weather: Showers"),	"weather-showers" },
 		{ N_("Weather: Snow"),		"weather-snow" },
-		{ N_("Weather: Sunny"),	"weather-clear" },
 		{ N_("Weather: Clear Night"),	"weather-clear-night" },
+		{ N_("Weather: Sunny"),		"weather-clear" },
 		{ N_("Weather: Thunderstorms"), "weather-storm" },
 		{ NULL,				NULL }
 	};
@@ -264,9 +301,10 @@ getCategory (WeatherInfo *report)
 	if (!icon_name)
 		return NULL;
 
-	for (i = 0; categories [i].description; i++) {
-		if (g_str_equal (categories [i].icon_name, icon_name))
-			return _(categories [i].description);
+	for (i = 0; categories[i].description; i++) {
+		if (!g_ascii_strncasecmp (categories[i].icon_name,
+					      icon_name, strlen(icon_name)))
+			return _(categories[i].description);
 	}
 
 	return NULL;
@@ -417,42 +455,34 @@ create_weather (ECalBackendWeather *cbw, WeatherInfo *report, gboolean is_foreca
 	return cal_comp;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_is_read_only (ECalBackendSync *backend, EDataCal *cal, gboolean *read_only)
+static void
+e_cal_backend_weather_is_read_only (ECalBackendSync *backend, EDataCal *cal, gboolean *read_only, GError **perror)
 {
 	*read_only = TRUE;
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_get_cal_address (ECalBackendSync *backend, EDataCal *cal, gchar **address)
+static void
+e_cal_backend_weather_get_cal_address (ECalBackendSync *backend, EDataCal *cal, gchar **address, GError **perror)
 {
 	/* Weather has no particular email addresses associated with it */
 	*address = NULL;
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_get_alarm_email_address (ECalBackendSync *backend, EDataCal *cal, gchar **address)
+static void
+e_cal_backend_weather_get_alarm_email_address (ECalBackendSync *backend, EDataCal *cal, gchar **address, GError **perror)
 {
 	/* Weather has no particular email addresses associated with it */
 	*address = NULL;
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_get_ldap_attribute (ECalBackendSync *backend, EDataCal *cal, gchar **attribute)
+static void
+e_cal_backend_weather_get_ldap_attribute (ECalBackendSync *backend, EDataCal *cal, gchar **attribute, GError **perror)
 {
 	*attribute = NULL;
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_get_static_capabilities (ECalBackendSync *backend, EDataCal *cal, gchar **capabilities)
+static void
+e_cal_backend_weather_get_static_capabilities (ECalBackendSync *backend, EDataCal *cal, gchar **capabilities, GError **perror)
 {
 	*capabilities = g_strdup (CAL_STATIC_CAPABILITY_NO_ALARM_REPEAT ","
 				  CAL_STATIC_CAPABILITY_NO_AUDIO_ALARMS  ","
@@ -460,34 +490,37 @@ e_cal_backend_weather_get_static_capabilities (ECalBackendSync *backend, EDataCa
 				  CAL_STATIC_CAPABILITY_NO_PROCEDURE_ALARMS  ","
 				  CAL_STATIC_CAPABILITY_NO_TASK_ASSIGNMENT  ","
 				  CAL_STATIC_CAPABILITY_NO_THISANDFUTURE  ","
-				  CAL_STATIC_CAPABILITY_NO_THISANDPRIOR);
-
-	return GNOME_Evolution_Calendar_Success;
+				  CAL_STATIC_CAPABILITY_NO_THISANDPRIOR ","
+				  CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED);
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_open (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists, const gchar *username, const gchar *password)
+static void
+e_cal_backend_weather_open (ECalBackendSync *backend, EDataCal *cal, gboolean only_if_exists, const gchar *username, const gchar *password, GError **perror)
 {
 	ECalBackendWeather *cbw;
 	ECalBackendWeatherPrivate *priv;
+	const gchar *cache_dir;
 	const gchar *uri;
 
 	cbw = E_CAL_BACKEND_WEATHER (backend);
 	priv = cbw->priv;
 
 	uri = e_cal_backend_get_uri (E_CAL_BACKEND (backend));
+	cache_dir = e_cal_backend_get_cache_dir (E_CAL_BACKEND (backend));
+
 	if (priv->city)
 		g_free (priv->city);
 	priv->city = g_strdup (strrchr (uri, '/') + 1);
 
 	if (!priv->store) {
-		e_cal_backend_cache_remove (uri, E_CAL_SOURCE_TYPE_EVENT);
-		priv->store = (ECalBackendStore *) e_cal_backend_file_store_new (uri, E_CAL_SOURCE_TYPE_EVENT);
+		e_cal_backend_cache_remove (cache_dir, "cache.xml");
+		priv->store = e_cal_backend_file_store_new (cache_dir);
 
 		if (!priv->store) {
-			e_cal_backend_notify_error (E_CAL_BACKEND (cbw), _("Could not create cache file"));
-			return GNOME_Evolution_Calendar_OtherError;
+			g_propagate_error (perror, EDC_ERROR_EX (OtherError, _("Could not create cache file")));
+			return;
 		}
+	/* do we require to load this new store*/	
 		e_cal_backend_store_load (priv->store);
 
 		if (priv->default_zone) {
@@ -500,17 +533,36 @@ e_cal_backend_weather_open (ECalBackendSync *backend, EDataCal *cal, gboolean on
 		}
 
 		if (priv->mode == CAL_MODE_LOCAL)
-			return GNOME_Evolution_Calendar_Success;
+			return;
 
 		if (!priv->begin_retrival_id)
 			priv->begin_retrival_id = g_idle_add ((GSourceFunc) begin_retrieval_cb, cbw);
 	}
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_remove (ECalBackendSync *backend, EDataCal *cal)
+static void
+e_cal_backend_weather_refresh (ECalBackendSync *backend, EDataCal *cal, GError **perror)
+{
+	ECalBackendWeather *cbw;
+	ECalBackendWeatherPrivate *priv;
+
+	cbw = E_CAL_BACKEND_WEATHER (backend);
+	priv = cbw->priv;
+
+	if (!priv->opened ||
+	    priv->is_loading)
+		return;
+
+	if (priv->reload_timeout_id)
+		g_source_remove (priv->reload_timeout_id);
+	priv->reload_timeout_id = 0;
+
+	/* wait a second, then start reloading */
+	priv->reload_timeout_id = g_timeout_add (1000, (GSourceFunc) reload_cb, cbw);
+}
+
+static void
+e_cal_backend_weather_remove (ECalBackendSync *backend, EDataCal *cal, GError **perror)
 {
 	ECalBackendWeather *cbw;
 	ECalBackendWeatherPrivate *priv;
@@ -521,63 +573,74 @@ e_cal_backend_weather_remove (ECalBackendSync *backend, EDataCal *cal)
 	if (!priv->store) {
 		/* lie here a bit, but otherwise the calendar will not be removed, even it should */
 		g_print (G_STRLOC ": Doesn't have a cache?!?");
-		return GNOME_Evolution_Calendar_Success;
+		return;
 	}
 
 	e_cal_backend_store_remove (priv->store);
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_discard_alarm (ECalBackendSync *backend, EDataCal *cal, const gchar *uid, const gchar *auid)
+static void
+e_cal_backend_weather_discard_alarm (ECalBackendSync *backend, EDataCal *cal, const gchar *uid, const gchar *auid, GError **perror)
 {
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_receive_objects (ECalBackendSync *backend, EDataCal *cal, const gchar *calobj)
+static void
+e_cal_backend_weather_receive_objects (ECalBackendSync *backend, EDataCal *cal, const gchar *calobj, GError **perror)
 {
-	return GNOME_Evolution_Calendar_PermissionDenied;
+	g_propagate_error (perror, EDC_ERROR (PermissionDenied));
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_get_default_object (ECalBackendSync *backend, EDataCal *cal, gchar **object)
+static void
+e_cal_backend_weather_get_default_object (ECalBackendSync *backend, EDataCal *cal, gchar **object, GError **perror)
 {
-	return GNOME_Evolution_Calendar_UnsupportedMethod;
+	g_propagate_error (perror, EDC_ERROR (UnsupportedMethod));
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_get_object (ECalBackendSync *backend, EDataCal *cal, const gchar *uid, const gchar *rid, gchar **object)
+static void
+e_cal_backend_weather_get_object (ECalBackendSync *backend, EDataCal *cal, const gchar *uid, const gchar *rid, gchar **object, GError **error)
 {
 	ECalBackendWeather *cbw = E_CAL_BACKEND_WEATHER (backend);
 	ECalBackendWeatherPrivate *priv = cbw->priv;
 	ECalComponent *comp;
 
-	g_return_val_if_fail (uid != NULL, GNOME_Evolution_Calendar_ObjectNotFound);
-	g_return_val_if_fail (priv->store != NULL, GNOME_Evolution_Calendar_ObjectNotFound);
+	e_return_data_cal_error_if_fail (uid != NULL, InvalidArg);
+	e_return_data_cal_error_if_fail (priv->store != NULL, InvalidArg);
 
 	comp = e_cal_backend_store_get_component (priv->store, uid, rid);
-	g_return_val_if_fail (comp != NULL, GNOME_Evolution_Calendar_ObjectNotFound);
+	if (!comp) {
+		g_propagate_error (error, EDC_ERROR (ObjectNotFound));
+		return;
+	}
 
 	*object = e_cal_component_get_as_string (comp);
 	g_object_unref (comp);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_get_object_list (ECalBackendSync *backend, EDataCal *cal, const gchar *sexp_string, GList **objects)
+static void
+e_cal_backend_weather_get_object_list (ECalBackendSync *backend, EDataCal *cal, const gchar *sexp_string, GList **objects, GError **perror)
 {
 	ECalBackendWeather *cbw = E_CAL_BACKEND_WEATHER (backend);
 	ECalBackendWeatherPrivate *priv = cbw->priv;
 	ECalBackendSExp *sexp = e_cal_backend_sexp_new (sexp_string);
 	GSList *components, *l;
+	time_t occur_start = -1, occur_end = -1;
+	gboolean prunning_by_time;
 
-	if (!sexp)
-		return GNOME_Evolution_Calendar_InvalidQuery;
+	if (!sexp) {
+		g_propagate_error (perror, EDC_ERROR (InvalidQuery));
+		return;
+	}
 
 	*objects = NULL;
 	components = e_cal_backend_store_get_components (priv->store);
+	prunning_by_time = e_cal_backend_sexp_evaluate_occur_times(sexp,
+									    &occur_start,
+									    &occur_end);
+
+	components = prunning_by_time ?
+		e_cal_backend_store_get_components_occuring_in_range (priv->store, occur_start, occur_end)
+		: e_cal_backend_store_get_components (priv->store);
+
 	for (l = components; l != NULL; l = g_slist_next (l)) {
 		if (e_cal_backend_sexp_match_comp (sexp, E_CAL_COMPONENT (l->data), E_CAL_BACKEND (backend)))
 			*objects = g_list_append (*objects, e_cal_component_get_as_string (l->data));
@@ -586,38 +649,10 @@ e_cal_backend_weather_get_object_list (ECalBackendSync *backend, EDataCal *cal, 
 	g_slist_foreach (components, (GFunc) g_object_unref, NULL);
 	g_slist_free (components);
 	g_object_unref (sexp);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_get_timezone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzid, gchar **object)
-{
-	ECalBackendWeather *cbw;
-	ECalBackendWeatherPrivate *priv;
-	icaltimezone *zone;
-	icalcomponent *icalcomp;
-
-	cbw = E_CAL_BACKEND_WEATHER (backend);
-	priv = cbw->priv;
-
-	g_return_val_if_fail (tzid != NULL, GNOME_Evolution_Calendar_ObjectNotFound);
-
-	zone = e_cal_backend_internal_get_timezone (E_CAL_BACKEND (backend), tzid);
-	if (!zone)
-		return GNOME_Evolution_Calendar_ObjectNotFound;
-
-	icalcomp = icaltimezone_get_component (zone);
-	if (!icalcomp)
-		return GNOME_Evolution_Calendar_InvalidObject;
-
-	*object = icalcomponent_as_ical_string_r (icalcomp);
-
-	return GNOME_Evolution_Calendar_Success;
-}
-
-static ECalBackendSyncStatus
-e_cal_backend_weather_add_timezone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj)
+static void
+e_cal_backend_weather_add_timezone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj, GError **error)
 {
 	ECalBackendWeather *cbw;
 	ECalBackendWeatherPrivate *priv;
@@ -627,16 +662,18 @@ e_cal_backend_weather_add_timezone (ECalBackendSync *backend, EDataCal *cal, con
 
 	cbw = (ECalBackendWeather*) backend;
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_WEATHER (cbw), GNOME_Evolution_Calendar_OtherError);
-	g_return_val_if_fail (tzobj != NULL, GNOME_Evolution_Calendar_OtherError);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_WEATHER (cbw), InvalidArg);
+	e_return_data_cal_error_if_fail (tzobj != NULL, InvalidArg);
 
 	priv = cbw->priv;
 
 	tz_comp = icalparser_parse_string (tzobj);
-	g_return_val_if_fail (tz_comp != NULL, GNOME_Evolution_Calendar_InvalidObject);
+	e_return_data_cal_error_if_fail (tz_comp != NULL, InvalidObject);
 
-	if (icalcomponent_isa (tz_comp) != ICAL_VTIMEZONE_COMPONENT)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (icalcomponent_isa (tz_comp) != ICAL_VTIMEZONE_COMPONENT) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
+	}
 
 	zone = icaltimezone_new ();
 	icaltimezone_set_component (zone, tz_comp);
@@ -644,15 +681,13 @@ e_cal_backend_weather_add_timezone (ECalBackendSync *backend, EDataCal *cal, con
 
 	if (g_hash_table_lookup (priv->zones, tzid)) {
 		icaltimezone_free (zone, TRUE);
-		return GNOME_Evolution_Calendar_Success;
+	} else {
+		g_hash_table_insert (priv->zones, g_strdup (tzid), zone);
 	}
-
-	g_hash_table_insert (priv->zones, g_strdup (tzid), zone);
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_set_default_zone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj)
+static void
+e_cal_backend_weather_set_default_zone (ECalBackendSync *backend, EDataCal *cal, const gchar *tzobj, GError **error)
 {
 	icalcomponent *tz_comp;
 	ECalBackendWeather *cbw;
@@ -661,14 +696,16 @@ e_cal_backend_weather_set_default_zone (ECalBackendSync *backend, EDataCal *cal,
 
 	cbw = (ECalBackendWeather *) backend;
 
-	g_return_val_if_fail (E_IS_CAL_BACKEND_WEATHER (cbw), GNOME_Evolution_Calendar_OtherError);
-	g_return_val_if_fail (tzobj != NULL, GNOME_Evolution_Calendar_OtherError);
+	e_return_data_cal_error_if_fail (E_IS_CAL_BACKEND_WEATHER (cbw), InvalidArg);
+	e_return_data_cal_error_if_fail (tzobj != NULL, InvalidArg);
 
 	priv = cbw->priv;
 
 	tz_comp = icalparser_parse_string (tzobj);
-	if (!tz_comp)
-		return GNOME_Evolution_Calendar_InvalidObject;
+	if (!tz_comp) {
+		g_propagate_error (error, EDC_ERROR (InvalidObject));
+		return;
+	}
 
 	zone = icaltimezone_new ();
 	icaltimezone_set_component (zone, tz_comp);
@@ -678,12 +715,10 @@ e_cal_backend_weather_set_default_zone (ECalBackendSync *backend, EDataCal *cal,
 
 	/* Set the default timezone to it. */
 	priv->default_zone = zone;
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_get_free_busy (ECalBackendSync *backend, EDataCal *cal, GList *users, time_t start, time_t end, GList **freebusy)
+static void
+e_cal_backend_weather_get_free_busy (ECalBackendSync *backend, EDataCal *cal, GList *users, time_t start, time_t end, GList **freebusy, GError **perror)
 {
 	/* Weather doesn't count as busy time */
 	icalcomponent *vfb = icalcomponent_new_vfreebusy ();
@@ -696,14 +731,11 @@ e_cal_backend_weather_get_free_busy (ECalBackendSync *backend, EDataCal *cal, GL
 	calobj = icalcomponent_as_ical_string_r (vfb);
 	*freebusy = g_list_append (NULL, calobj);
 	icalcomponent_free (vfb);
-
-	return GNOME_Evolution_Calendar_Success;
 }
 
-static ECalBackendSyncStatus
-e_cal_backend_weather_get_changes (ECalBackendSync *backend, EDataCal *cal, const gchar *change_id, GList **adds, GList **modifies, GList **deletes)
+static void
+e_cal_backend_weather_get_changes (ECalBackendSync *backend, EDataCal *cal, const gchar *change_id, GList **adds, GList **modifies, GList **deletes, GError **perror)
 {
-	return GNOME_Evolution_Calendar_Success;
 }
 
 static gboolean
@@ -728,23 +760,34 @@ static void e_cal_backend_weather_start_query (ECalBackend *backend, EDataCalVie
 	ECalBackendSExp *sexp;
 	GSList *components, *l;
 	GList *objects;
+	GError *error;
+	time_t occur_start = -1, occur_end = -1;
+	gboolean prunning_by_time;
 
 	cbw = E_CAL_BACKEND_WEATHER (backend);
 	priv = cbw->priv;
 
 	if (!priv->store) {
-		e_data_cal_view_notify_done (query, GNOME_Evolution_Calendar_NoSuchCal);
+		error = EDC_ERROR (NoSuchCal);
+		e_data_cal_view_notify_done (query, error);
+		g_error_free (error);
 		return;
 	}
 
 	sexp = e_data_cal_view_get_object_sexp (query);
 	if (!sexp) {
-		e_data_cal_view_notify_done (query, GNOME_Evolution_Calendar_InvalidQuery);
+		error = EDC_ERROR (InvalidQuery);
+		e_data_cal_view_notify_done (query, error);
+		g_error_free (error);
 		return;
 	}
 
 	objects = NULL;
-	components = e_cal_backend_store_get_components (priv->store);
+	prunning_by_time = e_cal_backend_sexp_evaluate_occur_times(sexp, &occur_start, &occur_end);
+	components = prunning_by_time ?
+		e_cal_backend_store_get_components_occuring_in_range (priv->store, occur_start, occur_end)
+		: e_cal_backend_store_get_components (priv->store);
+
 	for (l = components; l != NULL; l = g_slist_next (l)) {
 		if (e_cal_backend_sexp_match_comp (sexp, E_CAL_COMPONENT (l->data), backend))
 			objects = g_list_append (objects, e_cal_component_get_as_string (l->data));
@@ -759,7 +802,7 @@ static void e_cal_backend_weather_start_query (ECalBackend *backend, EDataCalVie
 	g_list_free (objects);
 	g_object_unref (sexp);
 
-	e_data_cal_view_notify_done (query, GNOME_Evolution_Calendar_Success);
+	e_data_cal_view_notify_done (query, NULL /* Success */);
 }
 
 static CalMode
@@ -779,7 +822,7 @@ e_cal_backend_weather_set_mode (ECalBackend *backend, CalMode mode)
 {
 	ECalBackendWeather *cbw;
 	ECalBackendWeatherPrivate *priv;
-	GNOME_Evolution_Calendar_CalMode set_mode;
+	EDataCalMode set_mode;
 	gboolean loaded;
 
 	cbw = E_CAL_BACKEND_WEATHER (backend);
@@ -787,35 +830,39 @@ e_cal_backend_weather_set_mode (ECalBackend *backend, CalMode mode)
 
 	loaded = e_cal_backend_weather_is_loaded (backend);
 
-	switch (mode) {
-		case CAL_MODE_LOCAL:
-		case CAL_MODE_REMOTE:
-			priv->mode = mode;
-			set_mode = cal_mode_to_corba (mode);
-			if (loaded && priv->reload_timeout_id) {
-				g_source_remove (priv->reload_timeout_id);
-				priv->reload_timeout_id = 0;
-			}
-			break;
-		case CAL_MODE_ANY:
-			priv->mode = mode;
-			set_mode = cal_mode_to_corba (mode);
-			if (loaded && !priv->begin_retrival_id)
-				priv->begin_retrival_id = g_idle_add ((GSourceFunc) begin_retrieval_cb, backend);
-			break;
-		default:
-			set_mode = GNOME_Evolution_Calendar_MODE_ANY;
-			break;
+	if (priv->mode != mode) {
+		switch (mode) {
+			case CAL_MODE_LOCAL:
+			case CAL_MODE_REMOTE:
+				priv->mode = mode;
+				set_mode = cal_mode_to_corba (mode);
+				if (loaded && priv->reload_timeout_id) {
+					g_source_remove (priv->reload_timeout_id);
+					priv->reload_timeout_id = 0;
+				}
+				break;
+			case CAL_MODE_ANY:
+				priv->mode = mode;
+				set_mode = cal_mode_to_corba (mode);
+				if (loaded && !priv->begin_retrival_id)
+					priv->begin_retrival_id = g_idle_add ((GSourceFunc) begin_retrieval_cb, backend);
+				break;
+			default:
+				set_mode = AnyMode;
+				break;
+		}
+	} else {
+		set_mode = cal_mode_to_corba (priv->mode);
 	}
 
 	if (loaded) {
-		if (set_mode == GNOME_Evolution_Calendar_MODE_ANY)
+		if (set_mode == AnyMode)
 			e_cal_backend_notify_mode (backend,
-						   GNOME_Evolution_Calendar_CalListener_MODE_NOT_SUPPORTED,
+						   ModeNotSupported,
 						   cal_mode_to_corba (priv->mode));
 		else
 			e_cal_backend_notify_mode (backend,
-						   GNOME_Evolution_Calendar_CalListener_MODE_SET,
+						   ModeSet,
 						   set_mode);
 	}
 }
@@ -832,13 +879,22 @@ static icaltimezone *
 e_cal_backend_weather_internal_get_timezone (ECalBackend *backend, const gchar *tzid)
 {
 	icaltimezone *zone;
-	if (!strcmp (tzid, "UTC"))
-		zone = icaltimezone_get_utc_timezone ();
-	else
-		zone = icaltimezone_get_builtin_timezone_from_tzid (tzid);
 
-	if (!zone && E_CAL_BACKEND_CLASS (parent_class)->internal_get_timezone)
-		zone = E_CAL_BACKEND_CLASS (parent_class)->internal_get_timezone (backend, tzid);
+	g_return_val_if_fail (tzid != NULL, NULL);
+
+	if (!strcmp (tzid, "UTC")) {
+		zone = icaltimezone_get_utc_timezone ();
+	} else {
+		ECalBackendWeather *cbw = E_CAL_BACKEND_WEATHER (backend);
+
+		g_return_val_if_fail (E_IS_CAL_BACKEND_WEATHER (cbw), NULL);
+		g_return_val_if_fail (cbw->priv != NULL, NULL);
+
+		zone = g_hash_table_lookup (cbw->priv->zones, tzid);
+
+		if (!zone && E_CAL_BACKEND_CLASS (parent_class)->internal_get_timezone)
+			zone = E_CAL_BACKEND_CLASS (parent_class)->internal_get_timezone (backend, tzid);
+	}
 
 	return zone;
 }
@@ -898,7 +954,7 @@ e_cal_backend_weather_finalize (GObject *object)
 
 /* Object initialization function for the weather backend */
 static void
-e_cal_backend_weather_init (ECalBackendWeather *cbw, ECalBackendWeatherClass *class)
+e_cal_backend_weather_init (ECalBackendWeather *cbw)
 {
 	ECalBackendWeatherPrivate *priv;
 
@@ -941,13 +997,13 @@ e_cal_backend_weather_class_init (ECalBackendWeatherClass *class)
 	sync_class->get_ldap_attribute_sync = e_cal_backend_weather_get_ldap_attribute;
 	sync_class->get_static_capabilities_sync = e_cal_backend_weather_get_static_capabilities;
 	sync_class->open_sync = e_cal_backend_weather_open;
+	sync_class->refresh_sync = e_cal_backend_weather_refresh;
 	sync_class->remove_sync = e_cal_backend_weather_remove;
 	sync_class->discard_alarm_sync = e_cal_backend_weather_discard_alarm;
 	sync_class->receive_objects_sync = e_cal_backend_weather_receive_objects;
 	sync_class->get_default_object_sync = e_cal_backend_weather_get_default_object;
 	sync_class->get_object_sync = e_cal_backend_weather_get_object;
 	sync_class->get_object_list_sync = e_cal_backend_weather_get_object_list;
-	sync_class->get_timezone_sync = e_cal_backend_weather_get_timezone;
 	sync_class->add_timezone_sync = e_cal_backend_weather_add_timezone;
 	sync_class->set_default_zone_sync = e_cal_backend_weather_set_default_zone;
 	sync_class->get_freebusy_sync = e_cal_backend_weather_get_free_busy;
@@ -959,35 +1015,4 @@ e_cal_backend_weather_class_init (ECalBackendWeatherClass *class)
 
 	backend_class->internal_get_default_timezone = e_cal_backend_weather_internal_get_default_timezone;
 	backend_class->internal_get_timezone = e_cal_backend_weather_internal_get_timezone;
-}
-
-/**
- * e_cal_backend_weather_get_type:
- * @void:
- *
- * Registers the #ECalBackendWeather class if necessary, and returns
- * the type ID associated to it.
- *
- * Return value: The type ID of the #ECalBackendWeather class.
- **/
-GType
-e_cal_backend_weather_get_type (void)
-{
-	static GType e_cal_backend_weather_type = 0;
-
-	if (!e_cal_backend_weather_type) {
-		static GTypeInfo info = {
-			sizeof (ECalBackendWeatherClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) e_cal_backend_weather_class_init,
-			NULL, NULL,
-			sizeof (ECalBackendWeather),
-			0,
-			(GInstanceInitFunc) e_cal_backend_weather_init
-		};
-		e_cal_backend_weather_type = g_type_register_static (E_TYPE_CAL_BACKEND_SYNC, "ECalBackendWeather", &info, 0);
-	}
-
-	return e_cal_backend_weather_type;
 }

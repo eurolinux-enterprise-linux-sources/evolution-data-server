@@ -41,6 +41,8 @@
 /* Soup session proxy-uri property */
 #define SOUP_SESSION_PROXY_URI "proxy-uri"
 
+G_DEFINE_TYPE (EGwConnection, e_gw_connection, G_TYPE_OBJECT)
+
 static GObjectClass *parent_class = NULL;
 static GHashTable *loaded_connections_permissions = NULL;
 
@@ -422,7 +424,7 @@ e_gw_connection_class_init (EGwConnectionClass *klass)
 }
 
 static void
-e_gw_connection_init (EGwConnection *cnc, EGwConnectionClass *klass)
+e_gw_connection_init (EGwConnection *cnc)
 {
 	EGwConnectionPrivate *priv;
 	guint timeout = GW_SOUP_SESSION_TIMEOUT;
@@ -463,28 +465,6 @@ e_gw_connection_init (EGwConnection *cnc, EGwConnectionClass *klass)
 		}
 	}
 	*/
-}
-
-GType
-e_gw_connection_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static GTypeInfo info = {
-                        sizeof (EGwConnectionClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) e_gw_connection_class_init,
-                        NULL, NULL,
-                        sizeof (EGwConnection),
-                        0,
-                        (GInstanceInitFunc) e_gw_connection_init
-                };
-		type = g_type_register_static (G_TYPE_OBJECT, "EGwConnection", &info, 0);
-	}
-
-	return type;
 }
 
 static SoupSoapMessage*
@@ -554,6 +534,8 @@ e_gw_connection_new_with_error_handler (const gchar *uri, const gchar *username,
 	response = e_gw_connection_send_message (cnc, msg);
 
 	if (!response) {
+		if (errors)
+			errors->status = E_GW_CONNECTION_STATUS_UNKNOWN;
 		g_object_unref (cnc);
 		g_static_mutex_unlock (&connecting);
 		g_object_unref (msg);
@@ -860,9 +842,11 @@ e_gw_connection_get_container (EGwConnection *cnc, const gchar * uid)
 
 				subparam = soup_soap_response_get_first_parameter_by_name (response, "folder");
 				container = e_gw_container_new_from_soap_parameter (subparam);
+				g_object_unref (response);
 
 				return container;
 		}
+		g_object_unref (response);
 
 		return NULL;
 }
@@ -1119,7 +1103,7 @@ e_gw_connection_get_items_from_ids (EGwConnection *cnc, const gchar *container, 
 	if (view)
 		e_gw_message_write_string_parameter (msg, "view", NULL, view);
 	soup_soap_message_start_element (msg, "items", NULL, NULL);
-	for (i = 0; i < item_ids->len; i ++) {
+	for (i = 0; i < item_ids->len; i++) {
 		gchar *id = g_ptr_array_index (item_ids, i);
 		e_gw_message_write_string_parameter (msg, "item", NULL, id);
 	}

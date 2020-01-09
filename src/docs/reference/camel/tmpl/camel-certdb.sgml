@@ -25,16 +25,6 @@ CamelCertDB
 
 </para>
 
-@parent_object: 
-@priv: 
-@filename: 
-@version: 
-@saved_certs: 
-@flags: 
-@cert_size: 
-@cert_chunks: 
-@certs: 
-@cert_hash: 
 
 <!-- ##### ENUM CamelCertTrust ##### -->
 <para>
@@ -300,5 +290,33 @@ CamelCertDB
 @certdb: 
 @cert: 
 @trust: 
+
+
+<!-- ##### ENUM CamelCertDBLock ##### -->
+<para>
+
+</para>
+
+@CAMEL_CERTDB_DB_LOCK: 
+@CAMEL_CERTDB_IO_LOCK: 
+@CAMEL_CERTDB_ALLOC_LOCK: 
+@CAMEL_CERTDB_REF_LOCK: 
+
+<!-- ##### FUNCTION camel_certdb_lock ##### -->
+<para>
+
+</para>
+
+@certdb: 
+@lock: 
+
+
+<!-- ##### FUNCTION camel_certdb_unlock ##### -->
+<para>
+
+</para>
+
+@certdb: 
+@lock: 
 
 

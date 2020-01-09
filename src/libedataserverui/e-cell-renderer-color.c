@@ -106,7 +106,7 @@ cell_renderer_color_render (GtkCellRenderer *cell,
 	ECellRendererColorPrivate *priv;
 	GdkRectangle pix_rect;
 	GdkRectangle draw_rect;
-	GdkGC *gc;
+	cairo_t *cr;
 	guint xpad;
 	guint ypad;
 
@@ -134,12 +134,12 @@ cell_renderer_color_render (GtkCellRenderer *cell,
 	gdk_colormap_alloc_color (
 		gdk_colormap_get_system(), priv->color, FALSE, TRUE);
 
-	gc = gdk_gc_new (window);
-	gdk_gc_set_foreground (gc, priv->color);
-	gdk_draw_rectangle (
-		window, gc, TRUE, pix_rect.x, pix_rect.y,
-		draw_rect.width, draw_rect.height);
-	g_object_unref (gc);
+	cr = gdk_cairo_create (window);
+	gdk_cairo_set_source_color (cr, priv->color);
+	cairo_rectangle (cr, pix_rect.x, pix_rect.y, draw_rect.width, draw_rect.height);
+
+	cairo_fill (cr);
+	cairo_destroy (cr);
 }
 
 static void
@@ -219,8 +219,8 @@ e_cell_renderer_color_class_init (ECellRendererColorClass *class)
 		PROP_COLOR,
 		g_param_spec_boxed (
 			"color",
-			_("Color Info"),
-			_("The color to render"),
+			"Color Info",
+			"The color to render",
 			GDK_TYPE_COLOR,
 			G_PARAM_READWRITE));
 }
@@ -233,6 +233,11 @@ e_cell_renderer_color_init (ECellRendererColor *cellcolor)
 	g_object_set (cellcolor, "xpad", 4, NULL);
 }
 
+/**
+ * e_cell_renderer_color_new:
+ *
+ * Since: 2.22
+ **/
 GtkCellRenderer *
 e_cell_renderer_color_new (void)
 {

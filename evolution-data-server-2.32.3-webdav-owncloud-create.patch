@@ -1,0 +1,257 @@
+diff -up evolution-data-server-2.32.3/addressbook/backends/webdav/e-book-backend-webdav.c.webdav-owncloud-create evolution-data-server-2.32.3/addressbook/backends/webdav/e-book-backend-webdav.c
+--- evolution-data-server-2.32.3/addressbook/backends/webdav/e-book-backend-webdav.c.webdav-owncloud-create	2013-09-06 09:41:28.839505402 +0200
++++ evolution-data-server-2.32.3/addressbook/backends/webdav/e-book-backend-webdav.c	2013-09-06 09:41:29.116505402 +0200
+@@ -22,7 +22,7 @@
+ /*
+  * Implementation notes:
+  *   We use the DavResource URIs as UID in the evolution contact
+- *   ETags are saved in the E_CONTACT_REV field so we know which cached contacts
++ *   ETags are saved in the WEBDAV_CONTACT_ETAG field so we know which cached contacts
+  *   are outdated.
+  */
+ #include <config.h>
+@@ -59,6 +59,9 @@
+ #define USERAGENT             "Evolution/" VERSION
+ #define WEBDAV_CLOSURE_NAME   "EBookBackendWebdav.BookView::closure"
+ #define WEBDAV_CTAG_KEY "WEBDAV_CTAG"
++#define WEBDAV_CACHE_VERSION_KEY "WEBDAV_CACHE_VERSION"
++#define WEBDAV_CACHE_VERSION "1"
++#define WEBDAV_CONTACT_ETAG "X-EVOLUTION-WEBDAV-ETAG"
+ 
+ G_DEFINE_TYPE (EBookBackendWebdav, e_book_backend_webdav, E_TYPE_BOOK_BACKEND)
+ 
+@@ -109,6 +112,47 @@ webdav_debug_setup (SoupSession *session
+ }
+ 
+ static void
++webdav_contact_set_etag (EContact *contact,
++			 const gchar *etag)
++{
++	EVCardAttribute *attr;
++
++	g_return_if_fail (E_IS_CONTACT (contact));
++
++	attr = e_vcard_get_attribute (E_VCARD (contact), WEBDAV_CONTACT_ETAG);
++
++	if (attr) {
++		e_vcard_attribute_remove_values (attr);
++		if (etag) {
++			e_vcard_attribute_add_value (attr, etag);
++		} else {
++			e_vcard_remove_attribute (E_VCARD (contact), attr);
++		}
++	} else if (etag) {
++		e_vcard_append_attribute_with_value (
++			E_VCARD (contact),
++			e_vcard_attribute_new (NULL, WEBDAV_CONTACT_ETAG),
++			etag);
++	}
++}
++
++static gchar *
++webdav_contact_get_etag (EContact *contact)
++{
++	EVCardAttribute *attr;
++	GList *v = NULL;
++
++	g_return_val_if_fail (E_IS_CONTACT (contact), NULL);
++
++	attr = e_vcard_get_attribute (E_VCARD (contact), WEBDAV_CONTACT_ETAG);
++
++	if (attr)
++		v = e_vcard_attribute_get_values (attr);
++
++	return ((v && v->data) ? g_strstrip (g_strdup (v->data)) : NULL);
++}
++
++static void
+ closure_destroy(WebdavBackendSearchClosure *closure)
+ {
+ 	e_flag_free(closure->running);
+@@ -179,7 +223,7 @@ download_contact(EBookBackendWebdav *web
+ 	 * the etag is rememebered in the revision field */
+ 	e_contact_set(contact, E_CONTACT_UID, (gconstpointer) uri);
+ 	if (etag != NULL) {
+-		e_contact_set(contact, E_CONTACT_REV, (gconstpointer) etag);
++		webdav_contact_set_etag (contact, etag);
+ 	}
+ 
+ 	g_object_unref(message);
+@@ -220,7 +264,7 @@ upload_contact(EBookBackendWebdav *webda
+ 	 * we can leave it out */
+ 	if (!avoid_ifmatch) {
+ 		/* only override if etag is still the same on the server */
+-		etag = e_contact_get(contact, E_CONTACT_REV);
++		etag = webdav_contact_get_etag (contact);
+ 		if (etag == NULL) {
+ 			soup_message_headers_append(message->request_headers,
+ 						    "If-None-Match", "*");
+@@ -229,14 +273,13 @@ upload_contact(EBookBackendWebdav *webda
+ 		} else {
+ 			soup_message_headers_append(message->request_headers,
+ 						    "If-Match", etag);
+-			g_free(etag);
+ 		}
++		g_free (etag);
+ 	}
+ 
+-	/* don't upload the UID and REV fields, they're only interesting inside
+-	 * evolution and not on the webdav server */
+-	e_contact_set(contact, E_CONTACT_UID, NULL);
+-	e_contact_set(contact, E_CONTACT_REV, NULL);
++	/* Remove the stored ETag, before saving to the server */
++	webdav_contact_set_etag (contact, NULL);
++
+ 	request = e_vcard_to_string(E_VCARD(contact), EVC_FORMAT_VCARD_30);
+ 	soup_message_set_request(message, "text/vcard", SOUP_MEMORY_TEMPORARY,
+ 				 request, strlen(request));
+@@ -246,8 +289,8 @@ upload_contact(EBookBackendWebdav *webda
+ 
+ 	redir_uri = soup_message_headers_get (message->response_headers, "Location");
+ 
+-	/* set UID and REV fields */
+-	e_contact_set(contact, E_CONTACT_REV, (gconstpointer) new_etag);
++	/* set UID and WEBDAV_CONTACT_ETAG fields */
++	webdav_contact_set_etag (contact, new_etag);
+ 	if (redir_uri && *redir_uri) {
+ 		if (!strstr (redir_uri, "://")) {
+ 			/* it's a relative URI */
+@@ -299,7 +342,7 @@ e_book_backend_webdav_create_contact(EBo
+ 	EBookBackendWebdav        *webdav = E_BOOK_BACKEND_WEBDAV (backend);
+ 	EBookBackendWebdavPrivate *priv   = webdav->priv;
+ 	EContact                  *contact;
+-	gchar                     *uid;
++	gchar                     *uid, *stored_etag;
+ 	guint                      status;
+ 
+ 	if (priv->mode == E_DATA_BOOK_MODE_LOCAL) {
+@@ -315,8 +358,8 @@ e_book_backend_webdav_create_contact(EBo
+ 			      rand());
+ 	e_contact_set(contact, E_CONTACT_UID, uid);
+ 
+-	/* kill revision field (might have been set by some other backend) */
+-	e_contact_set(contact, E_CONTACT_REV, NULL);
++	/* kill WEBDAV_CONTACT_ETAG field (might have been set by some other backend) */
++	webdav_contact_set_etag (contact, NULL);
+ 
+ 	status = upload_contact(webdav, contact);
+ 	if (status != 201 && status != 204) {
+@@ -333,7 +376,8 @@ e_book_backend_webdav_create_contact(EBo
+ 		return;
+ 	}
+ 	/* PUT request didn't return an etag? try downloading to get one */
+-	if (e_contact_get_const(contact, E_CONTACT_REV) == NULL) {
++	stored_etag = webdav_contact_get_etag (contact);
++	if (!stored_etag) {
+ 		const gchar *new_uid;
+ 		EContact *new_contact;
+ 
+@@ -349,6 +393,8 @@ e_book_backend_webdav_create_contact(EBo
+ 			return;
+ 		}
+ 		contact = new_contact;
++	} else {
++		g_free (stored_etag);
+ 	}
+ 
+ 	e_book_backend_cache_add_contact(priv->cache, contact);
+@@ -420,7 +466,7 @@ e_book_backend_webdav_modify_contact(EBo
+ 	EBookBackendWebdavPrivate *priv    = webdav->priv;
+ 	EContact                  *contact = e_contact_new_from_vcard(vcard);
+ 	const gchar                *uid;
+-	const gchar                *etag;
++	gchar                *etag;
+ 	guint status;
+ 
+ 	if (priv->mode == E_DATA_BOOK_MODE_LOCAL) {
+@@ -458,7 +504,7 @@ e_book_backend_webdav_modify_contact(EBo
+ 	uid = e_contact_get_const(contact, E_CONTACT_UID);
+ 	e_book_backend_cache_remove_contact(priv->cache, uid);
+ 
+-	etag = e_contact_get_const(contact, E_CONTACT_REV);
++	etag = webdav_contact_get_etag (contact);
+ 
+ 	/* PUT request didn't return an etag? try downloading to get one */
+ 	if (etag == NULL || (etag[0] == 'W' && etag[1] == '/')) {
+@@ -467,9 +513,13 @@ e_book_backend_webdav_modify_contact(EBo
+ 		g_warning("Server didn't return etag for modified address resource");
+ 		new_contact = download_contact(webdav, uid);
+ 		if (new_contact != NULL) {
++			g_object_unref (contact);
+ 			contact = new_contact;
+ 		}
+ 	}
++
++	g_free (etag);
++
+ 	e_book_backend_cache_add_contact(priv->cache, contact);
+ 
+ 	e_data_book_respond_modify (book, opid, EDB_ERROR (SUCCESS), contact);
+@@ -776,6 +826,14 @@ check_addressbook_changed (EBookBackendW
+ 
+ 			if (xp_object_get_status (xpath_eval (xpctx, GETCTAG_XPATH_STATUS)) == 200) {
+ 				gchar *txt = xp_object_get_string (xpath_eval (xpctx, GETCTAG_XPATH_VALUE));
++				const gchar *stored_version;
++				gboolean old_version;
++
++				stored_version = e_file_cache_get_object (E_FILE_CACHE (priv->cache), WEBDAV_CACHE_VERSION_KEY);
++
++				/* The ETag was moved from REV to its own attribute, thus
++				   if the cache version is too low, update it. */
++				old_version = !stored_version || atoi (stored_version) < atoi (WEBDAV_CACHE_VERSION);
+ 
+ 				if (txt && *txt) {
+ 					gint len = strlen (txt);
+@@ -792,12 +850,21 @@ check_addressbook_changed (EBookBackendW
+ 						const gchar *my_ctag;
+ 
+ 						my_ctag = e_file_cache_get_object (E_FILE_CACHE (priv->cache), WEBDAV_CTAG_KEY);
+-						res = !my_ctag || !g_str_equal (my_ctag, *new_ctag);
++						res = old_version || !my_ctag || !g_str_equal (my_ctag, *new_ctag);
+ 						priv->supports_getctag = TRUE;
+ 					}
+ 				}
+ 
+ 				g_free (txt);
++
++				if (old_version) {
++					if (!e_file_cache_replace_object (E_FILE_CACHE (priv->cache),
++						WEBDAV_CACHE_VERSION_KEY,
++						WEBDAV_CACHE_VERSION))
++						e_file_cache_add_object (E_FILE_CACHE (priv->cache),
++							WEBDAV_CACHE_VERSION_KEY,
++							WEBDAV_CACHE_VERSION);
++				}
+ 			}
+ 
+ 			xmlXPathFreeContext (xpctx);
+@@ -887,7 +954,7 @@ download_contacts(EBookBackendWebdav *we
+ 		const gchar  *uri;
+ 		const gchar *etag;
+ 		EContact    *contact;
+-		gchar *complete_uri;
++		gchar *complete_uri, *stored_etag;
+ 
+ 		/* stop downloading if search was aborted */
+ 		if (running != NULL && !e_flag_is_set(running))
+@@ -919,9 +986,10 @@ download_contacts(EBookBackendWebdav *we
+ 		etag = (const gchar *) element->etag;
+ 
+ 		contact = e_book_backend_cache_get_contact(priv->cache, complete_uri);
++		stored_etag = webdav_contact_get_etag (contact);
+ 		/* download contact if it is not cached or its ETag changed */
+-		if (contact == NULL || etag == NULL ||
+-				strcmp(e_contact_get_const(contact, E_CONTACT_REV),etag) != 0) {
++		if (contact == NULL || etag == NULL || !stored_etag ||
++		    strcmp (stored_etag, etag) != 0) {
+ 			contact = download_contact(webdav, complete_uri);
+ 			if (contact != NULL) {
+ 				e_book_backend_cache_remove_contact(priv->cache, complete_uri);
+@@ -934,6 +1002,7 @@ download_contacts(EBookBackendWebdav *we
+ 		}
+ 
+ 		g_free(complete_uri);
++		g_free (stored_etag);
+ 	}
+ 
+ 	/* free element list */

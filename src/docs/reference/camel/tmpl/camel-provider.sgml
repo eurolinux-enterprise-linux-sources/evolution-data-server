@@ -101,6 +101,20 @@ camel-provider
 
 
 
+<!-- ##### MACRO CAMEL_PROVIDER_ALLOW_REAL_TRASH_FOLDER ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO CAMEL_PROVIDER_ALLOW_REAL_JUNK_FOLDER ##### -->
+<para>
+
+</para>
+
+
+
 <!-- ##### MACRO CAMEL_URL_PART_USER ##### -->
 <para>
 
@@ -400,7 +414,7 @@ camel-provider
 
 @url: 
 @auto_detected: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -450,7 +464,8 @@ camel-provider
 </para>
 
 @path: 
-@ex: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_provider_register ##### -->
@@ -476,7 +491,7 @@ camel-provider
 </para>
 
 @url_string: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -496,7 +511,7 @@ camel-provider
 @provider: 
 @url: 
 @auto_detected: 
-@ex: 
+@error: 
 @Returns: 
 
 

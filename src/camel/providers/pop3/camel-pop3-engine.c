@@ -28,13 +28,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <glib.h>
 #include <glib/gi18n-lib.h>
 
 #include "camel-pop3-engine.h"
 #include "camel-pop3-stream.h"
-#include "camel-sasl.h"
-#include "camel-service.h"
 
 /* max 'outstanding' bytes in output stream, so we can't deadlock waiting
    for the server to accept our data when pipelining */
@@ -48,56 +45,53 @@ extern gint camel_verbose_debug;
 
 static void get_capabilities(CamelPOP3Engine *pe);
 
-static CamelObjectClass *parent_class = NULL;
-
-/* Returns the class for a CamelStream */
-#define CS_CLASS(so) CAMEL_POP3_ENGINE_CLASS(CAMEL_OBJECT_GET_CLASS(so))
+G_DEFINE_TYPE (CamelPOP3Engine, camel_pop3_engine, CAMEL_TYPE_OBJECT)
 
 static void
-camel_pop3_engine_class_init (CamelPOP3EngineClass *camel_pop3_engine_class)
+pop3_engine_dispose (GObject *object)
 {
-	parent_class = camel_type_get_global_classfuncs( CAMEL_OBJECT_TYPE );
-}
+	CamelPOP3Engine *engine = CAMEL_POP3_ENGINE (object);
 
-static void
-camel_pop3_engine_init(CamelPOP3Engine *pe, CamelPOP3EngineClass *peclass)
-{
-	camel_dlist_init(&pe->active);
-	camel_dlist_init(&pe->queue);
-	camel_dlist_init(&pe->done);
-	pe->state = CAMEL_POP3_ENGINE_DISCONNECT;
-}
-
-static void
-camel_pop3_engine_finalise(CamelPOP3Engine *pe)
-{
-	/* FIXME: Also flush/free any outstanding requests, etc */
-
-	if (pe->stream)
-		camel_object_unref(pe->stream);
-
-	g_list_free(pe->auth);
-	if (pe->apop)
-		g_free(pe->apop);
-}
-
-CamelType
-camel_pop3_engine_get_type (void)
-{
-	static CamelType camel_pop3_engine_type = CAMEL_INVALID_TYPE;
-
-	if (camel_pop3_engine_type == CAMEL_INVALID_TYPE) {
-		camel_pop3_engine_type = camel_type_register(camel_object_get_type(),
-							     "CamelPOP3Engine",
-							     sizeof( CamelPOP3Engine ),
-							     sizeof( CamelPOP3EngineClass ),
-							     (CamelObjectClassInitFunc) camel_pop3_engine_class_init,
-							     NULL,
-							     (CamelObjectInitFunc) camel_pop3_engine_init,
-							     (CamelObjectFinalizeFunc) camel_pop3_engine_finalise );
+	if (engine->stream != NULL) {
+		g_object_unref (engine->stream);
+		engine->stream = NULL;
 	}
 
-	return camel_pop3_engine_type;
+	/* Chain up to parent's dispose() method. */
+	G_OBJECT_CLASS (camel_pop3_engine_parent_class)->dispose (object);
+}
+
+static void
+pop3_engine_finalize (GObject *object)
+{
+	CamelPOP3Engine *engine = CAMEL_POP3_ENGINE (object);
+
+	/* FIXME: Also flush/free any outstanding requests, etc */
+
+	g_list_free (engine->auth);
+	g_free (engine->apop);
+
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (camel_pop3_engine_parent_class)->finalize (object);
+}
+
+static void
+camel_pop3_engine_class_init (CamelPOP3EngineClass *class)
+{
+	GObjectClass *object_class;
+
+	object_class = G_OBJECT_CLASS (class);
+	object_class->dispose = pop3_engine_dispose;
+	object_class->finalize = pop3_engine_finalize;
+}
+
+static void
+camel_pop3_engine_init (CamelPOP3Engine *engine)
+{
+	camel_dlist_init (&engine->active);
+	camel_dlist_init (&engine->queue);
+	camel_dlist_init (&engine->done);
+	engine->state = CAMEL_POP3_ENGINE_DISCONNECT;
 }
 
 static gint
@@ -132,21 +126,21 @@ read_greeting (CamelPOP3Engine *pe)
  * Returns a NULL stream.  A null stream is always at eof, and
  * always returns success for all reads and writes.
  *
- * Return value: the stream
+ * Returns: the stream
  **/
 CamelPOP3Engine *
 camel_pop3_engine_new(CamelStream *source, guint32 flags)
 {
 	CamelPOP3Engine *pe;
 
-	pe = (CamelPOP3Engine *)camel_object_new(camel_pop3_engine_get_type ());
+	pe = g_object_new (CAMEL_TYPE_POP3_ENGINE, NULL);
 
 	pe->stream = (CamelPOP3Stream *)camel_pop3_stream_new(source);
 	pe->state = CAMEL_POP3_ENGINE_AUTH;
 	pe->flags = flags;
 
 	if (read_greeting (pe) == -1) {
-		camel_object_unref (pe);
+		g_object_unref (pe);
 		return NULL;
 	}
 
@@ -213,7 +207,7 @@ cmd_capa(CamelPOP3Engine *pe, CamelPOP3Stream *stream, gpointer data)
 					tok = next;
 				}
 			} else {
-				for (i=0;i<sizeof(capa)/sizeof(capa[0]);i++) {
+				for (i = 0; i < G_N_ELEMENTS (capa); i++) {
 					if (strcmp((gchar *) capa[i].cap, (gchar *) line) == 0)
 						pe->capa |= capa[i].flag;
 				}
@@ -258,7 +252,7 @@ engine_command_queue(CamelPOP3Engine *pe, CamelPOP3Command *pc)
 	}
 
 	/* ??? */
-	if (camel_stream_write((CamelStream *)pe->stream, pc->data, strlen(pc->data)) == -1) {
+	if (camel_stream_write((CamelStream *)pe->stream, pc->data, strlen(pc->data), NULL) == -1) {
 		camel_dlist_addtail(&pe->queue, (CamelDListNode *)pc);
 		return FALSE;
 	}
@@ -339,7 +333,7 @@ camel_pop3_engine_iterate(CamelPOP3Engine *pe, CamelPOP3Command *pcwait)
 		    && pe->current != NULL)
 			break;
 
-		if (camel_stream_write((CamelStream *)pe->stream, pw->data, strlen(pw->data)) == -1)
+		if (camel_stream_write((CamelStream *)pe->stream, pw->data, strlen(pw->data), NULL) == -1)
 			goto ioerror;
 
 		camel_dlist_remove((CamelDListNode *)pw);
@@ -364,12 +358,12 @@ camel_pop3_engine_iterate(CamelPOP3Engine *pe, CamelPOP3Command *pcwait)
 	return pe->current==NULL?0:1;
 ioerror:
 	/* we assume all outstanding commands are gunna fail now */
-	while ( (pw = (CamelPOP3Command*)camel_dlist_remhead(&pe->active)) ) {
+	while ((pw = (CamelPOP3Command*)camel_dlist_remhead(&pe->active))) {
 		pw->state = CAMEL_POP3_COMMAND_ERR;
 		camel_dlist_addtail(&pe->done, (CamelDListNode *)pw);
 	}
 
-	while ( (pw = (CamelPOP3Command*)camel_dlist_remhead(&pe->queue)) ) {
+	while ((pw = (CamelPOP3Command*)camel_dlist_remhead(&pe->queue))) {
 		pw->state = CAMEL_POP3_COMMAND_ERR;
 		camel_dlist_addtail(&pe->done, (CamelDListNode *)pw);
 	}

@@ -3,6 +3,8 @@
 <ANCHOR id="libedataserverui-e-book-auth-util.description" href="libedataserverui/libedataserverui-e-book-auth-util.html#libedataserverui-e-book-auth-util.description">
 <ANCHOR id="libedataserverui-e-book-auth-util.details" href="libedataserverui/libedataserverui-e-book-auth-util.html#libedataserverui-e-book-auth-util.details">
 <ANCHOR id="e-load-book-source" href="libedataserverui/libedataserverui-e-book-auth-util.html#e-load-book-source">
+<ANCHOR id="e-load-book-source-async" href="libedataserverui/libedataserverui-e-book-auth-util.html#e-load-book-source-async">
+<ANCHOR id="e-load-book-source-finish" href="libedataserverui/libedataserverui-e-book-auth-util.html#e-load-book-source-finish">
 <ANCHOR id="ECategoriesDialog" href="libedataserverui/ECategoriesDialog.html">
 <ANCHOR id="ECategoriesDialog.synopsis" href="libedataserverui/ECategoriesDialog.html#ECategoriesDialog.synopsis">
 <ANCHOR id="ECategoriesDialog.object-hierarchy" href="libedataserverui/ECategoriesDialog.html#ECategoriesDialog.object-hierarchy">
@@ -42,12 +44,6 @@
 <ANCHOR id="e-contact-store-set-query" href="libedataserverui/EContactStore.html#e-contact-store-set-query">
 <ANCHOR id="e-contact-store-peek-query" href="libedataserverui/EContactStore.html#e-contact-store-peek-query">
 <ANCHOR id="find-contact-source-by-book-return-view" href="libedataserverui/EContactStore.html#find-contact-source-by-book-return-view">
-<ANCHOR id="libedataserverui-e-data-server-ui-marshal" href="libedataserverui/libedataserverui-e-data-server-ui-marshal.html">
-<ANCHOR id="libedataserverui-e-data-server-ui-marshal.synopsis" href="libedataserverui/libedataserverui-e-data-server-ui-marshal.html#libedataserverui-e-data-server-ui-marshal.synopsis">
-<ANCHOR id="libedataserverui-e-data-server-ui-marshal.description" href="libedataserverui/libedataserverui-e-data-server-ui-marshal.html#libedataserverui-e-data-server-ui-marshal.description">
-<ANCHOR id="libedataserverui-e-data-server-ui-marshal.details" href="libedataserverui/libedataserverui-e-data-server-ui-marshal.html#libedataserverui-e-data-server-ui-marshal.details">
-<ANCHOR id="e-data-server-ui-marshal-BOOLEAN--BOXED-OBJECT-FLAGS-UINT" href="libedataserverui/libedataserverui-e-data-server-ui-marshal.html#e-data-server-ui-marshal-BOOLEAN--BOXED-OBJECT-FLAGS-UINT">
-<ANCHOR id="e-data-server-ui-marshal-BOOLEAN--OBJECT-BOXED" href="libedataserverui/libedataserverui-e-data-server-ui-marshal.html#e-data-server-ui-marshal-BOOLEAN--OBJECT-BOXED">
 <ANCHOR id="EDestinationStore" href="libedataserverui/EDestinationStore.html">
 <ANCHOR id="EDestinationStore.synopsis" href="libedataserverui/EDestinationStore.html#EDestinationStore.synopsis">
 <ANCHOR id="EDestinationStore.object-hierarchy" href="libedataserverui/EDestinationStore.html#EDestinationStore.object-hierarchy">
@@ -65,6 +61,7 @@
 <ANCHOR id="e-destination-store-remove-destination-nth" href="libedataserverui/EDestinationStore.html#e-destination-store-remove-destination-nth">
 <ANCHOR id="e-destination-store-get-destination-count" href="libedataserverui/EDestinationStore.html#e-destination-store-get-destination-count">
 <ANCHOR id="e-destination-store-get-path" href="libedataserverui/EDestinationStore.html#e-destination-store-get-path">
+<ANCHOR id="e-destination-store-get-stamp" href="libedataserverui/EDestinationStore.html#e-destination-store-get-stamp">
 <ANCHOR id="ENameSelector" href="libedataserverui/ENameSelector.html">
 <ANCHOR id="ENameSelector.synopsis" href="libedataserverui/ENameSelector.html#ENameSelector.synopsis">
 <ANCHOR id="ENameSelector.object-hierarchy" href="libedataserverui/ENameSelector.html#ENameSelector.object-hierarchy">
@@ -76,6 +73,7 @@
 <ANCHOR id="e-name-selector-peek-dialog" href="libedataserverui/ENameSelector.html#e-name-selector-peek-dialog">
 <ANCHOR id="e-name-selector-peek-section-entry" href="libedataserverui/ENameSelector.html#e-name-selector-peek-section-entry">
 <ANCHOR id="e-name-selector-peek-section-list" href="libedataserverui/ENameSelector.html#e-name-selector-peek-section-list">
+<ANCHOR id="e-name-selector-show-dialog" href="libedataserverui/ENameSelector.html#e-name-selector-show-dialog">
 <ANCHOR id="ENameSelectorDialog" href="libedataserverui/ENameSelectorDialog.html">
 <ANCHOR id="ENameSelectorDialog.synopsis" href="libedataserverui/ENameSelectorDialog.html#ENameSelectorDialog.synopsis">
 <ANCHOR id="ENameSelectorDialog.object-hierarchy" href="libedataserverui/ENameSelectorDialog.html#ENameSelectorDialog.object-hierarchy">
@@ -103,6 +101,7 @@
 <ANCHOR id="e-name-selector-entry-set-contact-store" href="libedataserverui/ENameSelectorEntry.html#e-name-selector-entry-set-contact-store">
 <ANCHOR id="e-name-selector-entry-peek-destination-store" href="libedataserverui/ENameSelectorEntry.html#e-name-selector-entry-peek-destination-store">
 <ANCHOR id="e-name-selector-entry-set-destination-store" href="libedataserverui/ENameSelectorEntry.html#e-name-selector-entry-set-destination-store">
+<ANCHOR id="e-name-selector-entry-get-popup-destination" href="libedataserverui/ENameSelectorEntry.html#e-name-selector-entry-get-popup-destination">
 <ANCHOR id="e-name-selector-entry-set-contact-editor-func" href="libedataserverui/ENameSelectorEntry.html#e-name-selector-entry-set-contact-editor-func">
 <ANCHOR id="e-name-selector-entry-set-contact-list-editor-func" href="libedataserverui/ENameSelectorEntry.html#e-name-selector-entry-set-contact-list-editor-func">
 <ANCHOR id="ens-util-populate-user-query-fields" href="libedataserverui/ENameSelectorEntry.html#ens-util-populate-user-query-fields">
@@ -131,6 +130,8 @@
 <ANCHOR id="e-name-selector-model-peek-section" href="libedataserverui/ENameSelectorModel.html#e-name-selector-model-peek-section">
 <ANCHOR id="e-name-selector-model-add-section" href="libedataserverui/ENameSelectorModel.html#e-name-selector-model-add-section">
 <ANCHOR id="e-name-selector-model-remove-section" href="libedataserverui/ENameSelectorModel.html#e-name-selector-model-remove-section">
+<ANCHOR id="e-name-selector-model-get-contact-emails-without-used" href="libedataserverui/ENameSelectorModel.html#e-name-selector-model-get-contact-emails-without-used">
+<ANCHOR id="e-name-selector-model-free-emails-list" href="libedataserverui/ENameSelectorModel.html#e-name-selector-model-free-emails-list">
 <ANCHOR id="ENameSelectorModel.signal-details" href="libedataserverui/ENameSelectorModel.html#ENameSelectorModel.signal-details">
 <ANCHOR id="ENameSelectorModel-section-added" href="libedataserverui/ENameSelectorModel.html#ENameSelectorModel-section-added">
 <ANCHOR id="ENameSelectorModel-section-removed" href="libedataserverui/ENameSelectorModel.html#ENameSelectorModel-section-removed">
@@ -167,19 +168,6 @@
 <ANCHOR id="e-source-combo-box-set-active-uid" href="libedataserverui/ESourceComboBox.html#e-source-combo-box-set-active-uid">
 <ANCHOR id="ESourceComboBox.property-details" href="libedataserverui/ESourceComboBox.html#ESourceComboBox.property-details">
 <ANCHOR id="ESourceComboBox--source-list" href="libedataserverui/ESourceComboBox.html#ESourceComboBox--source-list">
-<ANCHOR id="ESourceOptionMenu" href="libedataserverui/ESourceOptionMenu.html">
-<ANCHOR id="ESourceOptionMenu.synopsis" href="libedataserverui/ESourceOptionMenu.html#ESourceOptionMenu.synopsis">
-<ANCHOR id="ESourceOptionMenu.object-hierarchy" href="libedataserverui/ESourceOptionMenu.html#ESourceOptionMenu.object-hierarchy">
-<ANCHOR id="ESourceOptionMenu.implemented-interfaces" href="libedataserverui/ESourceOptionMenu.html#ESourceOptionMenu.implemented-interfaces">
-<ANCHOR id="ESourceOptionMenu.signals" href="libedataserverui/ESourceOptionMenu.html#ESourceOptionMenu.signals">
-<ANCHOR id="ESourceOptionMenu.description" href="libedataserverui/ESourceOptionMenu.html#ESourceOptionMenu.description">
-<ANCHOR id="ESourceOptionMenu.details" href="libedataserverui/ESourceOptionMenu.html#ESourceOptionMenu.details">
-<ANCHOR id="ESourceOptionMenu-struct" href="libedataserverui/ESourceOptionMenu.html#ESourceOptionMenu-struct">
-<ANCHOR id="e-source-option-menu-new" href="libedataserverui/ESourceOptionMenu.html#e-source-option-menu-new">
-<ANCHOR id="e-source-option-menu-peek-selected" href="libedataserverui/ESourceOptionMenu.html#e-source-option-menu-peek-selected">
-<ANCHOR id="e-source-option-menu-select" href="libedataserverui/ESourceOptionMenu.html#e-source-option-menu-select">
-<ANCHOR id="ESourceOptionMenu.signal-details" href="libedataserverui/ESourceOptionMenu.html#ESourceOptionMenu.signal-details">
-<ANCHOR id="ESourceOptionMenu-source-selected" href="libedataserverui/ESourceOptionMenu.html#ESourceOptionMenu-source-selected">
 <ANCHOR id="ESourceSelector" href="libedataserverui/ESourceSelector.html">
 <ANCHOR id="ESourceSelector.synopsis" href="libedataserverui/ESourceSelector.html#ESourceSelector.synopsis">
 <ANCHOR id="ESourceSelector.object-hierarchy" href="libedataserverui/ESourceSelector.html#ESourceSelector.object-hierarchy">
@@ -193,6 +181,7 @@
 <ANCHOR id="e-source-selector-get-source-list" href="libedataserverui/ESourceSelector.html#e-source-selector-get-source-list">
 <ANCHOR id="e-source-selector-select-source" href="libedataserverui/ESourceSelector.html#e-source-selector-select-source">
 <ANCHOR id="e-source-selector-unselect-source" href="libedataserverui/ESourceSelector.html#e-source-selector-unselect-source">
+<ANCHOR id="e-source-selector-select-exclusive" href="libedataserverui/ESourceSelector.html#e-source-selector-select-exclusive">
 <ANCHOR id="e-source-selector-source-is-selected" href="libedataserverui/ESourceSelector.html#e-source-selector-source-is-selected">
 <ANCHOR id="e-source-selector-get-selection" href="libedataserverui/ESourceSelector.html#e-source-selector-get-selection">
 <ANCHOR id="e-source-selector-free-selection" href="libedataserverui/ESourceSelector.html#e-source-selector-free-selection">

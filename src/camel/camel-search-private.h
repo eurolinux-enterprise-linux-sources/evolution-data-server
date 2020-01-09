@@ -18,15 +18,16 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _CAMEL_SEARCH_PRIVATE_H
-#define _CAMEL_SEARCH_PRIVATE_H
+#ifndef CAMEL_SEARCH_PRIVATE_H
+#define CAMEL_SEARCH_PRIVATE_H
 
 /* POSIX requires <sys/types.h> be included before <regex.h> */
 #include <sys/types.h>
 
 #include <regex.h>
 
-#include "camel-exception.h"
+#include <camel/camel.h>
+
 #include "libedataserver/e-sexp.h"
 
 G_BEGIN_DECLS
@@ -56,7 +57,7 @@ typedef enum {
 } camel_search_t;
 
 /* builds a regex that represents a string search */
-gint camel_search_build_match_regex(regex_t *pattern, camel_search_flags_t type, gint argc, struct _ESExpResult **argv, CamelException *ex);
+gint camel_search_build_match_regex(regex_t *pattern, camel_search_flags_t type, gint argc, struct _ESExpResult **argv, GError **error);
 gboolean camel_search_message_body_contains(CamelDataWrapper *object, regex_t *pattern);
 
 gboolean camel_search_header_match(const gchar *value, const gchar *match, camel_search_match_t how, camel_search_t type, const gchar *default_charset);
@@ -89,4 +90,4 @@ void camel_search_words_free(struct _camel_search_words *);
 
 G_END_DECLS
 
-#endif /* ! _CAMEL_SEARCH_PRIVATE_H */
+#endif /* CAMEL_SEARCH_PRIVATE_H */

@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EBookBackendCache</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="prev" href="EBookBackend.html" title="EBookBackend">
 <link rel="next" href="libedata-book-e-book-backend-db-cache.html" title="e-book-backend-db-cache">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -26,11 +26,9 @@
                   <a href="#EBookBackendCache.description" class="shortcut">Description</a>
                    | 
                   <a href="#EBookBackendCache.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#EBookBackendCache.properties" class="shortcut">Properties</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="EBookBackendCache">
 <a name="EBookBackendCache"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,89 +37,84 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="EBookBackendCache.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">                    <a class="link" href="EBookBackendCache.html#EBookBackendCache-struct" title="EBookBackendCache">EBookBackendCache</a>;
-<a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="returnvalue">EBookBackendCache</span></a>*  <a class="link" href="EBookBackendCache.html#e-book-backend-cache-new" title="e_book_backend_cache_new ()">e_book_backend_cache_new</a>            (<em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>);
-<a href="../libebook/EContact.html"><span class="returnvalue">EContact</span></a>*           <a class="link" href="EBookBackendCache.html#e-book-backend-cache-get-contact" title="e_book_backend_cache_get_contact ()">e_book_backend_cache_get_contact</a>    (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackendCache.html#e-book-backend-cache-add-contact" title="e_book_backend_cache_add_contact ()">e_book_backend_cache_add_contact</a>    (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackendCache.html#e-book-backend-cache-remove-contact" title="e_book_backend_cache_remove_contact ()">e_book_backend_cache_remove_contact</a> (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackendCache.html#e-book-backend-cache-check-contact" title="e_book_backend_cache_check_contact ()">e_book_backend_cache_check_contact</a>  (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
-<span class="returnvalue">GList</span>*              <a class="link" href="EBookBackendCache.html#e-book-backend-cache-get-contacts" title="e_book_backend_cache_get_contacts ()">e_book_backend_cache_get_contacts</a>   (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *query</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackendCache.html#e-book-backend-cache-exists" title="e_book_backend_cache_exists ()">e_book_backend_cache_exists</a>         (<em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>);
+<a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="returnvalue">EBookBackendCache</span></a> * <a class="link" href="EBookBackendCache.html#e-book-backend-cache-new" title="e_book_backend_cache_new ()">e_book_backend_cache_new</a>            (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);
+<a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="returnvalue">EContact</span></a> *          <a class="link" href="EBookBackendCache.html#e-book-backend-cache-get-contact" title="e_book_backend_cache_get_contact ()">e_book_backend_cache_get_contact</a>    (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackendCache.html#e-book-backend-cache-add-contact" title="e_book_backend_cache_add_contact ()">e_book_backend_cache_add_contact</a>    (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackendCache.html#e-book-backend-cache-remove-contact" title="e_book_backend_cache_remove_contact ()">e_book_backend_cache_remove_contact</a> (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackendCache.html#e-book-backend-cache-check-contact" title="e_book_backend_cache_check_contact ()">e_book_backend_cache_check_contact</a>  (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="EBookBackendCache.html#e-book-backend-cache-get-contacts" title="e_book_backend_cache_get_contacts ()">e_book_backend_cache_get_contacts</a>   (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *query</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackendCache.html#e-book-backend-cache-set-populated" title="e_book_backend_cache_set_populated ()">e_book_backend_cache_set_populated</a>  (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackendCache.html#e-book-backend-cache-is-populated" title="e_book_backend_cache_is_populated ()">e_book_backend_cache_is_populated</a>   (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackendCache.html#e-book-backend-cache-is-populated" title="e_book_backend_cache_is_populated ()">e_book_backend_cache_is_populated</a>   (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackendCache.html#e-book-backend-cache-set-time" title="e_book_backend_cache_set_time ()">e_book_backend_cache_set_time</a>       (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *t</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="EBookBackendCache.html#e-book-backend-cache-get-time" title="e_book_backend_cache_get_time ()">e_book_backend_cache_get_time</a>       (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);
-<span class="returnvalue">GPtrArray</span>*          <a class="link" href="EBookBackendCache.html#e-book-backend-cache-search" title="e_book_backend_cache_search ()">e_book_backend_cache_search</a>         (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *query</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *t</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="EBookBackendCache.html#e-book-backend-cache-get-time" title="e_book_backend_cache_get_time ()">e_book_backend_cache_get_time</a>       (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         <a class="link" href="EBookBackendCache.html#e-book-backend-cache-search" title="e_book_backend_cache_search ()">e_book_backend_cache_search</a>         (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *query</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
 <a name="EBookBackendCache.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  GObject
-   +----<a href="../libebackend/EFileCache.html">EFileCache</a>
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/libebackend/libebackend-e-file-cache.html#EFileCache">EFileCache</a>
          +----EBookBackendCache
 </pre>
 </div>
-<div class="refsect1" lang="en">
-<a name="EBookBackendCache.properties"></a><h2>Properties</h2>
-<pre class="synopsis">
-  "<a class="link" href="EBookBackendCache.html#EBookBackendCache--uri" title='The "uri" property'>uri</a>"                      <span class="type">gchar</span>*                : Read / Write / Construct Only
-</pre>
-</div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="EBookBackendCache.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="EBookBackendCache.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EBookBackendCache">
 <a name="EBookBackendCache-struct"></a><h3>EBookBackendCache</h3>
 <pre class="programlisting">typedef struct _EBookBackendCache EBookBackendCache;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_new ()">
 <a name="e-book-backend-cache-new"></a><h3>e_book_backend_cache_new ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="returnvalue">EBookBackendCache</span></a>*  e_book_backend_cache_new            (<em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="returnvalue">EBookBackendCache</span></a> * e_book_backend_cache_new            (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
 <p>
-Creates a new <a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> object, which implements a local
-cache of <a href="../libebook/EContact.html"><span class="type">EContact</span></a> objects, useful for remote backends.</p>
+Creates a new <a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a>, which implements a local cache of
+<a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> objects, useful for remote backends.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
-<td>URI of the backend to be cached.
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>file to write cached data
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A new <a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a>.
+<td> a new <a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_get_contact ()">
 <a name="e-book-backend-cache-get-contact"></a><h3>e_book_backend_cache_get_contact ()</h3>
-<pre class="programlisting"><a href="../libebook/EContact.html"><span class="returnvalue">EContact</span></a>*           e_book_backend_cache_get_contact    (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="returnvalue">EContact</span></a> *          e_book_backend_cache_get_contact    (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
 <p>
-Get a cached contact. Note that the returned <a href="../libebook/EContact.html"><span class="type">EContact</span></a> will be
+Get a cached contact. Note that the returned <a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> will be
 newly created, and must be unreffed by the caller when no longer
-needed.</p>
+needed.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -137,19 +130,20 @@ needed.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A cached <a href="../libebook/EContact.html"><span class="type">EContact</span></a>, or <code class="literal">NULL</code> if <em class="parameter"><code>uid</code></em> is not cached.
+<td> A cached <a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if <em class="parameter"><code>uid</code></em> is not cached.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_add_contact ()">
 <a name="e-book-backend-cache-add-contact"></a><h3>e_book_backend_cache_add_contact ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_cache_add_contact    (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_cache_add_contact    (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);</pre>
 <p>
-Adds <em class="parameter"><code>contact</code></em> to <em class="parameter"><code>cache</code></em>.</p>
+Adds <em class="parameter"><code>contact</code></em> to <em class="parameter"><code>cache</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -160,24 +154,25 @@ Adds <em class="parameter"><code>contact</code></em> to <em class="parameter"><c
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>contact</code></em> :</span></p></td>
-<td>an <a href="../libebook/EContact.html"><span class="type">EContact</span></a>
+<td>an <a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if the contact was cached successfully, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the contact was cached successfully, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_remove_contact ()">
 <a name="e-book-backend-cache-remove-contact"></a><h3>e_book_backend_cache_remove_contact ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_cache_remove_contact (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_cache_remove_contact (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
 <p>
-Removes the contact identified by <em class="parameter"><code>uid</code></em> from <em class="parameter"><code>cache</code></em>.</p>
+Removes the contact identified by <em class="parameter"><code>uid</code></em> from <em class="parameter"><code>cache</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -193,19 +188,20 @@ Removes the contact identified by <em class="parameter"><code>uid</code></em> fr
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if the contact was found and removed, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the contact was found and removed, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_check_contact ()">
 <a name="e-book-backend-cache-check-contact"></a><h3>e_book_backend_cache_check_contact ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_cache_check_contact  (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_cache_check_contact  (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
 <p>
-Checks if the contact identified by <em class="parameter"><code>uid</code></em> exists in <em class="parameter"><code>cache</code></em>.</p>
+Checks if the contact identified by <em class="parameter"><code>uid</code></em> exists in <em class="parameter"><code>cache</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -221,21 +217,22 @@ Checks if the contact identified by <em class="parameter"><code>uid</code></em> 
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if the cache contains the contact, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the cache contains the contact, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_get_contacts ()">
 <a name="e-book-backend-cache-get-contacts"></a><h3>e_book_backend_cache_get_contacts ()</h3>
-<pre class="programlisting"><span class="returnvalue">GList</span>*              e_book_backend_cache_get_contacts   (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *query</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             e_book_backend_cache_get_contacts   (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *query</code></em>);</pre>
 <p>
-Returns a list of <a href="../libebook/EContact.html"><span class="type">EContact</span></a> elements from <em class="parameter"><code>cache</code></em> matching <em class="parameter"><code>query</code></em>.
+Returns a list of <a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> elements from <em class="parameter"><code>cache</code></em> matching <em class="parameter"><code>query</code></em>.
 When done with the list, the caller must unref the contacts and
-free the list.</p>
+free the list.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -251,41 +248,20 @@ free the list.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A <span class="type">GList</span> of pointers to <a href="../libebook/EContact.html"><span class="type">EContact</span></a>.
+<td> A <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of pointers to <a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a>.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
-<a name="e-book-backend-cache-exists"></a><h3>e_book_backend_cache_exists ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_cache_exists         (<em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>);</pre>
-<p>
-Checks if an <a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> exists at <em class="parameter"><code>uri</code></em>.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
-<td>URI for the cache
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if cache exists, <code class="literal">FALSE</code> if not.
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_set_populated ()">
 <a name="e-book-backend-cache-set-populated"></a><h3>e_book_backend_cache_set_populated ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_cache_set_populated  (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);</pre>
 <p>
 Flags <em class="parameter"><code>cache</code></em> as being populated - that is, it is up-to-date on the
-contents of the book it's caching.</p>
+contents of the book it's caching.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -296,11 +272,12 @@ contents of the book it's caching.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_is_populated ()">
 <a name="e-book-backend-cache-is-populated"></a><h3>e_book_backend_cache_is_populated ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_cache_is_populated   (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_cache_is_populated   (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);</pre>
 <p>
-Checks if <em class="parameter"><code>cache</code></em> is populated.</p>
+Checks if <em class="parameter"><code>cache</code></em> is populated.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -311,17 +288,17 @@ Checks if <em class="parameter"><code>cache</code></em> is populated.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if <em class="parameter"><code>cache</code></em> is populated, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>cache</code></em> is populated, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_set_time ()">
 <a name="e-book-backend-cache-set-time"></a><h3>e_book_backend_cache_set_time ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_cache_set_time       (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *t</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *t</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -341,9 +318,9 @@ Checks if <em class="parameter"><code>cache</code></em> is populated.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_get_time ()">
 <a name="e-book-backend-cache-get-time"></a><h3>e_book_backend_cache_get_time ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_book_backend_cache_get_time       (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_book_backend_cache_get_time       (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -363,14 +340,15 @@ Checks if <em class="parameter"><code>cache</code></em> is populated.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cache_search ()">
 <a name="e-book-backend-cache-search"></a><h3>e_book_backend_cache_search ()</h3>
-<pre class="programlisting"><span class="returnvalue">GPtrArray</span>*          e_book_backend_cache_search         (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *query</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="returnvalue">GPtrArray</span></a> *         e_book_backend_cache_search         (<em class="parameter"><code><a class="link" href="EBookBackendCache.html" title="EBookBackendCache"><span class="type">EBookBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *query</code></em>);</pre>
 <p>
 Returns an array of pointers to unique contact ID strings for contacts
 in <em class="parameter"><code>cache</code></em> matching <em class="parameter"><code>query</code></em>. When done with the array, the caller must
-free the ID strings and the array.</p>
+free the ID strings and the array.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -386,25 +364,16 @@ free the ID strings and the array.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A <span class="type">GPtrArray</span> of pointers to contact ID strings.
+<td> A <a href="http://library.gnome.org/devel/glib/unstable/glib-Pointer-Arrays.html#GPtrArray"><span class="type">GPtrArray</span></a> of pointers to contact ID strings.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 </div>
-<div class="refsect1" lang="en">
-<a name="EBookBackendCache.property-details"></a><h2>Property Details</h2>
-<div class="refsect2" lang="en">
-<a name="EBookBackendCache--uri"></a><h3>The <code class="literal">"uri"</code> property</h3>
-<pre class="programlisting">  "uri"                      <span class="type">gchar</span>*                : Read / Write / Construct Only</pre>
-<p></p>
-<p>Default value: ""</p>
-</div>
-</div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

@@ -31,11 +31,22 @@ EDataBookView
 
 </para>
 
-@backend: 
-@listener: 
+@book: 
 @card_query: 
 @card_sexp: 
 @max_results: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_data_book_view_register_gdbus_object ##### -->
+<para>
+
+</para>
+
+@query: 
+@connection: 
+@object_path: 
+@error: 
 @Returns: 
 
 
@@ -77,24 +88,6 @@ EDataBookView
 
 
 <!-- ##### FUNCTION e_data_book_view_get_backend ##### -->
-<para>
-
-</para>
-
-@book_view: 
-@Returns: 
-
-
-<!-- ##### FUNCTION e_data_book_view_get_listener ##### -->
-<para>
-
-</para>
-
-@book_view: 
-@Returns: 
-
-
-<!-- ##### FUNCTION e_data_book_view_get_mutex ##### -->
 <para>
 
 </para>
@@ -146,7 +139,7 @@ EDataBookView
 </para>
 
 @book_view: 
-@Param2: 
+@error: 
 
 
 <!-- ##### FUNCTION e_data_book_view_notify_status_message ##### -->

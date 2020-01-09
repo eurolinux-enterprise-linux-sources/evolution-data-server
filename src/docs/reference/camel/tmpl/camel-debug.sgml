@@ -68,9 +68,14 @@ camel-debug
 @void: 
 
 
-<!-- ##### VARIABLE camel_verbose_debug ##### -->
+<!-- ##### MACRO CAMEL_CHECK_GERROR ##### -->
 <para>
 
 </para>
+
+@object: 
+@method: 
+@expr: 
+@error: 
 
 

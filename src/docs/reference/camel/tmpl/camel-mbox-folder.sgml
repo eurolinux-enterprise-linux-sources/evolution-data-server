@@ -25,7 +25,7 @@ CamelMboxFolder
 
 </para>
 
-@parent_object: 
+@parent: 
 @lockfd: 
 
 <!-- ##### FUNCTION camel_mbox_folder_new ##### -->

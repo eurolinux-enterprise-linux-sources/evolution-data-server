@@ -20,8 +20,12 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _CAMEL_MIME_UTILS_H
-#define _CAMEL_MIME_UTILS_H
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
+#ifndef CAMEL_MIME_UTILS_H
+#define CAMEL_MIME_UTILS_H
 
 #include <time.h>
 #include <glib.h>
@@ -227,14 +231,6 @@ CamelTransferEncoding camel_transfer_encoding_from_string (const gchar *string);
 /* decode the mime-type header */
 void camel_header_mime_decode (const gchar *in, gint *maj, gint *min);
 
-#ifndef CAMEL_DISABLE_DEPRECATED
-/* do incremental base64/quoted-printable (de/en)coding */
-gsize camel_base64_decode_step (guchar *in, gsize len, guchar *out, gint *state, guint *save);
-
-gsize camel_base64_encode_step (guchar *in, gsize inlen, gboolean break_lines, guchar *out, gint *state, gint *save);
-gsize camel_base64_encode_close (guchar *in, gsize inlen, gboolean break_lines, guchar *out, gint *state, gint *save);
-#endif
-
 gsize camel_uudecode_step (guchar *in, gsize inlen, guchar *out, gint *state, guint32 *save);
 
 gsize camel_uuencode_step (guchar *in, gsize len, guchar *out, guchar *uubuf, gint *state,
@@ -246,11 +242,6 @@ gsize camel_quoted_decode_step (guchar *in, gsize len, guchar *out, gint *savest
 
 gsize camel_quoted_encode_step (guchar *in, gsize len, guchar *out, gint *state, gint *save);
 gsize camel_quoted_encode_close (guchar *in, gsize len, guchar *out, gint *state, gint *save);
-
-#ifndef CAMEL_DISABLE_DEPRECATED
-gchar *camel_base64_encode_simple (const gchar *data, gsize len);
-gsize camel_base64_decode_simple (gchar *data, gsize len);
-#endif
 
 /* camel ctype type functions for rfc822/rfc2047/other, which are non-locale specific */
 enum {
@@ -266,7 +257,7 @@ enum {
 	CAMEL_MIME_IS_ATTRCHAR  = 1<<9	/* attribute-char safe (rfc2184) */
 };
 
-extern unsigned short camel_mime_special_table[256];
+extern gushort camel_mime_special_table[256];
 
 #define camel_mime_is_ctrl(x) ((camel_mime_special_table[(guchar)(x)] & CAMEL_MIME_IS_CTRL) != 0)
 #define camel_mime_is_lwsp(x) ((camel_mime_special_table[(guchar)(x)] & CAMEL_MIME_IS_LWSP) != 0)
@@ -283,4 +274,4 @@ extern unsigned short camel_mime_special_table[256];
 
 G_END_DECLS
 
-#endif /* ! _CAMEL_MIME_UTILS_H */
+#endif /* CAMEL_MIME_UTILS_H */

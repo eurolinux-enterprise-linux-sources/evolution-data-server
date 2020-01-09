@@ -1,0 +1,15 @@
+diff -up evolution-data-server-2.32.3/calendar/backends/caldav/e-cal-backend-caldav.c.caldav-offline-setup-test evolution-data-server-2.32.3/calendar/backends/caldav/e-cal-backend-caldav.c
+--- evolution-data-server-2.32.3/calendar/backends/caldav/e-cal-backend-caldav.c.caldav-offline-setup-test	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/backends/caldav/e-cal-backend-caldav.c	2013-06-11 15:16:36.457372738 +0200
+@@ -2170,10 +2170,7 @@ initialize_backend (ECalBackendCalDAV *c
+ 		g_signal_connect (G_OBJECT (source), "changed", G_CALLBACK (caldav_source_changed_cb), cbdav);
+ 
+ 	os_val = e_source_get_property (source, "offline_sync");
+-
+-	if (!os_val || !g_str_equal (os_val, "1")) {
+-		priv->do_offline = FALSE;
+-	}
++	priv->do_offline = os_val && g_str_equal (os_val, "1");
+ 
+ 	os_val = e_source_get_property (source, "auth");
+ 	priv->need_auth = os_val != NULL;

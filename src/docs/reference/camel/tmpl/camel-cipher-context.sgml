@@ -25,12 +25,11 @@ CamelCipherContext
 
 </para>
 
-@parent_object: 
-@priv: 
-@session: 
-@sign_protocol: 
-@encrypt_protocol: 
-@key_protocol: 
+
+<!-- ##### ARG CamelCipherContext:session ##### -->
+<para>
+
+</para>
 
 <!-- ##### STRUCT CamelCipherValidity ##### -->
 <para>
@@ -50,6 +49,9 @@ CamelCipherContext
 @prev: 
 @name: 
 @email: 
+@cert_data: 
+@cert_data_free: 
+@cert_data_clone: 
 
 <!-- ##### ENUM CamelCipherHash ##### -->
 <para>
@@ -60,6 +62,9 @@ CamelCipherContext
 @CAMEL_CIPHER_HASH_MD2: 
 @CAMEL_CIPHER_HASH_MD5: 
 @CAMEL_CIPHER_HASH_SHA1: 
+@CAMEL_CIPHER_HASH_SHA256: 
+@CAMEL_CIPHER_HASH_SHA384: 
+@CAMEL_CIPHER_HASH_SHA512: 
 @CAMEL_CIPHER_HASH_RIPEMD160: 
 @CAMEL_CIPHER_HASH_TIGER192: 
 @CAMEL_CIPHER_HASH_HAVAL5160: 
@@ -102,13 +107,13 @@ CamelCipherContext
 @Returns: 
 
 
-<!-- ##### FUNCTION camel_cipher_context_construct ##### -->
+<!-- ##### FUNCTION camel_cipher_context_get_session ##### -->
 <para>
 
 </para>
 
 @context: 
-@session: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_cipher_id_to_hash ##### -->
@@ -141,7 +146,7 @@ CamelCipherContext
 @hash: 
 @ipart: 
 @opart: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -152,7 +157,7 @@ CamelCipherContext
 
 @context: 
 @ipart: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -166,7 +171,7 @@ CamelCipherContext
 @recipients: 
 @ipart: 
 @opart: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -178,7 +183,7 @@ CamelCipherContext
 @context: 
 @ipart: 
 @opart: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -189,7 +194,7 @@ CamelCipherContext
 
 @context: 
 @istream: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -201,7 +206,7 @@ CamelCipherContext
 @context: 
 @keys: 
 @ostream: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -286,6 +291,190 @@ CamelCipherContext
 @email: 
 
 
+<!-- ##### FUNCTION camel_cipher_validity_add_certinfo_ex ##### -->
+<para>
+
+</para>
+
+@vin: 
+@mode: 
+@name: 
+@email: 
+@cert_data: 
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data:
+@gpointer cert_data: 
+@gpointer cert_data: 
+
+
 <!-- ##### FUNCTION camel_cipher_validity_envelope ##### -->
 <para>
 
@@ -311,6 +500,7 @@ CamelCipherContext
 @part: 
 @flags: 
 @ostream: 
+@error: 
 @Returns: 
 
 

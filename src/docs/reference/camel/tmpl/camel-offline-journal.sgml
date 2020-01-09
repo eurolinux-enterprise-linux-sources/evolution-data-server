@@ -25,10 +25,6 @@ CamelOfflineJournal
 
 </para>
 
-@parent_object: 
-@folder: 
-@filename: 
-@queue: 
 
 <!-- ##### STRUCT CamelOfflineJournalEntry ##### -->
 <para>
@@ -61,7 +57,7 @@ CamelOfflineJournal
 </para>
 
 @journal: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -71,7 +67,7 @@ CamelOfflineJournal
 </para>
 
 @journal: 
-@ex: 
+@error: 
 @Returns: 
 
 

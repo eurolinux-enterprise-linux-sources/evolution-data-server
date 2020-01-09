@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>e-book-types</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Address Book Client (libebook)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Address Book Client (libebook)">
 <link rel="prev" href="libebook-e-book-query.html" title="e-book-query">
 <link rel="next" href="EBookView.html" title="EBookView">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -26,7 +26,7 @@
                   <a href="#libebook-e-book-types.description" class="shortcut">Description</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="e-book-types">
 <a name="libebook-e-book-types"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -36,24 +36,25 @@ Evolution:BookListener interface.</p>
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="libebook-e-book-types.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">#define             <a class="link" href="libebook-e-book-types.html#E-BOOK-ERROR:CAPS" title="E_BOOK_ERROR">E_BOOK_ERROR</a>
-<span class="returnvalue">GQuark</span>              <a class="link" href="libebook-e-book-types.html#e-book-error-quark" title="e_book_error_quark ()">e_book_error_quark</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>              <a class="link" href="libebook-e-book-types.html#e-book-error-quark" title="e_book_error_quark ()">e_book_error_quark</a>                  (<em class="parameter"><code><span class="type">void</span></code></em>);
 enum                <a class="link" href="libebook-e-book-types.html#EBookStatus" title="enum EBookStatus">EBookStatus</a>;
+#define             <a class="link" href="libebook-e-book-types.html#E-BOOK-ERROR-CORBA-EXCEPTION:CAPS" title="E_BOOK_ERROR_CORBA_EXCEPTION">E_BOOK_ERROR_CORBA_EXCEPTION</a>
 enum                <a class="link" href="libebook-e-book-types.html#EBookViewStatus" title="enum EBookViewStatus">EBookViewStatus</a>;
 enum                <a class="link" href="libebook-e-book-types.html#EBookChangeType" title="enum EBookChangeType">EBookChangeType</a>;
                     <a class="link" href="libebook-e-book-types.html#EBookChange" title="EBookChange">EBookChange</a>;
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="libebook-e-book-types.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="libebook-e-book-types.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="E_BOOK_ERROR">
 <a name="E-BOOK-ERROR:CAPS"></a><h3>E_BOOK_ERROR</h3>
 <pre class="programlisting">#define E_BOOK_ERROR e_book_error_quark()
 </pre>
@@ -61,9 +62,9 @@ enum                <a class="link" href="libebook-e-book-types.html#EBookChange
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_error_quark ()">
 <a name="e-book-error-quark"></a><h3>e_book_error_quark ()</h3>
-<pre class="programlisting"><span class="returnvalue">GQuark</span>              e_book_error_quark                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Quarks.html#GQuark"><span class="returnvalue">GQuark</span></a>              e_book_error_quark                  (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -76,7 +77,7 @@ enum                <a class="link" href="libebook-e-book-types.html#EBookChange
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="enum EBookStatus">
 <a name="EBookStatus"></a><h3>enum EBookStatus</h3>
 <pre class="programlisting">typedef enum {
 	E_BOOK_ERROR_OK,
@@ -96,20 +97,33 @@ enum                <a class="link" href="libebook-e-book-types.html#EBookChange
 	E_BOOK_ERROR_AUTHENTICATION_FAILED,
 	E_BOOK_ERROR_AUTHENTICATION_REQUIRED,
 	E_BOOK_ERROR_TLS_NOT_AVAILABLE,
-	E_BOOK_ERROR_CORBA_EXCEPTION,
+	E_BOOK_ERROR_DBUS_EXCEPTION,
 	E_BOOK_ERROR_NO_SUCH_SOURCE,
 	E_BOOK_ERROR_OFFLINE_UNAVAILABLE,
 	E_BOOK_ERROR_OTHER_ERROR,
 	E_BOOK_ERROR_INVALID_SERVER_VERSION,
 	E_BOOK_ERROR_UNSUPPORTED_AUTHENTICATION_METHOD,
-	E_BOOK_ERROR_NO_SPACE
+	E_BOOK_ERROR_NO_SPACE,
+	E_BOOK_ERROR_NOT_SUPPORTED
 } EBookStatus;
 </pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="E_BOOK_ERROR_CORBA_EXCEPTION">
+<a name="E-BOOK-ERROR-CORBA-EXCEPTION:CAPS"></a><h3>E_BOOK_ERROR_CORBA_EXCEPTION</h3>
+<pre class="programlisting">#define E_BOOK_ERROR_CORBA_EXCEPTION E_BOOK_ERROR_DBUS_EXCEPTION
+</pre>
+<div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">E_BOOK_ERROR_CORBA_EXCEPTION</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="enum EBookViewStatus">
 <a name="EBookViewStatus"></a><h3>enum EBookViewStatus</h3>
 <pre class="programlisting">typedef enum {
 	E_BOOK_VIEW_STATUS_OK,
@@ -124,7 +138,7 @@ enum                <a class="link" href="libebook-e-book-types.html#EBookChange
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="enum EBookChangeType">
 <a name="EBookChangeType"></a><h3>enum EBookChangeType</h3>
 <pre class="programlisting">typedef enum {
 	E_BOOK_CHANGE_CARD_ADDED,
@@ -136,7 +150,7 @@ enum                <a class="link" href="libebook-e-book-types.html#EBookChange
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EBookChange">
 <a name="EBookChange"></a><h3>EBookChange</h3>
 <pre class="programlisting">typedef struct {
 	EBookChangeType  change_type;
@@ -150,6 +164,6 @@ enum                <a class="link" href="libebook-e-book-types.html#EBookChange
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

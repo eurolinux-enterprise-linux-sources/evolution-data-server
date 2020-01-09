@@ -18,17 +18,34 @@
  *
  */
 
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
 #ifndef CAMEL_MSGPORT_H
 #define CAMEL_MSGPORT_H
 
 #include <glib.h>
+#include "camel-list-utils.h"
 
 G_BEGIN_DECLS
+
+/**
+ * CamelMsgPort:
+ *
+ * Since: 2.24
+ **/
 
 typedef struct _CamelMsg CamelMsg;
 typedef struct _CamelMsgPort CamelMsgPort;
 
+/**
+ * CamelMsg:
+ *
+ * Since: 2.24
+ **/
 struct _CamelMsg {
+	CamelDListNode ln;
 	CamelMsgPort *reply_port;
 	gint flags;
 };
@@ -40,9 +57,10 @@ void		camel_msgport_push		(CamelMsgPort *msgport,
 						 CamelMsg *msg);
 CamelMsg *	camel_msgport_pop		(CamelMsgPort *msgport);
 CamelMsg *	camel_msgport_try_pop		(CamelMsgPort *msgport);
+CamelMsg *	camel_msgport_timed_pop		(CamelMsgPort *msgport, GTimeVal *end_time);
 void		camel_msgport_reply		(CamelMsg *msg);
 
-#ifdef HAVE_NSS
+#ifdef CAMEL_HAVE_NSS
 struct PRFileDesc * camel_msgport_prfd		(CamelMsgPort *msgport);
 #endif
 

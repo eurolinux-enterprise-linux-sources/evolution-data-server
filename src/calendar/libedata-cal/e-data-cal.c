@@ -1,9 +1,12 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
 /* Evolution calendar client interface object
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
+ * Copyright (C) 2009 Intel Corporation
  *
  * Authors: Federico Mena-Quintero <federico@ximian.com>
  *          Rodrigo Moya <rodrigo@ximian.com>
+ *          Ross Burton <ross@linux.intel.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 2 of the GNU Lesser General Public
@@ -24,408 +27,446 @@
 #endif
 
 #include <libical/ical.h>
-#include <bonobo/bonobo-main.h>
-#include <bonobo/bonobo-exception.h>
-#include <libedata-cal/e-cal-backend.h>
+#include <glib/gi18n-lib.h>
+#include <unistd.h>
+
+#include <glib-object.h>
+#include <libedataserver/e-debug-log.h>
 #include "e-data-cal.h"
+#include "e-data-cal-enumtypes.h"
+#include "e-gdbus-egdbuscal.h"
 
-#define PARENT_TYPE         BONOBO_TYPE_OBJECT
+G_DEFINE_TYPE (EDataCal, e_data_cal, G_TYPE_OBJECT);
 
-static BonoboObjectClass *parent_class;
+#define E_DATA_CAL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), E_TYPE_DATA_CAL, EDataCalPrivate))
 
-/* Private part of the Cal structure */
+#define EDC_ERROR(_code) e_data_cal_create_error (_code, NULL)
+#define EDC_ERROR_EX(_code, _msg) e_data_cal_create_error (_code, _msg)
+
 struct _EDataCalPrivate {
-	/* Our backend */
+	EGdbusCal *gdbus_object;
 	ECalBackend *backend;
-
-	/* Listener on the client we notify */
-	GNOME_Evolution_Calendar_CalListener listener;
-
-	/* Cache of live queries */
+	ESource *source;
 	GHashTable *live_queries;
 };
 
-/* Cal::get_uri method */
-static CORBA_char *
-impl_Cal_get_uri (PortableServer_Servant servant,
-		  CORBA_Environment *ev)
+/* Create the EDataCal error quark */
+GQuark
+e_data_cal_error_quark (void)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
-	const gchar *str_uri;
-	CORBA_char *str_uri_copy;
+	#define ERR_PREFIX "org.gnome.evolution.dataserver.calendar.Cal."
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
+	static const GDBusErrorEntry entries[] = {
+		{ Success,				ERR_PREFIX "Success" },
+		{ RepositoryOffline,			ERR_PREFIX "RepositoryOffline" },
+		{ PermissionDenied,			ERR_PREFIX "PermissionDenied" },
+		{ InvalidRange,				ERR_PREFIX "InvalidRange" },
+		{ ObjectNotFound,			ERR_PREFIX "ObjectNotFound" },
+		{ InvalidObject,			ERR_PREFIX "InvalidObject" },
+		{ ObjectIdAlreadyExists,		ERR_PREFIX "ObjectIdAlreadyExists" },
+		{ AuthenticationFailed,			ERR_PREFIX "AuthenticationFailed" },
+		{ AuthenticationRequired,		ERR_PREFIX "AuthenticationRequired" },
+		{ UnsupportedField,			ERR_PREFIX "UnsupportedField" },
+		{ UnsupportedMethod,			ERR_PREFIX "UnsupportedMethod" },
+		{ UnsupportedAuthenticationMethod,	ERR_PREFIX "UnsupportedAuthenticationMethod" },
+		{ TLSNotAvailable,			ERR_PREFIX "TLSNotAvailable" },
+		{ NoSuchCal,				ERR_PREFIX "NoSuchCal" },
+		{ UnknownUser,				ERR_PREFIX "UnknownUser" },
+		{ OfflineUnavailable,			ERR_PREFIX "OfflineUnavailable" },
+		{ SearchSizeLimitExceeded,		ERR_PREFIX "SearchSizeLimitExceeded" },
+		{ SearchTimeLimitExceeded,		ERR_PREFIX "SearchTimeLimitExceeded" },
+		{ InvalidQuery,				ERR_PREFIX "InvalidQuery" },
+		{ QueryRefused,				ERR_PREFIX "QueryRefused" },
+		{ CouldNotCancel,			ERR_PREFIX "CouldNotCancel" },
+		{ OtherError,				ERR_PREFIX "OtherError" },
+		{ InvalidServerVersion,			ERR_PREFIX "InvalidServerVersion" },
+		{ InvalidArg,				ERR_PREFIX "InvalidArg" },
+		{ NotSupported,				ERR_PREFIX "NotSupported" }
+	};
 
-	str_uri = e_cal_backend_get_uri (priv->backend);
-	str_uri_copy = CORBA_string_dup (str_uri);
+	#undef ERR_PREFIX
 
-	return str_uri_copy;
+	static volatile gsize quark_volatile = 0;
+
+	g_dbus_error_register_error_domain ("e-data-cal-error", &quark_volatile, entries, G_N_ELEMENTS (entries));
+
+	return (GQuark) quark_volatile;
+}
+
+/**
+ * e_data_cal_status_to_string:
+ *
+ * Since: 2.32
+ **/
+const gchar *
+e_data_cal_status_to_string (EDataCalCallStatus status)
+{
+	gint i;
+	static struct _statuses {
+		EDataCalCallStatus status;
+		const gchar *msg;
+	} statuses[] = {
+		{ Success,				N_("Success") },
+		{ RepositoryOffline,			N_("Repository offline") },
+		{ PermissionDenied,			N_("Permission denied") },
+		{ InvalidRange,				N_("Invalid range") },
+		{ ObjectNotFound,			N_("Object not found") },
+		{ InvalidObject,			N_("Invalid object") },
+		{ ObjectIdAlreadyExists,		N_("Object ID already exists") },
+		{ AuthenticationFailed,			N_("Authentication Failed") },
+		{ AuthenticationRequired,		N_("Authentication Required") },
+		{ UnsupportedField,			N_("Unsupported field") },
+		{ UnsupportedMethod,			N_("Unsupported method") },
+		{ UnsupportedAuthenticationMethod,	N_("Unsupported authentication method") },
+		{ TLSNotAvailable,			N_("TLS not available") },
+		{ NoSuchCal,				N_("Calendar does not exist") },
+		{ UnknownUser,				N_("Unknown user") },
+		{ OfflineUnavailable,			N_("Not available in offline mode") },
+		{ SearchSizeLimitExceeded,		N_("Search size limit exceeded") },
+		{ SearchTimeLimitExceeded,		N_("Search time limit exceeded") },
+		{ InvalidQuery,				N_("Invalid query") },
+		{ QueryRefused,				N_("Query refused") },
+		{ CouldNotCancel,			N_("Could not cancel") },
+		/* { OtherError,			N_("Other error") }, */
+		{ InvalidServerVersion,			N_("Invalid server version") },
+		{ InvalidArg,				N_("Invalid argument") },
+		{ NotSupported,				N_("Not supported") }
+	};
+
+	for (i = 0; i < G_N_ELEMENTS (statuses); i++) {
+		if (statuses[i].status == status)
+			return _(statuses[i].msg);
+	}
+
+	return _("Other error");
+}
+
+/**
+ * e_data_cal_create_error:
+ *
+ * Since: 2.32
+ **/
+GError *
+e_data_cal_create_error (EDataCalCallStatus status, const gchar *custom_msg)
+{
+	if (status == Success)
+		return NULL;
+
+	return g_error_new_literal (E_DATA_CAL_ERROR, status, custom_msg ? custom_msg : e_data_cal_status_to_string (status));
+}
+
+/**
+ * e_data_cal_create_error_fmt:
+ *
+ * Since: 2.32
+ **/
+GError *
+e_data_cal_create_error_fmt (EDataCalCallStatus status, const gchar *custom_msg_fmt, ...)
+{
+	GError *error;
+	gchar *custom_msg;
+	va_list ap;
+
+	if (!custom_msg_fmt)
+		return e_data_cal_create_error (status, NULL);
+
+	va_start (ap, custom_msg_fmt);
+	custom_msg = g_strdup_vprintf (custom_msg_fmt, ap);
+	va_end (ap);
+
+	error = e_data_cal_create_error (status, custom_msg);
+
+	g_free (custom_msg);
+
+	return error;
 }
 
 static void
-impl_Cal_open (PortableServer_Servant servant,
-	       CORBA_boolean only_if_exists,
-	       const CORBA_char *username,
-	       const CORBA_char *password,
-	       CORBA_Environment *ev)
+data_cal_return_error (GDBusMethodInvocation *invocation, const GError *perror, const gchar *error_fmt)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	GError *error;
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
+	g_return_if_fail (perror != NULL);
 
-	e_cal_backend_open (priv->backend, cal, only_if_exists, username, password);
+	error = g_error_new (E_DATA_CAL_ERROR, perror->code, error_fmt, perror->message);
+
+	g_dbus_method_invocation_return_gerror (invocation, error);
+
+	g_error_free (error);
 }
 
-static void
-impl_Cal_remove (PortableServer_Servant servant,
-		 CORBA_Environment *ev)
+/**
+ * e_data_cal_get_source:
+ * @cal: an #EDataCal
+ *
+ * Returns the #ESource for @cal.
+ *
+ * Returns: the #ESource for @cal
+ *
+ * Since: 2.30
+ **/
+ESource*
+e_data_cal_get_source (EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
-
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_remove (priv->backend, cal);
+  return cal->priv->source;
 }
 
-/* Cal::isReadOnly method */
-static void
-impl_Cal_isReadOnly (PortableServer_Servant servant,
-		     CORBA_Environment *ev)
+ECalBackend*
+e_data_cal_get_backend (EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
-
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_is_read_only (priv->backend, cal);
+  return cal->priv->backend;
 }
 
-/* Cal::getEmailAddress method */
-static void
-impl_Cal_getCalAddress (PortableServer_Servant servant,
-			CORBA_Environment *ev)
+/* EDataCal::getUri method */
+static gboolean
+impl_Cal_getUri (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_gdbus_cal_complete_get_uri (object, invocation, e_cal_backend_get_uri (cal->priv->backend));
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_get_cal_address (priv->backend, cal);
+	return TRUE;
 }
 
-/* Cal::get_alarm_email_address method */
-static void
-impl_Cal_getAlarmEmailAddress (PortableServer_Servant servant,
-			       CORBA_Environment *ev)
+/* EDataCal::getCacheDir method */
+static gboolean
+impl_Cal_getCacheDir (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_gdbus_cal_complete_get_cache_dir (object, invocation, e_cal_backend_get_cache_dir (cal->priv->backend));
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_get_alarm_email_address (priv->backend, cal);
+	return TRUE;
 }
 
-/* Cal::get_ldap_attribute method */
-static void
-impl_Cal_getLdapAttribute (PortableServer_Servant servant,
-			   CORBA_Environment *ev)
+/* EDataCal::open method */
+static gboolean
+impl_Cal_open (EGdbusCal *object, GDBusMethodInvocation *invocation, gboolean only_if_exists, const gchar *username, const gchar *password, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_open (cal->priv->backend, cal, invocation, only_if_exists, username, password);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_get_ldap_attribute (priv->backend, cal);
+	return TRUE;
 }
 
-/* Cal::getSchedulingInformation method */
-static void
-impl_Cal_getStaticCapabilities (PortableServer_Servant servant,
-				CORBA_Environment *ev)
+/* EDataCal::refresh method */
+static gboolean
+impl_Cal_refresh (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_refresh (cal->priv->backend, cal, invocation);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_get_static_capabilities (priv->backend, cal);
+	return TRUE;
 }
 
-/* Cal::setMode method */
-static void
-impl_Cal_setMode (PortableServer_Servant servant,
-		  GNOME_Evolution_Calendar_CalMode mode,
-		  CORBA_Environment *ev)
+/* EDataCal::close method */
+static gboolean
+impl_Cal_close (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_remove_client (cal->priv->backend, cal);
+	e_gdbus_cal_complete_close (object, invocation);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
+	g_object_unref (cal);
 
-	e_cal_backend_set_mode (priv->backend, mode);
+	return TRUE;
 }
 
-static void
-impl_Cal_getDefaultObject (PortableServer_Servant servant,
-			   CORBA_Environment *ev)
+/* EDataCal::remove method */
+static gboolean
+impl_Cal_remove (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_remove (cal->priv->backend, cal, invocation);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_get_default_object (priv->backend, cal);
+	return TRUE;
 }
 
-/* Cal::getObject method */
-static void
-impl_Cal_getObject (PortableServer_Servant servant,
-		    const CORBA_char *uid,
-		    const CORBA_char *rid,
-		    CORBA_Environment *ev)
+/* EDataCal::isReadOnly method */
+static gboolean
+impl_Cal_isReadOnly (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_is_read_only (cal->priv->backend, cal);
+	e_gdbus_cal_complete_is_read_only (object, invocation);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_get_object (priv->backend, cal, uid, rid);
+	return TRUE;
 }
 
-/* Cal::getObjectList method */
-static void
-impl_Cal_getObjectList (PortableServer_Servant servant,
-			const CORBA_char *sexp,
-			CORBA_Environment *ev)
+/* EDataCal::getCalAddress method */
+static gboolean
+impl_Cal_getCalAddress (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
-	EDataCalView *query;
+	e_cal_backend_get_cal_address (cal->priv->backend, cal, invocation);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	query = g_hash_table_lookup (priv->live_queries, sexp);
-	if (query) {
-		GList *matched_objects;
-
-		matched_objects = e_data_cal_view_get_matched_objects (query);
-		e_data_cal_notify_object_list (
-			cal,
-			e_data_cal_view_is_done (query) ? e_data_cal_view_get_done_status (query) : GNOME_Evolution_Calendar_Success,
-			matched_objects);
-
-		g_list_free (matched_objects);
-	} else
-		e_cal_backend_get_object_list (priv->backend, cal, sexp);
+	return TRUE;
 }
 
-/* Cal::getAttachmentList method */
-static void
-impl_Cal_getAttachmentList (PortableServer_Servant servant,
-		    const CORBA_char *uid,
-		    const CORBA_char *rid,
-		    CORBA_Environment *ev)
+/* EDataCal::getAlarmEmailAddress method */
+static gboolean
+impl_Cal_getAlarmEmailAddress (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_get_alarm_email_address (cal->priv->backend, cal, invocation);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_get_attachment_list (priv->backend, cal, uid, rid);
+	return TRUE;
 }
 
-/* Cal::getChanges method */
-static void
-impl_Cal_getChanges (PortableServer_Servant servant,
-		     const CORBA_char *change_id,
-		     CORBA_Environment *ev)
+/* EDataCal::getLdapAttribute method */
+static gboolean
+impl_Cal_getLdapAttribute (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
 {
-       EDataCal *cal;
-       EDataCalPrivate *priv;
+	e_cal_backend_get_ldap_attribute (cal->priv->backend, cal, invocation);
 
-       cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-       priv = cal->priv;
-
-       e_cal_backend_get_changes (priv->backend, cal, change_id);
+	return TRUE;
 }
 
-/* Cal::getFreeBusy method */
-static void
-impl_Cal_getFreeBusy (PortableServer_Servant servant,
-		      const GNOME_Evolution_Calendar_UserList *user_list,
-		      const GNOME_Evolution_Calendar_Time_t start,
-		      const GNOME_Evolution_Calendar_Time_t end,
-		      CORBA_Environment *ev)
+/* EDataCal::getSchedulingInformation method */
+static gboolean
+impl_Cal_getSchedulingInformation (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_get_static_capabilities (cal->priv->backend, cal, invocation);
+
+	return TRUE;
+}
+
+/* EDataCal::setMode method */
+static gboolean
+impl_Cal_setMode (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCalMode mode, EDataCal *cal)
+{
+	e_cal_backend_set_mode (cal->priv->backend, mode);
+	e_gdbus_cal_complete_set_mode (object, invocation);
+
+	return TRUE;
+}
+
+/* EDataCal::getDefaultObject method */
+static gboolean
+impl_Cal_getDefaultObject (EGdbusCal *object, GDBusMethodInvocation *invocation, EDataCal *cal)
+{
+	e_cal_backend_get_default_object (cal->priv->backend, cal, invocation);
+
+	return TRUE;
+}
+
+/* EDataCal::getObject method */
+static gboolean
+impl_Cal_getObject (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *uid, const gchar *rid, EDataCal *cal)
+{
+	e_cal_backend_get_object (cal->priv->backend, cal, invocation, uid, rid);
+
+	return TRUE;
+}
+
+/* EDataCal::getObjectList method */
+static gboolean
+impl_Cal_getObjectList (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *sexp, EDataCal *cal)
+{
+	e_cal_backend_get_object_list (cal->priv->backend, cal, invocation, sexp);
+
+	return TRUE;
+}
+
+/* EDataCal::getChanges method */
+static gboolean
+impl_Cal_getChanges (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *change_id, EDataCal *cal)
+{
+	e_cal_backend_get_changes (cal->priv->backend, cal, invocation, change_id);
+
+	return TRUE;
+}
+
+/* EDataCal::getFreeBusy method */
+static gboolean
+impl_Cal_getFreeBusy (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar **user_list, guint start, guint end, EDataCal *cal)
+{
 	GList *users = NULL;
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	/* convert the CORBA user list to a GList */
 	if (user_list) {
 		gint i;
 
-		for (i = 0; i < user_list->_length; i++)
-			users = g_list_append (users, user_list->_buffer[i]);
+		for (i = 0; user_list[i]; i++)
+			users = g_list_append (users, (gpointer)user_list[i]);
 	}
 
 	/* call the backend's get_free_busy method */
-	e_cal_backend_get_free_busy (priv->backend, cal, users, start, end);
+	e_cal_backend_get_free_busy (cal->priv->backend, cal, invocation, users, (time_t)start, (time_t)end);
+
+	return TRUE;
 }
 
-/* Cal::discardAlarm method */
-static void
-impl_Cal_discardAlarm (PortableServer_Servant servant,
-		       const CORBA_char *uid,
-		       const CORBA_char *auid,
-		       CORBA_Environment *ev)
+/* EDataCal::discardAlarm method */
+static gboolean
+impl_Cal_discardAlarm (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *uid, const gchar *auid, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_discard_alarm (cal->priv->backend, cal, invocation, uid, auid);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_discard_alarm (priv->backend, cal, uid, auid);
+	return TRUE;
 }
 
-static void
-impl_Cal_createObject (PortableServer_Servant servant,
-		       const CORBA_char *calobj,
-		       CORBA_Environment *ev)
+/* EDataCal::createObject method */
+static gboolean
+impl_Cal_createObject (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *calobj, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_create_object (cal->priv->backend, cal, invocation, calobj);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_create_object (priv->backend, cal, calobj);
+	return TRUE;
 }
 
-static void
-impl_Cal_modifyObject (PortableServer_Servant servant,
-		       const CORBA_char *calobj,
-		       const GNOME_Evolution_Calendar_CalObjModType mod,
-		       CORBA_Environment *ev)
+/* EDataCal::modifyObject method */
+static gboolean
+impl_Cal_modifyObject (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *calobj, EDataCalObjModType mod, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_modify_object (cal->priv->backend, cal, invocation, calobj, mod);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_modify_object (priv->backend, cal, calobj, mod);
+	return TRUE;
 }
 
-/* Cal::removeObject method */
-static void
-impl_Cal_removeObject (PortableServer_Servant servant,
-		       const CORBA_char *uid,
-		       const CORBA_char *rid,
-		       const GNOME_Evolution_Calendar_CalObjModType mod,
-		       CORBA_Environment *ev)
+/* EDataCal::removeObject method */
+static gboolean
+impl_Cal_removeObject (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *uid, const gchar *rid, EDataCalObjModType mod, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	if (rid[0] == '\0')
+		rid = NULL;
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
+	e_cal_backend_remove_object (cal->priv->backend, cal, invocation, uid, rid, mod);
 
-	e_cal_backend_remove_object (priv->backend, cal, uid, rid, mod);
+	return TRUE;
 }
 
-static void
-impl_Cal_receiveObjects (PortableServer_Servant servant,
-			 const CORBA_char *calobj,
-			 CORBA_Environment *ev)
+/* EDataCal::receiveObjects method */
+static gboolean
+impl_Cal_receiveObjects (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *calobj, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_receive_objects (cal->priv->backend, cal, invocation, calobj);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_receive_objects (priv->backend, cal, calobj);
+	return TRUE;
 }
 
-static void
-impl_Cal_sendObjects (PortableServer_Servant servant,
-		      const CORBA_char *calobj,
-		      CORBA_Environment *ev)
+/* EDataCal::sendObjects method */
+static gboolean
+impl_Cal_sendObjects (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *calobj, EDataCal *cal)
 {
-	EDataCal *cal;
-	EDataCalPrivate *priv;
+	e_cal_backend_send_objects (cal->priv->backend, cal, invocation, calobj);
 
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_send_objects (priv->backend, cal, calobj);
+	return TRUE;
 }
 
-static void
-disconnect_query (gpointer key, EDataCalView *query, EDataCal *cal)
+/* EDataCal::getAttachmentList method */
+static gboolean
+impl_Cal_getAttachmentList (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *uid, const gchar *rid, EDataCal *cal)
 {
-	g_signal_handlers_disconnect_matched (query, G_SIGNAL_MATCH_DATA, 0, 0, NULL, NULL, cal);
-	e_cal_backend_remove_query (cal->priv->backend, query);
+	e_cal_backend_get_attachment_list (cal->priv->backend, cal, invocation, uid, rid);
+
+	return TRUE;
 }
 
-static void
-query_last_listener_gone_cb (EDataCalView *query, EDataCal *cal)
+/* Function to get a new EDataCalView path, used by getQuery below */
+static gchar *
+construct_calview_path (void)
 {
-	EDataCalPrivate *priv;
-
-	g_return_if_fail (cal != NULL);
-
-	priv = cal->priv;
-
-	disconnect_query (NULL, query, cal);
-	g_hash_table_remove (priv->live_queries, e_data_cal_view_get_text (query));
+	static guint counter = 1;
+	return g_strdup_printf ("/org/gnome/evolution/dataserver/calendar/CalView/%d/%d", getpid(), counter++);
 }
 
-/* Cal::getQuery implementation */
-static void
-impl_Cal_getQuery (PortableServer_Servant servant,
-		   const CORBA_char *sexp,
-		   GNOME_Evolution_Calendar_CalViewListener ql,
-		   CORBA_Environment *ev)
+/* EDataCal::getQuery method */
+static gboolean
+impl_Cal_getQuery (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *sexp, EDataCal *cal)
 {
-
-	EDataCal *cal;
-	EDataCalPrivate *priv;
 	EDataCalView *query;
 	ECalBackendSExp *obj_sexp;
-
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	/* first see if we already have the query in the cache */
-	query = g_hash_table_lookup (priv->live_queries, sexp);
-	if (query) {
-		e_data_cal_view_add_listener (query, ql);
-		e_data_cal_notify_query (cal, GNOME_Evolution_Calendar_Success, query);
-		return;
-	}
+	gchar *path;
+	GError *error = NULL;
 
 	/* we handle this entirely here, since it doesn't require any
 	   backend involvement now that we have e_cal_view_start to
@@ -433,552 +474,313 @@ impl_Cal_getQuery (PortableServer_Servant servant,
 
 	obj_sexp = e_cal_backend_sexp_new (sexp);
 	if (!obj_sexp) {
-		e_data_cal_notify_query (cal, GNOME_Evolution_Calendar_InvalidQuery, NULL);
-
-		return;
+		e_data_cal_notify_query (cal, invocation, EDC_ERROR (InvalidQuery), NULL);
+		return TRUE;
 	}
 
-	query = e_data_cal_view_new (priv->backend, ql, obj_sexp);
+	query = e_data_cal_view_new (cal->priv->backend, obj_sexp);
+	e_debug_log (FALSE, E_DEBUG_LOG_DOMAIN_CAL_QUERIES, "%p;%p;NEW;%s;%s", cal, query, sexp, G_OBJECT_TYPE_NAME (cal->priv->backend));
 	if (!query) {
 		g_object_unref (obj_sexp);
-		e_data_cal_notify_query (cal, GNOME_Evolution_Calendar_OtherError, NULL);
-
-		return;
+		e_data_cal_notify_query (cal, invocation, EDC_ERROR (OtherError), NULL);
+		return TRUE;
 	}
 
-	g_signal_connect (query, "last_listener_gone", G_CALLBACK (query_last_listener_gone_cb), cal);
+	/* log query to evaluate cache performance */
+	e_debug_log (FALSE, E_DEBUG_LOG_DOMAIN_CAL_QUERIES, "%p;%p;REUSED;%s;%s", cal, query, sexp, G_OBJECT_TYPE_NAME (cal->priv->backend));
 
-	g_hash_table_insert (priv->live_queries, g_strdup (sexp), query);
-	e_cal_backend_add_query (priv->backend, query);
+	path = construct_calview_path ();
+	e_data_cal_view_register_gdbus_object (query, g_dbus_method_invocation_get_connection (invocation), path, &error);
 
-	e_data_cal_notify_query (cal, GNOME_Evolution_Calendar_Success, query);
-}
+	if (error) {
+		g_object_unref (query);
+		e_data_cal_notify_query (cal, invocation, EDC_ERROR_EX (OtherError, error->message), NULL);
+		g_error_free (error);
+		g_free (path);
 
-/* Cal::getTimezone method */
-static void
-impl_Cal_getTimezone (PortableServer_Servant servant,
-		      const CORBA_char *tzid,
-		      CORBA_Environment *ev)
-{
-	EDataCal *cal;
-	EDataCalPrivate *priv;
-
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_get_timezone (priv->backend, cal, tzid);
-}
-
-/* Cal::addTimezone method */
-static void
-impl_Cal_addTimezone (PortableServer_Servant servant,
-		      const CORBA_char *tz,
-		      CORBA_Environment *ev)
-{
-	EDataCal *cal;
-	EDataCalPrivate *priv;
-
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_add_timezone (priv->backend, cal, tz);
-}
-
-/* Cal::setDefaultTimezone method */
-static void
-impl_Cal_setDefaultTimezone (PortableServer_Servant servant,
-			     const CORBA_char *tz,
-			     CORBA_Environment *ev)
-{
-	EDataCal *cal;
-	EDataCalPrivate *priv;
-
-	cal = E_DATA_CAL (bonobo_object_from_servant (servant));
-	priv = cal->priv;
-
-	e_cal_backend_set_default_zone (priv->backend, cal, tz);
-}
-
-/**
- * e_data_cal_construct:
- * @cal: A calendar client interface.
- * @backend: Calendar backend that this @cal presents an interface to.
- * @listener: Calendar listener for notification.
- *
- * Constructs a calendar client interface object by binding the corresponding
- * CORBA object to it.  The calendar interface is bound to the specified
- * @backend, and will notify the @listener about changes to the calendar.
- *
- * Return value: The same object as the @cal argument.
- **/
-EDataCal *
-e_data_cal_construct (EDataCal *cal,
-		      ECalBackend *backend,
-		      GNOME_Evolution_Calendar_CalListener listener)
-{
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_val_if_fail (cal != NULL, NULL);
-	g_return_val_if_fail (E_IS_DATA_CAL (cal), NULL);
-	g_return_val_if_fail (backend != NULL, NULL);
-	g_return_val_if_fail (E_IS_CAL_BACKEND (backend), NULL);
-
-	priv = cal->priv;
-
-	CORBA_exception_init (&ev);
-	priv->listener = CORBA_Object_duplicate (listener, &ev);
-	if (BONOBO_EX (&ev)) {
-		g_message ("cal_construct: could not duplicate the listener");
-		priv->listener = CORBA_OBJECT_NIL;
-		CORBA_exception_free (&ev);
-		return NULL;
+		return TRUE;
 	}
 
-	CORBA_exception_free (&ev);
+	e_cal_backend_add_query (cal->priv->backend, query);
 
-	priv->backend = backend;
+	e_data_cal_notify_query (cal, invocation, EDC_ERROR (Success), path);
 
-	return cal;
+        g_free (path);
+
+	return TRUE;
 }
 
-/**
- * e_data_cal_new:
- * @backend: A calendar backend.
- * @listener: A calendar listener.
- *
- * Creates a new calendar client interface object and binds it to the
- * specified @backend and @listener objects.
- *
- * Return value: A newly-created #EDataCal calendar client interface
- * object, or %NULL if its corresponding CORBA object could not be
- * created.
- **/
-EDataCal *
-e_data_cal_new (ECalBackend *backend, GNOME_Evolution_Calendar_CalListener listener)
+/* EDataCal::getTimezone method */
+static gboolean
+impl_Cal_getTimezone (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *tzid, EDataCal *cal)
 {
-	EDataCal *cal, *retval;
+	e_cal_backend_get_timezone (cal->priv->backend, cal, invocation, tzid);
 
-	g_return_val_if_fail (backend != NULL, NULL);
-	g_return_val_if_fail (E_IS_CAL_BACKEND (backend), NULL);
+	return TRUE;
+}
 
-	cal = E_DATA_CAL (g_object_new (E_TYPE_DATA_CAL,
-				 "poa", bonobo_poa_get_threaded (ORBIT_THREAD_HINT_PER_REQUEST, NULL),
-				 NULL));
+/* EDataCal::addTimezone method */
+static gboolean
+impl_Cal_addTimezone (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *tz, EDataCal *cal)
+{
+	e_cal_backend_add_timezone (cal->priv->backend, cal, invocation, tz);
 
-	retval = e_data_cal_construct (cal, backend, listener);
-	if (!retval) {
-		g_message (G_STRLOC ": could not construct the calendar client interface");
-		bonobo_object_unref (BONOBO_OBJECT (cal));
-		return NULL;
+	return TRUE;
+}
+
+/* EDataCal::setDefaultTimezone method */
+static gboolean
+impl_Cal_setDefaultTimezone (EGdbusCal *object, GDBusMethodInvocation *invocation, const gchar *tz, EDataCal *cal)
+{
+	e_cal_backend_set_default_zone (cal->priv->backend, cal, invocation, tz);
+
+	return TRUE;
+}
+
+/* free returned pointer with g_free() */
+static gchar **
+create_str_array_from_glist (GList *lst)
+{
+	gchar **seq;
+	GList *l;
+	gint i;
+
+	seq = g_new0 (gchar *, g_list_length (lst) + 1);
+	for (l = lst, i = 0; l; l = l->next, i++) {
+		seq[i] = l->data;
 	}
 
-	return retval;
+	return seq;
 }
 
-/**
- * e_data_cal_get_backend:
- * @cal: A calendar client interface.
- *
- * Gets the associated backend.
- *
- * Return value: An #ECalBackend.
- */
-ECalBackend *
-e_data_cal_get_backend (EDataCal *cal)
+/* free returned pointer with g_free() */
+static gchar **
+create_str_array_from_gslist (GSList *lst)
 {
-	g_return_val_if_fail (cal != NULL, NULL);
-	g_return_val_if_fail (E_IS_DATA_CAL (cal), NULL);
+	gchar **seq;
+	GSList *l;
+	gint i;
 
-	return cal->priv->backend;
+	seq = g_new0 (gchar *, g_slist_length (lst) + 1);
+	for (l = lst, i = 0; l; l = l->next, i++) {
+		seq[i] = l->data;
+	}
+
+	return seq;
 }
-
-/**
- * e_data_cal_get_listener:
- * @cal: A calendar client interface.
- *
- * Gets the listener associated with a calendar client interface.
- *
- * Return value: The listener.
- */
-GNOME_Evolution_Calendar_CalListener
-e_data_cal_get_listener (EDataCal *cal)
-{
-	g_return_val_if_fail (cal != NULL, NULL);
-	g_return_val_if_fail (E_IS_DATA_CAL (cal), NULL);
-
-	return cal->priv->listener;
-}
-
-/* Destroy handler for the calendar */
-static void
-e_data_cal_finalize (GObject *object)
-{
-	EDataCal *cal;
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (object != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (object));
-
-	cal = E_DATA_CAL (object);
-	priv = cal->priv;
-
-	priv->backend = NULL;
-
-	CORBA_exception_init (&ev);
-	bonobo_object_release_unref (priv->listener, &ev);
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not release the listener");
-
-	priv->listener = NULL;
-	CORBA_exception_free (&ev);
-
-	g_hash_table_foreach (priv->live_queries, (GHFunc) disconnect_query, cal);
-	g_hash_table_destroy (priv->live_queries);
-	priv->live_queries = NULL;
-
-	g_free (priv);
-
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
-}
-
-
-
-/* Class initialization function for the calendar */
-static void
-e_data_cal_class_init (EDataCalClass *klass)
-{
-	GObjectClass *object_class = (GObjectClass *) klass;
-	POA_GNOME_Evolution_Calendar_Cal__epv *epv = &klass->epv;
-
-	parent_class = g_type_class_peek_parent (klass);
-
-	/* Class method overrides */
-	object_class->finalize = e_data_cal_finalize;
-
-	/* Epv methods */
-	epv->_get_uri = impl_Cal_get_uri;
-	epv->open = impl_Cal_open;
-	epv->remove = impl_Cal_remove;
-	epv->isReadOnly = impl_Cal_isReadOnly;
-	epv->getCalAddress = impl_Cal_getCalAddress;
-	epv->getAlarmEmailAddress = impl_Cal_getAlarmEmailAddress;
-	epv->getLdapAttribute = impl_Cal_getLdapAttribute;
-	epv->getStaticCapabilities = impl_Cal_getStaticCapabilities;
-	epv->setMode = impl_Cal_setMode;
-	epv->getDefaultObject = impl_Cal_getDefaultObject;
-	epv->getObject = impl_Cal_getObject;
-	epv->getTimezone = impl_Cal_getTimezone;
-	epv->addTimezone = impl_Cal_addTimezone;
-	epv->setDefaultTimezone = impl_Cal_setDefaultTimezone;
-	epv->getObjectList = impl_Cal_getObjectList;
-	epv->getAttachmentList = impl_Cal_getAttachmentList;
-	epv->getChanges = impl_Cal_getChanges;
-	epv->getFreeBusy = impl_Cal_getFreeBusy;
-	epv->discardAlarm = impl_Cal_discardAlarm;
-	epv->createObject = impl_Cal_createObject;
-	epv->modifyObject = impl_Cal_modifyObject;
-	epv->removeObject = impl_Cal_removeObject;
-	epv->receiveObjects = impl_Cal_receiveObjects;
-	epv->sendObjects = impl_Cal_sendObjects;
-	epv->getQuery = impl_Cal_getQuery;
-}
-
-/* Object initialization function for the calendar */
-static void
-e_data_cal_init (EDataCal *cal, EDataCalClass *klass)
-{
-	EDataCalPrivate *priv;
-
-	priv = g_new0 (EDataCalPrivate, 1);
-	cal->priv = priv;
-
-	priv->listener = CORBA_OBJECT_NIL;
-	priv->live_queries = g_hash_table_new_full (g_str_hash, g_str_equal,
-						    (GDestroyNotify) g_free,
-						    (GDestroyNotify) bonobo_object_unref);
-}
-
-BONOBO_TYPE_FUNC_FULL (EDataCal, GNOME_Evolution_Calendar_Cal, PARENT_TYPE, e_data_cal)
 
 /**
  * e_data_cal_notify_read_only:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @read_only: Read only value.
  *
  * Notifies listeners of the completion of the is_read_only method call.
  */
 void
-e_data_cal_notify_read_only (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, gboolean read_only)
+e_data_cal_notify_read_only (EDataCal *cal, GError *error, gboolean read_only)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
 	g_return_if_fail (cal != NULL);
 	g_return_if_fail (E_IS_DATA_CAL (cal));
 
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyReadOnly (priv->listener, status, read_only, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of read only");
-
-	CORBA_exception_free (&ev);
+	if (error) {
+		e_data_cal_notify_error (cal, error->message);
+		g_error_free (error);
+	} else {
+		e_gdbus_cal_emit_readonly (cal->priv->gdbus_object, read_only);
+	}
 }
 
 /**
  * e_data_cal_notify_cal_address:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @address: Calendar address.
  *
  * Notifies listeners of the completion of the get_cal_address method call.
  */
 void
-e_data_cal_notify_cal_address (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, const gchar *address)
+e_data_cal_notify_cal_address (EDataCal *cal, EServerMethodContext context, GError *error, const gchar *address)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyCalAddress (priv->listener, status, address ? address : "", &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of cal address");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot retrieve calendar address: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_get_cal_address (cal->priv->gdbus_object, invocation, address ? address : "");
 }
 
 /**
  * e_data_cal_notify_alarm_email_address:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @address: Alarm email address.
  *
  * Notifies listeners of the completion of the get_alarm_email_address method call.
  */
 void
-e_data_cal_notify_alarm_email_address (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, const gchar *address)
+e_data_cal_notify_alarm_email_address (EDataCal *cal, EServerMethodContext context, GError *error, const gchar *address)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyAlarmEmailAddress (priv->listener, status, address ? address : "", &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of alarm address");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot retrieve calendar alarm e-mail address: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_get_alarm_email_address (cal->priv->gdbus_object, invocation, address ? address : "");
 }
 
 /**
  * e_data_cal_notify_ldap_attribute:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @attibute: LDAP attribute.
  *
  * Notifies listeners of the completion of the get_ldap_attribute method call.
  */
 void
-e_data_cal_notify_ldap_attribute (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, const gchar *attribute)
+e_data_cal_notify_ldap_attribute (EDataCal *cal, EServerMethodContext context, GError *error, const gchar *attribute)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyLDAPAttribute (priv->listener, status, attribute ? attribute : "", &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of ldap attribute");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot retrieve calendar's LDAP attribute: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_get_ldap_attribute (cal->priv->gdbus_object, invocation, attribute ? attribute : "");
 }
 
 /**
  * e_data_cal_notify_static_capabilities:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @capabilities: Static capabilities from the backend.
  *
  * Notifies listeners of the completion of the get_static_capabilities method call.
  */
 void
-e_data_cal_notify_static_capabilities (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, const gchar *capabilities)
+e_data_cal_notify_static_capabilities (EDataCal *cal, EServerMethodContext context, GError *error, const gchar *capabilities)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyStaticCapabilities (priv->listener, status,
-								    capabilities ? capabilities : "", &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of static capabilities");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot retrieve calendar scheduling information: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_get_scheduling_information (cal->priv->gdbus_object, invocation, capabilities ? capabilities : "");
 }
 
 /**
  * e_data_cal_notify_open:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  *
  * Notifies listeners of the completion of the open method call.
  */
 void
-e_data_cal_notify_open (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status)
+e_data_cal_notify_open (EDataCal *cal, EServerMethodContext context, GError *error)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot open calendar: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_open (cal->priv->gdbus_object, invocation);
+}
 
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyCalOpened (priv->listener, status, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of open");
-
-	CORBA_exception_free (&ev);
+/**
+ * e_data_cal_notify_refresh:
+ * @cal: A calendar client interface.
+ * @error: Operation error, if any, automatically freed if passed it.
+ *
+ * Notifies listeners of the completion of the refresh method call.
+ *
+ * Since: 2.30
+ */
+void
+e_data_cal_notify_refresh (EDataCal *cal, EServerMethodContext context, GError *error)
+{
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot refresh calendar: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_refresh (cal->priv->gdbus_object, invocation);
 }
 
 /**
  * e_data_cal_notify_remove:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  *
  * Notifies listeners of the completion of the remove method call.
  */
 void
-e_data_cal_notify_remove (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status)
+e_data_cal_notify_remove (EDataCal *cal, EServerMethodContext context, GError *error)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyCalRemoved (priv->listener, status, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of remove");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot remove calendar: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_remove (cal->priv->gdbus_object, invocation);
 }
 
 /**
  * e_data_cal_notify_object_created:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @uid: UID of the object created.
  * @object: The object created as an iCalendar string.
  *
  * Notifies listeners of the completion of the create_object method call.
- */
-void
-e_data_cal_notify_object_created (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status,
+ */void
+e_data_cal_notify_object_created (EDataCal *cal, EServerMethodContext context, GError *error,
 				  const gchar *uid, const gchar *object)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	/* If the object is NULL, it means the object has been created on the server sucessfully,
-	   but it is not shown in the UI if delay delivery is set */
-	if (status == GNOME_Evolution_Calendar_Success && object)
-		e_cal_backend_notify_object_created (priv->backend, object);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyObjectCreated (priv->listener, status, uid ? uid : "", &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of object creation");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot create calendar object: %s"));
+		g_error_free (error);
+	} else {
+		e_cal_backend_notify_object_created (cal->priv->backend, object);
+		e_gdbus_cal_complete_create_object (cal->priv->gdbus_object, invocation, uid ? uid : "");
+	}
 }
 
 /**
  * e_data_cal_notify_object_modified:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @old_object: The old object as an iCalendar string.
  * @object: The modified object as an iCalendar string.
  *
  * Notifies listeners of the completion of the modify_object method call.
  */
 void
-e_data_cal_notify_object_modified (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status,
+e_data_cal_notify_object_modified (EDataCal *cal, EServerMethodContext context, GError *error,
 				   const gchar *old_object, const gchar *object)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	if (status == GNOME_Evolution_Calendar_Success)
-		e_cal_backend_notify_object_modified (priv->backend, old_object, object);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyObjectModified (priv->listener, status, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of object creation");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot modify calendar object: %s"));
+		g_error_free (error);
+	} else {
+		e_cal_backend_notify_object_modified (cal->priv->backend, old_object, object);
+		e_gdbus_cal_complete_modify_object (cal->priv->gdbus_object, invocation);
+	}
 }
 
 /**
  * e_data_cal_notify_object_removed:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @uid: UID of the removed object.
  * @old_object: The old object as an iCalendar string.
  * @object: The new object as an iCalendar string. This will not be NULL only
@@ -987,396 +789,261 @@ e_data_cal_notify_object_modified (EDataCal *cal, GNOME_Evolution_Calendar_CallS
  * Notifies listeners of the completion of the remove_object method call.
  */
 void
-e_data_cal_notify_object_removed (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status,
+e_data_cal_notify_object_removed (EDataCal *cal, EServerMethodContext context, GError *error,
 				  const ECalComponentId *id, const gchar *old_object, const gchar *object)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	if (status == GNOME_Evolution_Calendar_Success)
-		e_cal_backend_notify_object_removed (priv->backend, id, old_object, object);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyObjectRemoved (priv->listener, status, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of object removal");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot remove calendar object: %s"));
+		g_error_free (error);
+	} else {
+		e_cal_backend_notify_object_removed (cal->priv->backend, id, old_object, object);
+		e_gdbus_cal_complete_remove_object (cal->priv->gdbus_object, invocation);
+	}
 }
 
 /**
  * e_data_cal_notify_objects_received:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  *
  * Notifies listeners of the completion of the receive_objects method call.
  */
 void
-e_data_cal_notify_objects_received (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status)
+e_data_cal_notify_objects_received (EDataCal *cal, EServerMethodContext context, GError *error)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyObjectsReceived (priv->listener, status, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of objects received");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot receive calendar objects: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_receive_objects (cal->priv->gdbus_object, invocation);
 }
 
 /**
  * e_data_cal_notify_alarm_discarded:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  *
  * Notifies listeners of the completion of the discard_alarm method call.
  */
 void
-e_data_cal_notify_alarm_discarded (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status)
+e_data_cal_notify_alarm_discarded (EDataCal *cal, EServerMethodContext context, GError *error)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyAlarmDiscarded (priv->listener, status, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of alarm discarded");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot discard calendar alarm: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_discard_alarm (cal->priv->gdbus_object, invocation);
 }
 
 /**
  * e_data_cal_notify_objects_sent:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @users: List of users.
  * @calobj: An iCalendar string representing the object sent.
  *
  * Notifies listeners of the completion of the send_objects method call.
  */
 void
-e_data_cal_notify_objects_sent (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, GList *users, const gchar *calobj)
+e_data_cal_notify_objects_sent (EDataCal *cal, EServerMethodContext context, GError *error, GList *users, const gchar *calobj)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-	GNOME_Evolution_Calendar_UserList *corba_users;
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot send calendar objects: %s"));
+		g_error_free (error);
+	} else {
+		gchar **users_array = create_str_array_from_glist (users);
 
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
+		e_gdbus_cal_complete_send_objects (cal->priv->gdbus_object, invocation, (const gchar * const *) users_array, calobj ? calobj : "");
 
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	corba_users = GNOME_Evolution_Calendar_UserList__alloc ();
-	corba_users->_length = g_list_length (users);
-	if (users) {
-		GList *l;
-		gint n;
-
-		corba_users->_buffer = CORBA_sequence_GNOME_Evolution_Calendar_User_allocbuf (corba_users->_length);
-		for (l = users, n = 0; l != NULL; l = l->next, n++)
-			corba_users->_buffer[n] = CORBA_string_dup (l->data);
+		g_free (users_array);
 	}
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyObjectsSent (priv->listener, status, corba_users,
-								calobj ? calobj : "", &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of objects sent");
-
-	CORBA_exception_free (&ev);
-	CORBA_free (corba_users);
 }
 
 /**
  * e_data_cal_notify_default_object:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @object: The default object as an iCalendar string.
  *
  * Notifies listeners of the completion of the get_default_object method call.
  */
 void
-e_data_cal_notify_default_object (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, const gchar *object)
+e_data_cal_notify_default_object (EDataCal *cal, EServerMethodContext context, GError *error, const gchar *object)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_CalListener_notifyDefaultObjectRequested (priv->listener, status,
-									   object ? object : "", &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of default object");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot retrieve default calendar object path: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_get_default_object (cal->priv->gdbus_object, invocation, object ? object : "");
 }
 
 /**
  * e_data_cal_notify_object:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @object: The object retrieved as an iCalendar string.
  *
  * Notifies listeners of the completion of the get_object method call.
  */
 void
-e_data_cal_notify_object (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, const gchar *object)
+e_data_cal_notify_object (EDataCal *cal, EServerMethodContext context, GError *error, const gchar *object)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_CalListener_notifyObjectRequested (priv->listener, status,
-								    object ? object : "", &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of object");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot retrieve calendar object path: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_get_object (cal->priv->gdbus_object, invocation, object ? object : "");
 }
 
 /**
  * e_data_cal_notify_object_list:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @objects: List of retrieved objects.
  *
  * Notifies listeners of the completion of the get_object_list method call.
  */
 void
-e_data_cal_notify_object_list (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, GList *objects)
+e_data_cal_notify_object_list (EDataCal *cal, EServerMethodContext context, GError *error, GList *objects)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-	GNOME_Evolution_Calendar_stringlist seq;
-	GList *l;
-	gint i;
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot retrieve calendar object list: %s"));
+		g_error_free (error);
+	} else {
+		gchar **seq = create_str_array_from_glist (objects);
 
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
+		e_gdbus_cal_complete_get_object_list (cal->priv->gdbus_object, invocation, (const gchar * const *) seq);
 
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-
-	seq._maximum = g_list_length (objects);
-	seq._length = 0;
-	seq._buffer = GNOME_Evolution_Calendar_stringlist_allocbuf (seq._maximum);
-
-	for (l = objects, i = 0; l; l = l->next, i++) {
-		seq._buffer[i] = CORBA_string_dup (l->data);
-		seq._length++;
+		g_free (seq);
 	}
-
-	GNOME_Evolution_Calendar_CalListener_notifyObjectListRequested (priv->listener, status, &seq, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of object list");
-
-	CORBA_exception_free (&ev);
-
-	CORBA_free(seq._buffer);
 }
 
 /**
  * e_data_cal_notify_attachment_list:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @attachments: List of retrieved attachment uri's.
  *
- * Notifies listeners of the completion of the get_attachment_list method call.
- */
+ * Notifies listeners of the completion of the get_attachment_list method call.+ */
 void
-e_data_cal_notify_attachment_list (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, GSList *attachments)
+e_data_cal_notify_attachment_list (EDataCal *cal, EServerMethodContext context, GError *error, GSList *attachments)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-	GNOME_Evolution_Calendar_stringlist seq;
-	GSList *l;
-	gint i;
+	GDBusMethodInvocation *invocation = context;
+	gchar **seq;
 
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
+	seq = create_str_array_from_gslist (attachments);
 
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Could not retrieve attachment list: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_get_attachment_list (cal->priv->gdbus_object, invocation, (const gchar * const *) seq);
 
-	CORBA_exception_init (&ev);
-
-	seq._maximum = g_slist_length (attachments);
-	seq._length = 0;
-	seq._buffer = GNOME_Evolution_Calendar_stringlist_allocbuf (seq._maximum);
-
-	for (l = attachments, i = 0; l; l = l->next, i++) {
-		seq._buffer[i] = CORBA_string_dup (l->data);
-		seq._length++;
-	}
-
-	GNOME_Evolution_Calendar_CalListener_notifyAttachmentListRequested (priv->listener, status, &seq, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of object list");
-
-	CORBA_exception_free (&ev);
-
-	CORBA_free(seq._buffer);
+	g_free (seq);
 }
 
 /**
  * e_data_cal_notify_query:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @query: The new live query.
  *
  * Notifies listeners of the completion of the get_query method call.
  */
 void
-e_data_cal_notify_query (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, EDataCalView *query)
+e_data_cal_notify_query (EDataCal *cal, EServerMethodContext context, GError *error, const gchar *query)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (cal != NULL);
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyQuery (priv->listener, status, BONOBO_OBJREF (query), &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message (G_STRLOC ": could not notify the listener of query");
-
-	CORBA_exception_free (&ev);
+	/*
+	 * Only have a seperate notify function to follow suit with the rest of this
+	 * file - it'd be much easier to just do the return in the above function
+	 */
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Could not complete calendar query: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_get_query (cal->priv->gdbus_object, invocation, query);
 }
 
 /**
  * e_data_cal_notify_timezone_requested:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @object: The requested timezone as an iCalendar string.
  *
  * Notifies listeners of the completion of the get_timezone method call.
  */
 void
-e_data_cal_notify_timezone_requested (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, const gchar *object)
+e_data_cal_notify_timezone_requested (EDataCal *cal, EServerMethodContext context, GError *error, const gchar *object)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyTimezoneRequested (priv->listener, status, object ? object : "", &ev);
-
-	if (BONOBO_EX (&ev))
-		g_warning (G_STRLOC ": could not notify the listener of timezone requested");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Could not retrieve calendar time zone: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_get_timezone (cal->priv->gdbus_object, invocation, object ? object : "");
 }
 
 /**
  * e_data_cal_notify_timezone_added:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @tzid: ID of the added timezone.
  *
  * Notifies listeners of the completion of the add_timezone method call.
  */
 void
-e_data_cal_notify_timezone_added (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, const gchar *tzid)
+e_data_cal_notify_timezone_added (EDataCal *cal, EServerMethodContext context, GError *error, const gchar *tzid)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyTimezoneAdded (priv->listener, status, tzid ? tzid : "", &ev);
-
-	if (BONOBO_EX (&ev))
-		g_warning (G_STRLOC ": could not notify the listener of timezone added");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Could not add calendar time zone: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_add_timezone (cal->priv->gdbus_object, invocation);
 }
 
 /**
  * e_data_cal_notify_default_timezone_set:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  *
  * Notifies listeners of the completion of the set_default_timezone method call.
  */
 void
-e_data_cal_notify_default_timezone_set (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status)
+e_data_cal_notify_default_timezone_set (EDataCal *cal, EServerMethodContext context, GError *error)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
-	g_return_if_fail (E_IS_DATA_CAL (cal));
-
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyDefaultTimezoneSet (priv->listener, status, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_warning (G_STRLOC ": could not notify the listener of default timezone set");
-
-	CORBA_exception_free (&ev);
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Could not set default calendar time zone: %s"));
+		g_error_free (error);
+	} else
+		e_gdbus_cal_complete_set_default_timezone (cal->priv->gdbus_object, invocation);
 }
 
 /**
  * e_data_cal_notify_changes:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @adds: List of additions.
  * @modifies: List of modifications.
  * @deletes: List of removals.
@@ -1384,97 +1051,54 @@ e_data_cal_notify_default_timezone_set (EDataCal *cal, GNOME_Evolution_Calendar_
  * Notifies listeners of the completion of the get_changes method call.
  */
 void
-e_data_cal_notify_changes (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status,
+e_data_cal_notify_changes (EDataCal *cal, EServerMethodContext context, GError *error,
 			   GList *adds, GList *modifies, GList *deletes)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-	GNOME_Evolution_Calendar_CalObjChangeSeq seq;
-	GList *l;
-	gint n, i;
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot retrieve calendar changes: %s"));
+		g_error_free (error);
+	} else {
+		gchar **additions, **modifications, **removals;
 
-	g_return_if_fail (E_IS_DATA_CAL (cal));
+		additions = create_str_array_from_glist (adds);
+		modifications = create_str_array_from_glist (modifies);
+		removals = create_str_array_from_glist (deletes);
 
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
+		e_gdbus_cal_complete_get_changes (cal->priv->gdbus_object, invocation, (const gchar * const *) additions, (const gchar * const *) modifications, (const gchar * const *) removals);
 
-	n = g_list_length (adds) + g_list_length (modifies) + g_list_length (deletes);
-	seq._maximum = n;
-	seq._length = n;
-	seq._buffer = CORBA_sequence_GNOME_Evolution_Calendar_CalObjChange_allocbuf (n);
-
-	i = 0;
-	for (l = adds; l; i++, l = l->next) {
-		GNOME_Evolution_Calendar_CalObjChange *change = &seq._buffer[i];
-
-		change->calobj = CORBA_string_dup (l->data);
-		change->type = GNOME_Evolution_Calendar_ADDED;
+		g_free (additions);
+		g_free (modifications);
+		g_free (removals);
 	}
-
-	for (l = modifies; l; i++, l = l->next) {
-		GNOME_Evolution_Calendar_CalObjChange *change = &seq._buffer[i];
-
-		change->calobj = CORBA_string_dup (l->data);
-		change->type = GNOME_Evolution_Calendar_MODIFIED;
-	}
-
-	for (l = deletes; l; i++, l = l->next) {
-		GNOME_Evolution_Calendar_CalObjChange *change = &seq._buffer[i];
-
-		change->calobj = CORBA_string_dup (l->data);
-		change->type = GNOME_Evolution_Calendar_DELETED;
-	}
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyChanges (priv->listener, status, &seq, &ev);
-
-	CORBA_free (seq._buffer);
-
-	if (BONOBO_EX (&ev))
-		g_warning (G_STRLOC ": could not notify the listener of default timezone set");
-
-	CORBA_exception_free (&ev);
 }
 
 /**
  * e_data_cal_notify_free_busy:
  * @cal: A calendar client interface.
- * @status: Status code.
+ * @error: Operation error, if any, automatically freed if passed it.
  * @freebusy: List of free/busy objects.
  *
  * Notifies listeners of the completion of the get_free_busy method call.
  */
 void
-e_data_cal_notify_free_busy (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus status, GList *freebusy)
+e_data_cal_notify_free_busy (EDataCal *cal, EServerMethodContext context, GError *error, GList *freebusy)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-	GNOME_Evolution_Calendar_CalObjSeq seq;
-	GList *l;
-	gint n, i;
+	GDBusMethodInvocation *invocation = context;
+	if (error) {
+		/* Translators: The '%s' is replaced with a detailed error message */
+		data_cal_return_error (invocation, error, _("Cannot retrieve calendar free/busy list: %s"));
+		g_error_free (error);
+	} else {
+		gchar **seq;
 
-	g_return_if_fail (E_IS_DATA_CAL (cal));
+		seq = create_str_array_from_glist (freebusy);
 
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
+		e_gdbus_cal_complete_get_free_busy (cal->priv->gdbus_object, invocation, (const gchar * const *) seq);
 
-	n = g_list_length (freebusy);
-	seq._maximum = n;
-	seq._length = n;
-	seq._buffer = CORBA_sequence_GNOME_Evolution_Calendar_CalObj_allocbuf (n);
-
-	for (i = 0, l = freebusy; l; i++, l = l->next)
-		seq._buffer[i] = CORBA_string_dup (l->data);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyFreeBusy (priv->listener, status, &seq, &ev);
-
-	CORBA_free (seq._buffer);
-
-	if (BONOBO_EX (&ev))
-		g_warning (G_STRLOC ": could not notify the listener of freebusy");
-
-	CORBA_exception_free (&ev);
+		g_free (seq);
+	}
 }
 
 /**
@@ -1487,26 +1111,13 @@ e_data_cal_notify_free_busy (EDataCal *cal, GNOME_Evolution_Calendar_CallStatus 
  **/
 void
 e_data_cal_notify_mode (EDataCal *cal,
-			GNOME_Evolution_Calendar_CalListener_SetModeStatus status,
-			GNOME_Evolution_Calendar_CalMode mode)
+			EDataCalViewListenerSetModeStatus status,
+			EDataCalMode mode)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
 	g_return_if_fail (cal != NULL);
 	g_return_if_fail (E_IS_DATA_CAL (cal));
 
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyCalSetMode (priv->listener, status, mode, &ev);
-
-	if (BONOBO_EX (&ev))
-		g_message ("e_data_cal_notify_mode(): could not notify the listener "
-			   "about a mode change");
-
-	CORBA_exception_free (&ev);
+	e_gdbus_cal_emit_mode (cal->priv->gdbus_object, mode);
 }
 
 /**
@@ -1518,22 +1129,10 @@ e_data_cal_notify_mode (EDataCal *cal,
 void
 e_data_cal_notify_auth_required (EDataCal *cal)
 {
-       EDataCalPrivate *priv;
-       CORBA_Environment ev;
+	g_return_if_fail (cal != NULL);
+	g_return_if_fail (E_IS_DATA_CAL (cal));
 
-       g_return_if_fail (cal != NULL);
-       g_return_if_fail (E_IS_DATA_CAL (cal));
-
-       priv = cal->priv;
-       g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
-
-       CORBA_exception_init (&ev);
-       GNOME_Evolution_Calendar_CalListener_notifyAuthRequired (priv->listener,  &ev);
-       if (BONOBO_EX (&ev))
-		g_message ("e_data_cal_notify_auth_required: could not notify the listener "
-			   "about auth required");
-
-	CORBA_exception_free (&ev);
+	e_gdbus_cal_emit_auth_required (cal->priv->gdbus_object);
 }
 
 /**
@@ -1546,22 +1145,102 @@ e_data_cal_notify_auth_required (EDataCal *cal)
 void
 e_data_cal_notify_error (EDataCal *cal, const gchar *message)
 {
-	EDataCalPrivate *priv;
-	CORBA_Environment ev;
-
 	g_return_if_fail (cal != NULL);
 	g_return_if_fail (E_IS_DATA_CAL (cal));
-	g_return_if_fail (message != NULL);
 
-	priv = cal->priv;
-	g_return_if_fail (priv->listener != CORBA_OBJECT_NIL);
+	e_gdbus_cal_emit_backend_error (cal->priv->gdbus_object, message);
+}
 
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_CalListener_notifyErrorOccurred (priv->listener, (gchar *) message, &ev);
+/* Instance init */
+static void
+e_data_cal_init (EDataCal *ecal)
+{
+	EGdbusCal *gdbus_object;
 
-	if (BONOBO_EX (&ev))
-		g_message ("e_data_cal_notify_remove(): could not notify the listener "
-			   "about a removed object");
+	ecal->priv = E_DATA_CAL_GET_PRIVATE (ecal);
 
-	CORBA_exception_free (&ev);
+	ecal->priv->gdbus_object = e_gdbus_cal_stub_new ();
+
+	gdbus_object = ecal->priv->gdbus_object;
+	g_signal_connect (gdbus_object, "handle-get-uri", G_CALLBACK (impl_Cal_getUri), ecal);
+	g_signal_connect (gdbus_object, "handle-get-cache-dir", G_CALLBACK (impl_Cal_getCacheDir), ecal);
+	g_signal_connect (gdbus_object, "handle-open", G_CALLBACK (impl_Cal_open), ecal);
+	g_signal_connect (gdbus_object, "handle-refresh", G_CALLBACK (impl_Cal_refresh), ecal);
+	g_signal_connect (gdbus_object, "handle-close", G_CALLBACK (impl_Cal_close), ecal);
+	g_signal_connect (gdbus_object, "handle-remove", G_CALLBACK (impl_Cal_remove), ecal);
+	g_signal_connect (gdbus_object, "handle-is-read-only", G_CALLBACK (impl_Cal_isReadOnly), ecal);
+	g_signal_connect (gdbus_object, "handle-get-cal-address", G_CALLBACK (impl_Cal_getCalAddress), ecal);
+	g_signal_connect (gdbus_object, "handle-get-alarm-email-address", G_CALLBACK (impl_Cal_getAlarmEmailAddress), ecal);
+	g_signal_connect (gdbus_object, "handle-get-ldap-attribute", G_CALLBACK (impl_Cal_getLdapAttribute), ecal);
+	g_signal_connect (gdbus_object, "handle-get-scheduling-information", G_CALLBACK (impl_Cal_getSchedulingInformation), ecal);
+	g_signal_connect (gdbus_object, "handle-set-mode", G_CALLBACK (impl_Cal_setMode), ecal);
+	g_signal_connect (gdbus_object, "handle-get-default-object", G_CALLBACK (impl_Cal_getDefaultObject), ecal);
+	g_signal_connect (gdbus_object, "handle-get-object", G_CALLBACK (impl_Cal_getObject), ecal);
+	g_signal_connect (gdbus_object, "handle-get-object-list", G_CALLBACK (impl_Cal_getObjectList), ecal);
+	g_signal_connect (gdbus_object, "handle-get-changes", G_CALLBACK (impl_Cal_getChanges), ecal);
+	g_signal_connect (gdbus_object, "handle-get-free-busy", G_CALLBACK (impl_Cal_getFreeBusy), ecal);
+	g_signal_connect (gdbus_object, "handle-discard-alarm", G_CALLBACK (impl_Cal_discardAlarm), ecal);
+	g_signal_connect (gdbus_object, "handle-create-object", G_CALLBACK (impl_Cal_createObject), ecal);
+	g_signal_connect (gdbus_object, "handle-modify-object", G_CALLBACK (impl_Cal_modifyObject), ecal);
+	g_signal_connect (gdbus_object, "handle-remove-object", G_CALLBACK (impl_Cal_removeObject), ecal);
+	g_signal_connect (gdbus_object, "handle-receive-objects", G_CALLBACK (impl_Cal_receiveObjects), ecal);
+	g_signal_connect (gdbus_object, "handle-send-objects", G_CALLBACK (impl_Cal_sendObjects), ecal);
+	g_signal_connect (gdbus_object, "handle-get-attachment-list", G_CALLBACK (impl_Cal_getAttachmentList), ecal);
+	g_signal_connect (gdbus_object, "handle-get-query", G_CALLBACK (impl_Cal_getQuery), ecal);
+	g_signal_connect (gdbus_object, "handle-get-timezone", G_CALLBACK (impl_Cal_getTimezone), ecal);
+	g_signal_connect (gdbus_object, "handle-add-timezone", G_CALLBACK (impl_Cal_addTimezone), ecal);
+	g_signal_connect (gdbus_object, "handle-set-default-timezone", G_CALLBACK (impl_Cal_setDefaultTimezone), ecal);
+}
+
+static void
+e_data_cal_finalize (GObject *object)
+{
+	EDataCal *cal = E_DATA_CAL (object);
+
+	g_return_if_fail (cal != NULL);
+
+	g_object_unref (cal->priv->gdbus_object);
+
+	if (G_OBJECT_CLASS (e_data_cal_parent_class)->finalize)
+		G_OBJECT_CLASS (e_data_cal_parent_class)->finalize (object);
+}
+
+/* Class init */
+static void
+e_data_cal_class_init (EDataCalClass *klass)
+{
+	GObjectClass *object_class;
+
+	g_type_class_add_private (klass, sizeof (EDataCalPrivate));
+
+	object_class = G_OBJECT_CLASS (klass);
+	object_class->finalize = e_data_cal_finalize;
+}
+
+EDataCal *
+e_data_cal_new (ECalBackend *backend, ESource *source)
+{
+	EDataCal *cal;
+	cal = g_object_new (E_TYPE_DATA_CAL, NULL);
+	cal->priv->backend = backend;
+	cal->priv->source = source;
+	return cal;
+}
+
+/**
+ * e_data_cal_register_gdbus_object:
+ *
+ * Registers GDBus object of this EDataCal.
+ *
+ * Since: 2.32
+ **/
+guint
+e_data_cal_register_gdbus_object (EDataCal *cal, GDBusConnection *connection, const gchar *object_path, GError **error)
+{
+	g_return_val_if_fail (cal != NULL, 0);
+	g_return_val_if_fail (E_IS_DATA_CAL (cal), 0);
+	g_return_val_if_fail (connection != NULL, 0);
+	g_return_val_if_fail (object_path != NULL, 0);
+
+	return e_gdbus_cal_register_object (cal->priv->gdbus_object, connection, object_path, error);
 }

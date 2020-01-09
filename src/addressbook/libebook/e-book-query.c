@@ -74,7 +74,7 @@ conjoin (EBookQueryType type, gint nqs, EBookQuery **qs, gboolean unref)
  *
  * Create a new #EBookQuery which is the logical AND of the queries in #qs.
  *
- * Return value: A new #EBookQuery
+ * Returns: A new #EBookQuery
  **/
 EBookQuery *
 e_book_query_and (gint nqs, EBookQuery **qs, gboolean unref)
@@ -90,7 +90,7 @@ e_book_query_and (gint nqs, EBookQuery **qs, gboolean unref)
  *
  * Creates a new #EBookQuery which is the logical OR of the queries in #qs.
  *
- * Return value: A new #EBookQuery
+ * Returns: A new #EBookQuery
  **/
 EBookQuery *
 e_book_query_or (gint nqs, EBookQuery **qs, gboolean unref)
@@ -126,7 +126,7 @@ conjoinv (EBookQueryType type, EBookQuery *q, va_list ap)
  *
  * Creates a new #EBookQuery which is the logical AND of the queries specified.
  *
- * Return value: A new #EBookQuery
+ * Returns: A new #EBookQuery
  **/
 EBookQuery *
 e_book_query_andv (EBookQuery *q, ...)
@@ -144,7 +144,7 @@ e_book_query_andv (EBookQuery *q, ...)
  *
  * Creates a new #EBookQuery which is the logical OR of the queries specified.
  *
- * Return value: A new #EBookQuery
+ * Returns: A new #EBookQuery
  **/
 EBookQuery *
 e_book_query_orv (EBookQuery *q, ...)
@@ -162,7 +162,7 @@ e_book_query_orv (EBookQuery *q, ...)
  *
  * Creates a new #EBookQuery which is the opposite of #q.
  *
- * Return value: the new #EBookQuery
+ * Returns: the new #EBookQuery
  **/
 EBookQuery *
 e_book_query_not (EBookQuery *q, gboolean unref)
@@ -185,7 +185,7 @@ e_book_query_not (EBookQuery *q, gboolean unref)
  *
  * Creates a new #EBookQuery which tests @field for @value using the test @test.
  *
- * Return value: the new #EBookQuery
+ * Returns: the new #EBookQuery
  **/
 EBookQuery *
 e_book_query_field_test (EContactField field,
@@ -210,7 +210,9 @@ e_book_query_field_test (EContactField field,
  *
  * Creates a new #EBookQuery which tests @field for @value using the test @test.
  *
- * Return value: the new #EBookQuery
+ * Returns: the new #EBookQuery
+ *
+ * Since: 2.22
  **/
 EBookQuery *
 e_book_query_vcard_field_test (const gchar     *field,
@@ -232,7 +234,7 @@ e_book_query_vcard_field_test (const gchar     *field,
  * @field: a #EContactField
  *
  * Creates a new #EBookQuery which tests if the field @field exists.
- * Return value: the new #EBookQuery
+ * Returns: the new #EBookQuery
  **/
 EBookQuery *
 e_book_query_field_exists (EContactField field)
@@ -252,7 +254,7 @@ e_book_query_field_exists (EContactField field)
  *
  * Creates a new #EBookQuery which tests if the field @field exists. @field
  * should be a vCard field name, such as #FN or #X-MSN.
- * Return value: the new #EBookQuery
+ * Returns: the new #EBookQuery
  **/
 EBookQuery *
 e_book_query_vcard_field_exists (const gchar *field)
@@ -272,7 +274,7 @@ e_book_query_vcard_field_exists (const gchar *field)
  *
  * Creates a new #EBookQuery which tests if any field contains @value.
  *
- * Return value: the new #EBookQuery
+ * Returns: the new #EBookQuery
  **/
 EBookQuery *
 e_book_query_any_field_contains (const gchar *value)
@@ -337,7 +339,7 @@ e_book_query_unref (EBookQuery *q)
  * @q: a #EBookQuery
  *
  * Increment the reference count on @q.
- * Return value: @q
+ * Returns: @q
  **/
 EBookQuery *
 e_book_query_ref (EBookQuery *q)
@@ -358,7 +360,7 @@ func_and(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 
 		qs = g_new0(EBookQuery*, argc);
 
-		for (i = 0; i < argc; i ++) {
+		for (i = 0; i < argc; i++) {
 			GList *list_head = *list;
 			if (!list_head)
 				break;
@@ -373,7 +375,7 @@ func_and(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = FALSE;
+	r->value.boolean = FALSE;
 
 	return r;
 }
@@ -390,7 +392,7 @@ func_or(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 
 		qs = g_new0(EBookQuery*, argc);
 
-		for (i = 0; i < argc; i ++) {
+		for (i = 0; i < argc; i++) {
 			GList *list_head = *list;
 			if (!list_head)
 				break;
@@ -405,7 +407,7 @@ func_or(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = FALSE;
+	r->value.boolean = FALSE;
 
 	return r;
 }
@@ -423,7 +425,7 @@ func_not(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = FALSE;
+	r->value.boolean = FALSE;
 
 	return r;
 }
@@ -458,7 +460,7 @@ func_contains(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer 
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = FALSE;
+	r->value.boolean = FALSE;
 
 	return r;
 }
@@ -487,7 +489,7 @@ func_is(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = FALSE;
+	r->value.boolean = FALSE;
 
 	return r;
 }
@@ -516,7 +518,7 @@ func_beginswith(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointe
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = FALSE;
+	r->value.boolean = FALSE;
 
 	return r;
 }
@@ -545,7 +547,7 @@ func_endswith(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer 
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = FALSE;
+	r->value.boolean = FALSE;
 
 	return r;
 }
@@ -568,7 +570,7 @@ func_exists(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer da
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = FALSE;
+	r->value.boolean = FALSE;
 
 	return r;
 }
@@ -596,7 +598,7 @@ static const struct {
  *
  * Parse @query_string and return a new #EBookQuery representing it.
  *
- * Return value: the new #EBookQuery.
+ * Returns: the new #EBookQuery.
  **/
 EBookQuery*
 e_book_query_from_string  (const gchar *query_string)
@@ -609,7 +611,7 @@ e_book_query_from_string  (const gchar *query_string)
 
 	sexp = e_sexp_new();
 
-	for (i=0;i<sizeof(symbols)/sizeof(symbols[0]);i++) {
+	for (i = 0; i < G_N_ELEMENTS (symbols); i++) {
 		if (symbols[i].type == 1) {
 			e_sexp_add_ifunction(sexp, 0, symbols[i].name,
 					     (ESExpIFunc *)symbols[i].func, &list);
@@ -652,7 +654,7 @@ e_book_query_from_string  (const gchar *query_string)
  *
  * Return the string representation of @q.
  *
- * Return value: The string form of the query. This string should be freed when
+ * Returns: The string form of the query. This string should be freed when
  * finished with.
  **/
 gchar *
@@ -667,7 +669,7 @@ e_book_query_to_string    (EBookQuery *q)
 	switch (q->type) {
 	case E_BOOK_QUERY_TYPE_AND:
 		g_string_append (str, "and ");
-		for (i = 0; i < q->query.andor.nqs; i ++) {
+		for (i = 0; i < q->query.andor.nqs; i++) {
 			s = e_book_query_to_string (q->query.andor.qs[i]);
 			g_string_append (str, s);
 			g_free (s);
@@ -676,7 +678,7 @@ e_book_query_to_string    (EBookQuery *q)
 		break;
 	case E_BOOK_QUERY_TYPE_OR:
 		g_string_append (str, "or ");
-		for (i = 0; i < q->query.andor.nqs; i ++) {
+		for (i = 0; i < q->query.andor.nqs; i++) {
 			s = e_book_query_to_string (q->query.andor.qs[i]);
 			g_string_append (str, s);
 			g_free (s);
@@ -729,13 +731,19 @@ e_book_query_to_string    (EBookQuery *q)
 GType
 e_book_query_get_type (void)
 {
-	static GType type_id = 0;
+	static volatile gsize type_id__volatile = 0;
 
-	if (!type_id)
+	if (g_once_init_enter (&type_id__volatile)) {
+		GType type_id;
+
 		type_id = g_boxed_type_register_static ("EBookQuery",
 							(GBoxedCopyFunc) e_book_query_copy,
 							(GBoxedFreeFunc) e_book_query_unref);
-	return type_id;
+
+		g_once_init_leave (&type_id__volatile, type_id);
+	}
+
+	return type_id__volatile;
 }
 
 /**
@@ -744,7 +752,7 @@ e_book_query_get_type (void)
  *
  * Creates a copy of @q.
  *
- * Return value: A new #EBookQuery identical to @q.
+ * Returns: A new #EBookQuery identical to @q.
  **/
 EBookQuery*
 e_book_query_copy (EBookQuery *q)

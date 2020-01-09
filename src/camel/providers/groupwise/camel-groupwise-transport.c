@@ -28,17 +28,7 @@
 
 #include <string.h>
 
-#include <glib.h>
 #include <glib/gi18n-lib.h>
-
-#include "camel-data-wrapper.h"
-#include "camel-medium.h"
-#include "camel-mime-message.h"
-#include "camel-mime-utils.h"
-#include "camel-multipart.h"
-#include "camel-session.h"
-#include "camel-stream-mem.h"
-#include "camel-stream.h"
 
 #include "camel-groupwise-store.h"
 #include "camel-groupwise-transport.h"
@@ -46,97 +36,35 @@
 
 #define REPLY_VIEW "default message attachments threading"
 
-static gboolean groupwise_send_to (CamelTransport *transport,
-				  CamelMimeMessage *message,
-				  CamelAddress *from,
-				  CamelAddress *recipients,
-				  CamelException *ex);
-
-static gboolean groupwise_transport_connect (CamelService *service, CamelException *ex);
-static gchar *groupwise_transport_get_name (CamelService *service, gboolean brief);
-static void groupwise_transport_construct (CamelService *service, CamelSession *session,
-					   CamelProvider *provider, CamelURL *url, CamelException *ex);
-
-static CamelTransportClass *parent_class = NULL;
-
-static void
-camel_groupwise_transport_class_init (CamelGroupwiseTransportClass *camel_groupwise_transport_class)
-{
-	CamelTransportClass *camel_transport_class =
-		CAMEL_TRANSPORT_CLASS (camel_groupwise_transport_class);
-
-	CamelServiceClass *camel_service_class =
-		CAMEL_SERVICE_CLASS (camel_groupwise_transport_class);
-
-	parent_class = CAMEL_TRANSPORT_CLASS (camel_type_get_global_classfuncs (camel_transport_get_type ()));
-
-	camel_service_class->connect = groupwise_transport_connect;
-	camel_service_class->get_name = groupwise_transport_get_name;
-	camel_service_class->construct = groupwise_transport_construct;
-
-	/* virtual method overload */
-	camel_transport_class->send_to = groupwise_send_to;
-}
-
-static void
-camel_groupwise_transport_init (CamelTransport *transport)
-{
-	return;
-}
-
-static void
-groupwise_transport_construct (CamelService *service, CamelSession *session,
-		CamelProvider *provider, CamelURL *url,
-		CamelException *ex)
-{
-	CAMEL_SERVICE_CLASS (parent_class)->construct (service, session, provider, url, ex);
-	if (camel_exception_is_set (ex))
-		return;
-}
-
-CamelType
-camel_groupwise_transport_get_type (void)
-{
-	static CamelType camel_groupwise_transport_type = CAMEL_INVALID_TYPE;
-
-	if (camel_groupwise_transport_type == CAMEL_INVALID_TYPE) {
-		camel_groupwise_transport_type =
-			camel_type_register (CAMEL_TRANSPORT_TYPE,
-					     "CamelGroupwiseTransport",
-					     sizeof (CamelGroupwiseTransport),
-					     sizeof (CamelGroupwiseTransportClass),
-					     (CamelObjectClassInitFunc) camel_groupwise_transport_class_init,
-					     NULL,
-					     (CamelObjectInitFunc) camel_groupwise_transport_init,
-					     NULL);
-	}
-
-	return camel_groupwise_transport_type;
-}
-
-static gchar *groupwise_transport_get_name (CamelService *service, gboolean brief)
-{
-	if (brief)
-		return g_strdup_printf (_("GroupWise server %s"), service->url->host);
-	else {
-		return g_strdup_printf (_("GroupWise mail delivery via %s"),
-				service->url->host);
-	}
-}
+G_DEFINE_TYPE (CamelGroupwiseTransport, camel_groupwise_transport, CAMEL_TYPE_TRANSPORT)
 
 static gboolean
-groupwise_transport_connect (CamelService *service, CamelException *ex)
+groupwise_transport_connect (CamelService *service,
+                             GError **error)
 {
 	return TRUE;
+}
 
+static gchar *
+groupwise_transport_get_name (CamelService *service,
+                              gboolean brief)
+{
+	if (brief)
+		return g_strdup_printf (
+			_("GroupWise server %s"),
+			service->url->host);
+	else
+		return g_strdup_printf (
+			_("GroupWise mail delivery via %s"),
+			service->url->host);
 }
 
 static gboolean
 groupwise_send_to (CamelTransport *transport,
-		   CamelMimeMessage *message,
-		   CamelAddress *from,
-		   CamelAddress *recipients,
-		   CamelException *ex)
+                   CamelMimeMessage *message,
+                   CamelAddress *from,
+                   CamelAddress *recipients,
+                   GError **error)
 {
 	CamelService *service;
 	CamelStore *store =  NULL;
@@ -151,7 +79,10 @@ groupwise_send_to (CamelTransport *transport,
 	EGwItemLinkInfo *info = NULL;
 
 	if (!transport) {
-		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_CANT_AUTHENTICATE, _("Authentication failed"));
+		g_set_error (
+			error, CAMEL_SERVICE_ERROR,
+			CAMEL_SERVICE_ERROR_CANT_AUTHENTICATE,
+			_("Authentication failed"));
 		return FALSE;
 	}
 
@@ -164,11 +95,14 @@ groupwise_send_to (CamelTransport *transport,
 	camel_operation_start (NULL, _("Sending Message") );
 
 	/*camel groupwise store and cnc*/
-	store = camel_session_get_store (service->session, url, ex );
+	store = camel_session_get_store (service->session, url, NULL);
 	g_free (url);
 	if (!store) {
 		g_warning ("ERROR: Could not get a pointer to the store");
-		camel_exception_set (ex, CAMEL_EXCEPTION_STORE_INVALID, _("Cannot get folder: Invalid operation on this store"));
+		g_set_error (
+			error, CAMEL_STORE_ERROR,
+			CAMEL_STORE_ERROR_INVALID,
+			_("Cannot get folder: Invalid operation on this store"));
 		return FALSE;
 	}
 	groupwise_store = CAMEL_GROUPWISE_STORE (store);
@@ -178,7 +112,10 @@ groupwise_send_to (CamelTransport *transport,
 	if (!cnc) {
 		g_warning ("||| Eh!!! Failure |||\n");
 		camel_operation_end (NULL);
-		camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_CANT_AUTHENTICATE, _("Authentication failed"));
+		g_set_error (
+			error, CAMEL_SERVICE_ERROR,
+			CAMEL_SERVICE_ERROR_CANT_AUTHENTICATE,
+			_("Authentication failed"));
 		return FALSE;
 	}
 
@@ -209,9 +146,16 @@ groupwise_send_to (CamelTransport *transport,
 
 		/* FIXME: 58652 should be changed with an enum.*/
 		if (status == 58652)
-			camel_exception_set (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE, _("You have exceeded this account's storage limit. Your messages are queued in your Outbox. Resend by pressing Send/Receive after deleting/archiving some of your mail.\n"));
+			g_set_error (
+				error, CAMEL_SERVICE_ERROR,
+				CAMEL_SERVICE_ERROR_UNAVAILABLE,
+				_("You have exceeded this account's storage limit. Your messages are queued in your Outbox. Resend by pressing Send/Receive after deleting/archiving some of your mail.\n"));
 		else
-			camel_exception_setv (ex, CAMEL_EXCEPTION_SERVICE_UNAVAILABLE,_("Could not send message: %s"),_("Unknown error"));
+			g_set_error (
+				error, CAMEL_SERVICE_ERROR,
+				CAMEL_SERVICE_ERROR_UNAVAILABLE,
+				_("Could not send message: %s"),
+				_("Unknown error"));
 		status = 0;
 		return FALSE;
 	}
@@ -228,3 +172,21 @@ groupwise_send_to (CamelTransport *transport,
 	return TRUE;
 }
 
+static void
+camel_groupwise_transport_class_init (CamelGroupwiseTransportClass *class)
+{
+	CamelServiceClass *service_class;
+	CamelTransportClass *transport_class;
+
+	service_class = CAMEL_SERVICE_CLASS (class);
+	service_class->connect = groupwise_transport_connect;
+	service_class->get_name = groupwise_transport_get_name;
+
+	transport_class = CAMEL_TRANSPORT_CLASS (class);
+	transport_class->send_to = groupwise_send_to;
+}
+
+static void
+camel_groupwise_transport_init (CamelGroupwiseTransport *groupwise_transport)
+{
+}

@@ -54,3 +54,11 @@
 <ANCHOR id="libebackend-e-db3-utils.details" href="libebackend/libebackend-e-db3-utils.html#libebackend-e-db3-utils.details">
 <ANCHOR id="e-db3-utils-maybe-recover" href="libebackend/libebackend-e-db3-utils.html#e-db3-utils-maybe-recover">
 <ANCHOR id="e-db3-utils-upgrade-format" href="libebackend/libebackend-e-db3-utils.html#e-db3-utils-upgrade-format">
+<ANCHOR id="libebackend-EOfflineListener" href="libebackend/libebackend-EOfflineListener.html">
+<ANCHOR id="libebackend-EOfflineListener.synopsis" href="libebackend/libebackend-EOfflineListener.html#libebackend-EOfflineListener.synopsis">
+<ANCHOR id="libebackend-EOfflineListener.description" href="libebackend/libebackend-EOfflineListener.html#libebackend-EOfflineListener.description">
+<ANCHOR id="libebackend-EOfflineListener.details" href="libebackend/libebackend-EOfflineListener.html#libebackend-EOfflineListener.details">
+<ANCHOR id="EOfflineListenerState" href="libebackend/libebackend-EOfflineListener.html#EOfflineListenerState">
+<ANCHOR id="EOfflineListener" href="libebackend/libebackend-EOfflineListener.html#EOfflineListener">
+<ANCHOR id="e-offline-listener-new" href="libebackend/libebackend-EOfflineListener.html#e-offline-listener-new">
+<ANCHOR id="e-offline-listener-get-state" href="libebackend/libebackend-EOfflineListener.html#e-offline-listener-get-state">

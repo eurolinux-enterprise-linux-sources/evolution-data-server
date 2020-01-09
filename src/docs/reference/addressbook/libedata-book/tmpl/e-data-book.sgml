@@ -26,6 +26,52 @@ EDataBook
 </para>
 
 
+<!-- ##### MACRO E_DATA_BOOK_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### FUNCTION e_data_book_create_error ##### -->
+<para>
+
+</para>
+
+@status: 
+@custom_msg: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_data_book_create_error_fmt ##### -->
+<para>
+
+</para>
+
+@status: 
+@custom_msg_fmt: 
+@Varargs: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_data_book_status_to_string ##### -->
+<para>
+
+</para>
+
+@status: 
+@Returns: 
+
+
+<!-- ##### MACRO e_return_data_book_error_if_fail ##### -->
+<para>
+
+</para>
+
+@expr: 
+@_code: 
+
+
 <!-- ##### FUNCTION e_data_book_new ##### -->
 <para>
 
@@ -33,16 +79,18 @@ EDataBook
 
 @backend: 
 @source: 
-@listener: 
 @Returns: 
 
 
-<!-- ##### FUNCTION e_data_book_get_listener ##### -->
+<!-- ##### FUNCTION e_data_book_register_gdbus_object ##### -->
 <para>
 
 </para>
 
-@book: 
+@cal: 
+@connection: 
+@object_path: 
+@error: 
 @Returns: 
 
 
@@ -71,7 +119,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 
 
 <!-- ##### FUNCTION e_data_book_respond_remove ##### -->
@@ -81,7 +129,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 
 
 <!-- ##### FUNCTION e_data_book_respond_create ##### -->
@@ -91,7 +139,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 @contact: 
 
 
@@ -102,7 +150,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 @ids: 
 
 
@@ -113,7 +161,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 @contact: 
 
 
@@ -124,7 +172,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 
 
 <!-- ##### FUNCTION e_data_book_respond_get_supported_fields ##### -->
@@ -134,7 +182,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 @fields: 
 
 
@@ -145,7 +193,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 @fields: 
 
 
@@ -156,19 +204,8 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 @fields: 
-
-
-<!-- ##### FUNCTION e_data_book_respond_get_book_view ##### -->
-<para>
-
-</para>
-
-@book: 
-@opid: 
-@status: 
-@book_view: 
 
 
 <!-- ##### FUNCTION e_data_book_respond_get_contact ##### -->
@@ -178,7 +215,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 @vcard: 
 
 
@@ -189,7 +226,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 @cards: 
 
 
@@ -200,7 +237,7 @@ EDataBook
 
 @book: 
 @opid: 
-@status: 
+@error: 
 @changes: 
 
 

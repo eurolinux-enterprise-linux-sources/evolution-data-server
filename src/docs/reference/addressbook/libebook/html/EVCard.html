@@ -3,18 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EVCard</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Address Book Client (libebook)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Address Book Client (libebook)">
-<link rel="prev" href="EBookViewListener.html" title="EBookViewListener">
+<link rel="prev" href="EBookView.html" title="EBookView">
 <link rel="next" href="EContact.html" title="EContact">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
 <tr valign="middle">
-<td><a accesskey="p" href="EBookViewListener.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="p" href="EBookView.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Evolution-Data-Server Manual: Address Book Client (libebook)</th>
@@ -28,7 +28,7 @@
                   <a href="#EVCard.object-hierarchy" class="shortcut">Object Hierarchy</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="EVCard">
 <a name="EVCard"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -37,52 +37,61 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="EVCard.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">                    <a class="link" href="EVCard.html#EVCard-struct" title="EVCard">EVCard</a>;
 enum                <a class="link" href="EVCard.html#EVCardFormat" title="enum EVCardFormat">EVCardFormat</a>;
                     <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute">EVCardAttribute</a>;
                     <a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam">EVCardAttributeParam</a>;
 <a class="link" href="EVCard.html" title="EVCard"><span class="returnvalue">EVCard</span></a>*             <a class="link" href="EVCard.html#e-vcard-new" title="e_vcard_new ()">e_vcard_new</a>                         (<em class="parameter"><code><span class="type">void</span></code></em>);
-<a class="link" href="EVCard.html" title="EVCard"><span class="returnvalue">EVCard</span></a>*             <a class="link" href="EVCard.html#e-vcard-new-from-string" title="e_vcard_new_from_string ()">e_vcard_new_from_string</a>             (<em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="EVCard.html#e-vcard-to-string" title="e_vcard_to_string ()">e_vcard_to_string</a>                   (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
+<a class="link" href="EVCard.html" title="EVCard"><span class="returnvalue">EVCard</span></a>*             <a class="link" href="EVCard.html#e-vcard-new-from-string" title="e_vcard_new_from_string ()">e_vcard_new_from_string</a>             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *str</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="EVCard.html#e-vcard-to-string" title="e_vcard_to_string ()">e_vcard_to_string</a>                   (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardFormat" title="enum EVCardFormat"><span class="type">EVCardFormat</span></a> format</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-dump-structure" title="e_vcard_dump_structure ()">e_vcard_dump_structure</a>              (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>);
-<a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="returnvalue">EVCardAttribute</span></a> *   <a class="link" href="EVCard.html#e-vcard-attribute-new" title="e_vcard_attribute_new ()">e_vcard_attribute_new</a>               (<em class="parameter"><code>const <span class="type">gchar</span> *attr_group</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *attr_name</code></em>);
+<a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="returnvalue">EVCardAttribute</span></a> *   <a class="link" href="EVCard.html#e-vcard-attribute-new" title="e_vcard_attribute_new ()">e_vcard_attribute_new</a>               (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *attr_group</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *attr_name</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-free" title="e_vcard_attribute_free ()">e_vcard_attribute_free</a>              (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
 <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="returnvalue">EVCardAttribute</span></a> *   <a class="link" href="EVCard.html#e-vcard-attribute-copy" title="e_vcard_attribute_copy ()">e_vcard_attribute_copy</a>              (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-remove-attributes" title="e_vcard_remove_attributes ()">e_vcard_remove_attributes</a>           (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *attr_group</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *attr_name</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *attr_group</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *attr_name</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-remove-attribute" title="e_vcard_remove_attribute ()">e_vcard_remove_attribute</a>            (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-append-attribute" title="e_vcard_append_attribute ()">e_vcard_append_attribute</a>            (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-append-attribute-with-value" title="e_vcard_append_attribute_with_value ()">e_vcard_append_attribute_with_value</a> (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-append-attribute-with-values" title="e_vcard_append_attribute_with_values ()">e_vcard_append_attribute_with_values</a>
+                                                        (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-add-attribute" title="e_vcard_add_attribute ()">e_vcard_add_attribute</a>               (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-add-attribute-with-value" title="e_vcard_add_attribute_with_value ()">e_vcard_add_attribute_with_value</a>    (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-add-attribute-with-values" title="e_vcard_add_attribute_with_values ()">e_vcard_add_attribute_with_values</a>   (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
                                                          <em class="parameter"><code>...</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-add-value" title="e_vcard_attribute_add_value ()">e_vcard_attribute_add_value</a>         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-add-value-decoded" title="e_vcard_attribute_add_value_decoded ()">e_vcard_attribute_add_value_decoded</a> (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> len</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-add-values" title="e_vcard_attribute_add_values ()">e_vcard_attribute_add_values</a>        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
                                                          <em class="parameter"><code>...</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-remove-values" title="e_vcard_attribute_remove_values ()">e_vcard_attribute_remove_values</a>     (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-remove-value" title="e_vcard_attribute_remove_value ()">e_vcard_attribute_remove_value</a>      (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *s</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *s</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-remove-params" title="e_vcard_attribute_remove_params ()">e_vcard_attribute_remove_params</a>     (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-remove-param" title="e_vcard_attribute_remove_param ()">e_vcard_attribute_remove_param</a>      (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *param_name</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *param_name</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-remove-param-value" title="e_vcard_attribute_remove_param_value ()">e_vcard_attribute_remove_param_value</a>
                                                         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *param_name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *s</code></em>);
-<a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="returnvalue">EVCardAttributeParam</span></a>* <a class="link" href="EVCard.html#e-vcard-attribute-param-new" title="e_vcard_attribute_param_new ()">e_vcard_attribute_param_new</a>       (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *param_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *s</code></em>);
+<a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="returnvalue">EVCardAttributeParam</span></a>* <a class="link" href="EVCard.html#e-vcard-attribute-param-new" title="e_vcard_attribute_param_new ()">e_vcard_attribute_param_new</a>       (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-param-free" title="e_vcard_attribute_param_free ()">e_vcard_attribute_param_free</a>        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);
 <a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="returnvalue">EVCardAttributeParam</span></a>* <a class="link" href="EVCard.html#e-vcard-attribute-param-copy" title="e_vcard_attribute_param_copy ()">e_vcard_attribute_param_copy</a>      (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-add-param" title="e_vcard_attribute_add_param ()">e_vcard_attribute_add_param</a>         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
@@ -90,37 +99,37 @@ enum                <a class="link" href="EVCard.html#EVCardFormat" title="enum 
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-add-param-with-value" title="e_vcard_attribute_add_param_with_value ()">e_vcard_attribute_add_param_with_value</a>
                                                         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-add-param-with-values" title="e_vcard_attribute_add_param_with_values ()">e_vcard_attribute_add_param_with_values</a>
                                                         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>,
                                                          <em class="parameter"><code>...</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-param-add-value" title="e_vcard_attribute_param_add_value ()">e_vcard_attribute_param_add_value</a>   (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-param-add-values" title="e_vcard_attribute_param_add_values ()">e_vcard_attribute_param_add_values</a>  (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>,
                                                          <em class="parameter"><code>...</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EVCard.html#e-vcard-attribute-param-remove-values" title="e_vcard_attribute_param_remove_values ()">e_vcard_attribute_param_remove_values</a>
                                                         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="EVCard.html#e-vcard-attribute-param-get-name" title="e_vcard_attribute_param_get_name ()">e_vcard_attribute_param_get_name</a>    (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);
-<span class="returnvalue">GList</span>*              <a class="link" href="EVCard.html#e-vcard-attribute-param-get-values" title="e_vcard_attribute_param_get_values ()">e_vcard_attribute_param_get_values</a>  (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EVCard.html#e-vcard-attribute-param-get-name" title="e_vcard_attribute_param_get_name ()">e_vcard_attribute_param_get_name</a>    (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="EVCard.html#e-vcard-attribute-param-get-values" title="e_vcard_attribute_param_get_values ()">e_vcard_attribute_param_get_values</a>  (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);
 <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="returnvalue">EVCardAttribute</span></a> *   <a class="link" href="EVCard.html#e-vcard-get-attribute" title="e_vcard_get_attribute ()">e_vcard_get_attribute</a>               (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
-<span class="returnvalue">GList</span>*              <a class="link" href="EVCard.html#e-vcard-get-attributes" title="e_vcard_get_attributes ()">e_vcard_get_attributes</a>              (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="EVCard.html#e-vcard-attribute-get-group" title="e_vcard_attribute_get_group ()">e_vcard_attribute_get_group</a>         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="EVCard.html#e-vcard-attribute-get-name" title="e_vcard_attribute_get_name ()">e_vcard_attribute_get_name</a>          (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
-<span class="returnvalue">GList</span>*              <a class="link" href="EVCard.html#e-vcard-attribute-get-values" title="e_vcard_attribute_get_values ()">e_vcard_attribute_get_values</a>        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
-<span class="returnvalue">GList</span>*              <a class="link" href="EVCard.html#e-vcard-attribute-get-values-decoded" title="e_vcard_attribute_get_values_decoded ()">e_vcard_attribute_get_values_decoded</a>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="EVCard.html#e-vcard-get-attributes" title="e_vcard_get_attributes ()">e_vcard_get_attributes</a>              (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EVCard.html#e-vcard-attribute-get-group" title="e_vcard_attribute_get_group ()">e_vcard_attribute_get_group</a>         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EVCard.html#e-vcard-attribute-get-name" title="e_vcard_attribute_get_name ()">e_vcard_attribute_get_name</a>          (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="EVCard.html#e-vcard-attribute-get-values" title="e_vcard_attribute_get_values ()">e_vcard_attribute_get_values</a>        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="EVCard.html#e-vcard-attribute-get-values-decoded" title="e_vcard_attribute_get_values_decoded ()">e_vcard_attribute_get_values_decoded</a>
                                                         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
-<span class="returnvalue">GList</span>*              <a class="link" href="EVCard.html#e-vcard-attribute-get-params" title="e_vcard_attribute_get_params ()">e_vcard_attribute_get_params</a>        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
-<span class="returnvalue">GList</span>*              <a class="link" href="EVCard.html#e-vcard-attribute-get-param" title="e_vcard_attribute_get_param ()">e_vcard_attribute_get_param</a>         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="EVCard.html#e-vcard-attribute-get-value" title="e_vcard_attribute_get_value ()">e_vcard_attribute_get_value</a>         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
-<span class="returnvalue">GString</span>*            <a class="link" href="EVCard.html#e-vcard-attribute-get-value-decoded" title="e_vcard_attribute_get_value_decoded ()">e_vcard_attribute_get_value_decoded</a> (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EVCard.html#e-vcard-attribute-has-type" title="e_vcard_attribute_has_type ()">e_vcard_attribute_has_type</a>          (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *typestr</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EVCard.html#e-vcard-attribute-is-single-valued" title="e_vcard_attribute_is_single_valued ()">e_vcard_attribute_is_single_valued</a>  (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="EVCard.html#e-vcard-escape-string" title="e_vcard_escape_string ()">e_vcard_escape_string</a>               (<em class="parameter"><code>const <span class="type">gchar</span> *s</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="EVCard.html#e-vcard-unescape-string" title="e_vcard_unescape_string ()">e_vcard_unescape_string</a>             (<em class="parameter"><code>const <span class="type">gchar</span> *s</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="EVCard.html#e-vcard-attribute-get-params" title="e_vcard_attribute_get_params ()">e_vcard_attribute_get_params</a>        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              <a class="link" href="EVCard.html#e-vcard-attribute-get-param" title="e_vcard_attribute_get_param ()">e_vcard_attribute_get_param</a>         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="EVCard.html#e-vcard-attribute-get-value" title="e_vcard_attribute_get_value ()">e_vcard_attribute_get_value</a>         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Strings.html#GString"><span class="returnvalue">GString</span></a>*            <a class="link" href="EVCard.html#e-vcard-attribute-get-value-decoded" title="e_vcard_attribute_get_value_decoded ()">e_vcard_attribute_get_value_decoded</a> (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EVCard.html#e-vcard-attribute-has-type" title="e_vcard_attribute_has_type ()">e_vcard_attribute_has_type</a>          (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *typestr</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EVCard.html#e-vcard-attribute-is-single-valued" title="e_vcard_attribute_is_single_valued ()">e_vcard_attribute_is_single_valued</a>  (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="EVCard.html#e-vcard-escape-string" title="e_vcard_escape_string ()">e_vcard_escape_string</a>               (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *s</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="EVCard.html#e-vcard-unescape-string" title="e_vcard_unescape_string ()">e_vcard_unescape_string</a>             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *s</code></em>);
 #define             <a class="link" href="EVCard.html#EVC-ADR:CAPS" title="EVC_ADR">EVC_ADR</a>
 #define             <a class="link" href="EVCard.html#EVC-BDAY:CAPS" title="EVC_BDAY">EVC_BDAY</a>
 #define             <a class="link" href="EVCard.html#EVC-CALURI:CAPS" title="EVC_CALURI">EVC_CALURI</a>
@@ -185,30 +194,30 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="EVCar
 #define             <a class="link" href="EVCard.html#EVC-X-VIDEO-URL:CAPS" title="EVC_X_VIDEO_URL">EVC_X_VIDEO_URL</a>
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
 <a name="EVCard.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  GObject
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----EVCard
          +----<a class="link" href="EContact.html" title="EContact">EContact</a>
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="EVCard.description"></a><h2>Description</h2>
 <p>
 Does the low-level parsing work for contact information. This data is more conveniently accessed through the EContact object.
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="EVCard.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVCard">
 <a name="EVCard-struct"></a><h3>EVCard</h3>
 <pre class="programlisting">typedef struct _EVCard EVCard;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="enum EVCardFormat">
 <a name="EVCardFormat"></a><h3>enum EVCardFormat</h3>
 <pre class="programlisting">typedef enum {
 	EVC_FORMAT_VCARD_21,
@@ -219,25 +228,26 @@ Does the low-level parsing work for contact information. This data is more conve
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVCardAttribute">
 <a name="EVCardAttribute"></a><h3>EVCardAttribute</h3>
 <pre class="programlisting">typedef struct _EVCardAttribute EVCardAttribute;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVCardAttributeParam">
 <a name="EVCardAttributeParam"></a><h3>EVCardAttributeParam</h3>
 <pre class="programlisting">typedef struct _EVCardAttributeParam EVCardAttributeParam;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_new ()">
 <a name="e-vcard-new"></a><h3>e_vcard_new ()</h3>
 <pre class="programlisting"><a class="link" href="EVCard.html" title="EVCard"><span class="returnvalue">EVCard</span></a>*             e_vcard_new                         (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
 <p>
-Creates a new, blank <a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a>.</p>
+Creates a new, blank <a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -248,12 +258,13 @@ Creates a new, blank <a class="link" href="EVCard.html" title="EVCard"><span cla
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_new_from_string ()">
 <a name="e-vcard-new-from-string"></a><h3>e_vcard_new_from_string ()</h3>
-<pre class="programlisting"><a class="link" href="EVCard.html" title="EVCard"><span class="returnvalue">EVCard</span></a>*             e_vcard_new_from_string             (<em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="EVCard.html" title="EVCard"><span class="returnvalue">EVCard</span></a>*             e_vcard_new_from_string             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *str</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> from the passed-in string
-representation.</p>
+representation.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -271,13 +282,14 @@ representation.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_to_string ()">
 <a name="e-vcard-to-string"></a><h3>e_vcard_to_string ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_vcard_to_string                   (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_vcard_to_string                   (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardFormat" title="enum EVCardFormat"><span class="type">EVCardFormat</span></a> format</code></em>);</pre>
 <p>
 Exports <em class="parameter"><code>evc</code></em> to a string representation, specified
-by the <em class="parameter"><code>format</code></em> argument.</p>
+by the <em class="parameter"><code>format</code></em> argument.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -300,12 +312,13 @@ by the <em class="parameter"><code>format</code></em> argument.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_dump_structure ()">
 <a name="e-vcard-dump-structure"></a><h3>e_vcard_dump_structure ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_dump_structure              (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>);</pre>
 <p>
 Prints a dump of <em class="parameter"><code>evc</code></em>'s structure to stdout. Used for
-debugging.</p>
+debugging.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -316,13 +329,14 @@ debugging.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_new ()">
 <a name="e-vcard-attribute-new"></a><h3>e_vcard_attribute_new ()</h3>
-<pre class="programlisting"><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="returnvalue">EVCardAttribute</span></a> *   e_vcard_attribute_new               (<em class="parameter"><code>const <span class="type">gchar</span> *attr_group</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *attr_name</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="returnvalue">EVCardAttribute</span></a> *   e_vcard_attribute_new               (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *attr_group</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *attr_name</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> with the specified group and
-attribute names.</p>
+attribute names.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -345,11 +359,12 @@ attribute names.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_free ()">
 <a name="e-vcard-attribute-free"></a><h3>e_vcard_attribute_free ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_free              (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
-Frees an attribute, its values and its parameters.</p>
+Frees an attribute, its values and its parameters.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -360,11 +375,12 @@ Frees an attribute, its values and its parameters.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_copy ()">
 <a name="e-vcard-attribute-copy"></a><h3>e_vcard_attribute_copy ()</h3>
 <pre class="programlisting"><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="returnvalue">EVCardAttribute</span></a> *   e_vcard_attribute_copy              (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
-Makes a copy of <em class="parameter"><code>attr</code></em>.</p>
+Makes a copy of <em class="parameter"><code>attr</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -382,16 +398,17 @@ Makes a copy of <em class="parameter"><code>attr</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_remove_attributes ()">
 <a name="e-vcard-remove-attributes"></a><h3>e_vcard_remove_attributes ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_remove_attributes           (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *attr_group</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *attr_name</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *attr_group</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *attr_name</code></em>);</pre>
 <p>
 Removes all the attributes with group name and attribute name equal to
-passed in values. If <em class="parameter"><code>attr_group</code></em> is <code class="literal">NULL</code> or an empty string,
+passed in values. If <em class="parameter"><code>attr_group</code></em> is <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> or an empty string,
 it removes all the attributes with passed in name irrespective of
-their group names.</p>
+their group names.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -414,12 +431,13 @@ their group names.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_remove_attribute ()">
 <a name="e-vcard-remove-attribute"></a><h3>e_vcard_remove_attribute ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_remove_attribute            (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
-Removes <em class="parameter"><code>attr</code></em> from <em class="parameter"><code>evc</code></em> and frees it.</p>
+Removes <em class="parameter"><code>attr</code></em> from <em class="parameter"><code>evc</code></em> and frees it.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -437,12 +455,103 @@ Removes <em class="parameter"><code>attr</code></em> from <em class="parameter">
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_append_attribute ()">
+<a name="e-vcard-append-attribute"></a><h3>e_vcard_append_attribute ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_append_attribute            (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
+<p>
+Appends <em class="parameter"><code>attr</code></em> to <em class="parameter"><code>evc</code></em> to the end of a list of attributes.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>evc</code></em> :</span></p></td>
+<td>an <a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>attr</code></em> :</span></p></td>
+<td>an <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> to append
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2" title="e_vcard_append_attribute_with_value ()">
+<a name="e-vcard-append-attribute-with-value"></a><h3>e_vcard_append_attribute_with_value ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_append_attribute_with_value (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
+<p>
+Appends <em class="parameter"><code>attr</code></em> to <em class="parameter"><code>evcard</code></em>, setting it to <em class="parameter"><code>value</code></em>.
+For attribute addition is used <a class="link" href="EVCard.html#e-vcard-append-attribute" title="e_vcard_append_attribute ()"><code class="function">e_vcard_append_attribute()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>evcard</code></em> :</span></p></td>
+<td>an <a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>attr</code></em> :</span></p></td>
+<td>an <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> to append
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>a value to assign to the attribute
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2" title="e_vcard_append_attribute_with_values ()">
+<a name="e-vcard-append-attribute-with-values"></a><h3>e_vcard_append_attribute_with_values ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_append_attribute_with_values
+                                                        (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Appends <em class="parameter"><code>attr</code></em> to <em class="parameter"><code>evcard</code></em>, assigning the list of values to it.
+For attribute addition is used <a class="link" href="EVCard.html#e-vcard-append-attribute" title="e_vcard_append_attribute ()"><code class="function">e_vcard_append_attribute()</code></a>.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>evcard</code></em> :</span></p></td>
+<td>an <em class="parameter"><code>EVCard</code></em>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>attr</code></em> :</span></p></td>
+<td>an <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> to append
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated list of values to assign to the attribute
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2" title="e_vcard_add_attribute ()">
 <a name="e-vcard-add-attribute"></a><h3>e_vcard_add_attribute ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_add_attribute               (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
-Adds <em class="parameter"><code>attr</code></em> to <em class="parameter"><code>evc</code></em>.</p>
+Adds <em class="parameter"><code>attr</code></em> to <em class="parameter"><code>evc</code></em>. It's added to the beginning of a list of attributes.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -460,13 +569,15 @@ Adds <em class="parameter"><code>attr</code></em> to <em class="parameter"><code
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_add_attribute_with_value ()">
 <a name="e-vcard-add-attribute-with-value"></a><h3>e_vcard_add_attribute_with_value ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_add_attribute_with_value    (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
 <p>
-Adds <em class="parameter"><code>attr</code></em> to <em class="parameter"><code>evcard</code></em>, setting it to <em class="parameter"><code>value</code></em>.</p>
+Adds <em class="parameter"><code>attr</code></em> to <em class="parameter"><code>evcard</code></em>, setting it to <em class="parameter"><code>value</code></em>. For attribute addition
+is used <a class="link" href="EVCard.html#e-vcard-add-attribute" title="e_vcard_add_attribute ()"><code class="function">e_vcard_add_attribute()</code></a>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -489,13 +600,15 @@ Adds <em class="parameter"><code>attr</code></em> to <em class="parameter"><code
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_add_attribute_with_values ()">
 <a name="e-vcard-add-attribute-with-values"></a><h3>e_vcard_add_attribute_with_values ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_add_attribute_with_values   (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
                                                          <em class="parameter"><code>...</code></em>);</pre>
 <p>
-Adds <em class="parameter"><code>attr</code></em> to <em class="parameter"><code>evcard</code></em>, assigning the list of values to it.</p>
+Adds <em class="parameter"><code>attr</code></em> to <em class="parameter"><code>evcard</code></em>, assigning the list of values to it.
+For attribute addition is used <a class="link" href="EVCard.html#e-vcard-add-attribute" title="e_vcard_add_attribute ()"><code class="function">e_vcard_add_attribute()</code></a>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -511,19 +624,20 @@ Adds <em class="parameter"><code>attr</code></em> to <em class="parameter"><code
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
-<td>a <code class="literal">NULL</code>-terminated list of values to assign to the attribute
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated list of values to assign to the attribute
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_add_value ()">
 <a name="e-vcard-attribute-add-value"></a><h3>e_vcard_attribute_add_value ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_add_value         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
 <p>
-Adds <em class="parameter"><code>value</code></em> to <em class="parameter"><code>attr</code></em>'s list of values.</p>
+Adds <em class="parameter"><code>value</code></em> to <em class="parameter"><code>attr</code></em>'s list of values.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -541,14 +655,15 @@ Adds <em class="parameter"><code>value</code></em> to <em class="parameter"><cod
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_add_value_decoded ()">
 <a name="e-vcard-attribute-add-value-decoded"></a><h3>e_vcard_attribute_add_value_decoded ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_add_value_decoded (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> len</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>);</pre>
 <p>
 Decodes <em class="parameter"><code>value</code></em> according to the encoding used for <em class="parameter"><code>attr</code></em>, and
-adds it to <em class="parameter"><code>attr</code></em>'s list of values.</p>
+adds it to <em class="parameter"><code>attr</code></em>'s list of values.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -571,12 +686,13 @@ adds it to <em class="parameter"><code>attr</code></em>'s list of values.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_add_values ()">
 <a name="e-vcard-attribute-add-values"></a><h3>e_vcard_attribute_add_values ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_add_values        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
                                                          <em class="parameter"><code>...</code></em>);</pre>
 <p>
-Adds a list of values to <em class="parameter"><code>attr</code></em>.</p>
+Adds a list of values to <em class="parameter"><code>attr</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -587,18 +703,19 @@ Adds a list of values to <em class="parameter"><code>attr</code></em>.</p>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
-<td>a <code class="literal">NULL</code>-terminated list of strings
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated list of strings
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_remove_values ()">
 <a name="e-vcard-attribute-remove-values"></a><h3>e_vcard_attribute_remove_values ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_remove_values     (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
-Removes all values from <em class="parameter"><code>attr</code></em>.</p>
+Removes all values from <em class="parameter"><code>attr</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -609,12 +726,13 @@ Removes all values from <em class="parameter"><code>attr</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_remove_value ()">
 <a name="e-vcard-attribute-remove-value"></a><h3>e_vcard_attribute_remove_value ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_remove_value      (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *s</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *s</code></em>);</pre>
 <p>
-Removes from the value list in <em class="parameter"><code>attr</code></em> the value <em class="parameter"><code>s</code></em>.</p>
+Removes from the value list in <em class="parameter"><code>attr</code></em> the value <em class="parameter"><code>s</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -632,11 +750,12 @@ Removes from the value list in <em class="parameter"><code>attr</code></em> the 
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_remove_params ()">
 <a name="e-vcard-attribute-remove-params"></a><h3>e_vcard_attribute_remove_params ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_remove_params     (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
-Removes all parameters from <em class="parameter"><code>attr</code></em>.</p>
+Removes all parameters from <em class="parameter"><code>attr</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -647,15 +766,13 @@ Removes all parameters from <em class="parameter"><code>attr</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_remove_param ()">
 <a name="e-vcard-attribute-remove-param"></a><h3>e_vcard_attribute_remove_param ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_remove_param      (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *param_name</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *param_name</code></em>);</pre>
 <p>
 Removes the parameter <em class="parameter"><code>param_name</code></em> from the attribute <em class="parameter"><code>attr</code></em>.
 </p>
-<p>
-Since 1.11.3.</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -671,16 +788,18 @@ Since 1.11.3.</p>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.12</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_remove_param_value ()">
 <a name="e-vcard-attribute-remove-param-value"></a><h3>e_vcard_attribute_remove_param_value ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_remove_param_value
                                                         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *param_name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *s</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *param_name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *s</code></em>);</pre>
 <p>
-Removes the value <em class="parameter"><code>s</code></em> from the parameter <em class="parameter"><code>param_name</code></em> on the attribute <em class="parameter"><code>attr</code></em>.</p>
+Removes the value <em class="parameter"><code>s</code></em> from the parameter <em class="parameter"><code>param_name</code></em> on the attribute <em class="parameter"><code>attr</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -703,11 +822,12 @@ Removes the value <em class="parameter"><code>s</code></em> from the parameter <
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_param_new ()">
 <a name="e-vcard-attribute-param-new"></a><h3>e_vcard_attribute_param_new ()</h3>
-<pre class="programlisting"><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="returnvalue">EVCardAttributeParam</span></a>* e_vcard_attribute_param_new       (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="returnvalue">EVCardAttributeParam</span></a>* e_vcard_attribute_param_new       (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 <p>
-Creates a new parameter named <em class="parameter"><code>name</code></em>.</p>
+Creates a new parameter named <em class="parameter"><code>name</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -725,11 +845,12 @@ Creates a new parameter named <em class="parameter"><code>name</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_param_free ()">
 <a name="e-vcard-attribute-param-free"></a><h3>e_vcard_attribute_param_free ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_param_free        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);</pre>
 <p>
-Frees <em class="parameter"><code>param</code></em> and its values.</p>
+Frees <em class="parameter"><code>param</code></em> and its values.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -740,11 +861,12 @@ Frees <em class="parameter"><code>param</code></em> and its values.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_param_copy ()">
 <a name="e-vcard-attribute-param-copy"></a><h3>e_vcard_attribute_param_copy ()</h3>
 <pre class="programlisting"><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="returnvalue">EVCardAttributeParam</span></a>* e_vcard_attribute_param_copy      (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);</pre>
 <p>
-Makes a copy of <em class="parameter"><code>param</code></em>.</p>
+Makes a copy of <em class="parameter"><code>param</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -762,7 +884,7 @@ Makes a copy of <em class="parameter"><code>param</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_add_param ()">
 <a name="e-vcard-attribute-add-param"></a><h3>e_vcard_attribute_add_param ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_add_param         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);</pre>
@@ -771,7 +893,8 @@ Adds <em class="parameter"><code>param</code></em> to <em class="parameter"><cod
 It tests for duplicities, only new parameters are added,
 when a new parameter already exists in attr, then those
 values are merged, also without creating duplicities.
-When we will not add whole param, then it's freed here.</p>
+When we will not add whole param, then it's freed here.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -789,14 +912,15 @@ When we will not add whole param, then it's freed here.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_add_param_with_value ()">
 <a name="e-vcard-attribute-add-param-with-value"></a><h3>e_vcard_attribute_add_param_with_value ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_add_param_with_value
                                                         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
 <p>
-Adds <em class="parameter"><code>value</code></em> to <em class="parameter"><code>param</code></em>, then adds <em class="parameter"><code>param</code></em> to <em class="parameter"><code>attr</code></em>.</p>
+Adds <em class="parameter"><code>value</code></em> to <em class="parameter"><code>param</code></em>, then adds <em class="parameter"><code>param</code></em> to <em class="parameter"><code>attr</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -819,7 +943,7 @@ Adds <em class="parameter"><code>value</code></em> to <em class="parameter"><cod
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_add_param_with_values ()">
 <a name="e-vcard-attribute-add-param-with-values"></a><h3>e_vcard_attribute_add_param_with_values ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_add_param_with_values
                                                         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
@@ -827,7 +951,8 @@ Adds <em class="parameter"><code>value</code></em> to <em class="parameter"><cod
                                                          <em class="parameter"><code>...</code></em>);</pre>
 <p>
 Adds the list of values to <em class="parameter"><code>param</code></em>, then adds <em class="parameter"><code>param</code></em>
-to <em class="parameter"><code>attr</code></em>.</p>
+to <em class="parameter"><code>attr</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -843,19 +968,20 @@ to <em class="parameter"><code>attr</code></em>.</p>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
-<td>a <code class="literal">NULL</code>-terminated list of strings
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated list of strings
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_param_add_value ()">
 <a name="e-vcard-attribute-param-add-value"></a><h3>e_vcard_attribute_param_add_value ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_param_add_value   (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
 <p>
-Adds <em class="parameter"><code>value</code></em> to <em class="parameter"><code>param</code></em>'s list of values.</p>
+Adds <em class="parameter"><code>value</code></em> to <em class="parameter"><code>param</code></em>'s list of values.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -873,12 +999,13 @@ Adds <em class="parameter"><code>value</code></em> to <em class="parameter"><cod
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_param_add_values ()">
 <a name="e-vcard-attribute-param-add-values"></a><h3>e_vcard_attribute_param_add_values ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_param_add_values  (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>,
                                                          <em class="parameter"><code>...</code></em>);</pre>
 <p>
-Adds a list of values to <em class="parameter"><code>param</code></em>.</p>
+Adds a list of values to <em class="parameter"><code>param</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -889,19 +1016,20 @@ Adds a list of values to <em class="parameter"><code>param</code></em>.</p>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
-<td>a <code class="literal">NULL</code>-terminated list of strings
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a>-terminated list of strings
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_param_remove_values ()">
 <a name="e-vcard-attribute-param-remove-values"></a><h3>e_vcard_attribute_param_remove_values ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_vcard_attribute_param_remove_values
                                                         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);</pre>
 <p>
-Removes and frees all values from <em class="parameter"><code>param</code></em>.</p>
+Removes and frees all values from <em class="parameter"><code>param</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -912,11 +1040,12 @@ Removes and frees all values from <em class="parameter"><code>param</code></em>.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_param_get_name ()">
 <a name="e-vcard-attribute-param-get-name"></a><h3>e_vcard_attribute_param_get_name ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_vcard_attribute_param_get_name    (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_vcard_attribute_param_get_name    (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);</pre>
 <p>
-Gets the name of <em class="parameter"><code>param</code></em>.</p>
+Gets the name of <em class="parameter"><code>param</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -934,12 +1063,13 @@ Gets the name of <em class="parameter"><code>param</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_param_get_values ()">
 <a name="e-vcard-attribute-param-get-values"></a><h3>e_vcard_attribute_param_get_values ()</h3>
-<pre class="programlisting"><span class="returnvalue">GList</span>*              e_vcard_attribute_param_get_values  (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              e_vcard_attribute_param_get_values  (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> *param</code></em>);</pre>
 <p>
 Gets the list of values from <em class="parameter"><code>param</code></em>. The list and its
-contents are owned by <em class="parameter"><code>param</code></em>, and must not be freed.</p>
+contents are owned by <em class="parameter"><code>param</code></em>, and must not be freed.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -950,21 +1080,22 @@ contents are owned by <em class="parameter"><code>param</code></em>, and must no
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A list of string elements representing the parameter's values.
+<td> A list of string elements representing the parameter's values. <span class="annotation">[transfer:none][<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a>]</span>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_get_attribute ()">
 <a name="e-vcard-get-attribute"></a><h3>e_vcard_get_attribute ()</h3>
 <pre class="programlisting"><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="returnvalue">EVCardAttribute</span></a> *   e_vcard_get_attribute               (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evc</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 <p>
 Get the attribute <em class="parameter"><code>name</code></em> from <em class="parameter"><code>evc</code></em>.  The <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> is owned by
-<em class="parameter"><code>evcard</code></em> and should not be freed. If the attribute does not exist, <span class="type">NULL</span> is
-returned.</p>
+<em class="parameter"><code>evcard</code></em> and should not be freed. If the attribute does not exist, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a> is
+returned.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -980,19 +1111,20 @@ returned.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> if found, or <span class="type">NULL</span>.
+<td> An <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> if found, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><span class="type">NULL</span></a>.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_get_attributes ()">
 <a name="e-vcard-get-attributes"></a><h3>e_vcard_get_attributes ()</h3>
-<pre class="programlisting"><span class="returnvalue">GList</span>*              e_vcard_get_attributes              (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              e_vcard_get_attributes              (<em class="parameter"><code><a class="link" href="EVCard.html" title="EVCard"><span class="type">EVCard</span></a> *evcard</code></em>);</pre>
 <p>
 Gets the list of attributes from <em class="parameter"><code>evcard</code></em>. The list and its
-contents are owned by <em class="parameter"><code>evcard</code></em>, and must not be freed.</p>
+contents are owned by <em class="parameter"><code>evcard</code></em>, and must not be freed.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1010,11 +1142,12 @@ contents are owned by <em class="parameter"><code>evcard</code></em>, and must n
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_get_group ()">
 <a name="e-vcard-attribute-get-group"></a><h3>e_vcard_attribute_get_group ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_vcard_attribute_get_group         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_vcard_attribute_get_group         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
-Gets the group name of <em class="parameter"><code>attr</code></em>.</p>
+Gets the group name of <em class="parameter"><code>attr</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1032,11 +1165,12 @@ Gets the group name of <em class="parameter"><code>attr</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_get_name ()">
 <a name="e-vcard-attribute-get-name"></a><h3>e_vcard_attribute_get_name ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_vcard_attribute_get_name          (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_vcard_attribute_get_name          (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
-Gets the name of <em class="parameter"><code>attr</code></em>.</p>
+Gets the name of <em class="parameter"><code>attr</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1054,12 +1188,13 @@ Gets the name of <em class="parameter"><code>attr</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_get_values ()">
 <a name="e-vcard-attribute-get-values"></a><h3>e_vcard_attribute_get_values ()</h3>
-<pre class="programlisting"><span class="returnvalue">GList</span>*              e_vcard_attribute_get_values        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              e_vcard_attribute_get_values        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
 Gets the list of values from <em class="parameter"><code>attr</code></em>. The list and its
-contents are owned by <em class="parameter"><code>attr</code></em>, and must not be freed.</p>
+contents are owned by <em class="parameter"><code>attr</code></em>, and must not be freed.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1077,14 +1212,15 @@ contents are owned by <em class="parameter"><code>attr</code></em>, and must not
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_get_values_decoded ()">
 <a name="e-vcard-attribute-get-values-decoded"></a><h3>e_vcard_attribute_get_values_decoded ()</h3>
-<pre class="programlisting"><span class="returnvalue">GList</span>*              e_vcard_attribute_get_values_decoded
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              e_vcard_attribute_get_values_decoded
                                                         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
 Gets the list of values from <em class="parameter"><code>attr</code></em>, decoding them if
 necessary. The list and its contents are owned by <em class="parameter"><code>attr</code></em>,
-and must not be freed.</p>
+and must not be freed.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1095,19 +1231,20 @@ and must not be freed.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A list of values of type <span class="type">GString</span>.
+<td> A list of values of type <a href="http://library.gnome.org/devel/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a>. <span class="annotation">[transfer: none][<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a>]</span>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_get_params ()">
 <a name="e-vcard-attribute-get-params"></a><h3>e_vcard_attribute_get_params ()</h3>
-<pre class="programlisting"><span class="returnvalue">GList</span>*              e_vcard_attribute_get_params        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              e_vcard_attribute_get_params        (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
 Gets the list of parameters from <em class="parameter"><code>attr</code></em>. The list and its
-contents are owned by <em class="parameter"><code>attr</code></em>, and must not be freed.</p>
+contents are owned by <em class="parameter"><code>attr</code></em>, and must not be freed.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1125,13 +1262,14 @@ contents are owned by <em class="parameter"><code>attr</code></em>, and must not
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_get_param ()">
 <a name="e-vcard-attribute-get-param"></a><h3>e_vcard_attribute_get_param ()</h3>
-<pre class="programlisting"><span class="returnvalue">GList</span>*              e_vcard_attribute_get_param         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a>*              e_vcard_attribute_get_param         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 <p>
 Gets the list of values for the paramater <em class="parameter"><code>name</code></em> from <em class="parameter"><code>attr</code></em>. The list and its
-contents are owned by <em class="parameter"><code>attr</code></em>, and must not be freed.</p>
+contents are owned by <em class="parameter"><code>attr</code></em>, and must not be freed.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1147,18 +1285,19 @@ contents are owned by <em class="parameter"><code>attr</code></em>, and must not
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A list of string elements representing the parameter's values.
+<td> A list of string elements representing the parameter's values. <span class="annotation">[transfer: none][<a href="http://foldoc.org/element-type"><span class="acronym">element-type</span></a>]</span>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_get_value ()">
 <a name="e-vcard-attribute-get-value"></a><h3>e_vcard_attribute_get_value ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_vcard_attribute_get_value         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_vcard_attribute_get_value         (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
-Gets the value of a single-valued <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a>, <em class="parameter"><code>attr</code></em>.</p>
+Gets the value of a single-valued <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a>, <em class="parameter"><code>attr</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1176,15 +1315,16 @@ Gets the value of a single-valued <a class="link" href="EVCard.html#EVCardAttrib
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_get_value_decoded ()">
 <a name="e-vcard-attribute-get-value-decoded"></a><h3>e_vcard_attribute_get_value_decoded ()</h3>
-<pre class="programlisting"><span class="returnvalue">GString</span>*            e_vcard_attribute_get_value_decoded (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Strings.html#GString"><span class="returnvalue">GString</span></a>*            e_vcard_attribute_get_value_decoded (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
 Gets the value of a single-valued <a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a>, <em class="parameter"><code>attr</code></em>, decoding
 it if necessary.
 </p>
 <p>
-Note: this function seems currently to be unused. Could be removed.</p>
+Note: this function seems currently to be unused. Could be removed.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1195,19 +1335,20 @@ Note: this function seems currently to be unused. Could be removed.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A newly allocated <span class="type">GString</span> representing the value.
+<td> A newly allocated <a href="http://library.gnome.org/devel/glib/unstable/glib-Strings.html#GString"><span class="type">GString</span></a> representing the value.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_has_type ()">
 <a name="e-vcard-attribute-has-type"></a><h3>e_vcard_attribute_has_type ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_vcard_attribute_has_type          (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *typestr</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_vcard_attribute_has_type          (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *typestr</code></em>);</pre>
 <p>
-Checks if <em class="parameter"><code>attr</code></em> has an <a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> of the specified type.</p>
+Checks if <em class="parameter"><code>attr</code></em> has an <a class="link" href="EVCard.html#EVCardAttributeParam" title="EVCardAttributeParam"><span class="type">EVCardAttributeParam</span></a> of the specified type.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1223,18 +1364,19 @@ Checks if <em class="parameter"><code>attr</code></em> has an <a class="link" hr
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if such a parameter exists, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if such a parameter exists, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_attribute_is_single_valued ()">
 <a name="e-vcard-attribute-is-single-valued"></a><h3>e_vcard_attribute_is_single_valued ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_vcard_attribute_is_single_valued  (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_vcard_attribute_is_single_valued  (<em class="parameter"><code><a class="link" href="EVCard.html#EVCardAttribute" title="EVCardAttribute"><span class="type">EVCardAttribute</span></a> *attr</code></em>);</pre>
 <p>
-Checks if <em class="parameter"><code>attr</code></em> has a single value.</p>
+Checks if <em class="parameter"><code>attr</code></em> has a single value.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1245,18 +1387,19 @@ Checks if <em class="parameter"><code>attr</code></em> has a single value.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if the attribute has exactly one value, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the attribute has exactly one value, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_escape_string ()">
 <a name="e-vcard-escape-string"></a><h3>e_vcard_escape_string ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_vcard_escape_string               (<em class="parameter"><code>const <span class="type">gchar</span> *s</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_vcard_escape_string               (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *s</code></em>);</pre>
 <p>
-Escapes a string according to RFC2426, section 5.</p>
+Escapes a string according to RFC2426, section 5.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1274,11 +1417,12 @@ Escapes a string according to RFC2426, section 5.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_vcard_unescape_string ()">
 <a name="e-vcard-unescape-string"></a><h3>e_vcard_unescape_string ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_vcard_unescape_string             (<em class="parameter"><code>const <span class="type">gchar</span> *s</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_vcard_unescape_string             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *s</code></em>);</pre>
 <p>
-Unescapes a string according to RFC2426, section 5.</p>
+Unescapes a string according to RFC2426, section 5.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1296,7 +1440,7 @@ Unescapes a string according to RFC2426, section 5.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_ADR">
 <a name="EVC-ADR:CAPS"></a><h3>EVC_ADR</h3>
 <pre class="programlisting">#define EVC_ADR             "ADR"
 </pre>
@@ -1304,7 +1448,7 @@ Unescapes a string according to RFC2426, section 5.</p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_BDAY">
 <a name="EVC-BDAY:CAPS"></a><h3>EVC_BDAY</h3>
 <pre class="programlisting">#define EVC_BDAY            "BDAY"
 </pre>
@@ -1313,7 +1457,7 @@ Birthday
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_CALURI">
 <a name="EVC-CALURI:CAPS"></a><h3>EVC_CALURI</h3>
 <pre class="programlisting">#define EVC_CALURI          "CALURI"
 </pre>
@@ -1322,7 +1466,7 @@ Calendar URL
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_CATEGORIES">
 <a name="EVC-CATEGORIES:CAPS"></a><h3>EVC_CATEGORIES</h3>
 <pre class="programlisting">#define EVC_CATEGORIES      "CATEGORIES"
 </pre>
@@ -1331,7 +1475,7 @@ Categories
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_EMAIL">
 <a name="EVC-EMAIL:CAPS"></a><h3>EVC_EMAIL</h3>
 <pre class="programlisting">#define EVC_EMAIL           "EMAIL"
 </pre>
@@ -1340,7 +1484,7 @@ Email address
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_ENCODING">
 <a name="EVC-ENCODING:CAPS"></a><h3>EVC_ENCODING</h3>
 <pre class="programlisting">#define EVC_ENCODING        "ENCODING"
 </pre>
@@ -1348,7 +1492,7 @@ Email address
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_FBURL">
 <a name="EVC-FBURL:CAPS"></a><h3>EVC_FBURL</h3>
 <pre class="programlisting">#define EVC_FBURL           "FBURL"
 </pre>
@@ -1356,7 +1500,7 @@ Email address
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_FN">
 <a name="EVC-FN:CAPS"></a><h3>EVC_FN</h3>
 <pre class="programlisting">#define EVC_FN              "FN"
 </pre>
@@ -1364,15 +1508,14 @@ Email address
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_GEO">
 <a name="EVC-GEO:CAPS"></a><h3>EVC_GEO</h3>
 <pre class="programlisting">#define EVC_GEO		    "GEO"
 </pre>
-<p>
-</p>
+<p class="since">Since 1.12</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_ICSCALENDAR">
 <a name="EVC-ICSCALENDAR:CAPS"></a><h3>EVC_ICSCALENDAR</h3>
 <pre class="programlisting">#define EVC_ICSCALENDAR     "ICSCALENDAR" /* XXX should this be X-EVOLUTION-ICSCALENDAR? */
 </pre>
@@ -1380,7 +1523,7 @@ Email address
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_KEY">
 <a name="EVC-KEY:CAPS"></a><h3>EVC_KEY</h3>
 <pre class="programlisting">#define EVC_KEY             "KEY"
 </pre>
@@ -1388,7 +1531,7 @@ Email address
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_LABEL">
 <a name="EVC-LABEL:CAPS"></a><h3>EVC_LABEL</h3>
 <pre class="programlisting">#define EVC_LABEL           "LABEL"
 </pre>
@@ -1396,7 +1539,7 @@ Email address
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_LOGO">
 <a name="EVC-LOGO:CAPS"></a><h3>EVC_LOGO</h3>
 <pre class="programlisting">#define EVC_LOGO            "LOGO"
 </pre>
@@ -1404,7 +1547,7 @@ Email address
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_MAILER">
 <a name="EVC-MAILER:CAPS"></a><h3>EVC_MAILER</h3>
 <pre class="programlisting">#define EVC_MAILER          "MAILER"
 </pre>
@@ -1412,7 +1555,7 @@ Email address
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_NICKNAME">
 <a name="EVC-NICKNAME:CAPS"></a><h3>EVC_NICKNAME</h3>
 <pre class="programlisting">#define EVC_NICKNAME        "NICKNAME"
 </pre>
@@ -1421,7 +1564,7 @@ Nickname
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_N">
 <a name="EVC-N:CAPS"></a><h3>EVC_N</h3>
 <pre class="programlisting">#define EVC_N               "N"
 </pre>
@@ -1429,7 +1572,7 @@ Nickname
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_NOTE">
 <a name="EVC-NOTE:CAPS"></a><h3>EVC_NOTE</h3>
 <pre class="programlisting">#define EVC_NOTE            "NOTE"
 </pre>
@@ -1437,7 +1580,7 @@ Nickname
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_ORG">
 <a name="EVC-ORG:CAPS"></a><h3>EVC_ORG</h3>
 <pre class="programlisting">#define EVC_ORG             "ORG"
 </pre>
@@ -1446,7 +1589,7 @@ Organisation
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_PHOTO">
 <a name="EVC-PHOTO:CAPS"></a><h3>EVC_PHOTO</h3>
 <pre class="programlisting">#define EVC_PHOTO           "PHOTO"
 </pre>
@@ -1455,7 +1598,7 @@ Photo
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_PRODID">
 <a name="EVC-PRODID:CAPS"></a><h3>EVC_PRODID</h3>
 <pre class="programlisting">#define EVC_PRODID          "PRODID"
 </pre>
@@ -1463,7 +1606,7 @@ Photo
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_QUOTEDPRINTABLE">
 <a name="EVC-QUOTEDPRINTABLE:CAPS"></a><h3>EVC_QUOTEDPRINTABLE</h3>
 <pre class="programlisting">#define EVC_QUOTEDPRINTABLE "QUOTED-PRINTABLE"
 </pre>
@@ -1471,7 +1614,7 @@ Photo
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_REV">
 <a name="EVC-REV:CAPS"></a><h3>EVC_REV</h3>
 <pre class="programlisting">#define EVC_REV             "REV"
 </pre>
@@ -1479,7 +1622,7 @@ Photo
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_ROLE">
 <a name="EVC-ROLE:CAPS"></a><h3>EVC_ROLE</h3>
 <pre class="programlisting">#define EVC_ROLE            "ROLE"
 </pre>
@@ -1488,7 +1631,7 @@ Role
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_TEL">
 <a name="EVC-TEL:CAPS"></a><h3>EVC_TEL</h3>
 <pre class="programlisting">#define EVC_TEL             "TEL"
 </pre>
@@ -1497,7 +1640,7 @@ Telephone
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_TITLE">
 <a name="EVC-TITLE:CAPS"></a><h3>EVC_TITLE</h3>
 <pre class="programlisting">#define EVC_TITLE           "TITLE"
 </pre>
@@ -1506,7 +1649,7 @@ Title
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_TYPE">
 <a name="EVC-TYPE:CAPS"></a><h3>EVC_TYPE</h3>
 <pre class="programlisting">#define EVC_TYPE            "TYPE"
 </pre>
@@ -1514,7 +1657,7 @@ Title
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_UID">
 <a name="EVC-UID:CAPS"></a><h3>EVC_UID</h3>
 <pre class="programlisting">#define EVC_UID             "UID"
 </pre>
@@ -1523,7 +1666,7 @@ Unique ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_URL">
 <a name="EVC-URL:CAPS"></a><h3>EVC_URL</h3>
 <pre class="programlisting">#define EVC_URL             "URL"
 </pre>
@@ -1532,7 +1675,7 @@ Home page URL
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_VALUE">
 <a name="EVC-VALUE:CAPS"></a><h3>EVC_VALUE</h3>
 <pre class="programlisting">#define EVC_VALUE           "VALUE"
 </pre>
@@ -1540,7 +1683,7 @@ Home page URL
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_VERSION">
 <a name="EVC-VERSION:CAPS"></a><h3>EVC_VERSION</h3>
 <pre class="programlisting">#define EVC_VERSION         "VERSION"
 </pre>
@@ -1548,7 +1691,7 @@ Home page URL
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_AIM">
 <a name="EVC-X-AIM:CAPS"></a><h3>EVC_X_AIM</h3>
 <pre class="programlisting">#define EVC_X_AIM              "X-AIM"
 </pre>
@@ -1557,7 +1700,7 @@ AIM ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_ANNIVERSARY">
 <a name="EVC-X-ANNIVERSARY:CAPS"></a><h3>EVC_X_ANNIVERSARY</h3>
 <pre class="programlisting">#define EVC_X_ANNIVERSARY      "X-EVOLUTION-ANNIVERSARY"
 </pre>
@@ -1566,7 +1709,7 @@ Wedding anniversary
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_ASSISTANT">
 <a name="EVC-X-ASSISTANT:CAPS"></a><h3>EVC_X_ASSISTANT</h3>
 <pre class="programlisting">#define EVC_X_ASSISTANT        "X-EVOLUTION-ASSISTANT"
 </pre>
@@ -1575,7 +1718,7 @@ Assistant
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_BIRTHDAY">
 <a name="EVC-X-BIRTHDAY:CAPS"></a><h3>EVC_X_BIRTHDAY</h3>
 <pre class="programlisting">#define EVC_X_BIRTHDAY         "X-EVOLUTION-BIRTHDAY"
 </pre>
@@ -1584,7 +1727,7 @@ Birthday
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_BLOG_URL">
 <a name="EVC-X-BLOG-URL:CAPS"></a><h3>EVC_X_BLOG_URL</h3>
 <pre class="programlisting">#define EVC_X_BLOG_URL         "X-EVOLUTION-BLOG-URL"
 </pre>
@@ -1593,7 +1736,7 @@ Blog URL
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_FILE_AS">
 <a name="EVC-X-FILE-AS:CAPS"></a><h3>EVC_X_FILE_AS</h3>
 <pre class="programlisting">#define EVC_X_FILE_AS          "X-EVOLUTION-FILE-AS"
 </pre>
@@ -1602,7 +1745,7 @@ File As
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_GADUGADU">
 <a name="EVC-X-GADUGADU:CAPS"></a><h3>EVC_X_GADUGADU</h3>
 <pre class="programlisting">#define EVC_X_GADUGADU          "X-GADUGADU"
 </pre>
@@ -1610,7 +1753,7 @@ File As
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_ICQ">
 <a name="EVC-X-ICQ:CAPS"></a><h3>EVC_X_ICQ</h3>
 <pre class="programlisting">#define EVC_X_ICQ              "X-ICQ"
 </pre>
@@ -1619,7 +1762,7 @@ ICQ number
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_JABBER">
 <a name="EVC-X-JABBER:CAPS"></a><h3>EVC_X_JABBER</h3>
 <pre class="programlisting">#define EVC_X_JABBER           "X-JABBER"
 </pre>
@@ -1628,15 +1771,15 @@ Jabber ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_LIST_SHOW_ADDRESSES">
 <a name="EVC-X-LIST-SHOW-ADDRESSES:CAPS"></a><h3>EVC_X_LIST_SHOW_ADDRESSES</h3>
-<pre class="programlisting">#define EVC_X_LIST_SHOW_ADDRESSES "X-EVOLUTION-LIST-SHOW_ADDRESSES"
+<pre class="programlisting">#define EVC_X_LIST_SHOW_ADDRESSES "X-EVOLUTION-LIST-SHOW-ADDRESSES"
 </pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_LIST">
 <a name="EVC-X-LIST:CAPS"></a><h3>EVC_X_LIST</h3>
 <pre class="programlisting">#define EVC_X_LIST		"X-EVOLUTION-LIST"
 </pre>
@@ -1644,7 +1787,7 @@ Jabber ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_MANAGER">
 <a name="EVC-X-MANAGER:CAPS"></a><h3>EVC_X_MANAGER</h3>
 <pre class="programlisting">#define EVC_X_MANAGER "X-EVOLUTION-MANAGER"
 </pre>
@@ -1653,7 +1796,7 @@ Mananger
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_MSN">
 <a name="EVC-X-MSN:CAPS"></a><h3>EVC_X_MSN</h3>
 <pre class="programlisting">#define EVC_X_MSN		"X-MSN"
 </pre>
@@ -1662,15 +1805,14 @@ MSN ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_SKYPE">
 <a name="EVC-X-SKYPE:CAPS"></a><h3>EVC_X_SKYPE</h3>
 <pre class="programlisting">#define EVC_X_SKYPE		"X-SKYPE"
 </pre>
-<p>
-</p>
+<p class="since">Since 2.26</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_WANTS_HTML">
 <a name="EVC-X-WANTS-HTML:CAPS"></a><h3>EVC_X_WANTS_HTML</h3>
 <pre class="programlisting">#define EVC_X_WANTS_HTML "X-MOZILLA-HTML"
 </pre>
@@ -1679,7 +1821,7 @@ Wants HTML mail
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_YAHOO">
 <a name="EVC-X-YAHOO:CAPS"></a><h3>EVC_X_YAHOO</h3>
 <pre class="programlisting">#define EVC_X_YAHOO		"X-YAHOO"
 </pre>
@@ -1688,7 +1830,7 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_BOOK_URI">
 <a name="EVC-X-BOOK-URI:CAPS"></a><h3>EVC_X_BOOK_URI</h3>
 <pre class="programlisting">#define EVC_X_BOOK_URI "X-EVOLUTION-BOOK-URI"
 </pre>
@@ -1696,7 +1838,7 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_CALLBACK">
 <a name="EVC-X-CALLBACK:CAPS"></a><h3>EVC_X_CALLBACK</h3>
 <pre class="programlisting">#define EVC_X_CALLBACK         "X-EVOLUTION-CALLBACK"
 </pre>
@@ -1704,7 +1846,7 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_COMPANY">
 <a name="EVC-X-COMPANY:CAPS"></a><h3>EVC_X_COMPANY</h3>
 <pre class="programlisting">#define EVC_X_COMPANY          "X-EVOLUTION-COMPANY"
 </pre>
@@ -1712,7 +1854,7 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_DEST_CONTACT_UID">
 <a name="EVC-X-DEST-CONTACT-UID:CAPS"></a><h3>EVC_X_DEST_CONTACT_UID</h3>
 <pre class="programlisting">#define EVC_X_DEST_CONTACT_UID "X-EVOLUTION-DEST-CONTACT-UID"
 </pre>
@@ -1720,11 +1862,11 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_DEST_EMAIL">
 <a name="EVC-X-DEST-EMAIL:CAPS"></a><h3>EVC_X_DEST_EMAIL</h3>
 <pre class="programlisting">#define EVC_X_DEST_EMAIL       "X-EVOLUTION-DEST-EMAIL"
 </pre>
-<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;">
 <h3 class="title">Warning</h3>
 <p><code class="literal">EVC_X_DEST_EMAIL</code> is deprecated and should not be used in newly-written code.</p>
 </div>
@@ -1732,7 +1874,7 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_DEST_EMAIL_NUM">
 <a name="EVC-X-DEST-EMAIL-NUM:CAPS"></a><h3>EVC_X_DEST_EMAIL_NUM</h3>
 <pre class="programlisting">#define EVC_X_DEST_EMAIL_NUM   "X-EVOLUTION-DEST-EMAIL-NUM"
 </pre>
@@ -1740,7 +1882,7 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_DEST_HTML_MAIL">
 <a name="EVC-X-DEST-HTML-MAIL:CAPS"></a><h3>EVC_X_DEST_HTML_MAIL</h3>
 <pre class="programlisting">#define EVC_X_DEST_HTML_MAIL   "X-EVOLUTION-DEST-HTML-MAIL"
 </pre>
@@ -1748,11 +1890,11 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_DEST_NAME">
 <a name="EVC-X-DEST-NAME:CAPS"></a><h3>EVC_X_DEST_NAME</h3>
 <pre class="programlisting">#define EVC_X_DEST_NAME        "X-EVOLUTION-DEST-NAME"
 </pre>
-<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<div class="warning" title="Warning" style="margin-left: 0.5in; margin-right: 0.5in;">
 <h3 class="title">Warning</h3>
 <p><code class="literal">EVC_X_DEST_NAME</code> is deprecated and should not be used in newly-written code.</p>
 </div>
@@ -1760,7 +1902,7 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_DEST_SOURCE_UID">
 <a name="EVC-X-DEST-SOURCE-UID:CAPS"></a><h3>EVC_X_DEST_SOURCE_UID</h3>
 <pre class="programlisting">#define EVC_X_DEST_SOURCE_UID  "X-EVOLUTION-DEST-SOURCE-UID"
 </pre>
@@ -1768,7 +1910,7 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_GROUPWISE">
 <a name="EVC-X-GROUPWISE:CAPS"></a><h3>EVC_X_GROUPWISE</h3>
 <pre class="programlisting">#define EVC_X_GROUPWISE "X-GROUPWISE"
 </pre>
@@ -1776,7 +1918,7 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_RADIO">
 <a name="EVC-X-RADIO:CAPS"></a><h3>EVC_X_RADIO</h3>
 <pre class="programlisting">#define EVC_X_RADIO		"X-EVOLUTION-RADIO"
 </pre>
@@ -1784,15 +1926,14 @@ Yahoo ID
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_SIP">
 <a name="EVC-X-SIP:CAPS"></a><h3>EVC_X_SIP</h3>
 <pre class="programlisting">#define EVC_X_SIP		"X-SIP"
 </pre>
-<p>
-</p>
+<p class="since">Since 2.26</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_SPOUSE">
 <a name="EVC-X-SPOUSE:CAPS"></a><h3>EVC_X_SPOUSE</h3>
 <pre class="programlisting">#define EVC_X_SPOUSE		"X-EVOLUTION-SPOUSE"
 </pre>
@@ -1801,7 +1942,7 @@ Spouse
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_TELEX">
 <a name="EVC-X-TELEX:CAPS"></a><h3>EVC_X_TELEX</h3>
 <pre class="programlisting">#define EVC_X_TELEX		"X-EVOLUTION-TELEX"
 </pre>
@@ -1809,7 +1950,7 @@ Spouse
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_TTYTDD">
 <a name="EVC-X-TTYTDD:CAPS"></a><h3>EVC_X_TTYTDD</h3>
 <pre class="programlisting">#define EVC_X_TTYTDD		"X-EVOLUTION-TTYTDD"
 </pre>
@@ -1817,7 +1958,7 @@ Spouse
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EVC_X_VIDEO_URL">
 <a name="EVC-X-VIDEO-URL:CAPS"></a><h3>EVC_X_VIDEO_URL</h3>
 <pre class="programlisting">#define EVC_X_VIDEO_URL "X-EVOLUTION-VIDEO-URL"
 </pre>
@@ -1825,7 +1966,7 @@ Spouse
 </p>
 </div>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="See Also">
 <a name="EVCard.see-also"></a><h2>See Also</h2>
 <p>
 <span class="type">e-contact</span>
@@ -1834,6 +1975,6 @@ Spouse
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

@@ -32,11 +32,6 @@
 #include <glib/gi18n-lib.h>
 #include <glib/gstdio.h>
 
-#include "camel-data-wrapper.h"
-#include "camel-exception.h"
-#include "camel-stream-fs.h"
-#include "camel-string-utils.h"
-
 #include "camel-imap-message-cache.h"
 
 #ifndef O_BINARY
@@ -52,9 +47,6 @@
 #define BASE_PART_SUFFIX "."
 #endif
 
-static void finalize (CamelImapMessageCache *cache);
-static void stream_finalize (CamelObject *stream, gpointer event_data, gpointer user_data);
-
 struct _part_find {
 	/* UID name on disk - e.g. "0." or "0.HEADERS". On windows "0." is
 	 * stored as "0.~"
@@ -64,23 +56,19 @@ struct _part_find {
 	gint found;
 };
 
-CamelType
-camel_imap_message_cache_get_type (void)
+G_DEFINE_TYPE (CamelImapMessageCache, camel_imap_message_cache, CAMEL_TYPE_OBJECT)
+
+static void
+stream_finalize (CamelImapMessageCache *cache,
+                 GObject *where_the_object_was)
 {
-	static CamelType camel_imap_message_cache_type = CAMEL_INVALID_TYPE;
+	gchar *key;
 
-	if (camel_imap_message_cache_type == CAMEL_INVALID_TYPE) {
-		camel_imap_message_cache_type = camel_type_register (
-			CAMEL_OBJECT_TYPE, "CamelImapMessageCache",
-			sizeof (CamelImapMessageCache),
-			sizeof (CamelImapMessageCacheClass),
-			NULL,
-			NULL,
-			NULL,
-			(CamelObjectFinalizeFunc) finalize);
-	}
-
-	return camel_imap_message_cache_type;
+	key = g_hash_table_lookup (cache->cached, where_the_object_was);
+	if (!key)
+		return;
+	g_hash_table_remove (cache->cached, where_the_object_was);
+	g_hash_table_insert (cache->parts, key, NULL);
 }
 
 static void
@@ -88,9 +76,10 @@ free_part (gpointer key, gpointer value, gpointer data)
 {
 	if (value) {
 		if (strchr (key, '.')) {
-			camel_object_unhook_event (value, "finalize",
-						   stream_finalize, data);
-			camel_object_unref (value);
+			g_object_weak_unref (
+				G_OBJECT (value), (GWeakNotify)
+				stream_finalize, data);
+			g_object_unref (value);
 		} else
 			g_ptr_array_free (value, TRUE);
 	}
@@ -98,16 +87,38 @@ free_part (gpointer key, gpointer value, gpointer data)
 }
 
 static void
-finalize (CamelImapMessageCache *cache)
+imap_message_cache_finalize (GObject *object)
 {
-	if (cache->path)
-		g_free (cache->path);
+	CamelImapMessageCache *cache;
+
+	cache = CAMEL_IMAP_MESSAGE_CACHE (object);
+
+	g_free (cache->path);
+
 	if (cache->parts) {
 		g_hash_table_foreach (cache->parts, free_part, cache);
 		g_hash_table_destroy (cache->parts);
 	}
+
 	if (cache->cached)
 		g_hash_table_destroy (cache->cached);
+
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (camel_imap_message_cache_parent_class)->finalize (object);
+}
+
+static void
+camel_imap_message_cache_class_init (CamelImapMessageCacheClass *class)
+{
+	GObjectClass *object_class;
+
+	object_class = G_OBJECT_CLASS (class);
+	object_class->finalize = imap_message_cache_finalize;
+}
+
+static void
+camel_imap_message_cache_init (CamelImapMessageCache *imap_message_cache)
+{
 }
 
 static void
@@ -131,10 +142,11 @@ cache_put (CamelImapMessageCache *cache, const gchar *uid, const gchar *key,
 
 	if (g_hash_table_lookup_extended (cache->parts, key, &okey, &ostream)) {
 		if (ostream) {
-			camel_object_unhook_event (ostream, "finalize",
-						   stream_finalize, cache);
+			g_object_weak_unref (
+				G_OBJECT (ostream), (GWeakNotify)
+				stream_finalize, cache);
 			g_hash_table_remove (cache->cached, ostream);
-			camel_object_unref (ostream);
+			g_object_unref (ostream);
 		}
 		hash_key = okey;
 	} else {
@@ -146,8 +158,9 @@ cache_put (CamelImapMessageCache *cache, const gchar *uid, const gchar *key,
 	g_hash_table_insert (cache->cached, stream, hash_key);
 
 	if (stream) {
-		camel_object_hook_event (CAMEL_OBJECT (stream), "finalize",
-					 stream_finalize, cache);
+		g_object_weak_ref (
+			G_OBJECT (stream), (GWeakNotify)
+			stream_finalize, cache);
 	}
 }
 
@@ -155,36 +168,33 @@ cache_put (CamelImapMessageCache *cache, const gchar *uid, const gchar *key,
  * camel_imap_message_cache_new:
  * @path: directory to use for storage
  * @summary: CamelFolderSummary for the folder we are caching
- * @ex: a CamelException
+ * @error: return location for a #GError, or %NULL
  *
- * Return value: a new CamelImapMessageCache object using @path for
+ * Returns: a new CamelImapMessageCache object using @path for
  * storage. If cache files already exist in @path, then any that do not
  * correspond to messages in @summary will be deleted.
  * @path is scanned for its contents, which means creating a cache object can be
  * expensive, but the parts hash is immediately usable.
  **/
 CamelImapMessageCache *
-camel_imap_message_cache_new (const gchar *path, CamelFolderSummary *summary,
-			      CamelException *ex)
+camel_imap_message_cache_new (const gchar *path,
+                              CamelFolderSummary *summary,
+                              GError **error)
 {
 	CamelImapMessageCache *cache;
 	GDir *dir;
 	const gchar *dname;
 	gchar *uid, *p;
 	GPtrArray *deletes;
-	GError *error = NULL;
 	GHashTable *shash;
 
-	dir = g_dir_open (path, 0, &error);
+	dir = g_dir_open (path, 0, error);
 	if (!dir) {
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Could not open cache directory: %s"),
-				      error->message);
-		g_error_free (error);
+		g_prefix_error (error, _("Could not open cache directory: "));
 		return NULL;
 	}
 
-	cache = (CamelImapMessageCache *)camel_object_new (CAMEL_IMAP_MESSAGE_CACHE_TYPE);
+	cache = g_object_new (CAMEL_TYPE_IMAP_MESSAGE_CACHE, NULL);
 	cache->path = g_strdup (path);
 
 	cache->parts = g_hash_table_new (g_str_hash, g_str_equal);
@@ -225,25 +235,22 @@ camel_imap_message_cache_new (const gchar *path, CamelFolderSummary *summary,
 /**
  * camel_imap_message_cache_delete:
  * @path: directory to use for storage
- * @ex: a CamelException
+ * @error: return location for a #GError, or %NULL
  *
  * All the files under this directory would be deleted
  **/
 
 gboolean
-camel_imap_message_cache_delete (const gchar *path, CamelException *ex)
+camel_imap_message_cache_delete (const gchar *path,
+                                 GError **error)
 {
 	GDir *dir;
 	const gchar *dname;
-	GError *error = NULL;
 	GPtrArray *deletes;
 
-	dir = g_dir_open (path, 0, &error);
+	dir = g_dir_open (path, 0, error);
 	if (!dir) {
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Could not open cache directory: %s"),
-				      error->message);
-		g_error_free (error);
+		g_prefix_error (error, _("Could not open cache directory: "));
 		return FALSE;
 	}
 
@@ -267,7 +274,7 @@ camel_imap_message_cache_delete (const gchar *path, CamelException *ex)
  * camel_imap_message_cache_max_uid:
  * @cache: the cache
  *
- * Return value: the largest (real) UID in the cache.
+ * Returns: the largest (real) UID in the cache.
  **/
 guint32
 camel_imap_message_cache_max_uid (CamelImapMessageCache *cache)
@@ -289,22 +296,9 @@ camel_imap_message_cache_set_path (CamelImapMessageCache *cache, const gchar *pa
 	cache->path = g_strdup(path);
 }
 
-static void
-stream_finalize (CamelObject *stream, gpointer event_data, gpointer user_data)
-{
-	CamelImapMessageCache *cache = user_data;
-	gchar *key;
-
-	key = g_hash_table_lookup (cache->cached, stream);
-	if (!key)
-		return;
-	g_hash_table_remove (cache->cached, stream);
-	g_hash_table_insert (cache->parts, key, NULL);
-}
-
 static CamelStream *
 insert_setup (CamelImapMessageCache *cache, const gchar *uid, const gchar *part_spec,
-	      gchar **path, gchar **key, CamelException *ex)
+	      gchar **path, gchar **key, GError **error)
 {
 	CamelStream *stream;
 	gint fd;
@@ -322,13 +316,15 @@ insert_setup (CamelImapMessageCache *cache, const gchar *uid, const gchar *part_
 	*key = strrchr (*path, '/') + 1;
 	stream = g_hash_table_lookup (cache->parts, *key);
 	if (stream)
-		camel_object_unref (CAMEL_OBJECT (stream));
+		g_object_unref (CAMEL_OBJECT (stream));
 
 	fd = g_open (*path, O_RDWR | O_CREAT | O_TRUNC | O_BINARY, 0600);
 	if (fd == -1) {
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Failed to cache message %s: %s"),
-				      uid, g_strerror (errno));
+		g_set_error (
+			error, G_IO_ERROR,
+			g_io_error_from_errno (errno),
+			_("Failed to cache message %s: %s"),
+			uid, g_strerror (errno));
 		g_free (*path);
 		return NULL;
 	}
@@ -341,16 +337,19 @@ insert_abort (gchar *path, CamelStream *stream)
 {
 	g_unlink (path);
 	g_free (path);
-	camel_object_unref (CAMEL_OBJECT (stream));
+	g_object_unref (CAMEL_OBJECT (stream));
 	return NULL;
 }
 
 static CamelStream *
-insert_finish (CamelImapMessageCache *cache, const gchar *uid, gchar *path,
-	       gchar *key, CamelStream *stream)
+insert_finish (CamelImapMessageCache *cache,
+               const gchar *uid,
+               gchar *path,
+               gchar *key,
+               CamelStream *stream)
 {
-	camel_stream_flush (stream);
-	camel_stream_reset (stream);
+	camel_stream_flush (stream, NULL);
+	camel_stream_reset (stream, NULL);
 	cache_put (cache, uid, key, stream);
 	g_free (path);
 
@@ -367,25 +366,26 @@ insert_finish (CamelImapMessageCache *cache, const gchar *uid, gchar *path,
  *
  * Caches the provided data into @cache.
  *
- * Return value: a CamelStream containing the cached data, which the
+ * Returns: a CamelStream containing the cached data, which the
  * caller must unref.
  **/
 CamelStream *
-camel_imap_message_cache_insert (CamelImapMessageCache *cache, const gchar *uid,
-				 const gchar *part_spec, const gchar *data,
-				 gint len, CamelException *ex)
+camel_imap_message_cache_insert (CamelImapMessageCache *cache,
+                                 const gchar *uid,
+                                 const gchar *part_spec,
+                                 const gchar *data,
+                                 gint len,
+                                 GError **error)
 {
 	gchar *path, *key;
 	CamelStream *stream;
 
-	stream = insert_setup (cache, uid, part_spec, &path, &key, ex);
+	stream = insert_setup (cache, uid, part_spec, &path, &key, error);
 	if (!stream)
 		return NULL;
 
-	if (camel_stream_write (stream, data, len) == -1) {
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Failed to cache message %s: %s"),
-				      uid, g_strerror (errno));
+	if (camel_stream_write (stream, data, len, error) == -1) {
+		g_prefix_error (error, _("Failed to cache message %s: "), uid);
 		return insert_abort (path, stream);
 	}
 
@@ -403,24 +403,22 @@ camel_imap_message_cache_insert (CamelImapMessageCache *cache, const gchar *uid,
  **/
 void
 camel_imap_message_cache_insert_stream (CamelImapMessageCache *cache,
-					const gchar *uid, const gchar *part_spec,
-					CamelStream *data_stream, CamelException *ex)
+                                        const gchar *uid,
+                                        const gchar *part_spec,
+                                        CamelStream *data_stream)
 {
 	gchar *path, *key;
 	CamelStream *stream;
 
-	stream = insert_setup (cache, uid, part_spec, &path, &key, ex);
+	stream = insert_setup (cache, uid, part_spec, &path, &key, NULL);
 	if (!stream)
 		return;
 
-	if (camel_stream_write_to_stream (data_stream, stream) == -1) {
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Failed to cache message %s: %s"),
-				      uid, g_strerror (errno));
+	if (camel_stream_write_to_stream (data_stream, stream, NULL) == -1) {
 		insert_abort (path, stream);
 	} else {
 		insert_finish (cache, uid, path, key, stream);
-		camel_object_unref (CAMEL_OBJECT (stream));
+		g_object_unref (CAMEL_OBJECT (stream));
 	}
 }
 
@@ -435,24 +433,22 @@ camel_imap_message_cache_insert_stream (CamelImapMessageCache *cache,
  **/
 void
 camel_imap_message_cache_insert_wrapper (CamelImapMessageCache *cache,
-					 const gchar *uid, const gchar *part_spec,
-					 CamelDataWrapper *wrapper, CamelException *ex)
+                                         const gchar *uid,
+                                         const gchar *part_spec,
+                                         CamelDataWrapper *wrapper)
 {
 	gchar *path, *key;
 	CamelStream *stream;
 
-	stream = insert_setup (cache, uid, part_spec, &path, &key, ex);
+	stream = insert_setup (cache, uid, part_spec, &path, &key, NULL);
 	if (!stream)
 		return;
 
-	if (camel_data_wrapper_write_to_stream (wrapper, stream) == -1) {
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Failed to cache message %s: %s"),
-				      uid, g_strerror (errno));
+	if (camel_data_wrapper_write_to_stream (wrapper, stream, NULL) == -1) {
 		insert_abort (path, stream);
 	} else {
 		insert_finish (cache, uid, path, key, stream);
-		camel_object_unref (CAMEL_OBJECT (stream));
+		g_object_unref (CAMEL_OBJECT (stream));
 	}
 }
 
@@ -461,15 +457,15 @@ camel_imap_message_cache_insert_wrapper (CamelImapMessageCache *cache,
  * @cache: the cache
  * @uid: the UID of the data to get
  * @part_spec: the part_spec of the data to get
- * @ex: exception
+ * @error: return location for a #GError, or %NULL
  *
- * Return value: the filename of a cache item
+ * Returns: the filename of a cache item
  **/
 gchar *
 camel_imap_message_cache_get_filename (CamelImapMessageCache *cache,
 				       const gchar *uid,
 				       const gchar *part_spec,
-				       CamelException *ex)
+				       GError **error)
 {
 	gchar *path;
 
@@ -491,14 +487,14 @@ camel_imap_message_cache_get_filename (CamelImapMessageCache *cache,
  * @cache: the cache
  * @uid: the UID of the data to get
  * @part_spec: the part_spec of the data to get
- * @ex: exception
+ * @error: return location for a #GError, or %NULL
  *
- * Return value: a CamelStream containing the cached data (which the
+ * Returns: a CamelStream containing the cached data (which the
  * caller must unref), or %NULL if that data is not cached.
  **/
 CamelStream *
 camel_imap_message_cache_get (CamelImapMessageCache *cache, const gchar *uid,
-			      const gchar *part_spec, CamelException *ex)
+			      const gchar *part_spec, GError **error)
 {
 	CamelStream *stream;
 	gchar *path, *key;
@@ -516,20 +512,17 @@ camel_imap_message_cache_get (CamelImapMessageCache *cache, const gchar *uid,
 
 	stream = g_hash_table_lookup (cache->parts, key);
 	if (stream) {
-		camel_stream_reset (CAMEL_STREAM (stream));
-		camel_object_ref (CAMEL_OBJECT (stream));
+		camel_stream_reset (CAMEL_STREAM (stream), NULL);
+		g_object_ref (stream);
 		g_free (path);
 		return stream;
 	}
 
-	stream = camel_stream_fs_new_with_name (path, O_RDONLY, 0);
-	if (stream) {
+	stream = camel_stream_fs_new_with_name (path, O_RDONLY, 0, error);
+	if (stream)
 		cache_put (cache, uid, key, stream);
-	} else {
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Failed to cache %s: %s"),
-				      part_spec, g_strerror (errno));
-	}
+	else
+		g_prefix_error (error, _("Failed to cache %s: "), part_spec);
 
 	g_free (path);
 
@@ -561,9 +554,10 @@ camel_imap_message_cache_remove (CamelImapMessageCache *cache, const gchar *uid)
 		g_free (path);
 		stream = g_hash_table_lookup (cache->parts, key);
 		if (stream) {
-			camel_object_unhook_event (stream, "finalize",
-						   stream_finalize, cache);
-			camel_object_unref (stream);
+			g_object_weak_unref (
+				G_OBJECT (stream), (GWeakNotify)
+				stream_finalize, cache);
+			g_object_unref (stream);
 			g_hash_table_remove (cache->cached, stream);
 		}
 		g_hash_table_remove (cache->parts, key);
@@ -614,8 +608,7 @@ void
 camel_imap_message_cache_copy (CamelImapMessageCache *source,
 			       const gchar *source_uid,
 			       CamelImapMessageCache *dest,
-			       const gchar *dest_uid,
-			       CamelException *ex)
+			       const gchar *dest_uid)
 {
 	GPtrArray *subparts;
 	CamelStream *stream;
@@ -631,9 +624,9 @@ camel_imap_message_cache_copy (CamelImapMessageCache *source,
 		if (!part++)
 			continue;
 
-		if ((stream = camel_imap_message_cache_get (source, source_uid, part, ex))) {
-			camel_imap_message_cache_insert_stream (dest, dest_uid, part, stream, ex);
-			camel_object_unref (CAMEL_OBJECT (stream));
+		if ((stream = camel_imap_message_cache_get (source, source_uid, part, NULL))) {
+			camel_imap_message_cache_insert_stream (dest, dest_uid, part, stream);
+			g_object_unref (stream);
 		}
 	}
 }
@@ -668,7 +661,7 @@ _match_part(gpointer part_name, gpointer user_data)
  * needed.
  */
 GPtrArray *
-camel_imap_message_cache_filter_cached(CamelImapMessageCache *cache, GPtrArray *uids, CamelException *ex)
+camel_imap_message_cache_filter_cached(CamelImapMessageCache *cache, GPtrArray *uids, GError **error)
 {
 	GPtrArray *result, *parts_list;
 	gint i;

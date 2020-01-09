@@ -56,18 +56,6 @@ CamelStoreSummary
 
 </para>
 
-@parent: 
-@priv: 
-@version: 
-@flags: 
-@count: 
-@time: 
-@uri_base: 
-@store_info_size: 
-@store_info_chunks: 
-@summary_path: 
-@folders: 
-@folders_path: 
 
 <!-- ##### MACRO CAMEL_STORE_INFO_FOLDER_UNKNOWN ##### -->
 <para>
@@ -331,5 +319,32 @@ CamelStoreSummary
 
 @s: 
 @i: 
+
+
+<!-- ##### ENUM CamelStoreSummaryLock ##### -->
+<para>
+
+</para>
+
+@CAMEL_STORE_SUMMARY_SUMMARY_LOCK: 
+@CAMEL_STORE_SUMMARY_IO_LOCK: 
+@CAMEL_STORE_SUMMARY_REF_LOCK: 
+
+<!-- ##### FUNCTION camel_store_summary_lock ##### -->
+<para>
+
+</para>
+
+@summary: 
+@lock: 
+
+
+<!-- ##### FUNCTION camel_store_summary_unlock ##### -->
+<para>
+
+</para>
+
+@summary: 
+@lock: 
 
 

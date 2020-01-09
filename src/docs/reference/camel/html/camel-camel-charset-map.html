@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>camel-charset-map</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Camel Reference Manual">
 <link rel="up" href="Utilities.html" title="Utilities">
 <link rel="prev" href="Utilities.html" title="Utilities">
 <link rel="next" href="camel-camel-file-utils.html" title="camel-file-utils">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -26,7 +26,7 @@
                   <a href="#camel-camel-charset-map.description" class="shortcut">Description</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="camel-charset-map">
 <a name="camel-camel-charset-map"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -35,27 +35,27 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="camel-camel-charset-map.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">                    <a class="link" href="camel-camel-charset-map.html#CamelCharset" title="CamelCharset">CamelCharset</a>;
 <span class="returnvalue">void</span>                <a class="link" href="camel-camel-charset-map.html#camel-charset-init" title="camel_charset_init ()">camel_charset_init</a>                  (<em class="parameter"><code><a class="link" href="camel-camel-charset-map.html#CamelCharset" title="CamelCharset"><span class="type">CamelCharset</span></a> *Param1</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="camel-camel-charset-map.html#camel-charset-step" title="camel_charset_step ()">camel_charset_step</a>                  (<em class="parameter"><code><a class="link" href="camel-camel-charset-map.html#CamelCharset" title="CamelCharset"><span class="type">CamelCharset</span></a> *Param1</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *in</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> len</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="camel-camel-charset-map.html#camel-charset-best-name" title="camel_charset_best_name ()">camel_charset_best_name</a>             (<em class="parameter"><code><a class="link" href="camel-camel-charset-map.html#CamelCharset" title="CamelCharset"><span class="type">CamelCharset</span></a> *Param1</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="camel-camel-charset-map.html#camel-charset-best" title="camel_charset_best ()">camel_charset_best</a>                  (<em class="parameter"><code>const <span class="type">gchar</span> *in</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> len</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="camel-camel-charset-map.html#camel-charset-iso-to-windows" title="camel_charset_iso_to_windows ()">camel_charset_iso_to_windows</a>        (<em class="parameter"><code>const <span class="type">gchar</span> *isocharset</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="camel-camel-charset-map.html#camel-charset-best-name" title="camel_charset_best_name ()">camel_charset_best_name</a>             (<em class="parameter"><code><a class="link" href="camel-camel-charset-map.html#CamelCharset" title="CamelCharset"><span class="type">CamelCharset</span></a> *Param1</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="camel-camel-charset-map.html#camel-charset-best" title="camel_charset_best ()">camel_charset_best</a>                  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="camel-camel-charset-map.html#camel-charset-iso-to-windows" title="camel_charset_iso_to_windows ()">camel_charset_iso_to_windows</a>        (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *isocharset</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="camel-camel-charset-map.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="camel-camel-charset-map.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="CamelCharset">
 <a name="CamelCharset"></a><h3>CamelCharset</h3>
 <pre class="programlisting">typedef struct {
 	guint mask;
@@ -66,7 +66,7 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="camel
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="camel_charset_init ()">
 <a name="camel-charset-init"></a><h3>camel_charset_init ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                camel_charset_init                  (<em class="parameter"><code><a class="link" href="camel-camel-charset-map.html#CamelCharset" title="CamelCharset"><span class="type">CamelCharset</span></a> *Param1</code></em>);</pre>
 <p>
@@ -81,11 +81,11 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="camel
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="camel_charset_step ()">
 <a name="camel-charset-step"></a><h3>camel_charset_step ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                camel_charset_step                  (<em class="parameter"><code><a class="link" href="camel-camel-charset-map.html#CamelCharset" title="CamelCharset"><span class="type">CamelCharset</span></a> *Param1</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *in</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> len</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -110,9 +110,9 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="camel
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="camel_charset_best_name ()">
 <a name="camel-charset-best-name"></a><h3>camel_charset_best_name ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       camel_charset_best_name             (<em class="parameter"><code><a class="link" href="camel-camel-charset-map.html#CamelCharset" title="CamelCharset"><span class="type">CamelCharset</span></a> *Param1</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       camel_charset_best_name             (<em class="parameter"><code><a class="link" href="camel-camel-charset-map.html#CamelCharset" title="CamelCharset"><span class="type">CamelCharset</span></a> *Param1</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -132,10 +132,10 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="camel
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="camel_charset_best ()">
 <a name="camel-charset-best"></a><h3>camel_charset_best ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       camel_charset_best                  (<em class="parameter"><code>const <span class="type">gchar</span> *in</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> len</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       camel_charset_best                  (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *in</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> len</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -160,9 +160,9 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="camel
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="camel_charset_iso_to_windows ()">
 <a name="camel-charset-iso-to-windows"></a><h3>camel_charset_iso_to_windows ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       camel_charset_iso_to_windows        (<em class="parameter"><code>const <span class="type">gchar</span> *isocharset</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       camel_charset_iso_to_windows        (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *isocharset</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -183,6 +183,6 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="camel
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

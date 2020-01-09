@@ -1,4 +1,7 @@
-AM_CPPFLAGS =						\
+extension_LTLIBRARIES = libecalbackendweather.la
+
+libecalbackendweather_la_CPPFLAGS = \
+	$(AM_CPPFLAGS)					\
 	-DG_LOG_DOMAIN=\"libecalbackendweather\"	\
 	-I$(top_srcdir)					\
 	-I$(top_builddir)				\
@@ -11,8 +14,6 @@ AM_CPPFLAGS =						\
 	$(EVOLUTION_CALENDAR_CFLAGS)			\
 	$(SOUP_CFLAGS)					\
 	$(LIBGWEATHER_CFLAGS)
-
-extension_LTLIBRARIES = libecalbackendweather.la
 
 libecalbackendweather_la_SOURCES =	\
 	e-cal-backend-weather-factory.c	\
@@ -34,8 +35,7 @@ libecalbackendweather_la_LIBADD =						\
 	$(LIBGWEATHER_LIBS)
 
 libecalbackendweather_la_LDFLAGS =		\
-	-module -avoid-version $(NO_UNDEFINED)	\
-	$(LIBGWEATHER_LIBS)
+	-module -avoid-version $(NO_UNDEFINED)
 	
 
 weatherdata_in_files = Locations.xml.in
@@ -46,3 +46,5 @@ weatherdata_DATA = $(weatherdata_in_files:.xml.in=.xml)
 
 DISTCLEANFILES = Locations.xml
 EXTRA_DIST = Locations.xml.in
+
+-include $(top_srcdir)/git.mk

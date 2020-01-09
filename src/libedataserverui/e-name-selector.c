@@ -35,164 +35,234 @@
 #include <libedataserverui/e-book-auth-util.h>
 #include "e-name-selector.h"
 
+#define E_NAME_SELECTOR_GET_PRIVATE(obj) \
+	(G_TYPE_INSTANCE_GET_PRIVATE \
+	((obj), E_TYPE_NAME_SELECTOR, ENameSelectorPrivate))
+
 typedef struct {
-	gchar              *name;
+	gchar *name;
 	ENameSelectorEntry *entry;
-}
-Section;
+} Section;
 
 typedef struct {
 	EBook *book;
-	guint  is_completion_book : 1;
-}
-SourceBook;
-
-typedef struct _ENameSelectorPrivate ENameSelectorPrivate;
+	guint is_completion_book : 1;
+} SourceBook;
 
 struct _ENameSelectorPrivate {
-	GThread *load_book_thread;
+	ENameSelectorModel *model;
+	ENameSelectorDialog *dialog;
+
+	GArray *sections;
+	ESourceList *source_list;
+
 	gboolean load_cancelled;
 	GArray *source_books;
 };
 
-#define E_NAME_SELECTOR_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), E_TYPE_NAME_SELECTOR, ENameSelectorPrivate))
-
-static void  e_name_selector_finalize   (GObject                 *object);
-
-/* ------------------ *
- * Class/object setup *
- * ------------------ */
-
 G_DEFINE_TYPE (ENameSelector, e_name_selector, G_TYPE_OBJECT)
 
-static gpointer
-load_books_thread (gpointer user_data)
+static void
+reset_pointer_cb (gpointer data, GObject *where_was)
 {
-	ENameSelector *name_selector = user_data;
+	ENameSelector *name_selector = data;
 	ENameSelectorPrivate *priv;
-	ESourceList *source_list;
-	GSList      *groups;
-	GSList      *l;
+	guint ii;
 
-	/* XXX This thread is necessary because the e_book_new can block.
-	   See gnome's bug #540779 for more information. */
-
-	g_return_val_if_fail (name_selector != NULL, NULL);
+	g_return_if_fail (E_IS_NAME_SELECTOR (name_selector));
 
 	priv = E_NAME_SELECTOR_GET_PRIVATE (name_selector);
+
+	for (ii = 0; ii < priv->sections->len; ii++) {
+		Section *section;
+
+		section = &g_array_index (priv->sections, Section, ii);
+		if (section->entry == (ENameSelectorEntry *) where_was)
+			section->entry = NULL;
+	}
+}
+
+static void
+name_selector_book_loaded_cb (ESource *source,
+                              GAsyncResult *result,
+                              ENameSelector *name_selector)
+{
+	EBook *book;
+	GArray *sections;
+	SourceBook source_book;
+	guint ii;
+	GError *error = NULL;
+
+	book = e_load_book_source_finish (source, result, &error);
+
+	if (error != NULL) {
+		g_warning (
+			"ENameSelector: Could not load \"%s\": %s",
+			e_source_peek_name (source), error->message);
+		g_error_free (error);
+		goto exit;
+	}
+
+	g_return_if_fail (E_IS_BOOK (book));
+
+	source_book.book = book;
+	source_book.is_completion_book = TRUE;
+
+	g_array_append_val (name_selector->priv->source_books, source_book);
+
+	sections = name_selector->priv->sections;
+
+	for (ii = 0; ii < sections->len; ii++) {
+		EContactStore *store;
+		Section *section;
+
+		section = &g_array_index (sections, Section, ii);
+		if (section->entry == NULL)
+			continue;
+
+		store = e_name_selector_entry_peek_contact_store (
+			section->entry);
+		if (store != NULL)
+			e_contact_store_add_book (store, book);
+	}
+
+exit:
+	g_object_unref (name_selector);
+}
+
+static void
+name_selector_load_books (ENameSelector *name_selector)
+{
+	ESourceList *source_list;
+	GSList *groups;
+	GSList *iter1;
 
 	if (!e_book_get_addressbooks (&source_list, NULL)) {
 		g_warning ("ENameSelector can't find any addressbooks!");
-		return NULL;
+		return;
 	}
+
+	/* This keeps the source groups alive while the async operation
+	 * is running, without which e_book_new() can't obtain an absolute
+	 * URI for the ESource.   We drop the reference in dispose(). */
+	name_selector->priv->source_list = source_list;
 
 	groups = e_source_list_peek_groups (source_list);
 
-	for (l = groups; l && !priv->load_cancelled; l = g_slist_next (l)) {
-		ESourceGroup *group   = l->data;
-		GSList       *sources = e_source_group_peek_sources (group);
-		GSList       *m;
+	for (iter1 = groups; iter1 != NULL; iter1 = iter1->next) {
+		ESourceGroup *source_group;
+		GSList *sources;
+		GSList *iter2;
 
-		for (m = sources; m && !priv->load_cancelled; m = g_slist_next (m)) {
-			ESource      *source = m->data;
-			const gchar  *completion;
-			SourceBook    source_book;
+		source_group = E_SOURCE_GROUP (iter1->data);
+		sources = e_source_group_peek_sources (source_group);
 
-			/* We're only loading completion books for now, as we don't want
-			 * unnecessary auth prompts */
-			completion = e_source_get_property (source, "completion");
-			if (!completion || g_ascii_strcasecmp (completion, "true"))
+		for (iter2 = sources; iter2 != NULL; iter2 = iter2->next) {
+			ESource *source;
+			const gchar *property;
+
+			source = E_SOURCE (iter2->data);
+
+			/* We're only loading completion books for now,
+			 * as we don't want unnecessary authentication
+			 * prompts. */
+			property = e_source_get_property (source, "completion");
+
+			if (property == NULL)
 				continue;
 
-			source_book.book = e_load_book_source (source, NULL, NULL);
-			if (!source_book.book)
+			if (g_ascii_strcasecmp (property, "true") != 0)
 				continue;
 
-			source_book.is_completion_book = TRUE;
-
-			g_array_append_val (priv->source_books, source_book);
-
-			if (!priv->load_cancelled) {
-				EContactStore *store;
-
-				if (name_selector->sections) {
-					gint j;
-
-					for (j = 0; j < name_selector->sections->len && !priv->load_cancelled; j++) {
-						Section *section = &g_array_index (name_selector->sections, Section, j);
-
-						if (section->entry) {
-							store = e_name_selector_entry_peek_contact_store (section->entry);
-							if (store)
-								e_contact_store_add_book (store, source_book.book);
-						}
-					}
-				}
-			}
+			/* XXX Should we allow for cancellation? */
+			e_load_book_source_async (
+				source, NULL, NULL,
+				(GAsyncReadyCallback)
+				name_selector_book_loaded_cb,
+				g_object_ref (name_selector));
 		}
 	}
-
-	g_object_unref (source_list);
-
-	return NULL;
 }
 
 static void
-e_name_selector_class_init (ENameSelectorClass *name_selector_class)
-{
-	GObjectClass *object_class;
-
-	object_class = G_OBJECT_CLASS (name_selector_class);
-
-	object_class->finalize = e_name_selector_finalize;
-
-	g_type_class_add_private (name_selector_class, sizeof (ENameSelectorPrivate));
-}
-
-static void
-e_name_selector_init (ENameSelector *name_selector)
+name_selector_dispose (GObject *object)
 {
 	ENameSelectorPrivate *priv;
+	guint ii;
 
-	priv = E_NAME_SELECTOR_GET_PRIVATE (name_selector);
+	priv = E_NAME_SELECTOR_GET_PRIVATE (object);
 
-	name_selector->sections = g_array_new (FALSE, FALSE, sizeof (Section));
-	name_selector->model = e_name_selector_model_new ();
+	if (priv->source_list != NULL) {
+		g_object_unref (priv->source_list);
+		priv->source_list = NULL;
+	}
 
-	priv->source_books = g_array_new (FALSE, FALSE, sizeof (SourceBook));
-	priv->load_cancelled = FALSE;
-	priv->load_book_thread = g_thread_create (load_books_thread, name_selector, TRUE, NULL);
+	for (ii = 0; ii < priv->source_books->len; ii++) {
+		SourceBook *source_book;
+
+		source_book = &g_array_index (
+			priv->source_books, SourceBook, ii);
+		if (source_book->book != NULL)
+			g_object_unref (source_book->book);
+	}
+
+	for (ii = 0; ii < priv->sections->len; ii++) {
+		Section *section;
+
+		section = &g_array_index (priv->sections, Section, ii);
+		if (section->entry)
+			g_object_weak_unref (G_OBJECT (section->entry), reset_pointer_cb, object);
+		g_free (section->name);
+	}
+
+	g_array_set_size (priv->source_books, 0);
+	g_array_set_size (priv->sections, 0);
+
+	/* Chain up to parent's dispose() method. */
+	G_OBJECT_CLASS (e_name_selector_parent_class)->dispose (object);
 }
 
 static void
-e_name_selector_finalize (GObject *object)
+name_selector_finalize (GObject *object)
 {
 	ENameSelectorPrivate *priv;
 
 	priv = E_NAME_SELECTOR_GET_PRIVATE (object);
 
-	if (priv->load_book_thread) {
-		priv->load_cancelled = TRUE;
-		g_thread_join (priv->load_book_thread);
-		priv->load_book_thread = NULL;
-	}
+	g_array_free (priv->source_books, TRUE);
+	g_array_free (priv->sections, TRUE);
 
-	if (priv->source_books) {
-		gint i;
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (e_name_selector_parent_class)->finalize (object);
+}
 
-		for (i = 0; i < priv->source_books->len; i++) {
-			SourceBook *source_book = &g_array_index (priv->source_books, SourceBook, i);
+static void
+e_name_selector_class_init (ENameSelectorClass *class)
+{
+	GObjectClass *object_class;
 
-			if (source_book->book)
-				g_object_unref (source_book->book);
-		}
+	g_type_class_add_private (class, sizeof (ENameSelectorPrivate));
 
-		g_array_free (priv->source_books, TRUE);
-		priv->source_books = NULL;
-	}
+	object_class = G_OBJECT_CLASS (class);
+	object_class->dispose = name_selector_dispose;
+	object_class->finalize = name_selector_finalize;
+}
 
-	if (G_OBJECT_CLASS (e_name_selector_parent_class)->finalize)
-		G_OBJECT_CLASS (e_name_selector_parent_class)->finalize (object);
+static void
+e_name_selector_init (ENameSelector *name_selector)
+{
+	GArray *sections;
+	GArray *source_books;
+
+	sections = g_array_new (FALSE, FALSE, sizeof (Section));
+	source_books = g_array_new (FALSE, FALSE, sizeof (SourceBook));
+
+	name_selector->priv = E_NAME_SELECTOR_GET_PRIVATE (name_selector);
+	name_selector->priv->sections = sections;
+	name_selector->priv->model = e_name_selector_model_new ();
+	name_selector->priv->source_books = source_books;
+
+	name_selector_load_books (name_selector);
 }
 
 /**
@@ -200,12 +270,12 @@ e_name_selector_finalize (GObject *object)
  *
  * Creates a new #ENameSelector.
  *
- * Return value: A new #ENameSelector.
+ * Returns: A new #ENameSelector.
  **/
 ENameSelector *
 e_name_selector_new (void)
 {
-	return E_NAME_SELECTOR (g_object_new (E_TYPE_NAME_SELECTOR, NULL));
+	return g_object_new (E_TYPE_NAME_SELECTOR, NULL);
 }
 
 /* ------- *
@@ -215,6 +285,7 @@ e_name_selector_new (void)
 static gint
 add_section (ENameSelector *name_selector, const gchar *name)
 {
+	GArray *array;
 	Section section;
 
 	g_assert (name != NULL);
@@ -222,19 +293,23 @@ add_section (ENameSelector *name_selector, const gchar *name)
 	memset (&section, 0, sizeof (Section));
 	section.name = g_strdup (name);
 
-	g_array_append_val (name_selector->sections, section);
-	return name_selector->sections->len - 1;
+	array = name_selector->priv->sections;
+	g_array_append_val (array, section);
+	return array->len - 1;
 }
 
 static gint
 find_section_by_name (ENameSelector *name_selector, const gchar *name)
 {
+	GArray *array;
 	gint i;
 
 	g_assert (name != NULL);
 
-	for (i = 0; i < name_selector->sections->len; i++) {
-		Section *section = &g_array_index (name_selector->sections, Section, i);
+	array = name_selector->priv->sections;
+
+	for (i = 0; i < array->len; i++) {
+		Section *section = &g_array_index (array, Section, i);
 
 		if (!strcmp (name, section->name))
 			return i;
@@ -253,14 +328,14 @@ find_section_by_name (ENameSelector *name_selector, const gchar *name)
  *
  * Gets the #ENameSelectorModel used by @name_selector.
  *
- * Return value: The #ENameSelectorModel used by @name_selector.
+ * Returns: The #ENameSelectorModel used by @name_selector.
  **/
 ENameSelectorModel *
 e_name_selector_peek_model (ENameSelector *name_selector)
 {
 	g_return_val_if_fail (E_IS_NAME_SELECTOR (name_selector), NULL);
 
-	return name_selector->model;
+	return name_selector->priv->model;
 }
 
 /**
@@ -269,21 +344,57 @@ e_name_selector_peek_model (ENameSelector *name_selector)
  *
  * Gets the #ENameSelectorDialog used by @name_selector.
  *
- * Return value: The #ENameSelectorDialog used by @name_selector.
+ * Returns: The #ENameSelectorDialog used by @name_selector.
  **/
 ENameSelectorDialog *
 e_name_selector_peek_dialog (ENameSelector *name_selector)
 {
 	g_return_val_if_fail (E_IS_NAME_SELECTOR (name_selector), NULL);
 
-	if (!name_selector->dialog) {
-		name_selector->dialog = e_name_selector_dialog_new ();
-		e_name_selector_dialog_set_model (name_selector->dialog, name_selector->model);
-		g_signal_connect (name_selector->dialog, "delete-event",
-				  G_CALLBACK (gtk_widget_hide_on_delete), name_selector);
+	if (name_selector->priv->dialog == NULL) {
+		ENameSelectorDialog *dialog;
+		ENameSelectorModel *model;
+
+		dialog = e_name_selector_dialog_new ();
+		name_selector->priv->dialog = dialog;
+
+		model = e_name_selector_peek_model (name_selector);
+		e_name_selector_dialog_set_model (dialog, model);
+
+		g_signal_connect (
+			dialog, "delete-event",
+			G_CALLBACK (gtk_widget_hide_on_delete), name_selector);
 	}
 
-	return name_selector->dialog;
+	return name_selector->priv->dialog;
+}
+
+/**
+ * e_name_selector_show_dialog:
+ * @name_selector: an #ENameSelector
+ * @for_transient_widget: a widget parent or %NULL
+ *
+ * Shows the associated dialog, and sets the transient parent to the
+ * GtkWindow top-level of "for_transient_widget if set (it should be)
+ *
+ * Since: 2.32
+ **/
+void
+e_name_selector_show_dialog (ENameSelector *name_selector,
+			     GtkWidget     *for_transient_widget)
+{
+	GtkWindow *top = NULL;
+	ENameSelectorDialog *dialog;
+
+	g_return_if_fail (E_IS_NAME_SELECTOR (name_selector));
+
+	dialog = e_name_selector_peek_dialog (name_selector);
+	if (for_transient_widget)
+		top = GTK_WINDOW (gtk_widget_get_toplevel (for_transient_widget));
+	if (top)
+		gtk_window_set_transient_for (GTK_WINDOW (dialog), top);
+
+	gtk_widget_show (GTK_WIDGET (dialog));
 }
 
 /**
@@ -293,13 +404,14 @@ e_name_selector_peek_dialog (ENameSelector *name_selector)
  *
  * Gets the #ENameSelectorEntry for the section specified by @name.
  *
- * Return value: The #ENameSelectorEntry for the named section, or %NULL if it
+ * Returns: The #ENameSelectorEntry for the named section, or %NULL if it
  * doesn't exist in the #ENameSelectorModel.
  **/
 ENameSelectorEntry *
 e_name_selector_peek_section_entry (ENameSelector *name_selector, const gchar *name)
 {
 	ENameSelectorPrivate *priv;
+	ENameSelectorModel *model;
 	EDestinationStore *destination_store;
 	Section *section;
 	gint     n;
@@ -308,16 +420,17 @@ e_name_selector_peek_section_entry (ENameSelector *name_selector, const gchar *n
 	g_return_val_if_fail (name != NULL, NULL);
 
 	priv = E_NAME_SELECTOR_GET_PRIVATE (name_selector);
+	model = e_name_selector_peek_model (name_selector);
 
-	if (!e_name_selector_model_peek_section (name_selector->model, name,
-						 NULL, &destination_store))
+	if (!e_name_selector_model_peek_section (
+		model, name, NULL, &destination_store))
 		return NULL;
 
 	n = find_section_by_name (name_selector, name);
 	if (n < 0)
 		n = add_section (name_selector, name);
 
-	section = &g_array_index (name_selector->sections, Section, n);
+	section = &g_array_index (name_selector->priv->sections, Section, n);
 
 	if (!section->entry) {
 		EContactStore *contact_store;
@@ -325,6 +438,7 @@ e_name_selector_peek_section_entry (ENameSelector *name_selector, const gchar *n
 		gint           i;
 
 		section->entry = e_name_selector_entry_new ();
+		g_object_weak_ref (G_OBJECT (section->entry), reset_pointer_cb, name_selector);
 		if (pango_parse_markup (name, -1, '_', NULL,
 					&text, NULL, NULL))  {
 			atk_object_set_name (gtk_widget_get_accessible (GTK_WIDGET (section->entry)), text);
@@ -357,7 +471,7 @@ e_name_selector_peek_section_entry (ENameSelector *name_selector, const gchar *n
  *
  * Gets the #ENameSelectorList for the section specified by @name.
  *
- * Return value: The #ENameSelectorList for the named section, or %NULL if it
+ * Returns: The #ENameSelectorList for the named section, or %NULL if it
  * doesn't exist in the #ENameSelectorModel.
  **/
 
@@ -365,6 +479,7 @@ ENameSelectorList *
 e_name_selector_peek_section_list (ENameSelector *name_selector, const gchar *name)
 {
 	ENameSelectorPrivate *priv;
+	ENameSelectorModel *model;
 	EDestinationStore *destination_store;
 	Section *section;
 	gint     n;
@@ -373,16 +488,17 @@ e_name_selector_peek_section_list (ENameSelector *name_selector, const gchar *na
 	g_return_val_if_fail (name != NULL, NULL);
 
 	priv = E_NAME_SELECTOR_GET_PRIVATE (name_selector);
+	model = e_name_selector_peek_model (name_selector);
 
-	if (!e_name_selector_model_peek_section (name_selector->model, name,
-						 NULL, &destination_store))
+	if (!e_name_selector_model_peek_section (
+		model, name, NULL, &destination_store))
 		return NULL;
 
 	n = find_section_by_name (name_selector, name);
 	if (n < 0)
 		n = add_section (name_selector, name);
 
-	section = &g_array_index (name_selector->sections, Section, n);
+	section = &g_array_index (name_selector->priv->sections, Section, n);
 
 	if (!section->entry) {
 		EContactStore *contact_store;
@@ -390,6 +506,7 @@ e_name_selector_peek_section_list (ENameSelector *name_selector, const gchar *na
 		gint           i;
 
 		section->entry = (ENameSelectorEntry *) e_name_selector_list_new ();
+		g_object_weak_ref (G_OBJECT (section->entry), reset_pointer_cb, name_selector);
 		if (pango_parse_markup (name, -1, '_', NULL,
 					&text, NULL, NULL))  {
 			atk_object_set_name (gtk_widget_get_accessible (GTK_WIDGET (section->entry)), text);

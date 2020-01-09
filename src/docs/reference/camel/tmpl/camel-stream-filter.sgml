@@ -25,11 +25,17 @@ CamelStreamFilter
 
 </para>
 
-@parent: 
-@source: 
-@priv: 
 
-<!-- ##### FUNCTION camel_stream_filter_new_with_stream ##### -->
+<!-- ##### FUNCTION camel_stream_filter_new ##### -->
+<para>
+
+</para>
+
+@source: 
+@Returns: 
+
+
+<!-- ##### FUNCTION camel_stream_filter_get_source ##### -->
 <para>
 
 </para>

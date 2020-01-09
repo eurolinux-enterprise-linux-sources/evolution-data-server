@@ -23,6 +23,8 @@
 #include "libedataserver/e-data-server-util.h"
 #include "e-book-backend-sexp.h"
 
+G_DEFINE_TYPE (EBookBackendSExp, e_book_backend_sexp, G_TYPE_OBJECT)
+
 static GObjectClass *parent_class;
 
 typedef struct _SearchContext SearchContext;
@@ -123,7 +125,7 @@ compare_email (EContact *contact, const gchar *str,
 {
 	gint i;
 
-	for (i = E_CONTACT_EMAIL_1; i <= E_CONTACT_EMAIL_4; i ++) {
+	for (i = E_CONTACT_EMAIL_1; i <= E_CONTACT_EMAIL_4; i++) {
 		const gchar *email = e_contact_get_const (contact, i);
 
 		if (email && compare(email, str))
@@ -140,7 +142,7 @@ compare_phone (EContact *contact, const gchar *str,
 	gint i;
 	gboolean rv = FALSE;
 
-	for (i = E_CONTACT_FIRST_PHONE_ID; i <= E_CONTACT_LAST_PHONE_ID; i ++) {
+	for (i = E_CONTACT_FIRST_PHONE_ID; i <= E_CONTACT_LAST_PHONE_ID; i++) {
 		gchar *phone = e_contact_get (contact, i);
 
 		rv = phone && compare(phone, str);
@@ -186,7 +188,7 @@ compare_address (EContact *contact, const gchar *str,
 	gint i;
 	gboolean rv = FALSE;
 
-	for (i = E_CONTACT_FIRST_ADDRESS_ID; i <= E_CONTACT_LAST_ADDRESS_ID; i ++) {
+	for (i = E_CONTACT_FIRST_ADDRESS_ID; i <= E_CONTACT_LAST_ADDRESS_ID; i++) {
 		EContactAddress *address = e_contact_get (contact, i);
 		if (address) {
 			rv =  (address->po && compare(address->po, str)) ||
@@ -307,7 +309,7 @@ entry_compare(SearchContext *ctx, struct _ESExp *f,
 		propname = argv[0]->value.string;
 
 		any_field = !strcmp(propname, "x-evolution-any-field");
-		for (i = 0; i < G_N_ELEMENTS (prop_info_table); i ++) {
+		for (i = 0; i < G_N_ELEMENTS (prop_info_table); i++) {
 			if (any_field
 			    || !strcmp (prop_info_table[i].query_prop, propname)) {
 				saw_any = TRUE;
@@ -382,7 +384,7 @@ entry_compare(SearchContext *ctx, struct _ESExp *f,
 		}
 	}
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = truth;
+	r->value.boolean = truth;
 
 	return r;
 }
@@ -692,7 +694,7 @@ func_exists(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer da
 
 		propname = argv[0]->value.string;
 
-		for (i = 0; i < G_N_ELEMENTS (prop_info_table); i ++) {
+		for (i = 0; i < G_N_ELEMENTS (prop_info_table); i++) {
 			if (!strcmp (prop_info_table[i].query_prop, propname)) {
 				saw_any = TRUE;
 				info = &prop_info_table[i];
@@ -742,7 +744,7 @@ func_exists(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer da
 		}
 	}
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = truth;
+	r->value.boolean = truth;
 
 	return r;
 }
@@ -774,7 +776,7 @@ func_exists_vcard(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpoin
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = truth;
+	r->value.boolean = truth;
 
 	return r;
 }
@@ -801,7 +803,7 @@ static struct {
  *
  * Checks if @contact matches @sexp.
  *
- * Return value: %TRUE if the contact matches, %FALSE otherwise.
+ * Returns: %TRUE if the contact matches, %FALSE otherwise.
  **/
 gboolean
 e_book_backend_sexp_match_contact (EBookBackendSExp *sexp, EContact *contact)
@@ -818,7 +820,7 @@ e_book_backend_sexp_match_contact (EBookBackendSExp *sexp, EContact *contact)
 
 	r = e_sexp_eval(sexp->priv->search_sexp);
 
-	retval = (r && r->type == ESEXP_RES_BOOL && r->value.bool);
+	retval = (r && r->type == ESEXP_RES_BOOL && r->value.boolean);
 
 	g_object_unref(sexp->priv->search_context->contact);
 
@@ -834,7 +836,7 @@ e_book_backend_sexp_match_contact (EBookBackendSExp *sexp, EContact *contact)
  *
  * Checks if @vcard matches @sexp.
  *
- * Return value: %TRUE if the VCard matches, %FALSE otherwise.
+ * Returns: %TRUE if the VCard matches, %FALSE otherwise.
  **/
 gboolean
 e_book_backend_sexp_match_vcard (EBookBackendSExp *sexp, const gchar *vcard)
@@ -859,7 +861,7 @@ e_book_backend_sexp_match_vcard (EBookBackendSExp *sexp, const gchar *vcard)
  *
  * Creates a new #EBookBackendSExp from @text.
  *
- * Return value: A new #EBookBackendSExp.
+ * Returns: A new #EBookBackendSExp.
  **/
 EBookBackendSExp *
 e_book_backend_sexp_new (const gchar *text)
@@ -870,7 +872,7 @@ e_book_backend_sexp_new (const gchar *text)
 
 	sexp->priv->search_sexp = e_sexp_new();
 
-	for (i=0;i<sizeof(symbols)/sizeof(symbols[0]);i++) {
+	for (i = 0; i < G_N_ELEMENTS (symbols); i++) {
 		if (symbols[i].type == 1) {
 			e_sexp_add_ifunction(sexp->priv->search_sexp, 0, symbols[i].name,
 					     (ESExpIFunc *)symbols[i].func, sexp->priv->search_context);
@@ -930,31 +932,4 @@ e_book_backend_sexp_init (EBookBackendSExp *sexp)
 
 	sexp->priv = priv;
 	priv->search_context = g_new (SearchContext, 1);
-}
-
-/**
- * e_book_backend_sexp_get_type:
- */
-GType
-e_book_backend_sexp_get_type (void)
-{
-	static GType type = 0;
-
-	if (! type) {
-		GTypeInfo info = {
-			sizeof (EBookBackendSExpClass),
-			NULL, /* base_class_init */
-			NULL, /* base_class_finalize */
-			(GClassInitFunc)  e_book_backend_sexp_class_init,
-			NULL, /* class_finalize */
-			NULL, /* class_data */
-			sizeof (EBookBackendSExp),
-			0,    /* n_preallocs */
-			(GInstanceInitFunc) e_book_backend_sexp_init
-		};
-
-		type = g_type_register_static (G_TYPE_OBJECT, "EBookBackendSExp", &info, 0);
-	}
-
-	return type;
 }

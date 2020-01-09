@@ -1,0 +1,28 @@
+diff -up evolution-data-server-2.32.3/camel/camel-mime-message.c.gpg-smime-not-attachments evolution-data-server-2.32.3/camel/camel-mime-message.c
+--- evolution-data-server-2.32.3/camel/camel-mime-message.c.gpg-smime-not-attachments	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-mime-message.c	2013-06-11 17:21:09.124371037 +0200
+@@ -1187,10 +1187,24 @@ static gboolean
+ find_attachment (CamelMimeMessage *msg, CamelMimePart *part, gpointer data)
+ {
+ 	const CamelContentDisposition *cd;
++	CamelContentType *ct;
+ 	gboolean *found = (gboolean *)data;
+ 
+ 	g_return_val_if_fail (part != NULL, FALSE);
+ 
++	ct = camel_mime_part_get_content_type (part);
++	if (ct && (
++	    camel_content_type_is (ct, "application", "xpkcs7mime") ||
++	    camel_content_type_is (ct, "application", "x-pkcs7-mime") ||
++	    camel_content_type_is (ct, "application", "pkcs7-mime") ||
++	    camel_content_type_is (ct, "application", "pkcs7-signature") ||
++	    camel_content_type_is (ct, "application", "xpkcs7-signature") ||
++	    camel_content_type_is (ct, "application", "x-pkcs7-signature") ||
++	    camel_content_type_is (ct, "application", "pkcs7-signature") ||
++	    camel_content_type_is (ct, "application", "pgp-signature") ||
++	    camel_content_type_is (ct, "application", "pgp-encrypted")))
++		return !(*found);
++
+ 	cd = camel_mime_part_get_content_disposition (part);
+ 
+ 	if (cd) {

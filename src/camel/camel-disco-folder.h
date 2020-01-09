@@ -21,106 +21,128 @@
  * USA
  */
 
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
 #ifndef CAMEL_DISABLE_DEPRECATED
 
 #ifndef CAMEL_DISCO_FOLDER_H
-#define CAMEL_DISCO_FOLDER_H 1
+#define CAMEL_DISCO_FOLDER_H
 
-#include "camel-folder.h"
+#include <camel/camel-folder.h>
 
-#define CAMEL_DISCO_FOLDER_TYPE     (camel_disco_folder_get_type ())
-#define CAMEL_DISCO_FOLDER(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_DISCO_FOLDER_TYPE, CamelDiscoFolder))
-#define CAMEL_DISCO_FOLDER_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_DISCO_FOLDER_TYPE, CamelDiscoFolderClass))
-#define CAMEL_IS_DISCO_FOLDER(o)    (CAMEL_CHECK_TYPE((o), CAMEL_DISCO_FOLDER_TYPE))
+/* Standard GObject macros */
+#define CAMEL_TYPE_DISCO_FOLDER \
+	(camel_disco_folder_get_type ())
+#define CAMEL_DISCO_FOLDER(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_DISCO_FOLDER, CamelDiscoFolder))
+#define CAMEL_DISCO_FOLDER_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_DISCO_FOLDER, CamelDiscoFolderClass))
+#define CAMEL_IS_DISCO_FOLDER(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_DISCO_FOLDER))
+#define CAMEL_IS_DISCO_FOLDER_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_DISCO_FOLDER))
+#define CAMEL_DISCO_FOLDER_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_DISCO_FOLDER, CamelDiscoFolderClass))
 
 G_BEGIN_DECLS
 
-enum {
-	CAMEL_DISCO_FOLDER_ARG_OFFLINE_SYNC = CAMEL_FOLDER_ARG_LAST,
-	CAMEL_DISCO_FOLDER_ARG_LAST = CAMEL_FOLDER_ARG_LAST + 0x100
-};
-
-enum {
-	CAMEL_DISCO_FOLDER_OFFLINE_SYNC = CAMEL_DISCO_FOLDER_ARG_OFFLINE_SYNC | CAMEL_ARG_BOO
-};
+typedef struct _CamelDiscoFolder CamelDiscoFolder;
+typedef struct _CamelDiscoFolderClass CamelDiscoFolderClass;
+typedef struct _CamelDiscoFolderPrivate CamelDiscoFolderPrivate;
 
 struct _CamelDiscoFolder {
-	CamelFolder parent_object;
-
-	guint offline_sync:1;
+	CamelFolder parent;
+	CamelDiscoFolderPrivate *priv;
 };
 
-typedef struct {
+struct _CamelDiscoFolderClass {
 	CamelFolderClass parent_class;
 
-	void (*refresh_info_online) (CamelFolder *folder, CamelException *ex);
+	gboolean	(*refresh_info_online)	(CamelFolder *folder,
+						 GError **error);
+	gboolean	(*sync_online)		(CamelFolder *folder,
+						 GError **error);
+	gboolean	(*sync_offline)		(CamelFolder *folder,
+						 GError **error);
+	gboolean	(*sync_resyncing)	(CamelFolder *folder,
+						 GError **error);
+	gboolean	(*expunge_uids_online)	(CamelFolder *folder,
+						 GPtrArray *uids,
+						 GError **error);
+	gboolean	(*expunge_uids_offline)	(CamelFolder *folder,
+						 GPtrArray *uids,
+						 GError **error);
+	gboolean	(*expunge_uids_resyncing)
+						(CamelFolder *folder,
+						 GPtrArray *uids,
+						 GError **error);
+	gboolean	(*append_online)	(CamelFolder *folder,
+						 CamelMimeMessage *message,
+						 const CamelMessageInfo *info,
+						 gchar **appended_uid,
+						 GError **error);
+	gboolean	(*append_offline)	(CamelFolder *folder,
+						 CamelMimeMessage *message,
+						 const CamelMessageInfo *info,
+						 gchar **appended_uid,
+						 GError **error);
+	gboolean	(*append_resyncing)	(CamelFolder *folder,
+						 CamelMimeMessage *message,
+						 const CamelMessageInfo *info,
+						 gchar **appended_uid,
+						 GError **error);
+	gboolean	(*transfer_online)	(CamelFolder *source,
+						 GPtrArray *uids,
+						 CamelFolder *destination,
+						 GPtrArray **transferred_uids,
+						 gboolean delete_originals,
+						 GError **error);
+	gboolean	(*transfer_offline)	(CamelFolder *source,
+						 GPtrArray *uids,
+						 CamelFolder *destination,
+						 GPtrArray **transferred_uids,
+						 gboolean delete_originals,
+						 GError **error);
+	gboolean	(*transfer_resyncing)	(CamelFolder *source,
+						 GPtrArray *uids,
+						 CamelFolder *destination,
+						 GPtrArray **transferred_uids,
+						 gboolean delete_originals,
+						 GError **error);
+	gboolean	(*cache_message)	(CamelDiscoFolder *disco_folder,
+						 const gchar *uid,
+						 GError **error);
+	gboolean	(*prepare_for_offline)	(CamelDiscoFolder *disco_folder,
+						 const gchar *expression,
+						 GError **error);
+	void		(*update_uid)		(CamelFolder *folder,
+						 const gchar *old_uid,
+						 const gchar *new_uid);
+};
 
-	void (*sync_online)    (CamelFolder *folder, CamelException *ex);
-	void (*sync_offline)   (CamelFolder *folder, CamelException *ex);
-	void (*sync_resyncing) (CamelFolder *folder, CamelException *ex);
-
-	void (*expunge_uids_online)    (CamelFolder *folder, GPtrArray *uids,
-					CamelException *ex);
-	void (*expunge_uids_offline)   (CamelFolder *folder, GPtrArray *uids,
-					CamelException *ex);
-	void (*expunge_uids_resyncing) (CamelFolder *folder, GPtrArray *uids,
-					CamelException *ex);
-
-	void (*append_online)    (CamelFolder *folder,
-				  CamelMimeMessage *message,
-				  const CamelMessageInfo *info,
-				  gchar **appended_uid,
-				  CamelException *ex);
-	void (*append_offline)   (CamelFolder *folder,
-				  CamelMimeMessage *message,
-				  const CamelMessageInfo *info,
-				  gchar **appended_uid,
-				  CamelException *ex);
-	void (*append_resyncing) (CamelFolder *folder,
-				  CamelMimeMessage *message,
-				  const CamelMessageInfo *info,
-				  gchar **appended_uid,
-				  CamelException *ex);
-
-	void (*transfer_online)    (CamelFolder *source, GPtrArray *uids,
-				    CamelFolder *destination,
-				    GPtrArray **transferred_uids,
-				    gboolean delete_originals,
-				    CamelException *ex);
-	void (*transfer_offline)   (CamelFolder *source, GPtrArray *uids,
-				    CamelFolder *destination,
-				    GPtrArray **transferred_uids,
-				    gboolean delete_originals,
-				    CamelException *ex);
-	void (*transfer_resyncing) (CamelFolder *source, GPtrArray *uids,
-				    CamelFolder *destination,
-				    GPtrArray **transferred_uids,
-				    gboolean delete_originals,
-				    CamelException *ex);
-
-	void (*cache_message)       (CamelDiscoFolder *disco_folder,
-				     const gchar *uid, CamelException *ex);
-	void (*prepare_for_offline) (CamelDiscoFolder *disco_folder,
-				     const gchar *expression,
-				     CamelException *ex);
-
-	void (*update_uid) (CamelFolder *folder, const gchar *old_uid,
-			    const gchar *new_uid);
-} CamelDiscoFolderClass;
-
-/* public methods */
-void camel_disco_folder_expunge_uids (CamelFolder *folder, GPtrArray *uids,
-				      CamelException *ex);
-
-void camel_disco_folder_cache_message       (CamelDiscoFolder *disco_folder,
-					     const gchar *uid,
-					     CamelException *ex);
-void camel_disco_folder_prepare_for_offline (CamelDiscoFolder *disco_folder,
-					     const gchar *expression,
-					     CamelException *ex);
-
-/* Standard Camel function */
-CamelType camel_disco_folder_get_type (void);
+GType		camel_disco_folder_get_type	(void);
+gboolean	camel_disco_folder_get_offline_sync
+						(CamelDiscoFolder *disco_folder);
+void		camel_disco_folder_set_offline_sync
+						(CamelDiscoFolder *disco_folder,
+						 gboolean offline_sync);
+gboolean	camel_disco_folder_expunge_uids	(CamelFolder *folder,
+						 GPtrArray *uids,
+						 GError **error);
+gboolean	camel_disco_folder_cache_message(CamelDiscoFolder *disco_folder,
+						 const gchar *uid,
+						 GError **error);
+gboolean	camel_disco_folder_prepare_for_offline
+						(CamelDiscoFolder *disco_folder,
+						 const gchar *expression,
+						 GError **error);
 
 G_END_DECLS
 

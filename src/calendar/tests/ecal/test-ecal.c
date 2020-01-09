@@ -27,6 +27,7 @@
 #include <libecal/e-cal.h>
 #include <libecal/e-cal-component.h>
 #include <libecal/e-cal-time-util.h>
+#include <libedataserver/e-data-server-util.h>
 #include <libical/ical.h>
 
 /* start_testing_scaffold */
@@ -85,9 +86,9 @@ objects_removed_cb (GObject *object, GList *objects, gpointer data)
 }
 
 static void
-view_done_cb (GObject *object, ECalendarStatus status, gpointer data)
+view_complete_cb (GObject *object, ECalendarStatus status, const gchar *error_msg, gpointer data)
 {
-	cl_printf (data, "View done\n");
+	cl_printf (data, "View complete (status:%d, error_msg:%s)\n", status, error_msg ? error_msg : "NULL");
 }
 
 static gboolean
@@ -446,13 +447,17 @@ static const gchar *
 test_new_system_calendar(void)
 {
 	ECal *cal;
-	gchar *uri;
+	const gchar *user_data_dir;
+	gchar *filename;
 	gboolean created;
 
 	cal = e_cal_new_system_calendar ();
-	uri = g_build_filename (g_get_home_dir (), ".evolution", "calendar", "local", "system", "calendar.ics", NULL);
-	created = g_file_test (uri, G_FILE_TEST_EXISTS);
-	g_free (uri);
+
+	user_data_dir = e_get_user_data_dir ();
+	filename = g_build_filename (
+		user_data_dir, "calendar", "system", "calendar.ics", NULL);
+	created = g_file_test (filename, G_FILE_TEST_EXISTS);
+	g_free (filename);
 
 	mu_assert ("Test creation of default system calendar : Failed", created);
 
@@ -463,13 +468,17 @@ static const gchar *
 test_new_system_tasks(void)
 {
 	ECal *cal;
-	gchar *uri;
+	const gchar *user_data_dir;
+	gchar *filename;
 	gboolean created;
 
 	cal = e_cal_new_system_tasks ();
-	uri = g_build_filename (g_get_home_dir (), ".evolution", "tasks", "local", "system", "tasks.ics", NULL);
-	created = g_file_test (uri, G_FILE_TEST_EXISTS);
-	g_free (uri);
+
+	user_data_dir = e_get_user_data_dir ();
+	filename = g_build_filename (
+		user_data_dir, "tasks", "system", "tasks.ics", NULL);
+	created = g_file_test (filename, G_FILE_TEST_EXISTS);
+	g_free (filename);
 
 	mu_assert ("Test creation of default system tasks : Failed", created);
 
@@ -480,13 +489,17 @@ static const gchar *
 test_new_system_memos(void)
 {
 	ECal *cal;
-	gchar *uri;
+	const gchar *user_data_dir;
+	gchar *filename;
 	gboolean created;
 
 	cal = e_cal_new_system_memos ();
-	uri = g_build_filename (g_get_home_dir (), ".evolution", "memos", "local", "system", "journal.ics", NULL);
-	created = g_file_test (uri, G_FILE_TEST_EXISTS);
-	g_free (uri);
+
+	user_data_dir = e_get_user_data_dir ();
+	filename = g_build_filename (
+		user_data_dir, "memos", "system", "journal.ics", NULL);
+	created = g_file_test (filename, G_FILE_TEST_EXISTS);
+	g_free (filename);
 
 	mu_assert ("Test creation of default system memos : Failed", created);
 
@@ -691,15 +704,15 @@ create_client (ECal **client, const gchar *uri, ECalSourceType type, gboolean on
 			  G_CALLBACK (objects_modified_cb), client);
 	g_signal_connect (G_OBJECT (query), "objects_removed",
 			  G_CALLBACK (objects_removed_cb), client);
-	g_signal_connect (G_OBJECT (query), "view_done",
-			  G_CALLBACK (view_done_cb), client);
+	g_signal_connect (G_OBJECT (query), "view_complete",
+			  G_CALLBACK (view_complete_cb), client);
 
 	e_cal_view_start (query);
 
 	results = all_tests (*client, uri);
 	cl_printf (*client, "\n\n\n*************Tests run: %d****************\n\n", tests_run);
 	cl_printf (*client, "*************Tests passed: %d*************\n\n\n", tests_passed);
-	if (results != 0)
+	if (results != NULL)
 		cl_printf (*client, "***Failures********%s\n", results);
 
 	cl_printf (*client, "dump of the test calendar data");
@@ -712,7 +725,7 @@ gint
 main (gint argc, gchar **argv)
 {
 	gchar *uri;
-	bindtextdomain (GETTEXT_PACKAGE, EVOLUTION_LOCALEDIR);
+	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	textdomain (GETTEXT_PACKAGE);
 
 	g_type_init ();

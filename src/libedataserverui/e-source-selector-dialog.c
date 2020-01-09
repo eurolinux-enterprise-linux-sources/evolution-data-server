@@ -99,7 +99,9 @@ e_source_selector_dialog_init (ESourceSelectorDialog *dialog)
 	/* prepare the dialog */
 	gtk_window_set_title (GTK_WINDOW (dialog), _("Select destination"));
 	gtk_window_set_default_size (GTK_WINDOW (dialog), 320, 240);
-	gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+#if !GTK_CHECK_VERSION(2,90,7)
+	g_object_set (dialog, "has-separator", FALSE, NULL);
+#endif
 	gtk_widget_ensure_style (GTK_WIDGET (dialog));
 	gtk_container_set_border_width (GTK_CONTAINER (content_area), 0);
 	gtk_container_set_border_width (GTK_CONTAINER (action_area), 12);
@@ -129,6 +131,22 @@ primary_selection_changed_cb (ESourceSelector *selector, gpointer user_data)
 	if (priv->selected_source)
 		g_object_unref (priv->selected_source);
 	priv->selected_source = e_source_selector_peek_primary_selection (selector);
+
+	/* FIXME: add an API to "except-source" or to get the ESourceSelector from outside */
+	if (priv->selected_source) {
+		ESource *except_source = g_object_get_data (G_OBJECT (dialog), "except-source");
+
+		if (except_source) {
+			const gchar *except_uid, *selected_uid;
+
+			except_uid = e_source_peek_uid (except_source);
+			selected_uid = e_source_peek_uid (priv->selected_source);
+
+			if (except_uid && selected_uid && g_str_equal (except_uid, selected_uid))
+				priv->selected_source = NULL;
+		}
+	}
+
 	if (priv->selected_source) {
 		g_object_ref (priv->selected_source);
 		gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, TRUE);
@@ -198,7 +216,7 @@ setup_dialog (GtkWindow *parent, ESourceSelectorDialog *dialog, ESourceList *sou
  *
  * Create a new source selector dialog for the given @list.
  *
- * Return value: The newly created widget.
+ * Returns: The newly created widget.
  */
 GtkWidget *
 e_source_selector_dialog_new (GtkWindow *parent, ESourceList *source_list)
@@ -218,7 +236,9 @@ e_source_selector_dialog_new (GtkWindow *parent, ESourceList *source_list)
  *
  * Selects default source in the dialog.
  *
- * Return value: Whether found any default source.
+ * Returns: Whether found any default source.
+ *
+ * Since: 2.28
  **/
 gboolean
 e_source_selector_dialog_select_default_source (ESourceSelectorDialog *dialog)
@@ -264,7 +284,7 @@ e_source_selector_dialog_select_default_source (ESourceSelectorDialog *dialog)
  *
  * Peek the currently selected source in the given @dialog.
  *
- * Return value: the selected ESource.
+ * Returns: the selected ESource.
  */
 ESource *
 e_source_selector_dialog_peek_primary_selection (ESourceSelectorDialog *dialog)

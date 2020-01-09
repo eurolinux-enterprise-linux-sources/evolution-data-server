@@ -8,7 +8,6 @@
       <sub name="ECategoryCompletion" link="libedataserverui-ECategoryCompletion.html"/>
       <sub name="ECellRendererColor" link="libedataserverui-ECellRendererColor.html"/>
       <sub name="EContactStore" link="EContactStore.html"/>
-      <sub name="e-data-server-ui-marshal" link="libedataserverui-e-data-server-ui-marshal.html"/>
       <sub name="EDestinationStore" link="EDestinationStore.html"/>
       <sub name="ENameSelector" link="ENameSelector.html"/>
       <sub name="ENameSelectorDialog" link="ENameSelectorDialog.html"/>
@@ -17,15 +16,24 @@
       <sub name="ENameSelectorModel" link="ENameSelectorModel.html"/>
       <sub name="e-passwords" link="libedataserverui-e-passwords.html"/>
       <sub name="ESourceComboBox" link="ESourceComboBox.html"/>
-      <sub name="ESourceOptionMenu" link="ESourceOptionMenu.html"/>
       <sub name="ESourceSelector" link="ESourceSelector.html"/>
       <sub name="ESourceSelectorDialog" link="ESourceSelectorDialog.html"/>
       <sub name="ETreeModelGenerator" link="ETreeModelGenerator.html"/>
     </sub>
-    <sub name="Index" link="ix01.html"/>
+    <sub name="Index" link="api-index-full.html"/>
+    <sub name="Index of deprecated symbols" link="api-index-deprecated.html"/>
+    <sub name="Index of new symbols in 2.32" link="api-index-2.32.html"/>
+    <sub name="Index of new symbols in 2.30" link="api-index-2.30.html"/>
+    <sub name="Index of new symbols in 2.28" link="api-index-2.28.html"/>
+    <sub name="Index of new symbols in 2.26" link="api-index-2.26.html"/>
+    <sub name="Index of new symbols in 2.24" link="api-index-2.24.html"/>
+    <sub name="Index of new symbols in 2.22" link="api-index-2.22.html"/>
+    <sub name="Index of new symbols in 1.12" link="api-index-1.12.html"/>
   </chapters>
   <functions>
     <function name="e_load_book_source ()" link="libedataserverui-e-book-auth-util.html#e-load-book-source"/>
+    <function name="e_load_book_source_async ()" link="libedataserverui-e-book-auth-util.html#e-load-book-source-async"/>
+    <function name="e_load_book_source_finish ()" link="libedataserverui-e-book-auth-util.html#e-load-book-source-finish"/>
     <function name="ECategoriesDialog" link="ECategoriesDialog.html#ECategoriesDialog-struct"/>
     <function name="e_categories_dialog_new ()" link="ECategoriesDialog.html#e-categories-dialog-new"/>
     <function name="e_categories_dialog_get_categories ()" link="ECategoriesDialog.html#e-categories-dialog-get-categories"/>
@@ -45,8 +53,6 @@
     <function name="e_contact_store_set_query ()" link="EContactStore.html#e-contact-store-set-query"/>
     <function name="e_contact_store_peek_query ()" link="EContactStore.html#e-contact-store-peek-query"/>
     <function name="find_contact_source_by_book_return_view ()" link="EContactStore.html#find-contact-source-by-book-return-view"/>
-    <function name="e_data_server_ui_marshal_BOOLEAN__BOXED_OBJECT_FLAGS_UINT ()" link="libedataserverui-e-data-server-ui-marshal.html#e-data-server-ui-marshal-BOOLEAN--BOXED-OBJECT-FLAGS-UINT"/>
-    <function name="e_data_server_ui_marshal_BOOLEAN__OBJECT_BOXED ()" link="libedataserverui-e-data-server-ui-marshal.html#e-data-server-ui-marshal-BOOLEAN--OBJECT-BOXED"/>
     <function name="EDestinationStore" link="EDestinationStore.html#EDestinationStore-struct"/>
     <function name="enum EDestinationStoreColumnType" link="EDestinationStore.html#EDestinationStoreColumnType"/>
     <function name="e_destination_store_new ()" link="EDestinationStore.html#e-destination-store-new"/>
@@ -58,12 +64,14 @@
     <function name="e_destination_store_remove_destination_nth ()" link="EDestinationStore.html#e-destination-store-remove-destination-nth"/>
     <function name="e_destination_store_get_destination_count ()" link="EDestinationStore.html#e-destination-store-get-destination-count"/>
     <function name="e_destination_store_get_path ()" link="EDestinationStore.html#e-destination-store-get-path"/>
+    <function name="e_destination_store_get_stamp ()" link="EDestinationStore.html#e-destination-store-get-stamp"/>
     <function name="ENameSelector" link="ENameSelector.html#ENameSelector-struct"/>
     <function name="e_name_selector_new ()" link="ENameSelector.html#e-name-selector-new"/>
     <function name="e_name_selector_peek_model ()" link="ENameSelector.html#e-name-selector-peek-model"/>
     <function name="e_name_selector_peek_dialog ()" link="ENameSelector.html#e-name-selector-peek-dialog"/>
     <function name="e_name_selector_peek_section_entry ()" link="ENameSelector.html#e-name-selector-peek-section-entry"/>
     <function name="e_name_selector_peek_section_list ()" link="ENameSelector.html#e-name-selector-peek-section-list"/>
+    <function name="e_name_selector_show_dialog ()" link="ENameSelector.html#e-name-selector-show-dialog"/>
     <function name="ENameSelectorDialog" link="ENameSelectorDialog.html#ENameSelectorDialog-struct"/>
     <function name="e_name_selector_dialog_new ()" link="ENameSelectorDialog.html#e-name-selector-dialog-new"/>
     <function name="e_name_selector_dialog_peek_model ()" link="ENameSelectorDialog.html#e-name-selector-dialog-peek-model"/>
@@ -78,6 +86,7 @@
     <function name="e_name_selector_entry_set_contact_store ()" link="ENameSelectorEntry.html#e-name-selector-entry-set-contact-store"/>
     <function name="e_name_selector_entry_peek_destination_store ()" link="ENameSelectorEntry.html#e-name-selector-entry-peek-destination-store"/>
     <function name="e_name_selector_entry_set_destination_store ()" link="ENameSelectorEntry.html#e-name-selector-entry-set-destination-store"/>
+    <function name="e_name_selector_entry_get_popup_destination ()" link="ENameSelectorEntry.html#e-name-selector-entry-get-popup-destination"/>
     <function name="e_name_selector_entry_set_contact_editor_func ()" link="ENameSelectorEntry.html#e-name-selector-entry-set-contact-editor-func"/>
     <function name="e_name_selector_entry_set_contact_list_editor_func ()" link="ENameSelectorEntry.html#e-name-selector-entry-set-contact-list-editor-func"/>
     <function name="ens_util_populate_user_query_fields ()" link="ENameSelectorEntry.html#ens-util-populate-user-query-fields"/>
@@ -93,6 +102,8 @@
     <function name="e_name_selector_model_peek_section ()" link="ENameSelectorModel.html#e-name-selector-model-peek-section"/>
     <function name="e_name_selector_model_add_section ()" link="ENameSelectorModel.html#e-name-selector-model-add-section"/>
     <function name="e_name_selector_model_remove_section ()" link="ENameSelectorModel.html#e-name-selector-model-remove-section"/>
+    <function name="e_name_selector_model_get_contact_emails_without_used ()" link="ENameSelectorModel.html#e-name-selector-model-get-contact-emails-without-used"/>
+    <function name="e_name_selector_model_free_emails_list ()" link="ENameSelectorModel.html#e-name-selector-model-free-emails-list"/>
     <function name="The &quot;section-added&quot; signal" link="ENameSelectorModel.html#ENameSelectorModel-section-added"/>
     <function name="The &quot;section-removed&quot; signal" link="ENameSelectorModel.html#ENameSelectorModel-section-removed"/>
     <function name="e_passwords_init ()" link="libedataserverui-e-passwords.html#e-passwords-init"/>
@@ -116,16 +127,12 @@
     <function name="e_source_combo_box_get_active_uid ()" link="ESourceComboBox.html#e-source-combo-box-get-active-uid"/>
     <function name="e_source_combo_box_set_active_uid ()" link="ESourceComboBox.html#e-source-combo-box-set-active-uid"/>
     <function name="The &quot;source-list&quot; property" link="ESourceComboBox.html#ESourceComboBox--source-list"/>
-    <function name="ESourceOptionMenu" link="ESourceOptionMenu.html#ESourceOptionMenu-struct"/>
-    <function name="e_source_option_menu_new ()" link="ESourceOptionMenu.html#e-source-option-menu-new"/>
-    <function name="e_source_option_menu_peek_selected ()" link="ESourceOptionMenu.html#e-source-option-menu-peek-selected"/>
-    <function name="e_source_option_menu_select ()" link="ESourceOptionMenu.html#e-source-option-menu-select"/>
-    <function name="The &quot;source-selected&quot; signal" link="ESourceOptionMenu.html#ESourceOptionMenu-source-selected"/>
     <function name="ESourceSelector" link="ESourceSelector.html#ESourceSelector-struct"/>
     <function name="e_source_selector_new ()" link="ESourceSelector.html#e-source-selector-new"/>
     <function name="e_source_selector_get_source_list ()" link="ESourceSelector.html#e-source-selector-get-source-list"/>
     <function name="e_source_selector_select_source ()" link="ESourceSelector.html#e-source-selector-select-source"/>
     <function name="e_source_selector_unselect_source ()" link="ESourceSelector.html#e-source-selector-unselect-source"/>
+    <function name="e_source_selector_select_exclusive ()" link="ESourceSelector.html#e-source-selector-select-exclusive"/>
     <function name="e_source_selector_source_is_selected ()" link="ESourceSelector.html#e-source-selector-source-is-selected"/>
     <function name="e_source_selector_get_selection ()" link="ESourceSelector.html#e-source-selector-get-selection"/>
     <function name="e_source_selector_free_selection ()" link="ESourceSelector.html#e-source-selector-free-selection"/>

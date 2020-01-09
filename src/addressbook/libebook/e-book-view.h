@@ -45,7 +45,10 @@ struct _EBookViewClass {
 	void (* contacts_changed)  (EBookView *book_view, const GList *contacts);
 	void (* contacts_removed)  (EBookView *book_view, const GList *ids);
 	void (* contacts_added)    (EBookView *book_view, const GList *contacts);
+	#ifndef E_BOOK_DISABLE_DEPRECATED
 	void (* sequence_complete) (EBookView *book_view, EBookViewStatus status);
+	#endif
+	void (* view_complete) (EBookView *book_view, EBookViewStatus status, const gchar *error_msg);
 	void (* status_message)    (EBookView *book_view, const gchar *message);
 
 	/* Padding for future expansion */
@@ -65,4 +68,4 @@ struct _EBook     *e_book_view_get_book               (EBookView *book_view);
 
 G_END_DECLS
 
-#endif /* ! __E_BOOK_VIEW_H__ */
+#endif /* __E_BOOK_VIEW_H__ */

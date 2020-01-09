@@ -25,35 +25,6 @@ CamelFolderSummary
 
 </para>
 
-@parent: 
-@priv: 
-@version: 
-@flags: 
-@nextuid: 
-@time: 
-@saved_count: 
-@unread_count: 
-@deleted_count: 
-@junk_count: 
-@junk_not_deleted_count: 
-@visible_count: 
-@message_info_size: 
-@content_info_size: 
-@message_info_chunks: 
-@content_info_chunks: 
-@summary_path: 
-@build_content: 
-@messages: 
-@messages_uid: 
-@uids: 
-@loaded_infos: 
-@folder: 
-@meta_summary: 
-@cache_load_time: 
-@timeout_handle: 
-@collate: 
-@sort_by: 
-@later: 
 
 <!-- ##### STRUCT CamelMessageInfo ##### -->
 <para>
@@ -90,6 +61,7 @@ CamelFolderSummary
 @content: 
 @headers: 
 @preview: 
+@bodystructure: 
 
 <!-- ##### STRUCT CamelFolderMetaSummary ##### -->
 <para>
@@ -246,31 +218,13 @@ CamelFolderSummary
 @uid: 
 
 
-<!-- ##### FUNCTION camel_folder_summary_load ##### -->
-<para>
-
-</para>
-
-@summary: 
-@Returns: 
-
-
-<!-- ##### FUNCTION camel_folder_summary_save ##### -->
-<para>
-
-</para>
-
-@summary: 
-@Returns: 
-
-
 <!-- ##### FUNCTION camel_folder_summary_save_to_db ##### -->
 <para>
 
 </para>
 
 @s: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -280,7 +234,7 @@ CamelFolderSummary
 </para>
 
 @s: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -301,7 +255,7 @@ CamelFolderSummary
 @s: 
 @store: 
 @folder_name: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -311,7 +265,7 @@ CamelFolderSummary
 </para>
 
 @s: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -351,33 +305,13 @@ CamelFolderSummary
 @Returns: 
 
 
-<!-- ##### FUNCTION camel_folder_summary_cache_size ##### -->
+<!-- ##### FUNCTION camel_folder_summary_prepare_fetch_all ##### -->
 <para>
 
 </para>
 
 @s: 
-@Returns: 
-
-
-<!-- ##### FUNCTION camel_folder_summary_reload_from_db ##### -->
-<para>
-
-</para>
-
-@s: 
-@ex: 
-@Returns: 
-
-
-<!-- ##### FUNCTION camel_folder_summary_ensure_infos_loaded ##### -->
-<para>
-
-</para>
-
-@s: 
-@at_least: 
-@ex: 
+@error: 
 
 
 <!-- ##### FUNCTION camel_folder_summary_insert ##### -->
@@ -465,6 +399,7 @@ CamelFolderSummary
 
 @summary: 
 @message: 
+@bodystructure: 
 @Returns: 
 
 
@@ -970,6 +905,14 @@ CamelFolderSummary
 @mi: 
 
 
+<!-- ##### MACRO camel_message_info_content ##### -->
+<para>
+
+</para>
+
+@mi: 
+
+
 <!-- ##### FUNCTION camel_message_info_user_flag ##### -->
 <para>
 
@@ -1050,6 +993,16 @@ CamelFolderSummary
 @Returns: 
 
 
+<!-- ##### FUNCTION camel_folder_summary_guess_content_info ##### -->
+<para>
+
+</para>
+
+@mi: 
+@ctype: 
+@Returns: 
+
+
 <!-- ##### FUNCTION camel_content_info_dump ##### -->
 <para>
 
@@ -1074,5 +1027,34 @@ CamelFolderSummary
 
 @s: 
 @Returns: 
+
+
+<!-- ##### ENUM CamelFolderSummaryLock ##### -->
+<para>
+
+</para>
+
+@CAMEL_FOLDER_SUMMARY_SUMMARY_LOCK: 
+@CAMEL_FOLDER_SUMMARY_IO_LOCK: 
+@CAMEL_FOLDER_SUMMARY_FILTER_LOCK: 
+@CAMEL_FOLDER_SUMMARY_ALLOC_LOCK: 
+@CAMEL_FOLDER_SUMMARY_REF_LOCK: 
+
+<!-- ##### FUNCTION camel_folder_summary_lock ##### -->
+<para>
+
+</para>
+
+@summary: 
+@lock: 
+
+
+<!-- ##### FUNCTION camel_folder_summary_unlock ##### -->
+<para>
+
+</para>
+
+@summary: 
+@lock: 
 
 

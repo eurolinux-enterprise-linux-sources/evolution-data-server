@@ -1,0 +1,119 @@
+diff -up evolution-data-server-2.32.3/calendar/backends/caldav/e-cal-backend-caldav.c.cal-mem-leaks evolution-data-server-2.32.3/calendar/backends/caldav/e-cal-backend-caldav.c
+--- evolution-data-server-2.32.3/calendar/backends/caldav/e-cal-backend-caldav.c.cal-mem-leaks	2013-06-11 18:06:20.253370420 +0200
++++ evolution-data-server-2.32.3/calendar/backends/caldav/e-cal-backend-caldav.c	2013-06-11 18:06:20.270370420 +0200
+@@ -2004,6 +2004,7 @@ synchronize_cache (ECalBackendCalDAV *cb
+ 			}
+ 
+ 			/* cache update done for fetched items */
++			g_free (up_sobjs);
+ 		}
+ 
+ 		/* do not free 'data' itself, it's part of 'sobjs' */
+@@ -2034,6 +2035,8 @@ synchronize_cache (ECalBackendCalDAV *cb
+ 	}
+ 
+ 	g_tree_destroy (c_uid2complist);
++	g_slist_free (hrefs_to_update);
++	g_free (sobjs);
+ }
+ 
+ /* ************************************************************************* */
+diff -up evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c.cal-mem-leaks evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c
+--- evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c.cal-mem-leaks	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c	2013-06-11 18:06:20.264370420 +0200
+@@ -1904,7 +1904,6 @@ e_cal_backend_file_start_query (ECalBack
+ 		g_list_foreach(objs_occuring_in_tw, (GFunc)g_object_unref, NULL);
+ 		g_list_free (objs_occuring_in_tw);
+ 	}
+-	g_object_unref (match_data.obj_sexp);
+ 
+ 	e_data_cal_view_notify_done (query, NULL /* Success */);
+ }
+diff -up evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-events.c.cal-mem-leaks evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-events.c
+--- evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-events.c.cal-mem-leaks	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-events.c	2013-06-11 18:06:20.265370420 +0200
+@@ -98,6 +98,8 @@ e_cal_backend_file_events_finalize (GObj
+ 	cbfile = E_CAL_BACKEND_FILE_EVENTS (object);
+ 	priv = cbfile->priv;
+ 
++	g_free (priv);
++
+ 	if (G_OBJECT_CLASS (parent_class)->finalize)
+ 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+ }
+diff -up evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-journal.c.cal-mem-leaks evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-journal.c
+--- evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-journal.c.cal-mem-leaks	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-journal.c	2013-06-11 18:06:20.266370420 +0200
+@@ -86,6 +86,8 @@ e_cal_backend_file_journal_finalize (GOb
+ 	cbfile = E_CAL_BACKEND_FILE_JOURNAL (object);
+ 	priv = cbfile->priv;
+ 
++	g_free (priv);
++
+ 	if (G_OBJECT_CLASS (parent_class)->finalize)
+ 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+ }
+diff -up evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-todos.c.cal-mem-leaks evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-todos.c
+--- evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-todos.c.cal-mem-leaks	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file-todos.c	2013-06-11 18:06:20.265370420 +0200
+@@ -96,6 +96,8 @@ e_cal_backend_file_todos_finalize (GObje
+ 
+ 	cbfile = E_CAL_BACKEND_FILE_TODOS (object);
+ 
++	g_free (cbfile->priv);
++
+ 	if (G_OBJECT_CLASS (parent_class)->finalize)
+ 		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+ }
+diff -up evolution-data-server-2.32.3/calendar/backends/http/e-cal-backend-http.c.cal-mem-leaks evolution-data-server-2.32.3/calendar/backends/http/e-cal-backend-http.c
+--- evolution-data-server-2.32.3/calendar/backends/http/e-cal-backend-http.c.cal-mem-leaks	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/backends/http/e-cal-backend-http.c	2013-06-11 18:06:20.267370420 +0200
+@@ -346,6 +346,11 @@ put_component_to_store (ECalBackendHttp 
+ 				changed = (sequence1 != NULL && sequence2 == NULL) ||
+ 					  (sequence1 == NULL && sequence2 != NULL) ||
+ 					  (sequence1 != NULL && sequence2 != NULL && *sequence1 != *sequence2);
++
++				if (sequence1)
++					e_cal_component_free_sequence (sequence1);
++				if (sequence2)
++					e_cal_component_free_sequence (sequence2);
+ 			}
+ 		}
+ 
+@@ -565,9 +570,10 @@ soup_authenticate (SoupSession  *session
+ 
+ 	soup_auth_authenticate (auth, priv->username, priv->password);
+ 
++	g_free (priv->username);
+ 	priv->username = NULL;
++	g_free (priv->password);
+ 	priv->password = NULL;
+-
+ }
+ 
+ static gboolean reload_cb                  (ECalBackendHttp *cbhttp);
+diff -up evolution-data-server-2.32.3/calendar/backends/weather/e-cal-backend-weather.c.cal-mem-leaks evolution-data-server-2.32.3/calendar/backends/weather/e-cal-backend-weather.c
+--- evolution-data-server-2.32.3/calendar/backends/weather/e-cal-backend-weather.c.cal-mem-leaks	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/backends/weather/e-cal-backend-weather.c	2013-06-11 18:06:20.268370420 +0200
+@@ -800,7 +800,6 @@ static void e_cal_backend_weather_start_
+ 	g_slist_free (components);
+ 	g_list_foreach (objects, (GFunc) g_free, NULL);
+ 	g_list_free (objects);
+-	g_object_unref (sexp);
+ 
+ 	e_data_cal_view_notify_done (query, NULL /* Success */);
+ }
+diff -up evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal.c.cal-mem-leaks evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal.c
+--- evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal.c.cal-mem-leaks	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal.c	2013-06-11 18:06:20.262370420 +0200
+@@ -479,9 +479,9 @@ impl_Cal_getQuery (EGdbusCal *object, GD
+ 	}
+ 
+ 	query = e_data_cal_view_new (cal->priv->backend, obj_sexp);
++	g_object_unref (obj_sexp);
+ 	e_debug_log (FALSE, E_DEBUG_LOG_DOMAIN_CAL_QUERIES, "%p;%p;NEW;%s;%s", cal, query, sexp, G_OBJECT_TYPE_NAME (cal->priv->backend));
+ 	if (!query) {
+-		g_object_unref (obj_sexp);
+ 		e_data_cal_notify_query (cal, invocation, EDC_ERROR (OtherError), NULL);
+ 		return TRUE;
+ 	}

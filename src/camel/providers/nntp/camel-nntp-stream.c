@@ -27,46 +27,74 @@
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
-
-#include <glib.h>
-
-#include "camel-debug.h"
+#include <glib/gi18n-lib.h>
 
 #include "camel-nntp-stream.h"
 
-#define dd(x) (camel_debug("nntp:stream")?(x):0)
+#define dd(x) (camel_debug ("nntp:stream")?(x):0)
 
 #ifndef ECONNRESET
 #define ECONNRESET EIO
 #endif
 
-static CamelObjectClass *parent_class = NULL;
-
-/* Returns the class for a CamelStream */
-#define CS_CLASS(so) CAMEL_NNTP_STREAM_CLASS(CAMEL_OBJECT_GET_CLASS(so))
-
 #define CAMEL_NNTP_STREAM_SIZE (4096)
 #define CAMEL_NNTP_STREAM_LINE_SIZE (1024) /* maximum line size */
 
+G_DEFINE_TYPE (CamelNNTPStream, camel_nntp_stream, CAMEL_TYPE_STREAM)
+
+static void
+nntp_stream_dispose (GObject *object)
+{
+	CamelNNTPStream *stream = CAMEL_NNTP_STREAM (object);
+
+	if (stream->source != NULL) {
+		g_object_unref (stream->source);
+		stream->source = NULL;
+	}
+
+	/* Chain up to parent's dispose () method. */
+	G_OBJECT_CLASS (camel_nntp_stream_parent_class)->dispose (object);
+}
+
+static void
+nntp_stream_finalize (GObject *object)
+{
+	CamelNNTPStream *stream = CAMEL_NNTP_STREAM (object);
+
+	g_free (stream->buf);
+	g_free (stream->linebuf);
+
+	/* Chain up to parent's finalize () method. */
+	G_OBJECT_CLASS (camel_nntp_stream_parent_class)->finalize (object);
+}
+
 static gint
-stream_fill(CamelNNTPStream *is)
+nntp_stream_fill (CamelNNTPStream *is,
+                  GError **error)
 {
 	gint left = 0;
 
 	if (is->source) {
 		left = is->end - is->ptr;
-		memcpy(is->buf, is->ptr, left);
+		memcpy (is->buf, is->ptr, left);
 		is->end = is->buf + left;
 		is->ptr = is->buf;
-		left = camel_stream_read(is->source, (gchar *) is->end, CAMEL_NNTP_STREAM_SIZE - (is->end - is->buf));
+		left = camel_stream_read (
+			is->source, (gchar *) is->end,
+			CAMEL_NNTP_STREAM_SIZE - (is->end - is->buf), error);
 		if (left > 0) {
 			is->end += left;
 			is->end[0] = '\n';
 			return is->end - is->ptr;
 		} else {
-			if (left == 0)
+			if (left == 0) {
 				errno = ECONNRESET;
-			dd(printf("NNTP_STREAM_FILL(ERROR): %d - '%s'\n", left, g_strerror(errno)));
+				g_set_error (
+					error, G_IO_ERROR,
+					g_io_error_from_errno (errno),
+					"%s", g_strerror (errno));
+			}
+			dd (printf ("NNTP_STREAM_FILL (ERROR): %d - '%s'\n", left, g_strerror (errno)));
 			return -1;
 		}
 	}
@@ -75,7 +103,10 @@ stream_fill(CamelNNTPStream *is)
 }
 
 static gssize
-stream_read(CamelStream *stream, gchar *buffer, gsize n)
+nntp_stream_read (CamelStream *stream,
+                  gchar *buffer,
+                  gsize n,
+                  GError **error)
 {
 	CamelNNTPStream *is = (CamelNNTPStream *)stream;
 	gchar *o, *oe;
@@ -98,7 +129,7 @@ stream_read(CamelStream *stream, gchar *buffer, gsize n)
 	case 0:		/* start of line, always read at least 3 chars */
 		while (e - p < 3) {
 			is->ptr = p;
-			if (stream_fill(is) == -1)
+			if (nntp_stream_fill (is, error) == -1)
 				return -1;
 			p = is->ptr;
 			e = is->end;
@@ -108,7 +139,7 @@ stream_read(CamelStream *stream, gchar *buffer, gsize n)
 				is->ptr = p+3;
 				is->mode = CAMEL_NNTP_STREAM_EOD;
 				is->state = 0;
-				dd(printf("NNTP_STREAM_READ(%d):\n%.*s\n", (gint)(o-buffer), (gint)(o-buffer), buffer));
+				dd (printf ("NNTP_STREAM_READ (%d):\n%.*s\n", (gint)(o-buffer), (gint)(o-buffer), buffer));
 				return o-buffer;
 			}
 			p++;
@@ -122,7 +153,7 @@ stream_read(CamelStream *stream, gchar *buffer, gsize n)
 				/* end of input sentinal check */
 				if (p > e) {
 					is->ptr = e;
-					if (stream_fill(is) == -1)
+					if (nntp_stream_fill (is, error) == -1)
 						return -1;
 					p = is->ptr;
 					e = is->end;
@@ -141,35 +172,40 @@ stream_read(CamelStream *stream, gchar *buffer, gsize n)
 	is->ptr = p;
 	is->state = state;
 
-	dd(printf("NNTP_STREAM_READ(%d):\n%.*s\n", (gint)(o-buffer), (gint)(o-buffer), buffer));
+	dd (printf ("NNTP_STREAM_READ (%d):\n%.*s\n", (gint)(o-buffer), (gint)(o-buffer), buffer));
 
 	return o-buffer;
 }
 
 static gssize
-stream_write(CamelStream *stream, const gchar *buffer, gsize n)
+nntp_stream_write (CamelStream *stream,
+                   const gchar *buffer,
+                   gsize n,
+                   GError **error)
 {
 	CamelNNTPStream *is = (CamelNNTPStream *)stream;
 
-	return camel_stream_write(is->source, buffer, n);
+	return camel_stream_write (is->source, buffer, n, error);
 }
 
 static gint
-stream_close(CamelStream *stream)
+nntp_stream_close (CamelStream *stream,
+                   GError **error)
 {
 	/* nop? */
 	return 0;
 }
 
 static gint
-stream_flush(CamelStream *stream)
+nntp_stream_flush (CamelStream *stream,
+                   GError **error)
 {
 	/* nop? */
 	return 0;
 }
 
 static gboolean
-stream_eos(CamelStream *stream)
+nntp_stream_eos (CamelStream *stream)
 {
 	CamelNNTPStream *is = (CamelNNTPStream *)stream;
 
@@ -177,34 +213,38 @@ stream_eos(CamelStream *stream)
 }
 
 static gint
-stream_reset(CamelStream *stream)
+nntp_stream_reset (CamelStream *stream,
+                   GError **error)
 {
 	/* nop?  reset literal mode? */
 	return 0;
 }
 
 static void
-camel_nntp_stream_class_init (CamelStreamClass *camel_nntp_stream_class)
+camel_nntp_stream_class_init (CamelNNTPStreamClass *class)
 {
-	CamelStreamClass *camel_stream_class = (CamelStreamClass *)camel_nntp_stream_class;
+	GObjectClass *object_class;
+	CamelStreamClass *stream_class;
 
-	parent_class = camel_type_get_global_classfuncs( CAMEL_OBJECT_TYPE );
+	object_class = G_OBJECT_CLASS (class);
+	object_class->dispose = nntp_stream_dispose;
+	object_class->finalize = nntp_stream_finalize;
 
-	/* virtual method definition */
-	camel_stream_class->read = stream_read;
-	camel_stream_class->write = stream_write;
-	camel_stream_class->close = stream_close;
-	camel_stream_class->flush = stream_flush;
-	camel_stream_class->eos = stream_eos;
-	camel_stream_class->reset = stream_reset;
+	stream_class = CAMEL_STREAM_CLASS (class);
+	stream_class->read = nntp_stream_read;
+	stream_class->write = nntp_stream_write;
+	stream_class->close = nntp_stream_close;
+	stream_class->flush = nntp_stream_flush;
+	stream_class->eos = nntp_stream_eos;
+	stream_class->reset = nntp_stream_reset;
 }
 
 static void
-camel_nntp_stream_init(CamelNNTPStream *is, CamelNNTPStreamClass *isclass)
+camel_nntp_stream_init (CamelNNTPStream *is)
 {
 	/* +1 is room for appending a 0 if we need to for a line */
-	is->ptr = is->end = is->buf = g_malloc(CAMEL_NNTP_STREAM_SIZE+1);
-	is->lineptr = is->linebuf = g_malloc(CAMEL_NNTP_STREAM_LINE_SIZE+1);
+	is->ptr = is->end = is->buf = g_malloc (CAMEL_NNTP_STREAM_SIZE+1);
+	is->lineptr = is->linebuf = g_malloc (CAMEL_NNTP_STREAM_LINE_SIZE+1);
 	is->lineend = is->linebuf + CAMEL_NNTP_STREAM_LINE_SIZE;
 
 	/* init sentinal */
@@ -214,57 +254,31 @@ camel_nntp_stream_init(CamelNNTPStream *is, CamelNNTPStreamClass *isclass)
 	is->mode = CAMEL_NNTP_STREAM_LINE;
 }
 
-static void
-camel_nntp_stream_finalise(CamelNNTPStream *is)
-{
-	g_free(is->buf);
-	g_free(is->linebuf);
-	if (is->source)
-		camel_object_unref((CamelObject *)is->source);
-}
-
-CamelType
-camel_nntp_stream_get_type (void)
-{
-	static CamelType camel_nntp_stream_type = CAMEL_INVALID_TYPE;
-
-	if (camel_nntp_stream_type == CAMEL_INVALID_TYPE) {
-		camel_nntp_stream_type = camel_type_register( camel_stream_get_type(),
-							    "CamelNNTPStream",
-							    sizeof( CamelNNTPStream ),
-							    sizeof( CamelNNTPStreamClass ),
-							    (CamelObjectClassInitFunc) camel_nntp_stream_class_init,
-							    NULL,
-							    (CamelObjectInitFunc) camel_nntp_stream_init,
-							    (CamelObjectFinalizeFunc) camel_nntp_stream_finalise );
-	}
-
-	return camel_nntp_stream_type;
-}
-
 /**
  * camel_nntp_stream_new:
  *
  * Returns a NULL stream.  A null stream is always at eof, and
  * always returns success for all reads and writes.
  *
- * Return value: the stream
+ * Returns: the stream
  **/
 CamelStream *
-camel_nntp_stream_new(CamelStream *source)
+camel_nntp_stream_new (CamelStream *source)
 {
 	CamelNNTPStream *is;
 
-	is = (CamelNNTPStream *)camel_object_new(camel_nntp_stream_get_type ());
-	camel_object_ref((CamelObject *)source);
-	is->source = source;
+	is = g_object_new (CAMEL_TYPE_NNTP_STREAM, NULL);
+	is->source = g_object_ref (source);
 
 	return (CamelStream *)is;
 }
 
 /* Get one line from the nntp stream */
 gint
-camel_nntp_stream_line(CamelNNTPStream *is, guchar **data, guint *len)
+camel_nntp_stream_line (CamelNNTPStream *is,
+                        guchar **data,
+                        guint *len,
+                        GError **error)
 {
 	register guchar c, *p, *o, *oe;
 	gint newlen, oldlen;
@@ -286,7 +300,7 @@ camel_nntp_stream_line(CamelNNTPStream *is, guchar **data, guint *len)
 		/* need at least 3 chars in buffer */
 		while (e-p < 3) {
 			is->ptr = p;
-			if (stream_fill(is) == -1)
+			if (nntp_stream_fill (is, error) == -1)
 				return -1;
 			p = is->ptr;
 			e = is->end;
@@ -301,7 +315,7 @@ camel_nntp_stream_line(CamelNNTPStream *is, guchar **data, guint *len)
 				*len = 0;
 				is->linebuf[0] = 0;
 
-				dd(printf("NNTP_STREAM_LINE(END)\n"));
+				dd (printf ("NNTP_STREAM_LINE (END)\n"));
 
 				return 0;
 			}
@@ -316,7 +330,7 @@ camel_nntp_stream_line(CamelNNTPStream *is, guchar **data, guint *len)
 				/* sentinal? */
 				if (p> e) {
 					is->ptr = e;
-					if (stream_fill(is) == -1)
+					if (nntp_stream_fill (is, error) == -1)
 						return -1;
 					p = is->ptr;
 					e = is->end;
@@ -326,7 +340,7 @@ camel_nntp_stream_line(CamelNNTPStream *is, guchar **data, guint *len)
 					*len = o - is->linebuf;
 					*o = 0;
 
-					dd(printf("NNTP_STREAM_LINE(%d): '%s'\n", *len, *data));
+					dd (printf ("NNTP_STREAM_LINE (%d): '%s'\n", *len, *data));
 
 					return 1;
 				}
@@ -338,17 +352,18 @@ camel_nntp_stream_line(CamelNNTPStream *is, guchar **data, guint *len)
 		/* limit this for bad server data? */
 		oldlen = o - is->linebuf;
 		newlen = (is->lineend - is->linebuf) * 3 / 2;
-		is->lineptr = is->linebuf = g_realloc(is->linebuf, newlen);
+		is->lineptr = is->linebuf = g_realloc (is->linebuf, newlen);
 		is->lineend = is->linebuf + newlen;
 		oe = is->lineend - 1;
 		o = is->linebuf + oldlen;
 	}
-
-	return -1;
 }
 
 /* returns -1 on error, 0 if last lot of data, >0 if more remaining */
-gint camel_nntp_stream_gets(CamelNNTPStream *is, guchar **start, guint *len)
+gint
+camel_nntp_stream_gets (CamelNNTPStream *is,
+                        guchar **start,
+                        guint *len)
 {
 	gint max;
 	guchar *end;
@@ -357,31 +372,36 @@ gint camel_nntp_stream_gets(CamelNNTPStream *is, guchar **start, guint *len)
 
 	max = is->end - is->ptr;
 	if (max == 0) {
-		max = stream_fill(is);
+		max = nntp_stream_fill (is, NULL);
 		if (max <= 0)
 			return max;
 	}
 
 	*start = is->ptr;
-	end = memchr(is->ptr, '\n', max);
+	end = memchr (is->ptr, '\n', max);
 	if (end)
 		max = (end - is->ptr) + 1;
 	*start = is->ptr;
 	*len = max;
 	is->ptr += max;
 
-	dd(printf("NNTP_STREAM_GETS(%s,%d): '%.*s'\n", end==NULL?"more":"last", *len, (gint)*len, *start));
+	dd (printf ("NNTP_STREAM_GETS (%s,%d): '%.*s'\n", end==NULL?"more":"last", *len, (gint)*len, *start));
 
 	return end == NULL?1:0;
 }
 
-void camel_nntp_stream_set_mode(CamelNNTPStream *is, camel_nntp_stream_mode_t mode)
+void
+camel_nntp_stream_set_mode (CamelNNTPStream *is,
+                            camel_nntp_stream_mode_t mode)
 {
 	is->mode = mode;
 }
 
 /* returns -1 on erorr, 0 if last data, >0 if more data left */
-gint camel_nntp_stream_getd(CamelNNTPStream *is, guchar **start, guint *len)
+gint
+camel_nntp_stream_getd (CamelNNTPStream *is,
+                        guchar **start,
+                        guint *len)
 {
 	guchar *p, *e, *s;
 	gint state;
@@ -392,7 +412,7 @@ gint camel_nntp_stream_getd(CamelNNTPStream *is, guchar **start, guint *len)
 		return 0;
 
 	if (is->mode == CAMEL_NNTP_STREAM_LINE) {
-		g_warning("nntp_stream reading data in line mode\n");
+		g_warning ("nntp_stream reading data in line mode\n");
 		return 0;
 	}
 
@@ -402,7 +422,7 @@ gint camel_nntp_stream_getd(CamelNNTPStream *is, guchar **start, guint *len)
 
 	while (e - p < 3) {
 		is->ptr = p;
-		if (stream_fill(is) == -1)
+		if (nntp_stream_fill (is, NULL) == -1)
 			return -1;
 		p = is->ptr;
 		e = is->end;
@@ -422,7 +442,7 @@ gint camel_nntp_stream_getd(CamelNNTPStream *is, guchar **start, guint *len)
 					is->mode = CAMEL_NNTP_STREAM_EOD;
 					is->state = 0;
 
-					dd(printf("NNTP_STREAM_GETD(%s,%d): '%.*s'\n", "last", *len, (gint)*len, *start));
+					dd (printf ("NNTP_STREAM_GETD (%s,%d): '%.*s'\n", "last", *len, (gint)*len, *start));
 
 					return 0;
 				}
@@ -437,7 +457,7 @@ gint camel_nntp_stream_getd(CamelNNTPStream *is, guchar **start, guint *len)
 					*start = s;
 					is->state = 1;
 
-					dd(printf("NNTP_STREAM_GETD(%s,%d): '%.*s'\n", "more", *len, (gint)*len, *start));
+					dd (printf ("NNTP_STREAM_GETD (%s,%d): '%.*s'\n", "more", *len, (gint)*len, *start));
 
 					return 1;
 				}
@@ -462,7 +482,7 @@ gint camel_nntp_stream_getd(CamelNNTPStream *is, guchar **start, guint *len)
 	*len = p-s;
 	*start = s;
 
-	dd(printf("NNTP_STREAM_GETD(%s,%d): '%.*s'\n", "more", *len, (gint)*len, *start));
+	dd (printf ("NNTP_STREAM_GETD (%s,%d): '%.*s'\n", "more", *len, (gint)*len, *start));
 	return 1;
 }
 

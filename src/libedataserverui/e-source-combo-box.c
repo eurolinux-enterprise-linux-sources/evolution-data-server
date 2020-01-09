@@ -29,6 +29,8 @@
 	(G_TYPE_INSTANCE_GET_PRIVATE \
 	((obj), E_TYPE_SOURCE_COMBO_BOX, ESourceComboBoxPrivate))
 
+G_DEFINE_TYPE (ESourceComboBox, e_source_combo_box, GTK_TYPE_COMBO_BOX)
+
 struct _ESourceComboBoxPrivate {
 	ESourceList *source_list;
 	GHashTable *uid_index;
@@ -51,42 +53,20 @@ enum {
 
 static gpointer parent_class = NULL;
 
-/**
- * compare_source_names
- * Compares sources by name.
- **/
 static gint
-compare_source_names (gconstpointer a, gconstpointer b)
+compare_source_names (ESource *source_a,
+                      ESource *source_b)
 {
-	g_return_val_if_fail (E_IS_SOURCE (a), -1);
-	g_return_val_if_fail (E_IS_SOURCE (b),  1);
+	const gchar *name_a;
+	const gchar *name_b;
 
-	return g_utf8_collate (e_source_peek_name (E_SOURCE (a)), e_source_peek_name (E_SOURCE (b)));
-}
+	g_return_val_if_fail (E_IS_SOURCE (source_a), -1);
+	g_return_val_if_fail (E_IS_SOURCE (source_b),  1);
 
-/**
- * get_sorted_sources
- * Creates copy of GSList of sources (do not increase reference count for data members),
- * and sorts this list alphabetically by source names.
- *
- * @param sources List of sources.
- * @return New GSList of sorted sources, should be freed by g_slist_free,
- *         but do not unref data members.
- **/
-static GSList *
-get_sorted_sources (GSList *sources)
-{
-	GSList *res = NULL, *p;
+	name_a = e_source_peek_name (source_a);
+	name_b = e_source_peek_name (source_b);
 
-	if (!sources)
-		return NULL;
-
-	for (p = sources; p != NULL; p = p->next)
-		res = g_slist_prepend (res, p->data);
-
-	res = g_slist_sort (res, compare_source_names);
-
-	return res;
+	return g_utf8_collate (name_a, name_b);
 }
 
 static void
@@ -114,6 +94,16 @@ source_list_changed_cb (ESourceList *source_list,
 	model = gtk_combo_box_get_model (combo_box);
 	store = GTK_LIST_STORE (model);
 
+	if (source_list == NULL) {
+		gtk_list_store_clear (store);
+		return;
+	}
+
+	/* XXX The algorithm below is needlessly complex.  Would be
+	 *     easier just to clear and rebuild the store.  There's
+	 *     hardly a performance issue here since source lists
+	 *     are short. */
+
 	gtk_tree_model_get_iter_first (model, &iter);
 
 	for (groups = e_source_list_peek_groups (source_list);
@@ -135,7 +125,13 @@ source_list_changed_cb (ESourceList *source_list,
 			-1);
 		gtk_tree_model_iter_next (model, &iter);
 
-		sources = get_sorted_sources (e_source_group_peek_sources (groups->data));
+		sources = e_source_group_peek_sources (groups->data);
+
+		/* Create a shallow copy and sort by name. */
+		sources = g_slist_sort (
+			g_slist_copy (sources),
+			(GCompareFunc) compare_source_names);
+
 		for (s = sources; s != NULL; s = s->next) {
 			const gchar *color_spec;
 			GdkColor color;
@@ -241,26 +237,9 @@ e_source_combo_box_set_property (GObject *object,
 
 	switch (property_id) {
 		case PROP_SOURCE_LIST:
-
-			if (priv->source_list != NULL) {
-				g_signal_handler_disconnect (
-					priv->source_list, priv->handler_id);
-				g_object_unref (priv->source_list);
-			}
-
-			priv->source_list = g_value_dup_object (value);
-
-			/* Reset the tree store. */
-			source_list_changed_cb (
-				priv->source_list,
-				E_SOURCE_COMBO_BOX (object));
-
-			/* Watch for source list changes. */
-			priv->handler_id = g_signal_connect_object (
-				priv->source_list, "changed",
-				G_CALLBACK (source_list_changed_cb),
-				object, 0);
-
+			e_source_combo_box_set_source_list (
+				E_SOURCE_COMBO_BOX (object),
+				g_value_get_object (value));
 			return;
 	}
 
@@ -279,7 +258,9 @@ e_source_combo_box_get_property (GObject *object,
 
 	switch (property_id) {
 		case PROP_SOURCE_LIST:
-			g_value_set_object (value, priv->source_list);
+			g_value_set_object (
+				value, e_source_combo_box_get_source_list (
+				E_SOURCE_COMBO_BOX (object)));
 			return;
 	}
 
@@ -294,6 +275,8 @@ e_source_combo_box_dispose (GObject *object)
 	priv = E_SOURCE_COMBO_BOX_GET_PRIVATE (object);
 
 	if (priv->source_list != NULL) {
+		g_signal_handler_disconnect (
+			priv->source_list, priv->handler_id);
 		g_object_unref (priv->source_list);
 		priv->source_list = NULL;
 	}
@@ -356,32 +339,6 @@ e_source_combo_box_init (ESourceComboBox *source_combo_box)
 			(GDestroyNotify) gtk_tree_row_reference_free);
 }
 
-GType
-e_source_combo_box_get_type (void)
-{
-	static GType type = 0;
-
-	if (G_UNLIKELY (type == 0)) {
-		static const GTypeInfo type_info = {
-			sizeof (ESourceComboBoxClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) e_source_combo_box_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL,  /* class_data */
-			sizeof (ESourceComboBox),
-			0,     /* n_preallocs */
-			(GInstanceInitFunc) e_source_combo_box_init,
-			NULL   /* value_table */
-		};
-
-		type = g_type_register_static (
-			GTK_TYPE_COMBO_BOX, "ESourceComboBox", &type_info, 0);
-	}
-
-	return type;
-}
-
 /**
  * e_source_combo_box_new:
  * @source_list: an #ESourceList
@@ -390,6 +347,8 @@ e_source_combo_box_get_type (void)
  * from the provided #ESourceList.
  *
  * Returns: a new #ESourceComboBox
+ *
+ * Since: 2.22
  **/
 GtkWidget *
 e_source_combo_box_new (ESourceList *source_list)
@@ -409,17 +368,15 @@ e_source_combo_box_new (ESourceList *source_list)
  * @source_combo_box.
  *
  * Returns: an #ESourceList
+ *
+ * Since: 2.22
  **/
 ESourceList *
 e_source_combo_box_get_source_list (ESourceComboBox *source_combo_box)
 {
-	ESourceList *source_list;
-
 	g_return_val_if_fail (E_IS_SOURCE_COMBO_BOX (source_combo_box), NULL);
 
-	g_object_get (source_combo_box, "source-list", &source_list, NULL);
-
-	return source_list;
+	return source_combo_box->priv->source_list;
 }
 
 /**
@@ -429,15 +386,43 @@ e_source_combo_box_get_source_list (ESourceComboBox *source_combo_box)
  *
  * Sets the source list used by @source_combo_box to be @source_list.  This
  * causes the contents of @source_combo_box to be regenerated.
+ *
+ * Since: 2.22
  **/
 void
 e_source_combo_box_set_source_list (ESourceComboBox *source_combo_box,
                                     ESourceList *source_list)
 {
 	g_return_if_fail (E_IS_SOURCE_COMBO_BOX (source_combo_box));
-	g_return_if_fail (E_IS_SOURCE_LIST (source_list));
 
-	g_object_set (source_combo_box, "source-list", source_list, NULL);
+	if (source_list != NULL) {
+		g_return_if_fail (E_IS_SOURCE_LIST (source_list));
+		g_object_ref (source_list);
+	}
+
+	if (source_combo_box->priv->source_list != NULL) {
+		g_signal_handler_disconnect (
+			source_combo_box->priv->source_list,
+			source_combo_box->priv->handler_id);
+		g_object_unref (source_combo_box->priv->source_list);
+		source_combo_box->priv->handler_id = 0;
+	}
+
+	source_combo_box->priv->source_list = source_list;
+
+	/* Reset the tree store. */
+	source_list_changed_cb (source_list, source_combo_box);
+
+	/* Watch for source list changes. */
+	if (source_list != NULL) {
+		source_combo_box->priv->handler_id =
+			g_signal_connect_object (
+				source_list, "changed",
+				G_CALLBACK (source_list_changed_cb),
+				source_combo_box, 0);
+	}
+
+	g_object_notify (G_OBJECT (source_combo_box), "source-list");
 }
 
 /**
@@ -448,6 +433,8 @@ e_source_combo_box_set_source_list (ESourceComboBox *source_combo_box,
  * if there is no active item.
  *
  * Returns: an #ESource or %NULL
+ *
+ * Since: 2.22
  **/
 ESource *
 e_source_combo_box_get_active (ESourceComboBox *source_combo_box)
@@ -476,6 +463,8 @@ e_source_combo_box_get_active (ESourceComboBox *source_combo_box)
  * @source: an #ESource
  *
  * Sets the active item to the one corresponding to @source.
+ *
+ * Since: 2.22
  **/
 void
 e_source_combo_box_set_active (ESourceComboBox *source_combo_box,
@@ -496,6 +485,8 @@ e_source_combo_box_set_active (ESourceComboBox *source_combo_box,
  * active item, or %NULL if there is no active item.
  *
  * Returns: a unique ID string or %NULL
+ *
+ * Since: 2.22
  **/
 const gchar *
 e_source_combo_box_get_active_uid (ESourceComboBox *source_combo_box)
@@ -517,8 +508,12 @@ e_source_combo_box_get_active_uid (ESourceComboBox *source_combo_box)
  * @uid: a unique ID of an #ESource
  *
  * Sets the active item to the one corresponding to @uid.
+ *
+ * Returns: whether found such @uid
+ *
+ * Since: 2.22
  **/
-void
+gboolean
 e_source_combo_box_set_active_uid (ESourceComboBox *source_combo_box,
                                    const gchar *uid)
 {
@@ -528,19 +523,24 @@ e_source_combo_box_set_active_uid (ESourceComboBox *source_combo_box,
 	GtkTreeIter iter;
 	gboolean iter_was_set;
 
-	g_return_if_fail (E_IS_SOURCE_COMBO_BOX (source_combo_box));
-	g_return_if_fail (uid != NULL);
+	g_return_val_if_fail (E_IS_SOURCE_COMBO_BOX (source_combo_box), FALSE);
+	g_return_val_if_fail (uid != NULL, FALSE);
 
 	priv = source_combo_box->priv;
 	combo_box = GTK_COMBO_BOX (source_combo_box);
 
 	reference = g_hash_table_lookup (priv->uid_index, uid);
-	g_return_if_fail (gtk_tree_row_reference_valid (reference));
+	if (!reference)
+		return FALSE;
+
+	g_return_val_if_fail (gtk_tree_row_reference_valid (reference), FALSE);
 
 	iter_was_set = gtk_tree_model_get_iter (
 		gtk_combo_box_get_model (combo_box), &iter,
 		gtk_tree_row_reference_get_path (reference));
-	g_return_if_fail (iter_was_set);
+	g_return_val_if_fail (iter_was_set, FALSE);
 
 	gtk_combo_box_set_active_iter (combo_box, &iter);
+
+	return TRUE;
 }

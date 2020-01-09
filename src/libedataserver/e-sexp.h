@@ -39,24 +39,27 @@ typedef struct _ESExpSymbol ESExpSymbol;
 typedef struct _ESExpResult ESExpResult;
 typedef struct _ESExpTerm ESExpTerm;
 
-enum _ESExpResultType {
+typedef enum {
 	ESEXP_RES_ARRAY_PTR=0,	/* type is a ptrarray, what it points to is implementation dependant */
 	ESEXP_RES_INT,		/* type is a number */
 	ESEXP_RES_STRING,	/* type is a pointer to a single string */
 	ESEXP_RES_BOOL,		/* boolean type */
 	ESEXP_RES_TIME,		/* time_t type */
 	ESEXP_RES_UNDEFINED	/* unknown type */
-};
+} ESExpResultType;
 
 struct _ESExpResult {
-	enum _ESExpResultType type;
+	ESExpResultType type;
 	union {
 		GPtrArray *ptrarray;
 		gint number;
 		gchar *string;
-		gint bool;
+		gint boolean;
 		time_t time;
 	} value;
+	gboolean time_generator;
+	time_t occuring_start;
+	time_t occuring_end;
 };
 
 typedef struct _ESExpResult *(ESExpFunc)(struct _ESExp *sexp, gint argc,
@@ -67,7 +70,7 @@ typedef struct _ESExpResult *(ESExpIFunc)(struct _ESExp *sexp, gint argc,
 					  struct _ESExpTerm **argv,
 					  gpointer data);
 
-enum _ESExpTermType {
+typedef enum {
 	ESEXP_TERM_INT	= 0,	/* integer literal */
 	ESEXP_TERM_BOOL,	/* boolean literal */
 	ESEXP_TERM_STRING,	/* string literal */
@@ -75,7 +78,7 @@ enum _ESExpTermType {
 	ESEXP_TERM_FUNC,	/* normal function, arguments are evaluated before calling */
 	ESEXP_TERM_IFUNC,	/* immediate function, raw terms are arguments */
 	ESEXP_TERM_VAR		/* variable reference */
-};
+} ESExpTermType;
 
 struct _ESExpSymbol {
 	gint type;		/* ESEXP_TERM_FUNC or ESEXP_TERM_VAR */
@@ -88,11 +91,11 @@ struct _ESExpSymbol {
 };
 
 struct _ESExpTerm {
-	enum _ESExpTermType type;
+	ESExpTermType type;
 	union {
 		gchar *string;
 		gint number;
-		gint bool;
+		gint boolean;
 		time_t time;
 		struct {
 			struct _ESExpSymbol *sym;
@@ -173,6 +176,7 @@ const gchar     *e_sexp_error		(struct _ESExp *f);
 
 ESExpTerm * e_sexp_parse_value(ESExp *f);
 
+gboolean	e_sexp_evaluate_occur_times	(ESExp *f, time_t *start, time_t *end);
 G_END_DECLS
 
 #endif /* _E_SEXP_H */

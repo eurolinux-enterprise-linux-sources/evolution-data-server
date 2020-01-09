@@ -29,10 +29,10 @@
 #include "e-data-server-util.h"
 
 #ifdef G_OS_WIN32
-/* The localtime_r() definition in pthreads-win32's pthread.h doesn't guard
- * against localtime() returning NULL.
- */
+#ifdef localtime_r
 #undef localtime_r
+#endif
+
 /* The localtime() in Microsoft's C library is MT-safe */
 #define localtime_r(tp,tmp) (localtime(tp)?(*(tmp)=*localtime(tp),(tmp)):0)
 
@@ -209,7 +209,7 @@ enum ptime_locale_status { not, loc, raw };
 # endif  /* GCC.  */
 #endif  /* Not __P.  */
 
-#if ! HAVE_LOCALTIME_R && ! defined localtime_r
+#if !defined HAVE_LOCALTIME_R && !defined localtime_r
 # ifdef _LIBC
 #  define localtime_r __localtime_r
 # else
@@ -222,13 +222,13 @@ localtime_r (t, tp)
      struct tm *tp;
 {
   struct tm *l = localtime (t);
-  if (! l)
+  if (!l)
     return 0;
   *tp = *l;
   return tp;
 }
-# endif /* ! _LIBC */
-#endif /* ! HAVE_LOCALTIME_R && ! defined (localtime_r) */
+# endif /* !_LIBC */
+#endif /* HAVE_LOCALTIME_R && !defined (localtime_r) */
 
 #define match_char(ch1, ch2) if (ch1 != ch2) return NULL
 #if defined _LIBC && defined __GNUC__ && __GNUC__ >= 2
@@ -337,7 +337,7 @@ static gchar const ab_month_name[][4] =
 # define HERE_T_FMT_AMPM "%I:%M:%S %p"
 # define HERE_T_FMT "%H:%M:%S"
 
-static const unsigned short __mon_yday[2][13] =
+static const gushort __mon_yday[2][13] =
   {
     /* Normal years.  */
     { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365 },
@@ -1108,7 +1108,7 @@ __strptime_internal (rp, fmt, tm, decided, era_cnt LOCALE_PARAM)
 						- (int64_t) era->start_date[0])
 					       * era->absolute_direction));
 			}
-		      if (! match)
+		      if (!match)
 			return NULL;
 
 		      break;
@@ -1592,6 +1592,8 @@ has_correct_date (const struct tm *value)
  * Returns: E_TIME_PARSE_OK if the string was successfully parsed,
  *          E_TIME_PARSE_NONE if the string was empty, or
  *          E_TIME_PARSE_INVALID if the string could not be parsed.
+ *
+ * Since: 2.22
  */
 ETimeParseStatus
 e_time_parse_date_and_time_ex		(const gchar	*value,
@@ -1741,6 +1743,8 @@ e_time_parse_date_and_time		(const gchar	*value,
  *
  * Returns: An #ETimeParseStatus result code indicating whether
  * @value was an empty string, a valid date, or an invalid date.
+ *
+ * Since: 2.22
  **/
 ETimeParseStatus
 e_time_parse_date_ex (const gchar *value, struct tm *result, gboolean *two_digit_year)
@@ -1755,7 +1759,7 @@ e_time_parse_date_ex (const gchar *value, struct tm *result, gboolean *two_digit
 	format [0] = ("%x");
 
 	/* according to the current locale with forced 4-digit year*/
-	format [1] = e_time_get_d_fmt_with_4digit_year ();
+	format[1] = e_time_get_d_fmt_with_4digit_year ();
 
 	/* strptime format of a weekday and a date. */
 	format [2] = _("%a %m/%d/%Y");
@@ -1767,13 +1771,13 @@ e_time_parse_date_ex (const gchar *value, struct tm *result, gboolean *two_digit
 		/* when we need to know about two digit year, then always first try
 		   full year, because for example nl_NL have format %d-%m-%y and it
 		   changes from two year itself, which isn't what we want */
-		const gchar *tmp = format [1];
-		format [1] = format [0];
-		format [0] = tmp;
+		const gchar *tmp = format[1];
+		format[1] = format[0];
+		format[0] = tmp;
 		*two_digit_year = FALSE;
 	}
 
-	status = parse_with_strptime (value, result, format, sizeof (format)/sizeof (format [0]));
+	status = parse_with_strptime (value, result, format, G_N_ELEMENTS (format));
 
 	if (status == E_TIME_PARSE_OK && !has_correct_date (result))
 		status = E_TIME_PARSE_INVALID;
@@ -1783,9 +1787,9 @@ e_time_parse_date_ex (const gchar *value, struct tm *result, gboolean *two_digit
 	}
 
 	if (two_digit_year)
-		g_free ((gchar *)format [0]);
+		g_free ((gchar *)format[0]);
 	else
-		g_free ((gchar *)format [1]);
+		g_free ((gchar *)format[1]);
 
 	return status;
 }
@@ -2021,6 +2025,11 @@ static gint _e_string_replace(gchar **str, const gchar *old, const gchar *new)
 }
 #endif
 
+/**
+ * e_time_get_d_fmt_with_4digit_year:
+ *
+ * Since: 2.22
+ **/
 gchar *
 e_time_get_d_fmt_with_4digit_year (void)
 {

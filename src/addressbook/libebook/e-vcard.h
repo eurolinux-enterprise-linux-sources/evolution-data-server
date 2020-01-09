@@ -36,7 +36,14 @@ G_BEGIN_DECLS
 #define EVC_ENCODING        "ENCODING"
 #define EVC_FBURL           "FBURL"
 #define EVC_FN              "FN"
+
+/**
+ * EVC_GEO:
+ *
+ * Since: 1.12
+ **/
 #define EVC_GEO		    "GEO"
+
 #define EVC_ICSCALENDAR     "ICSCALENDAR" /* XXX should this be X-EVOLUTION-ICSCALENDAR? */
 #define EVC_KEY             "KEY"
 #define EVC_LABEL           "LABEL"
@@ -77,13 +84,27 @@ G_BEGIN_DECLS
 #define EVC_X_FILE_AS          "X-EVOLUTION-FILE-AS"
 #define EVC_X_ICQ              "X-ICQ"
 #define EVC_X_JABBER           "X-JABBER"
-#define EVC_X_LIST_SHOW_ADDRESSES "X-EVOLUTION-LIST-SHOW_ADDRESSES"
+#define EVC_X_LIST_SHOW_ADDRESSES "X-EVOLUTION-LIST-SHOW-ADDRESSES"
 #define EVC_X_LIST		"X-EVOLUTION-LIST"
 #define EVC_X_MANAGER	"X-EVOLUTION-MANAGER"
 #define EVC_X_MSN		"X-MSN"
+
+/**
+ * EVC_X_SKYPE:
+ *
+ * Since: 2.26
+ **/
 #define EVC_X_SKYPE		"X-SKYPE"
+
 #define EVC_X_RADIO		"X-EVOLUTION-RADIO"
+
+/**
+ * EVC_X_SIP:
+ *
+ * Since: 2.26
+ **/
 #define EVC_X_SIP		"X-SIP"
+
 #define EVC_X_SPOUSE		"X-EVOLUTION-SPOUSE"
 #define EVC_X_TELEX		"X-EVOLUTION-TELEX"
 #define EVC_X_TTYTDD		"X-EVOLUTION-TTYTDD"
@@ -146,6 +167,9 @@ void             e_vcard_attribute_free              (EVCardAttribute *attr);
 EVCardAttribute *e_vcard_attribute_copy              (EVCardAttribute *attr);
 void             e_vcard_remove_attributes           (EVCard *evc, const gchar *attr_group, const gchar *attr_name);
 void             e_vcard_remove_attribute            (EVCard *evc, EVCardAttribute *attr);
+void             e_vcard_append_attribute            (EVCard *evc, EVCardAttribute *attr);
+void             e_vcard_append_attribute_with_value (EVCard *evcard, EVCardAttribute *attr, const gchar *value);
+void             e_vcard_append_attribute_with_values(EVCard *evcard, EVCardAttribute *attr, ...);
 void             e_vcard_add_attribute               (EVCard *evc, EVCardAttribute *attr);
 void             e_vcard_add_attribute_with_value    (EVCard *evcard, EVCardAttribute *attr, const gchar *value);
 void             e_vcard_add_attribute_with_values   (EVCard *evcard, EVCardAttribute *attr, ...);

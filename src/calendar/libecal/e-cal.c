@@ -2,9 +2,11 @@
 /* Evolution calendar ecal
  *
  * Copyright (C) 1999-2008 Novell, Inc. (www.novell.com)
+ * Copyright (C) 2009 Intel Corporation
  *
  * Authors: Federico Mena-Quintero <federico@ximian.com>
  *          Rodrigo Moya <rodrigo@novell.com>
+ *          Ross Burton <ross@linux.intel.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 2 of the GNU Lesser General Public
@@ -20,52 +22,65 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+/**
+ * SECTION:e-cal
+ *
+ * The old signal "cal-opened" is deprecated since 3.0 and is replaced with
+ * its equivalent "cal_opened_ex", which has a detailed #GError structure
+ * as a parameter, instead of a status code only.
+ */
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
-#include <pthread.h>
+#include <unistd.h>
 #include <string.h>
 #include <glib/gi18n-lib.h>
-#include <bonobo-activation/bonobo-activation.h>
-#include <bonobo/bonobo-exception.h>
-#include <bonobo/bonobo-main.h>
 
-#include "libecal/e-cal-check-timezones.h"
-#include "libedataserver/e-component-listener.h"
-#include "libedataserver/e-flag.h"
-#include "libedataserver/e-url.h"
+#include <libical/ical.h>
+#include <libedataserver/e-url.h>
+#include <libedataserver/e-data-server-util.h>
+
+#include <glib-object.h>
+
+#include "libedata-cal/e-data-cal-types.h"
+
+#include "e-cal-check-timezones.h"
 #include "e-cal-marshal.h"
 #include "e-cal-time-util.h"
-#include "e-cal-listener.h"
-#include "e-cal-view-listener.h"
 #include "e-cal-view-private.h"
 #include "e-cal.h"
 
-static gboolean
-open_calendar (ECal *ecal, gboolean only_if_exists, GError **error, ECalendarStatus *status, gboolean needs_auth);
+#include "e-gdbus-egdbuscalfactory.h"
+#include "e-gdbus-egdbuscal.h"
+#include "e-gdbus-egdbuscalview.h"
 
-static gboolean
-get_read_only (ECal *ecal, gboolean *read_only, GError **error);
-
+static guint active_cals = 0, cal_connection_closed_id = 0;
+static EGdbusCalFactory *cal_factory_proxy = NULL;
+static GStaticRecMutex cal_factory_proxy_lock = G_STATIC_REC_MUTEX_INIT;
+#define LOCK_FACTORY()   g_static_rec_mutex_lock   (&cal_factory_proxy_lock)
+#define UNLOCK_FACTORY() g_static_rec_mutex_unlock (&cal_factory_proxy_lock)
 
-typedef struct {
-	EFlag *done;
-	ECalendarStatus status;
+#define LOCK_CACHE()   g_static_rec_mutex_lock   (&priv->cache_lock)
+#define UNLOCK_CACHE() g_static_rec_mutex_unlock (&priv->cache_lock)
 
-	gchar *uid;
-	GList *list;
-	GSList *slist;
-	gboolean bool;
-	gchar *string;
+G_DEFINE_TYPE(ECal, e_cal, G_TYPE_OBJECT)
+#define E_CAL_GET_PRIVATE(o) (G_TYPE_INSTANCE_GET_PRIVATE ((o), E_TYPE_CAL, ECalPrivate))
 
-	gchar *op_str;
-	ECalView *query;
-	ECalViewListener *listener;
-} ECalendarOp;
+static gboolean open_calendar (ECal *ecal, gboolean only_if_exists, GError **error,
+	#ifndef E_CAL_DISABLE_DEPRECATED
+	ECalendarStatus *status,
+	#endif
+	gboolean needs_auth, gboolean async);
+static void e_cal_dispose (GObject *object);
+static void e_cal_finalize (GObject *object);
 
 /* Private part of the ECal structure */
 struct _ECalPrivate {
+	EGdbusCal *gdbus_cal;
+	guint gone_signal_id;
+
 	/* Load state to avoid multiple loads */
 	ECalLoadState load_state;
 
@@ -75,10 +90,6 @@ struct _ECalPrivate {
 	ESource *source;
 	gchar *uri;
 	ECalSourceType type;
-
-	ECalendarOp *current_op;
-
-	GMutex *mutex;
 
 	/* Email address associated with this calendar, or NULL */
 	gchar *cal_address;
@@ -92,15 +103,6 @@ struct _ECalPrivate {
 
 	gboolean read_only;
 
-	/* The calendar factories we are contacting */
-	GList *factories;
-
-	/* Our calendar listener implementation */
-	ECalListener *listener;
-
-	/* The calendar ecal interface object we are contacting */
-	GNOME_Evolution_Calendar_Cal cal;
-
 	/* The authentication function */
 	ECalAuthFunc auth_func;
 	gpointer auth_user_data;
@@ -113,17 +115,21 @@ struct _ECalPrivate {
 	   values. */
 	icaltimezone *default_zone;
 
-	/* The component listener to keep track of the lifetime of backends */
-	EComponentListener *comp_listener;
-
 	gchar *local_attachment_store;
+
+	/* For locking the operation while localling cache values like 
+	   static capabilities, cal address etc. */
+	GStaticRecMutex cache_lock;
 };
 
 
 
 /* Signal IDs */
 enum {
+	#ifndef E_CAL_DISABLE_DEPRECATED
 	CAL_OPENED,
+	#endif
+	CAL_OPENED_EX,
 	CAL_SET_MODE,
 	BACKEND_ERROR,
 	BACKEND_DIED,
@@ -172,16 +178,19 @@ static GObjectClass *parent_class;
        };				}G_STMT_END
 #endif
 
-#define E_CALENDAR_CHECK_STATUS(status,error) G_STMT_START{		\
-	if ((status) == E_CALENDAR_STATUS_OK) {				\
+#define E_CALENDAR_CHECK_STATUS(status,error)				\
+G_STMT_START{								\
+	if ((status) == E_CALENDAR_STATUS_OK)				\
 		return TRUE;						\
-	}								\
-	else {                                                          \
-                const gchar *msg;                                        \
-                msg = e_cal_get_error_message ((status));          \
+	else {								\
+		const gchar *msg;					\
+		if (error && *error)					\
+			return unwrap_gerror (error);			\
+		msg = e_cal_get_error_message ((status));		\
 		g_set_error ((error), E_CALENDAR_ERROR, (status), "%s", msg);	\
 		return FALSE;						\
-	}				}G_STMT_END
+	}								\
+} G_STMT_END
 
 
 
@@ -197,19 +206,115 @@ e_calendar_error_quark (void)
 }
 
 /**
+ * If the GError is a remote error, extract the EBookStatus embedded inside.
+ * Otherwise return CORBA_EXCEPTION (I know this is DBus...).
+ */
+static ECalendarStatus
+get_status_from_error (const GError *error)
+{
+	#define err(a,b) "org.gnome.evolution.dataserver.calendar.Cal." a, b
+	static struct {
+		const gchar *name;
+		ECalendarStatus err_code;
+	} errors[] = {
+		{ err ("Success",				E_CALENDAR_STATUS_OK) },
+		{ err ("RepositoryOffline",			E_CALENDAR_STATUS_REPOSITORY_OFFLINE) },
+		{ err ("PermissionDenied",			E_CALENDAR_STATUS_PERMISSION_DENIED) },
+		{ err ("InvalidRange",				E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("ObjectNotFound",			E_CALENDAR_STATUS_OBJECT_NOT_FOUND) },
+		{ err ("InvalidObject",				E_CALENDAR_STATUS_INVALID_OBJECT) },
+		{ err ("ObjectIdAlreadyExists",			E_CALENDAR_STATUS_OBJECT_ID_ALREADY_EXISTS) },
+		{ err ("AuthenticationFailed",			E_CALENDAR_STATUS_AUTHENTICATION_FAILED) },
+		{ err ("AuthenticationRequired",		E_CALENDAR_STATUS_AUTHENTICATION_REQUIRED) },
+		{ err ("UnsupportedField",			E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("UnsupportedMethod",			E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("UnsupportedAuthenticationMethod",	E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("TLSNotAvailable",			E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("NoSuchCal",				E_CALENDAR_STATUS_NO_SUCH_CALENDAR) },
+		{ err ("UnknownUser",				E_CALENDAR_STATUS_UNKNOWN_USER) },
+		{ err ("OfflineUnavailable",			E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("SearchSizeLimitExceeded",		E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("SearchTimeLimitExceeded",		E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("InvalidQuery",				E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("QueryRefused",				E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("CouldNotCancel",			E_CALENDAR_STATUS_COULD_NOT_CANCEL) },
+		{ err ("OtherError",				E_CALENDAR_STATUS_OTHER_ERROR) },
+		{ err ("InvalidServerVersion",			E_CALENDAR_STATUS_INVALID_SERVER_VERSION) },
+		{ err ("InvalidArg",				E_CALENDAR_STATUS_INVALID_ARG) },
+		{ err ("NotSupported",				E_CALENDAR_STATUS_NOT_SUPPORTED) }
+	};
+	#undef err
+
+	if G_LIKELY (error == NULL)
+		return Success;
+
+	if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_DBUS_ERROR)) {
+		gchar *name;
+		gint i;
+
+		name = g_dbus_error_get_remote_error (error);
+
+		for (i = 0; i < G_N_ELEMENTS (errors); i++) {
+			if (g_ascii_strcasecmp (errors[i].name, name) == 0) {
+				g_free (name);
+				return errors[i].err_code;
+			}
+		}
+
+		g_warning ("Unmatched error name %s", name);
+		g_free (name);
+
+		return E_CALENDAR_STATUS_OTHER_ERROR;
+	} else if (error->domain == E_CALENDAR_ERROR) {
+		return error->code;
+	} else {
+		/* In this case the error was caused by DBus */
+		return E_CALENDAR_STATUS_DBUS_EXCEPTION;
+	}
+}
+
+/**
+ * If the specified GError is a remote error, then create a new error
+ * representing the remote error.  If the error is anything else, then leave it
+ * alone.
+ */
+static gboolean
+unwrap_gerror (GError **error)
+{
+	if (*error == NULL)
+		return TRUE;
+
+	if (g_error_matches (*error, G_IO_ERROR, G_IO_ERROR_DBUS_ERROR)) {
+		GError *new_error = NULL;
+		gint code;
+
+		code = get_status_from_error (*error);
+		g_dbus_error_strip_remote_error (*error);
+
+		new_error = g_error_new_literal (E_CALENDAR_ERROR, code, (*error)->message);
+
+		g_error_free (*error);
+		*error = new_error;
+	}
+
+	return FALSE;
+}
+
+/**
  * e_cal_source_type_enum_get_type:
  *
  * Registers the #ECalSourceTypeEnum type with glib.
  *
- * Return value: the ID of the #ECalSourceTypeEnum type.
+ * Returns: the ID of the #ECalSourceTypeEnum type.
  */
 GType
 e_cal_source_type_enum_get_type (void)
 {
-	static GType e_cal_source_type_enum_type = 0;
+	static volatile gsize enum_type__volatile = 0;
 
-	if (!e_cal_source_type_enum_type) {
-		static GEnumValue values [] = {
+	if (g_once_init_enter (&enum_type__volatile)) {
+		GType enum_type;
+		static GEnumValue values[] = {
 			{ E_CAL_SOURCE_TYPE_EVENT, "Event", NULL},
 			{ E_CAL_SOURCE_TYPE_TODO, "ToDo", NULL},
 			{ E_CAL_SOURCE_TYPE_JOURNAL, "Journal", NULL},
@@ -217,11 +322,11 @@ e_cal_source_type_enum_get_type (void)
 			{ -1, NULL, NULL}
 		};
 
-		e_cal_source_type_enum_type =
-			g_enum_register_static ("ECalSourceTypeEnum", values);
+		enum_type = g_enum_register_static ("ECalSourceTypeEnum", values);
+		g_once_init_leave (&enum_type__volatile, enum_type);
 	}
 
-	return e_cal_source_type_enum_type;
+	return enum_type__volatile;
 }
 
 /**
@@ -229,26 +334,27 @@ e_cal_source_type_enum_get_type (void)
  *
  * Registers the #ECalSetModeStatusEnum type with glib.
  *
- * Return value: the ID of the #ECalSetModeStatusEnum type.
+ * Returns: the ID of the #ECalSetModeStatusEnum type.
  */
 GType
 e_cal_set_mode_status_enum_get_type (void)
 {
-	static GType e_cal_set_mode_status_enum_type = 0;
+	static volatile gsize enum_type__volatile = 0;
 
-	if (!e_cal_set_mode_status_enum_type) {
-		static GEnumValue values [] = {
+	if (g_once_init_enter (&enum_type__volatile)) {
+		GType enum_type;
+		static GEnumValue values[] = {
 			{ E_CAL_SET_MODE_SUCCESS,          "ECalSetModeSuccess",         "success"     },
 			{ E_CAL_SET_MODE_ERROR,            "ECalSetModeError",           "error"       },
 			{ E_CAL_SET_MODE_NOT_SUPPORTED,    "ECalSetModeNotSupported",    "unsupported" },
-			{ -1,                                   NULL,                              NULL          }
+			{ -1,                                   NULL,                              NULL}
 		};
 
-		e_cal_set_mode_status_enum_type =
-			g_enum_register_static ("ECalSetModeStatusEnum", values);
+		enum_type = g_enum_register_static ("ECalSetModeStatusEnum", values);
+		g_once_init_leave (&enum_type__volatile, enum_type);
 	}
 
-	return e_cal_set_mode_status_enum_type;
+	return enum_type__volatile;
 }
 
 /**
@@ -256,15 +362,16 @@ e_cal_set_mode_status_enum_get_type (void)
  *
  * Registers the #CalModeEnum type with glib.
  *
- * Return value: the ID of the #CalModeEnum type.
+ * Returns: the ID of the #CalModeEnum type.
  */
 GType
 cal_mode_enum_get_type (void)
 {
-	static GType cal_mode_enum_type = 0;
+	static volatile gsize enum_type__volatile = 0;
 
-	if (!cal_mode_enum_type) {
-		static GEnumValue values [] = {
+	if (g_once_init_enter (&enum_type__volatile)) {
+		GType enum_type;
+		static GEnumValue values[] = {
 			{ CAL_MODE_INVALID,                     "CalModeInvalid",                  "invalid" },
 			{ CAL_MODE_LOCAL,                       "CalModeLocal",                    "local"   },
 			{ CAL_MODE_REMOTE,                      "CalModeRemote",                   "remote"  },
@@ -272,139 +379,130 @@ cal_mode_enum_get_type (void)
 			{ -1,                                   NULL,                              NULL      }
 		};
 
-		cal_mode_enum_type = g_enum_register_static ("CalModeEnum", values);
+		enum_type = g_enum_register_static ("CalModeEnum", values);
+		g_once_init_leave (&enum_type__volatile, enum_type);
 	}
 
-	return cal_mode_enum_type;
+	return enum_type__volatile;
 }
 
-static GNOME_Evolution_Calendar_CalObjType
+static EDataCalObjType
 convert_type (ECalSourceType type)
 {
 	switch (type) {
 	case E_CAL_SOURCE_TYPE_EVENT:
-		return GNOME_Evolution_Calendar_TYPE_EVENT;
+		return Event;
 	case E_CAL_SOURCE_TYPE_TODO:
-		return GNOME_Evolution_Calendar_TYPE_TODO;
+		return Todo;
 	case E_CAL_SOURCE_TYPE_JOURNAL:
-		return GNOME_Evolution_Calendar_TYPE_JOURNAL;
+		return Journal;
 	default:
-		return GNOME_Evolution_Calendar_TYPE_ANY;
+		return AnyType;
 	}
 
-	return GNOME_Evolution_Calendar_TYPE_ANY;
+	return AnyType;
 }
-
-/* EBookOp calls */
-
-static ECalendarOp*
-e_calendar_new_op (ECal *ecal, const gchar *str)
-{
-	ECalendarOp *op = g_new0 (ECalendarOp, 1);
-
-	op->done = e_flag_new ();
-
-	ecal->priv->current_op = op;
-	op->op_str = g_strdup (str);
-
-	return op;
-}
-
-static ECalendarOp*
-e_calendar_get_op (ECal *ecal)
-{
-	if (!ecal->priv->current_op) {
-		g_warning ("%s", G_STRLOC ": Unexpected response");
-		return NULL;
-	}
-
-	return ecal->priv->current_op;
-}
-
 static void
-e_calendar_free_op (ECalendarOp *op)
-{
-	/* XXX more stuff here */
-	e_flag_free (op->done);
-	g_free (op->op_str);
-	g_free (op);
-}
-
-static void
-e_calendar_remove_op (ECal *ecal, ECalendarOp *op)
-{
-	if (ecal->priv->current_op != op)
-		g_warning ("%s", G_STRLOC ": Cannot remove op, it's not current");
-
-	ecal->priv->current_op = NULL;
-}
-
-/* Gets rid of the factories that a ecal knows about */
-static void
-destroy_factories (ECal *ecal)
+e_cal_init (ECal *ecal)
 {
 	ECalPrivate *priv;
-	CORBA_Object factory;
-	CORBA_Environment ev;
-	gint result;
-	GList *f;
 
-	priv = ecal->priv;
+	LOCK_FACTORY ();
+	active_cals++;
+	UNLOCK_FACTORY ();
 
-	CORBA_exception_init (&ev);
+	ecal->priv = priv = E_CAL_GET_PRIVATE (ecal);
 
-	for (f = priv->factories; f; f = f->next) {
-		factory = f->data;
+	priv->load_state = E_CAL_LOAD_NOT_LOADED;
+	priv->uri = NULL;
+	priv->local_attachment_store = NULL;
 
-		result = CORBA_Object_is_nil (factory, &ev);
-		if (BONOBO_EX (&ev)) {
-			g_message ("%s", G_STRLOC ": could not see if a factory was nil");
-			CORBA_exception_free (&ev);
-
-			continue;
-		}
-
-		if (result)
-			continue;
-
-		CORBA_Object_release (factory, &ev);
-		if (BONOBO_EX (&ev)) {
-			g_message ("%s", G_STRLOC ": could not release a factory");
-			CORBA_exception_free (&ev);
-		}
-	}
-
-	g_list_free (priv->factories);
-	priv->factories = NULL;
+	priv->cal_address = NULL;
+	priv->alarm_email_address = NULL;
+	priv->ldap_attribute = NULL;
+	priv->capabilities = NULL;
+	priv->gdbus_cal = NULL;
+	priv->timezones = g_hash_table_new (g_str_hash, g_str_equal);
+	priv->default_zone = icaltimezone_get_utc_timezone ();
+	g_static_rec_mutex_init (&priv->cache_lock);
 }
 
-/* Gets rid of the calendar ecal interface object that a ecal knows about */
 static void
-destroy_cal (ECal *ecal)
+gdbus_cal_disconnect (ECal *ecal);
+
+/*
+ * Called when the calendar server dies.
+ */
+static void
+gdbus_cal_closed_cb (GDBusConnection *connection, gboolean remote_peer_vanished, GError *error, ECal *ecal)
 {
-	ECalPrivate *priv;
-	CORBA_Environment ev;
-	gint result;
+	GError *err = NULL;
 
-	priv = ecal->priv;
+	g_return_if_fail (E_IS_CAL (ecal));
 
-	CORBA_exception_init (&ev);
-	result = CORBA_Object_is_nil (priv->cal, &ev);
-	if (BONOBO_EX (&ev)) {
-		g_message ("%s", G_STRLOC ": could not see if the "
-			   "calendar ecal interface object was nil");
-		priv->cal = CORBA_OBJECT_NIL;
-		CORBA_exception_free (&ev);
-		return;
+	if (error) {
+		err = g_error_copy (error);
+		unwrap_gerror (&err);
 	}
-	CORBA_exception_free (&ev);
 
-	if (result)
-		return;
+	if (err) {
+		g_debug (G_STRLOC ": ECal GDBus connection is closed%s: %s", remote_peer_vanished ? ", remote peer vanished" : "", err->message);
+		g_error_free (err);
+	} else {
+		g_debug (G_STRLOC ": ECal GDBus connection is closed%s", remote_peer_vanished ? ", remote peer vanished" : "");
+	}
 
-	bonobo_object_release_unref (priv->cal, NULL);
-	priv->cal = CORBA_OBJECT_NIL;
+	gdbus_cal_disconnect (ecal);
 
+        g_signal_emit (G_OBJECT (ecal), e_cal_signals[BACKEND_DIED], 0);
+}
+
+static void
+gdbus_cal_connection_gone_cb (GDBusConnection *connection, const gchar *sender_name, const gchar *object_path, const gchar *interface_name, const gchar *signal_name, GVariant *parameters, gpointer user_data)
+{
+	/* signal subscription takes care of correct parameters,
+	   thus just do what is to be done here */
+	gdbus_cal_closed_cb (connection, TRUE, NULL, user_data);
+}
+
+
+static void
+gdbus_cal_disconnect (ECal *ecal)
+{
+	/* Ensure that everything relevant is NULL */
+	LOCK_FACTORY ();
+
+	if (ecal->priv->gdbus_cal) {
+		GError *error = NULL;
+		GDBusConnection *connection = g_dbus_proxy_get_connection (G_DBUS_PROXY (ecal->priv->gdbus_cal));
+
+		g_signal_handlers_disconnect_by_func (connection, gdbus_cal_closed_cb, ecal);
+		g_dbus_connection_signal_unsubscribe (connection, ecal->priv->gone_signal_id);
+		ecal->priv->gone_signal_id = 0;
+
+		e_gdbus_cal_call_close_sync (ecal->priv->gdbus_cal, NULL, &error);
+		g_object_unref (ecal->priv->gdbus_cal);
+		ecal->priv->gdbus_cal = NULL;
+
+		if (error) {
+			unwrap_gerror (&error);
+
+			g_warning ("%s: Failed to close calendar, %s\n", G_STRFUNC, error->message);
+			g_error_free (error);
+		}
+	}
+	UNLOCK_FACTORY ();
+}
+
+/* Dispose handler for the calendar ecal */
+static void
+e_cal_dispose (GObject *object)
+{
+	ECal *ecal = E_CAL (object);
+
+	gdbus_cal_disconnect (ecal);
+
+	(* G_OBJECT_CLASS (parent_class)->dispose) (object);
 }
 
 static void
@@ -413,695 +511,6 @@ free_timezone (gpointer key, gpointer value, gpointer data)
 	/* Note that the key comes from within the icaltimezone value, so we
 	   don't free that. */
 	icaltimezone_free (value, TRUE);
-}
-
-
-
-static void
-backend_died_cb (EComponentListener *cl, gpointer user_data)
-{
-	ECalPrivate *priv;
-	ECal *ecal = (ECal *) user_data;
-
-	priv = ecal->priv;
-	priv->load_state = E_CAL_LOAD_NOT_LOADED;
-	g_signal_emit (G_OBJECT (ecal), e_cal_signals[BACKEND_DIED], 0);
-}
-
-/* Signal handlers for the listener's signals */
-/* Handle the cal_opened notification from the listener */
-
-static void
-cal_read_only_cb (ECalListener *listener, ECalendarStatus status, gboolean read_only, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL || !op->bool) {
-		ecal->priv->read_only = read_only;
-		return;
-	}
-
-	op->status = status;
-	op->bool = read_only;
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_cal_address_cb (ECalListener *listener, ECalendarStatus status, const gchar *address, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (ecal->priv->cal_address) {
-		g_free (ecal->priv->cal_address);
-		ecal->priv->cal_address = NULL;
-	}
-
-	ecal->priv->cal_address = g_strdup (address);
-
-	if (op == NULL) {
-		return;
-	}
-
-	op->status = status;
-	op->string = g_strdup (address);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_alarm_address_cb (ECalListener *listener, ECalendarStatus status, const gchar *address, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning ("%s", G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->string = g_strdup (address);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_ldap_attribute_cb (ECalListener *listener, ECalendarStatus status, const gchar *attribute, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning ("%s", G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->string = g_strdup (attribute);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_static_capabilities_cb (ECalListener *listener, ECalendarStatus status, const gchar *capabilities, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning ("%s", G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->string = g_strdup (capabilities);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_opened_cb (ECalListener *listener, ECalendarStatus status, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning ("%s", G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_removed_cb (ECalListener *listener, ECalendarStatus status, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning ("%s", G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_object_created_cb (ECalListener *listener, ECalendarStatus status, const gchar *uid, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning ("%s", G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->uid = g_strdup (uid);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_object_modified_cb (ECalListener *listener, ECalendarStatus status, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_object_removed_cb (ECalListener *listener, ECalendarStatus status, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_alarm_discarded_cb (ECalListener *listener, ECalendarStatus status, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_objects_received_cb (ECalListener *listener, ECalendarStatus status, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_objects_sent_cb (ECalListener *listener, ECalendarStatus status, GList *users, const gchar *object, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-	GList *l;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->list = g_list_copy (users);
-	op->string = g_strdup (object);
-
-	for (l = op->list; l; l = l->next)
-		l->data = g_strdup (l->data);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_default_object_requested_cb (ECalListener *listener, ECalendarStatus status, const gchar *object, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->string = g_strdup (object);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_object_requested_cb (ECalListener *listener, ECalendarStatus status, const gchar *object, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->string = g_strdup (object);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_object_list_cb (ECalListener *listener, ECalendarStatus status, GList *objects, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-	GList *l;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->list = g_list_copy (objects);
-
-	for (l = op->list; l; l = l->next)
-		l->data = icalcomponent_new_clone (l->data);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_attachment_list_cb (ECalListener *listener, ECalendarStatus status, GSList *attachments, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->slist = g_slist_copy (attachments);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_get_timezone_cb (ECalListener *listener, ECalendarStatus status, const gchar *object, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->string = g_strdup (object);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_add_timezone_cb (ECalListener *listener, ECalendarStatus status, const gchar *tzid, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->uid = g_strdup (tzid);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_set_default_timezone_cb (ECalListener *listener, ECalendarStatus status, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_get_changes_cb (ECalListener *listener, ECalendarStatus status, GList *changes, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-	GList *l;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->list = g_list_copy (changes);
-
-	for (l = op->list; l; l = l->next) {
-		ECalChange *ccc = l->data, *new_ccc;
-
-		new_ccc = g_new (ECalChange, 1);
-		new_ccc->comp = e_cal_component_clone (ccc->comp);
-		new_ccc->type = ccc->type;
-
-		l->data = new_ccc;
-	}
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_get_free_busy_cb (ECalListener *listener, ECalendarStatus status, GList *freebusy, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-	GList *l;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->list = g_list_copy (freebusy);
-
-	for (l = op->list; l; l = l->next)
-		l->data = e_cal_component_clone (l->data);
-
-	e_flag_set (op->done);
-}
-
-static void
-cal_query_cb (ECalListener *listener, ECalendarStatus status, GNOME_Evolution_Calendar_CalView query, gpointer data)
-{
-	ECal *ecal = data;
-	ECalendarOp *op;
-
-	op = e_calendar_get_op (ecal);
-
-	if (op == NULL) {
-		g_warning (G_STRLOC ": Cannot find operation ");
-		return;
-	}
-
-	op->status = status;
-	op->query = e_cal_view_new (query, op->listener, ecal);
-
-	e_flag_set (op->done);
-}
-
-static gboolean
-reopen_with_auth (gpointer data)
-{
-	ECalendarStatus status;
-
-	open_calendar (E_CAL (data), TRUE, NULL, &status, TRUE);
-	return FALSE;
-}
-
-static void
-auth_required_cb (ECalListener *listener, gpointer data)
-{
-	g_idle_add (reopen_with_auth, data);
-
-}
-
-/* Handle the cal_set_mode notification from the listener */
-static void
-cal_set_mode_cb (ECalListener *listener,
-		 GNOME_Evolution_Calendar_CalListener_SetModeStatus status,
-		 GNOME_Evolution_Calendar_CalMode mode,
-		 gpointer data)
-{
-	ECal *ecal;
-	ECalPrivate *priv;
-	ECalSetModeStatus ecal_status;
-
-	ecal = E_CAL (data);
-	priv = ecal->priv;
-	priv->mode = mode;
-	ecal_status = E_CAL_SET_MODE_ERROR;
-
-	switch (status) {
-	case GNOME_Evolution_Calendar_CalListener_MODE_SET:
-		ecal_status = E_CAL_SET_MODE_SUCCESS;
-		break;
-	case GNOME_Evolution_Calendar_CalListener_MODE_NOT_SET:
-		ecal_status = E_CAL_SET_MODE_ERROR;
-		break;
-	case GNOME_Evolution_Calendar_CalListener_MODE_NOT_SUPPORTED:
-		ecal_status = E_CAL_SET_MODE_NOT_SUPPORTED;
-		break;
-	default:
-		g_assert_not_reached ();
-	}
-
-	/* We are *not* inside a signal handler (this is just a simple callback
-	 * called from the listener), so there is not a temporary reference to
-	 * the ecal object.  We ref() so that we can safely emit our own
-	 * signal and clean up.
-	 */
-
-	g_object_ref (G_OBJECT (ecal));
-
-	g_signal_emit (G_OBJECT (ecal), e_cal_signals[CAL_SET_MODE],
-		       0, ecal_status, mode);
-
-	if (ecal_status == E_CAL_SET_MODE_SUCCESS && ecal->priv->load_state == E_CAL_LOAD_LOADED) {
-		/* the mode has been changed, recheck whether readonly or not */
-		GError *error = NULL;
-		gboolean read_only = TRUE;
-
-		if (get_read_only (ecal, &read_only, &error)) {
-			priv->read_only = read_only;
-		}
-
-		if (error) {
-			g_warning ("%s: get_read_only failed: %s", G_STRFUNC, error->message);
-			g_error_free (error);
-		}
-	}
-
-	g_object_unref (G_OBJECT (ecal));
-}
-
-typedef struct
-{
-	ECal *ecal;
-	gchar *message;
-}  ECalErrorData;
-
-static gboolean
-backend_error_idle_cb (gpointer data)
-{
-	ECalErrorData *error_data = data;
-
-	g_signal_emit (G_OBJECT (error_data->ecal), e_cal_signals[BACKEND_ERROR], 0, error_data->message);
-
-	g_object_unref (error_data->ecal);
-	g_free (error_data->message);
-	g_free (error_data);
-
-	return FALSE;
-}
-
-/* Handle the error_occurred signal from the listener */
-static void
-backend_error_cb (ECalListener *listener, const gchar *message, gpointer data)
-{
-	ECalErrorData *error_data;
-
-	error_data = g_new0 (ECalErrorData, 1);
-
-	error_data->ecal = g_object_ref (data);
-	error_data->message = g_strdup (message);
-
-	g_idle_add (backend_error_idle_cb, error_data);
-}
-
-
-
-static gboolean
-get_factories (const gchar *str_uri, GList **factories)
-{
-	GNOME_Evolution_Calendar_CalFactory factory;
-	Bonobo_ServerInfoList *servers;
-	EUri *uri;
-	const gchar *query;
-	gint i;
-
-	/* Determine the protocol and query for factory supporting that */
-	uri = e_uri_new (str_uri);
-	if (!uri) {
-		g_warning (G_STRLOC ": Invalid uri string");
-
-		return FALSE;
-	}
-
-	query = "repo_ids.has ('IDL:GNOME/Evolution/DataServer/CalFactory:" API_VERSION "')";
-
-	servers = bonobo_activation_query (query, NULL, NULL);
-
-	e_uri_free (uri);
-
-	if (!servers) {
-		g_warning (G_STRLOC ": Unable to query for calendar factories");
-
-		return FALSE;
-	}
-
-	/* Try to activate the servers for the protocol */
-	for (i = 0; i < servers->_length; i++) {
-		const Bonobo_ServerInfo *info;
-
-		info = servers->_buffer + i;
-
-#if 0
-		g_message (G_STRLOC ": Activating calendar factory (%s)", info->iid);
-#endif
-		factory = bonobo_activation_activate_from_id (info->iid, 0, NULL, NULL);
-
-		if (factory == CORBA_OBJECT_NIL)
-			g_warning (G_STRLOC ": Could not activate calendar factory (%s)", info->iid);
-		else
-			*factories = g_list_append (*factories, factory);
-	}
-
-	CORBA_free (servers);
-
-	return TRUE;
-}
-
-/* Object initialization function for the calendar ecal */
-static void
-e_cal_init (ECal *ecal, ECalClass *klass)
-{
-	ECalPrivate *priv;
-
-	priv = g_new0 (ECalPrivate, 1);
-	ecal->priv = priv;
-
-	priv->load_state = E_CAL_LOAD_NOT_LOADED;
-	priv->uri = NULL;
-	priv->local_attachment_store = NULL;
-	priv->mutex = g_mutex_new ();
-	priv->listener = e_cal_listener_new (cal_set_mode_cb, ecal);
-
-	priv->cal_address = NULL;
-	priv->alarm_email_address = NULL;
-	priv->ldap_attribute = NULL;
-	priv->capabilities = FALSE;
-	priv->factories = NULL;
-	priv->timezones = g_hash_table_new (g_str_hash, g_str_equal);
-	priv->default_zone = icaltimezone_get_utc_timezone ();
-	priv->comp_listener = NULL;
-
-	g_signal_connect (G_OBJECT (priv->listener), "read_only", G_CALLBACK (cal_read_only_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "cal_address", G_CALLBACK (cal_cal_address_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "alarm_address", G_CALLBACK (cal_alarm_address_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "ldap_attribute", G_CALLBACK (cal_ldap_attribute_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "static_capabilities", G_CALLBACK (cal_static_capabilities_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "open", G_CALLBACK (cal_opened_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "remove", G_CALLBACK (cal_removed_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "create_object", G_CALLBACK (cal_object_created_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "modify_object", G_CALLBACK (cal_object_modified_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "remove_object", G_CALLBACK (cal_object_removed_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "discard_alarm", G_CALLBACK (cal_alarm_discarded_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "receive_objects", G_CALLBACK (cal_objects_received_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "send_objects", G_CALLBACK (cal_objects_sent_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "default_object", G_CALLBACK (cal_default_object_requested_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "object", G_CALLBACK (cal_object_requested_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "object_list", G_CALLBACK (cal_object_list_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "attachment_list", G_CALLBACK (cal_attachment_list_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "get_timezone", G_CALLBACK (cal_get_timezone_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "add_timezone", G_CALLBACK (cal_add_timezone_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "set_default_timezone", G_CALLBACK (cal_set_default_timezone_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "get_changes", G_CALLBACK (cal_get_changes_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "get_free_busy", G_CALLBACK (cal_get_free_busy_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "query", G_CALLBACK (cal_query_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "backend_error", G_CALLBACK (backend_error_cb), ecal);
-	g_signal_connect (G_OBJECT (priv->listener), "auth_required", G_CALLBACK (auth_required_cb), ecal);
 }
 
 /* Finalize handler for the calendar ecal */
@@ -1116,24 +525,6 @@ e_cal_finalize (GObject *object)
 
 	ecal = E_CAL (object);
 	priv = ecal->priv;
-
-	if (priv->listener) {
-		e_cal_listener_stop_notification (priv->listener);
-		bonobo_object_unref (priv->listener);
-		priv->listener = NULL;
-	}
-
-	if (priv->comp_listener) {
-		g_signal_handlers_disconnect_matched (G_OBJECT (priv->comp_listener),
-						      G_SIGNAL_MATCH_DATA,
-						      0, 0, NULL, NULL,
-						      ecal);
-		g_object_unref (G_OBJECT (priv->comp_listener));
-		priv->comp_listener = NULL;
-	}
-
-	destroy_factories (ecal);
-	destroy_cal (ecal);
 
 	priv->load_state = E_CAL_LOAD_NOT_LOADED;
 
@@ -1150,11 +541,6 @@ e_cal_finalize (GObject *object)
 	if (priv->local_attachment_store) {
 		g_free (priv->local_attachment_store);
 		priv->local_attachment_store = NULL;
-	}
-
-	if (priv->mutex) {
-		g_mutex_free (priv->mutex);
-		priv->mutex = NULL;
 	}
 
 	if (priv->cal_address) {
@@ -1177,12 +563,13 @@ e_cal_finalize (GObject *object)
 	g_hash_table_foreach (priv->timezones, free_timezone, NULL);
 	g_hash_table_destroy (priv->timezones);
 	priv->timezones = NULL;
+	g_static_rec_mutex_free (&priv->cache_lock);
 
-	g_free (priv);
-	ecal->priv = NULL;
+	(* G_OBJECT_CLASS (parent_class)->finalize) (object);
 
-	if (G_OBJECT_CLASS (parent_class)->finalize)
-		(* G_OBJECT_CLASS (parent_class)->finalize) (object);
+	LOCK_FACTORY ();
+	active_cals--;
+	UNLOCK_FACTORY ();
 }
 
 /* Class initialization function for the calendar ecal */
@@ -1195,6 +582,7 @@ e_cal_class_init (ECalClass *klass)
 
 	parent_class = g_type_class_peek_parent (klass);
 
+	#ifndef E_CAL_DISABLE_DEPRECATED
 	e_cal_signals[CAL_OPENED] =
 		g_signal_new ("cal_opened",
 			      G_TYPE_FROM_CLASS (klass),
@@ -1203,6 +591,17 @@ e_cal_class_init (ECalClass *klass)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__INT,
 			      G_TYPE_NONE, 1, G_TYPE_INT);
+	#endif
+
+	e_cal_signals[CAL_OPENED_EX] =
+		g_signal_new ("cal_opened_ex",
+			      G_TYPE_FROM_CLASS (klass),
+			      G_SIGNAL_RUN_FIRST,
+			      G_STRUCT_OFFSET (ECalClass, cal_opened_ex),
+			      NULL, NULL,
+			      g_cclosure_marshal_VOID__POINTER,
+			      G_TYPE_NONE, 1, G_TYPE_POINTER);
+
 	e_cal_signals[CAL_SET_MODE] =
 		g_signal_new ("cal_set_mode",
 			      G_TYPE_FROM_CLASS (klass),
@@ -1231,191 +630,215 @@ e_cal_class_init (ECalClass *klass)
 			      g_cclosure_marshal_VOID__VOID,
 			      G_TYPE_NONE, 0);
 
+	#ifndef E_CAL_DISABLE_DEPRECATED
 	klass->cal_opened = NULL;
+	#endif
+	klass->cal_opened_ex = NULL;
 	klass->backend_died = NULL;
 
+	object_class->dispose = e_cal_dispose;
 	object_class->finalize = e_cal_finalize;
+
+	g_type_class_add_private (klass, sizeof (ECalPrivate));
 }
 
-/**
- * e_cal_get_type:
- *
- * Registers the #ECal class if necessary, and returns the type ID assigned
- * to it.
- *
- * Return value: The type ID of the #ECal class.
- **/
-GType
-e_cal_get_type (void)
+static void
+cal_factory_proxy_closed_cb (GDBusConnection *connection, gboolean remote_peer_vanished, GError *error, gpointer user_data)
 {
-	static GType e_cal_type = 0;
+	GError *err = NULL;
 
-	if (!e_cal_type) {
-		static GTypeInfo info = {
-                        sizeof (ECalClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) e_cal_class_init,
-                        NULL, NULL,
-                        sizeof (ECal),
-                        0,
-                        (GInstanceInitFunc) e_cal_init
-                };
-		e_cal_type = g_type_register_static (G_TYPE_OBJECT, "ECal", &info, 0);
+	LOCK_FACTORY ();
+
+	if (cal_connection_closed_id) {
+		g_dbus_connection_signal_unsubscribe (connection, cal_connection_closed_id);
+		cal_connection_closed_id = 0;
+		g_signal_handlers_disconnect_by_func (connection, cal_factory_proxy_closed_cb, NULL);
 	}
 
-	return e_cal_type;
+	if (cal_factory_proxy) {
+		g_object_unref (cal_factory_proxy);
+		cal_factory_proxy = NULL;
+	}
+
+	if (error) {
+		err = g_error_copy (error);
+		unwrap_gerror (&err);
+	}
+
+	if (err) {
+		g_debug ("GDBus connection is closed%s: %s", remote_peer_vanished ? ", remote peer vanished" : "", err->message);
+		g_error_free (err);
+	} else if (active_cals) {
+		g_debug ("GDBus connection is closed%s", remote_peer_vanished ? ", remote peer vanished" : "");
+	}
+
+	UNLOCK_FACTORY ();
 }
 
-static gboolean
-fetch_corba_cal (ECal *ecal, ESource *source, ECalSourceType type)
+static void
+cal_factory_connection_gone_cb (GDBusConnection *connection, const gchar *sender_name, const gchar *object_path, const gchar *interface_name, const gchar *signal_name, GVariant *parameters, gpointer user_data)
 {
-	ECalPrivate *priv;
-	GList *f;
-	CORBA_Environment ev;
-	gchar *source_xml;
-	gchar *str_uri;
-	gboolean result = FALSE;
-
-	priv = ecal->priv;
-	g_return_val_if_fail (priv->load_state == E_CAL_LOAD_NOT_LOADED, FALSE);
-	g_assert (priv->uri == NULL);
-	g_return_val_if_fail (source != NULL, FALSE);
-
-	str_uri = e_source_get_uri (source);
-	if (!str_uri)
-		return FALSE;
-
-	if (!get_factories (str_uri, &priv->factories)) {
-		g_free (str_uri);
-		return FALSE;
-	}
-
-	g_object_ref (source);
-	priv->source = source;
-
-	priv->uri = g_strdup (str_uri);
-	priv->type = type;
-
-	source_xml = e_source_to_standalone_xml (source);
-
-	for (f = priv->factories; f; f = f->next) {
-		GNOME_Evolution_Calendar_Cal cal;
-
-		CORBA_exception_init (&ev);
-
-		cal = GNOME_Evolution_Calendar_CalFactory_getCal (f->data, source_xml, convert_type (priv->type),
-								  BONOBO_OBJREF (priv->listener), &ev);
-		if (BONOBO_EX (&ev))
-			continue;
-
-		priv->cal = cal;
-
-		result = TRUE;
-		break;
-	}
-
-	g_free (str_uri);
-	g_free (source_xml);
-	return result;
+	/* signal subscription takes care of correct parameters,
+	   thus just do what is to be done here */
+	cal_factory_proxy_closed_cb (connection, TRUE, NULL, user_data);
 }
 
 /* one-time start up for libecal */
-static void
-e_cal_activate (void)
+static gboolean
+e_cal_activate (GError **error)
 {
-	static GStaticMutex e_cal_lock = G_STATIC_MUTEX_INIT;
-	static gboolean activated = FALSE;
+	GDBusConnection *connection;
 
-	g_static_mutex_lock (&e_cal_lock);
-	if (!activated) {
-		activated = TRUE;
-
-		if (!bonobo_is_initialized ())
-			bonobo_init (NULL, NULL);
+	LOCK_FACTORY ();
+	if (G_LIKELY (cal_factory_proxy)) {
+		UNLOCK_FACTORY ();
+		return TRUE;
 	}
-	g_static_mutex_unlock (&e_cal_lock);
+
+	cal_factory_proxy = e_gdbus_cal_factory_proxy_new_for_bus_sync (
+		G_BUS_TYPE_SESSION,
+		G_DBUS_PROXY_FLAGS_NONE,
+		"org.gnome.evolution.dataserver.Calendar",
+		"/org/gnome/evolution/dataserver/calendar/CalFactory",
+		NULL,
+		error);
+
+	if (!cal_factory_proxy) {
+		UNLOCK_FACTORY ();
+		return FALSE;
+	}
+
+	connection = g_dbus_proxy_get_connection (G_DBUS_PROXY (cal_factory_proxy));
+	g_dbus_connection_set_exit_on_close (connection, FALSE);
+	cal_connection_closed_id = g_dbus_connection_signal_subscribe (connection,
+		NULL,						/* sender */
+		"org.freedesktop.DBus",				/* interface */
+		"NameOwnerChanged",				/* member */
+		"/org/freedesktop/DBus",			/* object_path */
+		"org.gnome.evolution.dataserver.Calendar",	/* arg0 */
+		G_DBUS_SIGNAL_FLAGS_NONE,
+		cal_factory_connection_gone_cb, NULL, NULL);
+
+	g_signal_connect (connection, "closed", G_CALLBACK (cal_factory_proxy_closed_cb), NULL);
+
+	UNLOCK_FACTORY ();
+
+	return TRUE;
 }
 
-/* TODO - For now, the policy of where each backend serializes its
- * attachment data is hardcoded below. Should this end up as a
- * gconf key set during the account creation  and fetched
- * from eds???
- */
+static gboolean
+reopen_with_auth (gpointer data)
+{
+	#ifndef E_CAL_DISABLE_DEPRECATED
+	ECalendarStatus status;
+	#endif
+	GError *error = NULL;
+
+	open_calendar (E_CAL (data), TRUE, &error,
+		#ifndef E_CAL_DISABLE_DEPRECATED
+		&status,
+		#endif
+		TRUE, FALSE);
+
+	if (error)
+		g_error_free (error);
+
+	return FALSE;
+}
+
+static void
+auth_required_cb (EGdbusCal *gdbus_cal, ECal *cal)
+{
+	g_return_if_fail (E_IS_CAL (cal));
+
+	g_idle_add (reopen_with_auth, (gpointer) cal);
+}
+
+typedef struct
+{
+	ECal *ecal;
+	gchar *message;
+}  ECalErrorData;
+
+static gboolean
+backend_error_idle_cb (gpointer data)
+{
+	ECalErrorData *error_data = data;
+
+	g_signal_emit (G_OBJECT (error_data->ecal), e_cal_signals[BACKEND_ERROR], 0, error_data->message);
+
+	g_object_unref (error_data->ecal);
+	g_free (error_data->message);
+	g_free (error_data);
+
+	return FALSE;
+}
+
+/* Handle the error_occurred signal from the listener */
+static void
+backend_error_cb (EGdbusCal *gdbus_cal, const gchar *message, ECal *ecal)
+{
+	ECalErrorData *error_data;
+
+	g_return_if_fail (E_IS_CAL (ecal));
+
+	error_data = g_new0 (ECalErrorData, 1);
+
+	error_data->ecal = g_object_ref (ecal);
+	error_data->message = g_strdup (message);
+
+	g_idle_add (backend_error_idle_cb, error_data);
+}
+
+static void
+readonly_cb (EGdbusCal *gdbus_cal, gboolean read_only, ECal *cal)
+{
+	ECalPrivate *priv;
+
+	g_return_if_fail (cal && E_IS_CAL (cal));
+
+	priv = cal->priv;
+	priv->read_only = read_only;
+}
+
+static void
+mode_cb (EGdbusCal *gdbus_cal, EDataCalMode mode, ECal *cal)
+{
+	g_return_if_fail (E_IS_CAL (cal));
+	g_return_if_fail (mode & AnyMode);
+
+	g_signal_emit (G_OBJECT (cal), e_cal_signals[CAL_SET_MODE],
+		       0, E_CALENDAR_STATUS_OK, mode);
+}
+
+/*
+static void
+backend_died_cb (EComponentListener *cl, gpointer user_data)
+{
+	ECalPrivate *priv;
+	ECal *ecal = (ECal *) user_data;
+
+	priv = ecal->priv;
+	priv->load_state = E_CAL_LOAD_NOT_LOADED;
+	g_signal_emit (G_OBJECT (ecal), e_cal_signals[BACKEND_DIED], 0);
+}*/
+
 static void
 set_local_attachment_store (ECal *ecal)
 {
-	ECalPrivate *priv;
-	gchar *mangled_uri;
-	gint i;
+	gchar *cache_dir = NULL;
+	GError *error = NULL;
 
-	priv = ecal->priv;
-	mangled_uri = g_strdup (priv->uri);
-	/* mangle the URI to not contain invalid characters */
-	for (i = 0; i < strlen (mangled_uri); i++) {
-		switch (mangled_uri[i]) {
-		case ':' :
-		case '/' :
-			mangled_uri[i] = '_';
-		}
+	e_gdbus_cal_call_get_cache_dir_sync (
+		ecal->priv->gdbus_cal, &cache_dir, NULL, &error);
+
+	if (error == NULL)
+		ecal->priv->local_attachment_store = cache_dir;
+	else {
+		unwrap_gerror (&error);
+		g_warning ("%s", error->message);
+		g_error_free (error);
 	}
-
-	/* the file backend uses its uri as the attachment store*/
-	if (g_str_has_prefix (priv->uri, "file://")) {
-		priv->local_attachment_store = g_strdup (priv->uri);
-	} else if (g_str_has_prefix (priv->uri, "groupwise://")) {
-		/* points to the location of the cache*/
-		gchar *filename = g_build_filename (g_get_home_dir (),
-						    ".evolution/cache/calendar",
-						    mangled_uri,
-						    NULL);
-		priv->local_attachment_store =
-			g_filename_to_uri (filename, NULL, NULL);
-		g_free (filename);
-	} else if (g_str_has_prefix (priv->uri, "exchange://")) {
-		gchar *filename = g_build_filename (g_get_home_dir (),
-						    ".evolution/exchange",
-						    mangled_uri,
-						    NULL);
-		priv->local_attachment_store =
-			g_filename_to_uri (filename, NULL, NULL);
-		g_free (filename);
-	} else if (g_str_has_prefix (priv->uri, "scalix://")) {
-		gchar *filename = g_build_filename (g_get_home_dir (),
-						    ".evolution/cache/scalix",
-						    mangled_uri,
-						    "attach",
-						    NULL);
-                priv->local_attachment_store =
-			g_filename_to_uri (filename, NULL, NULL);
-		g_free (filename);
-        } else if (g_str_has_prefix (priv->uri, "google://")) {
-		gchar *filename = g_build_filename (g_get_home_dir (),
-						    ".evolution/cache/calendar",
-						    mangled_uri,
-						    NULL);
-		priv->local_attachment_store =
-			g_filename_to_uri (filename, NULL, NULL);
-		g_free (filename);
-	} else if (g_str_has_prefix (priv->uri, "mapi://")) {
-		gchar *filename = g_build_filename (g_get_home_dir (),
-						    ".evolution/cache/calendar",
-						    mangled_uri,
-						    NULL);
-		priv->local_attachment_store =
-			g_filename_to_uri (filename, NULL, NULL);
-		g_free (filename);
-	} else if (g_str_has_prefix (priv->uri, "caldav://")) {
-		gchar *filename = g_build_filename (g_get_home_dir (),
-				".evolution/cache/calendar",
-				mangled_uri,
-				NULL);
-		priv->local_attachment_store =
-			g_filename_to_uri (filename, NULL, NULL);
-		g_free (filename);
-	}
-
-	g_free (mangled_uri);
 }
 
 /**
@@ -1426,33 +849,152 @@ set_local_attachment_store (ECal *ecal)
  * Creates a new calendar client. This does not open the calendar itself,
  * for that, #e_cal_open or #e_cal_open_async needs to be called.
  *
- * Return value: A newly-created calendar client, or NULL if the client could
+ * Returns: A newly-created calendar client, or NULL if the client could
  * not be constructed because it could not contact the calendar server.
  **/
 ECal *
 e_cal_new (ESource *source, ECalSourceType type)
 {
 	ECal *ecal;
+	ECalPrivate *priv;
+	gchar *path, *xml;
+	GError *error = NULL;
+	GDBusConnection *connection;
 
-	e_cal_activate ();
+	g_return_val_if_fail (source && E_IS_SOURCE (source), NULL);
+	g_return_val_if_fail (type < E_CAL_SOURCE_TYPE_LAST, NULL);
 
-	ecal = g_object_new (E_TYPE_CAL, NULL);
-
-	if (!fetch_corba_cal (ecal, source, type)) {
-		g_object_unref (ecal);
-
+	if (!e_cal_activate (&error)) {
+		unwrap_gerror (&error);
+		g_warning("Cannot activate ECal: %s\n", error ? error->message : "Unknown error");
+		if (error)
+			g_error_free (error);
 		return NULL;
 	}
+
+	ecal = g_object_new (E_TYPE_CAL, NULL);
+	priv = ecal->priv;
+
+	priv->source = g_object_ref (source);
+	priv->uri = e_source_get_uri (source);
+	priv->type = type;
+
+	xml = e_source_to_standalone_xml (priv->source);
+	if (!e_gdbus_cal_factory_call_get_cal_sync (cal_factory_proxy, xml, convert_type (priv->type), &path, NULL, &error)) {
+		g_free (xml);
+		unwrap_gerror (&error);
+		g_warning ("Cannot get cal from factory: %s", error ? error->message : "Unknown error");
+		if (error)
+			g_error_free (error);
+		g_object_unref (ecal);
+		return NULL;
+	}
+	g_free (xml);
+
+	priv->gdbus_cal = e_gdbus_cal_proxy_new_sync (g_dbus_proxy_get_connection (G_DBUS_PROXY (cal_factory_proxy)),
+						      G_DBUS_PROXY_FLAGS_NONE,
+						      "org.gnome.evolution.dataserver.Calendar",
+						      path,
+						      NULL,
+						      &error);
+
+	if (!priv->gdbus_cal) {
+		g_free (path);
+		unwrap_gerror (&error);
+		g_warning ("Cannot create cal proxy: %s", error ? error->message : "Unknown error");
+		if (error)
+			g_error_free (error);
+		g_object_unref (ecal);
+		return NULL;
+	}
+
+	connection = g_dbus_proxy_get_connection (G_DBUS_PROXY (priv->gdbus_cal));
+	priv->gone_signal_id = g_dbus_connection_signal_subscribe (connection,
+		"org.freedesktop.DBus",				/* sender */
+		"org.freedesktop.DBus",				/* interface */
+		"NameOwnerChanged",				/* member */
+		"/org/freedesktop/DBus",			/* object_path */
+		"org.gnome.evolution.dataserver.Calendar",	/* arg0 */
+		G_DBUS_SIGNAL_FLAGS_NONE,
+		gdbus_cal_connection_gone_cb, ecal, NULL);
+	g_signal_connect (connection, "closed", G_CALLBACK (gdbus_cal_closed_cb), ecal);
+
+	g_signal_connect (priv->gdbus_cal, "auth-required", G_CALLBACK (auth_required_cb), ecal);
+	g_signal_connect (priv->gdbus_cal, "backend-error", G_CALLBACK (backend_error_cb), ecal);
+	g_signal_connect (priv->gdbus_cal, "readonly", G_CALLBACK (readonly_cb), ecal);
+	g_signal_connect (priv->gdbus_cal, "mode", G_CALLBACK (mode_cb), ecal);
 
 	/* Set the local attachment store path for the calendar */
 	set_local_attachment_store (ecal);
 
-	/* initialize component listener */
-	ecal->priv->comp_listener = e_component_listener_new ((Bonobo_Unknown) ecal->priv->cal);
-	g_signal_connect (G_OBJECT (ecal->priv->comp_listener), "component_died",
-			  G_CALLBACK (backend_died_cb), ecal);
+	g_free (path);
 
 	return ecal;
+}
+
+/* for each known source calls check_func, which should return TRUE if the required
+   source have been found. Function returns NULL or the source on which was returned
+   TRUE by the check_func. Non-NULL pointer should be unreffed by g_object_unref.
+
+   'sources' is an output parameter and cannot be NULL. When returned non-NULL, then
+   should be freed with g_object_unref function. */
+static ESource *
+search_known_sources (ECalSourceType type, gboolean (*check_func)(ESource *source, gpointer user_data), gpointer user_data, ESourceList **sources, GError **error)
+{
+	ESource *res = NULL;
+	GSList *g;
+	GError *err = NULL;
+
+	g_return_val_if_fail (sources != NULL, NULL);
+	g_return_val_if_fail (check_func != NULL, NULL);
+
+	*sources = NULL;
+
+	if (!e_cal_get_sources (sources, type, &err)) {
+		g_propagate_error (error, err);
+		return NULL;
+	}
+
+	for (g = e_source_list_peek_groups (*sources); g; g = g->next) {
+		ESourceGroup *group = E_SOURCE_GROUP (g->data);
+		GSList *s;
+
+		for (s = e_source_group_peek_sources (group); s; s = s->next) {
+			ESource *source = E_SOURCE (s->data);
+
+			if (check_func (source, user_data)) {
+				res = g_object_ref (source);
+				break;
+			}
+		}
+
+		if (res)
+			break;
+	}
+
+	return res;
+}
+
+static gboolean
+check_uri (ESource *source, gpointer uri)
+{
+	const gchar *suri;
+
+	g_return_val_if_fail (source != NULL, FALSE);
+	g_return_val_if_fail (uri != NULL, FALSE);
+
+	suri = e_source_peek_absolute_uri (source);
+	if (suri)
+		return !g_ascii_strcasecmp (suri, uri);
+	else {
+		gboolean ret;
+		gchar *suri2;
+
+		suri2 = e_source_get_uri (source);
+		ret = !g_ascii_strcasecmp (suri2, uri);
+		g_free (suri2);
+		return ret;
+	}
 }
 
 /**
@@ -1463,105 +1005,125 @@ e_cal_new (ESource *source, ECalSourceType type)
  * Creates a new calendar client. This does not open the calendar itself,
  * for that, #e_cal_open or #e_cal_open_async needs to be called.
  *
- * Return value: A newly-created calendar client, or NULL if the client could
+ * Returns: A newly-created calendar client, or NULL if the client could
  * not be constructed because it could not contact the calendar server.
  **/
 ECal *
 e_cal_new_from_uri (const gchar *uri, ECalSourceType type)
 {
+	ESourceList *sources = NULL;
 	ESource *source;
 	ECal *cal;
 
-	source = e_source_new_with_absolute_uri ("", uri);
+	source = search_known_sources (type, check_uri, (gpointer) uri, &sources, NULL);
+	if (!source)
+		source = e_source_new_with_absolute_uri ("", uri);
+
 	cal = e_cal_new (source, type);
 
 	g_object_unref (source);
+	if (sources)
+		g_object_unref (sources);
 
 	return cal;
 }
 
+static ECal *
+get_local_source (ECalSourceType type)
+{
+	ESourceList *sources;
+	ESourceGroup *on_this_computer;
+	GSList *local_sources, *iter;
+	gchar *source_uri = NULL;
+	ECal *ecal;
+
+	if (!e_cal_get_sources (&sources, type, NULL)) {
+		g_warning ("Could not get task sources from GConf!");
+		goto out;
+	}
+
+	on_this_computer = e_source_list_ensure_group (sources,
+						       _("On This Computer"),
+						       "local:", TRUE);
+	if (!on_this_computer) {
+		g_object_unref (sources);
+		goto out;
+	}
+
+	local_sources = e_source_group_peek_sources (on_this_computer);
+	for (iter = local_sources; !source_uri && iter != NULL; iter = iter->next) {
+		ESource *source = iter->data;
+		gchar *uri;
+
+		uri = e_source_get_uri (source);
+		if (g_strcmp0 (uri, "local:system") == 0)
+			source_uri = uri;
+		else
+			g_free (uri);
+	}
+	if (!source_uri) {
+		ESource *source;
+		source = e_source_new (_("Personal"), "system");
+		e_source_set_color_spec (source, "#BECEDD");
+		e_source_group_add_source (on_this_computer, source, -1);
+		g_object_unref (source);
+
+		if (!e_source_list_sync (sources, NULL))
+			g_warning ("Cannot add system source to GConf!");
+	}
+	g_object_unref (on_this_computer);
+	g_object_unref (sources);
+ out:
+	ecal = e_cal_new_from_uri (source_uri?:"local:system", type);
+	g_free (source_uri);
+	return ecal;
+}
 /**
  * e_cal_new_system_calendar:
  *
- * Create a calendar client for the system calendar, which should always be present in
- * all Evolution installations. This does not open the calendar itself,
- * for that, #e_cal_open or #e_cal_open_async needs to be called.
+ * Create a calendar client for the system calendar, which should always be
+ * present in all Evolution installations. This does not open the calendar
+ * itself -- for that use e_cal_open() or e_cal_open_async().
  *
- * Return value: A newly-created calendar client, or NULL if the client could
+ * Returns: A newly-created calendar client, or %NULL if the client could
  * not be constructed.
  */
 ECal *
 e_cal_new_system_calendar (void)
 {
-	ECal *ecal;
-	gchar *filename;
-	gchar *uri;
-
-	filename = g_build_filename (g_get_home_dir (),
-				     ".evolution/calendar/local/system",
-				     NULL);
-	uri = g_filename_to_uri (filename, NULL, NULL);
-	g_free (filename);
-	ecal = e_cal_new_from_uri (uri, E_CAL_SOURCE_TYPE_EVENT);
-	g_free (uri);
-
-	return ecal;
+	return get_local_source (E_CAL_SOURCE_TYPE_EVENT);
 }
 
 /**
  * e_cal_new_system_tasks:
  *
- * Create a calendar client for the system task list, which should always be present in
- * all Evolution installations. This does not open the tasks list itself,
- * for that, #e_cal_open or #e_cal_open_async needs to be called.
+ * Create a calendar client for the system task list, which should always
+ * be present in all Evolution installations. This does not open the task
+ * list itself -- for that use e_cal_open() or e_cal_open_async().
  *
- * Return value: A newly-created calendar client, or NULL if the client could
+ * Returns: A newly-created calendar client, or %NULL if the client could
  * not be constructed.
  */
 ECal *
 e_cal_new_system_tasks (void)
 {
-	ECal *ecal;
-	gchar *filename;
-	gchar *uri;
-
-	filename = g_build_filename (g_get_home_dir (),
-				     ".evolution/tasks/local/system",
-				     NULL);
-	uri = g_filename_to_uri (filename, NULL, NULL);
-	g_free (filename);
-	ecal = e_cal_new_from_uri (uri, E_CAL_SOURCE_TYPE_TODO);
-	g_free (uri);
-
-	return ecal;
+	return get_local_source (E_CAL_SOURCE_TYPE_TODO);
 }
 
 /**
  * e_cal_new_system_memos:
  *
- * Create a calendar client for the system memos, which should always be present
- * in all Evolution installations. This does not open the memos itself, for
- * that, #e_cal_open or #e_cal_open_async needs to be called.
+ * Create a calendar client for the system memo list, which should always
+ * be present in all Evolution installations. This does not open the memo
+ * list itself -- for that use e_cal_open() or e_cal_open_async().
  *
- * Return value: A newly-created calendar client, or NULL if the client could
+ * Returns: A newly-created calendar client, or %NULL if the client could
  * not be constructed.
  */
 ECal *
 e_cal_new_system_memos (void)
 {
-	ECal *ecal;
-	gchar *uri;
-	gchar *filename;
-
-	filename = g_build_filename (g_get_home_dir (),
-				     ".evolution/memos/local/system",
-				     NULL);
-	uri = g_filename_to_uri (filename, NULL, NULL);
-	g_free (filename);
-	ecal = e_cal_new_from_uri (uri, E_CAL_SOURCE_TYPE_JOURNAL);
-	g_free (uri);
-
-	return ecal;
+	return get_local_source (E_CAL_SOURCE_TYPE_JOURNAL);
 }
 
 /**
@@ -1635,36 +1197,72 @@ build_pass_key (ECal *ecal)
 	return euri_str;
 }
 
+static void
+async_open_report_result (ECal *ecal, const GError *error)
+{
+	#ifndef E_CAL_DISABLE_DEPRECATED
+	ECalendarStatus status;
+	#endif
+
+	g_return_if_fail (ecal && E_IS_CAL (ecal));
+
+	if (!error)
+		ecal->priv->load_state = E_CAL_LOAD_LOADED;
+
+	if (error) {
+	#ifndef E_CAL_DISABLE_DEPRECATED
+		status = get_status_from_error (error);
+	} else {
+		status = E_CALENDAR_STATUS_OK;
+	#else
+	} else {
+	#endif
+		e_gdbus_cal_call_is_read_only_sync (ecal->priv->gdbus_cal, NULL, NULL);
+	}
+
+	#ifndef E_CAL_DISABLE_DEPRECATED
+	g_signal_emit (G_OBJECT (ecal), e_cal_signals[CAL_OPENED], 0, status);
+	#endif
+	g_signal_emit (G_OBJECT (ecal), e_cal_signals[CAL_OPENED_EX], 0, error);
+}
+
+static void
+async_open_ready_cb (EGdbusCal *gdbus_cal, GAsyncResult *res, ECal *ecal)
+{
+	GError *error = NULL;
+
+	g_return_if_fail (ecal && E_IS_CAL (ecal));
+
+	e_gdbus_cal_call_open_finish (gdbus_cal, res, &error);
+
+	unwrap_gerror (&error);
+
+	async_open_report_result (ecal, error);
+
+	if (error)
+		g_error_free (error);
+}
+
 static gboolean
-open_calendar (ECal *ecal, gboolean only_if_exists, GError **error, ECalendarStatus *status, gboolean needs_auth)
+open_calendar (ECal *ecal, gboolean only_if_exists, GError **error,
+	#ifndef E_CAL_DISABLE_DEPRECATED
+	ECalendarStatus *status,
+	#endif
+	gboolean needs_auth, gboolean async)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarOp *our_op;
 	gchar *username = NULL, *auth_type = NULL, *password = NULL;
-	gboolean read_only = FALSE;
+
+	g_return_val_if_fail (error != NULL, FALSE);
 
 	e_return_error_if_fail (ecal != NULL, E_CALENDAR_STATUS_INVALID_ARG);
 	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-
 	priv = ecal->priv;
-
-	g_mutex_lock (ecal->priv->mutex);
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 
 	if (!needs_auth && priv->load_state == E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
 		return TRUE;
 	}
-
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		*status = E_CALENDAR_STATUS_BUSY;
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
-	}
-	/* start the open operation */
-	our_op = e_calendar_new_op (ecal, "open_calendar");
-
-	g_mutex_unlock (priv->mutex);
 
 	/* see if the backend needs authentication */
 	if ( (priv->mode !=  CAL_MODE_LOCAL) && e_source_get_property (priv->source, "auth")) {
@@ -1674,19 +1272,19 @@ open_calendar (ECal *ecal, gboolean only_if_exists, GError **error, ECalendarSta
 		priv->load_state = E_CAL_LOAD_AUTHENTICATING;
 
 		if (priv->auth_func == NULL) {
-			e_calendar_remove_op (ecal, our_op);
-			e_calendar_free_op (our_op);
 			priv->load_state = E_CAL_LOAD_NOT_LOADED;
+			#ifndef E_CAL_DISABLE_DEPRECATED
 			*status = E_CALENDAR_STATUS_AUTHENTICATION_REQUIRED;
+			#endif
 			E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_AUTHENTICATION_REQUIRED, error);
 		}
 
 		username = e_source_get_duped_property (priv->source, "username");
 		if (!username) {
-			e_calendar_remove_op (ecal, our_op);
-			e_calendar_free_op (our_op);
 			priv->load_state = E_CAL_LOAD_NOT_LOADED;
+			#ifndef E_CAL_DISABLE_DEPRECATED
 			*status = E_CALENDAR_STATUS_AUTHENTICATION_REQUIRED;
+			#endif
 			E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_AUTHENTICATION_REQUIRED, error);
 		}
 
@@ -1712,20 +1310,20 @@ open_calendar (ECal *ecal, gboolean only_if_exists, GError **error, ECalendarSta
 		g_free (auth_type);
 
 		if (!key) {
-			e_calendar_remove_op (ecal, our_op);
-			e_calendar_free_op (our_op);
 			priv->load_state = E_CAL_LOAD_NOT_LOADED;
+			#ifndef E_CAL_DISABLE_DEPRECATED
 			*status = E_CALENDAR_STATUS_URI_NOT_LOADED;
+			#endif
 			E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_AUTHENTICATION_REQUIRED, error);
 		}
 
 		password = priv->auth_func (ecal, prompt, key, priv->auth_user_data);
 
 		if (!password) {
-			e_calendar_remove_op (ecal, our_op);
-			e_calendar_free_op (our_op);
 			priv->load_state = E_CAL_LOAD_NOT_LOADED;
+			#ifndef E_CAL_DISABLE_DEPRECATED
 			*status = E_CALENDAR_STATUS_AUTHENTICATION_REQUIRED;
+			#endif
 			E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_AUTHENTICATION_REQUIRED, error);
 		}
 
@@ -1733,46 +1331,41 @@ open_calendar (ECal *ecal, gboolean only_if_exists, GError **error, ECalendarSta
 		g_free (key);
 	}
 
-	CORBA_exception_init (&ev);
-
 	priv->load_state = E_CAL_LOAD_LOADING;
 
-	GNOME_Evolution_Calendar_Cal_open (priv->cal, only_if_exists,
-					   username ? username : "",
-					   password ? password : "",
-					   &ev);
+	#ifndef E_CAL_DISABLE_DEPRECATED
+	*status = E_CALENDAR_STATUS_OK;
+	#endif
+	if (!async) {
+		if (!e_gdbus_cal_call_open_sync (priv->gdbus_cal, only_if_exists, username ? username : "", password ? password : "", NULL, error)) {
+			#ifndef E_CAL_DISABLE_DEPRECATED
+			*status = E_CALENDAR_STATUS_DBUS_EXCEPTION;
+			#endif
+		}
+		if (!*error)
+			priv->load_state = E_CAL_LOAD_LOADED;
+	} else {
+		e_gdbus_cal_call_open (priv->gdbus_cal, only_if_exists, username ? username : "", password ? password : "", NULL, (GAsyncReadyCallback) async_open_ready_cb, ecal);
+	}
+
 	g_free (password);
 	g_free (username);
 
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
+	if (!*error) {
+		if (!async) {
+			GError *err = NULL;
 
-		CORBA_exception_free (&ev);
+			e_gdbus_cal_call_is_read_only_sync (ecal->priv->gdbus_cal, NULL, &err);
 
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		*status = E_CALENDAR_STATUS_CORBA_EXCEPTION;
+			if (err)
+				g_error_free (err);
+		}
+	} else {
+		unwrap_gerror (error);
 		priv->load_state = E_CAL_LOAD_NOT_LOADED;
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
 	}
 
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	*status = our_op->status;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-	if (*status == E_CALENDAR_STATUS_OK) {
-		priv->load_state = E_CAL_LOAD_LOADED;
-		if (get_read_only (ecal, &read_only, NULL))
-			priv->read_only = read_only;
-	} else
-		priv->load_state = E_CAL_LOAD_NOT_LOADED;
-
-	E_CALENDAR_CHECK_STATUS (*status, error);
+	return *error == NULL;
 }
 
 /**
@@ -1786,54 +1379,74 @@ open_calendar (ECal *ecal, gboolean only_if_exists, GError **error, ECalendarSta
  *
  * Makes a calendar client initiate a request to open a calendar.  The calendar
  * client will emit the "cal_opened" signal when the response from the server is
- * received.
+ * received. Since 3.0 is emitted also "cal_opened_ex" signal, which contains
+ * a GError pointer from the open operation (NULL when no error occurred).
+ * New signal deprecates the old "cal_opened" signal.
  *
- * Return value: TRUE on success, FALSE on failure to issue the open request.
+ * Returns: TRUE on success, FALSE on failure to issue the open request.
  **/
 gboolean
 e_cal_open (ECal *ecal, gboolean only_if_exists, GError **error)
 {
+	#ifndef E_CAL_DISABLE_DEPRECATED
 	ECalendarStatus status;
+	#endif
+	GError *err = NULL;
 	gboolean result;
 
-	result = open_calendar (ecal, only_if_exists, error, &status, FALSE);
+	result = open_calendar (ecal, only_if_exists, &err,
+		#ifndef E_CAL_DISABLE_DEPRECATED
+		&status,
+		#endif
+		FALSE, FALSE);
+	#ifndef E_CAL_DISABLE_DEPRECATED
 	g_signal_emit (G_OBJECT (ecal), e_cal_signals[CAL_OPENED], 0, status);
+	#endif
+	g_signal_emit (G_OBJECT (ecal), e_cal_signals[CAL_OPENED_EX], 0, err);
+
+	if (err)
+		g_propagate_error (error, err);
 
 	return result;
 }
 
-typedef struct {
-	ECal *ecal;
-	gboolean exists;
-	ECalendarStatus status;
-	const gchar *auth_prompt;
-	const gchar *auth_key;
-	gchar *password;
-} ECalAsyncData;
+struct idle_async_error_reply_data
+{
+	ECal *ecal; /* ref-ed */
+	GError *error; /* can be NULL */
+};
 
 static gboolean
-async_signal_idle_cb (gpointer data)
+idle_async_error_reply_cb (gpointer user_data)
 {
-	ECalAsyncData *ccad = data;
+	struct idle_async_error_reply_data *data = user_data;
 
-	g_signal_emit (G_OBJECT (ccad->ecal), e_cal_signals[CAL_OPENED], 0, ccad->status);
+	g_return_val_if_fail (data != NULL, FALSE);
+	g_return_val_if_fail (data->ecal != NULL, FALSE);
 
-	/* free memory */
-	g_object_unref (ccad->ecal);
-	g_free (ccad);
+	async_open_report_result (data->ecal, data->error);
+
+	g_object_unref (data->ecal);
+	if (data->error)
+		g_error_free (data->error);
+	g_free (data);
 
 	return FALSE;
 }
 
-static gpointer
-open_async (gpointer data)
+/* takes ownership of error */
+static void
+async_report_idle (ECal *ecal, GError *error)
 {
-	ECalAsyncData *ccad = data;
+	struct idle_async_error_reply_data *data;
 
-	open_calendar (ccad->ecal, ccad->exists, NULL, &ccad->status, FALSE);
-	g_idle_add ((GSourceFunc) async_signal_idle_cb, ccad);
+	g_return_if_fail (ecal != NULL);
 
-	return NULL;
+	data = g_new0 (struct idle_async_error_reply_data, 1);
+	data->ecal = g_object_ref (ecal);
+	data->error = error;
+
+	g_idle_add (idle_async_error_reply_cb, data);
 }
 
 /**
@@ -1845,6 +1458,9 @@ open_async (gpointer data)
  *
  * Open the calendar asynchronously.  The calendar will emit the
  * "cal_opened" signal when the operation has completed.
+ * Since 3.0 is emitted also "cal_opened_ex" signal, which contains
+ * a GError pointer from the open operation (NULL when no error occurred).
+ * New signal deprecates the old "cal_opened" signal.
  *
  * Because this operation runs in another thread, any authentication
  * callback set on the calendar will be called from this other thread.
@@ -1853,38 +1469,65 @@ open_async (gpointer data)
 void
 e_cal_open_async (ECal *ecal, gboolean only_if_exists)
 {
-	ECalAsyncData *ccad;
-	GThread *thread;
+	ECalPrivate *priv;
 	GError *error = NULL;
+	#ifndef E_CAL_DISABLE_DEPRECATED
+	ECalendarStatus status;
+	#endif
+
 	g_return_if_fail (ecal != NULL);
 	g_return_if_fail (E_IS_CAL (ecal));
 
-	switch (ecal->priv->load_state) {
+	priv = ecal->priv;
+
+	switch (priv->load_state) {
 	case E_CAL_LOAD_AUTHENTICATING :
 	case E_CAL_LOAD_LOADING :
-		g_signal_emit (G_OBJECT (ecal), e_cal_signals[CAL_OPENED], 0, E_CALENDAR_STATUS_BUSY);
+		async_report_idle (ecal, g_error_new_literal (E_CALENDAR_ERROR, E_CALENDAR_STATUS_BUSY, e_cal_get_error_message (E_CALENDAR_STATUS_BUSY)));
 		return;
 	case E_CAL_LOAD_LOADED :
-		g_signal_emit (G_OBJECT (ecal), e_cal_signals[CAL_OPENED], 0, E_CALENDAR_STATUS_OK);
+		async_report_idle (ecal, NULL /* success */);
 		return;
 	default:
 		/* ignore everything else */
 		break;
 	}
 
-	ccad = g_new0 (ECalAsyncData, 1);
-	ccad->ecal = g_object_ref (ecal);
-	ccad->exists = only_if_exists;
+	open_calendar (ecal, only_if_exists, &error,
+		#ifndef E_CAL_DISABLE_DEPRECATED
+		&status,
+		#endif
+		FALSE, TRUE);
 
-	/* spawn a new thread for opening the calendar */
-	thread = g_thread_create ((GThreadFunc) open_async, ccad, FALSE, &error);
-	if (!thread) {
-		g_warning (G_STRLOC ": %s", error->message);
-		g_error_free (error);
+	if (error)
+		async_report_idle (ecal, error);
+}
 
-		/* notify listeners of the error */
-		g_signal_emit (G_OBJECT (ecal), e_cal_signals[CAL_OPENED], 0, E_CALENDAR_STATUS_OTHER_ERROR);
+/**
+ * e_cal_refresh:
+ * @ecal: A calendar client.
+ * @error: Placeholder for error information.
+ *
+ * Invokes refresh on a calendar. See @e_cal_get_refresh_supported.
+ *
+ * Returns: TRUE if calendar supports refresh and it was invoked, FALSE otherwise.
+ *
+ * Since: 2.30
+ **/
+gboolean
+e_cal_refresh (ECal *ecal, GError **error)
+{
+	ECalPrivate *priv;
+
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+
+	if (!e_gdbus_cal_call_refresh_sync (priv->gdbus_cal, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
+
+	return TRUE;
 }
 
 /**
@@ -1894,56 +1537,22 @@ e_cal_open_async (ECal *ecal, gboolean only_if_exists)
  *
  * Removes a calendar.
  *
- * Return value: TRUE if the calendar was removed, FALSE if there was an error.
+ * Returns: TRUE if the calendar was removed, FALSE if there was an error.
  */
 gboolean
 e_cal_remove (ECal *ecal, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
 
-	g_return_val_if_fail (ecal != NULL, FALSE);
-	g_return_val_if_fail (E_IS_CAL (ecal), FALSE);
-
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_remove_sync (priv->gdbus_cal, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "cal_remove");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_remove (priv->cal, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	return TRUE;
 }
 
 #if 0
@@ -1968,7 +1577,7 @@ build_uri_list (GNOME_Evolution_Calendar_StringSeq *seq)
  *
  * Retrieves a list of all calendar clients for the given mode.
  *
- * Return value: list of uris.
+ * Returns: list of uris.
  */
 GList *
 e_cal_uri_list (ECal *ecal, CalMode mode)
@@ -1980,8 +1589,8 @@ e_cal_uri_list (ECal *ecal, CalMode mode)
 	CORBA_Environment ev;
 	GList *f;
 
-	g_return_val_if_fail (ecal != NULL, FALSE);
-	g_return_val_if_fail (E_IS_CAL (ecal), FALSE);
+	g_return_val_if_fail (ecal != NULL, NULL);
+	g_return_val_if_fail (E_IS_CAL (ecal), NULL);
 
 	priv = ecal->priv;
 
@@ -2018,7 +1627,7 @@ e_cal_uri_list (ECal *ecal, CalMode mode)
  *
  * Gets the type of the calendar client.
  *
- * Return value: an #ECalSourceType value corresponding to the type
+ * Returns: an #ECalSourceType value corresponding to the type
  * of the calendar client.
  */
 ECalSourceType
@@ -2040,7 +1649,7 @@ e_cal_get_source_type (ECal *ecal)
  *
  * Queries the state of loading of a calendar client.
  *
- * Return value: A #ECalLoadState value indicating whether the client has
+ * Returns: A #ECalLoadState value indicating whether the client has
  * not been loaded with #e_cal_open yet, whether it is being
  * loaded, or whether it is already loaded.
  **/
@@ -2062,7 +1671,7 @@ e_cal_get_load_state (ECal *ecal)
  *
  * Queries the source that is open in a calendar client.
  *
- * Return value: The source of the calendar that is already loaded or is being
+ * Returns: The source of the calendar that is already loaded or is being
  * loaded, or NULL if the ecal has not started a load request yet.
  **/
 ESource *
@@ -2083,7 +1692,7 @@ e_cal_get_source (ECal *ecal)
  *
  * Queries the URI that is open in a calendar client.
  *
- * Return value: The URI of the calendar that is already loaded or is being
+ * Returns: The URI of the calendar that is already loaded or is being
  * loaded, or NULL if the client has not started a load request yet.
  **/
 const gchar *
@@ -2108,7 +1717,7 @@ e_cal_get_uri (ECal *ecal)
  * unless it specifically uses the attachments for open/sending
  * operations.
  *
- * Return value: The URL where the attachments are serialized in the
+ * Returns: The URL where the attachments are serialized in the
  * local filesystem.
  **/
 const gchar *
@@ -2133,7 +1742,7 @@ e_cal_get_local_attachment_store (ECal *ecal)
  * on the calendar or not. Whether the backend is read only or not
  * is specified, on exit, in the @read_only argument.
  *
- * Return value: TRUE if the call was successful, FALSE if there was an error.
+ * Returns: TRUE if the call was successful, FALSE if there was an error.
  */
 gboolean
 e_cal_is_read_only (ECal *ecal, gboolean *read_only, GError **error)
@@ -2149,63 +1758,6 @@ e_cal_is_read_only (ECal *ecal, gboolean *read_only, GError **error)
 	return TRUE;
 }
 
-static gboolean
-get_read_only (ECal *ecal, gboolean *read_only, GError **error)
-{
-	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
-
-	priv = ecal->priv;
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
-	}
-
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
-	}
-
-	our_op = e_calendar_new_op (ecal, "get_read_only");
-
-	/* set it to true so that op does not emit cond signals for all notifications
-	   from the backend */
-	our_op->bool = TRUE;
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_isReadOnly (priv->cal, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-
-	if (status == E_CALENDAR_STATUS_OK)
-		*read_only = our_op->bool;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-	E_CALENDAR_CHECK_STATUS (status, error);
-}
-
 /**
  * e_cal_get_cal_address:
  * @ecal: A calendar client.
@@ -2214,66 +1766,38 @@ get_read_only (ECal *ecal, gboolean *read_only, GError **error)
  *
  * Queries the calendar address associated with a calendar client.
  *
- * Return value: TRUE if the operation was successful, FALSE if there
+ * Returns: TRUE if the operation was successful, FALSE if there
  * was an error.
  **/
 gboolean
 e_cal_get_cal_address (ECal *ecal, gchar **cal_address, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
 
-	if (!(ecal && E_IS_CAL (ecal)))
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_INVALID_ARG, error);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (cal_address != NULL, E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
-	if (priv->cal_address == NULL) {
-		g_mutex_lock (ecal->priv->mutex);
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*cal_address = NULL;
 
-		if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-			g_mutex_unlock (ecal->priv->mutex);
+	LOCK_CACHE();
+	if (priv->cal_address == NULL) {
+		e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+		if (priv->load_state != E_CAL_LOAD_LOADED) {
+			UNLOCK_CACHE();
 			E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 		}
 
-		if (ecal->priv->current_op != NULL) {
-			g_mutex_unlock (ecal->priv->mutex);
-			E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+		if (!e_gdbus_cal_call_get_cal_address_sync (priv->gdbus_cal, &priv->cal_address, NULL, error)) {
+			UNLOCK_CACHE();
+			E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 		}
-
-		our_op = e_calendar_new_op (ecal, "get_cal_address");
-
-		g_mutex_unlock (ecal->priv->mutex);
-
-		CORBA_exception_init (&ev);
-
-		GNOME_Evolution_Calendar_Cal_getCalAddress (priv->cal, &ev);
-		if (BONOBO_EX (&ev)) {
-			e_calendar_remove_op (ecal, our_op);
-			e_calendar_free_op (our_op);
-
-			CORBA_exception_free (&ev);
-
-			g_warning (G_STRLOC ": Unable to contact backend");
-
-			E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-		}
-
-		CORBA_exception_free (&ev);
-
-		e_flag_wait (our_op->done);
-
-		status = our_op->status;
-		*cal_address = our_op->string;
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		E_CALENDAR_CHECK_STATUS (status, error);
-	} else {
-		*cal_address = g_strdup (priv->cal_address);
-
-		return TRUE;
 	}
+
+	*cal_address = g_strdup (priv->cal_address);
+	UNLOCK_CACHE();
+
+	return TRUE;
 }
 
 /**
@@ -2284,62 +1808,29 @@ e_cal_get_cal_address (ECal *ecal, gchar **cal_address, GError **error)
  *
  * Queries the address to be used for alarms in a calendar client.
  *
- * Return value: TRUE if the operation was successful, FALSE if there was
+ * Returns: TRUE if the operation was successful, FALSE if there was
  * an error while contacting the backend.
  */
 gboolean
 e_cal_get_alarm_email_address (ECal *ecal, gchar **alarm_address, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (alarm_address != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*alarm_address = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_get_alarm_email_address_sync (priv->gdbus_cal, alarm_address, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "get_alarm_address");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_getAlarmEmailAddress (priv->cal, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-	*alarm_address = our_op->string;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	return TRUE;
 }
 
 /**
@@ -2350,118 +1841,58 @@ e_cal_get_alarm_email_address (ECal *ecal, gchar **alarm_address, GError **error
  *
  * Queries the LDAP attribute for a calendar client.
  *
- * Return value: TRUE if the call was successful, FALSE if there was an
+ * Returns: TRUE if the call was successful, FALSE if there was an
  * error contacting the backend.
  */
 gboolean
 e_cal_get_ldap_attribute (ECal *ecal, gchar **ldap_attribute, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (ldap_attribute != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*ldap_attribute = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_get_ldap_attribute_sync (priv->gdbus_cal, ldap_attribute, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "get_ldap_attribute");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_getLdapAttribute (priv->cal, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-	*ldap_attribute = our_op->string;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	return TRUE;
 }
 
 static gboolean
 load_static_capabilities (ECal *ecal, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
 
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 
-	if (priv->capabilities)
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
-
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	LOCK_CACHE();
+
+	if (priv->capabilities) {
+		UNLOCK_CACHE();
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "load_static_capabilities");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_getStaticCapabilities (priv->cal, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+	if (!e_gdbus_cal_call_get_scheduling_information_sync (priv->gdbus_cal, &priv->capabilities, NULL, error)) {
+		UNLOCK_CACHE();
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	CORBA_exception_free (&ev);
+	UNLOCK_CACHE();
 
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-	priv->capabilities = our_op->string;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	return TRUE;
 }
 
 static gboolean
@@ -2485,7 +1916,7 @@ check_capability (ECal *ecal, const gchar *cap)
  *
  * Checks if a calendar supports only one alarm per component.
  *
- * Return value: TRUE if the calendar allows only one alarm, FALSE otherwise.
+ * Returns: TRUE if the calendar allows only one alarm, FALSE otherwise.
  */
 gboolean
 e_cal_get_one_alarm_only (ECal *ecal)
@@ -2502,7 +1933,7 @@ e_cal_get_one_alarm_only (ECal *ecal)
  *
  * Checks if a calendar forces organizers of meetings to be also attendees.
  *
- * Return value: TRUE if the calendar forces organizers to attend meetings,
+ * Returns: TRUE if the calendar forces organizers to attend meetings,
  * FALSE otherwise.
  */
 gboolean
@@ -2520,7 +1951,7 @@ e_cal_get_organizer_must_attend (ECal *ecal)
  *
  * Checks if the calendar has a master object for recurrences.
  *
- * Return value: TRUE if the calendar has a master object for recurrences,
+ * Returns: TRUE if the calendar has a master object for recurrences,
  * FALSE otherwise.
  */
 gboolean
@@ -2539,7 +1970,7 @@ e_cal_get_recurrences_no_master (ECal *ecal)
  *
  * Queries the calendar for static capabilities.
  *
- * Return value: TRUE if the capability is supported, FALSE otherwise.
+ * Returns: TRUE if the capability is supported, FALSE otherwise.
  */
 gboolean
 e_cal_get_static_capability (ECal *ecal, const gchar *cap)
@@ -2556,7 +1987,7 @@ e_cal_get_static_capability (ECal *ecal, const gchar *cap)
  *
  * Checks whether the calendar saves schedules.
  *
- * Return value: TRUE if it saves schedules, FALSE otherwise.
+ * Returns: TRUE if it saves schedules, FALSE otherwise.
  */
 gboolean
 e_cal_get_save_schedules (ECal *ecal)
@@ -2574,7 +2005,7 @@ e_cal_get_save_schedules (ECal *ecal)
  * Checks whether a calendar requires organizer to accept their attendance to
  * meetings.
  *
- * Return value: TRUE if the calendar requires organizers to accept, FALSE
+ * Returns: TRUE if the calendar requires organizers to accept, FALSE
  * otherwise.
  */
 gboolean
@@ -2587,36 +2018,56 @@ e_cal_get_organizer_must_accept (ECal *ecal)
 }
 
 /**
+ * e_cal_get_refresh_supported:
+ * @ecal: A calendar client.
+ *
+ * Checks whether a calendar supports explicit refreshing (see @e_cal_refresh).
+ *
+ * Returns: TRUE if the calendar supports refreshing, FALSE otherwise.
+ *
+ * Since: 2.30
+ */
+gboolean
+e_cal_get_refresh_supported (ECal *ecal)
+{
+	g_return_val_if_fail (ecal != NULL, FALSE);
+	g_return_val_if_fail (E_IS_CAL (ecal), FALSE);
+
+	return check_capability (ecal, CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED);
+}
+
+/**
  * e_cal_set_mode:
  * @ecal: A calendar client.
  * @mode: Mode to switch to.
  *
  * Switches online/offline mode on the calendar.
  *
- * Return value: TRUE if the switch was successful, FALSE if there was an error.
+ * Returns: TRUE if the switch was successful, FALSE if there was an error.
  */
 gboolean
 e_cal_set_mode (ECal *ecal, CalMode mode)
 {
 	ECalPrivate *priv;
-	gboolean retval = TRUE;
-	CORBA_Environment ev;
+	GError *error = NULL;
 
-	g_return_val_if_fail (ecal != NULL, -1);
-	g_return_val_if_fail (E_IS_CAL (ecal), -1);
+	g_return_val_if_fail (ecal != NULL, FALSE);
+	g_return_val_if_fail (E_IS_CAL (ecal), FALSE);
+	g_return_val_if_fail (mode & CAL_MODE_ANY, FALSE);
 
 	priv = ecal->priv;
-	g_return_val_if_fail (priv->load_state == E_CAL_LOAD_LOADED, -1);
+	g_return_val_if_fail (priv->gdbus_cal, FALSE);
+	g_return_val_if_fail (priv->load_state == E_CAL_LOAD_LOADED, FALSE);
 
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_Cal_setMode (priv->cal, mode, &ev);
+	if (!e_gdbus_cal_call_set_mode_sync (priv->gdbus_cal, mode, NULL, &error)) {
+		unwrap_gerror (&error);
+		g_printerr ("%s: %s\n", G_STRFUNC, error ? error->message : "Unknown error");
+		if (error)
+			g_error_free (error);
+		return FALSE;
+	}
 
-	if (BONOBO_EX (&ev))
-		retval = FALSE;
-
-	CORBA_exception_free (&ev);
-
-	return retval;
+	return TRUE;
 }
 
 /* This is used in the callback which fetches all the timezones needed for an
@@ -2639,66 +2090,41 @@ struct _ECalGetTimezonesData {
  * Retrives an #icalcomponent from the backend that contains the default
  * values for properties needed.
  *
- * Return value: TRUE if the call was successful, FALSE otherwise.
+ * Returns: TRUE if the call was successful, FALSE otherwise.
  */
 gboolean
 e_cal_get_default_object (ECal *ecal, icalcomponent **icalcomp, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
 	ECalendarStatus status;
-	ECalendarOp *our_op;
+	gchar *object;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (icalcomp != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*icalcomp = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_get_default_object_sync (priv->gdbus_cal, &object, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "get_default_object");
+	if (object) {
+		*icalcomp = icalparser_parse_string (object);
+		g_free (object);
 
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_getDefaultObject (priv->cal, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-        if (status != E_CALENDAR_STATUS_OK) {
-                *icalcomp = NULL;
-        } else {
-                *icalcomp = icalparser_parse_string (our_op->string);
 		if (!(*icalcomp))
 			status = E_CALENDAR_STATUS_INVALID_OBJECT;
-	}
-	g_free (our_op->string);
+		else
+			status = E_CALENDAR_STATUS_OK;
 
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
+		E_CALENDAR_CHECK_STATUS (status, error);
+	} else
+		status = E_CALENDAR_STATUS_OTHER_ERROR;
 
 	E_CALENDAR_CHECK_STATUS (status, error);
 }
@@ -2714,62 +2140,39 @@ e_cal_get_default_object (ECal *ecal, icalcomponent **icalcomp, GError **error)
  * Queries a calendar for a calendar component object based on its unique
  * identifier and gets the attachments for the component.
  *
- * Return value: TRUE if the call was successful, FALSE otherwise.
+ * Returns: TRUE if the call was successful, FALSE otherwise.
  **/
 gboolean
 e_cal_get_attachments_for_comp (ECal *ecal, const gchar *uid, const gchar *rid, GSList **list, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
 	ECalendarStatus status;
-	ECalendarOp *our_op;
+	gchar **list_array;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (uid != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (list != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*list = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_get_attachment_list_sync (priv->gdbus_cal, uid, rid ? rid: "", &list_array, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "get_attachments_for_comp");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-	GNOME_Evolution_Calendar_Cal_getAttachmentList (priv->cal, uid, rid ? rid : "", &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-        if (status != E_CALENDAR_STATUS_OK) {
-                *list = NULL;
-        } else {
-		*list = our_op->slist;
-	}
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
+	if (list_array) {
+		gchar **string;
+		for (string = list_array; *string; string++) {
+			*list = g_slist_append (*list, g_strdup (*string));
+		}
+		g_strfreev (list_array);
+		status = E_CALENDAR_STATUS_OK;
+	} else
+		status = E_CALENDAR_STATUS_OTHER_ERROR;
 
 	E_CALENDAR_CHECK_STATUS (status, error);
 }
@@ -2785,101 +2188,70 @@ e_cal_get_attachments_for_comp (ECal *ecal, const gchar *uid, const gchar *rid, 
  * Queries a calendar for a calendar component object based on its unique
  * identifier.
  *
- * Return value: TRUE if the call was successful, FALSE otherwise.
+ * Returns: TRUE if the call was successful, FALSE otherwise.
  **/
 gboolean
 e_cal_get_object (ECal *ecal, const gchar *uid, const gchar *rid, icalcomponent **icalcomp, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
 	ECalendarStatus status;
-	ECalendarOp *our_op;
+	gchar *object;
+	icalcomponent *tmp_icalcomp;
+	icalcomponent_kind kind;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (uid != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (icalcomp != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*icalcomp = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_get_object_sync (priv->gdbus_cal, uid, rid ? rid : "", &object, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "get_object");
+	status = E_CALENDAR_STATUS_OK;
+	tmp_icalcomp = icalparser_parse_string (object);
+	if (!tmp_icalcomp) {
+		status = E_CALENDAR_STATUS_INVALID_OBJECT;
+		*icalcomp = NULL;
+	} else {
+		kind = icalcomponent_isa (tmp_icalcomp);
+		if ((kind == ICAL_VEVENT_COMPONENT && priv->type == E_CAL_SOURCE_TYPE_EVENT) ||
+		    (kind == ICAL_VTODO_COMPONENT && priv->type == E_CAL_SOURCE_TYPE_TODO) ||
+		    (kind == ICAL_VJOURNAL_COMPONENT && priv->type == E_CAL_SOURCE_TYPE_JOURNAL)) {
+			*icalcomp = icalcomponent_new_clone (tmp_icalcomp);
+		} else if (kind == ICAL_VCALENDAR_COMPONENT) {
+			icalcomponent *subcomp = NULL;
 
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_getObject (priv->cal, uid, rid ? rid : "", &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-        if (status != E_CALENDAR_STATUS_OK) {
-                *icalcomp = NULL;
-        } else {
-		icalcomponent *tmp_icalcomp;
-		icalcomponent_kind kind;
-
-		tmp_icalcomp = icalparser_parse_string (our_op->string);
-		if (!tmp_icalcomp) {
-			status = E_CALENDAR_STATUS_INVALID_OBJECT;
-			*icalcomp = NULL;
-		} else {
-			kind = icalcomponent_isa (tmp_icalcomp);
-			if ((kind == ICAL_VEVENT_COMPONENT && priv->type == E_CAL_SOURCE_TYPE_EVENT) ||
-			    (kind == ICAL_VTODO_COMPONENT && priv->type == E_CAL_SOURCE_TYPE_TODO) ||
-			    (kind == ICAL_VJOURNAL_COMPONENT && priv->type == E_CAL_SOURCE_TYPE_JOURNAL)) {
-				*icalcomp = icalcomponent_new_clone (tmp_icalcomp);
-			} else if (kind == ICAL_VCALENDAR_COMPONENT) {
-				icalcomponent *subcomp = NULL;
-
-				switch (priv->type) {
-				case E_CAL_SOURCE_TYPE_EVENT :
-					subcomp = icalcomponent_get_first_component (tmp_icalcomp, ICAL_VEVENT_COMPONENT);
-					break;
-				case E_CAL_SOURCE_TYPE_TODO :
-					subcomp = icalcomponent_get_first_component (tmp_icalcomp, ICAL_VTODO_COMPONENT);
-					break;
-				case E_CAL_SOURCE_TYPE_JOURNAL :
-					subcomp = icalcomponent_get_first_component (tmp_icalcomp, ICAL_VJOURNAL_COMPONENT);
-					break;
-				default:
-					/* ignore everything else */
-					break;
-				}
-
-				/* we are only interested in the first component */
-				if (subcomp)
-					*icalcomp = icalcomponent_new_clone (subcomp);
+			switch (priv->type) {
+			case E_CAL_SOURCE_TYPE_EVENT :
+				subcomp = icalcomponent_get_first_component (tmp_icalcomp, ICAL_VEVENT_COMPONENT);
+				break;
+			case E_CAL_SOURCE_TYPE_TODO :
+				subcomp = icalcomponent_get_first_component (tmp_icalcomp, ICAL_VTODO_COMPONENT);
+				break;
+			case E_CAL_SOURCE_TYPE_JOURNAL :
+				subcomp = icalcomponent_get_first_component (tmp_icalcomp, ICAL_VJOURNAL_COMPONENT);
+				break;
+			default:
+				/* ignore everything else */
+				break;
 			}
 
-			icalcomponent_free (tmp_icalcomp);
+			/* we are only interested in the first component */
+			if (subcomp)
+				*icalcomp = icalcomponent_new_clone (subcomp);
 		}
-	}
-	g_free (our_op->string);
 
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
+		icalcomponent_free (tmp_icalcomp);
+	}
+
+	g_free (object);
 
 	E_CALENDAR_CHECK_STATUS (status, error);
 }
@@ -2895,79 +2267,36 @@ e_cal_get_object (ECal *ecal, const gchar *uid, const gchar *rid, icalcomponent 
  * ID. This will return any recurring event and all its detached recurrences.
  * For non-recurring events, it will just return the object with that ID.
  *
- * Return value: TRUE if the call was successful, FALSE otherwise.
+ * Returns: TRUE if the call was successful, FALSE otherwise.
  **/
 gboolean
 e_cal_get_objects_for_uid (ECal *ecal, const gchar *uid, GList **objects, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
 	ECalendarStatus status;
-	ECalendarOp *our_op;
+	gchar *object;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (uid != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (objects != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 	*objects = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_get_object_sync (priv->gdbus_cal, uid, "", &object, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "get_objects_for_uid");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_getObject (priv->cal, uid, "", &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-        if (status != E_CALENDAR_STATUS_OK) {
-                *objects = NULL;
-        } else {
+	status = E_CALENDAR_STATUS_OK;
+	{
 		icalcomponent *icalcomp;
-		icalcomponent_kind kind, kind_to_find;
+		icalcomponent_kind kind;
 
-		switch (priv->type) {
-		case E_CAL_SOURCE_TYPE_EVENT :
-			kind_to_find = ICAL_VEVENT_COMPONENT;
-			break;
-		case E_CAL_SOURCE_TYPE_TODO :
-			kind_to_find = ICAL_VTODO_COMPONENT;
-			break;
-		case E_CAL_SOURCE_TYPE_JOURNAL :
-			kind_to_find = ICAL_VJOURNAL_COMPONENT;
-			break;
-		default:
-			/* ignore everything else */
-			kind_to_find = ICAL_NO_COMPONENT;
-			break;
-		}
-
-				icalcomp = icalparser_parse_string (our_op->string);
+		icalcomp = icalparser_parse_string (object);
 		if (!icalcomp) {
 			status = E_CALENDAR_STATUS_INVALID_OBJECT;
 			*objects = NULL;
@@ -2975,12 +2304,28 @@ e_cal_get_objects_for_uid (ECal *ecal, const gchar *uid, GList **objects, GError
 			ECalComponent *comp;
 
 			kind = icalcomponent_isa (icalcomp);
-			if (kind == kind_to_find) {
+			if ((kind == ICAL_VEVENT_COMPONENT && priv->type == E_CAL_SOURCE_TYPE_EVENT) ||
+			    (kind == ICAL_VTODO_COMPONENT && priv->type == E_CAL_SOURCE_TYPE_TODO) ||
+			    (kind == ICAL_VJOURNAL_COMPONENT && priv->type == E_CAL_SOURCE_TYPE_JOURNAL)) {
 				comp = e_cal_component_new ();
 				e_cal_component_set_icalcomponent (comp, icalcomponent_new_clone (icalcomp));
 				*objects = g_list_append (NULL, comp);
 			} else if (kind == ICAL_VCALENDAR_COMPONENT) {
 				icalcomponent *subcomp;
+				icalcomponent_kind kind_to_find;
+
+				switch (priv->type) {
+				case E_CAL_SOURCE_TYPE_TODO :
+					kind_to_find = ICAL_VTODO_COMPONENT;
+					break;
+				case E_CAL_SOURCE_TYPE_JOURNAL :
+					kind_to_find = ICAL_VJOURNAL_COMPONENT;
+					break;
+				case E_CAL_SOURCE_TYPE_EVENT :
+				default:
+					kind_to_find = ICAL_VEVENT_COMPONENT;
+					break;
+				}
 
 				*objects = NULL;
 				subcomp = icalcomponent_get_first_component (icalcomp, kind_to_find);
@@ -2995,10 +2340,7 @@ e_cal_get_objects_for_uid (ECal *ecal, const gchar *uid, GList **objects, GError
 			icalcomponent_free (icalcomp);
 		}
 	}
-	g_free (our_op->string);
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
+	g_free (object);
 
 	E_CALENDAR_CHECK_STATUS (status, error);
 }
@@ -3010,7 +2352,7 @@ e_cal_get_objects_for_uid (ECal *ecal, const gchar *uid, GList **objects, GError
  *
  * Resolves TZIDs for the recurrence generator.
  *
- * Return value: The timezone identified by the @tzid argument, or %NULL if
+ * Returns: The timezone identified by the @tzid argument, or %NULL if
  * it could not be found.
  */
 icaltimezone*
@@ -3041,60 +2383,82 @@ e_cal_resolve_tzid_cb (const gchar *tzid, gpointer data)
  * is identified by the @change_id argument, which is used by the backend to
  * compute the changes done.
  *
- * Return value: TRUE if the call was successful, FALSE otherwise.
+ * Returns: TRUE if the call was successful, FALSE otherwise.
  */
 gboolean
 e_cal_get_changes (ECal *ecal, const gchar *change_id, GList **changes, GError **error)
 {
-	CORBA_Environment ev;
-	ECalendarOp *our_op;
-	ECalendarStatus status;
+	ECalPrivate *priv;
+	gchar **additions = NULL, **modifications = NULL, **removals = NULL;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-	e_return_error_if_fail (change_id, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (changes != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (change_id != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*changes = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_get_changes_sync (priv->gdbus_cal, change_id, &additions, &modifications, &removals, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "get_changes");
+	/* TODO: Be more elegant and split this into a function */
+	/* Mostly copied from the old e-cal-listener.c */
+	if ((additions)&&(modifications)&&(removals)) {
+		gint i;
+		gchar **list = NULL, **l;
+		ECalChangeType change_type = E_CAL_CHANGE_ADDED;
+		icalcomponent *icalcomp;
+		ECalChange *change;
 
-	g_mutex_unlock (ecal->priv->mutex);
+		for (i = 0; i < 3; i++) {
+			switch (i) {
+			case 0:
+				change_type = E_CAL_CHANGE_ADDED;
+				list = additions;
+				break;
+			case 1:
+				change_type = E_CAL_CHANGE_MODIFIED;
+				list = modifications;
+				break;
+			case 2:
+				change_type = E_CAL_CHANGE_DELETED;
+				list = removals;
+			}
 
-	CORBA_exception_init (&ev);
+			for (l = list; *l; l++) {
+				icalcomp = icalparser_parse_string (*l);
+				if (!icalcomp)
+					continue;
+				change = g_new (ECalChange, 1);
+				change->comp = e_cal_component_new ();
+				if (!e_cal_component_set_icalcomponent (change->comp, icalcomp)) {
+					icalcomponent_free (icalcomp);
+					g_object_unref (G_OBJECT (change->comp));
+					g_free (change);
+					continue;
+				}
+				change->type = change_type;
+				*changes = g_list_append (*changes, change);
+			}
+		}
 
-	GNOME_Evolution_Calendar_Cal_getChanges (ecal->priv->cal, change_id, &ev);
+		g_strfreev (additions);
+		g_strfreev (modifications);
+		g_strfreev (removals);
+	} else {
+		g_strfreev (additions);
+		g_strfreev (modifications);
+		g_strfreev (removals);
 
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OTHER_ERROR, error);
 	}
 
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-	*changes = our_op->list;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 }
 
 /**
@@ -3112,11 +2476,11 @@ e_cal_free_change_list (GList *list)
 	for (l = list; l; l = l->next) {
 		c = l->data;
 
-		g_assert (c != NULL);
-		g_assert (c->comp != NULL);
-
-		g_object_unref (G_OBJECT (c->comp));
-		g_free (c);
+		if (c != NULL && c->comp != NULL) {
+			g_object_unref (G_OBJECT (c->comp));
+			g_free (c);
+		} else
+			g_warn_if_reached ();
 	}
 
 	g_list_free (list);
@@ -3134,60 +2498,44 @@ e_cal_free_change_list (GList *list)
  * argument, which is a list of #icalcomponent. When done, this list
  * should be freed by using the #e_cal_free_object_list function.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  **/
 gboolean
 e_cal_get_object_list (ECal *ecal, const gchar *query, GList **objects, GError **error)
 {
-	CORBA_Environment ev;
-	ECalendarOp *our_op;
-	ECalendarStatus status;
+	ECalPrivate *priv;
+	gchar **object_array;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (objects != NULL, E_CALENDAR_STATUS_INVALID_ARG);
 	e_return_error_if_fail (query, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*objects = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_get_object_list_sync (priv->gdbus_cal, query, &object_array, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "get_object_list");
+	if (object_array) {
+		icalcomponent *comp;
+		gchar **object;
+		for (object = object_array; *object; object++) {
+			comp = icalcomponent_new_from_string (*object);
+			if (!comp) continue;
+			*objects = g_list_prepend (*objects, comp);
+		}
 
-	g_mutex_unlock (ecal->priv->mutex);
+		g_strfreev (object_array);
 
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_getObjectList (ecal->priv->cal, query, &ev);
-
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-	*objects = our_op->list;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	else
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OTHER_ERROR, error);
 }
 
 /**
@@ -3201,7 +2549,7 @@ e_cal_get_object_list (ECal *ecal, const gchar *query, GList **objects, GError *
  * by the @query argument. The objects will be returned in the @objects
  * argument, which is a list of #ECalComponent.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_get_object_list_as_comp (ECal *ecal, const gchar *query, GList **objects, GError **error)
@@ -3209,14 +2557,15 @@ e_cal_get_object_list_as_comp (ECal *ecal, const gchar *query, GList **objects, 
 	GList *ical_objects = NULL;
 	GList *l;
 
+	e_return_error_if_fail (objects != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	*objects = NULL;
+
 	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	e_return_error_if_fail (query, E_CALENDAR_STATUS_INVALID_ARG);
-	e_return_error_if_fail (objects, E_CALENDAR_STATUS_INVALID_ARG);
 
 	if (!e_cal_get_object_list (ecal, query, &ical_objects, error))
 		return FALSE;
 
-	*objects = NULL;
 	for (l = ical_objects; l; l = l->next) {
 		ECalComponent *comp;
 
@@ -3247,6 +2596,40 @@ e_cal_free_object_list (GList *objects)
 	g_list_free (objects);
 }
 
+static GList *
+build_free_busy_list (const gchar **seq)
+{
+	GList *list = NULL;
+	gint i;
+
+	/* Create the list in reverse order */
+	for (i = 0; seq[i]; i++) {
+		ECalComponent *comp;
+		icalcomponent *icalcomp;
+		icalcomponent_kind kind;
+
+		icalcomp = icalcomponent_new_from_string ((gchar *)seq[i]);
+		if (!icalcomp)
+			continue;
+
+		kind = icalcomponent_isa (icalcomp);
+		if (kind == ICAL_VFREEBUSY_COMPONENT) {
+			comp = e_cal_component_new ();
+			if (!e_cal_component_set_icalcomponent (comp, icalcomp)) {
+				icalcomponent_free (icalcomp);
+				g_object_unref (G_OBJECT (comp));
+				continue;
+			}
+
+			list = g_list_append (list, comp);
+		} else {
+			icalcomponent_free (icalcomp);
+		}
+	}
+
+	return list;
+}
+
 /**
  * e_cal_get_free_busy
  * @ecal: A calendar client.
@@ -3264,68 +2647,39 @@ gboolean
 e_cal_get_free_busy (ECal *ecal, GList *users, time_t start, time_t end,
 		     GList **freebusy, GError **error)
 {
-	CORBA_Environment ev;
-	ECalendarOp *our_op;
-	ECalendarStatus status;
-	GNOME_Evolution_Calendar_UserList corba_users;
+	ECalPrivate *priv;
+	gchar **users_list;
+	gchar **freebusy_array;
 	GList *l;
-	gint i, len;
+	gint i;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (users != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (freebusy != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*freebusy = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
-	}
-
-	our_op = e_calendar_new_op (ecal, "get_freebusy");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	/* create the CORBA user list to be passed to the backend */
-	len = g_list_length (users);
-
-	corba_users._length = len;
-	corba_users._buffer = CORBA_sequence_GNOME_Evolution_Calendar_User_allocbuf (len);
-
+	users_list = g_new0 (gchar *, g_list_length (users) + 1);
 	for (l = users, i = 0; l; l = l->next, i++)
-		corba_users._buffer[i] = CORBA_string_dup (l->data);
+		users_list[i] = g_strdup (l->data);
 
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_getFreeBusy (ecal->priv->cal, &corba_users, start, end, &ev);
-
-	CORBA_free (corba_users._buffer);
-
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+	if (!e_gdbus_cal_call_get_free_busy_sync (priv->gdbus_cal, (const gchar * const *) users_list, start, end, &freebusy_array, NULL, error)) {
+		g_strfreev (users_list);
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
+	g_strfreev (users_list);
 
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-	*freebusy = our_op->list;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	if (freebusy_array) {
+		*freebusy = build_free_busy_list ((const gchar **) freebusy_array);
+		g_strfreev (freebusy_array);
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
+	} else
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OTHER_ERROR, error);
 }
 
 struct comp_instance {
@@ -3547,7 +2901,8 @@ try_again:
 				goto try_again;
 			}
 
-			g_message ("Failed to get recurrence objects for uid %s \n", error->message);
+			unwrap_gerror (&error);
+			g_message ("Failed to get recurrence objects for uid %s \n", error ? error->message : "Unknown error");
 			g_clear_error (&error);
 			return;
 		}
@@ -3880,7 +3235,7 @@ build_component_alarms_list (ECal *ecal, GList *object_list, time_t start, time_
  * Queries a calendar for the alarms that trigger in the specified range of
  * time.
  *
- * Return value: A list of #ECalComponentAlarms structures.  This should be freed
+ * Returns: A list of #ECalComponentAlarms structures.  This should be freed
  * using the #e_cal_free_alarms() function, or by freeing each element
  * separately with #e_cal_component_alarms_free() and then freeing the list with
  * #g_slist_free().
@@ -3949,9 +3304,10 @@ e_cal_free_alarms (GSList *comp_alarms)
 		ECalComponentAlarms *alarms;
 
 		alarms = l->data;
-		g_assert (alarms != NULL);
-
-		e_cal_component_alarms_free (alarms);
+		if (alarms != NULL)
+			e_cal_component_alarms_free (alarms);
+		else
+			g_warn_if_reached ();
 	}
 
 	g_slist_free (comp_alarms);
@@ -3970,7 +3326,7 @@ e_cal_free_alarms (GSList *comp_alarms)
  * Queries a calendar for the alarms of a particular object that trigger in the
  * specified range of time.
  *
- * Return value: TRUE on success, FALSE if the object was not found.
+ * Returns: TRUE on success, FALSE if the object was not found.
  **/
 gboolean
 e_cal_get_alarms_for_object (ECal *ecal, const ECalComponentId *id,
@@ -3982,6 +3338,9 @@ e_cal_get_alarms_for_object (ECal *ecal, const ECalComponentId *id,
 	ECalComponent *comp;
 	ECalComponentAlarmAction omit[] = {-1};
 
+	g_return_val_if_fail (alarms != NULL, FALSE);
+	*alarms = NULL;
+
 	g_return_val_if_fail (ecal != NULL, FALSE);
 	g_return_val_if_fail (E_IS_CAL (ecal), FALSE);
 
@@ -3991,9 +3350,6 @@ e_cal_get_alarms_for_object (ECal *ecal, const ECalComponentId *id,
 	g_return_val_if_fail (id != NULL, FALSE);
 	g_return_val_if_fail (start >= 0 && end >= 0, FALSE);
 	g_return_val_if_fail (start <= end, FALSE);
-	g_return_val_if_fail (alarms != NULL, FALSE);
-
-	*alarms = NULL;
 
 	if (!e_cal_get_object (ecal, id->uid, id->rid, &icalcomp, NULL))
 		return FALSE;
@@ -4025,64 +3381,33 @@ e_cal_get_alarms_for_object (ECal *ecal, const ECalComponentId *id,
  * update internal information about the alarm be discarded, or, like
  * the file backend does, ignore the operation.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_discard_alarm (ECal *ecal, ECalComponent *comp, const gchar *auid, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
 	const gchar *uid;
 
-	g_return_val_if_fail (ecal != NULL, FALSE);
-	g_return_val_if_fail (E_IS_CAL (ecal), FALSE);
-
+	e_return_error_if_fail (ecal != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (comp != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL_COMPONENT (comp), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (auid != NULL, E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
-	}
-
-	our_op = e_calendar_new_op (ecal, "discard_alarm");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
 	e_cal_component_get_uid (comp, &uid);
 
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_discardAlarm (priv->cal, uid, auid, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+	if (!e_gdbus_cal_call_discard_alarm_sync (priv->gdbus_cal, uid ? uid : "", auid, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 }
 
 typedef struct _ForeachTZIDCallbackData ForeachTZIDCallbackData;
@@ -4182,9 +3507,6 @@ e_cal_get_component_as_string_internal (ECal *ecal,
 	gint initial_vcal_string_len;
 	ForeachTZIDCallbackData cbdata;
 	gchar *obj_string;
-	ECalPrivate *priv;
-
-	priv = ecal->priv;
 
 	timezone_hash = g_hash_table_new (g_str_hash, g_str_equal);
 
@@ -4245,7 +3567,7 @@ e_cal_get_component_as_string_internal (ECal *ecal,
  * Gets a calendar component as an iCalendar string, with a toplevel
  * VCALENDAR component and all VTIMEZONEs needed for the component.
  *
- * Return value: the component as a complete iCalendar string, or NULL on
+ * Returns: the component as a complete iCalendar string, or NULL on
  * failure. The string should be freed after use.
  **/
 gchar *
@@ -4265,69 +3587,44 @@ e_cal_get_component_as_string (ECal *ecal, icalcomponent *icalcomp)
  * argument. Some backends would assign a specific UID to the newly created object,
  * in those cases that UID would be returned in the @uid argument.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_create_object (ECal *ecal, icalcomponent *icalcomp, gchar **uid, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
-	gchar *obj;
+	gchar *obj, *muid = NULL;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (icalcomp != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (icalcomponent_is_valid (icalcomp), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
-	}
-
-	our_op = e_calendar_new_op (ecal, "create_object");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
 	obj = icalcomponent_as_ical_string_r (icalcomp);
-	GNOME_Evolution_Calendar_Cal_createObject (priv->cal, obj, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
+	if (!e_gdbus_cal_call_create_object_sync (priv->gdbus_cal, obj, &muid, NULL, error)) {
 		g_free (obj);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
 	g_free (obj);
-	CORBA_exception_free (&ev);
 
-        e_flag_wait (our_op->done);
+	if (!muid) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OTHER_ERROR, error);
+	} else {
+		icalcomponent_set_uid (icalcomp, muid);
 
-	status = our_op->status;
-	if (uid)
-	{
-		*uid = our_op->uid;
-		icalcomponent_set_uid (icalcomp, *uid);
+		if (uid)
+			*uid = muid;
+		else
+			g_free (muid);
+
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 	}
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
 }
 
 /**
@@ -4345,65 +3642,33 @@ e_cal_create_object (ECal *ecal, icalcomponent *icalcomp, gchar **uid, GError **
  * or a specific set of instances (CALOBJ_MOD_THISNADPRIOR and
  * CALOBJ_MOD_THISANDFUTURE).
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_modify_object (ECal *ecal, icalcomponent *icalcomp, CalObjModType mod, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
 	gchar *obj;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	e_return_error_if_fail (icalcomp, E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (icalcomponent_is_valid (icalcomp), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (mod & CALOBJ_MOD_ALL, E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
-	}
-
-	our_op = e_calendar_new_op (ecal, "modify_object");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
 	obj = icalcomponent_as_ical_string_r (icalcomp);
-	GNOME_Evolution_Calendar_Cal_modifyObject (priv->cal, obj, mod, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
+	if (!e_gdbus_cal_call_modify_object_sync (priv->gdbus_cal, obj, mod, NULL, error)) {
 		g_free (obj);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
 	g_free (obj);
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 }
 
 /**
@@ -4423,62 +3688,29 @@ e_cal_modify_object (ECal *ecal, icalcomponent *icalcomp, CalObjModType mod, GEr
  * signal, while it will get a "obj_removed" signal when all instances
  * are removed.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_remove_object_with_mod (ECal *ecal, const gchar *uid,
 			      const gchar *rid, CalObjModType mod, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	e_return_error_if_fail (uid, E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (mod & CALOBJ_MOD_ALL, E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_remove_object_sync (priv->gdbus_cal, uid, rid ? rid : "", mod, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "remove_object_with_mod");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_removeObject (priv->cal, uid, rid ? rid : "", mod, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 }
 
 /**
@@ -4491,7 +3723,7 @@ e_cal_remove_object_with_mod (ECal *ecal, const gchar *uid,
  * component, all clients will be notified and they will emit the "obj_removed"
  * signal.
  *
- * Return value: %TRUE if successful, %FALSE otherwise.
+ * Returns: %TRUE if successful, %FALSE otherwise.
  **/
 gboolean
 e_cal_remove_object (ECal *ecal, const gchar *uid, GError **error)
@@ -4512,64 +3744,28 @@ e_cal_remove_object (ECal *ecal, const gchar *uid, GError **error)
  * @icalcomp argument. This is used for iTIP confirmation/cancellation
  * messages for scheduled meetings.
  *
- * Return value: %TRUE if successful, %FALSE otherwise.
+ * Returns: %TRUE if successful, %FALSE otherwise.
  */
 gboolean
 e_cal_receive_objects (ECal *ecal, icalcomponent *icalcomp, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
-	gchar *obj;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (icalcomp, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (icalcomponent_is_valid (icalcomp), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_receive_objects_sync (priv->gdbus_cal, icalcomponent_as_ical_string (icalcomp), NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "receive_objects");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	obj = icalcomponent_as_ical_string_r (icalcomp);
-	GNOME_Evolution_Calendar_Cal_receiveObjects (priv->cal, obj, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-		g_free (obj);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	g_free (obj);
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 }
 
 /**
@@ -4584,78 +3780,46 @@ e_cal_receive_objects (ECal *ecal, icalcomponent *icalcomp, GError **error)
  * Requests a calendar backend to send meeting information to the specified list
  * of users.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_send_objects (ECal *ecal, icalcomponent *icalcomp, GList **users, icalcomponent **modified_icalcomp, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
 	ECalendarStatus status;
-	ECalendarOp *our_op;
-	gchar *obj;
+	gchar **users_array;
+	gchar *object;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (users != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (modified_icalcomp != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (icalcomp != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (icalcomponent_is_valid (icalcomp), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*users = NULL;
+	*modified_icalcomp = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_send_objects_sync (priv->gdbus_cal, icalcomponent_as_ical_string (icalcomp), &users_array, &object, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "send_objects");
-
-	g_mutex_unlock (ecal->priv->mutex);
-
-	CORBA_exception_init (&ev);
-
-	obj = icalcomponent_as_ical_string_r (icalcomp);
-	GNOME_Evolution_Calendar_Cal_sendObjects (priv->cal, obj, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-		g_free (obj);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
-	}
-
-	g_free (obj);
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-	*users = our_op->list;
-	if (status != E_CALENDAR_STATUS_OK) {
-		*modified_icalcomp = NULL;
-		g_list_foreach (*users, (GFunc) g_free, NULL);
-		g_list_free (*users);
-		*users = NULL;
-	} else {
-		*modified_icalcomp = icalparser_parse_string (our_op->string);
-		if (!(*modified_icalcomp)) {
+	status = E_CALENDAR_STATUS_OK;
+	if (users_array) {
+		gchar **user;
+		*modified_icalcomp = icalparser_parse_string (object);
+		if (!(*modified_icalcomp))
 			status = E_CALENDAR_STATUS_INVALID_OBJECT;
-			g_list_foreach (*users, (GFunc) g_free, NULL);
-			g_list_free (*users);
-			*users = NULL;
-		}
-	}
-	g_free (our_op->string);
 
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
+		for (user = users_array; *user; user++)
+			*users = g_list_append (*users, g_strdup (*user));
+		g_strfreev (users_array);
+	} else
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OTHER_ERROR, error);
 
 	E_CALENDAR_CHECK_STATUS (status, error);
 }
@@ -4669,52 +3833,34 @@ e_cal_send_objects (ECal *ecal, icalcomponent *icalcomp, GList **users, icalcomp
  *
  * Retrieves a timezone object from the calendar backend.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_get_timezone (ECal *ecal, const gchar *tzid, icaltimezone **zone, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
 	ECalendarStatus status = E_CALENDAR_STATUS_OK;
-	ECalendarOp *our_op;
 	icalcomponent *icalcomp = NULL;
-	const gchar *systzid;
+	gchar *object;
+	const gchar *systzid = NULL;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	e_return_error_if_fail (zone, E_CALENDAR_STATUS_INVALID_ARG);
-
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*zone = NULL;
 
-	g_mutex_lock (priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
-	}
-
-	our_op = e_calendar_new_op (ecal, "get_timezone");
-
-	g_mutex_unlock (priv->mutex);
-
 	/* Check for well known zones and in the cache */
-	*zone = NULL;
-
 	/* If tzid is NULL or "" we return NULL, since it is a 'local time'. */
 	if (!tzid || !tzid[0]) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		*zone = NULL;
-
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 	}
 
+	LOCK_CACHE ();
 	/* If it is UTC, we return the special UTC timezone. */
 	if (!strcmp (tzid, "UTC")) {
 		*zone = icaltimezone_get_utc_timezone ();
@@ -4724,9 +3870,7 @@ e_cal_get_timezone (ECal *ecal, const gchar *tzid, icaltimezone **zone, GError *
 	}
 
 	if (*zone) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
+		UNLOCK_CACHE ();
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 	}
 
@@ -4740,33 +3884,15 @@ e_cal_get_timezone (ECal *ecal, const gchar *tzid, icaltimezone **zone, GError *
 	systzid = e_cal_match_tzid (tzid);
 	if (!systzid) {
 		/* call the backend */
-		CORBA_exception_init (&ev);
-
-		GNOME_Evolution_Calendar_Cal_getTimezone (priv->cal, tzid, &ev);
-		if (BONOBO_EX (&ev)) {
-			e_calendar_remove_op (ecal, our_op);
-			e_calendar_free_op (our_op);
-
-			CORBA_exception_free (&ev);
-
-			g_warning (G_STRLOC ": Unable to contact backend");
-
-			E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+		if (!e_gdbus_cal_call_get_timezone_sync (priv->gdbus_cal, tzid, &object, NULL, error)) {
+			UNLOCK_CACHE ();
+			E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 		}
 
-		CORBA_exception_free (&ev);
-
-		e_flag_wait (our_op->done);
-
-		status = our_op->status;
-		if (status != E_CALENDAR_STATUS_OK) {
-			icalcomp = NULL;
-		} else {
-			icalcomp = icalparser_parse_string (our_op->string);
-			if (!icalcomp)
-				status = E_CALENDAR_STATUS_INVALID_OBJECT;
-		}
-		g_free (our_op->string);
+		icalcomp = icalparser_parse_string (object);
+		if (!icalcomp)
+			status = E_CALENDAR_STATUS_INVALID_OBJECT;
+		g_free (object);
 	} else {
 		/*
 		 * Use built-in time zone *and* rename it:
@@ -4798,28 +3924,21 @@ e_cal_get_timezone (ECal *ecal, const gchar *tzid, icaltimezone **zone, GError *
 	}
 
 	if (!icalcomp) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
+		UNLOCK_CACHE ();
 		E_CALENDAR_CHECK_STATUS (status, error);
 	}
 
 	*zone = icaltimezone_new ();
 	if (!icaltimezone_set_component (*zone, icalcomp)) {
 		icaltimezone_free (*zone, 1);
-
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
+		UNLOCK_CACHE ();
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OBJECT_NOT_FOUND, error);
 	}
 
 	/* Now add it to the cache, to avoid the server call in future. */
 	g_hash_table_insert (priv->timezones, (gpointer) icaltimezone_get_tzid (*zone), *zone);
 
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
+	UNLOCK_CACHE ();
 	E_CALENDAR_CHECK_STATUS (status, error);
 }
 
@@ -4837,47 +3956,26 @@ gboolean
 e_cal_add_timezone (ECal *ecal, icaltimezone *izone, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
 	gchar *tzobj;
 	icalcomponent *icalcomp;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	e_return_error_if_fail (izone, E_CALENDAR_STATUS_INVALID_ARG);
-
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 
-	g_mutex_lock (priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
-
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
-	}
-
-	our_op = e_calendar_new_op (ecal, "add_timezone");
-
-	g_mutex_unlock (priv->mutex);
 
 	/* Make sure we have a valid component - UTC doesn't, nor do
 	 * we really have to add it */
 	if (izone == icaltimezone_get_utc_timezone ()) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 	}
 
 	icalcomp = icaltimezone_get_component (izone);
 	if (!icalcomp) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_INVALID_ARG, error);
 	}
 
@@ -4885,32 +3983,13 @@ e_cal_add_timezone (ECal *ecal, icaltimezone *izone, GError **error)
 	tzobj = icalcomponent_as_ical_string_r (icalcomp);
 
 	/* call the backend */
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_addTimezone (priv->cal, tzobj, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
+	if (!e_gdbus_cal_call_add_timezone_sync (priv->gdbus_cal, tzobj, NULL, error)) {
 		g_free (tzobj);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
 	g_free (tzobj);
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 }
 
 /**
@@ -4922,62 +4001,50 @@ e_cal_add_timezone (ECal *ecal, icaltimezone *izone, GError **error)
  *
  * Creates a live query object from a loaded calendar.
  *
- * Return value: A query object that will emit notification signals as calendar
+ * Returns: A query object that will emit notification signals as calendar
  * components are added and removed from the query in the server.
  **/
 gboolean
 e_cal_get_query (ECal *ecal, const gchar *sexp, ECalView **query, GError **error)
 {
-	CORBA_Environment ev;
-	ECalendarOp *our_op;
+	ECalPrivate *priv;
 	ECalendarStatus status;
+	gchar *query_path;
+	EGdbusCalView *gdbus_calview;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (sexp, E_CALENDAR_STATUS_INVALID_ARG);
 	e_return_error_if_fail (query, E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
+	*query = NULL;
 
-	g_mutex_lock (ecal->priv->mutex);
-
-	if (ecal->priv->load_state != E_CAL_LOAD_LOADED) {
-		g_mutex_unlock (ecal->priv->mutex);
+	if (priv->load_state != E_CAL_LOAD_LOADED) {
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_URI_NOT_LOADED, error);
 	}
 
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
+	if (!e_gdbus_cal_call_get_query_sync (priv->gdbus_cal, sexp, &query_path, NULL, error)) {
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
-	our_op = e_calendar_new_op (ecal, "get_query");
+	status = E_CALENDAR_STATUS_OK;
 
-	g_mutex_unlock (ecal->priv->mutex);
+	gdbus_calview = e_gdbus_cal_view_proxy_new_sync (g_dbus_proxy_get_connection (G_DBUS_PROXY (cal_factory_proxy)),
+							G_DBUS_PROXY_FLAGS_NONE,
+							"org.gnome.evolution.dataserver.Calendar",
+							query_path,
+							NULL,
+							error);
 
-	CORBA_exception_init (&ev);
+	g_free (query_path);
 
-	our_op->listener = e_cal_view_listener_new ();
-	GNOME_Evolution_Calendar_Cal_getQuery (ecal->priv->cal, sexp, BONOBO_OBJREF (our_op->listener), &ev);
-
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+	if (!gdbus_calview) {
+		*query = NULL;
+		status = E_CALENDAR_STATUS_OTHER_ERROR;
+	} else {
+		*query = _e_cal_view_new (ecal, gdbus_calview);
+		g_object_unref (gdbus_calview);
 	}
-
-	CORBA_exception_free (&ev);
-
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-	*query = our_op->query;
-
-	bonobo_object_unref (BONOBO_OBJECT (our_op->listener));
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
 
 	E_CALENDAR_CHECK_STATUS (status, error);
 }
@@ -4991,44 +4058,27 @@ e_cal_get_query (ECal *ecal, const gchar *sexp, ECalView **query, GError **error
  * Sets the default timezone on the calendar. This should be called before opening
  * the calendar.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_set_default_timezone (ECal *ecal, icaltimezone *zone, GError **error)
 {
 	ECalPrivate *priv;
-	CORBA_Environment ev;
-	ECalendarStatus status;
-	ECalendarOp *our_op;
 	icalcomponent *icalcomp = NULL;
 	gchar *tzobj;
 
-	e_return_error_if_fail (ecal && E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
+	e_return_error_if_fail (E_IS_CAL (ecal), E_CALENDAR_STATUS_INVALID_ARG);
 	e_return_error_if_fail (zone, E_CALENDAR_STATUS_INVALID_ARG);
-
 	priv = ecal->priv;
+	e_return_error_if_fail (priv->gdbus_cal, E_CALENDAR_STATUS_REPOSITORY_OFFLINE);
 
-	/* Don't set the same timezone multiple times */
+	/* If the same timezone is already set, we don't have to do anything. */
 	if (priv->default_zone == zone)
-		return FALSE;
-
-	g_mutex_lock (priv->mutex);
-
-	if (ecal->priv->current_op != NULL) {
-		g_mutex_unlock (ecal->priv->mutex);
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_BUSY, error);
-	}
-
-	our_op = e_calendar_new_op (ecal, "set_default_timezone");
-
-	g_mutex_unlock (priv->mutex);
+		return TRUE;
 
 	/* FIXME Adding it to the server to change the tzid */
 	icalcomp = icaltimezone_get_component (zone);
 	if (!icalcomp) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
-
 		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_INVALID_ARG, error);
 	}
 
@@ -5036,39 +4086,15 @@ e_cal_set_default_timezone (ECal *ecal, icaltimezone *zone, GError **error)
 	tzobj = icalcomponent_as_ical_string_r (icalcomp);
 
 	/* call the backend */
-	CORBA_exception_init (&ev);
-
-	GNOME_Evolution_Calendar_Cal_setDefaultTimezone (priv->cal, tzobj, &ev);
-	if (BONOBO_EX (&ev)) {
-		e_calendar_remove_op (ecal, our_op);
-		e_calendar_free_op (our_op);
+	if (!e_gdbus_cal_call_set_default_timezone_sync (priv->gdbus_cal, tzobj, NULL, error)) {
 		g_free (tzobj);
-
-		CORBA_exception_free (&ev);
-
-		g_warning (G_STRLOC ": Unable to contact backend");
-
-		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_CORBA_EXCEPTION, error);
+		E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_DBUS_EXCEPTION, error);
 	}
 
 	g_free (tzobj);
-	CORBA_exception_free (&ev);
+	priv->default_zone = zone;
 
-	e_flag_wait (our_op->done);
-
-	status = our_op->status;
-
-	/* set the default timezone internally if successful */
-	if (our_op->status == E_CALENDAR_STATUS_OK) {
-		g_mutex_lock (priv->mutex);
-		priv->default_zone = zone;
-		g_mutex_unlock (priv->mutex);
-	}
-
-	e_calendar_remove_op (ecal, our_op);
-	e_calendar_free_op (our_op);
-
-	E_CALENDAR_CHECK_STATUS (status, error);
+	E_CALENDAR_CHECK_STATUS (E_CALENDAR_STATUS_OK, error);
 }
 
 /**
@@ -5115,95 +4141,20 @@ e_cal_get_error_message (ECalendarStatus status)
 		return _("Authentication failed");
 	case E_CALENDAR_STATUS_AUTHENTICATION_REQUIRED :
 		return _("Authentication required");
-	case E_CALENDAR_STATUS_CORBA_EXCEPTION :
-		return _("A CORBA exception has occurred");
+	case E_CALENDAR_STATUS_DBUS_EXCEPTION :
+		return _("A D-Bus exception has occurred");
 	case E_CALENDAR_STATUS_OTHER_ERROR :
 		return _("Unknown error");
 	case E_CALENDAR_STATUS_OK :
 		return _("No error");
+	case E_CALENDAR_STATUS_NOT_SUPPORTED :
+		return _("Not supported");
 	default:
 		/* ignore everything else */
 		break;
 	}
 
 	return NULL;
-}
-
-static gboolean
-get_default (ECal **ecal, ESourceList *sources, ECalSourceType type, ECalAuthFunc func, gpointer data, GError **error)
-{
-	GSList *g;
-	GError *err = NULL;
-	ESource *default_source = NULL;
-	gboolean rv = TRUE;
-
-	for (g = e_source_list_peek_groups (sources); g; g = g->next) {
-		ESourceGroup *group = E_SOURCE_GROUP (g->data);
-		GSList *s;
-		for (s = e_source_group_peek_sources (group); s; s = s->next) {
-			ESource *source = E_SOURCE (s->data);
-
-			if (e_source_get_property (source, "default")) {
-				default_source = source;
-				break;
-			}
-		}
-
-		if (default_source)
-			break;
-	}
-
-	if (default_source) {
-		*ecal = e_cal_new (default_source, type);
-		if (!*ecal) {
-			g_propagate_error (error, err);
-			rv = FALSE;
-			goto done;
-		}
-
-		e_cal_set_auth_func (*ecal, func, data);
-		if (!e_cal_open (*ecal, TRUE, &err)) {
-			g_propagate_error (error, err);
-			rv = FALSE;
-			goto done;
-		}
-	} else {
-		switch (type) {
-		case E_CAL_SOURCE_TYPE_EVENT:
-			*ecal = e_cal_new_system_calendar ();
-			break;
-		case E_CAL_SOURCE_TYPE_TODO:
-			*ecal = e_cal_new_system_tasks ();
-			break;
-		case E_CAL_SOURCE_TYPE_JOURNAL:
-			*ecal = e_cal_new_system_memos ();
-			break;
-		default:
-			break;
-		}
-
-		if (!*ecal) {
-			g_propagate_error (error, err);
-			rv = FALSE;
-			goto done;
-		}
-
-		e_cal_set_auth_func (*ecal, func, data);
-		if (!e_cal_open (*ecal, TRUE, &err)) {
-			g_propagate_error (error, err);
-			rv = FALSE;
-			goto done;
-		}
-	}
-
- done:
-	if (!rv && *ecal) {
-		g_object_unref (*ecal);
-		*ecal = NULL;
-	}
-	g_object_unref (sources);
-
-	return rv;
 }
 
 /**
@@ -5216,20 +4167,58 @@ get_default (ECal **ecal, ESourceList *sources, ECalSourceType type, ECalAuthFun
  *
  * Opens the default calendar.
  *
- * Return value: TRUE if it opened correctly, FALSE otherwise.
+ * Returns: TRUE if it opened correctly, FALSE otherwise.
  */
 gboolean
-e_cal_open_default (ECal **ecal, ECalSourceType type, ECalAuthFunc func, gpointer data, GError **error)
+e_cal_open_default (ECal **ecal,
+                    ECalSourceType type,
+                    ECalAuthFunc func,
+                    gpointer data,
+                    GError **error)
 {
-	ESourceList *sources;
-	GError *err = NULL;
+	ESourceList *source_list;
+	ESource *source;
+	ECal *client;
 
-	if (!e_cal_get_sources (&sources, type, &err)) {
-		g_propagate_error (error, err);
+	g_return_val_if_fail (ecal != NULL, FALSE);
+
+	/* In case something goes wrong... */
+	*ecal = NULL;
+
+	if (!e_cal_get_sources (&source_list, type, error))
+		return FALSE;
+
+	source = e_source_list_peek_default_source (source_list);
+	if (!source) {
+		g_set_error_literal (error, E_CALENDAR_ERROR,
+			     E_CALENDAR_STATUS_NO_SUCH_CALENDAR,
+			     e_cal_get_error_message (E_CALENDAR_STATUS_NO_SUCH_CALENDAR));
+		g_object_unref (source_list);
 		return FALSE;
 	}
 
-	return get_default (ecal, sources, type, func, data, error);
+	/* XXX This can fail but doesn't take a GError!? */
+	client = e_cal_new (source, type);
+	if (!client) {
+		g_set_error_literal (error, E_CALENDAR_ERROR,
+			     E_CALENDAR_STATUS_OTHER_ERROR,
+			     e_cal_get_error_message (E_CALENDAR_STATUS_OTHER_ERROR));
+		g_object_unref (source_list);
+		return FALSE;
+	}
+
+	e_cal_set_auth_func (client, func, data);
+	if (!e_cal_open (client, TRUE, error)) {
+		g_object_unref (client);
+		g_object_unref (source_list);
+		return FALSE;
+	}
+
+	*ecal = client;
+
+	g_object_unref (source_list);
+
+	return TRUE;
 }
 
 /**
@@ -5239,7 +4228,7 @@ e_cal_open_default (ECal **ecal, ECalSourceType type, ECalAuthFunc func, gpointe
  *
  * Sets a calendar as the default one.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_set_default (ECal *ecal, GError **error)
@@ -5250,7 +4239,9 @@ e_cal_set_default (ECal *ecal, GError **error)
 
 	source = e_cal_get_source (ecal);
 	if (!source) {
-		/* XXX gerror */
+		g_set_error_literal (error, E_CALENDAR_ERROR,
+			     E_CALENDAR_STATUS_NO_SUCH_CALENDAR,
+			     e_cal_get_error_message (E_CALENDAR_STATUS_NO_SUCH_CALENDAR));
 		return FALSE;
 	}
 
@@ -5270,7 +4261,9 @@ set_default_source (ESourceList *sources, ESource *source, GError **error)
 	   it's not we don't bother adding it, just return an error */
 	source = e_source_list_peek_source_by_uid (sources, uid);
 	if (!source) {
-		/* XXX gerror */
+		g_set_error_literal (error, E_CALENDAR_ERROR,
+			     E_CALENDAR_STATUS_NO_SUCH_CALENDAR,
+			     e_cal_get_error_message (E_CALENDAR_STATUS_NO_SUCH_CALENDAR));
 		g_object_unref (sources);
 		return FALSE;
 	}
@@ -5304,7 +4297,7 @@ set_default_source (ESourceList *sources, ESource *source, GError **error)
  *
  * Sets the default source for the specified @type.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_set_default_source (ESource *source, ECalSourceType type, GError **error)
@@ -5339,11 +4332,14 @@ get_sources (ESourceList **sources, const gchar *key, GError **error)
  *
  * Gets the list of sources defined in the configuration for the given @type.
  *
- * Return value: TRUE if the operation was successful, FALSE otherwise.
+ * Returns: TRUE if the operation was successful, FALSE otherwise.
  */
 gboolean
 e_cal_get_sources (ESourceList **sources, ECalSourceType type, GError **error)
 {
+	e_return_error_if_fail (sources != NULL, E_CALENDAR_STATUS_INVALID_ARG);
+	*sources = NULL;
+
 	switch (type) {
 	case E_CAL_SOURCE_TYPE_EVENT:
 		return get_sources (sources, "/apps/evolution/calendar/sources", error);
@@ -5355,10 +4351,14 @@ e_cal_get_sources (ESourceList **sources, ECalSourceType type, GError **error)
 		return get_sources (sources, "/apps/evolution/memos/sources", error);
 		break;
 	default:
-		/* FIXME Fill in error */
+		g_set_error_literal (error, E_CALENDAR_ERROR,
+			     E_CALENDAR_STATUS_NO_SUCH_CALENDAR,
+			     e_cal_get_error_message (E_CALENDAR_STATUS_NO_SUCH_CALENDAR));
 		return FALSE;
 	}
 
-	/* FIXME Fill in error */
+	g_set_error_literal (error, E_CALENDAR_ERROR,
+		     E_CALENDAR_STATUS_NO_SUCH_CALENDAR,
+		     e_cal_get_error_message (E_CALENDAR_STATUS_NO_SUCH_CALENDAR));
 	return FALSE;
 }

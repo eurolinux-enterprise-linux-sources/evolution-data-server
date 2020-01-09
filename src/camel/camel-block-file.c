@@ -25,20 +25,17 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <pthread.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <glib.h>
 #include <glib/gstdio.h>
 
 #include "camel-block-file.h"
 #include "camel-file-utils.h"
 #include "camel-list-utils.h"
-#include "camel-private.h"
 
 #define d(x) /*(printf("%s(%d):%s: ",  __FILE__, __LINE__, __PRETTY_FUNCTION__),(x))*/
 
@@ -51,21 +48,21 @@ struct _CamelBlockFilePrivate {
 
 	struct _CamelBlockFile *base;
 
-	pthread_mutex_t root_lock; /* for modifying the root block */
-	pthread_mutex_t cache_lock; /* for refcounting, flag manip, cache manip */
-	pthread_mutex_t io_lock; /* for all io ops */
+	GStaticMutex root_lock; /* for modifying the root block */
+	GStaticMutex cache_lock; /* for refcounting, flag manip, cache manip */
+	GStaticMutex io_lock; /* for all io ops */
 
 	guint deleted:1;
 };
 
-#define CAMEL_BLOCK_FILE_LOCK(kf, lock) (pthread_mutex_lock(&(kf)->priv->lock))
-#define CAMEL_BLOCK_FILE_TRYLOCK(kf, lock) (pthread_mutex_trylock(&(kf)->priv->lock))
-#define CAMEL_BLOCK_FILE_UNLOCK(kf, lock) (pthread_mutex_unlock(&(kf)->priv->lock))
+#define CAMEL_BLOCK_FILE_LOCK(kf, lock) (g_static_mutex_lock(&(kf)->priv->lock))
+#define CAMEL_BLOCK_FILE_TRYLOCK(kf, lock) (g_static_mutex_trylock(&(kf)->priv->lock))
+#define CAMEL_BLOCK_FILE_UNLOCK(kf, lock) (g_static_mutex_unlock(&(kf)->priv->lock))
 
-#define LOCK(x) pthread_mutex_lock(&x)
-#define UNLOCK(x) pthread_mutex_unlock(&x)
+#define LOCK(x) g_static_mutex_lock(&x)
+#define UNLOCK(x) g_static_mutex_unlock(&x)
 
-static pthread_mutex_t block_file_lock = PTHREAD_MUTEX_INITIALIZER;
+static GStaticMutex block_file_lock = G_STATIC_MUTEX_INIT;
 
 /* lru cache of block files */
 static CamelDList block_file_list = CAMEL_DLIST_INITIALISER(block_file_list);
@@ -74,10 +71,10 @@ static CamelDList block_file_active_list = CAMEL_DLIST_INITIALISER(block_file_ac
 static gint block_file_count = 0;
 static gint block_file_threshhold = 10;
 
-#define CBF_CLASS(o) ((CamelBlockFileClass *)(((CamelObject *)o)->klass))
-
 static gint sync_nolock(CamelBlockFile *bs);
 static gint sync_block_nolock(CamelBlockFile *bs, CamelBlock *bl);
+
+G_DEFINE_TYPE (CamelBlockFile, camel_block_file, CAMEL_TYPE_OBJECT)
 
 static gint
 block_file_validate_root(CamelBlockFile *bs)
@@ -144,60 +141,9 @@ block_file_init_root(CamelBlockFile *bs)
 }
 
 static void
-camel_block_file_class_init(CamelBlockFileClass *klass)
+block_file_finalize(GObject *object)
 {
-	klass->validate_root = block_file_validate_root;
-	klass->init_root = block_file_init_root;
-}
-
-static guint
-block_hash_func(gconstpointer v)
-{
-	return ((camel_block_t) GPOINTER_TO_UINT(v)) >> CAMEL_BLOCK_SIZE_BITS;
-}
-
-static void
-camel_block_file_init(CamelBlockFile *bs)
-{
-	struct _CamelBlockFilePrivate *p;
-
-	bs->fd = -1;
-	bs->block_size = CAMEL_BLOCK_SIZE;
-	camel_dlist_init(&bs->block_cache);
-	bs->blocks = g_hash_table_new((GHashFunc)block_hash_func, NULL);
-	/* this cache size and the text index size have been tuned for about the best
-	   with moderate memory usage.  Doubling the memory usage barely affects performance. */
-	bs->block_cache_limit = 256;
-
-	p = bs->priv = g_malloc0(sizeof(*bs->priv));
-	p->base = bs;
-
-	pthread_mutex_init(&p->root_lock, NULL);
-	pthread_mutex_init(&p->cache_lock, NULL);
-	pthread_mutex_init(&p->io_lock, NULL);
-
-	/* link into lru list */
-	LOCK(block_file_lock);
-	camel_dlist_addhead(&block_file_list, (CamelDListNode *)p);
-
-#if 0
-	{
-		printf("dumping block list\n");
-		printf(" head = %p p = %p\n", block_file_list.head, p);
-		p = block_file_list.head;
-		while (p->next) {
-			printf(" '%s'\n", p->base->path);
-			p = p->next;
-		}
-	}
-#endif
-
-	UNLOCK(block_file_lock);
-}
-
-static void
-camel_block_file_finalise(CamelBlockFile *bs)
-{
+	CamelBlockFile *bs = CAMEL_BLOCK_FILE (object);
 	CamelBlock *bl, *bn;
 	struct _CamelBlockFilePrivate *p;
 
@@ -231,29 +177,71 @@ camel_block_file_finalise(CamelBlockFile *bs)
 	if (bs->fd != -1)
 		close(bs->fd);
 
-	pthread_mutex_destroy(&p->io_lock);
-	pthread_mutex_destroy(&p->cache_lock);
-	pthread_mutex_destroy(&p->root_lock);
+	g_static_mutex_free (&p->io_lock);
+	g_static_mutex_free (&p->cache_lock);
+	g_static_mutex_free (&p->root_lock);
 
 	g_free(p);
+
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (camel_block_file_parent_class)->finalize (object);
 }
 
-CamelType
-camel_block_file_get_type(void)
+static void
+camel_block_file_class_init(CamelBlockFileClass *class)
 {
-	static CamelType type = CAMEL_INVALID_TYPE;
+	GObjectClass *object_class;
 
-	if (type == CAMEL_INVALID_TYPE) {
-		type = camel_type_register(camel_object_get_type(), "CamelBlockFile",
-					   sizeof (CamelBlockFile),
-					   sizeof (CamelBlockFileClass),
-					   (CamelObjectClassInitFunc) camel_block_file_class_init,
-					   NULL,
-					   (CamelObjectInitFunc) camel_block_file_init,
-					   (CamelObjectFinalizeFunc) camel_block_file_finalise);
+	object_class = G_OBJECT_CLASS (class);
+	object_class->finalize = block_file_finalize;
+
+	class->validate_root = block_file_validate_root;
+	class->init_root = block_file_init_root;
+}
+
+static guint
+block_hash_func(gconstpointer v)
+{
+	return ((camel_block_t) GPOINTER_TO_UINT(v)) >> CAMEL_BLOCK_SIZE_BITS;
+}
+
+static void
+camel_block_file_init(CamelBlockFile *bs)
+{
+	struct _CamelBlockFilePrivate *p;
+
+	bs->fd = -1;
+	bs->block_size = CAMEL_BLOCK_SIZE;
+	camel_dlist_init(&bs->block_cache);
+	bs->blocks = g_hash_table_new((GHashFunc)block_hash_func, NULL);
+	/* this cache size and the text index size have been tuned for about the best
+	   with moderate memory usage.  Doubling the memory usage barely affects performance. */
+	bs->block_cache_limit = 256;
+
+	p = bs->priv = g_malloc0(sizeof(*bs->priv));
+	p->base = bs;
+
+	g_static_mutex_init (&p->root_lock);
+	g_static_mutex_init (&p->cache_lock);
+	g_static_mutex_init (&p->io_lock);
+
+	/* link into lru list */
+	LOCK(block_file_lock);
+	camel_dlist_addhead(&block_file_list, (CamelDListNode *)p);
+
+#if 0
+	{
+		printf("dumping block list\n");
+		printf(" head = %p p = %p\n", block_file_list.head, p);
+		p = block_file_list.head;
+		while (p->next) {
+			printf(" '%s'\n", p->base->path);
+			p = p->next;
+		}
 	}
+#endif
 
-	return type;
+	UNLOCK(block_file_lock);
 }
 
 /* 'use' a block file for io */
@@ -306,9 +294,9 @@ block_file_use(CamelBlockFile *bs)
 		if (bf->fd != -1) {
 			/* Need to trylock, as any of these lock levels might be trying
 			   to lock the block_file_lock, so we need to check and abort if so */
-			if (CAMEL_BLOCK_FILE_TRYLOCK(bf, root_lock) == 0) {
-				if (CAMEL_BLOCK_FILE_TRYLOCK(bf, cache_lock) == 0) {
-					if (CAMEL_BLOCK_FILE_TRYLOCK(bf, io_lock) == 0) {
+			if (CAMEL_BLOCK_FILE_TRYLOCK (bf, root_lock)) {
+				if (CAMEL_BLOCK_FILE_TRYLOCK (bf, cache_lock)) {
+					if (CAMEL_BLOCK_FILE_TRYLOCK (bf, io_lock)) {
 						d(printf("[%d] Turning block file offline: %s\n", block_file_count-1, bf->path));
 						sync_nolock(bf);
 						close(bf->fd);
@@ -360,20 +348,25 @@ camel_cache_remove(c, key);
  *
  * @block_size is currently ignored and is set to CAMEL_BLOCK_SIZE.
  *
- * Return value: The new block file, or NULL if it could not be created.
+ * Returns: The new block file, or NULL if it could not be created.
  **/
-CamelBlockFile *camel_block_file_new(const gchar *path, gint flags, const gchar version[8], gsize block_size)
+CamelBlockFile *
+camel_block_file_new (const gchar *path,
+                      gint flags,
+                      const gchar version[8],
+                      gsize block_size)
 {
+	CamelBlockFileClass *class;
 	CamelBlockFile *bs;
 
-	bs = (CamelBlockFile *)camel_object_new(camel_block_file_get_type());
+	bs = g_object_new (CAMEL_TYPE_BLOCK_FILE, NULL);
 	memcpy(bs->version, version, 8);
 	bs->path = g_strdup(path);
 	bs->flags = flags;
 
-	bs->root_block = camel_block_file_get_block(bs, 0);
+	bs->root_block = camel_block_file_get_block (bs, 0);
 	if (bs->root_block == NULL) {
-		camel_object_unref((CamelObject *)bs);
+		g_object_unref (bs);
 		return NULL;
 	}
 	camel_block_file_detach_block(bs, bs->root_block);
@@ -382,20 +375,22 @@ CamelBlockFile *camel_block_file_new(const gchar *path, gint flags, const gchar 
 	/* we only need these flags on first open */
 	bs->flags &= ~(O_CREAT|O_EXCL|O_TRUNC);
 
+	class = CAMEL_BLOCK_FILE_GET_CLASS (bs);
+
 	/* Do we need to init the root block? */
-	if (CBF_CLASS(bs)->validate_root(bs) == -1) {
+	if (class->validate_root(bs) == -1) {
 		d(printf("Initialise root block: %.8s\n", version));
 
-		CBF_CLASS(bs)->init_root(bs);
+		class->init_root(bs);
 		camel_block_file_touch_block(bs, bs->root_block);
 		if (block_file_use(bs) == -1) {
-			camel_object_unref((CamelObject *)bs);
+			g_object_unref (bs);
 			return NULL;
 		}
 		if (sync_block_nolock(bs, bs->root_block) == -1
 		    || ftruncate(bs->fd, bs->root->last) == -1) {
 			block_file_unuse(bs);
-			camel_object_unref((CamelObject *)bs);
+			g_object_unref (bs);
 			return NULL;
 		}
 		block_file_unuse(bs);
@@ -410,6 +405,9 @@ camel_block_file_rename(CamelBlockFile *bs, const gchar *path)
 	gint ret;
 	struct stat st;
 	gint err;
+
+	g_return_val_if_fail (CAMEL_IS_BLOCK_FILE (bs), -1);
+	g_return_val_if_fail (path != NULL, -1);
 
 	CAMEL_BLOCK_FILE_LOCK(bs, io_lock);
 
@@ -438,7 +436,8 @@ gint
 camel_block_file_delete(CamelBlockFile *bs)
 {
 	gint ret;
-	struct _CamelBlockFilePrivate *p = bs->priv;
+
+	g_return_val_if_fail (CAMEL_IS_BLOCK_FILE (bs), -1);
 
 	CAMEL_BLOCK_FILE_LOCK(bs, io_lock);
 
@@ -450,7 +449,7 @@ camel_block_file_delete(CamelBlockFile *bs)
 		bs->fd = -1;
 	}
 
-	p->deleted = TRUE;
+	bs->priv->deleted = TRUE;
 	ret = g_unlink(bs->path);
 
 	CAMEL_BLOCK_FILE_UNLOCK(bs, io_lock);
@@ -466,21 +465,24 @@ camel_block_file_delete(CamelBlockFile *bs)
  * Allocate a new block, return a pointer to it.  Old blocks
  * may be flushed to disk during this call.
  *
- * Return value: The block, or NULL if an error occured.
+ * Returns: The block, or NULL if an error occured.
  **/
-CamelBlock *camel_block_file_new_block(CamelBlockFile *bs)
+CamelBlock *
+camel_block_file_new_block (CamelBlockFile *bs)
 {
 	CamelBlock *bl;
+
+	g_return_val_if_fail (CAMEL_IS_BLOCK_FILE (bs), NULL);
 
 	CAMEL_BLOCK_FILE_LOCK(bs, root_lock);
 
 	if (bs->root->free) {
-		bl = camel_block_file_get_block(bs, bs->root->free);
+		bl = camel_block_file_get_block (bs, bs->root->free);
 		if (bl == NULL)
 			goto fail;
 		bs->root->free = ((camel_block_t *)bl->data)[0];
 	} else {
-		bl = camel_block_file_get_block(bs, bs->root->last);
+		bl = camel_block_file_get_block (bs, bs->root->last);
 		if (bl == NULL)
 			goto fail;
 		bs->root->last += CAMEL_BLOCK_SIZE;
@@ -503,11 +505,15 @@ fail:
  *
  *
  **/
-gint camel_block_file_free_block(CamelBlockFile *bs, camel_block_t id)
+gint
+camel_block_file_free_block (CamelBlockFile *bs,
+                             camel_block_t id)
 {
 	CamelBlock *bl;
 
-	bl = camel_block_file_get_block(bs, id);
+	g_return_val_if_fail (CAMEL_IS_BLOCK_FILE (bs), -1);
+
+	bl = camel_block_file_get_block (bs, id);
 	if (bl == NULL)
 		return -1;
 
@@ -531,12 +537,16 @@ gint camel_block_file_free_block(CamelBlockFile *bs, camel_block_t id)
  *
  * Retreive a block @id.
  *
- * Return value: The block, or NULL if blockid is invalid or a file error
+ * Returns: The block, or NULL if blockid is invalid or a file error
  * occured.
  **/
-CamelBlock *camel_block_file_get_block(CamelBlockFile *bs, camel_block_t id)
+CamelBlock *
+camel_block_file_get_block (CamelBlockFile *bs,
+                            camel_block_t id)
 {
 	CamelBlock *bl, *flush, *prev;
+
+	g_return_val_if_fail (CAMEL_IS_BLOCK_FILE (bs), NULL);
 
 	/* Sanity check: Dont allow reading of root block (except before its been read)
 	   or blocks with invalid block id's */
@@ -563,7 +573,7 @@ CamelBlock *camel_block_file_get_block(CamelBlockFile *bs, camel_block_t id)
 		bl = g_malloc0(sizeof(*bl));
 		bl->id = id;
 		if (lseek(bs->fd, id, SEEK_SET) == -1 ||
-		    camel_read (bs->fd, (gchar *) bl->data, CAMEL_BLOCK_SIZE) == -1) {
+		    camel_read (bs->fd, (gchar *) bl->data, CAMEL_BLOCK_SIZE, NULL) == -1) {
 			block_file_unuse(bs);
 			CAMEL_BLOCK_FILE_UNLOCK(bs, cache_lock);
 			g_free(bl);
@@ -614,8 +624,12 @@ CamelBlock *camel_block_file_get_block(CamelBlockFile *bs, camel_block_t id)
  * perform no writes of this block or flushing of it if the cache
  * fills.
  **/
-void camel_block_file_detach_block(CamelBlockFile *bs, CamelBlock *bl)
+void
+camel_block_file_detach_block(CamelBlockFile *bs, CamelBlock *bl)
 {
+	g_return_if_fail (CAMEL_IS_BLOCK_FILE (bs));
+	g_return_if_fail (bl != NULL);
+
 	CAMEL_BLOCK_FILE_LOCK(bs, cache_lock);
 
 	g_hash_table_remove(bs->blocks, GUINT_TO_POINTER(bl->id));
@@ -632,8 +646,12 @@ void camel_block_file_detach_block(CamelBlockFile *bs, CamelBlock *bl)
  *
  * Reattach a block that has been detached.
  **/
-void camel_block_file_attach_block(CamelBlockFile *bs, CamelBlock *bl)
+void
+camel_block_file_attach_block(CamelBlockFile *bs, CamelBlock *bl)
 {
+	g_return_if_fail (CAMEL_IS_BLOCK_FILE (bs));
+	g_return_if_fail (bl != NULL);
+
 	CAMEL_BLOCK_FILE_LOCK(bs, cache_lock);
 
 	g_hash_table_insert(bs->blocks, GUINT_TO_POINTER(bl->id), bl);
@@ -651,8 +669,12 @@ void camel_block_file_attach_block(CamelBlockFile *bs, CamelBlock *bl)
  * Mark a block as dirty.  The block will be written to disk if
  * it ever expires from the cache.
  **/
-void camel_block_file_touch_block(CamelBlockFile *bs, CamelBlock *bl)
+void
+camel_block_file_touch_block(CamelBlockFile *bs, CamelBlock *bl)
 {
+	g_return_if_fail (CAMEL_IS_BLOCK_FILE (bs));
+	g_return_if_fail (bl != NULL);
+
 	CAMEL_BLOCK_FILE_LOCK(bs, root_lock);
 	CAMEL_BLOCK_FILE_LOCK(bs, cache_lock);
 
@@ -680,8 +702,12 @@ void camel_block_file_touch_block(CamelBlockFile *bs, CamelBlock *bl)
  * If a block is detatched and this is the last reference, the
  * block will be freed.
  **/
-void camel_block_file_unref_block(CamelBlockFile *bs, CamelBlock *bl)
+void
+camel_block_file_unref_block(CamelBlockFile *bs, CamelBlock *bl)
 {
+	g_return_if_fail (CAMEL_IS_BLOCK_FILE (bs));
+	g_return_if_fail (bl != NULL);
+
 	CAMEL_BLOCK_FILE_LOCK(bs, cache_lock);
 
 	if (bl->refcount == 1 && (bl->flags & CAMEL_BLOCK_DETACHED))
@@ -747,11 +773,15 @@ sync_nolock(CamelBlockFile *bs)
  * Flush a block to disk immediately.  The block will only
  * be flushed to disk if it is marked as dirty (touched).
  *
- * Return value: -1 on io error.
+ * Returns: -1 on io error.
  **/
-gint camel_block_file_sync_block(CamelBlockFile *bs, CamelBlock *bl)
+gint
+camel_block_file_sync_block(CamelBlockFile *bs, CamelBlock *bl)
 {
 	gint ret;
+
+	g_return_val_if_fail (CAMEL_IS_BLOCK_FILE (bs), -1);
+	g_return_val_if_fail (bl != NULL, -1);
 
 	/* LOCK io_lock */
 	if (block_file_use(bs) == -1)
@@ -770,11 +800,14 @@ gint camel_block_file_sync_block(CamelBlockFile *bs, CamelBlock *bl)
  *
  * Sync all dirty blocks to disk, including the root block.
  *
- * Return value: -1 on io error.
+ * Returns: -1 on io error.
  **/
-gint camel_block_file_sync(CamelBlockFile *bs)
+gint
+camel_block_file_sync(CamelBlockFile *bs)
 {
 	gint ret;
+
+	g_return_val_if_fail (CAMEL_IS_BLOCK_FILE (bs), -1);
 
 	CAMEL_BLOCK_FILE_LOCK(bs, root_lock);
 	CAMEL_BLOCK_FILE_LOCK(bs, cache_lock);
@@ -800,15 +833,15 @@ struct _CamelKeyFilePrivate {
 	struct _CamelKeyFilePrivate *prev;
 
 	struct _CamelKeyFile *base;
-	pthread_mutex_t lock;
+	GStaticMutex lock;
 	guint deleted:1;
 };
 
-#define CAMEL_KEY_FILE_LOCK(kf, lock) (pthread_mutex_lock(&(kf)->priv->lock))
-#define CAMEL_KEY_FILE_TRYLOCK(kf, lock) (pthread_mutex_trylock(&(kf)->priv->lock))
-#define CAMEL_KEY_FILE_UNLOCK(kf, lock) (pthread_mutex_unlock(&(kf)->priv->lock))
+#define CAMEL_KEY_FILE_LOCK(kf, lock) (g_static_mutex_lock(&(kf)->priv->lock))
+#define CAMEL_KEY_FILE_TRYLOCK(kf, lock) (g_static_mutex_trylock(&(kf)->priv->lock))
+#define CAMEL_KEY_FILE_UNLOCK(kf, lock) (g_static_mutex_unlock(&(kf)->priv->lock))
 
-static pthread_mutex_t key_file_lock = PTHREAD_MUTEX_INITIALIZER;
+static GStaticMutex key_file_lock = G_STATIC_MUTEX_INIT;
 
 /* lru cache of block files */
 static CamelDList key_file_list = CAMEL_DLIST_INITIALISER(key_file_list);
@@ -816,29 +849,12 @@ static CamelDList key_file_active_list = CAMEL_DLIST_INITIALISER(key_file_active
 static gint key_file_count = 0;
 static const gint key_file_threshhold = 10;
 
-static void
-camel_key_file_class_init(CamelKeyFileClass *klass)
-{
-}
+G_DEFINE_TYPE (CamelKeyFile, camel_key_file, CAMEL_TYPE_OBJECT)
 
 static void
-camel_key_file_init(CamelKeyFile *bs)
+key_file_finalize(GObject *object)
 {
-	struct _CamelKeyFilePrivate *p;
-
-	p = bs->priv = g_malloc0(sizeof(*bs->priv));
-	p->base = bs;
-
-	pthread_mutex_init(&p->lock, NULL);
-
-	LOCK(key_file_lock);
-	camel_dlist_addhead(&key_file_list, (CamelDListNode *)p);
-	UNLOCK(key_file_lock);
-}
-
-static void
-camel_key_file_finalise(CamelKeyFile *bs)
-{
+	CamelKeyFile *bs = CAMEL_KEY_FILE (object);
 	struct _CamelKeyFilePrivate *p = bs->priv;
 
 	LOCK(key_file_lock);
@@ -853,27 +869,36 @@ camel_key_file_finalise(CamelKeyFile *bs)
 
 	g_free(bs->path);
 
-	pthread_mutex_destroy(&p->lock);
+	g_static_mutex_free (&p->lock);
 
 	g_free(p);
+
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (camel_key_file_parent_class)->finalize (object);
 }
 
-CamelType
-camel_key_file_get_type(void)
+static void
+camel_key_file_class_init(CamelKeyFileClass *class)
 {
-	static CamelType type = CAMEL_INVALID_TYPE;
+	GObjectClass *object_class;
 
-	if (type == CAMEL_INVALID_TYPE) {
-		type = camel_type_register(camel_object_get_type(), "CamelKeyFile",
-					   sizeof (CamelKeyFile),
-					   sizeof (CamelKeyFileClass),
-					   (CamelObjectClassInitFunc) camel_key_file_class_init,
-					   NULL,
-					   (CamelObjectInitFunc) camel_key_file_init,
-					   (CamelObjectFinalizeFunc) camel_key_file_finalise);
-	}
+	object_class = G_OBJECT_CLASS (class);
+	object_class->finalize = key_file_finalize;
+}
 
-	return type;
+static void
+camel_key_file_init(CamelKeyFile *bs)
+{
+	struct _CamelKeyFilePrivate *p;
+
+	p = bs->priv = g_malloc0(sizeof(*bs->priv));
+	p->base = bs;
+
+	g_static_mutex_init (&p->lock);
+
+	LOCK(key_file_lock);
+	camel_dlist_addhead(&key_file_list, (CamelDListNode *)p);
+	UNLOCK(key_file_lock);
 }
 
 /* 'use' a key file for io */
@@ -937,7 +962,7 @@ key_file_use(CamelKeyFile *bs)
 		if (bf->fp != NULL) {
 			/* Need to trylock, as any of these lock levels might be trying
 			   to lock the key_file_lock, so we need to check and abort if so */
-			if (CAMEL_BLOCK_FILE_TRYLOCK(bf, lock) == 0) {
+			if (CAMEL_BLOCK_FILE_TRYLOCK (bf, lock)) {
 				d(printf("Turning key file offline: %s\n", bf->path));
 				fclose(bf->fp);
 				bf->fp = NULL;
@@ -974,26 +999,26 @@ key_file_unuse(CamelKeyFile *bs)
  *
  * Create a new key file.  A linked list of record blocks.
  *
- * Return value: A new key file, or NULL if the file could not
+ * Returns: A new key file, or NULL if the file could not
  * be opened/created/initialised.
  **/
 CamelKeyFile *
 camel_key_file_new(const gchar *path, gint flags, const gchar version[8])
 {
 	CamelKeyFile *kf;
-	off_t last;
+	goffset last;
 	gint err;
 
 	d(printf("New key file '%s'\n", path));
 
-	kf = (CamelKeyFile *)camel_object_new(camel_key_file_get_type());
+	kf = g_object_new (CAMEL_TYPE_KEY_FILE, NULL);
 	kf->path = g_strdup(path);
 	kf->fp = NULL;
 	kf->flags = flags;
 	kf->last = 8;
 
 	if (key_file_use(kf) == -1) {
-		camel_object_unref((CamelObject *)kf);
+		g_object_unref (kf);
 		kf = NULL;
 	} else {
 		fseek(kf->fp, 0, SEEK_END);
@@ -1011,7 +1036,7 @@ camel_key_file_new(const gchar *path, gint flags, const gchar version[8])
 		kf->flags &= ~(O_CREAT|O_EXCL|O_TRUNC);
 
 		if (err) {
-			camel_object_unref((CamelObject *)kf);
+			g_object_unref (kf);
 			kf = NULL;
 		}
 	}
@@ -1025,6 +1050,9 @@ camel_key_file_rename(CamelKeyFile *kf, const gchar *path)
 	gint ret;
 	struct stat st;
 	gint err;
+
+	g_return_val_if_fail (CAMEL_IS_KEY_FILE (kf), -1);
+	g_return_val_if_fail (path != NULL, -1);
 
 	CAMEL_KEY_FILE_LOCK(kf, lock);
 
@@ -1053,7 +1081,8 @@ gint
 camel_key_file_delete(CamelKeyFile *kf)
 {
 	gint ret;
-	struct _CamelKeyFilePrivate *p = kf->priv;
+
+	g_return_val_if_fail (CAMEL_IS_KEY_FILE (kf), -1);
 
 	CAMEL_KEY_FILE_LOCK(kf, lock);
 
@@ -1065,7 +1094,7 @@ camel_key_file_delete(CamelKeyFile *kf)
 		kf->fp = NULL;
 	}
 
-	p->deleted = TRUE;
+	kf->priv->deleted = TRUE;
 	ret = g_unlink(kf->path);
 
 	CAMEL_KEY_FILE_UNLOCK(kf, lock);
@@ -1083,7 +1112,7 @@ camel_key_file_delete(CamelKeyFile *kf)
  *
  * Write a new list of records to the key file.
  *
- * Return value: -1 on io error.  The key file will remain unchanged.
+ * Returns: -1 on io error.  The key file will remain unchanged.
  **/
 gint
 camel_key_file_write(CamelKeyFile *kf, camel_block_t *parent, gsize len, camel_key_t *records)
@@ -1091,6 +1120,10 @@ camel_key_file_write(CamelKeyFile *kf, camel_block_t *parent, gsize len, camel_k
 	camel_block_t next;
 	guint32 size;
 	gint ret = -1;
+
+	g_return_val_if_fail (CAMEL_IS_KEY_FILE (kf), -1);
+	g_return_val_if_fail (parent != NULL, -1);
+	g_return_val_if_fail (records != NULL, -1);
 
 	d(printf("write key %08x len = %d\n", *parent, len));
 
@@ -1138,16 +1171,20 @@ camel_key_file_write(CamelKeyFile *kf, camel_block_t *parent, gsize len, camel_k
  * Read the next block of data from the key file.  Returns the number of
  * records.
  *
- * Return value: -1 on io error.
+ * Returns: -1 on io error.
  **/
 gint
 camel_key_file_read(CamelKeyFile *kf, camel_block_t *start, gsize *len, camel_key_t **records)
 {
 	guint32 size;
-	glong pos = *start;
+	glong pos;
 	camel_block_t next;
 	gint ret = -1;
 
+	g_return_val_if_fail (CAMEL_IS_KEY_FILE (kf), -1);
+	g_return_val_if_fail (start != NULL, -1);
+
+	pos = *start;
 	if (pos == 0)
 		return 0;
 

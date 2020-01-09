@@ -40,7 +40,7 @@
  * time, rather than from the library linked against at application run
  * time.
  **/
-#define EDS_MINOR_VERSION 28
+#define EDS_MINOR_VERSION 32
 
 /**
  * EDS_MICRO_VERSION:

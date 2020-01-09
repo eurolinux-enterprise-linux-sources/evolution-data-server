@@ -33,18 +33,17 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <glib.h>
+#include <glib/gi18n-lib.h>
+
+#include "camel-file-utils.h"
+#include "camel-object.h"
+#include "camel-operation.h"
+#include "camel-url.h"
 
 #ifdef G_OS_WIN32
 #include <winsock2.h>
 #define EWOULDBLOCK EAGAIN
 #endif
-
-#include <libedataserver/e-data-server-util.h>
-
-#include "camel-file-utils.h"
-#include "camel-operation.h"
-#include "camel-url.h"
 
 #define IO_TIMEOUT (60*4)
 
@@ -55,7 +54,7 @@
  *
  * Utility function to save an uint32 to a file.
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 gint
 camel_file_util_encode_uint32 (FILE *out, guint32 value)
@@ -79,7 +78,7 @@ camel_file_util_encode_uint32 (FILE *out, guint32 value)
  *
  * Retrieve an encoded uint32 from a file.
  *
- * Return value: %0 on success, %-1 on error.  @*dest will contain the
+ * Returns: %0 on success, %-1 on error.  @*dest will contain the
  * decoded value.
  **/
 gint
@@ -110,7 +109,7 @@ camel_file_util_decode_uint32 (FILE *in, guint32 *dest)
  * Encode a gint32, performing no compression, but converting
  * to network order.
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 gint
 camel_file_util_encode_fixed_int32 (FILE *out, gint32 value)
@@ -130,7 +129,7 @@ camel_file_util_encode_fixed_int32 (FILE *out, gint32 value)
  *
  * Retrieve a gint32.
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 gint
 camel_file_util_decode_fixed_int32 (FILE *in, gint32 *dest)
@@ -183,7 +182,7 @@ camel_file_util_decode_##type(FILE *in, type *dest)	\
  *
  * Encode a time_t value to the file.
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 CFU_ENCODE_T(time_t)
 
@@ -194,7 +193,7 @@ CFU_ENCODE_T(time_t)
  *
  * Decode a time_t value.
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 CFU_DECODE_T(time_t)
 
@@ -205,7 +204,7 @@ CFU_DECODE_T(time_t)
  *
  * Encode an off_t type.
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 CFU_ENCODE_T(off_t)
 
@@ -216,7 +215,7 @@ CFU_ENCODE_T(off_t)
  *
  * Decode an off_t type.
  *
- * Return value: %0 on success, %-1 on failure.
+ * Returns: %0 on success, %-1 on failure.
  **/
 CFU_DECODE_T(off_t)
 
@@ -227,7 +226,7 @@ CFU_DECODE_T(off_t)
  *
  * Encode an gsize type.
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 CFU_ENCODE_T(gsize)
 
@@ -238,7 +237,7 @@ CFU_ENCODE_T(gsize)
  *
  * Decode an gsize type.
  *
- * Return value: %0 on success, %-1 on failure.
+ * Returns: %0 on success, %-1 on failure.
  **/
 CFU_DECODE_T(gsize)
 
@@ -249,7 +248,7 @@ CFU_DECODE_T(gsize)
  *
  * Encode a normal string and save it in the output file.
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 gint
 camel_file_util_encode_string (FILE *out, const gchar *str)
@@ -276,7 +275,7 @@ camel_file_util_encode_string (FILE *out, const gchar *str)
  *
  * Decode a normal string from the input file.
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 gint
 camel_file_util_decode_string (FILE *in, gchar **str)
@@ -317,7 +316,7 @@ camel_file_util_decode_string (FILE *in, gchar **str)
  * Unlike @camel_file_util_encode_string, it pads the
  * @str with "NULL" bytes, if @len is > strlen(str)
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 gint
 camel_file_util_encode_fixed_string (FILE *out, const gchar *str, gsize len)
@@ -349,7 +348,7 @@ camel_file_util_encode_fixed_string (FILE *out, const gchar *str, gsize len)
  *
  * Decode a normal string from the input file.
  *
- * Return value: %0 on success, %-1 on error.
+ * Returns: %0 on success, %-1 on error.
  **/
 gint
 camel_file_util_decode_fixed_string (FILE *in, gchar **str, gsize len)
@@ -404,6 +403,7 @@ camel_file_util_safe_filename (const gchar *name)
  * @fd: file descriptor
  * @buf: buffer to fill
  * @n: number of bytes to read into @buf
+ * @error: return location for a #GError, or %NULL
  *
  * Cancellable libc read() replacement.
  *
@@ -414,15 +414,23 @@ camel_file_util_safe_filename (const gchar *name)
  * be set appropriately.
  **/
 gssize
-camel_read (gint fd, gchar *buf, gsize n)
+camel_read (gint fd,
+            gchar *buf,
+            gsize n,
+            GError **error)
 {
 	gssize nread;
 	gint cancel_fd;
 
 	if (camel_operation_cancel_check (NULL)) {
 		errno = EINTR;
+		g_set_error (
+			error, G_IO_ERROR,
+			G_IO_ERROR_CANCELLED,
+			_("Cancelled"));
 		return -1;
 	}
+
 #ifndef G_OS_WIN32
 	cancel_fd = camel_operation_cancel_fd (NULL);
 #else
@@ -473,6 +481,19 @@ camel_read (gint fd, gchar *buf, gsize n)
 #endif
 	}
 
+	if (nread == -1) {
+		if (errno == EINTR)
+			g_set_error (
+				error, G_IO_ERROR,
+				G_IO_ERROR_CANCELLED,
+				_("Cancelled"));
+		else
+			g_set_error (
+				error, G_IO_ERROR,
+				g_io_error_from_errno (errno),
+				"%s", g_strerror (errno));
+	}
+
 	return nread;
 }
 
@@ -481,6 +502,7 @@ camel_read (gint fd, gchar *buf, gsize n)
  * @fd: file descriptor
  * @buf: buffer to write
  * @n: number of bytes of @buf to write
+ * @error: return location for a #GError, or %NULL
  *
  * Cancellable libc write() replacement.
  *
@@ -491,15 +513,23 @@ camel_read (gint fd, gchar *buf, gsize n)
  * be set appropriately.
  **/
 gssize
-camel_write (gint fd, const gchar *buf, gsize n)
+camel_write (gint fd,
+             const gchar *buf,
+             gsize n,
+             GError **error)
 {
 	gssize w, written = 0;
 	gint cancel_fd;
 
 	if (camel_operation_cancel_check (NULL)) {
 		errno = EINTR;
+		g_set_error (
+			error, G_IO_ERROR,
+			G_IO_ERROR_CANCELLED,
+			_("Cancelled"));
 		return -1;
 	}
+
 #ifndef G_OS_WIN32
 	cancel_fd = camel_operation_cancel_fd (NULL);
 #else
@@ -561,8 +591,19 @@ camel_write (gint fd, const gchar *buf, gsize n)
 #endif
 	}
 
-	if (w == -1)
+	if (w == -1) {
+		if (errno == EINTR)
+			g_set_error (
+				error, G_IO_ERROR,
+				G_IO_ERROR_CANCELLED,
+				_("Cancelled"));
+		else
+			g_set_error (
+				error, G_IO_ERROR,
+				g_io_error_from_errno (errno),
+				"%s", g_strerror (errno));
 		return -1;
+	}
 
 	return written;
 }
@@ -572,6 +613,7 @@ camel_write (gint fd, const gchar *buf, gsize n)
  * @fd: a socket
  * @buf: buffer to fill
  * @n: number of bytes to read into @buf
+ * @error: return location for a #GError, or %NULL
  *
  * Cancellable read() replacement for sockets. Code that intends to be
  * portable to Win32 should call this function only on sockets
@@ -582,16 +624,23 @@ camel_write (gint fd, const gchar *buf, gsize n)
  * camel_read_socket() will retry the read until it gets something.
  **/
 gssize
-camel_read_socket (gint fd, gchar *buf, gsize n)
+camel_read_socket (gint fd,
+                   gchar *buf,
+                   gsize n,
+                   GError **error)
 {
 #ifndef G_OS_WIN32
-	return camel_read (fd, buf, n);
+	return camel_read (fd, buf, n, error);
 #else
 	gssize nread;
 	gint cancel_fd;
 
 	if (camel_operation_cancel_check (NULL)) {
 		errno = EINTR;
+		g_set_error (
+			error, G_IO_ERROR,
+			G_IO_ERROR_CANCELLED,
+			_("Canceled"));
 		return -1;
 	}
 	cancel_fd = camel_operation_cancel_fd (NULL);
@@ -634,6 +683,19 @@ camel_read_socket (gint fd, gchar *buf, gsize n)
 		;
 	}
 
+	if (nread == -1) {
+		if (errno == EINTR)
+			g_set_error (
+				error, G_IO_ERROR,
+				G_IO_ERROR_CANCELLED,
+				_("Cancelled"));
+		else
+			g_set_error (
+				error, G_IO_ERROR,
+				g_io_error_from_errno (errno),
+				"%s", g_strerror (errno));
+	}
+
 	return nread;
 #endif
 }
@@ -643,6 +705,7 @@ camel_read_socket (gint fd, gchar *buf, gsize n)
  * @fd: file descriptor
  * @buf: buffer to write
  * @n: number of bytes of @buf to write
+ * @error: return location for a #GError, or %NULL
  *
  * Cancellable write() replacement for sockets. Code that intends to
  * be portable to Win32 should call this function only on sockets
@@ -652,16 +715,23 @@ camel_read_socket (gint fd, gchar *buf, gsize n)
  * be set appropriately.
  **/
 gssize
-camel_write_socket (gint fd, const gchar *buf, gsize n)
+camel_write_socket (gint fd,
+                    const gchar *buf,
+                    gsize n,
+                    GError **error)
 {
 #ifndef G_OS_WIN32
-	return camel_write (fd, buf, n);
+	return camel_write (fd, buf, n, error);
 #else
 	gssize w, written = 0;
 	gint cancel_fd;
 
 	if (camel_operation_cancel_check (NULL)) {
 		errno = EINTR;
+		g_set_error (
+			error, G_IO_ERROR,
+			G_IO_ERROR_CANCELLED,
+			_("Canceled"));
 		return -1;
 	}
 
@@ -713,8 +783,19 @@ camel_write_socket (gint fd, const gchar *buf, gsize n)
 		ioctlsocket (fd, FIONBIO, &arg);
 	}
 
-	if (w == -1)
+	if (w == -1) {
+		if (errno == EINTR)
+			g_set_error (
+				error, G_IO_ERROR,
+				G_IO_ERROR_CANCELLED,
+				_("Canceled"));
+		else
+			g_set_error (
+				error, G_IO_ERROR,
+				g_io_error_from_errno (errno),
+				"%s", g_strerror (errno));
 		return -1;
+	}
 
 	return written;
 #endif
@@ -728,7 +809,7 @@ camel_write_socket (gint fd, const gchar *buf, gsize n)
  * basename of @filename, for instance used in a two-stage commit file
  * write.
  *
- * Return value: The new pathname.  It must be free'd with g_free().
+ * Returns: The new pathname.  It must be free'd with g_free().
  **/
 gchar *
 camel_file_util_savename(const gchar *filename)

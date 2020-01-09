@@ -1,0 +1,98 @@
+diff -up evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c.init-dbus-glib evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c
+--- evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c.init-dbus-glib	2011-04-21 21:36:35.000000000 +0200
++++ evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c	2013-06-11 15:35:31.762372480 +0200
+@@ -26,6 +26,9 @@
+ #include <unistd.h>
+ #include <glib-object.h>
+ #include <glib/gi18n.h>
++
++#include <dbus/dbus-glib.h>
++
+ #include <libebackend/e-data-server-module.h>
+ #include <libebackend/e-offline-listener.h>
+ #include "e-book-backend-factory.h"
+@@ -604,6 +607,9 @@ main (gint argc, gchar **argv)
+ 	g_set_prgname (E_PRGNAME);
+ 	if (!g_thread_supported ()) g_thread_init (NULL);
+ 
++	/* this is to initialize threading for dbus-glib used by GConf */
++	dbus_g_thread_init ();
++
+ 	factory = g_object_new (E_TYPE_DATA_BOOK_FACTORY, NULL);
+ 
+ 	loop = g_main_loop_new (NULL, FALSE);
+diff -up evolution-data-server-2.32.3/addressbook/libedata-book/Makefile.am.init-dbus-glib evolution-data-server-2.32.3/addressbook/libedata-book/Makefile.am
+--- evolution-data-server-2.32.3/addressbook/libedata-book/Makefile.am.init-dbus-glib	2011-04-21 21:35:35.000000000 +0200
++++ evolution-data-server-2.32.3/addressbook/libedata-book/Makefile.am	2013-06-11 15:35:31.761372480 +0200
+@@ -67,6 +67,7 @@ factory_PROGRAMS = e-addressbook-factory
+ e_addressbook_factory_CPPFLAGS = \
+ 	$(AM_CPPFLAGS)				\
+ 	$(EVOLUTION_ADDRESSBOOK_CFLAGS)		\
++	$(DBUS_GLIB_CFLAGS)			\
+ 	-DG_LOG_DOMAIN=\"libedata-book\"	\
+ 	-DE_PRGNAME=\"e-addressbook-factory\"	\
+ 	-I$(top_srcdir)				\
+@@ -83,6 +84,7 @@ e_addressbook_factory_SOURCES = \
+ e_addressbook_factory_LDADD =					\
+ 	libedata-book-1.2.la					\
+ 	$(EVOLUTION_ADDRESSBOOK_LIBS)				\
++	$(DBUS_GLIB_LIBS)					\
+ 	$(top_builddir)/libedataserver/libedataserver-1.2.la	\
+ 	$(top_builddir)/libebackend/libebackend-1.2.la
+ 
+diff -up evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c.init-dbus-glib evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c
+--- evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c.init-dbus-glib	2013-06-11 15:35:31.734372481 +0200
++++ evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c	2013-06-11 15:35:31.764372480 +0200
+@@ -31,6 +31,8 @@
+ #include <glib/gi18n.h>
+ #include <glib-object.h>
+ 
++#include <dbus/dbus-glib.h>
++
+ #include "libedataserver/e-url.h"
+ #include "libedataserver/e-source.h"
+ #include "libedataserver/e-source-list.h"
+@@ -913,6 +915,9 @@ main (gint argc, gchar **argv)
+ 	g_set_prgname (E_PRGNAME);
+ 	if (!g_thread_supported ()) g_thread_init (NULL);
+ 
++	/* this is to initialize threading for dbus-glib used by GConf */
++	dbus_g_thread_init ();
++
+ 	#ifdef HAVE_ICAL_UNKNOWN_TOKEN_HANDLING
+ 	ical_set_unknown_token_handling_setting (ICAL_DISCARD_TOKEN);
+ 	#endif
+diff -up evolution-data-server-2.32.3/calendar/libedata-cal/Makefile.am.init-dbus-glib evolution-data-server-2.32.3/calendar/libedata-cal/Makefile.am
+--- evolution-data-server-2.32.3/calendar/libedata-cal/Makefile.am.init-dbus-glib	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/libedata-cal/Makefile.am	2013-06-11 15:35:31.765372481 +0200
+@@ -108,9 +108,11 @@ e_calendar_factory_CPPFLAGS = \
+ 	-I$(top_builddir)				\
+ 	-I$(top_builddir)/calendar			\
+ 	$(LIBICAL_CFLAGS)				\
++	$(DBUS_GLIB_CFLAGS)				\
+ 	$(EVOLUTION_CALENDAR_CFLAGS)
+ 
+ e_calendar_factory_LDADD =						\
++	$(DBUS_GLIB_LIBS)						\
+ 	$(top_builddir)/calendar/libecal/libecal-1.2.la			\
+ 	$(top_builddir)/calendar/libegdbus/libegdbus-cal.la		\
+ 	libedata-cal-1.2.la						\
+diff -up evolution-data-server-2.32.3/configure.ac.init-dbus-glib evolution-data-server-2.32.3/configure.ac
+--- evolution-data-server-2.32.3/configure.ac.init-dbus-glib	2013-06-11 15:35:31.741372481 +0200
++++ evolution-data-server-2.32.3/configure.ac	2013-06-11 15:35:31.763372480 +0200
+@@ -1186,6 +1186,15 @@ if test "x${enable_gnome_keyring}" = "xy
+ fi
+ 
+ dnl ******************************
++dnl DBus-glib stuff, to initialize thread for GConf, which is using it
++dnl this is returned back only temporarily and wil lbe removed as soon
++dnl as eds will stop using GConf completely
++dnl ******************************
++PKG_CHECK_MODULES(DBUS_GLIB, dbus-glib-1 >= 0.6)
++AC_SUBST(DBUS_GLIB_CFLAGS)
++AC_SUBST(DBUS_GLIB_LIBS)
++
++dnl ******************************
+ dnl Utility macro to set compiler flags for a specific lib.
+ dnl EVO_SET_COMPILE_FLAGS(VAR-PREFIX, DEPS, EXTRA-CFLAGS, EXTRA-LIBS)
+ dnl ******************************

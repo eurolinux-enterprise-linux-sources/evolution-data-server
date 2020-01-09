@@ -36,7 +36,7 @@ e_name_western_str_count_words (const gchar *str)
 	word_count = 0;
 
 	for (p = str; p != NULL; p = g_utf8_strchr (p, -1, ' ')) {
-		word_count ++;
+		word_count++;
 		p = g_utf8_next_char (p);
 	}
 
@@ -68,7 +68,7 @@ e_name_western_cleanup_string (gchar **str)
 			p = g_utf8_prev_char (p);
 		/* advance p to after the character that caused us to exit the
 		   previous loop, and end the string. */
-		if ((! g_unichar_isspace (g_utf8_get_char (p))) && *p != ',')
+		if ((!g_unichar_isspace (g_utf8_get_char (p))) && *p != ',')
 			p = g_utf8_next_char (p);
 		*p = '\0';
 	}
@@ -91,7 +91,7 @@ e_name_western_get_words_at_idx (gchar *str, gint idx, gint num_words)
 	word_count = 0;
 	p = str + idx;
 	while (word_count < num_words && *p != '\0') {
-		while (! g_unichar_isspace (g_utf8_get_char (p)) && *p != '\0') {
+		while (!g_unichar_isspace (g_utf8_get_char (p)) && *p != '\0') {
 			words = g_string_append_unichar (words, g_utf8_get_char (p));
 			p = g_utf8_next_char (p);
 		}
@@ -99,7 +99,7 @@ e_name_western_get_words_at_idx (gchar *str, gint idx, gint num_words)
 		while (g_unichar_isspace (g_utf8_get_char (p)) && *p != '\0')
 			p = g_utf8_next_char (p);
 
-		word_count ++;
+		word_count++;
 	}
 
 	return g_string_free (words, FALSE);
@@ -156,7 +156,7 @@ e_name_western_get_one_prefix_at_str (gchar *str)
 		words = e_name_western_get_words_at_idx (str, 0, pfx_words);
 		folded_words = g_utf8_casefold (words, -1);
 
-		if (! g_utf8_collate (folded_words, prefix)) {
+		if (!g_utf8_collate (folded_words, prefix)) {
 			g_free (folded_words);
 			return words;
 		}
@@ -173,7 +173,7 @@ e_name_western_get_one_prefix_at_str (gchar *str)
 	if (g_utf8_strlen (word, -1) > 2 &&
 	    g_unichar_isalpha (g_utf8_get_char (word)) &&
 	    g_unichar_isalpha (g_utf8_get_char (g_utf8_next_char (word))) &&
-	    word [strlen (word) - 1] == '.')
+	    word[strlen (word) - 1] == '.')
 		return word;
 
 	g_free (word);
@@ -240,7 +240,7 @@ e_name_western_is_complex_last_beginning (gchar *word)
 
 	for (i = 0; i < G_N_ELEMENTS (western_complex_last_index); i++) {
 		const gchar *last = western_complex_last_table + western_complex_last_index[i];
-		if (! g_utf8_collate (folded_word, last)) {
+		if (!g_utf8_collate (folded_word, last)) {
 			g_free (folded_word);
 			return TRUE;
 		}
@@ -365,7 +365,7 @@ e_name_western_extract_middle (ENameWestern *name, ENameWesternIdxs *idxs)
 	/*
 	 * Make sure we didn't just grab a cute nickname.
 	 */
-	if (word [0] == '\"') {
+	if (word[0] == '\"') {
 		g_free (word);
 		return;
 	}
@@ -467,7 +467,7 @@ e_name_western_extract_last (ENameWestern *name, ENameWesternIdxs *idxs)
 	 */
 	if (idx == -1) {
 		word = e_name_western_get_words_at_idx (name->full, 0, 1);
-		if (! e_name_western_is_complex_last_beginning (word)) {
+		if (!e_name_western_is_complex_last_beginning (word)) {
 			g_free (word);
 			return;
 		}
@@ -517,7 +517,7 @@ e_name_western_get_preceding_word (gchar *str, gint idx)
 	while (g_unichar_isspace (g_utf8_get_char (p)) && p > str)
 		p = g_utf8_prev_char (p);
 
-	while (! g_unichar_isspace (g_utf8_get_char (p)) && p > str)
+	while (!g_unichar_isspace (g_utf8_get_char (p)) && p > str)
 		p = g_utf8_prev_char (p);
 
 	if (g_unichar_isspace (g_utf8_get_char (p)))
@@ -630,7 +630,7 @@ e_name_western_reorder_asshole (ENameWestern *name, ENameWesternIdxs *idxs)
 	gchar *comma;
 	gchar *p;
 
-	if (! e_name_western_detect_backwards (name, idxs))
+	if (!e_name_western_detect_backwards (name, idxs))
 		return;
 
 	/*
@@ -705,7 +705,7 @@ e_name_western_reorder_asshole (ENameWestern *name, ENameWesternIdxs *idxs)
 		 * Walk backwards until we hit the space which
 		 * separates the suffix from firstmidnick.
 		 */
-		while (! g_unichar_isspace (g_utf8_get_char (q)) && q > comma)
+		while (!g_unichar_isspace (g_utf8_get_char (q)) && q > comma)
 			q = g_utf8_prev_char (q);
 
 		if ((q - p + 1) > 0) {
@@ -929,7 +929,7 @@ e_name_western_fixup (ENameWestern *name, ENameWesternIdxs *idxs)
  * Parses @full_name and returns an #ENameWestern struct filled with
  * the component parts of the name.
  *
- * Return value: A new #ENameWestern struct.
+ * Returns: A new #ENameWestern struct.
  **/
 ENameWestern *
 e_name_western_parse (const gchar *full_name)

@@ -20,18 +20,37 @@
  *
  */
 
-#ifndef __CAMEL_HTTP_STREAM_H__
-#define __CAMEL_HTTP_STREAM_H__
+#ifndef CAMEL_DISABLE_DEPRECATED
+
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
+#ifndef CAMEL_HTTP_STREAM_H
+#define CAMEL_HTTP_STREAM_H
 
 #include <camel/camel-mime-parser.h>
 #include <camel/camel-mime-utils.h>
 #include <camel/camel-stream.h>
 #include <camel/camel-url.h>
 
-#define CAMEL_HTTP_STREAM_TYPE     (camel_http_stream_get_type ())
-#define CAMEL_HTTP_STREAM(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_HTTP_STREAM_TYPE, CamelHttpStream))
-#define CAMEL_HTTP_STREAM_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_HTTP_STREAM_TYPE, CamelHttpStreamClass))
-#define CAMEL_IS_HTTP_STREAM(o)    (CAMEL_CHECK_TYPE((o), CAMEL_HTTP_STREAM_TYPE))
+#define CAMEL_TYPE_HTTP_STREAM \
+	(camel_http_stream_get_type ())
+#define CAMEL_HTTP_STREAM(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_HTTP_STREAM, CamelHttpStream))
+#define CAMEL_HTTP_STREAM_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_HTTP_STREAM, CamelHttpStreamClass))
+#define CAMEL_IS_HTTP_STREAM(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_HTTP_STREAM))
+#define CAMEL_IS_HTTP_STREAM_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_HTTP_STREAM))
+#define CAMEL_HTTP_STREAM_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_HTTP_STREAM, CamelHttpStreamClass))
 
 G_BEGIN_DECLS
 
@@ -46,10 +65,11 @@ typedef enum {
 	/*CAMEL_HTTP_METHOD_CONNECT*/
 } CamelHttpMethod;
 
+typedef struct _CamelHttpStream CamelHttpStream;
 typedef struct _CamelHttpStreamClass CamelHttpStreamClass;
 
 struct _CamelHttpStream {
-	CamelStream parent_object;
+	CamelStream parent;
 
 	CamelMimeParser *parser;
 
@@ -75,24 +95,28 @@ struct _CamelHttpStream {
 
 struct _CamelHttpStreamClass {
 	CamelStreamClass parent_class;
-
-	/* Virtual methods */
 };
 
-/* Standard Camel function */
-CamelType camel_http_stream_get_type (void);
-
-/* public methods */
-CamelStream *camel_http_stream_new (CamelHttpMethod method, struct _CamelSession *session, CamelURL *url);
-
-void camel_http_stream_set_user_agent (CamelHttpStream *http_stream, const gchar *user_agent);
-
-void camel_http_stream_set_proxy (CamelHttpStream *http_stream, const gchar *proxy_url);
-void camel_http_stream_set_proxy_authrealm (CamelHttpStream *http_stream, const gchar *proxy_authrealm);
-void camel_http_stream_set_proxy_authpass (CamelHttpStream *http_stream, const gchar *proxy_authpass);
-
-CamelContentType *camel_http_stream_get_content_type (CamelHttpStream *http_stream);
+GType		camel_http_stream_get_type	(void);
+CamelStream *	camel_http_stream_new		(CamelHttpMethod method,
+						 struct _CamelSession *session,
+						 CamelURL *url);
+void		camel_http_stream_set_user_agent(CamelHttpStream *http_stream,
+						 const gchar *user_agent);
+void		camel_http_stream_set_proxy	(CamelHttpStream *http_stream,
+						 const gchar *proxy_url);
+void		camel_http_stream_set_proxy_authrealm
+						(CamelHttpStream *http_stream,
+						 const gchar *proxy_authrealm);
+void		camel_http_stream_set_proxy_authpass
+						(CamelHttpStream *http_stream,
+						 const gchar *proxy_authpass);
+CamelContentType *
+		camel_http_stream_get_content_type
+						(CamelHttpStream *http_stream);
 
 G_END_DECLS
 
-#endif /* __CAMEL_HTTP_STREAM_H__ */
+#endif /* CAMEL_HTTP_STREAM_H */
+
+#endif /* CAMEL_DISABLE_DEPRECATED */

@@ -25,10 +25,6 @@ CamelStreamMem
 
 </para>
 
-@parent_object: 
-@owner: 
-@secure: 
-@buffer: 
 
 <!-- ##### FUNCTION camel_stream_mem_new ##### -->
 <para>
@@ -64,6 +60,15 @@ CamelStreamMem
 </para>
 
 @mem: 
+
+
+<!-- ##### FUNCTION camel_stream_mem_get_byte_array ##### -->
+<para>
+
+</para>
+
+@mem: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_stream_mem_set_byte_array ##### -->

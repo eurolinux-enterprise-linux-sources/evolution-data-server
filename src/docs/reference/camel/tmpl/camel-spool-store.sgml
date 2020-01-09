@@ -25,7 +25,7 @@ CamelSpoolStore
 
 </para>
 
-@parent_object: 
+@parent: 
 @type: 
 
 <!-- ##### ENUM camel_spool_store_t ##### -->

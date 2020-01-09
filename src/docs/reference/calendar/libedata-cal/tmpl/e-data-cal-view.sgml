@@ -42,18 +42,20 @@ Implementation of the calendar CORBA search interface.
 </para>
 
 @backend: 
-@ql: 
 @sexp: 
 @Returns: 
 
 
-<!-- ##### FUNCTION e_data_cal_view_add_listener ##### -->
+<!-- ##### FUNCTION e_data_cal_view_register_gdbus_object ##### -->
 <para>
 
 </para>
 
 @query: 
-@ql: 
+@connection: 
+@object_path: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION e_data_cal_view_get_text ##### -->
@@ -111,7 +113,7 @@ Implementation of the calendar CORBA search interface.
 @Returns: 
 
 
-<!-- ##### FUNCTION e_data_cal_view_get_done_status ##### -->
+<!-- ##### FUNCTION e_data_cal_view_is_stopped ##### -->
 <para>
 
 </para>
@@ -190,6 +192,6 @@ Implementation of the calendar CORBA search interface.
 </para>
 
 @query: 
-@status: 
+@error: 
 
 

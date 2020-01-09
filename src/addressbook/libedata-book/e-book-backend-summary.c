@@ -42,6 +42,8 @@
 
 #include "e-book-backend-summary.h"
 
+G_DEFINE_TYPE (EBookBackendSummary, e_book_backend_summary, G_TYPE_OBJECT)
+
 static GObjectClass *parent_class;
 
 struct _EBookBackendSummaryPrivate {
@@ -154,7 +156,7 @@ clear_items (EBookBackendSummary *summary)
  * specifies how much time should elapse, at a minimum, from
  * the summary is changed until it is flushed to disk.
  *
- * Return value: A new #EBookBackendSummary.
+ * Returns: A new #EBookBackendSummary.
  **/
 EBookBackendSummary*
 e_book_backend_summary_new (const gchar *summary_path, gint flush_timeout_millis)
@@ -234,38 +236,11 @@ e_book_backend_summary_init (EBookBackendSummary *summary)
 #endif
 }
 
-/**
- * e_book_backend_summary_get_type:
- */
-GType
-e_book_backend_summary_get_type (void)
-{
-	static GType type = 0;
-
-	if (! type) {
-		GTypeInfo info = {
-			sizeof (EBookBackendSummaryClass),
-			NULL, /* base_class_init */
-			NULL, /* base_class_finalize */
-			(GClassInitFunc)  e_book_backend_summary_class_init,
-			NULL, /* class_finalize */
-			NULL, /* class_data */
-			sizeof (EBookBackendSummary),
-			0,    /* n_preallocs */
-			(GInstanceInitFunc) e_book_backend_summary_init
-		};
-
-		type = g_type_register_static (G_TYPE_OBJECT, "EBookBackendSummary", &info, 0);
-	}
-
-	return type;
-}
-
 
 static gboolean
 e_book_backend_summary_check_magic (EBookBackendSummary *summary, FILE *fp)
 {
-	gchar buf [PAS_SUMMARY_MAGIC_LEN + 1];
+	gchar buf[PAS_SUMMARY_MAGIC_LEN + 1];
 	gint rv;
 
 	memset (buf, 0, sizeof (buf));
@@ -523,7 +498,7 @@ e_book_backend_summary_open (EBookBackendSummary *summary)
  * the file was located, it was in the correct format, and it was
  * not out of date.
  *
- * Return value: %TRUE if the load succeeded, %FALSE if it failed.
+ * Returns: %TRUE if the load succeeded, %FALSE if it failed.
  **/
 gboolean
 e_book_backend_summary_load (EBookBackendSummary *summary)
@@ -538,7 +513,7 @@ e_book_backend_summary_load (EBookBackendSummary *summary)
 	if (!e_book_backend_summary_open (summary))
 		return FALSE;
 
-	for (i = 0; i < summary->priv->num_items; i ++) {
+	for (i = 0; i < summary->priv->num_items; i++) {
 		if (!e_book_backend_summary_load_item (summary, &new_item)) {
 			g_warning ("error while reading summary item");
 			clear_items (summary);
@@ -676,7 +651,7 @@ e_book_backend_summary_save_item (EBookBackendSummary *summary, FILE *fp, EBookB
  *
  * Attempts to save @summary to disk.
  *
- * Return value: %TRUE if the save succeeded, %FALSE otherwise.
+ * Returns: %TRUE if the save succeeded, %FALSE otherwise.
  **/
 gboolean
 e_book_backend_summary_save (EBookBackendSummary *summary)
@@ -709,7 +684,7 @@ e_book_backend_summary_save (EBookBackendSummary *summary)
 		goto lose;
 	}
 
-	for (i = 0; i < summary->priv->items->len; i ++) {
+	for (i = 0; i < summary->priv->items->len; i++) {
 		EBookBackendSummaryItem *item = g_ptr_array_index (summary->priv->items, i);
 		if (!e_book_backend_summary_save_item (summary, fp, item)) {
 			g_warning ("failed to write an item to new summary file, errno = %d", errno);
@@ -851,7 +826,7 @@ e_book_backend_summary_remove_contact (EBookBackendSummary *summary, const gchar
  * Checks if a summary of the contact identified by @id
  * exists in @summary.
  *
- * Return value: %TRUE if the summary exists, %FALSE otherwise.
+ * Returns: %TRUE if the summary exists, %FALSE otherwise.
  **/
 gboolean
 e_book_backend_summary_check_contact (EBookBackendSummary *summary, const gchar *id)
@@ -912,7 +887,7 @@ e_book_backend_summary_touch (EBookBackendSummary *summary)
  *
  * Checks if @summary is more recent than @t.
  *
- * Return value: %TRUE if the summary is up to date, %FALSE otherwise.
+ * Returns: %TRUE if the summary is up to date, %FALSE otherwise.
  **/
 gboolean
 e_book_backend_summary_is_up_to_date (EBookBackendSummary *summary, time_t t)
@@ -948,7 +923,7 @@ func_check(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer dat
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = truth;
+	r->value.boolean = truth;
 
 	return r;
 }
@@ -975,7 +950,7 @@ static const struct {
  * Checks if @query can be satisfied by searching only the fields
  * stored by @summary.
  *
- * Return value: %TRUE if the query can be satisfied, %FALSE otherwise.
+ * Returns: %TRUE if the query can be satisfied, %FALSE otherwise.
  **/
 gboolean
 e_book_backend_summary_is_summary_query (EBookBackendSummary *summary, const gchar *query)
@@ -990,7 +965,7 @@ e_book_backend_summary_is_summary_query (EBookBackendSummary *summary, const gch
 
 	sexp = e_sexp_new();
 
-	for (i=0;i<sizeof(check_symbols)/sizeof(check_symbols[0]);i++) {
+	for (i = 0; i < G_N_ELEMENTS (check_symbols); i++) {
 		if (check_symbols[i].type == 1) {
 			e_sexp_add_ifunction(sexp, 0, check_symbols[i].name,
 					     (ESExpIFunc *)check_symbols[i].func, summary);
@@ -1009,7 +984,7 @@ e_book_backend_summary_is_summary_query (EBookBackendSummary *summary, const gch
 
 	r = e_sexp_eval(sexp);
 
-	retval = (r && r->type == ESEXP_RES_BOOL && r->value.bool);
+	retval = (r && r->type == ESEXP_RES_BOOL && r->value.boolean);
 
 	e_sexp_result_free(sexp, r);
 
@@ -1034,7 +1009,7 @@ do_compare (EBookBackendSummary *summary, struct _ESExp *f, gint argc,
 	    && argv[0]->type == ESEXP_RES_STRING
 	    && argv[1]->type == ESEXP_RES_STRING) {
 
-		for (i = 0; i < summary->priv->items->len; i ++) {
+		for (i = 0; i < summary->priv->items->len; i++) {
 			EBookBackendSummaryItem *item = g_ptr_array_index (summary->priv->items, i);
 			if (!strcmp (argv[0]->value.string, "full_name")) {
 				gchar *given = item->given_name;
@@ -1200,7 +1175,7 @@ static const struct {
  *
  * Searches @summary for contacts matching @query.
  *
- * Return value: A #GPtrArray of pointers to contact ID strings.
+ * Returns: A #GPtrArray of pointers to contact ID strings.
  **/
 GPtrArray*
 e_book_backend_summary_search (EBookBackendSummary *summary, const gchar *query)
@@ -1215,7 +1190,7 @@ e_book_backend_summary_search (EBookBackendSummary *summary, const gchar *query)
 
 	sexp = e_sexp_new();
 
-	for (i=0;i<sizeof(symbols)/sizeof(symbols[0]);i++) {
+	for (i = 0; i < G_N_ELEMENTS (symbols); i++) {
 		if (symbols[i].type == 1) {
 			e_sexp_add_ifunction(sexp, 0, symbols[i].name,
 					     (ESExpIFunc *)symbols[i].func, summary);
@@ -1239,7 +1214,7 @@ e_book_backend_summary_search (EBookBackendSummary *summary, const gchar *query)
 		GPtrArray *ptrarray = r->value.ptrarray;
 		gint i;
 
-		for (i = 0; i < ptrarray->len; i ++)
+		for (i = 0; i < ptrarray->len; i++)
 			g_ptr_array_add (retval, g_ptr_array_index (ptrarray, i));
 	}
 
@@ -1258,7 +1233,7 @@ e_book_backend_summary_search (EBookBackendSummary *summary, const gchar *query)
  * Constructs and returns a VCard from the contact summary specified
  * by @id.
  *
- * Return value: A new VCard, or %NULL if the contact summary didn't exist.
+ * Returns: A new VCard, or %NULL if the contact summary didn't exist.
  **/
 gchar *
 e_book_backend_summary_get_summary_vcard(EBookBackendSummary *summary, const gchar *id)

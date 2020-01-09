@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EAccountList</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
 <link rel="prev" href="EAccount.html" title="EAccount">
 <link rel="next" href="libedataserver-e-categories.html" title="e-categories">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -30,7 +30,7 @@
                   <a href="#EAccountList.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="EAccountList">
 <a name="EAccountList"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,7 +39,7 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="EAccountList.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">                    <a class="link" href="EAccountList.html#EAccountList-struct" title="EAccountList">EAccountList</a>;
 enum                <a class="link" href="EAccountList.html#e-account-find-t" title="enum e_account_find_t">e_account_find_t</a>;
@@ -58,24 +58,24 @@ const <a class="link" href="EAccount.html" title="EAccount"><span class="returnv
                                                          <em class="parameter"><code><a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a> *Param2</code></em>);
 const <a class="link" href="EAccount.html" title="EAccount"><span class="returnvalue">EAccount</span></a> *    <a class="link" href="EAccountList.html#e-account-list-find" title="e_account_list_find ()">e_account_list_find</a>                 (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EAccountList.html#e-account-find-t" title="enum e_account_find_t"><span class="type">e_account_find_t</span></a> type</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EAccountList.html#e-account-list-prune-proxies" title="e_account_list_prune_proxies ()">e_account_list_prune_proxies</a>        (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EAccountList.html#e-account-list-remove-account-proxies" title="e_account_list_remove_account_proxies ()">e_account_list_remove_account_proxies</a>
                                                         (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a> *Param2</code></em>);
-<span class="returnvalue">gint</span>                <a class="link" href="EAccountList.html#e-account-list-account-has-proxies" title="e_account_list_account_has_proxies ()">e_account_list_account_has_proxies</a>  (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="EAccountList.html#e-account-list-account-has-proxies" title="e_account_list_account_has_proxies ()">e_account_list_account_has_proxies</a>  (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a> *Param2</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
 <a name="EAccountList.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  GObject
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a class="link" href="EList.html" title="EList">EList</a>
          +----EAccountList
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Signals">
 <a name="EAccountList.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
   "<a class="link" href="EAccountList.html#EAccountList-account-added" title='The "account-added" signal'>account-added</a>"                                  : Run Last
@@ -83,21 +83,21 @@ const <a class="link" href="EAccount.html" title="EAccount"><span class="returnv
   "<a class="link" href="EAccountList.html#EAccountList-account-removed" title='The "account-removed" signal'>account-removed</a>"                                : Run Last
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="EAccountList.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="EAccountList.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EAccountList">
 <a name="EAccountList-struct"></a><h3>EAccountList</h3>
 <pre class="programlisting">typedef struct _EAccountList EAccountList;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="enum e_account_find_t">
 <a name="e-account-find-t"></a><h3>enum e_account_find_t</h3>
 <pre class="programlisting">typedef enum _e_account_find_t {
 	E_ACCOUNT_FIND_NAME,
@@ -111,7 +111,7 @@ const <a class="link" href="EAccount.html" title="EAccount"><span class="returnv
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_new ()">
 <a name="e-account-list-new"></a><h3>e_account_list_new ()</h3>
 <pre class="programlisting"><a class="link" href="EAccountList.html" title="EAccountList"><span class="returnvalue">EAccountList</span></a> *      e_account_list_new                  (<em class="parameter"><code><span class="type">GConfClient</span> *gconf</code></em>);</pre>
 <p>
@@ -123,7 +123,8 @@ signals according to notifications from GConf.
 You can modify the list using <a class="link" href="EList.html#e-list-append" title="e_list_append ()"><code class="function">e_list_append()</code></a>, <a class="link" href="EList.html#e-list-remove" title="e_list_remove ()"><code class="function">e_list_remove()</code></a>, and
 <a class="link" href="EIterator.html#e-iterator-delete" title="e_iterator_delete ()"><code class="function">e_iterator_delete()</code></a>. After adding, removing, or changing accounts,
 you must call <a class="link" href="EAccountList.html#e-account-list-save" title="e_account_list_save ()"><code class="function">e_account_list_save()</code></a> to push the changes back to
-GConf.</p>
+GConf.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -141,7 +142,7 @@ GConf.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_construct ()">
 <a name="e-account-list-construct"></a><h3>e_account_list_construct ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_account_list_construct            (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *account_list</code></em>,
                                                          <em class="parameter"><code><span class="type">GConfClient</span> *gconf</code></em>);</pre>
@@ -164,11 +165,12 @@ GConf.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_save ()">
 <a name="e-account-list-save"></a><h3>e_account_list_save ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_account_list_save                 (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *account_list</code></em>);</pre>
 <p>
-Saves <em class="parameter"><code>account_list</code></em> to GConf. Signals will be emitted for changes.</p>
+Saves <em class="parameter"><code>account_list</code></em> to GConf. Signals will be emitted for changes.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -179,13 +181,14 @@ Saves <em class="parameter"><code>account_list</code></em> to GConf. Signals wil
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_add ()">
 <a name="e-account-list-add"></a><h3>e_account_list_add ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_account_list_add                  (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a> *Param2</code></em>);</pre>
 <p>
 Add an account to the account list.  Will emit the account-changed
-event.</p>
+event.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -203,12 +206,13 @@ event.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_change ()">
 <a name="e-account-list-change"></a><h3>e_account_list_change ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_account_list_change               (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a> *Param2</code></em>);</pre>
 <p>
-Signal that the details of an account have changed.</p>
+Signal that the details of an account have changed.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -226,14 +230,15 @@ Signal that the details of an account have changed.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_remove ()">
 <a name="e-account-list-remove"></a><h3>e_account_list_remove ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_account_list_remove               (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a> *Param2</code></em>);</pre>
 <p>
 Remove an account from the account list, and emit the
 account-removed signal.  If the account was the default account,
-then reset the default to the first account.</p>
+then reset the default to the first account.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -251,12 +256,13 @@ then reset the default to the first account.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_get_default ()">
 <a name="e-account-list-get-default"></a><h3>e_account_list_get_default ()</h3>
 <pre class="programlisting">const <a class="link" href="EAccount.html" title="EAccount"><span class="returnvalue">EAccount</span></a> *    e_account_list_get_default          (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>);</pre>
 <p>
 Get the default account.  If no default is specified, or the default
-has become stale, then the first account is made the default.</p>
+has become stale, then the first account is made the default.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -274,12 +280,13 @@ has become stale, then the first account is made the default.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_set_default ()">
 <a name="e-account-list-set-default"></a><h3>e_account_list_set_default ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_account_list_set_default          (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a> *Param2</code></em>);</pre>
 <p>
-Set the account <em class="parameter"><code>account</code></em> to be the default account.</p>
+Set the account <em class="parameter"><code>account</code></em> to be the default account.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -297,11 +304,11 @@ Set the account <em class="parameter"><code>account</code></em> to be the defaul
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_find ()">
 <a name="e-account-list-find"></a><h3>e_account_list_find ()</h3>
 <pre class="programlisting">const <a class="link" href="EAccount.html" title="EAccount"><span class="returnvalue">EAccount</span></a> *    e_account_list_find                 (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EAccountList.html#e-account-find-t" title="enum e_account_find_t"><span class="type">e_account_find_t</span></a> type</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
 <p>
 Perform a search of the account list on a single key.
 </p>
@@ -309,7 +316,8 @@ Perform a search of the account list on a single key.
 <em class="parameter"><code>type</code></em> must be set from one of the following search types:
 E_ACCOUNT_FIND_NAME - Find an account by account name.
 E_ACCOUNT_FIND_ID_NAME - Find an account by the owner's identity name.
-E_ACCOUNT_FIND_ID_ADDRESS - Find an account by the owner's identity address.</p>
+E_ACCOUNT_FIND_ID_ADDRESS - Find an account by the owner's identity address.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -337,7 +345,7 @@ E_ACCOUNT_FIND_ID_ADDRESS - Find an account by the owner's identity address.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_prune_proxies ()">
 <a name="e-account-list-prune-proxies"></a><h3>e_account_list_prune_proxies ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_account_list_prune_proxies        (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>);</pre>
 <p>
@@ -352,7 +360,7 @@ E_ACCOUNT_FIND_ID_ADDRESS - Find an account by the owner's identity address.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_remove_account_proxies ()">
 <a name="e-account-list-remove-account-proxies"></a><h3>e_account_list_remove_account_proxies ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_account_list_remove_account_proxies
                                                         (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
@@ -376,9 +384,9 @@ E_ACCOUNT_FIND_ID_ADDRESS - Find an account by the owner's identity address.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_account_list_account_has_proxies ()">
 <a name="e-account-list-account-has-proxies"></a><h3>e_account_list_account_has_proxies ()</h3>
-<pre class="programlisting"><span class="returnvalue">gint</span>                e_account_list_account_has_proxies  (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                e_account_list_account_has_proxies  (<em class="parameter"><code><a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *Param1</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a> *Param2</code></em>);</pre>
 <p>
 </p>
@@ -404,13 +412,13 @@ E_ACCOUNT_FIND_ID_ADDRESS - Find an account by the owner's identity address.</p>
 </table></div>
 </div>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Signal Details">
 <a name="EAccountList.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title='The "account-added" signal'>
 <a name="EAccountList-account-added"></a><h3>The <code class="literal">"account-added"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *eaccountlist,
                                                         <a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a>     *arg1,
-                                                        <span class="type">gpointer</span>      user_data)         : Run Last</pre>
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run Last</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -434,11 +442,11 @@ E_ACCOUNT_FIND_ID_ADDRESS - Find an account by the owner's identity address.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title='The "account-changed" signal'>
 <a name="EAccountList-account-changed"></a><h3>The <code class="literal">"account-changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *eaccountlist,
                                                         <a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a>     *arg1,
-                                                        <span class="type">gpointer</span>      user_data)         : Run Last</pre>
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run Last</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -462,11 +470,11 @@ E_ACCOUNT_FIND_ID_ADDRESS - Find an account by the owner's identity address.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title='The "account-removed" signal'>
 <a name="EAccountList-account-removed"></a><h3>The <code class="literal">"account-removed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="EAccountList.html" title="EAccountList"><span class="type">EAccountList</span></a> *eaccountlist,
                                                         <a class="link" href="EAccount.html" title="EAccount"><span class="type">EAccount</span></a>     *arg1,
-                                                        <span class="type">gpointer</span>      user_data)         : Run Last</pre>
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run Last</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -493,6 +501,6 @@ E_ACCOUNT_FIND_ID_ADDRESS - Find an account by the owner's identity address.</p>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

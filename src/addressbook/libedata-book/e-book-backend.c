@@ -8,8 +8,15 @@
 
 #include <config.h>
 
+#include <libedataserver/e-data-server-util.h>
+
 #include "e-data-book-view.h"
+#include "e-data-book.h"
 #include "e-book-backend.h"
+
+#define E_BOOK_BACKEND_GET_PRIVATE(obj) \
+	(G_TYPE_INSTANCE_GET_PRIVATE \
+	((obj), E_TYPE_BOOK_BACKEND, EBookBackendPrivate))
 
 struct _EBookBackendPrivate {
 	GMutex *open_mutex;
@@ -22,6 +29,14 @@ struct _EBookBackendPrivate {
 
 	GMutex *views_mutex;
 	EList *views;
+
+	gchar *cache_dir;
+};
+
+/* Property IDs */
+enum {
+	PROP_0,
+	PROP_CACHE_DIR
 };
 
 /* Signal IDs */
@@ -30,22 +45,196 @@ enum {
 	LAST_SIGNAL
 };
 
-static guint e_book_backend_signals[LAST_SIGNAL];
+static guint signals[LAST_SIGNAL];
 
-static GObjectClass *parent_class;
+G_DEFINE_TYPE (EBookBackend, e_book_backend, G_TYPE_OBJECT)
+
+static void
+book_backend_set_default_cache_dir (EBookBackend *backend)
+{
+	ESource *source;
+	const gchar *user_cache_dir;
+	gchar *mangled_uri;
+	gchar *filename;
+
+	user_cache_dir = e_get_user_cache_dir ();
+
+	source = e_book_backend_get_source (backend);
+	g_return_if_fail (source != NULL);
+
+	/* Mangle the URI to not contain invalid characters. */
+	mangled_uri = g_strdelimit (e_source_get_uri (source), ":/", '_');
+
+	filename = g_build_filename (
+		user_cache_dir, "addressbook", mangled_uri, NULL);
+	e_book_backend_set_cache_dir (backend, filename);
+	g_free (filename);
+
+	g_free (mangled_uri);
+}
+
+static void
+book_backend_set_property (GObject *object,
+                           guint property_id,
+                           const GValue *value,
+                           GParamSpec *pspec)
+{
+	switch (property_id) {
+		case PROP_CACHE_DIR:
+			e_book_backend_set_cache_dir (
+				E_BOOK_BACKEND (object),
+				g_value_get_string (value));
+			return;
+	}
+
+	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+}
+
+static void
+book_backend_get_property (GObject *object,
+                           guint property_id,
+                           GValue *value,
+                           GParamSpec *pspec)
+{
+	switch (property_id) {
+		case PROP_CACHE_DIR:
+			g_value_set_string (
+				value, e_book_backend_get_cache_dir (
+				E_BOOK_BACKEND (object)));
+			return;
+	}
+
+	G_OBJECT_WARN_INVALID_PROPERTY_ID (object, property_id, pspec);
+}
+
+static void
+book_backend_dispose (GObject *object)
+{
+	EBookBackendPrivate *priv;
+
+	priv = E_BOOK_BACKEND_GET_PRIVATE (object);
+
+	if (priv->views != NULL) {
+		g_object_unref (priv->views);
+		priv->views = NULL;
+	}
+
+	if (priv->source != NULL) {
+		g_object_unref (priv->source);
+		priv->source = NULL;
+	}
+
+	/* Chain up to parent's dispose() method. */
+	G_OBJECT_CLASS (e_book_backend_parent_class)->dispose (object);
+}
+
+static void
+book_backend_finalize (GObject *object)
+{
+	EBookBackendPrivate *priv;
+
+	priv = E_BOOK_BACKEND_GET_PRIVATE (object);
+
+	g_list_free (priv->clients);
+
+	g_mutex_free (priv->open_mutex);
+	g_mutex_free (priv->clients_mutex);
+	g_mutex_free (priv->views_mutex);
+
+	g_free (priv->cache_dir);
+
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (e_book_backend_parent_class)->finalize (object);
+}
+
+static void
+e_book_backend_class_init (EBookBackendClass *class)
+{
+	GObjectClass *object_class;
+
+	g_type_class_add_private (class, sizeof (EBookBackendPrivate));
+
+	object_class = G_OBJECT_CLASS (class);
+	object_class->set_property = book_backend_set_property;
+	object_class->get_property = book_backend_get_property;
+	object_class->dispose = book_backend_dispose;
+	object_class->finalize = book_backend_finalize;
+
+	g_object_class_install_property (
+		object_class,
+		PROP_CACHE_DIR,
+		g_param_spec_string (
+			"cache-dir",
+			NULL,
+			NULL,
+			NULL,
+			G_PARAM_READWRITE));
+
+	signals[LAST_CLIENT_GONE] = g_signal_new (
+		"last-client-gone",
+		G_OBJECT_CLASS_TYPE (object_class),
+		G_SIGNAL_RUN_FIRST,
+		G_STRUCT_OFFSET (EBookBackendClass, last_client_gone),
+		NULL, NULL,
+		g_cclosure_marshal_VOID__VOID,
+		G_TYPE_NONE, 0);
+}
+
+static void
+e_book_backend_init (EBookBackend *backend)
+{
+	backend->priv = E_BOOK_BACKEND_GET_PRIVATE (backend);
+
+	backend->priv->views = e_list_new (
+		(EListCopyFunc) NULL, (EListFreeFunc) NULL, NULL);
+
+	backend->priv->open_mutex = g_mutex_new ();
+	backend->priv->clients_mutex = g_mutex_new ();
+	backend->priv->views_mutex = g_mutex_new ();
+}
 
 /**
- * e_book_backend_construct:
+ * e_book_backend_get_cache_dir:
  * @backend: an #EBookBackend
  *
- * Does nothing.
+ * Returns the cache directory for the given backend.
  *
- * Return value: %TRUE.
+ * Returns: the cache directory for the backend
+ *
+ * Since: 2.32
  **/
-gboolean
-e_book_backend_construct (EBookBackend *backend)
+const gchar *
+e_book_backend_get_cache_dir (EBookBackend *backend)
 {
-	return TRUE;
+	g_return_val_if_fail (E_IS_BOOK_BACKEND (backend), NULL);
+
+	return backend->priv->cache_dir;
+}
+
+/**
+ * e_book_backend_set_cache_dir:
+ * @backend: an #EBookBackend
+ * @cache_dir: a local cache directory
+ *
+ * Sets the cache directory for the given backend.
+ *
+ * Note that #EBookBackend is initialized with a usable default based on
+ * the #ESource given to e_book_backend_load_source().  Backends should
+ * not override the default without good reason.
+ *
+ * Since: 2.32
+ **/
+void
+e_book_backend_set_cache_dir (EBookBackend *backend,
+                              const gchar *cache_dir)
+{
+	g_return_if_fail (E_IS_BOOK_BACKEND (backend));
+	g_return_if_fail (cache_dir != NULL);
+
+	g_free (backend->priv->cache_dir);
+	backend->priv->cache_dir = g_strdup (cache_dir);
+
+	g_object_notify (G_OBJECT (backend), "cache-dir");
 }
 
 /**
@@ -53,32 +242,37 @@ e_book_backend_construct (EBookBackend *backend)
  * @backend: an #EBookBackend
  * @source: an #ESource to load
  * @only_if_exists: %TRUE to prevent the creation of a new book
+ * @error: #GError to set, when something fails
  *
  * Loads @source into @backend.
- *
- * Return value: A #GNOME_Evolution_Addressbook_CallStatus indicating the outcome.
  **/
-GNOME_Evolution_Addressbook_CallStatus
+void
 e_book_backend_load_source (EBookBackend           *backend,
 			    ESource                *source,
-			    gboolean                only_if_exists)
+			    gboolean                only_if_exists,
+			    GError		  **error)
 {
-	GNOME_Evolution_Addressbook_CallStatus status;
+	GError *local_error = NULL;
 
-	g_return_val_if_fail (E_IS_BOOK_BACKEND (backend), FALSE);
-	g_return_val_if_fail (source, FALSE);
-	g_return_val_if_fail (backend->priv->loaded == FALSE, FALSE);
+	e_return_data_book_error_if_fail (E_IS_BOOK_BACKEND (backend), E_DATA_BOOK_STATUS_INVALID_ARG);
+	e_return_data_book_error_if_fail (source, E_DATA_BOOK_STATUS_INVALID_ARG);
+	e_return_data_book_error_if_fail (backend->priv->loaded == FALSE, E_DATA_BOOK_STATUS_INVALID_ARG);
+
+	/* Subclasses may need to call e_book_backend_get_cache_dir() in
+	 * their load_source() methods, so get the "cache-dir" property
+	 * initialized before we call the method. */
+	backend->priv->source = g_object_ref (source);
+	book_backend_set_default_cache_dir (backend);
 
 	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->load_source);
 
-	status = (* E_BOOK_BACKEND_GET_CLASS (backend)->load_source) (backend, source, only_if_exists);
+	(* E_BOOK_BACKEND_GET_CLASS (backend)->load_source) (backend, source, only_if_exists, &local_error);
 
-	if (status == GNOME_Evolution_Addressbook_Success || status == GNOME_Evolution_Addressbook_InvalidServerVersion) {
-		g_object_ref (source);
-		backend->priv->source = source;
-	}
-
-	return status;
+	if (g_error_matches (local_error, E_DATA_BOOK_ERROR,
+		E_DATA_BOOK_STATUS_INVALID_SERVER_VERSION))
+		g_error_free (local_error);
+	else if (local_error != NULL)
+		g_propagate_error (error, local_error);
 }
 
 /**
@@ -87,7 +281,7 @@ e_book_backend_load_source (EBookBackend           *backend,
  *
  * Queries the source that an addressbook backend is serving.
  *
- * Return value: ESource for the backend.
+ * Returns: ESource for the backend.
  **/
 ESource *
 e_book_backend_get_source (EBookBackend *backend)
@@ -119,20 +313,21 @@ e_book_backend_open (EBookBackend *backend,
 	g_mutex_lock (backend->priv->open_mutex);
 
 	if (backend->priv->loaded) {
-		e_data_book_respond_open (
-			book, opid, GNOME_Evolution_Addressbook_Success);
-
 		e_data_book_report_writable (book, backend->priv->writable);
 		e_data_book_report_connection_status (book, backend->priv->online);
+
+		e_data_book_respond_open (book, opid, NULL);
 	} else {
-		GNOME_Evolution_Addressbook_CallStatus status =
-			e_book_backend_load_source (backend, e_data_book_get_source (book), only_if_exists);
+		GError *error = NULL;
 
-		e_data_book_respond_open (book, opid, status);
+		e_book_backend_load_source (backend, e_data_book_get_source (book), only_if_exists, &error);
 
-		if (status == GNOME_Evolution_Addressbook_Success || status == GNOME_Evolution_Addressbook_InvalidServerVersion)
+		if (!error || g_error_matches (error, E_DATA_BOOK_ERROR, E_DATA_BOOK_STATUS_INVALID_SERVER_VERSION)) {
 			e_data_book_report_writable (book, backend->priv->writable);
 			e_data_book_report_connection_status (book, backend->priv->online);
+		}
+
+		e_data_book_respond_open (book, opid, error);
 	}
 
 	g_mutex_unlock (backend->priv->open_mutex);
@@ -451,52 +646,27 @@ e_book_backend_get_supported_auth_methods (EBookBackend *backend,
  * e_book_backend_cancel_operation:
  * @backend: an #EBookBackend
  * @book: an #EDataBook whose operation should be cancelled
+ * @error: #GError to set, when something fails
  *
  * Cancel @book's running operation on @backend.
- *
- * Return value: A GNOME_Evolution_Addressbook_CallStatus indicating the outcome.
  **/
-GNOME_Evolution_Addressbook_CallStatus
+void
 e_book_backend_cancel_operation (EBookBackend *backend,
-				 EDataBook    *book)
+				 EDataBook    *book,
+				 GError      **error)
 {
-	g_return_val_if_fail (E_IS_BOOK_BACKEND (backend), GNOME_Evolution_Addressbook_OtherError);
-	g_return_val_if_fail (E_IS_DATA_BOOK (book), GNOME_Evolution_Addressbook_OtherError);
+	e_return_data_book_error_if_fail (E_IS_BOOK_BACKEND (backend), E_DATA_BOOK_STATUS_INVALID_ARG);
+	e_return_data_book_error_if_fail (E_IS_DATA_BOOK (book), E_DATA_BOOK_STATUS_INVALID_ARG);
 
 	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->cancel_operation);
 
-	return (* E_BOOK_BACKEND_GET_CLASS (backend)->cancel_operation) (backend, book);
-}
-
-static void
-book_destroy_cb (gpointer data, GObject *where_book_was)
-{
-	EBookBackend *backend = E_BOOK_BACKEND (data);
-
-	e_book_backend_remove_client (backend, (EDataBook *)where_book_was);
-}
-
-static gboolean
-idle_remove_client (gpointer data)
-{
-	EDataBook *book = (EDataBook *) data;
-
-	e_book_backend_remove_client (e_data_book_get_backend (book), book);
-	g_object_unref ((GObject *) book);
-
-	return FALSE;
-}
-static void
-listener_died_cb (gpointer cnx, gpointer user_data)
-{
-	g_object_ref ((GObject *)user_data);
-	g_idle_add (idle_remove_client, user_data);
+	(* E_BOOK_BACKEND_GET_CLASS (backend)->cancel_operation) (backend, book, error);
 }
 
 static void
 last_client_gone (EBookBackend *backend)
 {
-	g_signal_emit (backend, e_book_backend_signals[LAST_CLIENT_GONE], 0);
+	g_signal_emit (backend, signals[LAST_CLIENT_GONE], 0);
 }
 
 /**
@@ -505,7 +675,7 @@ last_client_gone (EBookBackend *backend)
  *
  * Gets the list of #EDataBookView views running on this backend.
  *
- * Return value: An #EList of #EDataBookView objects.
+ * Returns: An #EList of #EDataBookView objects.
  **/
 EList*
 e_book_backend_get_book_views (EBookBackend *backend)
@@ -562,7 +732,7 @@ e_book_backend_remove_book_view (EBookBackend *backend,
  *
  * Adds a client to an addressbook backend.
  *
- * Return value: TRUE on success, FALSE on failure to add the client.
+ * Returns: TRUE on success, FALSE on failure to add the client.
  */
 gboolean
 e_book_backend_add_client (EBookBackend      *backend,
@@ -570,12 +740,6 @@ e_book_backend_add_client (EBookBackend      *backend,
 {
 	g_return_val_if_fail (E_IS_BOOK_BACKEND (backend), FALSE);
 	g_return_val_if_fail (E_IS_DATA_BOOK (book), FALSE);
-
-	bonobo_object_set_immortal (BONOBO_OBJECT (book), TRUE);
-
-	g_object_weak_ref (G_OBJECT (book), book_destroy_cb, backend);
-
-	ORBit_small_listen_for_broken (e_data_book_get_listener (book), G_CALLBACK (listener_died_cb), book);
 
 	g_mutex_lock (backend->priv->clients_mutex);
 	backend->priv->clients = g_list_prepend (backend->priv->clients, book);
@@ -624,34 +788,12 @@ e_book_backend_remove_client (EBookBackend *backend,
  *
  * Checks if @backend has clients running in other system processes.
  *
- * Return value: %TRUE if there are clients in other processes, %FALSE otherwise.
+ * Returns: %TRUE if there are clients in other processes, %FALSE otherwise.
  **/
 gboolean
 e_book_backend_has_out_of_proc_clients (EBookBackend *backend)
 {
-	GList *l;
-
-	g_mutex_lock (backend->priv->clients_mutex);
-
-	if (!backend->priv->clients) {
-		g_mutex_unlock (backend->priv->clients_mutex);
-
-		return FALSE;
-	}
-
-	for (l = backend->priv->clients; l; l = l->next) {
-		if (ORBit_small_get_connection_status (e_data_book_get_listener (l->data)) != ORBIT_CONNECTION_IN_PROC) {
-			g_mutex_unlock (backend->priv->clients_mutex);
-
-			return TRUE;
-		}
-	}
-
-	g_mutex_unlock (backend->priv->clients_mutex);
-
-	/* If we get here, all remaining clients are in proc */
-
-	return FALSE;
+	return TRUE;
 }
 
 /**
@@ -660,7 +802,7 @@ e_book_backend_has_out_of_proc_clients (EBookBackend *backend)
  *
  * Gets the capabilities offered by this @backend.
  *
- * Return value: A string listing the capabilities.
+ * Returns: A string listing the capabilities.
  **/
 gchar *
 e_book_backend_get_static_capabilities (EBookBackend *backend)
@@ -679,7 +821,7 @@ e_book_backend_get_static_capabilities (EBookBackend *backend)
  * Checks if @backend's storage has been opened and the backend
  * itself is ready for accessing.
  *
- * Return value: %TRUE if loaded, %FALSE otherwise.
+ * Returns: %TRUE if loaded, %FALSE otherwise.
  **/
 gboolean
 e_book_backend_is_loaded (EBookBackend *backend)
@@ -711,7 +853,7 @@ e_book_backend_set_is_loaded (EBookBackend *backend, gboolean is_loaded)
  *
  * Checks if we can write to @backend.
  *
- * Return value: %TRUE if writeable, %FALSE if not.
+ * Returns: %TRUE if writeable, %FALSE if not.
  **/
 gboolean
 e_book_backend_is_writable (EBookBackend *backend)
@@ -743,7 +885,7 @@ e_book_backend_set_is_writable (EBookBackend *backend, gboolean is_writable)
  *
  * Checks if @backend has been removed from its physical storage.
  *
- * Return value: %TRUE if @backend has been removed, %FALSE otherwise.
+ * Returns: %TRUE if @backend has been removed, %FALSE otherwise.
  **/
 gboolean
 e_book_backend_is_removed (EBookBackend *backend)
@@ -779,7 +921,7 @@ e_book_backend_set_is_removed (EBookBackend *backend, gboolean is_removed)
  **/
 void
 e_book_backend_set_mode (EBookBackend *backend,
-			 GNOME_Evolution_Addressbook_BookMode  mode)
+			 EDataBookMode mode)
 {
 	g_return_if_fail (E_IS_BOOK_BACKEND (backend));
 
@@ -796,6 +938,8 @@ e_book_backend_set_mode (EBookBackend *backend,
  * Write all pending data to disk.  This is only required under special
  * circumstances (for example before a live backup) and should not be used in
  * normal use.
+ *
+ * Since: 1.12
  */
 void
 e_book_backend_sync (EBookBackend *backend)
@@ -813,15 +957,15 @@ e_book_backend_sync (EBookBackend *backend)
  * Creates a new change item indicating @vcard was added.
  * Meant to be used by backend implementations.
  *
- * Return value: A new #GNOME_Evolution_Addressbook_BookChangeItem.
+ * Returns: A new #EDataBookChange.
  **/
-GNOME_Evolution_Addressbook_BookChangeItem*
+EDataBookChange *
 e_book_backend_change_add_new     (const gchar *vcard)
 {
-	GNOME_Evolution_Addressbook_BookChangeItem* new_change = GNOME_Evolution_Addressbook_BookChangeItem__alloc();
+  EDataBookChange *new_change = g_new (EDataBookChange, 1);
 
-	new_change->changeType= GNOME_Evolution_Addressbook_ContactAdded;
-	new_change->vcard = CORBA_string_dup (vcard);
+	new_change->change_type = E_DATA_BOOK_BACKEND_CHANGE_ADDED;
+	new_change->vcard = g_strdup (vcard);
 
 	return new_change;
 }
@@ -833,15 +977,15 @@ e_book_backend_change_add_new     (const gchar *vcard)
  * Creates a new change item indicating @vcard was modified.
  * Meant to be used by backend implementations.
  *
- * Return value: A new #GNOME_Evolution_Addressbook_BookChangeItem.
+ * Returns: A new #EDataBookChange.
  **/
-GNOME_Evolution_Addressbook_BookChangeItem*
+EDataBookChange *
 e_book_backend_change_modify_new  (const gchar *vcard)
 {
-	GNOME_Evolution_Addressbook_BookChangeItem* new_change = GNOME_Evolution_Addressbook_BookChangeItem__alloc();
+  EDataBookChange *new_change = g_new (EDataBookChange, 1);
 
-	new_change->changeType= GNOME_Evolution_Addressbook_ContactModified;
-	new_change->vcard = CORBA_string_dup (vcard);
+	new_change->change_type = E_DATA_BOOK_BACKEND_CHANGE_MODIFIED;
+	new_change->vcard = g_strdup (vcard);
 
 	return new_change;
 }
@@ -853,15 +997,15 @@ e_book_backend_change_modify_new  (const gchar *vcard)
  * Creates a new change item indicating @vcard was deleted.
  * Meant to be used by backend implementations.
  *
- * Return value: A new #GNOME_Evolution_Addressbook_BookChangeItem.
+ * Returns: A new #EDataBookChange.
  **/
-GNOME_Evolution_Addressbook_BookChangeItem*
+EDataBookChange *
 e_book_backend_change_delete_new  (const gchar *vcard)
 {
-	GNOME_Evolution_Addressbook_BookChangeItem* new_change = GNOME_Evolution_Addressbook_BookChangeItem__alloc();
+  EDataBookChange *new_change = g_new (EDataBookChange, 1);
 
-	new_change->changeType= GNOME_Evolution_Addressbook_ContactDeleted;
-	new_change->vcard = CORBA_string_dup (vcard);
+	new_change->change_type = E_DATA_BOOK_BACKEND_CHANGE_DELETED;
+	new_change->vcard = g_strdup (vcard);
 
 	return new_change;
 }
@@ -945,7 +1089,7 @@ e_book_backend_notify_remove (EBookBackend *backend, const gchar *id)
 static void
 view_notify_complete (EDataBookView *view, gpointer unused)
 {
-	e_data_book_view_notify_complete (view, GNOME_Evolution_Addressbook_Success);
+	e_data_book_view_notify_complete (view, NULL /* SUCCESS */);
 }
 
 /**
@@ -1032,97 +1176,3 @@ e_book_backend_notify_auth_required (EBookBackend *backend)
 	g_mutex_unlock (priv->clients_mutex);
 }
 
-static void
-e_book_backend_init (EBookBackend *backend)
-{
-	EBookBackendPrivate *priv;
-
-	priv          = g_new0 (EBookBackendPrivate, 1);
-	priv->clients = NULL;
-	priv->source = NULL;
-	priv->views   = e_list_new((EListCopyFunc) NULL, (EListFreeFunc) NULL, NULL);
-	priv->open_mutex = g_mutex_new ();
-	priv->clients_mutex = g_mutex_new ();
-	priv->views_mutex = g_mutex_new ();
-
-	backend->priv = priv;
-}
-
-static void
-e_book_backend_dispose (GObject *object)
-{
-	EBookBackend *backend;
-
-	backend = E_BOOK_BACKEND (object);
-
-	if (backend->priv) {
-		g_list_free (backend->priv->clients);
-
-		if (backend->priv->views) {
-			g_object_unref (backend->priv->views);
-			backend->priv->views = NULL;
-		}
-
-		if (backend->priv->source) {
-			g_object_unref (backend->priv->source);
-			backend->priv->source = NULL;
-		}
-
-		g_mutex_free (backend->priv->open_mutex);
-		g_mutex_free (backend->priv->clients_mutex);
-		g_mutex_free (backend->priv->views_mutex);
-
-		g_free (backend->priv);
-		backend->priv = NULL;
-	}
-
-	G_OBJECT_CLASS (parent_class)->dispose (object);
-}
-
-static void
-e_book_backend_class_init (EBookBackendClass *klass)
-{
-	GObjectClass *object_class;
-
-	parent_class = g_type_class_peek_parent (klass);
-
-	object_class = (GObjectClass *) klass;
-
-	object_class->dispose = e_book_backend_dispose;
-
-	e_book_backend_signals[LAST_CLIENT_GONE] =
-		g_signal_new ("last_client_gone",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_FIRST,
-			      G_STRUCT_OFFSET (EBookBackendClass, last_client_gone),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__VOID,
-			      G_TYPE_NONE, 0);
-}
-
-/**
- * e_book_backend_get_type:
- */
-GType
-e_book_backend_get_type (void)
-{
-	static GType type = 0;
-
-	if (! type) {
-		GTypeInfo info = {
-			sizeof (EBookBackendClass),
-			NULL, /* base_class_init */
-			NULL, /* base_class_finalize */
-			(GClassInitFunc)  e_book_backend_class_init,
-			NULL, /* class_finalize */
-			NULL, /* class_data */
-			sizeof (EBookBackend),
-			0,    /* n_preallocs */
-			(GInstanceInitFunc) e_book_backend_init
-		};
-
-		type = g_type_register_static (G_TYPE_OBJECT, "EBookBackend", &info, 0);
-	}
-
-	return type;
-}

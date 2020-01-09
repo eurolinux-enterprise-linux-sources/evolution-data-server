@@ -4,9 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <glib.h>
-#include <libedataserver/e-sexp.h>
-#include <camel/camel-exception.h>
 #include <camel/camel-search-private.h>
 
 #include "camel-test.h"
@@ -14,10 +11,10 @@
 /* TODO: should put utf8 stuff here too */
 
 static struct {
-	gchar *word;
+	const gchar *word;
 	gint count;
 	struct {
-		gchar *word;
+		const gchar *word;
 		gint type;
 	} splits[5];
 } split_tests[] = {
@@ -33,13 +30,12 @@ static struct {
 	{ "\\\"escaped", 1, { { "\"escaped", CAMEL_SEARCH_WORD_COMPLEX } } },
 
 };
-#define SPLIT_LENGTH (sizeof(split_tests)/sizeof(split_tests[0]))
 
 static struct {
-	gchar *word;
+	const gchar *word;
 	gint count;
 	struct {
-		gchar *word;
+		const gchar *word;
 		gint type;
 	} splits[5];
 } simple_tests[] = {
@@ -53,8 +49,6 @@ static struct {
 	{ "\\\" \"quoted\"compl;ex\" simple", 4, { { "quoted", CAMEL_SEARCH_WORD_SIMPLE}, { "compl", CAMEL_SEARCH_WORD_SIMPLE }, { "ex", CAMEL_SEARCH_WORD_SIMPLE }, { "simple", CAMEL_SEARCH_WORD_SIMPLE } } },
 };
 
-#define SIMPLE_LENGTH (sizeof(simple_tests)/sizeof(simple_tests[0]))
-
 gint
 main (gint argc, gchar **argv)
 {
@@ -65,7 +59,7 @@ main (gint argc, gchar **argv)
 
 	camel_test_start("Search splitting");
 
-	for (i=0; i<SPLIT_LENGTH; i++) {
+	for (i = 0; i < G_N_ELEMENTS (split_tests); i++) {
 		camel_test_push("split %d '%s'", i, split_tests[i].word);
 
 		words = camel_search_words_split(split_tests[i].word);
@@ -86,7 +80,7 @@ main (gint argc, gchar **argv)
 
 	camel_test_start("Search splitting - simple");
 
-	for (i=0; i<SIMPLE_LENGTH; i++) {
+	for (i = 0; i < G_N_ELEMENTS (simple_tests); i++) {
 		camel_test_push("simple split %d '%s'", i, simple_tests[i].word);
 
 		tmp = camel_search_words_split(simple_tests[i].word);

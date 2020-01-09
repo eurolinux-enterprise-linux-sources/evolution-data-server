@@ -32,6 +32,8 @@
 #include "e-gw-connection.h"
 #include "e-gw-message.h"
 
+G_DEFINE_TYPE (EGwItem, e_gw_item, G_TYPE_OBJECT)
+
 struct _EGwItemPrivate {
 	EGwItemType item_type;
 	gchar *container;
@@ -537,7 +539,7 @@ e_gw_item_class_init (EGwItemClass *klass)
 }
 
 static void
-e_gw_item_init (EGwItem *item, EGwItemClass *klass)
+e_gw_item_init (EGwItem *item)
 {
 	EGwItemPrivate *priv;
 
@@ -583,28 +585,6 @@ e_gw_item_init (EGwItem *item, EGwItemClass *klass)
 	priv->parent_threads = NULL;
 	item->priv = priv;
 
-}
-
-GType
-e_gw_item_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static GTypeInfo info = {
-			sizeof (EGwItemClass),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) e_gw_item_class_init,
-			NULL, NULL,
-			sizeof (EGwItem),
-			0,
-			(GInstanceInitFunc) e_gw_item_init
-		};
-		type = g_type_register_static (G_TYPE_OBJECT, "EGwItem", &info, 0);
-	}
-
-	return type;
 }
 
 void
@@ -693,7 +673,7 @@ set_recipient_list_from_soap_parameter (EGwItem *item, SoupSoapParameter *param)
 			SoupSoapParameter *temp_param;
 
 			recipient->status_enabled = TRUE;
-			if ( (temp_param = soup_soap_parameter_get_first_child_by_name (subparam, "deleted")) ) {
+			if ((temp_param = soup_soap_parameter_get_first_child_by_name (subparam, "deleted"))) {
 				recipient->status = E_GW_ITEM_STAT_DELETED;
 				value = soup_soap_parameter_get_string_value (temp_param);
 				formatted_date = e_gw_connection_format_date_string (value);
@@ -701,7 +681,7 @@ set_recipient_list_from_soap_parameter (EGwItem *item, SoupSoapParameter *param)
 				g_free (value), value = NULL;
 				g_free (formatted_date), formatted_date = NULL;
 			}
-			if ( (temp_param = soup_soap_parameter_get_first_child_by_name (subparam, "declined")) ) {
+			if ((temp_param = soup_soap_parameter_get_first_child_by_name (subparam, "declined"))) {
 				recipient->status = E_GW_ITEM_STAT_DECLINED;
 				value = soup_soap_parameter_get_string_value (temp_param);
 				formatted_date = e_gw_connection_format_date_string (value);
@@ -791,7 +771,7 @@ set_sendoptions_from_soap_parameter (EGwItem *item, SoupSoapParameter *param)
 
 	priv = item->priv;
 
-	if ( (subparam = soup_soap_parameter_get_first_child_by_name (param, "requestReply")) ) {
+	if ((subparam = soup_soap_parameter_get_first_child_by_name (param, "requestReply"))) {
 		child = soup_soap_parameter_get_first_child_by_name (subparam, "whenConvenient");
 		if (child) {
 			value = soup_soap_parameter_get_string_value (child);
@@ -3181,15 +3161,15 @@ e_gw_item_set_calendar_item_elements (EGwItem *item, SoupSoapMessage *msg)
 		if (rrule->by_day[0]) {
 			gint i, max_elements;
 			soup_soap_message_start_element (msg, "byDay", NULL, NULL);
-			max_elements = sizeof (rrule->by_day) / sizeof (rrule->by_day[0]);
+			max_elements = G_N_ELEMENTS (rrule->by_day);
 			/* expand into  a sequence of 'day' here  */
-			for (i = 0; i < max_elements && rrule->by_day [i] != E_GW_ITEM_RECUR_END_MARKER; i++) {
-				const gchar *dow = e_gw_recur_get_day_of_week (rrule->by_day [i]);
+			for (i = 0; i < max_elements && rrule->by_day[i] != E_GW_ITEM_RECUR_END_MARKER; i++) {
+				const gchar *dow = e_gw_recur_get_day_of_week (rrule->by_day[i]);
 
-				if (rrule->by_setpos [i] == E_GW_ITEM_RECUR_END_MARKER)
+				if (rrule->by_setpos[i] == E_GW_ITEM_RECUR_END_MARKER)
 					e_gw_message_write_string_parameter (msg, "day", NULL, dow);
 				else {
-					gchar occur [3];
+					gchar occur[3];
 
 					g_sprintf (occur, "%d", rrule->by_setpos [i]);
 					e_gw_message_write_string_parameter_with_attribute (msg, "day", NULL, dow, "occurrence", occur);
@@ -3204,9 +3184,9 @@ e_gw_item_set_calendar_item_elements (EGwItem *item, SoupSoapMessage *msg)
 			gchar month_day[3];
 
 			soup_soap_message_start_element (msg, "byMonthDay", NULL, NULL);
-			max_elements = sizeof (rrule->by_month_day)  / sizeof (rrule->by_month_day [i]);
+			max_elements = G_N_ELEMENTS (rrule->by_month_day);
 			/* expand into  a sequence of 'day' here  */
-			for (i = 0; i < max_elements && rrule->by_month_day [i] != E_GW_ITEM_RECUR_END_MARKER; i++) {
+			for (i = 0; i < max_elements && rrule->by_month_day[i] != E_GW_ITEM_RECUR_END_MARKER; i++) {
 				/*TODO occurence attribute */
 				g_sprintf (month_day, "%d", rrule->by_month_day [i]);
 				e_gw_message_write_string_parameter (msg, "day", NULL, month_day);
@@ -3219,9 +3199,9 @@ e_gw_item_set_calendar_item_elements (EGwItem *item, SoupSoapMessage *msg)
 			gint i, max_elements;
 			gchar year_day[4];
 			soup_soap_message_start_element (msg, "byYearDay", NULL, NULL);
-			max_elements = sizeof (rrule->by_year_day)  / sizeof (rrule->by_year_day [i]);
+			max_elements = G_N_ELEMENTS (rrule->by_year_day);
 			/* expand into  a sequence of 'day' here  */
-			for (i = 0; i < max_elements && rrule->by_year_day [i] != E_GW_ITEM_RECUR_END_MARKER; i++) {
+			for (i = 0; i < max_elements && rrule->by_year_day[i] != E_GW_ITEM_RECUR_END_MARKER; i++) {
 				/*TODO occurence attribute */
 				g_sprintf (year_day, "%d", rrule->by_year_day [i]);
 				e_gw_message_write_string_parameter (msg, "day", NULL, year_day);
@@ -3234,9 +3214,9 @@ e_gw_item_set_calendar_item_elements (EGwItem *item, SoupSoapMessage *msg)
 			gint i, max_elements;
 			gchar month[3];
 			soup_soap_message_start_element (msg, "byMonth", NULL, NULL);
-			max_elements = sizeof (rrule->by_month)  / sizeof (rrule->by_month [i]);
+			max_elements = G_N_ELEMENTS (rrule->by_month);
 			/* expand into  a sequence of 'month' here  */
-			for (i = 0; i < max_elements && rrule->by_month [i] != E_GW_ITEM_RECUR_END_MARKER; i++) {
+			for (i = 0; i < max_elements && rrule->by_month[i] != E_GW_ITEM_RECUR_END_MARKER; i++) {
 				/*TODO occurence attribute */
 				g_sprintf (month, "%d", rrule->by_month [i]);
 				e_gw_message_write_string_parameter (msg, "month", NULL, month);

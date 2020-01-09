@@ -8,7 +8,6 @@
       <sub name="ECategoryCompletion" link="libedataserverui-ECategoryCompletion.html"/>
       <sub name="ECellRendererColor" link="libedataserverui-ECellRendererColor.html"/>
       <sub name="EContactStore" link="EContactStore.html"/>
-      <sub name="e-data-server-ui-marshal" link="libedataserverui-e-data-server-ui-marshal.html"/>
       <sub name="EDestinationStore" link="EDestinationStore.html"/>
       <sub name="ENameSelector" link="ENameSelector.html"/>
       <sub name="ENameSelectorDialog" link="ENameSelectorDialog.html"/>
@@ -17,23 +16,32 @@
       <sub name="ENameSelectorModel" link="ENameSelectorModel.html"/>
       <sub name="e-passwords" link="libedataserverui-e-passwords.html"/>
       <sub name="ESourceComboBox" link="ESourceComboBox.html"/>
-      <sub name="ESourceOptionMenu" link="ESourceOptionMenu.html"/>
       <sub name="ESourceSelector" link="ESourceSelector.html"/>
       <sub name="ESourceSelectorDialog" link="ESourceSelectorDialog.html"/>
       <sub name="ETreeModelGenerator" link="ETreeModelGenerator.html"/>
     </sub>
-    <sub name="Index" link="ix01.html"/>
+    <sub name="Index" link="api-index-full.html"/>
+    <sub name="Index of deprecated symbols" link="api-index-deprecated.html"/>
+    <sub name="Index of new symbols in 2.32" link="api-index-2.32.html"/>
+    <sub name="Index of new symbols in 2.30" link="api-index-2.30.html"/>
+    <sub name="Index of new symbols in 2.28" link="api-index-2.28.html"/>
+    <sub name="Index of new symbols in 2.26" link="api-index-2.26.html"/>
+    <sub name="Index of new symbols in 2.24" link="api-index-2.24.html"/>
+    <sub name="Index of new symbols in 2.22" link="api-index-2.22.html"/>
+    <sub name="Index of new symbols in 1.12" link="api-index-1.12.html"/>
   </chapters>
   <functions>
-    <keyword type="function" name="e_load_book_source ()" link="libedataserverui-e-book-auth-util.html#e-load-book-source"/>
+    <keyword type="function" name="e_load_book_source ()" link="libedataserverui-e-book-auth-util.html#e-load-book-source" deprecated="3.0: Use e_load_book_source_async() instead."/>
+    <keyword type="function" name="e_load_book_source_async ()" link="libedataserverui-e-book-auth-util.html#e-load-book-source-async" since="2.32"/>
+    <keyword type="function" name="e_load_book_source_finish ()" link="libedataserverui-e-book-auth-util.html#e-load-book-source-finish" since="2.32"/>
     <keyword type="struct" name="ECategoriesDialog" link="ECategoriesDialog.html#ECategoriesDialog-struct"/>
     <keyword type="function" name="e_categories_dialog_new ()" link="ECategoriesDialog.html#e-categories-dialog-new"/>
     <keyword type="function" name="e_categories_dialog_get_categories ()" link="ECategoriesDialog.html#e-categories-dialog-get-categories"/>
     <keyword type="function" name="e_categories_dialog_set_categories ()" link="ECategoriesDialog.html#e-categories-dialog-set-categories"/>
-    <keyword type="struct" name="ECategoryCompletion" link="libedataserverui-ECategoryCompletion.html#ECategoryCompletion"/>
-    <keyword type="function" name="e_category_completion_new ()" link="libedataserverui-ECategoryCompletion.html#e-category-completion-new"/>
-    <keyword type="struct" name="ECellRendererColor" link="libedataserverui-ECellRendererColor.html#ECellRendererColor"/>
-    <keyword type="function" name="e_cell_renderer_color_new ()" link="libedataserverui-ECellRendererColor.html#e-cell-renderer-color-new"/>
+    <keyword type="struct" name="ECategoryCompletion" link="libedataserverui-ECategoryCompletion.html#ECategoryCompletion" since="2.26"/>
+    <keyword type="function" name="e_category_completion_new ()" link="libedataserverui-ECategoryCompletion.html#e-category-completion-new" since="2.26"/>
+    <keyword type="struct" name="ECellRendererColor" link="libedataserverui-ECellRendererColor.html#ECellRendererColor" since="2.22"/>
+    <keyword type="function" name="e_cell_renderer_color_new ()" link="libedataserverui-ECellRendererColor.html#e-cell-renderer-color-new" since="2.22"/>
     <keyword type="struct" name="EContactStore" link="EContactStore.html#EContactStore-struct"/>
     <keyword type="function" name="e_contact_store_new ()" link="EContactStore.html#e-contact-store-new"/>
     <keyword type="function" name="e_contact_store_get_book ()" link="EContactStore.html#e-contact-store-get-book"/>
@@ -45,8 +53,6 @@
     <keyword type="function" name="e_contact_store_set_query ()" link="EContactStore.html#e-contact-store-set-query"/>
     <keyword type="function" name="e_contact_store_peek_query ()" link="EContactStore.html#e-contact-store-peek-query"/>
     <keyword type="function" name="find_contact_source_by_book_return_view ()" link="EContactStore.html#find-contact-source-by-book-return-view"/>
-    <keyword type="function" name="e_data_server_ui_marshal_BOOLEAN__BOXED_OBJECT_FLAGS_UINT ()" link="libedataserverui-e-data-server-ui-marshal.html#e-data-server-ui-marshal-BOOLEAN--BOXED-OBJECT-FLAGS-UINT"/>
-    <keyword type="function" name="e_data_server_ui_marshal_BOOLEAN__OBJECT_BOXED ()" link="libedataserverui-e-data-server-ui-marshal.html#e-data-server-ui-marshal-BOOLEAN--OBJECT-BOXED"/>
     <keyword type="struct" name="EDestinationStore" link="EDestinationStore.html#EDestinationStore-struct"/>
     <keyword type="enum" name="enum EDestinationStoreColumnType" link="EDestinationStore.html#EDestinationStoreColumnType"/>
     <keyword type="function" name="e_destination_store_new ()" link="EDestinationStore.html#e-destination-store-new"/>
@@ -58,29 +64,32 @@
     <keyword type="function" name="e_destination_store_remove_destination_nth ()" link="EDestinationStore.html#e-destination-store-remove-destination-nth"/>
     <keyword type="function" name="e_destination_store_get_destination_count ()" link="EDestinationStore.html#e-destination-store-get-destination-count"/>
     <keyword type="function" name="e_destination_store_get_path ()" link="EDestinationStore.html#e-destination-store-get-path"/>
+    <keyword type="function" name="e_destination_store_get_stamp ()" link="EDestinationStore.html#e-destination-store-get-stamp" since="2.32"/>
     <keyword type="struct" name="ENameSelector" link="ENameSelector.html#ENameSelector-struct"/>
     <keyword type="function" name="e_name_selector_new ()" link="ENameSelector.html#e-name-selector-new"/>
     <keyword type="function" name="e_name_selector_peek_model ()" link="ENameSelector.html#e-name-selector-peek-model"/>
     <keyword type="function" name="e_name_selector_peek_dialog ()" link="ENameSelector.html#e-name-selector-peek-dialog"/>
     <keyword type="function" name="e_name_selector_peek_section_entry ()" link="ENameSelector.html#e-name-selector-peek-section-entry"/>
     <keyword type="function" name="e_name_selector_peek_section_list ()" link="ENameSelector.html#e-name-selector-peek-section-list"/>
+    <keyword type="function" name="e_name_selector_show_dialog ()" link="ENameSelector.html#e-name-selector-show-dialog" since="2.32"/>
     <keyword type="struct" name="ENameSelectorDialog" link="ENameSelectorDialog.html#ENameSelectorDialog-struct"/>
     <keyword type="function" name="e_name_selector_dialog_new ()" link="ENameSelectorDialog.html#e-name-selector-dialog-new"/>
     <keyword type="function" name="e_name_selector_dialog_peek_model ()" link="ENameSelectorDialog.html#e-name-selector-dialog-peek-model"/>
     <keyword type="function" name="e_name_selector_dialog_set_model ()" link="ENameSelectorDialog.html#e-name-selector-dialog-set-model"/>
     <keyword type="function" name="e_name_selector_dialog_set_destination_index ()" link="ENameSelectorDialog.html#e-name-selector-dialog-set-destination-index"/>
     <keyword type="macro" name="MINIMUM_QUERY_LENGTH" link="ENameSelectorEntry.html#MINIMUM-QUERY-LENGTH:CAPS"/>
-    <keyword type="macro" name="FORCE_SHOW_ADDRESS" link="ENameSelectorEntry.html#FORCE-SHOW-ADDRESS:CAPS"/>
-    <keyword type="macro" name="USER_QUERY_FIELDS" link="ENameSelectorEntry.html#USER-QUERY-FIELDS:CAPS"/>
+    <keyword type="macro" name="FORCE_SHOW_ADDRESS" link="ENameSelectorEntry.html#FORCE-SHOW-ADDRESS:CAPS" since="2.24"/>
+    <keyword type="macro" name="USER_QUERY_FIELDS" link="ENameSelectorEntry.html#USER-QUERY-FIELDS:CAPS" since="2.24"/>
     <keyword type="struct" name="ENameSelectorEntry" link="ENameSelectorEntry.html#ENameSelectorEntry-struct"/>
     <keyword type="function" name="e_name_selector_entry_new ()" link="ENameSelectorEntry.html#e-name-selector-entry-new"/>
     <keyword type="function" name="e_name_selector_entry_peek_contact_store ()" link="ENameSelectorEntry.html#e-name-selector-entry-peek-contact-store"/>
     <keyword type="function" name="e_name_selector_entry_set_contact_store ()" link="ENameSelectorEntry.html#e-name-selector-entry-set-contact-store"/>
     <keyword type="function" name="e_name_selector_entry_peek_destination_store ()" link="ENameSelectorEntry.html#e-name-selector-entry-peek-destination-store"/>
     <keyword type="function" name="e_name_selector_entry_set_destination_store ()" link="ENameSelectorEntry.html#e-name-selector-entry-set-destination-store"/>
+    <keyword type="function" name="e_name_selector_entry_get_popup_destination ()" link="ENameSelectorEntry.html#e-name-selector-entry-get-popup-destination" since="2.32"/>
     <keyword type="function" name="e_name_selector_entry_set_contact_editor_func ()" link="ENameSelectorEntry.html#e-name-selector-entry-set-contact-editor-func"/>
     <keyword type="function" name="e_name_selector_entry_set_contact_list_editor_func ()" link="ENameSelectorEntry.html#e-name-selector-entry-set-contact-list-editor-func"/>
-    <keyword type="function" name="ens_util_populate_user_query_fields ()" link="ENameSelectorEntry.html#ens-util-populate-user-query-fields"/>
+    <keyword type="function" name="ens_util_populate_user_query_fields ()" link="ENameSelectorEntry.html#ens-util-populate-user-query-fields" since="2.24"/>
     <keyword type="signal" name="The &quot;updated&quot; signal" link="ENameSelectorEntry.html#ENameSelectorEntry-updated"/>
     <keyword type="struct" name="ENameSelectorList" link="ENameSelectorList.html#ENameSelectorList-struct"/>
     <keyword type="function" name="e_name_selector_list_new ()" link="ENameSelectorList.html#e-name-selector-list-new"/>
@@ -93,6 +102,8 @@
     <keyword type="function" name="e_name_selector_model_peek_section ()" link="ENameSelectorModel.html#e-name-selector-model-peek-section"/>
     <keyword type="function" name="e_name_selector_model_add_section ()" link="ENameSelectorModel.html#e-name-selector-model-add-section"/>
     <keyword type="function" name="e_name_selector_model_remove_section ()" link="ENameSelectorModel.html#e-name-selector-model-remove-section"/>
+    <keyword type="function" name="e_name_selector_model_get_contact_emails_without_used ()" link="ENameSelectorModel.html#e-name-selector-model-get-contact-emails-without-used" since="2.30"/>
+    <keyword type="function" name="e_name_selector_model_free_emails_list ()" link="ENameSelectorModel.html#e-name-selector-model-free-emails-list" since="2.30"/>
     <keyword type="signal" name="The &quot;section-added&quot; signal" link="ENameSelectorModel.html#ENameSelectorModel-section-added"/>
     <keyword type="signal" name="The &quot;section-removed&quot; signal" link="ENameSelectorModel.html#ENameSelectorModel-section-removed"/>
     <keyword type="function" name="e_passwords_init ()" link="libedataserverui-e-passwords.html#e-passwords-init"/>
@@ -108,31 +119,27 @@
     <keyword type="enum" name="enum EPasswordsRememberType" link="libedataserverui-e-passwords.html#EPasswordsRememberType"/>
     <keyword type="function" name="e_passwords_ask_password ()" link="libedataserverui-e-passwords.html#e-passwords-ask-password"/>
     <keyword type="struct" name="ESourceComboBox" link="ESourceComboBox.html#ESourceComboBox-struct"/>
-    <keyword type="function" name="e_source_combo_box_new ()" link="ESourceComboBox.html#e-source-combo-box-new"/>
-    <keyword type="function" name="e_source_combo_box_get_source_list ()" link="ESourceComboBox.html#e-source-combo-box-get-source-list"/>
-    <keyword type="function" name="e_source_combo_box_set_source_list ()" link="ESourceComboBox.html#e-source-combo-box-set-source-list"/>
-    <keyword type="function" name="e_source_combo_box_get_active ()" link="ESourceComboBox.html#e-source-combo-box-get-active"/>
-    <keyword type="function" name="e_source_combo_box_set_active ()" link="ESourceComboBox.html#e-source-combo-box-set-active"/>
-    <keyword type="function" name="e_source_combo_box_get_active_uid ()" link="ESourceComboBox.html#e-source-combo-box-get-active-uid"/>
-    <keyword type="function" name="e_source_combo_box_set_active_uid ()" link="ESourceComboBox.html#e-source-combo-box-set-active-uid"/>
+    <keyword type="function" name="e_source_combo_box_new ()" link="ESourceComboBox.html#e-source-combo-box-new" since="2.22"/>
+    <keyword type="function" name="e_source_combo_box_get_source_list ()" link="ESourceComboBox.html#e-source-combo-box-get-source-list" since="2.22"/>
+    <keyword type="function" name="e_source_combo_box_set_source_list ()" link="ESourceComboBox.html#e-source-combo-box-set-source-list" since="2.22"/>
+    <keyword type="function" name="e_source_combo_box_get_active ()" link="ESourceComboBox.html#e-source-combo-box-get-active" since="2.22"/>
+    <keyword type="function" name="e_source_combo_box_set_active ()" link="ESourceComboBox.html#e-source-combo-box-set-active" since="2.22"/>
+    <keyword type="function" name="e_source_combo_box_get_active_uid ()" link="ESourceComboBox.html#e-source-combo-box-get-active-uid" since="2.22"/>
+    <keyword type="function" name="e_source_combo_box_set_active_uid ()" link="ESourceComboBox.html#e-source-combo-box-set-active-uid" since="2.22"/>
     <keyword type="property" name="The &quot;source-list&quot; property" link="ESourceComboBox.html#ESourceComboBox--source-list"/>
-    <keyword type="struct" name="ESourceOptionMenu" link="ESourceOptionMenu.html#ESourceOptionMenu-struct"/>
-    <keyword type="function" name="e_source_option_menu_new ()" link="ESourceOptionMenu.html#e-source-option-menu-new" deprecated=""/>
-    <keyword type="function" name="e_source_option_menu_peek_selected ()" link="ESourceOptionMenu.html#e-source-option-menu-peek-selected" deprecated=""/>
-    <keyword type="function" name="e_source_option_menu_select ()" link="ESourceOptionMenu.html#e-source-option-menu-select" deprecated=""/>
-    <keyword type="signal" name="The &quot;source-selected&quot; signal" link="ESourceOptionMenu.html#ESourceOptionMenu-source-selected"/>
     <keyword type="struct" name="ESourceSelector" link="ESourceSelector.html#ESourceSelector-struct"/>
     <keyword type="function" name="e_source_selector_new ()" link="ESourceSelector.html#e-source-selector-new"/>
-    <keyword type="function" name="e_source_selector_get_source_list ()" link="ESourceSelector.html#e-source-selector-get-source-list"/>
+    <keyword type="function" name="e_source_selector_get_source_list ()" link="ESourceSelector.html#e-source-selector-get-source-list" since="2.24"/>
     <keyword type="function" name="e_source_selector_select_source ()" link="ESourceSelector.html#e-source-selector-select-source"/>
     <keyword type="function" name="e_source_selector_unselect_source ()" link="ESourceSelector.html#e-source-selector-unselect-source"/>
+    <keyword type="function" name="e_source_selector_select_exclusive ()" link="ESourceSelector.html#e-source-selector-select-exclusive" since="2.30"/>
     <keyword type="function" name="e_source_selector_source_is_selected ()" link="ESourceSelector.html#e-source-selector-source-is-selected"/>
     <keyword type="function" name="e_source_selector_get_selection ()" link="ESourceSelector.html#e-source-selector-get-selection"/>
     <keyword type="function" name="e_source_selector_free_selection ()" link="ESourceSelector.html#e-source-selector-free-selection"/>
     <keyword type="function" name="e_source_selector_show_selection ()" link="ESourceSelector.html#e-source-selector-show-selection"/>
     <keyword type="function" name="e_source_selector_selection_shown ()" link="ESourceSelector.html#e-source-selector-selection-shown"/>
     <keyword type="function" name="e_source_selector_set_select_new ()" link="ESourceSelector.html#e-source-selector-set-select-new"/>
-    <keyword type="function" name="e_source_selector_edit_primary_selection ()" link="ESourceSelector.html#e-source-selector-edit-primary-selection"/>
+    <keyword type="function" name="e_source_selector_edit_primary_selection ()" link="ESourceSelector.html#e-source-selector-edit-primary-selection" since="2.26"/>
     <keyword type="function" name="e_source_selector_peek_primary_selection ()" link="ESourceSelector.html#e-source-selector-peek-primary-selection"/>
     <keyword type="function" name="e_source_selector_set_primary_selection ()" link="ESourceSelector.html#e-source-selector-set-primary-selection"/>
     <keyword type="function" name="e_source_selector_get_primary_source_group ()" link="ESourceSelector.html#e-source-selector-get-primary-source-group"/>
@@ -143,7 +150,7 @@
     <keyword type="signal" name="The &quot;selection-changed&quot; signal" link="ESourceSelector.html#ESourceSelector-selection-changed"/>
     <keyword type="struct" name="ESourceSelectorDialog" link="ESourceSelectorDialog.html#ESourceSelectorDialog-struct"/>
     <keyword type="function" name="e_source_selector_dialog_new ()" link="ESourceSelectorDialog.html#e-source-selector-dialog-new"/>
-    <keyword type="function" name="e_source_selector_dialog_select_default_source ()" link="ESourceSelectorDialog.html#e-source-selector-dialog-select-default-source"/>
+    <keyword type="function" name="e_source_selector_dialog_select_default_source ()" link="ESourceSelectorDialog.html#e-source-selector-dialog-select-default-source" since="2.28"/>
     <keyword type="function" name="e_source_selector_dialog_peek_primary_selection ()" link="ESourceSelectorDialog.html#e-source-selector-dialog-peek-primary-selection"/>
     <keyword type="function" name="ETreeModelGeneratorGenerateFunc ()" link="ETreeModelGenerator.html#ETreeModelGeneratorGenerateFunc"/>
     <keyword type="function" name="ETreeModelGeneratorModifyFunc ()" link="ETreeModelGenerator.html#ETreeModelGeneratorModifyFunc"/>

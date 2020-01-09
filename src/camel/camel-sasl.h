@@ -20,51 +20,74 @@
  *
  */
 
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
 #ifndef CAMEL_SASL_H
 #define CAMEL_SASL_H
 
-#include <glib.h>
 #include <camel/camel-object.h>
-#include <camel/camel-exception.h>
 #include <camel/camel-service.h>
 
-#define CAMEL_SASL_TYPE     (camel_sasl_get_type ())
-#define CAMEL_SASL(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_SASL_TYPE, CamelSasl))
-#define CAMEL_SASL_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_SASL_TYPE, CamelSaslClass))
-#define CAMEL_IS_SASL(o)    (CAMEL_CHECK_TYPE((o), CAMEL_SASL_TYPE))
+/* Standard GObject macros */
+#define CAMEL_TYPE_SASL \
+	(camel_sasl_get_type ())
+#define CAMEL_SASL(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_SASL, CamelSasl))
+#define CAMEL_SASL_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_SASL, CamelSaslClass))
+#define CAMEL_IS_SASL(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_SASL))
+#define CAMEL_IS_SASL_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_SASL))
+#define CAMEL_SASL_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_SASL, CamelSaslClass))
 
 G_BEGIN_DECLS
 
-typedef struct _CamelSasl {
-	CamelObject parent_object;
+typedef struct _CamelSasl CamelSasl;
+typedef struct _CamelSaslClass CamelSaslClass;
+typedef struct _CamelSaslPrivate CamelSaslPrivate;
 
-	gchar *service_name;
-	gchar *mech;		/* mechanism */
-	CamelService *service;
-	gboolean authenticated;
-} CamelSasl;
+struct _CamelSasl {
+	CamelObject parent;
+	CamelSaslPrivate *priv;
+};
 
-typedef struct _CamelSaslClass {
+struct _CamelSaslClass {
 	CamelObjectClass parent_class;
 
-	GByteArray *    (*challenge)   (CamelSasl *sasl, GByteArray *token, CamelException *ex);
+	GByteArray *	(*challenge)		(CamelSasl *sasl,
+						 GByteArray *token,
+						 GError **error);
+};
 
-} CamelSaslClass;
+GType		camel_sasl_get_type		(void);
+GByteArray *	camel_sasl_challenge		(CamelSasl *sasl,
+						 GByteArray *token,
+						 GError **error);
+gchar *		camel_sasl_challenge_base64	(CamelSasl *sasl,
+						 const gchar *token,
+						 GError **error);
+CamelSasl *	camel_sasl_new			(const gchar *service_name,
+						 const gchar *mechanism,
+						 CamelService *service);
+gboolean	camel_sasl_get_authenticated	(CamelSasl *sasl);
+void		camel_sasl_set_authenticated	(CamelSasl *sasl,
+						 gboolean authenticated);
+const gchar *	camel_sasl_get_mechanism	(CamelSasl *sasl);
+CamelService *	camel_sasl_get_service		(CamelSasl *sasl);
+const gchar *	camel_sasl_get_service_name	(CamelSasl *sasl);
 
-/* Standard Camel function */
-CamelType  camel_sasl_get_type (void);
-
-/* public methods */
-GByteArray *camel_sasl_challenge        (CamelSasl *sasl, GByteArray *token, CamelException *ex);
-gchar       *camel_sasl_challenge_base64 (CamelSasl *sasl, const gchar *token, CamelException *ex);
-
-gboolean    camel_sasl_authenticated    (CamelSasl *sasl);
-
-/* utility functions */
-CamelSasl  *camel_sasl_new              (const gchar *service_name, const gchar *mechanism, CamelService *service);
-
-GList                *camel_sasl_authtype_list (gboolean include_plain);
-CamelServiceAuthType *camel_sasl_authtype      (const gchar *mechanism);
+GList *		camel_sasl_authtype_list	(gboolean include_plain);
+CamelServiceAuthType *
+		camel_sasl_authtype		(const gchar *mechanism);
 
 G_END_DECLS
 

@@ -24,10 +24,12 @@
 
 #include <string.h>
 #include <glib/gi18n-lib.h>
-#include "libedataserver/e-data-server-util.h"
+#include <libedataserver/e-data-server-util.h>
 #include <libecal/e-cal-time-util.h>
 
 #include "e-cal-backend-sexp.h"
+
+G_DEFINE_TYPE (ECalBackendSExp, e_cal_backend_sexp, G_TYPE_OBJECT)
 
 static GObjectClass *parent_class;
 
@@ -56,7 +58,7 @@ static ESExpResult *func_is_completed (ESExp *esexp, gint argc, ESExpResult **ar
  *
  * Processes the (time-now) sexp expression.
  *
- * Return value: The result of the function.
+ * Returns: The result of the function.
  */
 ESExpResult *
 e_cal_backend_sexp_func_time_now (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
@@ -87,7 +89,7 @@ e_cal_backend_sexp_func_time_now (ESExp *esexp, gint argc, ESExpResult **argv, g
  *
  * Constructs a time_t value for the specified date.
  *
- * Return value: The result of the function.
+ * Returns: The result of the function.
  */
 ESExpResult *
 e_cal_backend_sexp_func_make_time (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
@@ -147,7 +149,7 @@ e_cal_backend_sexp_func_make_time (ESExp *esexp, gint argc, ESExpResult **argv, 
  * FIXME: TIMEZONES - need to use a timezone or daylight saving changes will
  * make the result incorrect.
  *
- * Return value: The result of the function.
+ * Returns: The result of the function.
  */
 ESExpResult *
 e_cal_backend_sexp_func_time_add_day (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
@@ -198,7 +200,7 @@ e_cal_backend_sexp_func_time_add_day (ESExp *esexp, gint argc, ESExpResult **arg
  *
  * FIXME: TIMEZONES - this uses the current Unix timezone.
  *
- * Return value: The result of the function.
+ * Returns: The result of the function.
  */
 ESExpResult *
 e_cal_backend_sexp_func_time_day_begin (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
@@ -240,7 +242,7 @@ e_cal_backend_sexp_func_time_day_begin (ESExp *esexp, gint argc, ESExpResult **a
  *
  * FIXME: TIMEZONES - this uses the current Unix timezone.
  *
- * Return value: The result of the function.
+ * Returns: The result of the function.
  */
 ESExpResult *
 e_cal_backend_sexp_func_time_day_end (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
@@ -310,7 +312,7 @@ func_uid (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 		equal = FALSE;
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = equal;
+	result->value.boolean = equal;
 
 	return result;
 }
@@ -391,7 +393,7 @@ func_occur_in_time_range (ESExp *esexp, gint argc, ESExpResult **argv, gpointer 
 					default_zone);
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = ctx->occurs;
+	result->value.boolean = ctx->occurs;
 
 	return result;
 }
@@ -449,7 +451,7 @@ func_due_in_time_range (ESExp *esexp, gint argc, ESExpResult **argv, gpointer da
 		retval = FALSE;
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = retval;
+	result->value.boolean = retval;
 
 	e_cal_component_free_datetime (&dt);
 
@@ -677,7 +679,7 @@ func_has_attachment (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = e_cal_component_has_attachments (ctx->comp);
+	result->value.boolean = e_cal_component_has_attachments (ctx->comp);
 
 	return result;
 }
@@ -778,7 +780,7 @@ func_contains (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = matches;
+	result->value.boolean = matches;
 
 	return result;
 }
@@ -806,7 +808,7 @@ func_has_start (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 
 	e_cal_component_get_dtstart (ctx->comp, &dt);
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = dt.value != NULL;
+	result->value.boolean = dt.value != NULL;
 	e_cal_component_free_datetime (&dt);
 
 	return result;
@@ -833,7 +835,7 @@ func_has_alarms (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = e_cal_component_has_alarms (ctx->comp);
+	result->value.boolean = e_cal_component_has_alarms (ctx->comp);
 
 	return result;
 }
@@ -891,10 +893,10 @@ func_has_alarms_in_range (ESExp *esexp, gint argc, ESExpResult **argv, gpointer 
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
 	if (alarms) {
-		result->value.bool = TRUE;
+		result->value.boolean = TRUE;
 		e_cal_component_alarms_free (alarms);
 	} else
-		result->value.bool = FALSE;
+		result->value.boolean = FALSE;
 
 	return result;
 }
@@ -954,7 +956,7 @@ func_has_categories (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 	e_cal_component_get_categories_list (ctx->comp, &categories);
 	if (!categories) {
 		result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-		result->value.bool = unfiled;
+		result->value.boolean = unfiled;
 
 		return result;
 	}
@@ -964,7 +966,7 @@ func_has_categories (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 	 */
 	if (unfiled) {
 		result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-		result->value.bool = FALSE;
+		result->value.boolean = FALSE;
 
 		return result;
 	}
@@ -1000,7 +1002,7 @@ func_has_categories (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 	e_cal_component_free_categories_list (categories);
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = matches;
+	result->value.boolean = matches;
 
 	return result;
 }
@@ -1026,7 +1028,7 @@ func_has_recurrences (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = (e_cal_component_has_recurrences (ctx->comp) || e_cal_component_is_instance (ctx->comp));
+	result->value.boolean = (e_cal_component_has_recurrences (ctx->comp) || e_cal_component_is_instance (ctx->comp));
 
 	return result;
 }
@@ -1059,7 +1061,7 @@ func_is_completed (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data)
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = complete;
+	result->value.boolean = complete;
 
 	return result;
 }
@@ -1122,7 +1124,7 @@ func_completed_before (ESExp *esexp, gint argc, ESExpResult **argv, gpointer dat
 	}
 
 	result = e_sexp_result_new (esexp, ESEXP_RES_BOOL);
-	result->value.bool = retval;
+	result->value.boolean = retval;
 
 	return result;
 }
@@ -1167,7 +1169,6 @@ static struct prop_info {
 	LIST_PROP ( "category", "category", compare_category ),
 	LIST_PROP ( "arbitrary", "arbitrary", compare_arbitrary )
 };
-static gint num_prop_infos = sizeof(prop_info_table) / sizeof(prop_info_table[0]);
 
 static ESExpResult *
 entry_compare(SearchContext *ctx, struct _ESExp *f,
@@ -1188,7 +1189,7 @@ entry_compare(SearchContext *ctx, struct _ESExp *f,
 		propname = argv[0]->value.string;
 
 		any_field = !strcmp(propname, "x-evolution-any-field");
-		for (i = 0; i < num_prop_infos; i ++) {
+		for (i = 0; i < G_N_ELEMENTS (prop_info_table); i++) {
 			if (any_field
 			    || !strcmp (prop_info_table[i].query_prop, propname)) {
 				info = &prop_info_table[i];
@@ -1236,7 +1237,7 @@ entry_compare(SearchContext *ctx, struct _ESExp *f,
 
 	}
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = truth;
+	r->value.boolean = truth;
 
 	return r;
 }
@@ -1272,6 +1273,26 @@ static struct {
 };
 
 /**
+ * e_cal_backend_sexp_evaluate_occur_times:
+ * @sexp: An #ESExp object.
+ * @start: Start of the time window will be stored here.
+ * @end: End of the time window will be stored here.
+ *
+ * Determines biggest time window given by expressions "occur-in-range" in sexp.
+ *
+ * Since: 2.32
+ */
+gboolean
+e_cal_backend_sexp_evaluate_occur_times(ECalBackendSExp *sexp, time_t *start, time_t *end)
+{
+	g_return_val_if_fail (sexp != NULL, FALSE);
+	g_return_val_if_fail (start != NULL, FALSE);
+	g_return_val_if_fail (end != NULL, FALSE);
+
+	return e_sexp_evaluate_occur_times (sexp->priv->search_sexp, start, end);
+}
+
+/**
  * e_cal_backend_sexp_match_comp:
  * @sexp: An #ESExp object.
  * @comp: Component to match against the expression.
@@ -1279,7 +1300,7 @@ static struct {
  *
  * Matches the given ECalComponent against the expression.
  *
- * Return value: TRUE if the component matched the expression, FALSE if not.
+ * Returns: TRUE if the component matched the expression, FALSE if not.
  */
 gboolean
 e_cal_backend_sexp_match_comp (ECalBackendSExp *sexp, ECalComponent *comp, ECalBackend *backend)
@@ -1301,7 +1322,7 @@ e_cal_backend_sexp_match_comp (ECalBackendSExp *sexp, ECalComponent *comp, ECalB
 	}
 	r = e_sexp_eval(sexp->priv->search_sexp);
 
-	retval = (r && r->type == ESEXP_RES_BOOL && r->value.bool);
+	retval = (r && r->type == ESEXP_RES_BOOL && r->value.boolean);
 
 	g_object_unref (sexp->priv->search_context->comp);
 	g_object_unref (sexp->priv->search_context->backend);
@@ -1319,7 +1340,7 @@ e_cal_backend_sexp_match_comp (ECalBackendSExp *sexp, ECalComponent *comp, ECalB
  *
  * Match an iCalendar expression against the expression.
  *
- * Return value: TRUE if the object matches the expression, FALSE if not.
+ * Returns: TRUE if the object matches the expression, FALSE if not.
  */
 gboolean
 e_cal_backend_sexp_match_object (ECalBackendSExp *sexp, const gchar *object, ECalBackend *backend)
@@ -1350,7 +1371,7 @@ e_cal_backend_sexp_match_object (ECalBackendSExp *sexp, const gchar *object, ECa
  *
  * Creates a new #EXCalBackendSExp object.
  *
- * Return value: The newly created ECalBackendSExp object.
+ * Returns: The newly created ECalBackendSExp object.
  */
 ECalBackendSExp *
 e_cal_backend_sexp_new (const gchar *text)
@@ -1389,7 +1410,7 @@ e_cal_backend_sexp_new (const gchar *text)
  *
  * Retrieve the text expression for the given ECalBackendSExp object.
  *
- * Return value: The text expression.
+ * Returns: The text expression.
  */
 const gchar *
 e_cal_backend_sexp_text (ECalBackendSExp *sexp)
@@ -1445,34 +1466,50 @@ e_cal_backend_sexp_init (ECalBackendSExp *sexp)
 	sexp->priv = priv;
 	priv->search_context = g_new (SearchContext, 1);
 }
-
-/**
- * e_cal_backend_sexp_get_type:
- *
- * Registers the #ECalBackendSExp class if needed.
- *
- * Return value: The unique identifier of the class.
- */
-GType
-e_cal_backend_sexp_get_type (void)
+#ifdef TESTER
+static void
+test_query (const gchar * query)
 {
-	static GType type = 0;
+	ECalBackendSExp *sexp = e_cal_backend_sexp_new (query);
+	time_t start, end;
 
-	if (! type) {
-		GTypeInfo info = {
-			sizeof (ECalBackendSExpClass),
-			NULL, /* base_class_init */
-			NULL, /* base_class_finalize */
-			(GClassInitFunc)  e_cal_backend_sexp_class_init,
-			NULL, /* class_finalize */
-			NULL, /* class_data */
-			sizeof (ECalBackendSExp),
-			0,    /* n_preallocs */
-			(GInstanceInitFunc) e_cal_backend_sexp_init
-		};
+	gboolean generator = e_cal_backend_sexp_evaluate_occur_times(sexp, &start, &end);
 
-		type = g_type_register_static (G_TYPE_OBJECT, "ECalBackendSExp", &info, 0);
+	if (generator) {
+		printf ("%s: %ld - %ld\n", query, start, end);
+	} else {
+		printf ("%s: no time prunning possible\n", query);
 	}
-
-	return type;
 }
+
+gint main(gint argc, gchar **argv)
+{
+	g_type_init();
+
+	/* e_sexp_add_variable(f, 0, "test", NULL); */
+
+	if (argc < 2 || !argv[1])
+	{
+		test_query ("(occur-in-time-range? (make-time \"20080727T220000Z\") (make-time \"20080907T220000Z\"))");
+		test_query ("(due-in-time-range? (make-time \"20080727T220000Z\") (make-time \"20080907T220000Z\"))");
+		test_query ("(has-alarms-in-range? (make-time \"20080727T220000Z\") (make-time \"20080907T220000Z\"))");
+		test_query ("(completed-before? (make-time \"20080727T220000Z\") )");
+
+		test_query ("(and (occur-in-time-range? (make-time \"20080727T220000Z\") (make-time \"20080907T220000Z\")) #t)");
+		test_query ("(or (occur-in-time-range? (make-time \"20080727T220000Z\")(make-time \"20080907T220000Z\")) #t)");
+
+		test_query ("(and (contains? \"substring\") (has-categories? \"blah\"))");
+		test_query ("(or (occur-in-time-range? (make-time \"20080727T220000Z\") (make-time \"20080907T220000Z\")) (contains? \"substring\"))");
+
+		test_query ("(and (and (occur-in-time-range? (make-time \"20080727T220000Z\") (make-time \"20080907T220000Z\"))"
+			    " (or (contains? \"substring\") (has-categories? \"blah\"))) (has-alarms?))");
+
+		test_query ("(or (and (occur-in-time-range? (make-time \"20080727T220000Z\") (make-time \"20080907T220000Z\"))"
+			    " (or (contains? \"substring\") (has-categories? \"blah\"))) (has-alarms?))");
+	}
+	else
+		test_query(argv[1]);
+
+	return 0;
+}
+#endif

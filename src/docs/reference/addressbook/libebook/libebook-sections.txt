@@ -1,54 +1,9 @@
 <SECTION>
-<FILE>e-book-listener</FILE>
-<TITLE>EBookListener</TITLE>
-EBookListener
-EBookListenerResponse
-EBookListenerOperation
-e_book_listener_new
-e_book_listener_stop
-<SUBSECTION Standard>
-EBookListenerClass
-E_BOOK_LISTENER
-E_IS_BOOK_LISTENER
-E_TYPE_BOOK_LISTENER
-e_book_listener_get_type
-E_BOOK_LISTENER_CLASS
-E_IS_BOOK_LISTENER_CLASS
-E_BOOK_LISTENER_GET_CLASS
-<SUBSECTION Private>
-EBookListenerPrivate
-</SECTION>
-
-<SECTION>
-<FILE>e-book-view-listener</FILE>
-<TITLE>EBookViewListener</TITLE>
-EBookViewListener
-EBookViewListenerResponse
-EBookViewListenerOperation
-e_book_view_listener_new
-e_book_view_listener_start
-e_book_view_listener_stop
-<SUBSECTION Standard>
-EBookViewListenerClass
-E_BOOK_VIEW_LISTENER
-E_IS_BOOK_VIEW_LISTENER
-E_TYPE_BOOK_VIEW_LISTENER
-e_book_view_listener_get_type
-E_BOOK_VIEW_LISTENER_CLASS
-E_IS_BOOK_VIEW_LISTENER_CLASS
-E_BOOK_VIEW_LISTENER_GET_CLASS
-<SUBSECTION Private>
-EBookViewListenerPrivate
-</SECTION>
-
-<SECTION>
 <FILE>e-book-view</FILE>
 <TITLE>EBookView</TITLE>
 EBookView
-e_book_view_new
 e_book_view_start
 e_book_view_stop
-e_book_view_set_book
 e_book_view_get_book
 <SUBSECTION Standard>
 EBookViewClass
@@ -101,6 +56,16 @@ e_book_get_self
 e_book_set_self
 e_book_is_self
 e_book_get_addressbooks
+e_return_error_if_fail
+e_return_async_error_if_fail
+e_return_ex_async_error_val_if_fail
+EBookAsyncCallback
+EBookOpenProgressCallback
+EBookIdAsyncCallback
+EBookContactAsyncCallback
+EBookListAsyncCallback
+EBookBookViewAsyncCallback
+EBookEListAsyncCallback
 EBookCallback
 EBookOpenProgressCallback
 EBookIdCallback
@@ -108,6 +73,21 @@ EBookEListCallback
 EBookListCallback
 EBookContactCallback
 EBookBookViewCallback
+e_book_open_async
+e_book_remove_async
+e_book_get_supported_fields_async
+e_book_get_supported_auth_methods_async
+e_book_authenticate_user_async
+e_book_get_contact_async
+e_book_get_contacts_async
+e_book_remove_contact_async
+e_book_remove_contact_by_id_async
+e_book_remove_contacts_async
+e_book_add_contact_async
+e_book_commit_contact_async
+e_book_get_book_view_async
+e_book_get_changes_async
+e_book_get_required_fields_async
 e_book_async_open
 e_book_async_remove
 e_book_async_get_supported_fields
@@ -191,12 +171,12 @@ e_contact_get_type
 e_contact_address_get_type
 e_contact_cert_get_type
 e_contact_photo_get_type
-e_contact_geo_get_type
 e_contact_name_get_type
 e_contact_date_get_type
 EContactPhotoType
 <SUBSECTION Private>
 EContactPrivate
+e_contact_geo_get_type
 </SECTION>
 
 <SECTION>
@@ -215,6 +195,9 @@ e_vcard_attribute_free
 e_vcard_attribute_copy
 e_vcard_remove_attributes
 e_vcard_remove_attribute
+e_vcard_append_attribute
+e_vcard_append_attribute_with_value
+e_vcard_append_attribute_with_values
 e_vcard_add_attribute
 e_vcard_add_attribute_with_value
 e_vcard_add_attribute_with_values
@@ -356,6 +339,7 @@ e_book_query_get_type
 E_BOOK_ERROR
 e_book_error_quark
 EBookStatus
+E_BOOK_ERROR_CORBA_EXCEPTION
 EBookViewStatus
 EBookChangeType
 EBookChange

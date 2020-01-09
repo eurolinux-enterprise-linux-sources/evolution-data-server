@@ -25,7 +25,7 @@ CamelImapFolder
 
 </para>
 
-@parent_object: 
+@parent: 
 @priv: 
 @search: 
 @cache: 
@@ -55,6 +55,7 @@ CamelImapFolder
 @folder: 
 @response: 
 @ex: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_imap_folder_changed ##### -->
@@ -66,6 +67,7 @@ CamelImapFolder
 @exists: 
 @expunged: 
 @ex: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_imap_folder_fetch_data ##### -->
@@ -91,6 +93,7 @@ CamelImapFolder
 @info: 
 @appended_uid: 
 @ex: 
+@Returns: 
 
 
 <!-- ##### FUNCTION imap_transfer_resyncing ##### -->
@@ -104,6 +107,7 @@ CamelImapFolder
 @transferred_uids: 
 @delete_originals: 
 @ex: 
+@Returns: 
 
 
 <!-- ##### FUNCTION imap_expunge_uids_resyncing ##### -->
@@ -114,5 +118,6 @@ CamelImapFolder
 @folder: 
 @uids: 
 @ex: 
+@Returns: 
 
 

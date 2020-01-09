@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EDataBookView</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="prev" href="libedata-book-EDataBookFactory.html" title="EDataBookFactory">
 <link rel="next" href="libedata-book-ximian-vcard.html" title="ximian-vcard">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -28,7 +28,7 @@
                   <a href="#EDataBookView.object-hierarchy" class="shortcut">Object Hierarchy</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="EDataBookView">
 <a name="EDataBookView"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -37,144 +37,184 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="EDataBookView.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">struct              <a class="link" href="EDataBookView.html#EDataBookView-struct" title="struct EDataBookView">EDataBookView</a>;
-<a class="link" href="EDataBookView.html" title="EDataBookView"><span class="returnvalue">EDataBookView</span></a> *     <a class="link" href="EDataBookView.html#e-data-book-view-new" title="e_data_book_view_new ()">e_data_book_view_new</a>                (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Addressbook_BookViewListener</span> listener</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *card_query</code></em>,
+<a class="link" href="EDataBookView.html" title="EDataBookView"><span class="returnvalue">EDataBookView</span></a> *     <a class="link" href="EDataBookView.html#e-data-book-view-new" title="e_data_book_view_new ()">e_data_book_view_new</a>                (<em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *card_query</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> *card_sexp</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> max_results</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> max_results</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               <a class="link" href="EDataBookView.html#e-data-book-view-register-gdbus-object" title="e_data_book_view_register_gdbus_object ()">e_data_book_view_register_gdbus_object</a>
+                                                        (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *query</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EDataBookView.html#e-data-book-view-set-thresholds" title="e_data_book_view_set_thresholds ()">e_data_book_view_set_thresholds</a>     (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> minimum_grouping_threshold</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> maximum_grouping_threshold</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="EDataBookView.html#e-data-book-view-get-card-query" title="e_data_book_view_get_card_query ()">e_data_book_view_get_card_query</a>     (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> minimum_grouping_threshold</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> maximum_grouping_threshold</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EDataBookView.html#e-data-book-view-get-card-query" title="e_data_book_view_get_card_query ()">e_data_book_view_get_card_query</a>     (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);
 <a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="returnvalue">EBookBackendSExp</span></a>*   <a class="link" href="EDataBookView.html#e-data-book-view-get-card-sexp" title="e_data_book_view_get_card_sexp ()">e_data_book_view_get_card_sexp</a>      (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);
-<span class="returnvalue">gint</span>                <a class="link" href="EDataBookView.html#e-data-book-view-get-max-results" title="e_data_book_view_get_max_results ()">e_data_book_view_get_max_results</a>    (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                <a class="link" href="EDataBookView.html#e-data-book-view-get-max-results" title="e_data_book_view_get_max_results ()">e_data_book_view_get_max_results</a>    (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);
 <a class="link" href="EBookBackend.html" title="EBookBackend"><span class="returnvalue">EBookBackend</span></a>*       <a class="link" href="EDataBookView.html#e-data-book-view-get-backend" title="e_data_book_view_get_backend ()">e_data_book_view_get_backend</a>        (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);
-<span class="returnvalue">GNOME_Evolution_Addressbook_BookViewListener</span>  <a class="link" href="EDataBookView.html#e-data-book-view-get-listener" title="e_data_book_view_get_listener ()">e_data_book_view_get_listener</a>
-                                                        (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);
-<span class="returnvalue">GMutex</span>*             <a class="link" href="EDataBookView.html#e-data-book-view-get-mutex" title="e_data_book_view_get_mutex ()">e_data_book_view_get_mutex</a>          (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EDataBookView.html#e-data-book-view-notify-update" title="e_data_book_view_notify_update ()">e_data_book_view_notify_update</a>      (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EDataBookView.html#e-data-book-view-notify-update-vcard" title="e_data_book_view_notify_update_vcard ()">e_data_book_view_notify_update_vcard</a>
                                                         (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *vcard</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EDataBookView.html#e-data-book-view-notify-update-prefiltered-vcard" title="e_data_book_view_notify_update_prefiltered_vcard ()">e_data_book_view_notify_update_prefiltered_vcard</a>
                                                         (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *vcard</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EDataBookView.html#e-data-book-view-notify-remove" title="e_data_book_view_notify_remove ()">e_data_book_view_notify_remove</a>      (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EDataBookView.html#e-data-book-view-notify-complete" title="e_data_book_view_notify_complete ()">e_data_book_view_notify_complete</a>    (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Addressbook_CallStatus</span> Param2</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EDataBookView.html#e-data-book-view-notify-status-message" title="e_data_book_view_notify_status_message ()">e_data_book_view_notify_status_message</a>
                                                         (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EDataBookView.html#e-data-book-view-ref" title="e_data_book_view_ref ()">e_data_book_view_ref</a>                (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EDataBookView.html#e-data-book-view-unref" title="e_data_book_view_unref ()">e_data_book_view_unref</a>              (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
 <a name="EDataBookView.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  GObject
-   +----BonoboObject
-         +----EDataBookView
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----EDataBookView
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="EDataBookView.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="EDataBookView.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="struct EDataBookView">
 <a name="EDataBookView-struct"></a><h3>struct EDataBookView</h3>
 <pre class="programlisting">struct EDataBookView;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_new ()">
 <a name="e-data-book-view-new"></a><h3>e_data_book_view_new ()</h3>
-<pre class="programlisting"><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="returnvalue">EDataBookView</span></a> *     e_data_book_view_new                (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Addressbook_BookViewListener</span> listener</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *card_query</code></em>,
+<pre class="programlisting"><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="returnvalue">EDataBookView</span></a> *     e_data_book_view_new                (<em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *card_query</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> *card_sexp</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> max_results</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> max_results</code></em>);</pre>
+<p>
+Create a new <a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> for the given <a href="/usr/share/gtk-doc/html/libebook/EBook.html"><span class="type">EBook</span></a>, filtering on <span class="type">card_sexp</span>,
+and place it on DBus at the object path <span class="type">path</span>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>an <a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> to view
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>listener</code></em> :</span></p></td>
-<td>a CORBA listener to reveive notifications
+<td><p><span class="term"><em class="parameter"><code>book</code></em> :</span></p></td>
+<td>The <a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> to search
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>card_query</code></em> :</span></p></td>
-<td>an s-expression representing the query
+<td>The query as a string
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>card_sexp</code></em> :</span></p></td>
+<td>The query as an <a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>max_results</code></em> :</span></p></td>
-<td>the maximum number of results for the query
+<td>The maximum number of results to return
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A new <a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a>.
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_register_gdbus_object ()">
+<a name="e-data-book-view-register-gdbus-object"></a><h3>e_data_book_view_register_gdbus_object ()</h3>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint"><span class="returnvalue">guint</span></a>               e_data_book_view_register_gdbus_object
+                                                        (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *query</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/gio/unstable/GDBusConnection.html"><span class="type">GDBusConnection</span></a> *connection</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object_path</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>query</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>connection</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>object_path</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2" title="e_data_book_view_set_thresholds ()">
 <a name="e-data-book-view-set-thresholds"></a><h3>e_data_book_view_set_thresholds ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_data_book_view_set_thresholds     (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> minimum_grouping_threshold</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> maximum_grouping_threshold</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> minimum_grouping_threshold</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> maximum_grouping_threshold</code></em>);</pre>
 <p>
-Sets the thresholds for grouping add events together
-for efficiency reasons. The minimum threshold specifies
-how many adds must be grouped (as long as there are
-pending adds), and the maximum threshold specifies
-the maximum number of adds that can be grouped.</p>
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>book_view</code></em> :</span></p></td>
-<td>an <a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a>
+<td>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>minimum_grouping_threshold</code></em> :</span></p></td>
-<td>the minimum threshold
+<td>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>maximum_grouping_threshold</code></em> :</span></p></td>
-<td>the maximum threshold
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_get_card_query ()">
 <a name="e-data-book-view-get-card-query"></a><h3>e_data_book_view_get_card_query ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_data_book_view_get_card_query     (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_data_book_view_get_card_query     (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);</pre>
 <p>
 Gets the text representation of the s-expression used
-for matching contacts to <em class="parameter"><code>book_view</code></em>.</p>
+for matching contacts to <em class="parameter"><code>book_view</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -192,12 +232,13 @@ for matching contacts to <em class="parameter"><code>book_view</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_get_card_sexp ()">
 <a name="e-data-book-view-get-card-sexp"></a><h3>e_data_book_view_get_card_sexp ()</h3>
 <pre class="programlisting"><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="returnvalue">EBookBackendSExp</span></a>*   e_data_book_view_get_card_sexp      (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);</pre>
 <p>
 Gets the s-expression used for matching contacts to
-<em class="parameter"><code>book_view</code></em>.</p>
+<em class="parameter"><code>book_view</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -215,12 +256,13 @@ Gets the s-expression used for matching contacts to
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_get_max_results ()">
 <a name="e-data-book-view-get-max-results"></a><h3>e_data_book_view_get_max_results ()</h3>
-<pre class="programlisting"><span class="returnvalue">gint</span>                e_data_book_view_get_max_results    (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="returnvalue">gint</span></a>                e_data_book_view_get_max_results    (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);</pre>
 <p>
 Gets the maximum number of results returned by
-<em class="parameter"><code>book_view</code></em>'s query.</p>
+<em class="parameter"><code>book_view</code></em>'s query.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -238,11 +280,12 @@ Gets the maximum number of results returned by
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_get_backend ()">
 <a name="e-data-book-view-get-backend"></a><h3>e_data_book_view_get_backend ()</h3>
 <pre class="programlisting"><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="returnvalue">EBookBackend</span></a>*       e_data_book_view_get_backend        (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);</pre>
 <p>
-Gets the backend that <em class="parameter"><code>book_view</code></em> is querying.</p>
+Gets the backend that <em class="parameter"><code>book_view</code></em> is querying.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -260,62 +303,17 @@ Gets the backend that <em class="parameter"><code>book_view</code></em> is query
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
-<a name="e-data-book-view-get-listener"></a><h3>e_data_book_view_get_listener ()</h3>
-<pre class="programlisting"><span class="returnvalue">GNOME_Evolution_Addressbook_BookViewListener</span>  e_data_book_view_get_listener
-                                                        (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);</pre>
-<p>
-Gets the CORBA listener that <em class="parameter"><code>book_view</code></em> is dispatching
-events to.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>book_view</code></em> :</span></p></td>
-<td>an <a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> The CORBA book view listener.
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-data-book-view-get-mutex"></a><h3>e_data_book_view_get_mutex ()</h3>
-<pre class="programlisting"><span class="returnvalue">GMutex</span>*             e_data_book_view_get_mutex          (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);</pre>
-<p>
-Gets the internal mutex of <em class="parameter"><code>book_view</code></em>.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>book_view</code></em> :</span></p></td>
-<td>an <a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> The <span class="type">GMutex</span> for <em class="parameter"><code>book_view</code></em>.
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_notify_update ()">
 <a name="e-data-book-view-notify-update"></a><h3>e_data_book_view_notify_update ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_data_book_view_notify_update      (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);</pre>
 <p>
 Notify listeners that <em class="parameter"><code>contact</code></em> has changed. This can
 trigger an add, change or removal event depending on
 whether the change causes the contact to start matching,
 no longer match, or stay matching the query specified
-by <em class="parameter"><code>book_view</code></em>.</p>
+by <em class="parameter"><code>book_view</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -326,18 +324,18 @@ by <em class="parameter"><code>book_view</code></em>.</p>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>contact</code></em> :</span></p></td>
-<td>an <a href="../libebook/EContact.html"><span class="type">EContact</span></a>
+<td>an <a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_notify_update_vcard ()">
 <a name="e-data-book-view-notify-update-vcard"></a><h3>e_data_book_view_notify_update_vcard ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_data_book_view_notify_update_vcard
                                                         (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *vcard</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);</pre>
 <p>
 Notify listeners that <em class="parameter"><code>vcard</code></em> has changed. This can
 trigger an add, change or removal event depending on
@@ -345,7 +343,8 @@ whether the change causes the contact to start matching,
 no longer match, or stay matching the query specified
 by <em class="parameter"><code>book_view</code></em>.  This method should be preferred over
 <a class="link" href="EDataBookView.html#e-data-book-view-notify-update" title="e_data_book_view_notify_update ()"><span class="type">e_data_book_view_notify_update</span></a> when the native
-representation of a contact is a vCard.</p>
+representation of a contact is a vCard.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -363,12 +362,12 @@ representation of a contact is a vCard.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_notify_update_prefiltered_vcard ()">
 <a name="e-data-book-view-notify-update-prefiltered-vcard"></a><h3>e_data_book_view_notify_update_prefiltered_vcard ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_data_book_view_notify_update_prefiltered_vcard
                                                         (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *vcard</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);</pre>
 <p>
 Notify listeners that <em class="parameter"><code>vcard</code></em> has changed. This can
 trigger an add, change or removal event depending on
@@ -383,7 +382,8 @@ The important difference between this method and
 <a class="link" href="EDataBookView.html#e-data-book-view-notify-update" title="e_data_book_view_notify_update ()"><span class="type">e_data_book_view_notify_update</span></a> and <a class="link" href="EDataBookView.html#e-data-book-view-notify-update-vcard" title="e_data_book_view_notify_update_vcard ()"><span class="type">e_data_book_view_notify_update_vcard</span></a> is
 that it doesn't match the contact against the book view query to see if it
 should be included, it assumes that this has been done and the contact is
-known to exist in the view.</p>
+known to exist in the view.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -406,13 +406,14 @@ known to exist in the view.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_notify_remove ()">
 <a name="e-data-book-view-notify-remove"></a><h3>e_data_book_view_notify_remove ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_data_book_view_notify_remove      (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>);</pre>
 <p>
 Notify listeners that a contact specified by <em class="parameter"><code>id</code></em>
-was removed from <em class="parameter"><code>book_view</code></em>.</p>
+was removed from <em class="parameter"><code>book_view</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -430,14 +431,15 @@ was removed from <em class="parameter"><code>book_view</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_notify_complete ()">
 <a name="e-data-book-view-notify-complete"></a><h3>e_data_book_view_notify_complete ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_data_book_view_notify_complete    (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Addressbook_CallStatus</span> Param2</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
 <p>
 Notifies listeners that all pending updates on <em class="parameter"><code>book_view</code></em>
 have been sent. The listener's information should now be
-in sync with the backend's.</p>
+in sync with the backend's.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -447,23 +449,24 @@ in sync with the backend's.</p>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>Param2</code></em> :</span></p></td>
-<td>
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>the error of the query, if any
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_notify_status_message ()">
 <a name="e-data-book-view-notify-status-message"></a><h3>e_data_book_view_notify_status_message ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_data_book_view_notify_status_message
                                                         (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);</pre>
 <p>
 Provides listeners with a human-readable text describing the
 current backend operation. This can be used for progress
-reporting.</p>
+reporting.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -481,41 +484,45 @@ reporting.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_ref ()">
 <a name="e-data-book-view-ref"></a><h3>e_data_book_view_ref ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_data_book_view_ref                (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);</pre>
 <p>
 Increase the reference count of the book view. This is a function to aid
-the transition from Bonobo to DBUS.</p>
+the transition from Bonobo to DBUS.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>book_view</code></em> :</span></p></td>
-<td>an <a href="../libebook/EBookView.html"><span class="type">EBookView</span></a>
+<td>an <a href="/usr/share/gtk-doc/html/libebook/EBookView.html"><span class="type">EBookView</span></a>
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 2.26</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_data_book_view_unref ()">
 <a name="e-data-book-view-unref"></a><h3>e_data_book_view_unref ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_data_book_view_unref              (<em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *book_view</code></em>);</pre>
 <p>
 Decrease the reference count of the book view. This is a function to aid
-the transition from Bonobo to DBUS.</p>
+the transition from Bonobo to DBUS.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>book_view</code></em> :</span></p></td>
-<td>an <a href="../libebook/EBookView.html"><span class="type">EBookView</span></a>
+<td>an <a href="/usr/share/gtk-doc/html/libebook/EBookView.html"><span class="type">EBookView</span></a>
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 2.26</p>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

@@ -26,54 +26,73 @@
 #include <config.h>
 #endif
 
+#include <errno.h>
 #include <string.h>
 
+#include "camel-debug.h"
 #include "camel-stream.h"
 
-static CamelObjectClass *parent_class = NULL;
+G_DEFINE_ABSTRACT_TYPE (CamelStream, camel_stream, CAMEL_TYPE_OBJECT)
 
-/* Returns the class for a CamelStream */
-#define CS_CLASS(so) CAMEL_STREAM_CLASS(CAMEL_OBJECT_GET_CLASS(so))
-
-/* default implementations, do very little */
-static gssize   stream_read       (CamelStream *stream, gchar *buffer, gsize n) { return 0; }
-static gssize   stream_write      (CamelStream *stream, const gchar *buffer, gsize n) { return n; }
-static gint       stream_close      (CamelStream *stream) { return 0; }
-static gint       stream_flush      (CamelStream *stream) { return 0; }
-static gboolean  stream_eos        (CamelStream *stream) { return stream->eos; }
-static gint       stream_reset      (CamelStream *stream) { return 0; }
-
-static void
-camel_stream_class_init (CamelStreamClass *camel_stream_class)
+static gssize
+stream_read (CamelStream *stream,
+             gchar *buffer,
+             gsize n,
+             GError **error)
 {
-	parent_class = camel_type_get_global_classfuncs( CAMEL_OBJECT_TYPE );
-
-	/* virtual method definition */
-	camel_stream_class->read = stream_read;
-	camel_stream_class->write = stream_write;
-	camel_stream_class->close = stream_close;
-	camel_stream_class->flush = stream_flush;
-	camel_stream_class->eos = stream_eos;
-	camel_stream_class->reset = stream_reset;
+	return 0;
 }
 
-CamelType
-camel_stream_get_type (void)
+static gssize
+stream_write (CamelStream *stream,
+              const gchar *buffer,
+              gsize n,
+              GError **error)
 {
-	static CamelType camel_stream_type = CAMEL_INVALID_TYPE;
+	return n;
+}
 
-	if (camel_stream_type == CAMEL_INVALID_TYPE) {
-		camel_stream_type = camel_type_register( CAMEL_OBJECT_TYPE,
-							 "CamelStream",
-							 sizeof( CamelStream ),
-							 sizeof( CamelStreamClass ),
-							 (CamelObjectClassInitFunc) camel_stream_class_init,
-							 NULL,
-							 NULL,
-							 NULL );
-	}
+static gint
+stream_close (CamelStream *stream,
+              GError **error)
+{
+	return 0;
+}
 
-	return camel_stream_type;
+static gint
+stream_flush (CamelStream *stream,
+              GError **error)
+{
+	return 0;
+}
+
+static gboolean
+stream_eos (CamelStream *stream)
+{
+	return stream->eos;
+}
+
+static gint
+stream_reset (CamelStream *stream,
+              GError **error)
+{
+	return 0;
+}
+
+static void
+camel_stream_class_init (CamelStreamClass *class)
+{
+	class->read = stream_read;
+	class->write = stream_write;
+	class->close = stream_close;
+	class->flush = stream_flush;
+	class->eos = stream_eos;
+	class->reset = stream_reset;
+}
+
+static void
+camel_stream_init (CamelStream *stream)
+{
 }
 
 /**
@@ -81,6 +100,7 @@ camel_stream_get_type (void)
  * @stream: a #CamelStream object.
  * @buffer: output buffer
  * @n: max number of bytes to read.
+ * @error: return location for a #GError, or %NULL
  *
  * Attempts to read up to @len bytes from @stream into @buf.
  *
@@ -88,12 +108,24 @@ camel_stream_get_type (void)
  * errno.
  **/
 gssize
-camel_stream_read (CamelStream *stream, gchar *buffer, gsize n)
+camel_stream_read (CamelStream *stream,
+                   gchar *buffer,
+                   gsize n,
+                   GError **error)
 {
+	CamelStreamClass *class;
+	gssize n_bytes;
+
 	g_return_val_if_fail (CAMEL_IS_STREAM (stream), -1);
 	g_return_val_if_fail (n == 0 || buffer, -1);
 
-	return (CS_CLASS (stream)->read) (stream, buffer, n);
+	class = CAMEL_STREAM_GET_CLASS (stream);
+	g_return_val_if_fail (class->read != NULL, -1);
+
+	n_bytes = class->read (stream, buffer, n, error);
+	CAMEL_CHECK_GERROR (stream, read, n_bytes >= 0, error);
+
+	return n_bytes;
 }
 
 /**
@@ -101,6 +133,7 @@ camel_stream_read (CamelStream *stream, gchar *buffer, gsize n)
  * @stream: a #CamelStream object
  * @buffer: buffer to write.
  * @n: number of bytes to write
+ * @error: return location for a #GError, or %NULL
  *
  * Attempts to write up to @n bytes of @buffer into @stream.
  *
@@ -108,45 +141,79 @@ camel_stream_read (CamelStream *stream, gchar *buffer, gsize n)
  * along with setting errno.
  **/
 gssize
-camel_stream_write (CamelStream *stream, const gchar *buffer, gsize n)
+camel_stream_write (CamelStream *stream,
+                    const gchar *buffer,
+                    gsize n,
+                    GError **error)
 {
+	CamelStreamClass *class;
+	gssize n_bytes;
+
 	g_return_val_if_fail (CAMEL_IS_STREAM (stream), -1);
 	g_return_val_if_fail (n == 0 || buffer, -1);
 
-	return CS_CLASS (stream)->write (stream, buffer, n);
+	class = CAMEL_STREAM_GET_CLASS (stream);
+	g_return_val_if_fail (class->write != NULL, -1);
+
+	n_bytes = class->write (stream, buffer, n, error);
+	CAMEL_CHECK_GERROR (stream, write, n_bytes >= 0, error);
+
+	return n_bytes;
 }
 
 /**
  * camel_stream_flush:
  * @stream: a #CamelStream object
+ * @error: return location for a #GError, or %NULL
  *
  * Flushes any buffered data to the stream's backing store.  Only
  * meaningful for writable streams.
  *
- * Returns: %0 on success or %-1 on fail along with setting errno.
+ * Returns: %0 on success or %-1 on fail along with setting @error
  **/
 gint
-camel_stream_flush (CamelStream *stream)
+camel_stream_flush (CamelStream *stream,
+                    GError **error)
 {
+	CamelStreamClass *class;
+	gint retval;
+
 	g_return_val_if_fail (CAMEL_IS_STREAM (stream), -1);
 
-	return CS_CLASS (stream)->flush (stream);
+	class = CAMEL_STREAM_GET_CLASS (stream);
+	g_return_val_if_fail (class->flush != NULL, -1);
+
+	retval = class->flush (stream, error);
+	CAMEL_CHECK_GERROR (stream, flush, retval == 0, error);
+
+	return retval;
 }
 
 /**
  * camel_stream_close:
  * @stream: a #CamelStream object
+ * @error: return location for a #GError, or %NULL
  *
  * Closes the stream.
  *
  * Returns: %0 on success or %-1 on error.
  **/
 gint
-camel_stream_close (CamelStream *stream)
+camel_stream_close (CamelStream *stream,
+                    GError **error)
 {
+	CamelStreamClass *class;
+	gint retval;
+
 	g_return_val_if_fail (CAMEL_IS_STREAM (stream), -1);
 
-	return CS_CLASS (stream)->close (stream);
+	class = CAMEL_STREAM_GET_CLASS (stream);
+	g_return_val_if_fail (class->close != NULL, -1);
+
+	retval = class->close (stream, error);
+	CAMEL_CHECK_GERROR (stream, close, retval == 0, error);
+
+	return retval;
 }
 
 /**
@@ -160,27 +227,43 @@ camel_stream_close (CamelStream *stream)
 gboolean
 camel_stream_eos (CamelStream *stream)
 {
+	CamelStreamClass *class;
+
 	g_return_val_if_fail (CAMEL_IS_STREAM (stream), TRUE);
 
-	return CS_CLASS (stream)->eos (stream);
+	class = CAMEL_STREAM_GET_CLASS (stream);
+	g_return_val_if_fail (class->eos != NULL, TRUE);
+
+	return class->eos (stream);
 }
 
 /**
  * camel_stream_reset:
  * @stream: a #CamelStream object
+ * @error: return location for a #GError, or %NULL
  *
  * Resets the stream. That is, put it in a state where it can be read
  * from the beginning again. Not all streams in Camel are seekable,
  * but they must all be resettable.
  *
- * Returns: %0 on success or %-1 on error along with setting errno.
+ * Returns: %0 on success or %-1 on error along with setting @error.
  **/
 gint
-camel_stream_reset (CamelStream *stream)
+camel_stream_reset (CamelStream *stream,
+                    GError **error)
 {
+	CamelStreamClass *class;
+	gint retval;
+
 	g_return_val_if_fail (CAMEL_IS_STREAM (stream), -1);
 
-	return CS_CLASS (stream)->reset (stream);
+	class = CAMEL_STREAM_GET_CLASS (stream);
+	g_return_val_if_fail (class->reset != NULL, -1);
+
+	retval = class->reset (stream, error);
+	CAMEL_CHECK_GERROR (stream, reset, retval == 0, error);
+
+	return retval;
 }
 
 /***************** Utility functions ********************/
@@ -189,15 +272,21 @@ camel_stream_reset (CamelStream *stream)
  * camel_stream_write_string:
  * @stream: a #CamelStream object
  * @string: a string
+ * @error: return location for a #GError, or %NULL
  *
  * Writes the string to the stream.
  *
  * Returns: the number of characters written or %-1 on error.
  **/
 gssize
-camel_stream_write_string (CamelStream *stream, const gchar *string)
+camel_stream_write_string (CamelStream *stream,
+                           const gchar *string,
+                           GError **error)
 {
-	return camel_stream_write (stream, string, strlen (string));
+	g_return_val_if_fail (CAMEL_IS_STREAM (stream), -1);
+	g_return_val_if_fail (string != NULL, -1);
+
+	return camel_stream_write (stream, string, strlen (string), error);
 }
 
 /**
@@ -210,7 +299,9 @@ camel_stream_write_string (CamelStream *stream, const gchar *string)
  * Returns: the number of characters written or %-1 on error.
  **/
 gssize
-camel_stream_printf (CamelStream *stream, const gchar *fmt, ... )
+camel_stream_printf (CamelStream *stream,
+                     const gchar *fmt,
+                     ...)
 {
 	va_list args;
 	gchar *string;
@@ -222,11 +313,12 @@ camel_stream_printf (CamelStream *stream, const gchar *fmt, ... )
 	string = g_strdup_vprintf (fmt, args);
 	va_end (args);
 
-	if (!string)
+	if (string == NULL)
 		return -1;
 
-	ret = camel_stream_write (stream, string, strlen (string));
+	ret = camel_stream_write (stream, string, strlen (string), NULL);
 	g_free (string);
+
 	return ret;
 }
 
@@ -234,6 +326,7 @@ camel_stream_printf (CamelStream *stream, const gchar *fmt, ... )
  * camel_stream_write_to_stream:
  * @stream: source #CamelStream object
  * @output_stream: destination #CamelStream object
+ * @error: return location for a #GError, or %NULL
  *
  * Write all of a stream (until eos) into another stream, in a
  * blocking fashion.
@@ -242,7 +335,9 @@ camel_stream_printf (CamelStream *stream, const gchar *fmt, ... )
  * copied across streams.
  **/
 gssize
-camel_stream_write_to_stream (CamelStream *stream, CamelStream *output_stream)
+camel_stream_write_to_stream (CamelStream *stream,
+                              CamelStream *output_stream,
+                              GError **error)
 {
 	gchar tmp_buf[4096];
 	gssize total = 0;
@@ -253,15 +348,17 @@ camel_stream_write_to_stream (CamelStream *stream, CamelStream *output_stream)
 	g_return_val_if_fail (CAMEL_IS_STREAM (output_stream), -1);
 
 	while (!camel_stream_eos (stream)) {
-		nb_read = camel_stream_read (stream, tmp_buf, sizeof (tmp_buf));
+		nb_read = camel_stream_read (
+			stream, tmp_buf, sizeof (tmp_buf), error);
 		if (nb_read < 0)
 			return -1;
 		else if (nb_read > 0) {
 			nb_written = 0;
 
 			while (nb_written < nb_read) {
-				gssize len = camel_stream_write (output_stream, tmp_buf + nb_written,
-								  nb_read - nb_written);
+				gssize len = camel_stream_write (
+					output_stream, tmp_buf + nb_written,
+					nb_read - nb_written, error);
 				if (len < 0)
 					return -1;
 				nb_written += len;

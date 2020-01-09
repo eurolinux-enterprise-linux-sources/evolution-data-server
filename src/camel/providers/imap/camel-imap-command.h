@@ -24,12 +24,13 @@
  */
 
 #ifndef CAMEL_IMAP_COMMAND_H
-#define CAMEL_IMAP_COMMAND_H 1
+#define CAMEL_IMAP_COMMAND_H
 
-#include <glib.h>
-#include "camel-imap-types.h"
+#include "camel-imap-store.h"
 
 G_BEGIN_DECLS
+
+typedef struct _CamelImapResponse CamelImapResponse;
 
 typedef enum {
 	CAMEL_IMAP_RESPONSE_ERROR,
@@ -46,12 +47,12 @@ struct _CamelImapResponse {
 
 CamelImapResponse *camel_imap_command              (CamelImapStore *store,
 						    CamelFolder *folder,
-						    CamelException *ex,
+						    GError **error,
 						    const gchar *fmt, ...);
 CamelImapResponse *camel_imap_command_continuation (CamelImapStore *store,
 						    const gchar *cmd,
 						    gsize cmdlen,
-						    CamelException *ex);
+						    GError **error);
 
 void  camel_imap_response_free                     (CamelImapStore *store,
 						    CamelImapResponse *response);
@@ -60,18 +61,18 @@ void  camel_imap_response_free_without_processing  (CamelImapStore *store,
 gchar *camel_imap_response_extract                  (CamelImapStore *store,
 						    CamelImapResponse *response,
 						    const gchar *type,
-						    CamelException *ex);
+						    GError **error);
 gchar *camel_imap_response_extract_continuation     (CamelImapStore *store,
 						    CamelImapResponse *response,
-						    CamelException *ex);
+						    GError **error);
 
 gboolean           camel_imap_command_start        (CamelImapStore *store,
 						    CamelFolder *folder,
-						    CamelException *ex,
+						    GError **error,
 						    const gchar *fmt, ...);
 CamelImapResponseType camel_imap_command_response  (CamelImapStore *store,
 						    gchar **response,
-						    CamelException *ex);
+						    GError **error);
 
 G_END_DECLS
 

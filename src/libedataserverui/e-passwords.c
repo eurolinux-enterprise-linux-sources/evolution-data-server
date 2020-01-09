@@ -41,6 +41,8 @@
 #include "config.h"
 #endif
 
+#include <limits.h>
+#include <stdlib.h>
 #include <string.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n-lib.h>
@@ -110,11 +112,26 @@ check_key_file (const gchar *funcname)
 static gchar *
 ep_key_file_get_filename (void)
 {
+#ifndef G_OS_WIN32
+	const gchar *override;
+
 	/* XXX It would be nice to someday move this data elsewhere, or else
 	 * fully migrate to GNOME Keyring or whatever software supercedes it.
 	 * Evolution is one of the few remaining GNOME-2 applications that
 	 * still uses the deprecated ~/.gnome2_private directory. */
 
+	override = g_getenv ("GNOME22_USER_DIR");
+	if (override != NULL) {
+		gchar resolved_path[PATH_MAX];
+
+		/* Use realpath() to canonicalize the path, which
+		 * strips off any trailing directory separators so
+		 * we can safely tack on "_private". */
+		return g_strdup_printf (
+			"%s_private" G_DIR_SEPARATOR_S "Evolution",
+			realpath (override, resolved_path));
+	}
+#endif
 	return g_build_filename (
 		g_get_home_dir (), ".gnome2_private", "Evolution", NULL);
 }
@@ -175,6 +192,7 @@ ep_key_file_save (void)
 {
 	gchar *contents;
 	gchar *filename;
+	gchar *pathname;
 	gsize length = 0;
 	GError *error = NULL;
 
@@ -183,9 +201,14 @@ ep_key_file_save (void)
 
 	filename = ep_key_file_get_filename ();
 	contents = g_key_file_to_data (key_file, &length, &error);
+	pathname = g_path_get_dirname (filename);
 
-	if (!error)
+	if (!error) {
+		g_mkdir_with_parents (pathname, 0700);
 		g_file_set_contents (filename, contents, length, &error);
+	}
+
+	g_free (pathname);
 
 	if (error != NULL) {
 		g_warning ("%s: %s", filename, error->message);
@@ -1080,12 +1103,16 @@ pass_response (GtkDialog *dialog, gint response, gpointer data)
 }
 
 static gboolean
-update_capslock_state (gpointer widget, gpointer event, GtkWidget *label)
+update_capslock_state (GtkDialog *dialog,
+                       GdkEvent *event,
+                       GtkWidget *label)
 {
 	GdkModifierType mask = 0;
+	GdkWindow *window;
 	gchar *markup = NULL;
 
-	gdk_window_get_pointer (NULL, NULL, NULL, &mask);
+	window = gtk_widget_get_window (GTK_WIDGET (dialog));
+	gdk_window_get_pointer (window, NULL, NULL, &mask);
 
 	/* The space acts as a vertical placeholder. */
 	markup = g_markup_printf_escaped (
@@ -1116,7 +1143,9 @@ ep_ask_password (EPassMsg *msg)
 		GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 		GTK_STOCK_OK, GTK_RESPONSE_OK,
 		NULL);
-	gtk_dialog_set_has_separator (GTK_DIALOG (widget), FALSE);
+#if !GTK_CHECK_VERSION(2,90,7)
+	g_object_set (widget, "has-separator", FALSE, NULL);
+#endif
 	gtk_dialog_set_default_response (
 		GTK_DIALOG (widget), GTK_RESPONSE_OK);
 	gtk_window_set_resizable (GTK_WINDOW (widget), FALSE);
@@ -1192,7 +1221,6 @@ ep_ask_password (EPassMsg *msg)
 
 	/* Caps Lock Label */
 	widget = gtk_label_new (NULL);
-	update_capslock_state (NULL, NULL, widget);
 	gtk_widget_show (widget);
 
 	gtk_table_attach (
@@ -1237,12 +1265,17 @@ ep_ask_password (EPassMsg *msg)
 
 	msg->noreply = noreply;
 
-	g_signal_connect (password_dialog, "response", G_CALLBACK (pass_response), msg);
+	g_signal_connect (
+		password_dialog, "response",
+		G_CALLBACK (pass_response), msg);
 
-	if (msg->parent)
+	if (msg->parent) {
 		gtk_dialog_run (GTK_DIALOG (password_dialog));
-	else
-		gtk_widget_show ((GtkWidget *)password_dialog);
+	} else {
+		gtk_window_present (GTK_WINDOW (password_dialog));
+		/* workaround GTK+ bug (see Gnome's bugzilla bug #624229) */
+		gtk_grab_add (GTK_WIDGET (password_dialog));
+	}
 }
 
 /**
@@ -1267,12 +1300,13 @@ e_passwords_init (void)
 		 * We might be able to extract passwords from it. */
 		key_file = g_key_file_new ();
 		ep_key_file_load ();
+
+	#ifdef WITH_GNOME_KEYRING
+		if (gnome_keyring_is_available ())
+			gnome_keyring_get_default_keyring_sync (&default_keyring);
+	#endif
 	}
 
-#ifdef WITH_GNOME_KEYRING
-	if (gnome_keyring_is_available ())
-		gnome_keyring_get_default_keyring_sync (&default_keyring);
-#endif
 	G_UNLOCK (passwords);
 }
 
@@ -1293,7 +1327,7 @@ e_passwords_cancel (void)
 	G_UNLOCK (passwords);
 
 	if (password_dialog)
-		gtk_dialog_response (password_dialog,GTK_RESPONSE_CANCEL);
+		gtk_dialog_response (password_dialog, GTK_RESPONSE_CANCEL);
 }
 
 /**
@@ -1304,15 +1338,26 @@ e_passwords_cancel (void)
 void
 e_passwords_shutdown (void)
 {
-	e_passwords_cancel ();
+	EPassMsg *msg;
+
+	G_LOCK (passwords);
+
+	while ((msg = g_queue_pop_head (&message_queue)) != NULL)
+		e_flag_set (msg->done);
 
 	if (password_cache != NULL) {
 		g_hash_table_destroy (password_cache);
 		password_cache = NULL;
 	}
+
 #ifdef WITH_GNOME_KEYRING
 	g_free (default_keyring);
 #endif
+
+	G_UNLOCK (passwords);
+
+	if (password_dialog != NULL)
+		gtk_dialog_response (password_dialog, GTK_RESPONSE_CANCEL);
 }
 
 /**
@@ -1409,7 +1454,7 @@ e_passwords_forget_password (const gchar *component_name, const gchar *key)
  * e_passwords_get_password:
  * @key: the key
  *
- * Return value: the password associated with @key, or %NULL.  Caller
+ * Returns: the password associated with @key, or %NULL.  Caller
  * must free the returned password.
  **/
 gchar *
@@ -1473,7 +1518,7 @@ e_passwords_add_password (const gchar *key, const gchar *passwd)
  *
  * Asks the user for a password.
  *
- * Return value: the password, which the caller must free, or %NULL if
+ * Returns: the password, which the caller must free, or %NULL if
  * the user cancelled the operation. *@remember will be set if the
  * return value is non-%NULL and @remember_type is not
  * E_PASSWORDS_DO_NOT_REMEMBER.

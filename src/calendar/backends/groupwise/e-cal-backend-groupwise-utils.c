@@ -825,9 +825,15 @@ e_gw_item_new_from_cal_component (const gchar *container, ECalBackendGroupwise *
 
 	g_return_val_if_fail (E_IS_CAL_COMPONENT (comp), NULL);
 
+	e_cal_backend_groupwise_priv_lock (cbgw);
+
 	item = e_gw_item_new_empty ();
 	e_gw_item_set_container_id (item, container);
-	return set_properties_from_cal_component (item, comp, cbgw);
+	item = set_properties_from_cal_component (item, comp, cbgw);
+
+	e_cal_backend_groupwise_priv_unlock (cbgw);
+
+	return item;
 }
 
 /* Set the attendee list and send options to EGwItem */
@@ -844,8 +850,10 @@ e_gw_item_new_for_delegate_from_cal (ECalBackendGroupwise *cbgw, ECalComponent *
 	e_gw_item_set_id (item, e_cal_component_get_gw_id (comp));
 	user_email = e_gw_connection_get_user_email (e_cal_backend_groupwise_get_connection (cbgw));
 
+	e_cal_backend_groupwise_priv_lock (cbgw);
 	set_attendees_to_item (item, comp, default_zone, TRUE, user_email);
 	add_send_options_data_to_item (item, comp, default_zone);
+	e_cal_backend_groupwise_priv_unlock (cbgw);
 
 	return item;
 }
@@ -881,6 +889,7 @@ set_attachments_to_cal_component (EGwItem *item, ECalComponent *comp, ECalBacken
 {
 	GSList *fetch_list = NULL, *l;
 	GSList *comp_attachment_list = NULL;
+	const gchar *cache_dir;
 	const gchar *uid;
 	gchar *attach_file_url;
 
@@ -888,19 +897,30 @@ set_attachments_to_cal_component (EGwItem *item, ECalComponent *comp, ECalBacken
 	if (fetch_list == NULL)
 		return; /* No attachments exist */
 
+	cache_dir = e_cal_backend_get_cache_dir (E_CAL_BACKEND (cbgw));
+
 	e_cal_component_get_uid (comp, &uid);
 	for (l = fetch_list; l; l = l->next) {
 		gint fd;
 		EGwItemAttachment *attach_item;
 		gchar *attach_data = NULL;
 		struct stat st;
+		GError *error = NULL;
 		gchar *filename;
 
 		attach_item = (EGwItemAttachment *) l->data;
-		attach_file_url = g_strconcat (e_cal_backend_groupwise_get_local_attachments_store (cbgw),
-			 "/", uid, "-", attach_item->name, NULL);
+		filename = g_strconcat (
+			cache_dir, G_DIR_SEPARATOR_S, uid, "-", attach_item->name, NULL);
 
-		filename = g_filename_from_uri (attach_file_url, NULL, NULL);
+		attach_file_url = g_filename_to_uri (filename, NULL, &error);
+
+		if (!attach_file_url) {
+			g_message ("Could not get attach_file_url %s \n", error->message);
+			g_clear_error (&error);
+			g_free (filename);
+			return;
+		}
+
 		if (g_stat (filename, &st) == -1) {
 			if (!get_attach_data_from_server (attach_item, cbgw)) {
 				g_free (filename);
@@ -1012,13 +1032,41 @@ get_cn_from_display_name (gchar *display_name)
 	}
 }
 
+static void
+sanitize_component (ECalComponent *comp, const gchar *server_uid, const gchar *container_id)
+{
+	icalproperty *icalprop;
+	gint i;
+	GString *str = g_string_new ("");;
+
+	if (server_uid) {
+
+		/* the ID returned by sendItemResponse includes the container ID of the
+		   inbox folder, so we need to replace that with our container ID */
+		for (i = 0; i < strlen (server_uid); i++) {
+			str = g_string_append_c (str, server_uid[i]);
+			if (server_uid[i] == ':') {
+				str = g_string_append (str, container_id);
+				break;
+			}
+		}
+
+		/* add the extra property to the component */
+		icalprop = icalproperty_new_x (str->str);
+		icalproperty_set_x_name (icalprop, "X-GWRECORDID");
+		icalcomponent_add_property (e_cal_component_get_icalcomponent (comp), icalprop);
+
+	}
+	g_string_free (str, TRUE);
+}
+
 ECalComponent *
 e_gw_item_to_cal_component (EGwItem *item, ECalBackendGroupwise *cbgw)
 {
 	ECalComponent *comp;
 	ECalComponentText text;
 	ECalComponentDateTime dt;
-	const gchar *description, *uid;
+	const gchar *description, *uid, *item_id;
 	const gchar *t;
 	gchar *name;
 	GList *category_ids;
@@ -1035,10 +1083,12 @@ e_gw_item_to_cal_component (EGwItem *item, ECalBackendGroupwise *cbgw)
 	EGwItemOrganizer *organizer;
 	EGwItemType item_type;
 
+	g_return_val_if_fail (E_IS_GW_ITEM (item), NULL);
+
+	e_cal_backend_groupwise_priv_lock (cbgw);
+
 	default_zone = e_cal_backend_groupwise_get_default_zone (cbgw);
 	categories_by_id = e_cal_backend_groupwise_get_categories_by_id (cbgw);
-
-	g_return_val_if_fail (E_IS_GW_ITEM (item), NULL);
 
 	comp = e_cal_component_new ();
 
@@ -1052,18 +1102,16 @@ e_gw_item_to_cal_component (EGwItem *item, ECalBackendGroupwise *cbgw)
 		e_cal_component_set_new_vtype (comp, E_CAL_COMPONENT_JOURNAL);
 	else {
 		g_object_unref (comp);
+		e_cal_backend_groupwise_priv_unlock (cbgw);
 		return NULL;
 	}
 
 	/* set common properties */
 	/* GW server ID */
-	description = e_gw_item_get_id (item);
-	if (description) {
-		icalproperty *icalprop;
-
-		icalprop = icalproperty_new_x (description);
-		icalproperty_set_x_name (icalprop, "X-GWRECORDID");
-		icalcomponent_add_property (e_cal_component_get_icalcomponent (comp), icalprop);
+	item_id = e_gw_item_get_id (item);
+	if (item_id) {
+		const gchar *container_id = e_cal_backend_groupwise_get_container_id (cbgw);
+		sanitize_component (comp, item_id, container_id);
 	}
 
 	if (e_gw_item_get_reply_request (item)) {
@@ -1078,7 +1126,7 @@ e_gw_item_to_cal_component (EGwItem *item, ECalBackendGroupwise *cbgw)
 
 			t = e_gw_connection_get_date_from_string (reply_within);
 			temp = ctime (&t);
-			temp [strlen (temp)-1] = '\0';
+			temp[strlen (temp)-1] = '\0';
 			value = g_strconcat (N_("Reply Requested: by "), temp, "\n\n", mess ? mess : "", NULL);
 			e_gw_item_set_message (item, (const gchar *) value);
 			g_free (value);
@@ -1175,8 +1223,10 @@ e_gw_item_to_cal_component (EGwItem *item, ECalBackendGroupwise *cbgw)
 		}
 
 		e_cal_component_set_dtstart (comp, &dt);
-	} else
+	} else {
+		e_cal_backend_groupwise_priv_unlock (cbgw);
 		return NULL;
+	}
 
 	/* UID */
 	if (e_gw_item_get_recurrence_key (item) != 0) {
@@ -1197,9 +1247,10 @@ e_gw_item_to_cal_component (EGwItem *item, ECalBackendGroupwise *cbgw)
 
 		uid = e_gw_item_get_icalid (item);
 		if (uid)
-			e_cal_component_set_uid (comp, e_gw_item_get_icalid (item));
+			e_cal_component_set_uid (comp, uid);
 		else {
 			g_object_unref (comp);
+			e_cal_backend_groupwise_priv_unlock (cbgw);
 			return NULL;
 		}
 	}
@@ -1405,10 +1456,12 @@ e_gw_item_to_cal_component (EGwItem *item, ECalBackendGroupwise *cbgw)
 	case E_GW_ITEM_TYPE_NOTE:
 		break;
 	default :
+		e_cal_backend_groupwise_priv_unlock (cbgw);
 		return NULL;
 	}
 
 	e_cal_component_commit_sequence (comp);
+	e_cal_backend_groupwise_priv_unlock (cbgw);
 
 	return comp;
 }
@@ -1726,16 +1779,21 @@ close_freebusy_session (EGwConnection *cnc, const gchar *session)
 }
 
 EGwConnectionStatus
-e_gw_connection_get_freebusy_info (EGwConnection *cnc, GList *users, time_t start, time_t end, GList **freebusy, icaltimezone *default_zone)
+e_gw_connection_get_freebusy_info (ECalBackendGroupwise *cbgw, GList *users, time_t start, time_t end, GList **freebusy)
 {
         SoupSoapMessage *msg;
         SoupSoapResponse *response;
         EGwConnectionStatus status;
         SoupSoapParameter *param, *subparam, *param_outstanding;
+	EGwConnection *cnc;
         gchar *session;
 	gchar *outstanding = NULL;
 	gboolean resend_request = TRUE;
 	gint request_iteration = 0;
+	icaltimezone *default_zone;
+
+	default_zone = e_cal_backend_groupwise_get_default_zone (cbgw);
+	cnc = e_cal_backend_groupwise_get_connection (cbgw);
 
 	g_return_val_if_fail (E_IS_GW_CONNECTION (cnc), E_GW_CONNECTION_STATUS_INVALID_CONNECTION);
 
@@ -1816,6 +1874,8 @@ e_gw_connection_get_freebusy_info (EGwConnection *cnc, GList *users, time_t star
 		icalcomponent *icalcomp = NULL;
 		icaltimetype start_time, end_time;
 
+		e_cal_backend_groupwise_priv_lock (cbgw);
+
 		tmp = soup_soap_parameter_get_first_child_by_name (subparam, "email");
 		if (tmp)
 			email = soup_soap_parameter_get_string_value (tmp);
@@ -1861,6 +1921,7 @@ e_gw_connection_get_freebusy_info (EGwConnection *cnc, GList *users, time_t star
 		if (!param_blocks) {
 			g_object_unref (response);
 			g_object_unref (msg);
+			e_cal_backend_groupwise_priv_unlock (cbgw);
 			return E_GW_CONNECTION_STATUS_INVALID_RESPONSE;
 		}
 
@@ -1932,6 +1993,7 @@ e_gw_connection_get_freebusy_info (EGwConnection *cnc, GList *users, time_t star
 		e_cal_component_commit_sequence (comp);
 		*freebusy = g_list_append (*freebusy, e_cal_component_get_as_string (comp));
 		g_object_unref (comp);
+		e_cal_backend_groupwise_priv_unlock (cbgw);
 	}
 
         g_object_unref (msg);
@@ -1949,13 +2011,13 @@ e_gw_connection_get_freebusy_info (EGwConnection *cnc, GList *users, time_t star
 #define SET_DELTA(fieldname) G_STMT_START{                                                                \
 	fieldname = e_gw_item_get_##fieldname (item);                                                       \
 	cache_##fieldname = e_gw_item_get_##fieldname (cache_item);                                           \
-	if ( cache_##fieldname ) {                                                                            \
+	if (cache_##fieldname) {                                                                            \
 		if (!fieldname )                                                                               \
 			e_gw_item_set_change (item, E_GW_ITEM_CHANGE_TYPE_DELETE, #fieldname, (gpointer) cache_##fieldname );\
 		else if (strcmp ( fieldname, cache_##fieldname ))                                               \
 			e_gw_item_set_change (item, E_GW_ITEM_CHANGE_TYPE_UPDATE, #fieldname, (gpointer) fieldname );\
 	}                                                                                                 \
-	else if ( fieldname )                                                                               \
+	else if (fieldname)                                                                               \
 		e_gw_item_set_change (item, E_GW_ITEM_CHANGE_TYPE_ADD, #fieldname, (gpointer) fieldname );           \
 	}G_STMT_END
 

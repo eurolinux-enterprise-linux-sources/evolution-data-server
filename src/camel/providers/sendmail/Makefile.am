@@ -1,9 +1,8 @@
-## Process this file with automake to produce Makefile.in
-
 camel_provider_LTLIBRARIES = libcamelsendmail.la
 camel_provider_DATA = libcamelsendmail.urls
 
-AM_CPPFLAGS =						\
+libcamelsendmail_la_CPPFLAGS = \
+	$(AM_CPPFLAGS)					\
 	-I..						\
 	-I$(srcdir)/..					\
 	-I$(srcdir)/../../..				\
@@ -28,3 +27,5 @@ libcamelsendmail_la_LIBADD = \
 	$(CAMEL_LIBS)
 
 EXTRA_DIST = libcamelsendmail.urls
+
+-include $(top_srcdir)/git.mk

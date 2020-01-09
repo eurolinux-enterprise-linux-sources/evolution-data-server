@@ -29,6 +29,10 @@
 #include <glib/gi18n-lib.h>
 #include "e-name-selector-model.h"
 
+#define E_NAME_SELECTOR_MODEL_GET_PRIVATE(obj) \
+	(G_TYPE_INSTANCE_GET_PRIVATE \
+	((obj), E_TYPE_NAME_SELECTOR_MODEL, ENameSelectorModelPrivate))
+
 typedef struct {
 	gchar              *name;
 	gchar              *pretty_name;
@@ -36,6 +40,13 @@ typedef struct {
 	EDestinationStore  *destination_store;
 }
 Section;
+
+struct _ENameSelectorModelPrivate {
+	GArray *sections;
+	EContactStore *contact_store;
+	ETreeModelGenerator *contact_filter;
+	GHashTable *destination_uid_hash;
+};
 
 static gint generate_contact_rows  (EContactStore *contact_store, GtkTreeIter *iter,
 				    ENameSelectorModel *name_selector_model);
@@ -56,73 +67,82 @@ enum {
 	LAST_SIGNAL
 };
 
-static guint signals [LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 
 G_DEFINE_TYPE (ENameSelectorModel, e_name_selector_model, G_TYPE_OBJECT)
 
 static void
 e_name_selector_model_init (ENameSelectorModel *name_selector_model)
 {
-	name_selector_model->sections       = g_array_new (FALSE, FALSE, sizeof (Section));
-	name_selector_model->contact_store  = e_contact_store_new ();
+	name_selector_model->priv =
+		E_NAME_SELECTOR_MODEL_GET_PRIVATE (name_selector_model);
+	name_selector_model->priv->sections       = g_array_new (FALSE, FALSE, sizeof (Section));
+	name_selector_model->priv->contact_store  = e_contact_store_new ();
 
-	name_selector_model->contact_filter =
-		e_tree_model_generator_new (GTK_TREE_MODEL (name_selector_model->contact_store));
-	e_tree_model_generator_set_generate_func (name_selector_model->contact_filter,
+	name_selector_model->priv->contact_filter =
+		e_tree_model_generator_new (GTK_TREE_MODEL (name_selector_model->priv->contact_store));
+	e_tree_model_generator_set_generate_func (name_selector_model->priv->contact_filter,
 						  (ETreeModelGeneratorGenerateFunc) generate_contact_rows,
 						  name_selector_model, NULL);
-	e_tree_model_generator_set_modify_func (name_selector_model->contact_filter,
+	e_tree_model_generator_set_modify_func (name_selector_model->priv->contact_filter,
 						(ETreeModelGeneratorModifyFunc) override_email_address,
 						name_selector_model, NULL);
 
-	g_object_unref (name_selector_model->contact_store);
+	g_object_unref (name_selector_model->priv->contact_store);
 
-	name_selector_model->destination_uid_hash = NULL;
+	name_selector_model->priv->destination_uid_hash = NULL;
 }
 
 static void
-e_name_selector_model_finalize (GObject *object)
+name_selector_model_finalize (GObject *object)
 {
-	ENameSelectorModel *name_selector_model = E_NAME_SELECTOR_MODEL (object);
-	gint                i;
+	ENameSelectorModelPrivate *priv;
+	gint i;
 
-	for (i = 0; i < name_selector_model->sections->len; i++)
-		free_section (name_selector_model, i);
+	priv = E_NAME_SELECTOR_MODEL_GET_PRIVATE (object);
 
-	g_array_free (name_selector_model->sections, TRUE);
-	g_object_unref (name_selector_model->contact_filter);
+	for (i = 0; i < priv->sections->len; i++)
+		free_section (E_NAME_SELECTOR_MODEL (object), i);
 
-	if (name_selector_model->destination_uid_hash)
-		g_hash_table_destroy (name_selector_model->destination_uid_hash);
+	g_array_free (priv->sections, TRUE);
+	g_object_unref (priv->contact_filter);
 
-	if (G_OBJECT_CLASS (e_name_selector_model_parent_class)->finalize)
-		G_OBJECT_CLASS (e_name_selector_model_parent_class)->finalize (object);
+	if (priv->destination_uid_hash)
+		g_hash_table_destroy (priv->destination_uid_hash);
+
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (e_name_selector_model_parent_class)->finalize (object);
 }
 
 static void
-e_name_selector_model_class_init (ENameSelectorModelClass *name_selector_model_class)
+e_name_selector_model_class_init (ENameSelectorModelClass *class)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS (name_selector_model_class);
+	GObjectClass *object_class;
 
-	object_class->finalize = e_name_selector_model_finalize;
+	g_type_class_add_private (class, sizeof (ENameSelectorModelPrivate));
 
-	signals [SECTION_ADDED] =
-		g_signal_new ("section-added",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (ENameSelectorModelClass, section_added),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__STRING,
-			      G_TYPE_NONE, 1, G_TYPE_STRING);
+	object_class = G_OBJECT_CLASS (class);
+	object_class->finalize = name_selector_model_finalize;
 
-	signals [SECTION_REMOVED] =
-		g_signal_new ("section-removed",
-			      G_OBJECT_CLASS_TYPE (object_class),
-			      G_SIGNAL_RUN_LAST,
-			      G_STRUCT_OFFSET (ENameSelectorModelClass, section_removed),
-			      NULL, NULL,
-			      g_cclosure_marshal_VOID__STRING,
-			      G_TYPE_NONE, 1, G_TYPE_STRING);
+	signals[SECTION_ADDED] = g_signal_new (
+		"section-added",
+		G_OBJECT_CLASS_TYPE (object_class),
+		G_SIGNAL_RUN_LAST,
+		G_STRUCT_OFFSET (ENameSelectorModelClass, section_added),
+		NULL, NULL,
+		g_cclosure_marshal_VOID__STRING,
+		G_TYPE_NONE, 1,
+		G_TYPE_STRING);
+
+	signals[SECTION_REMOVED] = g_signal_new (
+		"section-removed",
+		G_OBJECT_CLASS_TYPE (object_class),
+		G_SIGNAL_RUN_LAST,
+		G_STRUCT_OFFSET (ENameSelectorModelClass, section_removed),
+		NULL, NULL,
+		g_cclosure_marshal_VOID__STRING,
+		G_TYPE_NONE, 1,
+		G_TYPE_STRING);
 }
 
 /**
@@ -130,7 +150,7 @@ e_name_selector_model_class_init (ENameSelectorModelClass *name_selector_model_c
  *
  * Creates a new #ENameSelectorModel.
  *
- * Return value: A new #ENameSelectorModel.
+ * Returns: A new #ENameSelectorModel.
  **/
 ENameSelectorModel *
 e_name_selector_model_new (void)
@@ -159,8 +179,7 @@ generate_contact_rows (EContactStore *contact_store, GtkTreeIter *iter,
 {
 	EContact    *contact;
 	const gchar *contact_uid;
-	gboolean     result = TRUE;
-	gint         n_rows;
+	gint         n_rows, used_rows = 0;
 	gint         i;
 
 	contact = e_contact_store_get_contact (contact_store, iter);
@@ -168,14 +187,14 @@ generate_contact_rows (EContactStore *contact_store, GtkTreeIter *iter,
 
 	contact_uid = e_contact_get_const (contact, E_CONTACT_UID);
 	if (!contact_uid)
-		return TRUE;  /* Can happen with broken databases */
+		return 0;  /* Can happen with broken databases */
 
-	for (i = 0; i < name_selector_model->sections->len && result == TRUE; i++) {
+	for (i = 0; i < name_selector_model->priv->sections->len; i++) {
 		Section *section;
 		GList   *destinations;
 		GList   *l;
 
-		section = &g_array_index (name_selector_model->sections, Section, i);
+		section = &g_array_index (name_selector_model->priv->sections, Section, i);
 		destinations = e_destination_store_list_destinations (section->destination_store);
 
 		for (l = destinations; l; l = g_list_next (l)) {
@@ -184,27 +203,24 @@ generate_contact_rows (EContactStore *contact_store, GtkTreeIter *iter,
 
 			destination_uid = e_destination_get_contact_uid (destination);
 			if (destination_uid && !strcmp (contact_uid, destination_uid)) {
-				result = FALSE;
-				break;
+				used_rows++;
 			}
 		}
 
 		g_list_free (destinations);
 	}
 
-	if (result) {
+	if (e_contact_get (contact, E_CONTACT_IS_LIST)) {
+		n_rows = 1 - used_rows;
+	} else {
 		GList    *email_list;
 
-		if (e_contact_get (contact, E_CONTACT_IS_LIST)) {
-			n_rows = 1;
-		} else {
-			email_list = e_contact_get (contact, E_CONTACT_EMAIL);
-			n_rows = g_list_length (email_list);
-			deep_free_list (email_list);
-		}
-	} else {
-		n_rows = 0;
+		email_list = e_contact_get (contact, E_CONTACT_EMAIL);
+		n_rows = g_list_length (email_list) - used_rows;
+		deep_free_list (email_list);
 	}
+
+	g_return_val_if_fail (n_rows >= 0, 0);
 
 	return n_rows;
 }
@@ -220,10 +236,11 @@ override_email_address (EContactStore *contact_store, GtkTreeIter *iter,
 		gchar    *email;
 
 		contact = e_contact_store_get_contact (contact_store, iter);
-		email_list = e_contact_get (contact, E_CONTACT_EMAIL);
+		email_list = e_name_selector_model_get_contact_emails_without_used (name_selector_model, contact, TRUE);
+		g_return_if_fail (g_list_length (email_list) <= permutation_n);
 		email = g_strdup (g_list_nth_data (email_list, permutation_n));
 		g_value_set_string (value, email);
-		deep_free_list (email_list);
+		e_name_selector_model_free_emails_list (email_list);
 	} else {
 		gtk_tree_model_get_value (GTK_TREE_MODEL (contact_store), iter, column, value);
 	}
@@ -241,18 +258,27 @@ typedef struct
 HashCompare;
 
 static void
-emit_destination_uid_changes_cb (const gchar *uid, gpointer value, HashCompare *hash_compare)
+emit_destination_uid_changes_cb (gchar *uid_num, gpointer value, HashCompare *hash_compare)
 {
-	EContactStore *contact_store = hash_compare->name_selector_model->contact_store;
+	EContactStore *contact_store = hash_compare->name_selector_model->priv->contact_store;
 
-	if (!hash_compare->other_hash || !g_hash_table_lookup (hash_compare->other_hash, uid)) {
+	if (!hash_compare->other_hash || !g_hash_table_lookup (hash_compare->other_hash, uid_num)) {
 		GtkTreeIter  iter;
 		GtkTreePath *path;
+		gchar *sep;
 
-		if (e_contact_store_find_contact (contact_store, uid, &iter)) {
+		sep = strrchr (uid_num, ':');
+		g_return_if_fail (sep != NULL);
+
+		*sep = '\0';
+		if (e_contact_store_find_contact (contact_store, uid_num, &iter)) {
+			*sep = ':';
+
 			path = gtk_tree_model_get_path (GTK_TREE_MODEL (contact_store), &iter);
 			gtk_tree_model_row_changed (GTK_TREE_MODEL (contact_store), path, &iter);
 			gtk_tree_path_free (path);
+		} else {
+			*sep = ':';
 		}
 	}
 }
@@ -267,8 +293,8 @@ destinations_changed (ENameSelectorModel *name_selector_model)
 
 	destination_uid_hash_new = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
 
-	for (i = 0; i < name_selector_model->sections->len; i++) {
-		Section *section = &g_array_index (name_selector_model->sections, Section, i);
+	for (i = 0; i < name_selector_model->priv->sections->len; i++) {
+		Section *section = &g_array_index (name_selector_model->priv->sections, Section, i);
 		GList   *destinations;
 		GList   *l;
 
@@ -281,15 +307,15 @@ destinations_changed (ENameSelectorModel *name_selector_model)
 			destination_uid = e_destination_get_contact_uid (destination);
 			if (destination_uid)
 				g_hash_table_insert (destination_uid_hash_new,
-						     g_strdup (destination_uid),
+						     g_strdup_printf ("%s:%d", destination_uid, e_destination_get_email_num (destination)),
 						     GINT_TO_POINTER (TRUE));
 		}
 
 		g_list_free (destinations);
 	}
 
-	destination_uid_hash_old = name_selector_model->destination_uid_hash;
-	name_selector_model->destination_uid_hash = destination_uid_hash_new;
+	destination_uid_hash_old = name_selector_model->priv->destination_uid_hash;
+	name_selector_model->priv->destination_uid_hash = destination_uid_hash_new;
 
 	hash_compare.name_selector_model = name_selector_model;
 
@@ -312,9 +338,9 @@ free_section (ENameSelectorModel *name_selector_model, gint n)
 	Section *section;
 
 	g_assert (n >= 0);
-	g_assert (n < name_selector_model->sections->len);
+	g_assert (n < name_selector_model->priv->sections->len);
 
-	section = &g_array_index (name_selector_model->sections, Section, n);
+	section = &g_array_index (name_selector_model->priv->sections, Section, n);
 
 	g_signal_handlers_disconnect_matched (section->destination_store, G_SIGNAL_MATCH_DATA,
 					      0, 0, NULL, NULL, name_selector_model);
@@ -331,8 +357,8 @@ find_section_by_name (ENameSelectorModel *name_selector_model, const gchar *name
 
 	g_assert (name != NULL);
 
-	for (i = 0; i < name_selector_model->sections->len; i++) {
-		Section *section = &g_array_index (name_selector_model->sections, Section, i);
+	for (i = 0; i < name_selector_model->priv->sections->len; i++) {
+		Section *section = &g_array_index (name_selector_model->priv->sections, Section, i);
 
 		if (!strcmp (name, section->name))
 			return i;
@@ -351,14 +377,14 @@ find_section_by_name (ENameSelectorModel *name_selector_model, const gchar *name
  *
  * Gets the #EContactStore associated with @name_selector_model.
  *
- * Return value: An #EContactStore.
+ * Returns: An #EContactStore.
  **/
 EContactStore *
 e_name_selector_model_peek_contact_store (ENameSelectorModel *name_selector_model)
 {
 	g_return_val_if_fail (E_IS_NAME_SELECTOR_MODEL (name_selector_model), NULL);
 
-	return name_selector_model->contact_store;
+	return name_selector_model->priv->contact_store;
 }
 
 /**
@@ -368,14 +394,14 @@ e_name_selector_model_peek_contact_store (ENameSelectorModel *name_selector_mode
  * Gets the #ETreeModelGenerator being used to filter and/or extend the
  * list of contacts in @name_selector_model's #EContactStore.
  *
- * Return value: An #ETreeModelGenerator.
+ * Returns: An #ETreeModelGenerator.
  **/
 ETreeModelGenerator *
 e_name_selector_model_peek_contact_filter (ENameSelectorModel *name_selector_model)
 {
 	g_return_val_if_fail (E_IS_NAME_SELECTOR_MODEL (name_selector_model), NULL);
 
-	return name_selector_model->contact_filter;
+	return name_selector_model->priv->contact_filter;
 }
 
 /**
@@ -384,7 +410,7 @@ e_name_selector_model_peek_contact_filter (ENameSelectorModel *name_selector_mod
  *
  * Gets a list of the destination sections in @name_selector_model.
  *
- * Return value: A #GList of pointers to strings. The #GList and the
+ * Returns: A #GList of pointers to strings. The #GList and the
  * strings belong to the caller, and must be freed when no longer needed.
  **/
 GList *
@@ -396,8 +422,8 @@ e_name_selector_model_list_sections (ENameSelectorModel *name_selector_model)
 	g_return_val_if_fail (E_IS_NAME_SELECTOR_MODEL (name_selector_model), NULL);
 
 	/* Do this backwards so we can use g_list_prepend () and get correct order */
-	for (i = name_selector_model->sections->len - 1; i >= 0; i--) {
-		Section *section = &g_array_index (name_selector_model->sections, Section, i);
+	for (i = name_selector_model->priv->sections->len - 1; i >= 0; i--) {
+		Section *section = &g_array_index (name_selector_model->priv->sections, Section, i);
 		gchar   *name;
 
 		name = g_strdup (section->name);
@@ -450,10 +476,10 @@ e_name_selector_model_add_section (ENameSelectorModel *name_selector_model,
 	g_signal_connect_swapped (section.destination_store, "row-inserted",
 				  G_CALLBACK (destinations_changed), name_selector_model);
 
-	g_array_append_val (name_selector_model->sections, section);
+	g_array_append_val (name_selector_model->priv->sections, section);
 
 	destinations_changed (name_selector_model);
-	g_signal_emit (name_selector_model, signals [SECTION_ADDED], 0, name);
+	g_signal_emit (name_selector_model, signals[SECTION_ADDED], 0, name);
 }
 
 /**
@@ -478,10 +504,10 @@ e_name_selector_model_remove_section (ENameSelectorModel *name_selector_model, c
 	}
 
 	free_section (name_selector_model, n);
-	g_array_remove_index_fast (name_selector_model->sections, n);  /* Order doesn't matter */
+	g_array_remove_index_fast (name_selector_model->priv->sections, n);  /* Order doesn't matter */
 
 	destinations_changed (name_selector_model);
-	g_signal_emit (name_selector_model, signals [SECTION_REMOVED], 0, name);
+	g_signal_emit (name_selector_model, signals[SECTION_REMOVED], 0, name);
 }
 
 /**
@@ -511,7 +537,7 @@ e_name_selector_model_peek_section (ENameSelectorModel *name_selector_model, con
 		return FALSE;
 	}
 
-	section = &g_array_index (name_selector_model->sections, Section, n);
+	section = &g_array_index (name_selector_model->priv->sections, Section, n);
 
 	if (pretty_name)
 		*pretty_name = g_strdup (section->pretty_name);
@@ -519,4 +545,93 @@ e_name_selector_model_peek_section (ENameSelectorModel *name_selector_model, con
 		*destination_store = section->destination_store;
 
 	return TRUE;
+}
+
+/**
+ * e_name_selector_model_get_contact_emails_without_used:
+ * @name_selector_model: an #ENameSelectorModel
+ * @contact: to get emails from
+ * @remove_used: set to %TRUE to remove used from a list; or set to %FALSE to
+ * set used indexes to %NULL and keep them in the returned list
+ *
+ * Returns list of all email from @contact, without all used
+ * in any section. Each item is a string, an email address.
+ * Returned list should be freed with @e_name_selector_model_free_emails_list.
+ *
+ * Since: 2.30
+ **/
+GList *
+e_name_selector_model_get_contact_emails_without_used (ENameSelectorModel *name_selector_model, EContact *contact, gboolean remove_used)
+{
+	GList *email_list;
+	gint emails;
+	gint i;
+	const gchar *contact_uid;
+
+	g_return_val_if_fail (name_selector_model != NULL, NULL);
+	g_return_val_if_fail (E_IS_NAME_SELECTOR_MODEL (name_selector_model), NULL);
+	g_return_val_if_fail (contact != NULL, NULL);
+	g_return_val_if_fail (E_IS_CONTACT (contact), NULL);
+
+	contact_uid = e_contact_get_const (contact, E_CONTACT_UID);
+	g_return_val_if_fail (contact_uid != NULL, NULL);
+
+	email_list = e_contact_get (contact, E_CONTACT_EMAIL);
+	emails = g_list_length (email_list);
+
+	for (i = 0; i < name_selector_model->priv->sections->len; i++) {
+		Section *section;
+		GList   *destinations;
+		GList   *l;
+
+		section = &g_array_index (name_selector_model->priv->sections, Section, i);
+		destinations = e_destination_store_list_destinations (section->destination_store);
+
+		for (l = destinations; l; l = g_list_next (l)) {
+			EDestination *destination = l->data;
+			const gchar  *destination_uid;
+
+			destination_uid = e_destination_get_contact_uid (destination);
+			if (destination_uid && !strcmp (contact_uid, destination_uid)) {
+				gint email_num = e_destination_get_email_num (destination);
+
+				if (email_num < 0 || email_num >= emails) {
+					g_warning ("%s: Destination's email_num %d out of bounds 0..%d", G_STRFUNC, email_num, emails - 1);
+				} else {
+					GList *nth = g_list_nth (email_list, email_num);
+
+					g_return_val_if_fail (nth != NULL, NULL);
+
+					g_free (nth->data);
+					nth->data = NULL;
+				}
+			}
+		}
+
+		g_list_free (destinations);
+	}
+
+	if (remove_used) {
+		/* remove all with data NULL, which are those used already */
+		do {
+			emails = g_list_length (email_list);
+			email_list = g_list_remove (email_list, NULL);
+		} while (g_list_length (email_list) != emails);
+	}
+
+	return email_list;
+}
+
+/**
+ * e_name_selector_model_free_emails_list:
+ * @email_list: list of emails returned from @e_name_selector_model_get_contact_emails_without_used
+ *
+ * Frees a list of emails returned from @e_name_selector_model_get_contact_emails_without_used.
+ *
+ * Since: 2.30
+ **/
+void
+e_name_selector_model_free_emails_list (GList *email_list)
+{
+	deep_free_list (email_list);
 }

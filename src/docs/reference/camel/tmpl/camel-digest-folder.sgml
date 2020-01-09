@@ -17,24 +17,3 @@ CamelDigestFolder
 <!-- ##### SECTION Stability_Level ##### -->
 
 
-<!-- ##### SECTION Image ##### -->
-
-
-<!-- ##### STRUCT CamelDigestFolder ##### -->
-<para>
-
-</para>
-
-@parent: 
-@priv: 
-
-<!-- ##### FUNCTION camel_digest_folder_new ##### -->
-<para>
-
-</para>
-
-@parent_store: 
-@message: 
-@Returns: 
-
-

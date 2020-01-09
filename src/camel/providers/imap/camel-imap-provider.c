@@ -25,21 +25,17 @@
 #include <config.h>
 
 #include <string.h>
-
+#include <camel/camel.h>
 #include <glib/gi18n-lib.h>
 
 #include "camel-imap-store.h"
-#include "camel-provider.h"
-#include "camel-sasl.h"
-#include "camel-session.h"
-#include "camel-url.h"
 
 static void add_hash (guint *hash, gchar *s);
 static guint imap_url_hash (gconstpointer key);
 static gint check_equal (gchar *s1, gchar *s2);
 static gint imap_url_equal (gconstpointer a, gconstpointer b);
 
-CamelProviderConfEntry imap_conf_entries[] = {
+static CamelProviderConfEntry imap_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "mailcheck", NULL,
 	  N_("Checking for New Mail") },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "check_all", NULL,
@@ -53,7 +49,7 @@ CamelProviderConfEntry imap_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "use_command", NULL,
 	  N_("_Use custom command to connect to server"), "0" },
 	{ CAMEL_PROVIDER_CONF_ENTRY, "command", "use_command",
-	  N_("Command:"), "ssh -C -l %u %h exec /usr/sbin/imapd" },
+	  N_("Co_mmand:"), "ssh -C -l %u %h exec /usr/sbin/imapd" },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 #endif
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "folders", NULL,
@@ -63,11 +59,11 @@ CamelProviderConfEntry imap_conf_entries[] = {
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "override_namespace", NULL,
 	  N_("O_verride server-supplied folder namespace"), "0" },
 	{ CAMEL_PROVIDER_CONF_ENTRY, "namespace", "override_namespace",
-	  N_("Namespace:") },
+	  N_("Names_pace:") },
 	{ CAMEL_PROVIDER_CONF_SECTION_END },
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "general", NULL, N_("Options") },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter", NULL,
-	  N_("_Apply filters to new messages in INBOX on this server"), "0" },
+	  N_("_Apply filters to new messages in INBOX on this server"), "1" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter_junk", NULL,
 	  N_("Check new messages for Jun_k contents"), "0" },
 	{ CAMEL_PROVIDER_CONF_CHECKBOX, "filter_junk_inbox", "filter_junk",
@@ -87,7 +83,8 @@ static CamelProvider imap_provider = {
 	"mail",
 
 	CAMEL_PROVIDER_IS_REMOTE | CAMEL_PROVIDER_IS_SOURCE |
-	CAMEL_PROVIDER_IS_STORAGE | CAMEL_PROVIDER_SUPPORTS_SSL,
+	CAMEL_PROVIDER_IS_STORAGE | CAMEL_PROVIDER_SUPPORTS_SSL |
+	CAMEL_PROVIDER_ALLOW_REAL_TRASH_FOLDER | CAMEL_PROVIDER_ALLOW_REAL_JUNK_FOLDER,
 
 	CAMEL_URL_NEED_USER | CAMEL_URL_NEED_HOST | CAMEL_URL_ALLOW_AUTH,
 

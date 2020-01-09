@@ -5,9 +5,7 @@
     <sub name="Evolution-Data-Server Manual: Calendar Client (libecal)" link="ch01.html">
       <sub name="ECal" link="ECal.html"/>
       <sub name="ECalComponent" link="ECalComponent.html"/>
-      <sub name="ECalListener" link="ECalListener.html"/>
       <sub name="ECalView" link="ECalView.html"/>
-      <sub name="ECalViewListener" link="ECalViewListener.html"/>
       <sub name="e-cal-recur" link="libecal-e-cal-recur.html"/>
       <sub name="e-cal-time-util" link="libecal-e-cal-time-util.html"/>
       <sub name="e-cal-types" link="libecal-e-cal-types.html"/>
@@ -15,7 +13,15 @@
       <sub name="e-cal-system-timezone" link="libecal-e-cal-system-timezone.html"/>
       <sub name="e-cal-check-timezones" link="libecal-e-cal-check-timezones.html"/>
     </sub>
-    <sub name="Index" link="ix01.html"/>
+    <sub name="Index" link="api-index-full.html"/>
+    <sub name="Index of deprecated symbols" link="api-index-deprecated.html"/>
+    <sub name="Index of new symbols in 2.32" link="api-index-2.32.html"/>
+    <sub name="Index of new symbols in 2.30" link="api-index-2.30.html"/>
+    <sub name="Index of new symbols in 2.28" link="api-index-2.28.html"/>
+    <sub name="Index of new symbols in 2.26" link="api-index-2.26.html"/>
+    <sub name="Index of new symbols in 2.24" link="api-index-2.24.html"/>
+    <sub name="Index of new symbols in 2.22" link="api-index-2.22.html"/>
+    <sub name="Index of new symbols in 1.12" link="api-index-1.12.html"/>
   </chapters>
   <functions>
     <function name="ECal" link="ECal.html#ECal-struct"/>
@@ -37,6 +43,7 @@
     <function name="e_cal_set_auth_func ()" link="ECal.html#e-cal-set-auth-func"/>
     <function name="e_cal_open ()" link="ECal.html#e-cal-open"/>
     <function name="e_cal_open_async ()" link="ECal.html#e-cal-open-async"/>
+    <function name="e_cal_refresh ()" link="ECal.html#e-cal-refresh"/>
     <function name="e_cal_remove ()" link="ECal.html#e-cal-remove"/>
     <function name="e_cal_uri_list ()" link="ECal.html#e-cal-uri-list"/>
     <function name="e_cal_get_source_type ()" link="ECal.html#e-cal-get-source-type"/>
@@ -52,6 +59,7 @@
     <function name="e_cal_get_save_schedules ()" link="ECal.html#e-cal-get-save-schedules"/>
     <function name="e_cal_get_static_capability ()" link="ECal.html#e-cal-get-static-capability"/>
     <function name="e_cal_get_organizer_must_accept ()" link="ECal.html#e-cal-get-organizer-must-accept"/>
+    <function name="e_cal_get_refresh_supported ()" link="ECal.html#e-cal-get-refresh-supported"/>
     <function name="e_cal_set_mode ()" link="ECal.html#e-cal-set-mode"/>
     <function name="e_cal_get_default_object ()" link="ECal.html#e-cal-get-default-object"/>
     <function name="e_cal_get_object ()" link="ECal.html#e-cal-get-object"/>
@@ -91,6 +99,7 @@
     <function name="The &quot;backend-died&quot; signal" link="ECal.html#ECal-backend-died"/>
     <function name="The &quot;backend-error&quot; signal" link="ECal.html#ECal-backend-error"/>
     <function name="The &quot;cal-opened&quot; signal" link="ECal.html#ECal-cal-opened"/>
+    <function name="The &quot;cal-opened-ex&quot; signal" link="ECal.html#ECal-cal-opened-ex"/>
     <function name="The &quot;cal-set-mode&quot; signal" link="ECal.html#ECal-cal-set-mode"/>
     <function name="ECalComponent" link="ECalComponent.html#ECalComponent-struct"/>
     <function name="ECalComponentId" link="ECalComponent.html#ECalComponentId"/>
@@ -246,57 +255,23 @@
     <function name="e_cal_component_alarm_set_attendee_list ()" link="ECalComponent.html#e-cal-component-alarm-set-attendee-list"/>
     <function name="e_cal_component_alarm_has_attendees ()" link="ECalComponent.html#e-cal-component-alarm-has-attendees"/>
     <function name="e_cal_component_alarm_get_icalcomponent ()" link="ECalComponent.html#e-cal-component-alarm-get-icalcomponent"/>
-    <function name="ECalListener" link="ECalListener.html#ECalListener-struct"/>
-    <function name="ECalListenerCalSetModeFn ()" link="ECalListener.html#ECalListenerCalSetModeFn"/>
-    <function name="e_cal_listener_construct ()" link="ECalListener.html#e-cal-listener-construct"/>
-    <function name="e_cal_listener_new ()" link="ECalListener.html#e-cal-listener-new"/>
-    <function name="e_cal_listener_stop_notification ()" link="ECalListener.html#e-cal-listener-stop-notification"/>
-    <function name="The &quot;add-timezone&quot; signal" link="ECalListener.html#ECalListener-add-timezone"/>
-    <function name="The &quot;alarm-address&quot; signal" link="ECalListener.html#ECalListener-alarm-address"/>
-    <function name="The &quot;attachment-list&quot; signal" link="ECalListener.html#ECalListener-attachment-list"/>
-    <function name="The &quot;auth-required&quot; signal" link="ECalListener.html#ECalListener-auth-required"/>
-    <function name="The &quot;backend-error&quot; signal" link="ECalListener.html#ECalListener-backend-error"/>
-    <function name="The &quot;cal-address&quot; signal" link="ECalListener.html#ECalListener-cal-address"/>
-    <function name="The &quot;create-object&quot; signal" link="ECalListener.html#ECalListener-create-object"/>
-    <function name="The &quot;default-object&quot; signal" link="ECalListener.html#ECalListener-default-object"/>
-    <function name="The &quot;discard-alarm&quot; signal" link="ECalListener.html#ECalListener-discard-alarm"/>
-    <function name="The &quot;get-changes&quot; signal" link="ECalListener.html#ECalListener-get-changes"/>
-    <function name="The &quot;get-free-busy&quot; signal" link="ECalListener.html#ECalListener-get-free-busy"/>
-    <function name="The &quot;get-timezone&quot; signal" link="ECalListener.html#ECalListener-get-timezone"/>
-    <function name="The &quot;ldap-attribute&quot; signal" link="ECalListener.html#ECalListener-ldap-attribute"/>
-    <function name="The &quot;modify-object&quot; signal" link="ECalListener.html#ECalListener-modify-object"/>
-    <function name="The &quot;object&quot; signal" link="ECalListener.html#ECalListener-object"/>
-    <function name="The &quot;object-list&quot; signal" link="ECalListener.html#ECalListener-object-list"/>
-    <function name="The &quot;open&quot; signal" link="ECalListener.html#ECalListener-open"/>
-    <function name="The &quot;query&quot; signal" link="ECalListener.html#ECalListener-query"/>
-    <function name="The &quot;read-only&quot; signal" link="ECalListener.html#ECalListener-read-only"/>
-    <function name="The &quot;receive-objects&quot; signal" link="ECalListener.html#ECalListener-receive-objects"/>
-    <function name="The &quot;remove&quot; signal" link="ECalListener.html#ECalListener-remove"/>
-    <function name="The &quot;remove-object&quot; signal" link="ECalListener.html#ECalListener-remove-object"/>
-    <function name="The &quot;send-objects&quot; signal" link="ECalListener.html#ECalListener-send-objects"/>
-    <function name="The &quot;set-default-timezone&quot; signal" link="ECalListener.html#ECalListener-set-default-timezone"/>
-    <function name="The &quot;static-capabilities&quot; signal" link="ECalListener.html#ECalListener-static-capabilities"/>
     <function name="ECalView" link="ECalView.html#ECalView-struct"/>
     <function name="e_cal_view_get_client ()" link="ECalView.html#e-cal-view-get-client"/>
     <function name="e_cal_view_start ()" link="ECalView.html#e-cal-view-start"/>
+    <function name="e_cal_view_stop ()" link="ECalView.html#e-cal-view-stop"/>
     <function name="The &quot;client&quot; property" link="ECalView.html#ECalView--client"/>
-    <function name="The &quot;listener&quot; property" link="ECalView.html#ECalView--listener"/>
     <function name="The &quot;view&quot; property" link="ECalView.html#ECalView--view"/>
     <function name="The &quot;objects-added&quot; signal" link="ECalView.html#ECalView-objects-added"/>
     <function name="The &quot;objects-modified&quot; signal" link="ECalView.html#ECalView-objects-modified"/>
     <function name="The &quot;objects-removed&quot; signal" link="ECalView.html#ECalView-objects-removed"/>
+    <function name="The &quot;view-complete&quot; signal" link="ECalView.html#ECalView-view-complete"/>
     <function name="The &quot;view-done&quot; signal" link="ECalView.html#ECalView-view-done"/>
     <function name="The &quot;view-progress&quot; signal" link="ECalView.html#ECalView-view-progress"/>
-    <function name="ECalViewListener" link="ECalViewListener.html#ECalViewListener-struct"/>
-    <function name="e_cal_view_listener_new ()" link="ECalViewListener.html#e-cal-view-listener-new"/>
-    <function name="The &quot;objects-added&quot; signal" link="ECalViewListener.html#ECalViewListener-objects-added"/>
-    <function name="The &quot;objects-modified&quot; signal" link="ECalViewListener.html#ECalViewListener-objects-modified"/>
-    <function name="The &quot;objects-removed&quot; signal" link="ECalViewListener.html#ECalViewListener-objects-removed"/>
-    <function name="The &quot;view-done&quot; signal" link="ECalViewListener.html#ECalViewListener-view-done"/>
-    <function name="The &quot;view-progress&quot; signal" link="ECalViewListener.html#ECalViewListener-view-progress"/>
     <function name="ECalRecurInstanceFn ()" link="libecal-e-cal-recur.html#ECalRecurInstanceFn"/>
     <function name="ECalRecurResolveTimezoneFn ()" link="libecal-e-cal-recur.html#ECalRecurResolveTimezoneFn"/>
     <function name="e_cal_recur_generate_instances ()" link="libecal-e-cal-recur.html#e-cal-recur-generate-instances"/>
+    <function name="e_cal_recur_obtain_enddate ()" link="libecal-e-cal-recur.html#e-cal-recur-obtain-enddate"/>
+    <function name="e_cal_recur_ensure_end_dates ()" link="libecal-e-cal-recur.html#e-cal-recur-ensure-end-dates"/>
     <function name="e_cal_get_recur_nth ()" link="libecal-e-cal-recur.html#e-cal-get-recur-nth"/>
     <function name="e_cal_recur_nth" link="libecal-e-cal-recur.html#e-cal-recur-nth"/>
     <function name="time_days_in_month ()" link="libecal-e-cal-time-util.html#time-days-in-month"/>
@@ -326,6 +301,7 @@
     <function name="e_calendar_error_quark ()" link="libecal-e-cal-types.html#e-calendar-error-quark"/>
     <function name="enum ECalChangeType" link="libecal-e-cal-types.html#ECalChangeType"/>
     <function name="enum ECalendarStatus" link="libecal-e-cal-types.html#ECalendarStatus"/>
+    <function name="E_CALENDAR_STATUS_CORBA_EXCEPTION" link="libecal-e-cal-types.html#E-CALENDAR-STATUS-CORBA-EXCEPTION:CAPS"/>
     <function name="CalObjInstance" link="libecal-e-cal-util.html#CalObjInstance"/>
     <function name="cal_obj_instance_list_free ()" link="libecal-e-cal-util.html#cal-obj-instance-list-free"/>
     <function name="enum CalObjModType" link="libecal-e-cal-util.html#CalObjModType"/>
@@ -374,10 +350,12 @@
     <function name="CAL_STATIC_CAPABILITY_NO_ORGANIZER" link="libecal-e-cal-util.html#CAL-STATIC-CAPABILITY-NO-ORGANIZER:CAPS"/>
     <function name="CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY" link="libecal-e-cal-util.html#CAL-STATIC-CAPABILITY-DELEGATE-TO-MANY:CAPS"/>
     <function name="CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING" link="libecal-e-cal-util.html#CAL-STATIC-CAPABILITY-HAS-UNACCEPTED-MEETING:CAPS"/>
+    <function name="CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED" link="libecal-e-cal-util.html#CAL-STATIC-CAPABILITY-REFRESH-SUPPORTED:CAPS"/>
     <function name="e_cal_util_construct_instance ()" link="libecal-e-cal-util.html#e-cal-util-construct-instance"/>
     <function name="e_cal_util_remove_instances ()" link="libecal-e-cal-util.html#e-cal-util-remove-instances"/>
     <function name="e_cal_util_get_system_timezone_location ()" link="libecal-e-cal-util.html#e-cal-util-get-system-timezone-location"/>
     <function name="e_cal_util_get_system_timezone ()" link="libecal-e-cal-util.html#e-cal-util-get-system-timezone"/>
+    <function name="e_cal_util_get_component_occur_times ()" link="libecal-e-cal-util.html#e-cal-util-get-component-occur-times"/>
     <function name="e_cal_system_timezone_get_location ()" link="libecal-e-cal-system-timezone.html#e-cal-system-timezone-get-location"/>
     <function name="e_cal_check_timezones ()" link="libecal-e-cal-check-timezones.html#e-cal-check-timezones"/>
     <function name="e_cal_tzlookup_ecal ()" link="libecal-e-cal-check-timezones.html#e-cal-tzlookup-ecal"/>

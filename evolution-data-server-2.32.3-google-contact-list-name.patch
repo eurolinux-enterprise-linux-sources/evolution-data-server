@@ -1,0 +1,13 @@
+diff -up evolution-data-server-2.32.3/addressbook/backends/google/util.c.google-contact-list-name evolution-data-server-2.32.3/addressbook/backends/google/util.c
+--- evolution-data-server-2.32.3/addressbook/backends/google/util.c.google-contact-list-name	2013-07-10 15:21:24.744823998 +0200
++++ evolution-data-server-2.32.3/addressbook/backends/google/util.c	2013-07-10 15:21:24.855823998 +0200
+@@ -304,6 +304,9 @@ _e_contact_new_from_gdata_entry (GDataEn
+ 		/* Set the full name */
+ 		e_contact_set (E_CONTACT (vcard), E_CONTACT_FULL_NAME, gdata_gd_name_get_full_name (name));
+ 
++		/* Set the file-as, to have it the same as the libgdata, not as EContact fills on its own */
++		e_contact_set (E_CONTACT (vcard), E_CONTACT_FILE_AS, gdata_gd_name_get_full_name (name));
++
+ 		/* We just need to set the E_CONTACT_NAME field, and all the other name attribute values
+ 		 * in the EContact will be populated automatically from that */
+ 		name_struct.family = (gchar *) gdata_gd_name_get_family_name (name);

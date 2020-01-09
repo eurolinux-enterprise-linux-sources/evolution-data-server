@@ -23,16 +23,24 @@
  * USA
  */
 
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
 #ifndef CAMEL_MIME_PART_UTILS_H
-#define CAMEL_MIME_PART_UTILS_H 1
+#define CAMEL_MIME_PART_UTILS_H
 
 #include <camel/camel-mime-part.h>
 #include <camel/camel-folder-summary.h>
 
 G_BEGIN_DECLS
 
-void camel_mime_part_construct_content_from_parser(CamelMimePart *, CamelMimeParser *mp);
-gboolean camel_mime_message_build_preview (CamelMimePart *msg, CamelMessageInfo *info);
+gboolean	camel_mime_part_construct_content_from_parser
+						(CamelMimePart *mime_part,
+						 CamelMimeParser *mp,
+						 GError **error);
+gboolean	camel_mime_message_build_preview(CamelMimePart *mime_part,
+						 CamelMessageInfo *info);
 
 G_END_DECLS
 

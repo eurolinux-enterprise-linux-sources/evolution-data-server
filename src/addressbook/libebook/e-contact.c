@@ -35,14 +35,16 @@
 
 #ifdef G_OS_WIN32
 #include "libedataserver/e-data-server-util.h"
-#undef EVOLUTION_LOCALEDIR
-#define EVOLUTION_LOCALEDIR e_util_get_localedir ()
+#undef LOCALEDIR
+#define LOCALEDIR e_util_get_localedir ()
 #endif
 
 #define d(x)
 
+G_DEFINE_TYPE (EContact, e_contact, E_TYPE_VCARD)
+
 struct _EContactPrivate {
-	gchar *cached_strings [E_CONTACT_FIELD_LAST];
+	gchar *cached_strings[E_CONTACT_FIELD_LAST];
 };
 
 #define E_CONTACT_FIELD_TYPE_STRING       0x00000001   /* used for simple single valued attributes */
@@ -198,12 +200,12 @@ static const EContactFieldInfo field_info[] = {
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GROUPWISE_WORK_1, EVC_X_GROUPWISE, "im_groupwise_work_1", N_("GroupWise Work Screen Name 1"),    FALSE, "WORK", 0),
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GROUPWISE_WORK_2, EVC_X_GROUPWISE, "im_groupwise_work_2", N_("GroupWise Work Screen Name 2"),    FALSE, "WORK", 1),
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GROUPWISE_WORK_3, EVC_X_GROUPWISE, "im_groupwise_work_3", N_("GroupWise Work Screen Name 3"),    FALSE, "WORK", 2),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_HOME_1, EVC_X_JABBER, "im_jabber_home_1", N_("Jabber Home Id 1"),          FALSE, "HOME", 0),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_HOME_2, EVC_X_JABBER, "im_jabber_home_2", N_("Jabber Home Id 2"),          FALSE, "HOME", 1),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_HOME_3, EVC_X_JABBER, "im_jabber_home_3", N_("Jabber Home Id 3"),          FALSE, "HOME", 2),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_WORK_1, EVC_X_JABBER, "im_jabber_work_1", N_("Jabber Work Id 1"),          FALSE, "WORK", 0),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_WORK_2, EVC_X_JABBER, "im_jabber_work_3", N_("Jabber Work Id 2"),          FALSE, "WORK", 1),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_WORK_3, EVC_X_JABBER, "im_jabber_work_2", N_("Jabber Work Id 3"),          FALSE, "WORK", 2),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_HOME_1, EVC_X_JABBER, "im_jabber_home_1", N_("Jabber Home ID 1"),          FALSE, "HOME", 0),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_HOME_2, EVC_X_JABBER, "im_jabber_home_2", N_("Jabber Home ID 2"),          FALSE, "HOME", 1),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_HOME_3, EVC_X_JABBER, "im_jabber_home_3", N_("Jabber Home ID 3"),          FALSE, "HOME", 2),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_WORK_1, EVC_X_JABBER, "im_jabber_work_1", N_("Jabber Work ID 1"),          FALSE, "WORK", 0),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_WORK_2, EVC_X_JABBER, "im_jabber_work_3", N_("Jabber Work ID 2"),          FALSE, "WORK", 1),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_JABBER_WORK_3, EVC_X_JABBER, "im_jabber_work_2", N_("Jabber Work ID 3"),          FALSE, "WORK", 2),
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_YAHOO_HOME_1,  EVC_X_YAHOO,  "im_yahoo_home_1",  N_("Yahoo! Home Screen Name 1"), FALSE, "HOME", 0),
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_YAHOO_HOME_2,  EVC_X_YAHOO,  "im_yahoo_home_2",  N_("Yahoo! Home Screen Name 2"), FALSE, "HOME", 1),
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_YAHOO_HOME_3,  EVC_X_YAHOO,  "im_yahoo_home_3",  N_("Yahoo! Home Screen Name 3"), FALSE, "HOME", 2),
@@ -216,12 +218,12 @@ static const EContactFieldInfo field_info[] = {
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_MSN_WORK_1,    EVC_X_MSN,    "im_msn_work_1",    N_("MSN Work Screen Name 1"),    FALSE, "WORK", 0),
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_MSN_WORK_2,    EVC_X_MSN,    "im_msn_work_2",    N_("MSN Work Screen Name 2"),    FALSE, "WORK", 1),
 	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_MSN_WORK_3,    EVC_X_MSN,    "im_msn_work_3",    N_("MSN Work Screen Name 3"),    FALSE, "WORK", 2),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_HOME_1,    EVC_X_ICQ,    "im_icq_home_1",    N_("ICQ Home Id 1"),             FALSE, "HOME", 0),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_HOME_2,    EVC_X_ICQ,    "im_icq_home_2",    N_("ICQ Home Id 2"),             FALSE, "HOME", 1),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_HOME_3,    EVC_X_ICQ,    "im_icq_home_3",    N_("ICQ Home Id 3"),             FALSE, "HOME", 2),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_WORK_1,    EVC_X_ICQ,    "im_icq_work_1",    N_("ICQ Work Id 1"),             FALSE, "WORK", 0),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_WORK_2,    EVC_X_ICQ,    "im_icq_work_2",    N_("ICQ Work Id 2"),             FALSE, "WORK", 1),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_WORK_3,    EVC_X_ICQ,    "im_icq_work_3",    N_("ICQ Work Id 3"),             FALSE, "WORK", 2),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_HOME_1,    EVC_X_ICQ,    "im_icq_home_1",    N_("ICQ Home ID 1"),             FALSE, "HOME", 0),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_HOME_2,    EVC_X_ICQ,    "im_icq_home_2",    N_("ICQ Home ID 2"),             FALSE, "HOME", 1),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_HOME_3,    EVC_X_ICQ,    "im_icq_home_3",    N_("ICQ Home ID 3"),             FALSE, "HOME", 2),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_WORK_1,    EVC_X_ICQ,    "im_icq_work_1",    N_("ICQ Work ID 1"),             FALSE, "WORK", 0),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_WORK_2,    EVC_X_ICQ,    "im_icq_work_2",    N_("ICQ Work ID 2"),             FALSE, "WORK", 1),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_ICQ_WORK_3,    EVC_X_ICQ,    "im_icq_work_3",    N_("ICQ Work ID 3"),             FALSE, "WORK", 2),
 
 	/* Last modified time */
 	STRING_FIELD (E_CONTACT_REV, EVC_REV, "Rev", N_("Last Revision"), FALSE),
@@ -245,11 +247,11 @@ static const EContactFieldInfo field_info[] = {
 
 	/* Instant messaging fields */
 	MULTI_LIST_FIELD (E_CONTACT_IM_AIM,       EVC_X_AIM,       "im_aim",       N_("AIM Screen Name List"),    FALSE),
-	MULTI_LIST_FIELD (E_CONTACT_IM_GROUPWISE, EVC_X_GROUPWISE, "im_groupwise", N_("GroupWise Id List"),       FALSE),
-	MULTI_LIST_FIELD (E_CONTACT_IM_JABBER,	  EVC_X_JABBER,    "im_jabber",    N_("Jabber Id List"),          FALSE),
+	MULTI_LIST_FIELD (E_CONTACT_IM_GROUPWISE, EVC_X_GROUPWISE, "im_groupwise", N_("GroupWise ID List"),       FALSE),
+	MULTI_LIST_FIELD (E_CONTACT_IM_JABBER,	  EVC_X_JABBER,    "im_jabber",    N_("Jabber ID List"),          FALSE),
 	MULTI_LIST_FIELD (E_CONTACT_IM_YAHOO,	  EVC_X_YAHOO,     "im_yahoo",     N_("Yahoo! Screen Name List"), FALSE),
 	MULTI_LIST_FIELD (E_CONTACT_IM_MSN,	  EVC_X_MSN,       "im_msn",       N_("MSN Screen Name List"),    FALSE),
-	MULTI_LIST_FIELD (E_CONTACT_IM_ICQ,	  EVC_X_ICQ,       "im_icq",       N_("ICQ Id List"),             FALSE),
+	MULTI_LIST_FIELD (E_CONTACT_IM_ICQ,	  EVC_X_ICQ,       "im_icq",       N_("ICQ ID List"),             FALSE),
 
 	BOOLEAN_FIELD        (E_CONTACT_WANTS_HTML, EVC_X_WANTS_HTML, "wants_html", N_("Wants HTML Mail"), FALSE),
 
@@ -262,13 +264,13 @@ static const EContactFieldInfo field_info[] = {
 	/* Security fields */
 	ATTR_TYPE_STRUCT_FIELD (E_CONTACT_X509_CERT,  EVC_KEY, "x509Cert",  N_("X.509 Certificate"), FALSE, "X509", cert_getter, cert_setter, e_contact_cert_get_type),
 
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_HOME_1,  EVC_X_GADUGADU,  "im_gadugadu_home_1",  N_("Gadu-Gadu Home Id 1"), FALSE, "HOME", 0),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_HOME_2,  EVC_X_GADUGADU,  "im_gadugadu_home_2",  N_("Gadu-Gadu Home Id 2"), FALSE, "HOME", 1),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_HOME_3,  EVC_X_GADUGADU,  "im_gadugadu_home_3",  N_("Gadu-Gadu Home Id 3"), FALSE, "HOME", 2),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_WORK_1,  EVC_X_GADUGADU,  "im_gadugadu_work_1",  N_("Gadu-Gadu Work Id 1"), FALSE, "WORK", 0),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_WORK_2,  EVC_X_GADUGADU,  "im_gadugadu_work_2",  N_("Gadu-Gadu Work Id 2"), FALSE, "WORK", 1),
-	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_WORK_3,  EVC_X_GADUGADU,  "im_gadugadu_work_3",  N_("Gadu-Gadu Work Id 3"), FALSE, "WORK", 2),
-	MULTI_LIST_FIELD (E_CONTACT_IM_GADUGADU,  EVC_X_GADUGADU,  "im_gadugadu", N_("Gadu-Gadu Id List"), FALSE),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_HOME_1,  EVC_X_GADUGADU,  "im_gadugadu_home_1",  N_("Gadu-Gadu Home ID 1"), FALSE, "HOME", 0),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_HOME_2,  EVC_X_GADUGADU,  "im_gadugadu_home_2",  N_("Gadu-Gadu Home ID 2"), FALSE, "HOME", 1),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_HOME_3,  EVC_X_GADUGADU,  "im_gadugadu_home_3",  N_("Gadu-Gadu Home ID 3"), FALSE, "HOME", 2),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_WORK_1,  EVC_X_GADUGADU,  "im_gadugadu_work_1",  N_("Gadu-Gadu Work ID 1"), FALSE, "WORK", 0),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_WORK_2,  EVC_X_GADUGADU,  "im_gadugadu_work_2",  N_("Gadu-Gadu Work ID 2"), FALSE, "WORK", 1),
+	ATTR_TYPE_STR_FIELD (E_CONTACT_IM_GADUGADU_WORK_3,  EVC_X_GADUGADU,  "im_gadugadu_work_3",  N_("Gadu-Gadu Work ID 3"), FALSE, "WORK", 2),
+	MULTI_LIST_FIELD (E_CONTACT_IM_GADUGADU,  EVC_X_GADUGADU,  "im_gadugadu", N_("Gadu-Gadu ID List"), FALSE),
 
 	/* Geo information */
 	STRUCT_FIELD	(E_CONTACT_GEO,  EVC_GEO, "geo",  N_("Geographic Information"),  FALSE, geo_getter, geo_setter, e_contact_geo_get_type),
@@ -372,30 +374,6 @@ static void
 e_contact_init (EContact *ec)
 {
 	ec->priv = g_new0 (EContactPrivate, 1);
-}
-
-GType
-e_contact_get_type (void)
-{
-	static GType contact_type = 0;
-
-	if (!contact_type) {
-		static const GTypeInfo contact_info =  {
-			sizeof (EContactClass),
-			NULL,           /* base_init */
-			NULL,           /* base_finalize */
-			(GClassInitFunc) e_contact_class_init,
-			NULL,           /* class_finalize */
-			NULL,           /* class_data */
-			sizeof (EContact),
-			0,             /* n_preallocs */
-			(GInstanceInitFunc) e_contact_init,
-		};
-
-		contact_type = g_type_register_static (E_TYPE_VCARD, "EContact", &contact_info, 0);
-	}
-
-	return contact_type;
 }
 
 static EVCardAttribute*
@@ -554,7 +532,7 @@ fn_setter (EContact *contact, EVCardAttribute *attr, gpointer data)
 		EContactName *name = e_contact_name_from_string ((gchar *)data);
 
 		attr = e_vcard_attribute_new (NULL, EVC_N);
-		e_vcard_add_attribute (E_VCARD (contact), attr);
+		e_vcard_append_attribute (E_VCARD (contact), attr);
 
 		/* call the setter directly */
 		n_setter (contact, attr, name);
@@ -585,7 +563,7 @@ n_getter (EContact *contact, EVCardAttribute *attr)
 	new_attr = e_contact_get_first_attr (contact, EVC_FN);
 	if (!new_attr) {
 		new_attr = e_vcard_attribute_new (NULL, EVC_FN);
-		e_vcard_add_attribute (E_VCARD (contact), new_attr);
+		e_vcard_append_attribute (E_VCARD (contact), new_attr);
 		name_str = e_contact_name_to_string (name);
 		e_vcard_attribute_add_value (new_attr, name_str);
 		g_free (name_str);
@@ -611,7 +589,7 @@ n_setter (EContact *contact, EVCardAttribute *attr, gpointer data)
 		gchar *strings[3], **stringptr;
 		gchar *string;
 		attr = e_vcard_attribute_new (NULL, EVC_X_FILE_AS);
-		e_vcard_add_attribute (E_VCARD (contact), attr);
+		e_vcard_append_attribute (E_VCARD (contact), attr);
 
 		stringptr = strings;
 		if (name->family && *name->family)
@@ -674,7 +652,7 @@ date_getter (EContact *contact, EVCardAttribute *attr)
 		GList *p = e_vcard_attribute_get_values (attr);
 		EContactDate *date;
 
-		if (p && p->data && ((gchar *) p->data) [0])
+		if (p && p->data && ((gchar *) p->data)[0])
 			date = e_contact_date_from_string ((gchar *) p->data);
 		else
 			date = NULL;
@@ -768,7 +746,7 @@ e_contact_set_property (GObject *object,
 		e_vcard_remove_attributes (E_VCARD (contact), NULL, info->vcard_field_name);
 
 		for (l = new_values; l; l = l->next)
-			e_vcard_add_attribute_with_value (E_VCARD (contact),
+			e_vcard_append_attribute_with_value (E_VCARD (contact),
 							  e_vcard_attribute_new (NULL, info->vcard_field_name),
 							  (gchar *)l->data);
 	}
@@ -818,7 +796,7 @@ e_contact_set_property (GObject *object,
 								e_vcard_attribute_param_new (EVC_TYPE),
 								"OTHER");
 					}
-					e_vcard_add_attribute (E_VCARD (contact), attr);
+					e_vcard_append_attribute (E_VCARD (contact), attr);
 				}
 
 				e_vcard_attribute_add_value (attr, sval);
@@ -906,7 +884,7 @@ e_contact_set_property (GObject *object,
 			else {
 				/* we didn't find it - add a new attribute */
 				attr = e_vcard_attribute_new (NULL, info->vcard_field_name);
-				e_vcard_add_attribute (E_VCARD (contact), attr);
+				e_vcard_append_attribute (E_VCARD (contact), attr);
 				if (info->attr_type1)
 					e_vcard_attribute_add_param_with_value (attr, e_vcard_attribute_param_new (EVC_TYPE),
 										info->attr_type1);
@@ -946,7 +924,7 @@ e_contact_set_property (GObject *object,
 				d(printf ("adding new %s\n", info->vcard_field_name));
 
 				attr = e_vcard_attribute_new (NULL, info->vcard_field_name);
-				e_vcard_add_attribute (E_VCARD (contact), attr);
+				e_vcard_append_attribute (E_VCARD (contact), attr);
 			}
 
 			values = e_vcard_attribute_get_values (attr);
@@ -978,7 +956,7 @@ e_contact_set_property (GObject *object,
 				else {
 					/* we didn't find it - add a new attribute */
 					attr = e_vcard_attribute_new (NULL, EVC_CATEGORIES);
-					e_vcard_add_attribute (E_VCARD (contact), attr);
+					e_vcard_append_attribute (E_VCARD (contact), attr);
 				}
 
 				str = g_value_get_string (value);
@@ -1031,7 +1009,7 @@ e_contact_set_property (GObject *object,
 			d(printf ("adding new %s\n", info->vcard_field_name));
 			attr = e_vcard_attribute_new (NULL, info->vcard_field_name);
 
-			e_vcard_add_attribute (E_VCARD (contact), attr);
+			e_vcard_append_attribute (E_VCARD (contact), attr);
 
 			info->struct_setter (contact, attr, data);
 		}
@@ -1048,7 +1026,7 @@ e_contact_set_property (GObject *object,
 		}
 		else {
 			/* and if we don't find one we create a new attribute */
-			e_vcard_add_attribute_with_value (E_VCARD (contact),
+			e_vcard_append_attribute_with_value (E_VCARD (contact),
 							  e_vcard_attribute_new (NULL, info->vcard_field_name),
 							  g_value_get_boolean (value) ? "TRUE" : "FALSE");
 		}
@@ -1074,7 +1052,7 @@ e_contact_set_property (GObject *object,
 		}
 		else if (sval) {
 			/* and if we don't find one we create a new attribute */
-			e_vcard_add_attribute_with_value (E_VCARD (contact),
+			e_vcard_append_attribute_with_value (E_VCARD (contact),
 							  e_vcard_attribute_new (NULL, info->vcard_field_name),
 							  g_value_get_string (value));
 		}
@@ -1095,7 +1073,7 @@ e_contact_set_property (GObject *object,
 		}
 		else if (values) {
 			attr = e_vcard_attribute_new (NULL, info->vcard_field_name);
-			e_vcard_add_attribute (E_VCARD (contact), attr);
+			e_vcard_append_attribute (E_VCARD (contact), attr);
 		}
 
 		for (l = values; l != NULL; l = l->next)
@@ -1217,7 +1195,7 @@ e_contact_get_property (GObject *object,
  *
  * Creates a new, blank #EContact.
  *
- * Return value: A new #EContact.
+ * Returns: A new #EContact.
  **/
 EContact*
 e_contact_new (void)
@@ -1231,7 +1209,7 @@ e_contact_new (void)
  *
  * Creates a new #EContact based on a vcard.
  *
- * Return value: A new #EContact.
+ * Returns: A new #EContact.
  **/
 EContact*
 e_contact_new_from_vcard  (const gchar *vcard)
@@ -1251,7 +1229,7 @@ e_contact_new_from_vcard  (const gchar *vcard)
 		EContactName *name;
 		const gchar *org;
 		gchar *file_as_new = NULL;
-		gchar *strings [4];
+		gchar *strings[4];
 		gchar **strings_p = strings;
 
 		name = e_contact_get (contact, E_CONTACT_NAME);
@@ -1289,7 +1267,7 @@ e_contact_new_from_vcard  (const gchar *vcard)
  *
  * Creates a copy of @contact.
  *
- * Return value: A new #EContact identical to @contact.
+ * Returns: A new #EContact identical to @contact.
  **/
 EContact*
 e_contact_duplicate (EContact *contact)
@@ -1312,7 +1290,7 @@ e_contact_duplicate (EContact *contact)
  *
  * Gets the string representation of @field_id.
  *
- * Return value: The string representation of @field_id, or %NULL if it doesn't exist.
+ * Returns: The string representation of @field_id, or %NULL if it doesn't exist.
  **/
 const gchar *
 e_contact_field_name (EContactField field_id)
@@ -1329,7 +1307,7 @@ e_contact_field_name (EContactField field_id)
  * Gets a human-readable, translated string representation
  * of @field_id.
  *
- * Return value: The human-readable representation of @field_id, or %NULL if it doesn't exist.
+ * Returns: The human-readable representation of @field_id, or %NULL if it doesn't exist.
  **/
 const gchar *
 e_contact_pretty_name (EContactField field_id)
@@ -1337,7 +1315,7 @@ e_contact_pretty_name (EContactField field_id)
 	g_return_val_if_fail (field_id >= 1 && field_id <= E_CONTACT_FIELD_LAST, "");
 
 #ifdef ENABLE_NLS
-	bindtextdomain (GETTEXT_PACKAGE, EVOLUTION_LOCALEDIR);
+	bindtextdomain (GETTEXT_PACKAGE, LOCALEDIR);
 	bind_textdomain_codeset (GETTEXT_PACKAGE, "UTF-8");
 #endif
 
@@ -1350,7 +1328,7 @@ e_contact_pretty_name (EContactField field_id)
  *
  * Gets the vcard attribute corresponding to @field_id, as a string.
  *
- * Return value: The vcard attribute corresponding to @field_id, or %NULL if it doesn't exist.
+ * Returns: The vcard attribute corresponding to @field_id, or %NULL if it doesn't exist.
  **/
 const gchar *
 e_contact_vcard_attribute  (EContactField field_id)
@@ -1366,13 +1344,13 @@ e_contact_vcard_attribute  (EContactField field_id)
  *
  * Gets the #EContactField corresponding to the @field_name.
  *
- * Return value: An #EContactField corresponding to @field_name, or %0 if it doesn't exist.
+ * Returns: An #EContactField corresponding to @field_name, or %0 if it doesn't exist.
  **/
 EContactField
 e_contact_field_id (const gchar *field_name)
 {
 	gint i;
-	for (i = E_CONTACT_FIELD_FIRST; i < E_CONTACT_FIELD_LAST; i ++) {
+	for (i = E_CONTACT_FIELD_FIRST; i < E_CONTACT_FIELD_LAST; i++) {
 		if (!g_ascii_strcasecmp (field_info[i].field_name, field_name))
 			return field_info[i].field_id;
 	}
@@ -1387,14 +1365,16 @@ e_contact_field_id (const gchar *field_name)
  *
  * Gets the #EContactField corresponding to the @vcard_field.
  *
- * Return value: An #EContactField corresponding to @vcard_field, or %0 if it doesn't exist.
+ * Returns: An #EContactField corresponding to @vcard_field, or %0 if it doesn't exist.
+ *
+ * Since: 2.26
  **/
 EContactField
 e_contact_field_id_from_vcard (const gchar *vcard_field)
 {
 	gint i;
 
-	for (i = E_CONTACT_FIELD_FIRST; i < E_CONTACT_FIELD_LAST; i ++) {
+	for (i = E_CONTACT_FIELD_FIRST; i < E_CONTACT_FIELD_LAST; i++) {
 		if (field_info[i].vcard_field_name == NULL)
 			continue;
 		if (field_info[i].t & E_CONTACT_FIELD_TYPE_SYNTHETIC)
@@ -1414,7 +1394,7 @@ e_contact_field_id_from_vcard (const gchar *vcard_field)
  *
  * Gets the value of @contact's field specified by @field_id.
  *
- * Return value: Depends on the field's type, owned by the caller.
+ * Returns: (transfer full): Depends on the field's type, owned by the caller.
  **/
 gpointer
 e_contact_get (EContact *contact, EContactField field_id)
@@ -1443,7 +1423,7 @@ e_contact_get (EContact *contact, EContactField field_id)
 			GList *list = g_list_copy (e_vcard_attribute_get_values (attr));
 			GList *l;
 			for (l = list; l; l = l->next)
-				l->data = g_strdup (l->data);
+				l->data = l->data ? g_strstrip (g_strdup (l->data)) : NULL;
 			return list;
 		}
 	}
@@ -1457,7 +1437,7 @@ e_contact_get (EContact *contact, EContactField field_id)
 				v = e_vcard_attribute_get_values (attr);
 				v = g_list_nth (v, info->list_elem);
 
-				return v ? g_strdup (v->data) : NULL;
+				return (v && v->data) ? g_strstrip (g_strdup (v->data)) : NULL;
 			}
 		}
 	}
@@ -1478,7 +1458,7 @@ e_contact_get (EContact *contact, EContactField field_id)
 					if (num_left-- == 0) {
 						GList *v = e_vcard_attribute_get_values (attr);
 
-						return v ? g_strdup (v->data) : NULL;
+						return (v && v->data) ? g_strstrip (g_strdup (v->data)) : NULL;
 					}
 				}
 			}
@@ -1490,7 +1470,7 @@ e_contact_get (EContact *contact, EContactField field_id)
 		if (info->t & E_CONTACT_FIELD_TYPE_STRING) {
 			if (attr) {
 				GList *p = e_vcard_attribute_get_values (attr);
-				return g_strdup (p->data);
+				return (p && p->data) ? g_strstrip (g_strdup (p->data)) : NULL;
 			}
 			else {
 				return NULL;
@@ -1515,8 +1495,10 @@ e_contact_get (EContact *contact, EContactField field_id)
 
 		if (info->t & E_CONTACT_FIELD_TYPE_STRUCT)
 			return (gpointer)info->boxed_type_getter();
+		else if (!rv)
+			return NULL;
 		else
-			return g_strdup (rv);
+			return g_strstrip (g_strdup (rv));
 	}
 	else if (info->t & E_CONTACT_FIELD_TYPE_SYNTHETIC) {
 		switch (info->field_id) {
@@ -1537,7 +1519,7 @@ e_contact_get (EContact *contact, EContactField field_id)
 					str = e_contact_get_const (contact, E_CONTACT_EMAIL_1);
 			}
 
-			return g_strdup (str);
+			return str ? g_strstrip (g_strdup (str)) : NULL;
 		}
 		case E_CONTACT_CATEGORIES: {
 			EVCardAttribute *attr = e_contact_get_first_attr (contact, EVC_CATEGORIES);
@@ -1550,13 +1532,12 @@ e_contact_get (EContact *contact, EContactField field_id)
 					g_string_append (str, (gchar *)v->data);
 					v = v->next;
 					if (v)
-						g_string_append_c (str, ',');
+						g_string_append (str, ", ");
 				}
 
 				rv = g_string_free (str, FALSE);
 			}
 			return rv;
-			break;
 		}
 		default:
 			g_warning ("unhandled synthetic field 0x%02x", info->field_id);
@@ -1580,10 +1561,10 @@ e_contact_get (EContact *contact, EContactField field_id)
 				v = e_vcard_attribute_get_values (attr);
 
 				if (info->t & E_CONTACT_FIELD_TYPE_STRING) {
-					return v ? g_strdup (v->data) : NULL;
+					return (v && v->data) ? g_strstrip (g_strdup (v->data)) : NULL;
 				}
 				else {
-					rv = g_list_append (rv, v ? g_strdup (v->data) : NULL);
+					rv = g_list_append (rv, (v && v->data) ? g_strstrip (g_strdup (v->data)) : NULL);
 				}
 			}
 		}
@@ -1600,7 +1581,7 @@ e_contact_get (EContact *contact, EContactField field_id)
  * Gets the value of @contact's field specified by @field_id, caching
  * the result so it can be freed later.
  *
- * Return value: Depends on the field's type, owned by the #EContact.
+ * Returns: Depends on the field's type, owned by the #EContact.
  **/
 gconstpointer
 e_contact_get_const (EContact *contact, EContactField field_id)
@@ -1608,7 +1589,7 @@ e_contact_get_const (EContact *contact, EContactField field_id)
 	gpointer value = NULL;
 
 	g_return_val_if_fail (E_IS_CONTACT (contact), NULL);
-	g_return_val_if_fail (field_info [field_id].t & E_CONTACT_FIELD_TYPE_STRING, NULL);
+	g_return_val_if_fail (field_info[field_id].t & E_CONTACT_FIELD_TYPE_STRING, NULL);
 
 	value = contact->priv->cached_strings[field_id];
 
@@ -1653,7 +1634,7 @@ e_contact_set (EContact *contact, EContactField field_id, gconstpointer value)
  *
  * Gets a list of the vcard attributes for @contact's @field_id.
  *
- * Return value: A #GList of pointers to #EVCardAttribute, owned by the caller.
+ * Returns: (element-type EVCardAttribute) (transfer: full): A #GList of pointers to #EVCardAttribute, owned by the caller.
  **/
 GList*
 e_contact_get_attributes (EContact *contact, EContactField field_id)
@@ -1690,6 +1671,7 @@ e_contact_get_attributes (EContact *contact, EContactField field_id)
  * @attributes: a #GList of pointers to #EVCardAttribute
  *
  * Sets the vcard attributes for @contact's @field_id.
+ * Attributes are added to the contact in the same order as they are in @attributes.
  **/
 void
 e_contact_set_attributes (EContact *contact, EContactField field_id, GList *attributes)
@@ -1705,7 +1687,7 @@ e_contact_set_attributes (EContact *contact, EContactField field_id, GList *attr
 	e_vcard_remove_attributes (E_VCARD (contact), NULL, info->vcard_field_name);
 
 	for (l = attributes; l; l = l->next)
-		e_vcard_add_attribute (E_VCARD (contact),
+		e_vcard_append_attribute (E_VCARD (contact),
 				       e_vcard_attribute_copy ((EVCardAttribute*)l->data));
 }
 
@@ -1714,7 +1696,7 @@ e_contact_set_attributes (EContact *contact, EContactField field_id, GList *attr
  *
  * Creates a new #EContactName struct.
  *
- * Return value: A new #EContactName struct.
+ * Returns: A new #EContactName struct.
  **/
 EContactName*
 e_contact_name_new (void)
@@ -1728,7 +1710,7 @@ e_contact_name_new (void)
  *
  * Generates a string representation of @name.
  *
- * Return value: The string representation of @name.
+ * Returns: The string representation of @name.
  **/
 gchar *
 e_contact_name_to_string(const EContactName *name)
@@ -1757,7 +1739,7 @@ e_contact_name_to_string(const EContactName *name)
  *
  * Creates a new #EContactName based on the parsed @name_str.
  *
- * Return value: A new #EContactName struct.
+ * Returns: A new #EContactName struct.
  **/
 EContactName*
 e_contact_name_from_string (const gchar *name_str)
@@ -1786,7 +1768,7 @@ e_contact_name_from_string (const gchar *name_str)
  *
  * Creates a copy of @n.
  *
- * Return value: A new #EContactName identical to @n.
+ * Returns: A new #EContactName identical to @n.
  **/
 EContactName*
 e_contact_name_copy (EContactName *n)
@@ -1827,17 +1809,26 @@ e_contact_name_free (EContactName *name)
 	g_free (name);
 }
 
-GType
-e_contact_name_get_type (void)
-{
-	static GType type_id = 0;
-
-	if (!type_id)
-		type_id = g_boxed_type_register_static ("EContactName",
-							(GBoxedCopyFunc) e_contact_name_copy,
-							(GBoxedFreeFunc) e_contact_name_free);
-	return type_id;
+#define E_CONTACT_DEFINE_BOXED_TYPE(_tp,_nm)				\
+	GType								\
+	_tp ## _get_type (void)						\
+	{								\
+		static volatile gsize type_id__volatile = 0;		\
+									\
+		if (g_once_init_enter (&type_id__volatile)) {		\
+			GType type_id;					\
+									\
+			type_id = g_boxed_type_register_static (_nm,	\
+				(GBoxedCopyFunc) _tp ## _copy,		\
+				(GBoxedFreeFunc) _tp ## _free);		\
+									\
+			g_once_init_leave (&type_id__volatile, type_id);\
+	}								\
+									\
+	return type_id__volatile;					\
 }
+
+E_CONTACT_DEFINE_BOXED_TYPE (e_contact_name, "EContactName")
 
 /**
  * e_contact_date_from_string:
@@ -1845,7 +1836,7 @@ e_contact_name_get_type (void)
  *
  * Creates a new #EContactDate based on @str.
  *
- * Return value: A new #EContactDate struct.
+ * Returns: A new #EContactDate struct.
  **/
 EContactDate*
 e_contact_date_from_string (const gchar *str)
@@ -1867,7 +1858,7 @@ e_contact_date_from_string (const gchar *str)
 		date->year = str[0] * 1000 + str[1] * 100 + str[2] * 10 + str[3] - '0' * 1111;
 		date->month = str[5] * 10 + str[6] - '0' * 11;
 		date->day = str[8] * 10 + str[9] - '0' * 11;
-	} else if ( length == 8 ) {
+	} else if (length == 8) {
 		date->year = str[0] * 1000 + str[1] * 100 + str[2] * 10 + str[3] - '0' * 1111;
 		date->month = str[4] * 10 + str[5] - '0' * 11;
 		date->day = str[6] * 10 + str[7] - '0' * 11;
@@ -1883,7 +1874,7 @@ e_contact_date_from_string (const gchar *str)
  * Generates a date string in the format YYYY-MM-DD based
  * on the values of @dt.
  *
- * Return value: A date string, owned by the caller.
+ * Returns: A date string, owned by the caller.
  **/
 gchar *
 e_contact_date_to_string (EContactDate *dt)
@@ -1904,7 +1895,7 @@ e_contact_date_to_string (EContactDate *dt)
  *
  * Checks if @dt1 and @dt2 are the same date.
  *
- * Return value: %TRUE if @dt1 and @dt2 are equal, %FALSE otherwise.
+ * Returns: %TRUE if @dt1 and @dt2 are equal, %FALSE otherwise.
  **/
 gboolean
 e_contact_date_equal (EContactDate *dt1, EContactDate *dt2)
@@ -1923,7 +1914,7 @@ e_contact_date_equal (EContactDate *dt1, EContactDate *dt2)
  *
  * Creates a copy of @dt.
  *
- * Return value: A new #EContactDate struct identical to @dt.
+ * Returns: A new #EContactDate struct identical to @dt.
  **/
 static EContactDate *
 e_contact_date_copy (EContactDate *dt)
@@ -1948,24 +1939,14 @@ e_contact_date_free (EContactDate *date)
 	g_free (date);
 }
 
-GType
-e_contact_date_get_type (void)
-{
-	static GType type_id = 0;
-
-	if (!type_id)
-		type_id = g_boxed_type_register_static ("EContactDate",
-							(GBoxedCopyFunc) e_contact_date_copy,
-							(GBoxedFreeFunc) e_contact_date_free);
-	return type_id;
-}
+E_CONTACT_DEFINE_BOXED_TYPE (e_contact_date, "EContactDate")
 
 /**
  * e_contact_date_new:
  *
  * Creates a new #EContactDate struct.
  *
- * Return value: A new #EContactDate struct.
+ * Returns: A new #EContactDate struct.
  **/
 EContactDate*
 e_contact_date_new (void)
@@ -2007,7 +1988,7 @@ e_contact_photo_free (EContactPhoto *photo)
  *
  * Creates a copy of @photo.
  *
- * Return value: A new #EContactPhoto struct identical to @photo.
+ * Returns: A new #EContactPhoto struct identical to @photo.
  **/
 static EContactPhoto *
 e_contact_photo_copy (EContactPhoto *photo)
@@ -2032,23 +2013,15 @@ e_contact_photo_copy (EContactPhoto *photo)
 	return photo2;
 }
 
-GType
-e_contact_photo_get_type (void)
-{
-	static GType type_id = 0;
-
-	if (!type_id)
-		type_id = g_boxed_type_register_static ("EContactPhoto",
-							(GBoxedCopyFunc) e_contact_photo_copy,
-							(GBoxedFreeFunc) e_contact_photo_free);
-	return type_id;
-}
+E_CONTACT_DEFINE_BOXED_TYPE (e_contact_photo, "EContactPhoto")
 
 /**
  * e_contact_geo_free:
  * @geo: an #EContactGeo
  *
  * Frees the @geo struct and its contents.
+ *
+ * Since: 1.12
  **/
 void
 e_contact_geo_free (EContactGeo *geo)
@@ -2066,17 +2039,7 @@ e_contact_geo_copy (EContactGeo *geo)
 	return geo2;
 }
 
-GType
-e_contact_geo_get_type (void)
-{
-	static GType type_id = 0;
-
-	if (!type_id)
-		type_id = g_boxed_type_register_static ("EContactGeo",
-							(GBoxedCopyFunc) e_contact_geo_copy,
-							(GBoxedFreeFunc) e_contact_geo_free);
-	return type_id;
-}
+E_CONTACT_DEFINE_BOXED_TYPE (e_contact_geo, "EContactGeo")
 
 /**
  * e_contact_address_free:
@@ -2119,17 +2082,7 @@ e_contact_address_copy (EContactAddress *address)
 	return address2;
 }
 
-GType
-e_contact_address_get_type (void)
-{
-	static GType type_id = 0;
-
-	if (!type_id)
-		type_id = g_boxed_type_register_static ("EContactAddress",
-							(GBoxedCopyFunc) e_contact_address_copy,
-							(GBoxedFreeFunc) e_contact_address_free);
-	return type_id;
-}
+E_CONTACT_DEFINE_BOXED_TYPE (e_contact_address, "EContactAddress")
 
 /**
  * e_contact_cert_free:
@@ -2158,14 +2111,4 @@ e_contact_cert_copy (EContactCert *cert)
 	return cert2;
 }
 
-GType
-e_contact_cert_get_type (void)
-{
-	static GType type_id = 0;
-
-	if (!type_id)
-		type_id = g_boxed_type_register_static ("EContactCert",
-							(GBoxedCopyFunc) e_contact_cert_copy,
-							(GBoxedFreeFunc) e_contact_cert_free);
-	return type_id;
-}
+E_CONTACT_DEFINE_BOXED_TYPE (e_contact_cert, "EContactCert")

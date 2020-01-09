@@ -5,29 +5,20 @@
 #include "folders.h"
 #include "session.h"
 
-#include <camel/camel-exception.h>
-#include <camel/camel-service.h>
-#include <camel/camel-store.h>
-
-#define ARRAY_LEN(x) (sizeof(x)/sizeof(x[0]))
-
 static const gchar *imap_drivers[] = { "imap4" };
 
-static gchar *remote_providers[] = {
+static const gchar *remote_providers[] = {
 	"IMAP_TEST_URL",
 };
 
 gint main(gint argc, gchar **argv)
 {
 	CamelSession *session;
-	CamelException *ex;
 	gint i;
 	gchar *path;
 
 	camel_test_init(argc, argv);
 	camel_test_provider_init(1, imap_drivers);
-
-	ex = camel_exception_new();
 
 	/* clear out any camel-test data */
 	system("/bin/rm -rf /tmp/camel-test");
@@ -36,7 +27,7 @@ gint main(gint argc, gchar **argv)
 
 	/* todo: cross-check everything with folder_info checks as well */
 	/* todo: subscriptions? */
-	for (i=0;i<ARRAY_LEN(remote_providers);i++) {
+	for (i = 0; i < G_N_ELEMENTS (remote_providers); i++) {
 		path = getenv(remote_providers[i]);
 
 		if (path == NULL) {
@@ -50,8 +41,7 @@ gint main(gint argc, gchar **argv)
 		/*camel_test_fatal();*/
 	}
 
-	camel_object_unref((CamelObject *)session);
-	camel_exception_free(ex);
+	g_object_unref (session);
 
 	return 0;
 }

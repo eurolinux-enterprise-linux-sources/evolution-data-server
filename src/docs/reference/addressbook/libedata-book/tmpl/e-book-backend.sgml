@@ -33,13 +33,27 @@ EBookBackend
 
 @ebookbackend: the object which received the signal.
 
-<!-- ##### FUNCTION e_book_backend_construct ##### -->
+<!-- ##### ARG EBookBackend:cache-dir ##### -->
+<para>
+
+</para>
+
+<!-- ##### FUNCTION e_book_backend_get_cache_dir ##### -->
 <para>
 
 </para>
 
 @backend: 
 @Returns: 
+
+
+<!-- ##### FUNCTION e_book_backend_set_cache_dir ##### -->
+<para>
+
+</para>
+
+@backend: 
+@cache_dir: 
 
 
 <!-- ##### FUNCTION e_book_backend_load_source ##### -->
@@ -50,7 +64,7 @@ EBookBackend
 @backend: 
 @source: 
 @only_if_exists: 
-@Returns: 
+@error: 
 
 
 <!-- ##### FUNCTION e_book_backend_get_source ##### -->
@@ -263,7 +277,7 @@ EBookBackend
 
 @backend: 
 @book: 
-@Returns: 
+@error: 
 
 
 <!-- ##### FUNCTION e_book_backend_set_mode ##### -->

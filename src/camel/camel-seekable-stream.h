@@ -22,19 +22,40 @@
  * USA
  */
 
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
 #ifndef CAMEL_SEEKABLE_STREAM_H
-#define CAMEL_SEEKABLE_STREAM_H 1
+#define CAMEL_SEEKABLE_STREAM_H
 
 #include <sys/types.h>
 #include <unistd.h>
 #include <camel/camel-stream.h>
 
-#define CAMEL_SEEKABLE_STREAM_TYPE     (camel_seekable_stream_get_type ())
-#define CAMEL_SEEKABLE_STREAM(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_SEEKABLE_STREAM_TYPE, CamelSeekableStream))
-#define CAMEL_SEEKABLE_STREAM_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_SEEKABLE_STREAM_TYPE, CamelSeekableStreamClass))
-#define CAMEL_IS_SEEKABLE_STREAM(o)    (CAMEL_CHECK_TYPE((o), CAMEL_SEEKABLE_STREAM_TYPE))
+/* Standard GObject macros */
+#define CAMEL_TYPE_SEEKABLE_STREAM \
+	(camel_seekable_stream_get_type ())
+#define CAMEL_SEEKABLE_STREAM(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_SEEKABLE_STREAM, CamelSeekableStream))
+#define CAMEL_SEEKABLE_STREAM_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_SEEKABLE_STREAM, CamelSeekableStreamClass))
+#define CAMEL_IS_SEEKABLE_STREAM(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_SEEKABLE_STREAM))
+#define CAMEL_IS_SEEKABLE_STREAM_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_SEEKABLE_STREAM))
+#define CAMEL_SEEKABLE_STREAM_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_SEEKABLE_STREAM, CamelSeekableStreamClass))
 
 G_BEGIN_DECLS
+
+typedef struct _CamelSeekableStream CamelSeekableStream;
+typedef struct _CamelSeekableStreamClass CamelSeekableStreamClass;
 
 typedef enum {
 	CAMEL_STREAM_SET = SEEK_SET,
@@ -45,32 +66,37 @@ typedef enum {
 #define CAMEL_STREAM_UNBOUND (~0)
 
 struct _CamelSeekableStream {
-	CamelStream parent_object;
+	CamelStream parent;
 
-	off_t position;		/* current postion in the stream */
-	off_t bound_start;	/* first valid position */
-	off_t bound_end;	/* first invalid position */
+	goffset position;		/* current postion in the stream */
+	goffset bound_start;	/* first valid position */
+	goffset bound_end;	/* first invalid position */
 };
 
-typedef struct {
+struct _CamelSeekableStreamClass {
 	CamelStreamClass parent_class;
 
-	/* Virtual methods */
-	off_t (*seek)       (CamelSeekableStream *stream, off_t offset,
-			     CamelStreamSeekPolicy policy);
-	off_t (*tell)	    (CamelSeekableStream *stream);
-	gint  (*set_bounds)  (CamelSeekableStream *stream,
-			     off_t start, off_t end);
-} CamelSeekableStreamClass;
+	goffset		(*seek)			(CamelSeekableStream *stream,
+						 goffset offset,
+						 CamelStreamSeekPolicy policy,
+						 GError **error);
+	goffset		(*tell)			(CamelSeekableStream *stream);
+	gint		(*set_bounds)		(CamelSeekableStream *stream,
+						 goffset start,
+						 goffset end,
+						 GError **error);
+};
 
-/* Standard Camel function */
-CamelType camel_seekable_stream_get_type (void);
-
-/* public methods */
-off_t    camel_seekable_stream_seek            (CamelSeekableStream *stream, off_t offset,
-						CamelStreamSeekPolicy policy);
-off_t	 camel_seekable_stream_tell	       (CamelSeekableStream *stream);
-gint	 camel_seekable_stream_set_bounds      (CamelSeekableStream *stream, off_t start, off_t end);
+GType		camel_seekable_stream_get_type	(void);
+goffset		camel_seekable_stream_seek	(CamelSeekableStream *stream,
+						 goffset offset,
+						 CamelStreamSeekPolicy policy,
+						 GError **error);
+goffset		camel_seekable_stream_tell	(CamelSeekableStream *stream);
+gint		camel_seekable_stream_set_bounds(CamelSeekableStream *stream,
+						 goffset start,
+						 goffset end,
+						 GError **error);
 
 G_END_DECLS
 

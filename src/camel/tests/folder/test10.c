@@ -1,7 +1,6 @@
 /* threaded folder testing */
 
 #include <string.h>
-#include <pthread.h>
 
 #include "camel-test.h"
 #include "camel-test-provider.h"
@@ -9,19 +8,13 @@
 #include "messages.h"
 #include "session.h"
 
-#include <camel/camel-exception.h>
-#include <camel/camel-service.h>
-#include <camel/camel-store.h>
-
 #define MAX_LOOP (10000)
 #define MAX_THREADS (5)
 
 #define d(x)
 
-#define ARRAY_LEN(x) (sizeof(x)/sizeof(x[0]))
-
 static const gchar *local_drivers[] = { "local" };
-static gchar *local_providers[] = {
+static const gchar *local_providers[] = {
 	"mbox",
 	"mh",
 	"maildir"
@@ -35,39 +28,32 @@ static gpointer
 worker(gpointer d)
 {
 	gint i;
-	CamelException *ex = camel_exception_new();
 	CamelStore *store;
 	CamelFolder *folder;
 
 	for (i=0;i<MAX_LOOP;i++) {
-		store = camel_session_get_store(session, path, ex);
-		camel_exception_clear(ex);
-		folder = camel_store_get_folder(store, "testbox", CAMEL_STORE_FOLDER_CREATE, ex);
-		camel_exception_clear(ex);
+		store = camel_session_get_store(session, path, NULL);
+		folder = camel_store_get_folder(store, "testbox", CAMEL_STORE_FOLDER_CREATE, NULL);
 		if (testid == 0) {
-			camel_object_unref(folder);
-			camel_object_unref(store);
+			g_object_unref (folder);
+			g_object_unref (store);
 		} else {
-			camel_object_unref(store);
-			camel_object_unref(folder);
+			g_object_unref (store);
+			g_object_unref (folder);
 		}
 	}
-
-	camel_exception_free(ex);
 
 	return NULL;
 }
 
-gint main(gint argc, gchar **argv)
+gint
+main(gint argc, gchar **argv)
 {
-	CamelException *ex;
 	gint i, j;
-	pthread_t threads[MAX_THREADS];
+	GThread *threads[MAX_THREADS];
 
 	camel_test_init(argc, argv);
 	camel_test_provider_init(1, local_drivers);
-
-	ex = camel_exception_new();
 
 	/* clear out any camel-test data */
 	system("/bin/rm -rf /tmp/camel-test");
@@ -80,16 +66,25 @@ gint main(gint argc, gchar **argv)
 		else
 			camel_test_start("store and folder bag torture test, unstacked references");
 
-		for (j=0;j<ARRAY_LEN(local_providers);j++) {
+		for (j = 0; j < G_N_ELEMENTS (local_providers); j++) {
 
 			camel_test_push("provider %s", local_providers[j]);
 			path = g_strdup_printf("%s:///tmp/camel-test/%s", local_providers[j], local_providers[j]);
 
-			for (i=0;i<MAX_THREADS;i++)
-				pthread_create(&threads[i], 0, worker, NULL);
+			for (i = 0; i < MAX_THREADS; i++) {
+				GError *error = NULL;
 
-			for (i=0;i<MAX_THREADS;i++)
-				pthread_join(threads[i], NULL);
+				threads[i] = g_thread_create (worker, NULL, TRUE, &error);
+				if (error) {
+					fprintf (stderr, "%s: Failed to create a thread: %s\n", G_STRFUNC, error->message);
+					g_error_free (error);
+				}
+			}
+
+			for (i = 0; i < MAX_THREADS; i++) {
+				if (threads[i])
+					g_thread_join (threads[i]);
+			}
 
 			test_free(path);
 
@@ -99,8 +94,7 @@ gint main(gint argc, gchar **argv)
 		camel_test_end();
 	}
 
-	camel_object_unref((CamelObject *)session);
-	camel_exception_free(ex);
+	g_object_unref (session);
 
 	return 0;
 }

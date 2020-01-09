@@ -25,13 +25,21 @@ CamelSession
 
 </para>
 
-@parent_object: 
-@priv: 
-@storage_path: 
-@junk_plugin: 
-@online: 
-@check_junk: 
-@network_state: 
+
+<!-- ##### ARG CamelSession:check-junk ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG CamelSession:network-available ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG CamelSession:online ##### -->
+<para>
+
+</para>
 
 <!-- ##### USER_FUNCTION CamelTimeoutCallback ##### -->
 <para>
@@ -66,7 +74,7 @@ CamelSession
 
 @msg: 
 @id: 
-@ex: 
+@error: 
 @ops: 
 @op: 
 @session: 
@@ -81,6 +89,26 @@ CamelSession
 @storage_path: 
 
 
+<!-- ##### FUNCTION camel_session_set_socks_proxy ##### -->
+<para>
+
+</para>
+
+@session: 
+@socks_host: 
+@socks_port: 
+
+
+<!-- ##### FUNCTION camel_session_get_socks_proxy ##### -->
+<para>
+
+</para>
+
+@session: 
+@host_ret: 
+@port_ret: 
+
+
 <!-- ##### FUNCTION camel_session_get_service ##### -->
 <para>
 
@@ -89,7 +117,7 @@ CamelSession
 @session: 
 @url_string: 
 @type: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -101,7 +129,7 @@ CamelSession
 @session: 
 @url_string: 
 @type: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -112,7 +140,7 @@ CamelSession
 
 @session: 
 @url_string: 
-@ex: 
+@error: 
 
 
 <!-- ##### MACRO camel_session_get_transport ##### -->
@@ -122,7 +150,7 @@ CamelSession
 
 @session: 
 @url_string: 
-@ex: 
+@error: 
 
 
 <!-- ##### FUNCTION camel_session_get_storage_path ##### -->
@@ -132,7 +160,7 @@ CamelSession
 
 @session: 
 @service: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -147,7 +175,7 @@ CamelSession
 @prompt: 
 @item: 
 @flags: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -160,7 +188,8 @@ CamelSession
 @service: 
 @domain: 
 @item: 
-@ex: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_session_alert_user ##### -->
@@ -186,7 +215,7 @@ CamelSession
 @Returns: 
 
 
-<!-- ##### FUNCTION camel_session_is_online ##### -->
+<!-- ##### FUNCTION camel_session_get_online ##### -->
 <para>
 
 </para>
@@ -211,11 +240,11 @@ CamelSession
 
 @session: 
 @type: 
-@ex: 
+@error: 
 @Returns: 
 
 
-<!-- ##### FUNCTION camel_session_check_junk ##### -->
+<!-- ##### FUNCTION camel_session_get_check_junk ##### -->
 <para>
 
 </para>
@@ -273,7 +302,7 @@ CamelSession
 @id: 
 
 
-<!-- ##### FUNCTION camel_session_get_network_state ##### -->
+<!-- ##### FUNCTION camel_session_get_network_available ##### -->
 <para>
 
 </para>
@@ -282,7 +311,7 @@ CamelSession
 @Returns: 
 
 
-<!-- ##### FUNCTION camel_session_set_network_state ##### -->
+<!-- ##### FUNCTION camel_session_set_network_available ##### -->
 <para>
 
 </para>
@@ -330,6 +359,33 @@ CamelSession
 @folder: 
 @message: 
 @address: 
-@ex: 
+@error: 
+@Returns: 
+
+
+<!-- ##### ENUM CamelSessionLock ##### -->
+<para>
+
+</para>
+
+@CAMEL_SESSION_SESSION_LOCK: 
+@CAMEL_SESSION_THREAD_LOCK: 
+
+<!-- ##### FUNCTION camel_session_lock ##### -->
+<para>
+
+</para>
+
+@session: 
+@lock: 
+
+
+<!-- ##### FUNCTION camel_session_unlock ##### -->
+<para>
+
+</para>
+
+@session: 
+@lock: 
 
 

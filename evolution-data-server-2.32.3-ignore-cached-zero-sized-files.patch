@@ -1,0 +1,46 @@
+diff -up evolution-data-server-2.32.3/camel/camel-data-cache.c.ignore-cached-zero-sized-files evolution-data-server-2.32.3/camel/camel-data-cache.c
+--- evolution-data-server-2.32.3/camel/camel-data-cache.c.ignore-cached-zero-sized-files	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-data-cache.c	2013-07-26 20:00:20.553078022 +0200
+@@ -422,10 +422,15 @@ camel_data_cache_get (CamelDataCache *cd
+ 	if (!stream) {
+ 		struct stat st;
+ 
+-		/* Return NULL if the file is empty. */
+-		if (g_stat (real, &st) == 0 && st.st_size > 0)
++		/* An empty cache file is useless.  Return an error. */
++		if (g_stat (real, &st) == 0 && st.st_size == 0) {
++			g_set_error (
++				error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
++				"%s: %s", _("Empty cache file"), real);
++		} else {
+ 			stream = camel_stream_fs_new_with_name (
+ 				real, O_RDWR, 0600, error);
++		}
+ 
+ 		if (stream)
+ 			camel_object_bag_add(cdc->priv->busy_bag, real, stream);
+diff -up evolution-data-server-2.32.3/camel/providers/imap/camel-imap-message-cache.c.ignore-cached-zero-sized-files evolution-data-server-2.32.3/camel/providers/imap/camel-imap-message-cache.c
+--- evolution-data-server-2.32.3/camel/providers/imap/camel-imap-message-cache.c.ignore-cached-zero-sized-files	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/imap/camel-imap-message-cache.c	2013-07-26 20:00:20.553078022 +0200
+@@ -498,6 +498,7 @@ camel_imap_message_cache_get (CamelImapM
+ {
+ 	CamelStream *stream;
+ 	gchar *path, *key;
++	struct stat st;
+ 
+ 	if (uid[0] == 0)
+ 		return NULL;
+@@ -518,7 +519,12 @@ camel_imap_message_cache_get (CamelImapM
+ 		return stream;
+ 	}
+ 
+-	stream = camel_stream_fs_new_with_name (path, O_RDONLY, 0, error);
++
++	/* An empty cache file is useless */
++	if (g_stat (path, &st) == 0 && st.st_size == 0)
++		stream = NULL;
++	else
++		stream = camel_stream_fs_new_with_name (path, O_RDONLY, 0, error);
+ 	if (stream)
+ 		cache_put (cache, uid, key, stream);
+ 	else

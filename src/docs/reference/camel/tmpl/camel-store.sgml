@@ -25,14 +25,70 @@ CamelStore
 
 </para>
 
-@parent_object: 
-@priv: 
-@folders: 
-@cdb_r: 
-@cdb_w: 
-@flags: 
-@mode: 
-@later: 
+
+<!-- ##### SIGNAL CamelStore::folder-created ##### -->
+<para>
+
+</para>
+
+@camelstore: the object which received the signal.
+@Param2: 
+
+<!-- ##### SIGNAL CamelStore::folder-deleted ##### -->
+<para>
+
+</para>
+
+@camelstore: the object which received the signal.
+@Param2: 
+
+<!-- ##### SIGNAL CamelStore::folder-opened ##### -->
+<para>
+
+</para>
+
+@camelstore: the object which received the signal.
+@Param2: 
+
+<!-- ##### SIGNAL CamelStore::folder-renamed ##### -->
+<para>
+
+</para>
+
+@camelstore: the object which received the signal.
+@arg1: 
+@arg2: 
+
+<!-- ##### SIGNAL CamelStore::folder-subscribed ##### -->
+<para>
+
+</para>
+
+@camelstore: the object which received the signal.
+@Param2: 
+
+<!-- ##### SIGNAL CamelStore::folder-unsubscribed ##### -->
+<para>
+
+</para>
+
+@camelstore: the object which received the signal.
+@Param2: 
+
+<!-- ##### MACRO CAMEL_STORE_ERROR ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### ENUM CamelStoreError ##### -->
+<para>
+
+</para>
+
+@CAMEL_STORE_ERROR_INVALID: 
+@CAMEL_STORE_ERROR_NO_FOLDER: 
 
 <!-- ##### STRUCT CamelFolderInfo ##### -->
 <para>
@@ -189,14 +245,6 @@ CamelStore
 
 
 
-<!-- ##### STRUCT CamelRenameInfo ##### -->
-<para>
-
-</para>
-
-@old_base: 
-@new: 
-
 <!-- ##### MACRO CAMEL_STORE_SUBSCRIPTIONS ##### -->
 <para>
 
@@ -233,6 +281,20 @@ CamelStore
 
 
 <!-- ##### MACRO CAMEL_STORE_IS_MIGRATING ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO CAMEL_STORE_ASYNC ##### -->
+<para>
+
+</para>
+
+
+
+<!-- ##### MACRO CAMEL_STORE_REAL_JUNK_FOLDER ##### -->
 <para>
 
 </para>
@@ -317,7 +379,7 @@ CamelStore
 @store: 
 @folder_name: 
 @flags: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -327,7 +389,7 @@ CamelStore
 </para>
 
 @store: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -337,7 +399,7 @@ CamelStore
 </para>
 
 @store: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -347,7 +409,7 @@ CamelStore
 </para>
 
 @store: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -359,7 +421,7 @@ CamelStore
 @store: 
 @parent_name: 
 @folder_name: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -370,7 +432,8 @@ CamelStore
 
 @store: 
 @folder_name: 
-@ex: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_store_rename_folder ##### -->
@@ -381,7 +444,54 @@ CamelStore
 @store: 
 @old_namein: 
 @new_name: 
-@ex: 
+@error: 
+@Returns: 
+
+
+<!-- ##### FUNCTION camel_store_folder_created ##### -->
+<para>
+
+</para>
+
+@store: 
+@info: 
+
+
+<!-- ##### FUNCTION camel_store_folder_deleted ##### -->
+<para>
+
+</para>
+
+@store: 
+@info: 
+
+
+<!-- ##### FUNCTION camel_store_folder_renamed ##### -->
+<para>
+
+</para>
+
+@store: 
+@old_name: 
+@info: 
+
+
+<!-- ##### FUNCTION camel_store_folder_subscribed ##### -->
+<para>
+
+</para>
+
+@store: 
+@info: 
+
+
+<!-- ##### FUNCTION camel_store_folder_unsubscribed ##### -->
+<para>
+
+</para>
+
+@store: 
+@info: 
 
 
 <!-- ##### FUNCTION camel_store_sync ##### -->
@@ -391,7 +501,8 @@ CamelStore
 
 @store: 
 @expunge: 
-@ex: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_store_get_folder_info ##### -->
@@ -402,7 +513,7 @@ CamelStore
 @store: 
 @top: 
 @flags: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -480,7 +591,7 @@ CamelStore
 @Returns: 
 
 
-<!-- ##### FUNCTION camel_store_folder_subscribed ##### -->
+<!-- ##### FUNCTION camel_store_folder_is_subscribed ##### -->
 <para>
 
 </para>
@@ -497,7 +608,8 @@ CamelStore
 
 @store: 
 @folder_name: 
-@ex: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_store_unsubscribe_folder ##### -->
@@ -507,7 +619,8 @@ CamelStore
 
 @store: 
 @folder_name: 
-@ex: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_store_noop ##### -->
@@ -516,7 +629,8 @@ CamelStore
 </para>
 
 @store: 
-@ex: 
+@error: 
+@Returns: 
 
 
 <!-- ##### FUNCTION camel_store_folder_uri_equal ##### -->
@@ -537,47 +651,32 @@ CamelStore
 
 @store: 
 @info: 
-@ex: 
+@error: 
 @Returns: 
 
 
-<!-- ##### STRUCT CamelISubscribe ##### -->
+<!-- ##### ENUM CamelStoreLock ##### -->
 <para>
 
 </para>
 
-@iface: 
-@subscribed: 
-@subscribe: 
-@unsubscribe: 
+@CAMEL_STORE_FOLDER_LOCK: 
 
-<!-- ##### FUNCTION camel_isubscribe_subscribed ##### -->
-<para>
-
-</para>
-
-@store: 
-@name: 
-@Returns: 
-
-
-<!-- ##### FUNCTION camel_isubscribe_subscribe ##### -->
+<!-- ##### FUNCTION camel_store_lock ##### -->
 <para>
 
 </para>
 
 @store: 
-@folder_name: 
-@ex: 
+@lock: 
 
 
-<!-- ##### FUNCTION camel_isubscribe_unsubscribe ##### -->
+<!-- ##### FUNCTION camel_store_unlock ##### -->
 <para>
 
 </para>
 
 @store: 
-@folder_name: 
-@ex: 
+@lock: 
 
 

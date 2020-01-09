@@ -22,41 +22,66 @@
  * USA
  */
 
-#ifndef CAMEL_STREAM_VFS_H
-#define CAMEL_STREAM_VFS_H 1
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
 
-#include <glib.h>
-#include <glib-object.h>
+#ifndef CAMEL_STREAM_VFS_H
+#define CAMEL_STREAM_VFS_H
 
 #include <camel/camel-stream.h>
 
-#define CAMEL_STREAM_VFS_TYPE     (camel_stream_vfs_get_type ())
-#define CAMEL_STREAM_VFS(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_STREAM_VFS_TYPE, CamelStreamVFS))
-#define CAMEL_STREAM_VFS_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_STREAM_VFS_TYPE, CamelStreamVFSClass))
-#define CAMEL_IS_STREAM_VFS(o)    (CAMEL_CHECK_TYPE((o), CAMEL_STREAM_VFS_TYPE))
+/* Standard GObject macros */
+#define CAMEL_TYPE_STREAM_VFS \
+	(camel_stream_vfs_get_type ())
+#define CAMEL_STREAM_VFS(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_STREAM_VFS, CamelStreamVFS))
+#define CAMEL_STREAM_VFS_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_STREAM_VFS, CamelStreamVFSClass))
+#define CAMEL_IS_STREAM_VFS(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_STREAM_VFS))
+#define CAMEL_IS_STREAM_VFS_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_STREAM_VFS))
+#define CAMEL_STREAM_VFS_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_STREAM_VFS, CamelStreamVFSClass))
 
 G_BEGIN_DECLS
 
 typedef struct _CamelStreamVFS CamelStreamVFS;
+typedef struct _CamelStreamVFSClass CamelStreamVFSClass;
 
 struct _CamelStreamVFS {
-	CamelStream parent_object;
+	CamelStream parent;
 
 	GObject *stream;
 };
 
-typedef struct {
+struct _CamelStreamVFSClass {
 	CamelStreamClass parent_class;
+};
 
-} CamelStreamVFSClass;
+GType camel_stream_vfs_get_type (void);
 
-/* Standard Camel function */
-CamelType camel_stream_vfs_get_type (void);
-
+/**
+ * CamelStreamVFSOpenMethod:
+ * CAMEL_STREAM_VFS_CREATE:
+ *	Writable, creates new file or replaces old file.
+ * CAMEL_STREAM_VFS_APPEND:
+ *	Writable, creates new file or appends at the end of the old file.
+ * CAMEL_STREAM_VFS_READ:
+ *	Readable, opens existing file for reading.
+ *
+ * Since: 2.24
+ **/
 typedef enum {
-	CAMEL_STREAM_VFS_CREATE,	/* writable, creates new file or replaces old file */
-	CAMEL_STREAM_VFS_APPEND,	/* writable, creates new file or appends at the end of the old file */
-	CAMEL_STREAM_VFS_READ		/* readable, opens existing file for reading */
+	CAMEL_STREAM_VFS_CREATE,
+	CAMEL_STREAM_VFS_APPEND,
+	CAMEL_STREAM_VFS_READ
 } CamelStreamVFSOpenMethod;
 
 /* public methods */

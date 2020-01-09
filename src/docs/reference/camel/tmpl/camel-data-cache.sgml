@@ -25,12 +25,11 @@ CamelDataCache
 
 </para>
 
-@parent_object: 
-@priv: 
-@path: 
-@flags: 
-@expire_age: 
-@expire_access: 
+
+<!-- ##### ARG CamelDataCache:path ##### -->
+<para>
+
+</para>
 
 <!-- ##### FUNCTION camel_data_cache_new ##### -->
 <para>
@@ -38,9 +37,26 @@ CamelDataCache
 </para>
 
 @path: 
-@flags: 
-@ex: 
+@error: 
 @Returns: 
+
+
+<!-- ##### FUNCTION camel_data_cache_get_path ##### -->
+<para>
+
+</para>
+
+@cdc: 
+@Returns: 
+
+
+<!-- ##### FUNCTION camel_data_cache_set_path ##### -->
+<para>
+
+</para>
+
+@cdc: 
+@path: 
 
 
 <!-- ##### FUNCTION camel_data_cache_set_expire_age ##### -->
@@ -61,18 +77,6 @@ CamelDataCache
 @when: 
 
 
-<!-- ##### FUNCTION camel_data_cache_rename ##### -->
-<para>
-
-</para>
-
-@cache: 
-@old: 
-@new: 
-@ex: 
-@Returns: 
-
-
 <!-- ##### FUNCTION camel_data_cache_add ##### -->
 <para>
 
@@ -81,7 +85,7 @@ CamelDataCache
 @cdc: 
 @path: 
 @key: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -93,7 +97,7 @@ CamelDataCache
 @cdc: 
 @path: 
 @key: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -105,18 +109,7 @@ CamelDataCache
 @cdc: 
 @path: 
 @key: 
-@ex: 
-@Returns: 
-
-
-<!-- ##### FUNCTION camel_data_cache_clear ##### -->
-<para>
-
-</para>
-
-@cache: 
-@path: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -128,7 +121,7 @@ CamelDataCache
 @cdc: 
 @path: 
 @key: 
-@ex: 
+@error: 
 @Returns: 
 
 

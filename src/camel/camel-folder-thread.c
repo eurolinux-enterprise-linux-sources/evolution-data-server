@@ -33,8 +33,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#include <glib.h>
-
 #include <libedataserver/e-memory.h>
 
 #include "camel-folder-thread.h"
@@ -480,6 +478,8 @@ thread_summary(CamelFolderThread *thread, GPtrArray *summary)
 
 			d(printf("%s (%s) references:\n", G_STRLOC, G_STRFUNC); )
 			for (j=0;j<references->size;j++) {
+				gboolean found = FALSE;
+
 				/* should never be empty, but just incase */
 				if (references->references[j].id.id == 0)
 					continue;
@@ -489,9 +489,16 @@ thread_summary(CamelFolderThread *thread, GPtrArray *summary)
 					d(printf("%s (%s) not found\n", G_STRLOC, G_STRFUNC));
 					c = e_memchunk_alloc0(thread->node_chunks);
 					g_hash_table_insert(id_table, (gpointer)&references->references[j], c);
+				} else
+					found = TRUE;
+				if (c != child) {
+					container_parent_child (c, child);
+					/* Stop on the first parent found, no need to reparent
+					   it once it's placed in. Also, references are from
+					   parent to root, thus this should do the right thing. */
+					if (found)
+						break;
 				}
-				if (c!=child)
-					container_parent_child(c, child);
 				child = c;
 			}
 		}
@@ -591,14 +598,13 @@ thread_summary(CamelFolderThread *thread, GPtrArray *summary)
  *
  * This function is probably to be removed soon.
  *
- * Return value: A CamelFolderThread contianing a tree of CamelFolderThreadNode's
+ * Returns: A CamelFolderThread contianing a tree of CamelFolderThreadNode's
  * which represent the threaded structure of the messages.
  **/
 CamelFolderThread *
 camel_folder_thread_messages_new (CamelFolder *folder, GPtrArray *uids, gboolean thread_subject)
 {
 	CamelFolderThread *thread;
-	GHashTable *wanted = NULL;
 	GPtrArray *summary;
 	GPtrArray *fsummary;
 	gint i;
@@ -608,39 +614,29 @@ camel_folder_thread_messages_new (CamelFolder *folder, GPtrArray *uids, gboolean
 	thread->subject = thread_subject;
 	thread->tree = NULL;
 	thread->node_chunks = e_memchunk_new(32, sizeof(CamelFolderThreadNode));
-	thread->folder = folder;
-	camel_object_ref((CamelObject *)folder);
+	thread->folder = g_object_ref (folder);
 
-	/* get all of the summary items of interest in summary order */
-	if (uids) {
-		wanted = g_hash_table_new(g_str_hash, g_str_equal);
-		for (i=0;i<uids->len;i++)
-			g_hash_table_insert(wanted, uids->pdata[i], uids->pdata[i]);
-	}
-
+	camel_folder_summary_prepare_fetch_all (folder->summary, NULL);
 	fsummary = camel_folder_summary_array (folder->summary);
 	thread->summary = summary = g_ptr_array_new();
-	if (fsummary->len - camel_folder_summary_cache_size (folder->summary) > 50)
-		camel_folder_summary_reload_from_db (folder->summary, NULL);
 
-	for (i = 0; i < fsummary->len; i++) {
+	/* prefer given order from the summary order */
+	if (!uids)
+		uids = fsummary;
+
+	for (i = 0; i < uids->len; i++) {
 		CamelMessageInfo *info;
-		gchar *uid = fsummary->pdata[i];
+		gchar *uid = uids->pdata[i];
 
-		if (wanted == NULL || g_hash_table_lookup(wanted, uid) != NULL) {
-			info = camel_folder_get_message_info (folder, uid);
-			if (info)
-				g_ptr_array_add(summary, info);
-			/* FIXME: Check if the info is leaking */
-		}
+		info = camel_folder_get_message_info (folder, uid);
+		if (info)
+			g_ptr_array_add (summary, info);
+		/* FIXME: Check if the info is leaking */
 	}
 
 	camel_folder_free_summary(folder, fsummary);
 
 	thread_summary(thread, summary);
-
-	if (wanted)
-		g_hash_table_destroy(wanted);
 
 	return thread;
 }
@@ -722,7 +718,7 @@ camel_folder_thread_messages_unref(CamelFolderThread *thread)
 		for (i=0;i<thread->summary->len;i++)
 			camel_folder_free_message_info(thread->folder, thread->summary->pdata[i]);
 		g_ptr_array_free(thread->summary, TRUE);
-		camel_object_unref((CamelObject *)thread->folder);
+		g_object_unref (thread->folder);
 	}
 	e_memchunk_destroy(thread->node_chunks);
 	g_free(thread);
@@ -737,7 +733,7 @@ camel_folder_thread_messages_unref(CamelFolderThread *thread)
  * life of the CamelFolderThread created by this function, and it is upto the
  * caller to ensure this.
  *
- * Return value: A CamelFolderThread contianing a tree of CamelFolderThreadNode's
+ * Returns: A CamelFolderThread contianing a tree of CamelFolderThreadNode's
  * which represent the threaded structure of the messages.
  **/
 CamelFolderThread *

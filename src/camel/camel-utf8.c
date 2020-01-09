@@ -72,7 +72,7 @@ camel_utf8_putc(guchar **ptr, guint32 c)
  * to the next character position.  Invalid utf8 characters will be
  * silently skipped.  @ptr should point to a NUL terminated array.
  *
- * Return value: The next Unicode character.  @ptr will be advanced to
+ * Returns: The next Unicode character.  @ptr will be advanced to
  * the next character always.
  **/
 guint32
@@ -123,7 +123,7 @@ loop:
  * returned as a sentinel (Unicode 3.1, section 2.7), and @ptr is not
  * advanced.
  *
- * Return value: The next utf8 char, or 0xffff.
+ * Returns: The next utf8 char, or 0xffff.
  **/
 guint32
 camel_utf8_getc_limit(const guchar **ptr, const guchar *end)
@@ -210,7 +210,7 @@ static const guchar utf7_rank[256] = {
  *
  * The IMAP rules [rfc2060] are used in the utf7 encoding.
  *
- * Return value: The converted string.
+ * Returns: The converted string.
  **/
 gchar *
 camel_utf7_utf8(const gchar *ptr)
@@ -291,7 +291,7 @@ static void utf7_closeb64(GString *out, guint32 v, guint32 i)
  *
  * The IMAP rules [rfc2060] are used in the utf7 encoding.
  *
- * Return value:
+ * Returns:
  **/
 gchar *
 camel_utf8_utf7(const gchar *ptr)
@@ -306,7 +306,7 @@ camel_utf8_utf7(const gchar *ptr)
 
 	out = g_string_new("");
 
-	while ( (c = camel_utf8_getc(&p)) ) {
+	while ((c = camel_utf8_getc(&p))) {
 		if (c >= 0x20 && c <= 0x7e) {
 			if (state == 1) {
 				utf7_closeb64(out, v, i);
@@ -348,7 +348,7 @@ camel_utf8_utf7(const gchar *ptr)
  * Convert a utf8 string into a ucs2 one.  The ucs string will be in
  * network byte order, and terminated with a 16 bit NULL.
  *
- * Return value:
+ * Returns:
  **/
 gchar *
 camel_utf8_ucs2(const gchar *pptr)
@@ -360,7 +360,7 @@ camel_utf8_ucs2(const gchar *pptr)
 
 	/* what if c is > 0xffff ? */
 
-	while ( (c = camel_utf8_getc(&ptr)) ) {
+	while ((c = camel_utf8_getc(&ptr))) {
 		guint16 s = g_htons(c);
 
 		g_byte_array_append(work, (guchar *) &s, 2);
@@ -381,7 +381,7 @@ camel_utf8_ucs2(const gchar *pptr)
  * Convert a ucs2 string into a utf8 one.  The ucs2 string is treated
  * as network byte ordered, and terminated with a 16 bit NUL.
  *
- * Return value:
+ * Returns:
  **/
 gchar *camel_ucs2_utf8(const gchar *ptr)
 {
@@ -390,7 +390,7 @@ gchar *camel_ucs2_utf8(const gchar *ptr)
 	GString *work = g_string_new("");
 	gchar *out;
 
-	while ( (c = *ucs++) )
+	while ((c = *ucs++))
 		g_string_append_u(work, g_ntohs(c));
 
 	out = g_strdup(work->str);
@@ -405,6 +405,8 @@ gchar *camel_ucs2_utf8(const gchar *ptr)
  *
  * Ensures the returned text will be valid UTF-8 string, with incorrect letters
  * changed to question marks. Returned pointer should be freed with g_free.
+ *
+ * Since: 2.26
  **/
 gchar *
 camel_utf8_make_valid (const gchar *text)

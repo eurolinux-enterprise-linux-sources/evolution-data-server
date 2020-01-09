@@ -25,6 +25,6 @@ CamelGroupwiseTransport
 
 </para>
 
-@parent_object: 
+@parent: 
 @connected: 
 

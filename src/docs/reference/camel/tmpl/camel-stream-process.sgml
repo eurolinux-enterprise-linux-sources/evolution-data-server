@@ -25,9 +25,6 @@ CamelStreamProcess
 
 </para>
 
-@parent: 
-@sockfd: 
-@childpid: 
 
 <!-- ##### FUNCTION camel_stream_process_new ##### -->
 <para>
@@ -43,9 +40,9 @@ CamelStreamProcess
 
 </para>
 
-@Param1: 
-@Param2: 
-@Param3: 
+@stream: 
+@command: 
+@env: 
 @Returns: 
 
 

@@ -1,0 +1,97 @@
+diff -up evolution-data-server-2.32.3/camel/camel.c.camel-ssl-ciphers evolution-data-server-2.32.3/camel/camel.c
+--- evolution-data-server-2.32.3/camel/camel.c.camel-ssl-ciphers	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel.c	2013-08-07 19:14:05.494797927 +0200
+@@ -32,6 +32,7 @@
+ #include <prthread.h>
+ #include "nss.h"      /* Don't use <> here or it will include the system nss.h instead */
+ #include <ssl.h>
++#include <sslproto.h>
+ #include <errno.h>
+ #endif /* CAMEL_HAVE_NSS */
+ 
+@@ -99,10 +100,16 @@ camel_init (const gchar *configdir, gboo
+ 
+ #ifdef CAMEL_HAVE_NSS
+ 	if (nss_init) {
++		static gchar v2_enabled = -1, weak_ciphers = -1;
+ 		gchar *nss_configdir = NULL;
+ 		gchar *nss_sql_configdir = NULL;
+ 		SECStatus status = SECFailure;
+-		PRUint16 indx;
++
++		/* check camel-tcp-stream-ssl.c for the same "CAMEL_SSL_V2_ENABLE" */
++		if (v2_enabled == -1)
++			v2_enabled = g_strcmp0 (g_getenv ("CAMEL_SSL_V2_ENABLE"), "1") == 0 ? 1 : 0;
++		if (weak_ciphers == -1)
++			weak_ciphers = g_strcmp0 (g_getenv ("CAMEL_SSL_WEAK_CIPHERS"), "1") == 0 ? 1 : 0;
+ 
+ 		if (nss_initlock == NULL) {
+ 			PR_Init(PR_SYSTEM_THREAD, PR_PRIORITY_NORMAL, 10);
+@@ -184,18 +191,24 @@ skip_nss_init:
+ 
+ 		NSS_SetDomesticPolicy ();
+ 
+-		PR_Unlock(nss_initlock);
++		if (weak_ciphers) {
++			PRUint16 indx;
+ 
+-		/* we must enable all ciphersuites */
+-		for (indx = 0; indx < SSL_NumImplementedCiphers; indx++) {
+-			if (!SSL_IS_SSL2_CIPHER(SSL_ImplementedCiphers[indx]))
+-				SSL_CipherPrefSetDefault (SSL_ImplementedCiphers[indx], PR_TRUE);
++			/* enable SSL3/TLS cipher-suites */
++			for (indx = 0; indx < SSL_NumImplementedCiphers; indx++) {
++				if (!SSL_IS_SSL2_CIPHER (SSL_ImplementedCiphers[indx]) &&
++				    SSL_ImplementedCiphers[indx] != SSL_RSA_WITH_NULL_SHA &&
++				    SSL_ImplementedCiphers[indx] != SSL_RSA_WITH_NULL_MD5)
++					SSL_CipherPrefSetDefault (SSL_ImplementedCiphers[indx], PR_TRUE);
++			}
+ 		}
+ 
+-		SSL_OptionSetDefault (SSL_ENABLE_SSL2, PR_TRUE);
++		SSL_OptionSetDefault (SSL_ENABLE_SSL2, v2_enabled ? PR_TRUE : PR_FALSE);
++		SSL_OptionSetDefault (SSL_V2_COMPATIBLE_HELLO, PR_FALSE);
+ 		SSL_OptionSetDefault (SSL_ENABLE_SSL3, PR_TRUE);
+ 		SSL_OptionSetDefault (SSL_ENABLE_TLS, PR_TRUE);
+-		SSL_OptionSetDefault (SSL_V2_COMPATIBLE_HELLO, PR_TRUE /* maybe? */);
++
++		PR_Unlock (nss_initlock);
+ 
+ 		g_free (nss_configdir);
+ 		g_free (nss_sql_configdir);
+diff -up evolution-data-server-2.32.3/camel/camel-tcp-stream-ssl.c.camel-ssl-ciphers evolution-data-server-2.32.3/camel/camel-tcp-stream-ssl.c
+--- evolution-data-server-2.32.3/camel/camel-tcp-stream-ssl.c.camel-ssl-ciphers	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-tcp-stream-ssl.c	2013-08-07 19:14:05.495797927 +0200
+@@ -624,6 +624,7 @@ static PRFileDesc *
+ enable_ssl (CamelTcpStreamSSL *ssl, PRFileDesc *fd)
+ {
+ 	PRFileDesc *ssl_fd;
++	static gchar v2_enabled = -1;
+ 
+ 	g_assert (fd != NULL);
+ 
+@@ -633,9 +634,22 @@ enable_ssl (CamelTcpStreamSSL *ssl, PRFi
+ 
+ 	SSL_OptionSet (ssl_fd, SSL_SECURITY, PR_TRUE);
+ 
+-	if (ssl->priv->flags & CAMEL_TCP_STREAM_SSL_ENABLE_SSL2) {
++	/* check camel.c for the same "CAMEL_SSL_V2_ENABLE" */
++	if (v2_enabled == -1)
++		v2_enabled = g_strcmp0 (g_getenv ("CAMEL_SSL_V2_ENABLE"), "1") == 0 ? 1 : 0;
++
++	if (v2_enabled && (ssl->priv->flags & CAMEL_TCP_STREAM_SSL_ENABLE_SSL2) != 0) {
++		static gchar v2_hello = -1;
++
++		/* Zarafa server with disabled SSL v2 rejects connection when
++		   SSL v2 compatible hello is sent, thus disabled this by default.
++		   After all, SSL v3 should be used in general these days anyway.
++		*/
++		if (v2_hello == -1)
++			v2_hello = g_strcmp0 (g_getenv ("CAMEL_SSL_V2_HELLO"), "1") == 0 ? 1 : 0;
++
+ 		SSL_OptionSet (ssl_fd, SSL_ENABLE_SSL2, PR_TRUE);
+-		SSL_OptionSet (ssl_fd, SSL_V2_COMPATIBLE_HELLO, PR_TRUE);
++		SSL_OptionSet (ssl_fd, SSL_V2_COMPATIBLE_HELLO, v2_hello ? PR_TRUE : PR_FALSE);
+ 	} else {
+ 		SSL_OptionSet (ssl_fd, SSL_ENABLE_SSL2, PR_FALSE);
+ 		SSL_OptionSet (ssl_fd, SSL_V2_COMPATIBLE_HELLO, PR_FALSE);

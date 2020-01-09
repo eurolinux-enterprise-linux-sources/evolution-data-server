@@ -44,9 +44,11 @@
 #include <glib.h>
 #include <libxml/xmlmemory.h>
 #include <glib/gi18n-lib.h>
-#include <camel/camel-internet-address.h>
+#include <camel/camel.h>
 
 #define d(x)
+
+G_DEFINE_TYPE (EDestination, e_destination, G_TYPE_OBJECT)
 
 struct _EDestinationPrivate {
 	gchar *raw;
@@ -86,7 +88,7 @@ enum {
 	LAST_SIGNAL
 };
 
-static guint signals [LAST_SIGNAL] = { 0 };
+static guint signals[LAST_SIGNAL] = { 0 };
 
 static GObjectClass *parent_class;
 
@@ -136,7 +138,7 @@ e_destination_class_init (EDestinationClass *klass)
 
 	parent_class = g_type_class_ref (G_TYPE_OBJECT);
 
-	signals [CHANGED] =
+	signals[CHANGED] =
 		g_signal_new ("changed",
 			      G_OBJECT_CLASS_TYPE (object_class),
 			      G_SIGNAL_RUN_LAST,
@@ -157,36 +159,12 @@ e_destination_init (EDestination *dest)
 	dest->priv->ignored = FALSE;
 }
 
-GType
-e_destination_get_type (void)
-{
-	static GType dest_type = 0;
-
-	if (!dest_type) {
-		GTypeInfo dest_info = {
-			sizeof (EDestinationClass),
-			NULL, /* base_class_init */
-			NULL, /* base_class_finalize */
-			(GClassInitFunc)  e_destination_class_init,
-			NULL, /* class_finalize */
-			NULL, /* class_data */
-			sizeof (EDestination),
-			0,    /* n_preallocs */
-			(GInstanceInitFunc) e_destination_init
-		};
-
-		dest_type = g_type_register_static (G_TYPE_OBJECT, "EDestination", &dest_info, 0);
-	}
-
-	return dest_type;
-}
-
 /**
  * e_destination_new:
  *
  * Creates a new #EDestination with blank values.
  *
- * Return value: A newly created #EDestination.
+ * Returns: A newly created #EDestination.
  **/
 EDestination *
 e_destination_new (void)
@@ -200,7 +178,7 @@ e_destination_new (void)
  *
  * Creates a new #EDestination identical to @dest.
  *
- * Return value: A newly created #EDestination, identical to @dest.
+ * Returns: A newly created #EDestination, identical to @dest.
  */
 EDestination*
 e_destination_copy (const EDestination *dest)
@@ -294,7 +272,7 @@ nonempty (const gchar *s)
  *
  * Checks if @dest is blank.
  *
- * Return value: %TRUE if @dest is empty, %FALSE otherwise.
+ * Returns: %TRUE if @dest is empty, %FALSE otherwise.
  */
 gboolean
 e_destination_empty (const EDestination *dest)
@@ -323,7 +301,7 @@ e_destination_empty (const EDestination *dest)
  *
  * Checks if @a and @b are equal.
  *
- * Return value: %TRUE if the destinations are equal, %FALSE otherwise.
+ * Returns: %TRUE if the destinations are equal, %FALSE otherwise.
  **/
 gboolean
 e_destination_equal (const EDestination *a, const EDestination *b)
@@ -342,7 +320,7 @@ e_destination_equal (const EDestination *a, const EDestination *b)
 
 	/* Check equality of contacts. */
 	if (pa->contact || pb->contact) {
-		if (! (pa->contact && pb->contact))
+		if (!(pa->contact && pb->contact))
 			return FALSE;
 
 		if (pa->contact == pb->contact || !strcmp (e_contact_get_const (pa->contact, E_CONTACT_UID),
@@ -355,7 +333,7 @@ e_destination_equal (const EDestination *a, const EDestination *b)
 	/* Just in case name returns NULL */
 	na = e_destination_get_name (a);
 	nb = e_destination_get_name (b);
-	if ((na || nb) && !(na && nb && ! utf8_casefold_collate (na, nb)))
+	if ((na || nb) && !(na && nb && !utf8_casefold_collate (na, nb)))
 		return FALSE;
 
 	if (!g_ascii_strcasecmp (e_destination_get_email (a), e_destination_get_email (b)))
@@ -448,7 +426,7 @@ e_destination_set_contact (EDestination *dest, EContact *contact, gint email_num
 			/* is there anything to do here? */
 		}
 
-		g_signal_emit (dest, signals [CHANGED], 0);
+		g_signal_emit (dest, signals[CHANGED], 0);
 	} else if (dest->priv->email_num != email_num) {
 		/* Splitting here would help the contact lists not rebuiding, so that it remembers ignored values */
 		g_object_ref (contact);
@@ -461,7 +439,7 @@ e_destination_set_contact (EDestination *dest, EContact *contact, gint email_num
 
 		dest->priv->email_num = email_num;
 
-		g_signal_emit (dest, signals [CHANGED], 0);
+		g_signal_emit (dest, signals[CHANGED], 0);
 	}
 
 }
@@ -488,7 +466,7 @@ e_destination_set_book (EDestination *dest, EBook *book)
 		e_destination_clear (dest);
 		dest->priv->source_uid = g_strdup (e_source_peek_uid (source));
 
-		g_signal_emit (dest, signals [CHANGED], 0);
+		g_signal_emit (dest, signals[CHANGED], 0);
 	}
 }
 
@@ -523,7 +501,7 @@ e_destination_set_contact_uid (EDestination *dest, const gchar *uid, gint email_
 			dest->priv->contact = NULL;
 		}
 
-		g_signal_emit (dest, signals [CHANGED], 0);
+		g_signal_emit (dest, signals[CHANGED], 0);
 	}
 }
 
@@ -539,7 +517,7 @@ e_destination_set_source_uid (EDestination *dest, const gchar *uid)
 		g_free (dest->priv->source_uid);
 		dest->priv->source_uid = g_strdup (uid);
 
-		g_signal_emit (dest, signals [CHANGED], 0);
+		g_signal_emit (dest, signals[CHANGED], 0);
 	}
 }
 
@@ -575,7 +553,7 @@ e_destination_set_name (EDestination *dest, const gchar *name)
 		g_free (dest->priv->textrep);
 		dest->priv->textrep = NULL;
 
-		g_signal_emit (dest, signals [CHANGED], 0);
+		g_signal_emit (dest, signals[CHANGED], 0);
 	}
 }
 
@@ -611,7 +589,7 @@ e_destination_set_email (EDestination *dest, const gchar *email)
 		g_free (dest->priv->textrep);
 		dest->priv->textrep = NULL;
 
-		g_signal_emit (dest, signals [CHANGED], 0);
+		g_signal_emit (dest, signals[CHANGED], 0);
 	}
 }
 
@@ -630,7 +608,7 @@ e_destination_from_contact (const EDestination *dest)
  * it was not explicitly specified by the user. This can be used
  * to hide it from some UI elements.
  *
- * Return value: %TRUE if destination is an auto recipient, %FALSE otherwise.
+ * Returns: %TRUE if destination is an auto recipient, %FALSE otherwise.
  **/
 gboolean
 e_destination_is_auto_recipient (const EDestination *dest)
@@ -656,7 +634,7 @@ e_destination_set_auto_recipient (EDestination *dest, gboolean value)
 
 	dest->priv->auto_recipient = value;
 
-	g_signal_emit (dest, signals [CHANGED], 0);
+	g_signal_emit (dest, signals[CHANGED], 0);
 }
 
 /**
@@ -665,7 +643,7 @@ e_destination_set_auto_recipient (EDestination *dest, gboolean value)
  *
  * Gets the contact @dest is pointing to, if any.
  *
- * Return value: An #EContact, or %NULL if none was set.
+ * Returns: An #EContact, or %NULL if none was set.
  **/
 EContact *
 e_destination_get_contact (const EDestination *dest)
@@ -681,7 +659,7 @@ e_destination_get_contact (const EDestination *dest)
  *
  * Gets the unique contact ID @dest is pointing to, if any.
  *
- * Return value: A unique contact ID, or %NULL if none was set.
+ * Returns: A unique contact ID, or %NULL if none was set.
  */
 const gchar *
 e_destination_get_contact_uid (const EDestination *dest)
@@ -698,7 +676,7 @@ e_destination_get_contact_uid (const EDestination *dest)
  * Gets the unique source ID @dest is pointing to, if any. The source
  * ID specifies which address book @dest's contact came from.
  *
- * Return value: A unique source ID, or %NULL if none was set.
+ * Returns: A unique source ID, or %NULL if none was set.
  */
 const gchar *
 e_destination_get_source_uid (const EDestination *dest)
@@ -715,7 +693,7 @@ e_destination_get_source_uid (const EDestination *dest)
  * Gets the index of the e-mail address of the contact that
  * @dest is pointing to, if any.
  *
- * Return value: The e-mail index, or -1 if none was set.
+ * Returns: The e-mail index, or -1 if none was set.
  **/
 gint
 e_destination_get_email_num (const EDestination *dest)
@@ -735,7 +713,7 @@ e_destination_get_email_num (const EDestination *dest)
  * Gets the full name of @dest's addressee, or if the addressee is
  * a contact list, the name the list was filed under.
  *
- * Return value: The full name of the addressee, or %NULL if none was set.
+ * Returns: The full name of the addressee, or %NULL if none was set.
  **/
 const gchar *
 e_destination_get_name (const EDestination *dest)
@@ -773,7 +751,7 @@ e_destination_get_name (const EDestination *dest)
 				priv->name = g_strdup (camel_name);
 			}
 
-			camel_object_unref (CAMEL_OBJECT (addr));
+			g_object_unref (addr);
 		}
 	}
 
@@ -786,7 +764,7 @@ e_destination_get_name (const EDestination *dest)
  *
  * Check if @dest is to be ignored.
  *
- * Return value: #TRUE if this destination should be ignored, else #FALSE.
+ * Returns: #TRUE if this destination should be ignored, else #FALSE.
  */
 gboolean
 e_destination_is_ignored (const EDestination *dest)
@@ -813,7 +791,7 @@ e_destination_set_ignored (EDestination *dest, gboolean ignored)
  *
  * Gets the e-mail address of @dest's addressee.
  *
- * Return value: An e-mail address, or an empty string if none was set.
+ * Returns: An e-mail address, or an empty string if none was set.
  **/
 const gchar *
 e_destination_get_email (const EDestination *dest)
@@ -848,7 +826,7 @@ e_destination_get_email (const EDestination *dest)
 				priv->email = g_strdup (camel_email);
 			}
 
-			camel_object_unref (CAMEL_OBJECT (addr));
+			g_object_unref (addr);
 		}
 
 		/* Force e-mail to be non-null... */
@@ -864,69 +842,64 @@ e_destination_get_email (const EDestination *dest)
  * e_destination_get_address:
  * @dest: an #EDestination
  *
- * Gets the formatted name and e-mail address, or in the case of
- * lists, the formatted list of e-mail addresses, from @dest.
+ * Gets the encoded name and email address, or in the case of lists, the
+ * encoded list of email addresses, from @dest.  The returned string is
+ * suitable for use in an email header, but not for displaying to users.
  *
- * Return value: A formatted destination string, or %NULL if the destination was empty.
+ * Returns: an encoded destination string suitable for use in an
+ *          email header, or %NULL if the destination was empty
  **/
 const gchar *
 e_destination_get_address (const EDestination *dest)
 {
 	struct _EDestinationPrivate *priv;
+	CamelInternetAddress *addr = camel_internet_address_new ();
 
 	g_return_val_if_fail (dest && E_IS_DESTINATION (dest), NULL);
 
 	priv = (struct _EDestinationPrivate *)dest->priv; /* cast out const */
 
-	if (priv->addr == NULL) {
-		CamelInternetAddress *addr = camel_internet_address_new ();
+	if (e_destination_is_evolution_list (dest)) {
+		GList *iter = dest->priv->list_dests;
 
-		if (e_destination_is_evolution_list (dest)) {
-			GList *iter = dest->priv->list_dests;
+		while (iter) {
+			EDestination *list_dest = E_DESTINATION (iter->data);
 
-			while (iter) {
-				EDestination *list_dest = E_DESTINATION (iter->data);
+			if (!e_destination_empty (list_dest) && !list_dest->priv->ignored) {
+				const gchar *name, *email;
+				name = e_destination_get_name (list_dest);
+				email = e_destination_get_email (list_dest);
 
-				if (!e_destination_empty (list_dest) && !list_dest->priv->ignored) {
-					const gchar *name, *email;
-					name = e_destination_get_name (list_dest);
-					email = e_destination_get_email (list_dest);
-
-					if (nonempty (name) && nonempty (email))
-						camel_internet_address_add (addr, name, email);
-					else if (nonempty (email))
-						camel_address_decode (CAMEL_ADDRESS (addr), email);
-					else /* this case loses i suppose, but there's
-						nothing we can do here */
-						camel_address_decode (CAMEL_ADDRESS (addr), name);
-				}
-				iter = g_list_next (iter);
+				if (nonempty (name) && nonempty (email))
+					camel_internet_address_add (addr, name, email);
+				else if (nonempty (email))
+					camel_address_decode (CAMEL_ADDRESS (addr), email);
+				else /* this case loses i suppose, but there's
+					nothing we can do here */
+					camel_address_decode (CAMEL_ADDRESS (addr), name);
 			}
-
-			priv->addr = camel_address_encode (CAMEL_ADDRESS (addr));
-		} else if (priv->raw) {
-
-			if (camel_address_unformat (CAMEL_ADDRESS (addr), priv->raw)) {
-				priv->addr = camel_address_encode (CAMEL_ADDRESS (addr));
-			}
-		} else {
-			const gchar *name, *email;
-			name = e_destination_get_name (dest);
-			email = e_destination_get_email (dest);
-
-			if (nonempty (name) && nonempty (email))
-				camel_internet_address_add (addr, name, email);
-			else if (nonempty (email))
-				camel_address_decode (CAMEL_ADDRESS (addr), email);
-			else /* this case loses i suppose, but there's
-				nothing we can do here */
-				camel_address_decode (CAMEL_ADDRESS (addr), name);
-
-			priv->addr = camel_address_encode (CAMEL_ADDRESS (addr));
+			iter = g_list_next (iter);
 		}
+		priv->addr = camel_address_encode (CAMEL_ADDRESS (addr));
+	} else if (priv->raw) {
+		if (camel_address_unformat (CAMEL_ADDRESS (addr), priv->raw))
+			priv->addr = camel_address_encode (CAMEL_ADDRESS (addr));
+	} else {
+		const gchar *name, *email;
+		name = e_destination_get_name (dest);
+		email = e_destination_get_email (dest);
 
-		camel_object_unref (CAMEL_OBJECT (addr));
+		if (nonempty (name) && nonempty (email))
+			camel_internet_address_add (addr, name, email);
+		else if (nonempty (email))
+			camel_address_decode (CAMEL_ADDRESS (addr), email);
+		else /* this case loses i suppose, but there's
+			nothing we can do here */
+			camel_address_decode (CAMEL_ADDRESS (addr), name);
+
+		priv->addr = camel_address_encode (CAMEL_ADDRESS (addr));
 	}
+	g_object_unref (addr);
 
 	return priv->addr;
 }
@@ -950,7 +923,7 @@ e_destination_set_raw (EDestination *dest, const gchar *raw)
 		e_destination_clear (dest);
 		dest->priv->raw = g_strdup (raw);
 
-		g_signal_emit (dest, signals [CHANGED], 0);
+		g_signal_emit (dest, signals[CHANGED], 0);
 	}
 }
 
@@ -962,7 +935,7 @@ e_destination_set_raw (EDestination *dest, const gchar *raw)
  * Generates a textual representation of @dest, suitable for referring
  * to the destination during user interaction.
  *
- * Return value: A textual representation of the destination.
+ * Returns: A textual representation of the destination.
  **/
 const gchar *
 e_destination_get_textrep (const EDestination *dest, gboolean include_email)
@@ -987,7 +960,7 @@ e_destination_get_textrep (const EDestination *dest, gboolean include_email)
 		camel_internet_address_add (addr, name, email);
 		g_free (dest->priv->textrep);
 		dest->priv->textrep = camel_address_format (CAMEL_ADDRESS (addr));
-		camel_object_unref (CAMEL_OBJECT (addr));
+		g_object_unref (addr);
 	}
 
 	if (dest->priv->textrep != NULL)
@@ -1005,7 +978,7 @@ e_destination_get_textrep (const EDestination *dest, gboolean include_email)
  *
  * Checks if @dest is a list of addresses.
  *
- * Return value: %TRUE if destination is a list, %FALSE if it is an individual.
+ * Returns: %TRUE if destination is a list, %FALSE if it is an individual.
  **/
 gboolean
 e_destination_is_evolution_list (const EDestination *dest)
@@ -1022,7 +995,7 @@ e_destination_is_evolution_list (const EDestination *dest)
  * If @dest is a list, checks if the addresses in the list
  * should be presented to the user during interaction.
  *
- * Return value: %TRUE if addresses should be shown, %FALSE otherwise.
+ * Returns: %TRUE if addresses should be shown, %FALSE otherwise.
  **/
 gboolean
 e_destination_list_show_addresses (const EDestination *dest)
@@ -1042,7 +1015,7 @@ e_destination_list_show_addresses (const EDestination *dest)
  * If @dest is a list, gets the list of destinations. The list
  * and its elements belong to @dest, and should not be freed.
  *
- * Return value: A list of elements of type #EDestination, or %NULL.
+ * Returns: A list of elements of type #EDestination, or %NULL.
  **/
 const GList *
 e_destination_list_get_dests (const EDestination *dest)
@@ -1061,7 +1034,7 @@ e_destination_list_get_dests (const EDestination *dest)
  *
  * Check if @dest wants to get mail formatted as HTML.
  *
- * Return value: %TRUE if destination wants HTML, %FALSE if not.
+ * Returns: %TRUE if destination wants HTML, %FALSE if not.
  **/
 gboolean
 e_destination_get_html_mail_pref (const EDestination *dest)
@@ -1090,7 +1063,7 @@ e_destination_set_html_mail_pref (EDestination *dest, gboolean flag)
 	if (dest->priv->wants_html_mail != flag) {
 		dest->priv->wants_html_mail = flag;
 
-		g_signal_emit (dest, signals [CHANGED], 0);
+		g_signal_emit (dest, signals[CHANGED], 0);
 	}
 }
 
@@ -1105,7 +1078,7 @@ e_destination_set_html_mail_pref (EDestination *dest, gboolean flag)
  * Generates a joint text representation of all the #EDestination
  * elements in @destv.
  *
- * Return value: The text representation of @destv.
+ * Returns: The text representation of @destv.
  **/
 gchar *
 e_destination_get_textrepv (EDestination **destv)
@@ -1149,9 +1122,9 @@ e_destination_get_textrepv (EDestination **destv)
  *
  * Generates an XML tree from @dest.
  *
- * Return value: Pointer to the root node of the XML tree.
+ * Returns: Pointer to the root node of the XML tree.
  **/
-xmlNodePtr
+static xmlNodePtr
 e_destination_xml_encode (const EDestination *dest)
 {
 	xmlNodePtr dest_node;
@@ -1232,9 +1205,9 @@ e_destination_xml_encode (const EDestination *dest)
  * Initializes @dest based on the information encoded in the
  * XML tree under @node.
  *
- * Return value: %TRUE if the XML tree was well-formed, %FALSE otherwise.
+ * Returns: %TRUE if the XML tree was well-formed, %FALSE otherwise.
  **/
-gboolean
+static gboolean
 e_destination_xml_decode (EDestination *dest, xmlNodePtr node)
 {
 	gchar *name = NULL, *email = NULL, *source_uid = NULL, *card_uid = NULL;
@@ -1409,7 +1382,7 @@ null_terminate_and_remove_extra_whitespace (xmlChar *xml_in, gint size)
  *
  * Exports a destination to an XML document.
  *
- * Return value: An XML string, allocated with g_malloc.
+ * Returns: An XML string, allocated with g_malloc.
  **/
 gchar *
 e_destination_export (const EDestination *dest)
@@ -1444,7 +1417,7 @@ e_destination_export (const EDestination *dest)
  *
  * Creates an #EDestination from an XML document.
  *
- * Return value: An #EDestination, or %NULL if the document was not well-formed.
+ * Returns: An #EDestination, or %NULL if the document was not well-formed.
  **/
 EDestination *
 e_destination_import (const gchar *str)
@@ -1458,7 +1431,7 @@ e_destination_import (const gchar *str)
 	dest_doc = xmlParseMemory ((gchar *) str, strlen (str));
 	if (dest_doc && dest_doc->xmlRootNode) {
 		dest = e_destination_new ();
-		if (! e_destination_xml_decode (dest, dest_doc->xmlRootNode)) {
+		if (!e_destination_xml_decode (dest, dest_doc->xmlRootNode)) {
 			g_object_unref (dest);
 			dest = NULL;
 		}
@@ -1474,7 +1447,7 @@ e_destination_import (const gchar *str)
  *
  * Exports multiple #EDestination elements to a single XML document.
  *
- * Return value: An XML string, allocated with g_malloc.
+ * Returns: An XML string, allocated with g_malloc.
  **/
 gchar *
 e_destination_exportv (EDestination **destv)
@@ -1493,7 +1466,7 @@ e_destination_exportv (EDestination **destv)
 	xmlDocSetRootElement (destv_doc, destv_node);
 
 	for (i = 0; destv[i]; i++) {
-		if (! e_destination_empty (destv[i])) {
+		if (!e_destination_empty (destv[i])) {
 			xmlNodePtr dest_node = e_destination_xml_encode (destv[i]);
 			if (dest_node)
 				xmlAddChild (destv_node, dest_node);
@@ -1516,7 +1489,7 @@ e_destination_exportv (EDestination **destv)
  * Creates an array of pointers to #EDestination elements
  * from an XML document.
  *
- * Return value: A %NULL-terminated array of pointers to #EDestination elements.
+ * Returns: A %NULL-terminated array of pointers to #EDestination elements.
  **/
 EDestination **
 e_destination_importv (const gchar *str)

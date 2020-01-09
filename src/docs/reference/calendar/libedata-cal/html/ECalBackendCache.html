@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ECalBackendCache</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Calendar Backend (libedata-cal)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Calendar Backend (libedata-cal)">
 <link rel="prev" href="ECalBackend.html" title="ECalBackend">
 <link rel="next" href="ECalBackendFactory.html" title="ECalBackendFactory">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -26,11 +26,9 @@
                   <a href="#ECalBackendCache.description" class="shortcut">Description</a>
                    | 
                   <a href="#ECalBackendCache.object-hierarchy" class="shortcut">Object Hierarchy</a>
-                   | 
-                  <a href="#ECalBackendCache.properties" class="shortcut">Properties</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="ECalBackendCache">
 <a name="ECalBackendCache"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,117 +37,105 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="ECalBackendCache.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">                    <a class="link" href="ECalBackendCache.html#ECalBackendCache-struct" title="ECalBackendCache">ECalBackendCache</a>;
-<a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="returnvalue">ECalBackendCache</span></a> *  <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-new" title="e_cal_backend_cache_new ()">e_cal_backend_cache_new</a>             (<em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/ECal.html#ECalSourceType"><span class="type">ECalSourceType</span></a> source_type</code></em>);
-<a href="../libecal/ECalComponent.html"><span class="returnvalue">ECalComponent</span></a> *     <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-component" title="e_cal_backend_cache_get_component ()">e_cal_backend_cache_get_component</a>   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *rid</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-put-component" title="e_cal_backend_cache_put_component ()">e_cal_backend_cache_put_component</a>   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/ECalComponent.html"><span class="type">ECalComponent</span></a> *comp</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-remove-component" title="e_cal_backend_cache_remove_component ()">e_cal_backend_cache_remove_component</a>
+<a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="returnvalue">ECalBackendCache</span></a> *  <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-new" title="e_cal_backend_cache_new ()">e_cal_backend_cache_new</a>             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);
+<a href="/usr/share/gtk-doc/html/libecal/ECalComponent.html"><span class="returnvalue">ECalComponent</span></a> *     <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-component" title="e_cal_backend_cache_get_component ()">e_cal_backend_cache_get_component</a>   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-put-component" title="e_cal_backend_cache_put_component ()">e_cal_backend_cache_put_component</a>   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libecal/ECalComponent.html"><span class="type">ECalComponent</span></a> *comp</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-remove-component" title="e_cal_backend_cache_remove_component ()">e_cal_backend_cache_remove_component</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *rid</code></em>);
-<span class="returnvalue">GList</span> *             <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-components" title="e_cal_backend_cache_get_components ()">e_cal_backend_cache_get_components</a>  (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);
-<span class="returnvalue">GSList</span> *            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-components-by-uid" title="e_cal_backend_cache_get_components_by_uid ()">e_cal_backend_cache_get_components_by_uid</a>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-components" title="e_cal_backend_cache_get_components ()">e_cal_backend_cache_get_components</a>  (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-components-by-uid" title="e_cal_backend_cache_get_components_by_uid ()">e_cal_backend_cache_get_components_by_uid</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);
 const <span class="returnvalue">icaltimezone</span> * <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-timezone" title="e_cal_backend_cache_get_timezone ()">e_cal_backend_cache_get_timezone</a>   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-put-timezone" title="e_cal_backend_cache_put_timezone ()">e_cal_backend_cache_put_timezone</a>    (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-put-timezone" title="e_cal_backend_cache_put_timezone ()">e_cal_backend_cache_put_timezone</a>    (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
                                                          <em class="parameter"><code>const <span class="type">icaltimezone</span> *zone</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-remove-timezone" title="e_cal_backend_cache_remove_timezone ()">e_cal_backend_cache_remove_timezone</a> (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-put-default-timezone" title="e_cal_backend_cache_put_default_timezone ()">e_cal_backend_cache_put_default_timezone</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-remove-timezone" title="e_cal_backend_cache_remove_timezone ()">e_cal_backend_cache_remove_timezone</a> (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-put-default-timezone" title="e_cal_backend_cache_put_default_timezone ()">e_cal_backend_cache_put_default_timezone</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
                                                          <em class="parameter"><code><span class="type">icaltimezone</span> *default_zone</code></em>);
 <span class="returnvalue">icaltimezone</span> *      <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-default-timezone" title="e_cal_backend_cache_get_default_timezone ()">e_cal_backend_cache_get_default_timezone</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);
-<span class="returnvalue">GSList</span> *            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-keys" title="e_cal_backend_cache_get_keys ()">e_cal_backend_cache_get_keys</a>        (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-marker" title="e_cal_backend_cache_get_marker ()">e_cal_backend_cache_get_marker</a>      (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-keys" title="e_cal_backend_cache_get_keys ()">e_cal_backend_cache_get_keys</a>        (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-marker" title="e_cal_backend_cache_get_marker ()">e_cal_backend_cache_get_marker</a>      (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-set-marker" title="e_cal_backend_cache_set_marker ()">e_cal_backend_cache_set_marker</a>      (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-put-server-utc-time" title="e_cal_backend_cache_put_server_utc_time ()">e_cal_backend_cache_put_server_utc_time</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-put-server-utc-time" title="e_cal_backend_cache_put_server_utc_time ()">e_cal_backend_cache_put_server_utc_time</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *utc_str</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-server-utc-time" title="e_cal_backend_cache_get_server_utc_time ()">e_cal_backend_cache_get_server_utc_time</a>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *utc_str</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-server-utc-time" title="e_cal_backend_cache_get_server_utc_time ()">e_cal_backend_cache_get_server_utc_time</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-put-key-value" title="e_cal_backend_cache_put_key_value ()">e_cal_backend_cache_put_key_value</a>   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-key-value" title="e_cal_backend_cache_get_key_value ()">e_cal_backend_cache_get_key_value</a>   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-remove" title="e_cal_backend_cache_remove ()">e_cal_backend_cache_remove</a>          (<em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/ECal.html#ECalSourceType"><span class="type">ECalSourceType</span></a> source_type</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-put-key-value" title="e_cal_backend_cache_put_key_value ()">e_cal_backend_cache_put_key_value</a>   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-get-key-value" title="e_cal_backend_cache_get_key_value ()">e_cal_backend_cache_get_key_value</a>   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ECalBackendCache.html#e-cal-backend-cache-remove" title="e_cal_backend_cache_remove ()">e_cal_backend_cache_remove</a>          (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *dirname</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *basename</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
 <a name="ECalBackendCache.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  GObject
-   +----<a href="../libebackend/EFileCache.html">EFileCache</a>
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----<a href="/usr/share/gtk-doc/html/libebackend/libebackend-e-file-cache.html#EFileCache">EFileCache</a>
          +----ECalBackendCache
 </pre>
 </div>
-<div class="refsect1" lang="en">
-<a name="ECalBackendCache.properties"></a><h2>Properties</h2>
-<pre class="synopsis">
-  "<a class="link" href="ECalBackendCache.html#ECalBackendCache--source-type" title='The "source-type" property'>source-type</a>"              <span class="type">ECalSourceTypeEnum</span>    : Read / Write / Construct Only
-  "<a class="link" href="ECalBackendCache.html#ECalBackendCache--uri" title='The "uri" property'>uri</a>"                      <span class="type">gchar</span>*                : Read / Write / Construct Only
-</pre>
-</div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="ECalBackendCache.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="ECalBackendCache.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="ECalBackendCache">
 <a name="ECalBackendCache-struct"></a><h3>ECalBackendCache</h3>
 <pre class="programlisting">typedef struct _ECalBackendCache ECalBackendCache;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_new ()">
 <a name="e-cal-backend-cache-new"></a><h3>e_cal_backend_cache_new ()</h3>
-<pre class="programlisting"><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="returnvalue">ECalBackendCache</span></a> *  e_cal_backend_cache_new             (<em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/ECal.html#ECalSourceType"><span class="type">ECalSourceType</span></a> source_type</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="returnvalue">ECalBackendCache</span></a> *  e_cal_backend_cache_new             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *filename</code></em>);</pre>
 <p>
 Creates a new <a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> object, which implements a cache of
-calendar/tasks objects, very useful for remote backends.</p>
+calendar/tasks objects, very useful for remote backends.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
-<td>URI of the backend to be cached.
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>source_type</code></em> :</span></p></td>
-<td>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>filename for cache data
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> The newly created object.
+<td> a new <a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_get_component ()">
 <a name="e-cal-backend-cache-get-component"></a><h3>e_cal_backend_cache_get_component ()</h3>
-<pre class="programlisting"><a href="../libecal/ECalComponent.html"><span class="returnvalue">ECalComponent</span></a> *     e_cal_backend_cache_get_component   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *rid</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libecal/ECalComponent.html"><span class="returnvalue">ECalComponent</span></a> *     e_cal_backend_cache_get_component   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>);</pre>
 <p>
-Gets a component from the <a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><code class="literal">ECalBackendCache</code></a> object.</p>
+Gets a component from the <a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><code class="literal">ECalBackendCache</code></a> object.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -171,22 +157,23 @@ or NULL if the whole object is to be retrieved.
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> The <a href="../libecal/ECalComponent.html"><code class="literal">ECalComponent</code></a> representing the component found,
-or <code class="literal">NULL</code> if it was not found in the cache.
+<td> The <a href="/usr/share/gtk-doc/html/libecal/ECalComponent.html"><code class="literal">ECalComponent</code></a> representing the component found,
+or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if it was not found in the cache.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_put_component ()">
 <a name="e-cal-backend-cache-put-component"></a><h3>e_cal_backend_cache_put_component ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_cal_backend_cache_put_component   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/ECalComponent.html"><span class="type">ECalComponent</span></a> *comp</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_cal_backend_cache_put_component   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libecal/ECalComponent.html"><span class="type">ECalComponent</span></a> *comp</code></em>);</pre>
 <p>
 Puts the given calendar component in the given cache. This will add
 the component if it does not exist or replace it if there was a
-previous version of it.</p>
+previous version of it.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -209,14 +196,15 @@ previous version of it.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_remove_component ()">
 <a name="e-cal-backend-cache-remove-component"></a><h3>e_cal_backend_cache_remove_component ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_cal_backend_cache_remove_component
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_cal_backend_cache_remove_component
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *rid</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>);</pre>
 <p>
-Removes a component from the cache.</p>
+Removes a component from the cache.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -245,11 +233,12 @@ detached instances of a recurring appointment.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_get_components ()">
 <a name="e-cal-backend-cache-get-components"></a><h3>e_cal_backend_cache_get_components ()</h3>
-<pre class="programlisting"><span class="returnvalue">GList</span> *             e_cal_backend_cache_get_components  (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="returnvalue">GList</span></a> *             e_cal_backend_cache_get_components  (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);</pre>
 <p>
-Retrieves a list of all the components stored in the cache.</p>
+Retrieves a list of all the components stored in the cache.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -261,20 +250,21 @@ Retrieves a list of all the components stored in the cache.</p>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td> A list of all the components. Each item in the list is
-an <a href="../libecal/ECalComponent.html"><span class="type">ECalComponent</span></a>, which should be freed when no longer needed.
+an <a href="/usr/share/gtk-doc/html/libecal/ECalComponent.html"><span class="type">ECalComponent</span></a>, which should be freed when no longer needed.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_get_components_by_uid ()">
 <a name="e-cal-backend-cache-get-components-by-uid"></a><h3>e_cal_backend_cache_get_components_by_uid ()</h3>
-<pre class="programlisting"><span class="returnvalue">GSList</span> *            e_cal_backend_cache_get_components_by_uid
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *            e_cal_backend_cache_get_components_by_uid
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>);</pre>
 <p>
-Retrieves a ical components from the cache.</p>
+Retrieves a ical components from the cache.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -297,12 +287,13 @@ Retrieves a ical components from the cache.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_get_timezone ()">
 <a name="e-cal-backend-cache-get-timezone"></a><h3>e_cal_backend_cache_get_timezone ()</h3>
 <pre class="programlisting">const <span class="returnvalue">icaltimezone</span> * e_cal_backend_cache_get_timezone   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);</pre>
 <p>
-Retrieves a timezone component from the cache.</p>
+Retrieves a timezone component from the cache.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -325,13 +316,14 @@ Retrieves a timezone component from the cache.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_put_timezone ()">
 <a name="e-cal-backend-cache-put-timezone"></a><h3>e_cal_backend_cache_put_timezone ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_cal_backend_cache_put_timezone    (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_cal_backend_cache_put_timezone    (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
                                                          <em class="parameter"><code>const <span class="type">icaltimezone</span> *zone</code></em>);</pre>
 <p>
 Puts the given timezone in the cache, adding it, if it did not exist, or
-replacing it, if there was an older version.</p>
+replacing it, if there was an older version.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -354,12 +346,13 @@ replacing it, if there was an older version.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_remove_timezone ()">
 <a name="e-cal-backend-cache-remove-timezone"></a><h3>e_cal_backend_cache_remove_timezone ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_cal_backend_cache_remove_timezone (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_cal_backend_cache_remove_timezone (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);</pre>
 <p>
-Removes a timezone component from the cache.</p>
+Removes a timezone component from the cache.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -382,13 +375,14 @@ Removes a timezone component from the cache.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_put_default_timezone ()">
 <a name="e-cal-backend-cache-put-default-timezone"></a><h3>e_cal_backend_cache_put_default_timezone ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_cal_backend_cache_put_default_timezone
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_cal_backend_cache_put_default_timezone
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
                                                          <em class="parameter"><code><span class="type">icaltimezone</span> *default_zone</code></em>);</pre>
 <p>
-Sets the default timezone on the cache.</p>
+Sets the default timezone on the cache.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -411,12 +405,13 @@ Sets the default timezone on the cache.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_get_default_timezone ()">
 <a name="e-cal-backend-cache-get-default-timezone"></a><h3>e_cal_backend_cache_get_default_timezone ()</h3>
 <pre class="programlisting"><span class="returnvalue">icaltimezone</span> *      e_cal_backend_cache_get_default_timezone
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);</pre>
 <p>
-Retrieves the default timezone from the cache.</p>
+Retrieves the default timezone from the cache.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -435,11 +430,12 @@ has been set on the cache.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_get_keys ()">
 <a name="e-cal-backend-cache-get-keys"></a><h3>e_cal_backend_cache_get_keys ()</h3>
-<pre class="programlisting"><span class="returnvalue">GSList</span> *            e_cal_backend_cache_get_keys        (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Singly-Linked-Lists.html#GSList"><span class="returnvalue">GSList</span></a> *            e_cal_backend_cache_get_keys        (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);</pre>
 <p>
-Gets the list of unique keys in the cache file.</p>
+Gets the list of unique keys in the cache file.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -458,12 +454,13 @@ to internal data, so should not be freed, only the list should.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_get_marker ()">
 <a name="e-cal-backend-cache-get-marker"></a><h3>e_cal_backend_cache_get_marker ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_cal_backend_cache_get_marker      (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_cal_backend_cache_get_marker      (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);</pre>
 <p>
 Gets the marker of the cache. If this field is present, it means the
-cache has been populated.</p>
+cache has been populated.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -481,12 +478,13 @@ cache has been populated.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_set_marker ()">
 <a name="e-cal-backend-cache-set-marker"></a><h3>e_cal_backend_cache_set_marker ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_cache_set_marker      (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);</pre>
 <p>
 Marks the cache as populated, to discriminate between an empty calendar
-and an unpopulated one.</p>
+and an unpopulated one.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -497,11 +495,11 @@ and an unpopulated one.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_put_server_utc_time ()">
 <a name="e-cal-backend-cache-put-server-utc-time"></a><h3>e_cal_backend_cache_put_server_utc_time ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_cal_backend_cache_put_server_utc_time
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_cal_backend_cache_put_server_utc_time
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *utc_str</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *utc_str</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -524,9 +522,9 @@ and an unpopulated one.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_get_server_utc_time ()">
 <a name="e-cal-backend-cache-get-server-utc-time"></a><h3>e_cal_backend_cache_get_server_utc_time ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_cal_backend_cache_get_server_utc_time
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_cal_backend_cache_get_server_utc_time
                                                         (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
@@ -545,11 +543,11 @@ and an unpopulated one.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_put_key_value ()">
 <a name="e-cal-backend-cache-put-key-value"></a><h3>e_cal_backend_cache_put_key_value ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_cal_backend_cache_put_key_value   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_cal_backend_cache_put_key_value   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -577,10 +575,10 @@ and an unpopulated one.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_get_key_value ()">
 <a name="e-cal-backend-cache-get-key-value"></a><h3>e_cal_backend_cache_get_key_value ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_cal_backend_cache_get_key_value   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *key</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_cal_backend_cache_get_key_value   (<em class="parameter"><code><a class="link" href="ECalBackendCache.html" title="ECalBackendCache"><span class="type">ECalBackendCache</span></a> *cache</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *key</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -603,22 +601,20 @@ and an unpopulated one.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_cache_remove ()">
 <a name="e-cal-backend-cache-remove"></a><h3>e_cal_backend_cache_remove ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_cal_backend_cache_remove          (<em class="parameter"><code>const <span class="type">gchar</span> *uri</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/ECal.html#ECalSourceType"><span class="type">ECalSourceType</span></a> source_type</code></em>);</pre>
-<p>
-</p>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_cal_backend_cache_remove          (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *dirname</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *basename</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>uri</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>dirname</code></em> :</span></p></td>
 <td>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>source_type</code></em> :</span></p></td>
+<td><p><span class="term"><em class="parameter"><code>basename</code></em> :</span></p></td>
 <td>
 </td>
 </tr>
@@ -629,27 +625,12 @@ and an unpopulated one.</p>
 </tr>
 </tbody>
 </table></div>
-</div>
-</div>
-<div class="refsect1" lang="en">
-<a name="ECalBackendCache.property-details"></a><h2>Property Details</h2>
-<div class="refsect2" lang="en">
-<a name="ECalBackendCache--source-type"></a><h3>The <code class="literal">"source-type"</code> property</h3>
-<pre class="programlisting">  "source-type"              <span class="type">ECalSourceTypeEnum</span>    : Read / Write / Construct Only</pre>
-<p></p>
-<p>Default value: Event</p>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="ECalBackendCache--uri"></a><h3>The <code class="literal">"uri"</code> property</h3>
-<pre class="programlisting">  "uri"                      <span class="type">gchar</span>*                : Read / Write / Construct Only</pre>
-<p></p>
-<p>Default value: ""</p>
+<p class="since">Since 2.28</p>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

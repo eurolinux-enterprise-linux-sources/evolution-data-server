@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EBookBackend</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="prev" href="ch01.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="next" href="EBookBackendCache.html" title="EBookBackendCache">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -27,10 +27,12 @@
                    | 
                   <a href="#EBookBackend.object-hierarchy" class="shortcut">Object Hierarchy</a>
                    | 
+                  <a href="#EBookBackend.properties" class="shortcut">Properties</a>
+                   | 
                   <a href="#EBookBackend.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="EBookBackend">
 <a name="EBookBackend"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,78 +41,80 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="EBookBackend.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">struct              <a class="link" href="EBookBackend.html#EBookBackend-struct" title="struct EBookBackend">EBookBackend</a>;
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackend.html#e-book-backend-construct" title="e_book_backend_construct ()">e_book_backend_construct</a>            (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
-<span class="returnvalue">GNOME_Evolution_Addressbook_CallStatus</span>  <a class="link" href="EBookBackend.html#e-book-backend-load-source" title="e_book_backend_load_source ()">e_book_backend_load_source</a>
-                                                        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> only_if_exists</code></em>);
-<a href="../libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="EBookBackend.html#e-book-backend-get-source" title="e_book_backend_get_source ()">e_book_backend_get_source</a>           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackend.html#e-book-backend-add-client" title="e_book_backend_add_client ()">e_book_backend_add_client</a>           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="EBookBackend.html#e-book-backend-get-cache-dir" title="e_book_backend_get_cache_dir ()">e_book_backend_get_cache_dir</a>        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-set-cache-dir" title="e_book_backend_set_cache_dir ()">e_book_backend_set_cache_dir</a>        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *cache_dir</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-load-source" title="e_book_backend_load_source ()">e_book_backend_load_source</a>          (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> only_if_exists</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="EBookBackend.html#e-book-backend-get-source" title="e_book_backend_get_source ()">e_book_backend_get_source</a>           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackend.html#e-book-backend-add-client" title="e_book_backend_add_client ()">e_book_backend_add_client</a>           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-remove-client" title="e_book_backend_remove_client ()">e_book_backend_remove_client</a>        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackend.html#e-book-backend-has-out-of-proc-clients" title="e_book_backend_has_out_of_proc_clients ()">e_book_backend_has_out_of_proc_clients</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackend.html#e-book-backend-has-out-of-proc-clients" title="e_book_backend_has_out_of_proc_clients ()">e_book_backend_has_out_of_proc_clients</a>
                                                         (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="EBookBackend.html#e-book-backend-get-static-capabilities" title="e_book_backend_get_static_capabilities ()">e_book_backend_get_static_capabilities</a>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="EBookBackend.html#e-book-backend-get-static-capabilities" title="e_book_backend_get_static_capabilities ()">e_book_backend_get_static_capabilities</a>
                                                         (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackend.html#e-book-backend-is-loaded" title="e_book_backend_is_loaded ()">e_book_backend_is_loaded</a>            (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackend.html#e-book-backend-is-writable" title="e_book_backend_is_writable ()">e_book_backend_is_writable</a>          (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackend.html#e-book-backend-is-removed" title="e_book_backend_is_removed ()">e_book_backend_is_removed</a>           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackend.html#e-book-backend-is-loaded" title="e_book_backend_is_loaded ()">e_book_backend_is_loaded</a>            (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackend.html#e-book-backend-is-writable" title="e_book_backend_is_writable ()">e_book_backend_is_writable</a>          (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackend.html#e-book-backend-is-removed" title="e_book_backend_is_removed ()">e_book_backend_is_removed</a>           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-open" title="e_book_backend_open ()">e_book_backend_open</a>                 (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> only_if_exists</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> only_if_exists</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-remove" title="e_book_backend_remove ()">e_book_backend_remove</a>               (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-create-contact" title="e_book_backend_create_contact ()">e_book_backend_create_contact</a>       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-remove-contacts" title="e_book_backend_remove_contacts ()">e_book_backend_remove_contacts</a>      (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> *id_list</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *id_list</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-modify-contact" title="e_book_backend_modify_contact ()">e_book_backend_modify_contact</a>       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-get-contact" title="e_book_backend_get_contact ()">e_book_backend_get_contact</a>          (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-get-contact-list" title="e_book_backend_get_contact_list ()">e_book_backend_get_contact_list</a>     (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *query</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *query</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-get-changes" title="e_book_backend_get_changes ()">e_book_backend_get_changes</a>          (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *change_id</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *change_id</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-authenticate-user" title="e_book_backend_authenticate_user ()">e_book_backend_authenticate_user</a>    (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *user</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *passwd</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *auth_method</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *user</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *passwd</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *auth_method</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-get-supported-fields" title="e_book_backend_get_supported_fields ()">e_book_backend_get_supported_fields</a> (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-get-required-fields" title="e_book_backend_get_required_fields ()">e_book_backend_get_required_fields</a>  (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-get-supported-auth-methods" title="e_book_backend_get_supported_auth_methods ()">e_book_backend_get_supported_auth_methods</a>
                                                         (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>);
-<span class="returnvalue">GNOME_Evolution_Addressbook_CallStatus</span>  <a class="link" href="EBookBackend.html#e-book-backend-cancel-operation" title="e_book_backend_cancel_operation ()">e_book_backend_cancel_operation</a>
-                                                        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-cancel-operation" title="e_book_backend_cancel_operation ()">e_book_backend_cancel_operation</a>     (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-set-mode" title="e_book_backend_set_mode ()">e_book_backend_set_mode</a>             (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Addressbook_BookMode</span> mode</code></em>);
+                                                         <em class="parameter"><code><span class="type">EDataBookMode</span> mode</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-start-book-view" title="e_book_backend_start_book_view ()">e_book_backend_start_book_view</a>      (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *view</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-stop-book-view" title="e_book_backend_stop_book_view ()">e_book_backend_stop_book_view</a>       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
@@ -119,67 +123,71 @@
                                                          <em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *view</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-remove-book-view" title="e_book_backend_remove_book_view ()">e_book_backend_remove_book_view</a>     (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *view</code></em>);
-<a href="../libedataserver/EList.html"><span class="returnvalue">EList</span></a> *             <a class="link" href="EBookBackend.html#e-book-backend-get-book-views" title="e_book_backend_get_book_views ()">e_book_backend_get_book_views</a>       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
+<a href="/usr/share/gtk-doc/html/libedataserver/EList.html"><span class="returnvalue">EList</span></a> *             <a class="link" href="EBookBackend.html#e-book-backend-get-book-views" title="e_book_backend_get_book_views ()">e_book_backend_get_book_views</a>       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-notify-update" title="e_book_backend_notify_update ()">e_book_backend_notify_update</a>        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-notify-remove" title="e_book_backend_notify_remove ()">e_book_backend_notify_remove</a>        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-notify-complete" title="e_book_backend_notify_complete ()">e_book_backend_notify_complete</a>      (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-notify-writable" title="e_book_backend_notify_writable ()">e_book_backend_notify_writable</a>      (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> is_writable</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_writable</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-notify-connection-status" title="e_book_backend_notify_connection_status ()">e_book_backend_notify_connection_status</a>
                                                         (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> is_online</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_online</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-notify-auth-required" title="e_book_backend_notify_auth_required ()">e_book_backend_notify_auth_required</a> (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-sync" title="e_book_backend_sync ()">e_book_backend_sync</a>                 (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-set-is-loaded" title="e_book_backend_set_is_loaded ()">e_book_backend_set_is_loaded</a>        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> is_loaded</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_loaded</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-set-is-writable" title="e_book_backend_set_is_writable ()">e_book_backend_set_is_writable</a>      (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> is_writable</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_writable</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="EBookBackend.html#e-book-backend-set-is-removed" title="e_book_backend_set_is_removed ()">e_book_backend_set_is_removed</a>       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> is_removed</code></em>);
-<span class="returnvalue">GNOME_Evolution_Addressbook_BookChangeItem</span>* <a class="link" href="EBookBackend.html#e-book-backend-change-add-new" title="e_book_backend_change_add_new ()">e_book_backend_change_add_new</a>
-                                                        (<em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>);
-<span class="returnvalue">GNOME_Evolution_Addressbook_BookChangeItem</span>* <a class="link" href="EBookBackend.html#e-book-backend-change-modify-new" title="e_book_backend_change_modify_new ()">e_book_backend_change_modify_new</a>
-                                                        (<em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>);
-<span class="returnvalue">GNOME_Evolution_Addressbook_BookChangeItem</span>* <a class="link" href="EBookBackend.html#e-book-backend-change-delete-new" title="e_book_backend_change_delete_new ()">e_book_backend_change_delete_new</a>
-                                                        (<em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_removed</code></em>);
+<span class="returnvalue">EDataBookChange</span>*    <a class="link" href="EBookBackend.html#e-book-backend-change-add-new" title="e_book_backend_change_add_new ()">e_book_backend_change_add_new</a>       (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);
+<span class="returnvalue">EDataBookChange</span>*    <a class="link" href="EBookBackend.html#e-book-backend-change-modify-new" title="e_book_backend_change_modify_new ()">e_book_backend_change_modify_new</a>    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);
+<span class="returnvalue">EDataBookChange</span>*    <a class="link" href="EBookBackend.html#e-book-backend-change-delete-new" title="e_book_backend_change_delete_new ()">e_book_backend_change_delete_new</a>    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>);
 struct              <a class="link" href="EBookBackend.html#EBookBackendClass" title="struct EBookBackendClass">EBookBackendClass</a>;
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
 <a name="EBookBackend.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  GObject
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----EBookBackend
          +----<a class="link" href="EBookBackendSync.html" title="EBookBackendSync">EBookBackendSync</a>
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Properties">
+<a name="EBookBackend.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="EBookBackend.html#EBookBackend--cache-dir" title='The "cache-dir" property'>cache-dir</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+</pre>
+</div>
+<div class="refsect1" title="Signals">
 <a name="EBookBackend.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
   "<a class="link" href="EBookBackend.html#EBookBackend-last-client-gone" title='The "last-client-gone" signal'>last-client-gone</a>"                               : Run First
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="EBookBackend.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="EBookBackend.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="struct EBookBackend">
 <a name="EBookBackend-struct"></a><h3>struct EBookBackend</h3>
 <pre class="programlisting">struct EBookBackend;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
-<a name="e-book-backend-construct"></a><h3>e_book_backend_construct ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_construct            (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
+<div class="refsect2" title="e_book_backend_get_cache_dir ()">
+<a name="e-book-backend-get-cache-dir"></a><h3>e_book_backend_get_cache_dir ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_book_backend_get_cache_dir        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
-Does nothing.</p>
+Returns the cache directory for the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -190,21 +198,54 @@ Does nothing.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code>.
+<td> the cache directory for the backend
+
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.32</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
-<a name="e-book-backend-load-source"></a><h3>e_book_backend_load_source ()</h3>
-<pre class="programlisting"><span class="returnvalue">GNOME_Evolution_Addressbook_CallStatus</span>  e_book_backend_load_source
-                                                        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> only_if_exists</code></em>);</pre>
+<div class="refsect2" title="e_book_backend_set_cache_dir ()">
+<a name="e-book-backend-set-cache-dir"></a><h3>e_book_backend_set_cache_dir ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_set_cache_dir        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *cache_dir</code></em>);</pre>
 <p>
-Loads <em class="parameter"><code>source</code></em> into <em class="parameter"><code>backend</code></em>.</p>
+Sets the cache directory for the given backend.
+</p>
+<p>
+Note that <a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> is initialized with a usable default based on
+the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> given to <a class="link" href="EBookBackend.html#e-book-backend-load-source" title="e_book_backend_load_source ()"><code class="function">e_book_backend_load_source()</code></a>.  Backends should
+not override the default without good reason.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>an <a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cache_dir</code></em> :</span></p></td>
+<td>a local cache directory
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2" title="e_book_backend_load_source ()">
+<a name="e-book-backend-load-source"></a><h3>e_book_backend_load_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_load_source          (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> only_if_exists</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
+<p>
+Loads <em class="parameter"><code>source</code></em> into <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -215,29 +256,31 @@ Loads <em class="parameter"><code>source</code></em> into <em class="parameter">
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
-<td>an <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> to load
+<td>an <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> to load
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>only_if_exists</code></em> :</span></p></td>
 <td>
-<code class="literal">TRUE</code> to prevent the creation of a new book
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to prevent the creation of a new book
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A <span class="type">GNOME_Evolution_Addressbook_CallStatus</span> indicating the outcome.
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set, when something fails
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_get_source ()">
 <a name="e-book-backend-get-source"></a><h3>e_book_backend_get_source ()</h3>
-<pre class="programlisting"><a href="../libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_book_backend_get_source           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_book_backend_get_source           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
-Queries the source that an addressbook backend is serving.</p>
+Queries the source that an addressbook backend is serving.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -255,12 +298,13 @@ Queries the source that an addressbook backend is serving.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_add_client ()">
 <a name="e-book-backend-add-client"></a><h3>e_book_backend_add_client ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_add_client           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_add_client           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>);</pre>
 <p>
-Adds a client to an addressbook backend.</p>
+Adds a client to an addressbook backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -283,12 +327,13 @@ Adds a client to an addressbook backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_remove_client ()">
 <a name="e-book-backend-remove-client"></a><h3>e_book_backend_remove_client ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_remove_client        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>);</pre>
 <p>
-Removes <em class="parameter"><code>book</code></em> from the list of <em class="parameter"><code>backend</code></em>'s clients.</p>
+Removes <em class="parameter"><code>book</code></em> from the list of <em class="parameter"><code>backend</code></em>'s clients.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -306,12 +351,13 @@ Removes <em class="parameter"><code>book</code></em> from the list of <em class=
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_has_out_of_proc_clients ()">
 <a name="e-book-backend-has-out-of-proc-clients"></a><h3>e_book_backend_has_out_of_proc_clients ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_has_out_of_proc_clients
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_has_out_of_proc_clients
                                                         (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
-Checks if <em class="parameter"><code>backend</code></em> has clients running in other system processes.</p>
+Checks if <em class="parameter"><code>backend</code></em> has clients running in other system processes.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -322,19 +368,20 @@ Checks if <em class="parameter"><code>backend</code></em> has clients running in
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if there are clients in other processes, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if there are clients in other processes, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_get_static_capabilities ()">
 <a name="e-book-backend-get-static-capabilities"></a><h3>e_book_backend_get_static_capabilities ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_book_backend_get_static_capabilities
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_book_backend_get_static_capabilities
                                                         (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
-Gets the capabilities offered by this <em class="parameter"><code>backend</code></em>.</p>
+Gets the capabilities offered by this <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -352,12 +399,13 @@ Gets the capabilities offered by this <em class="parameter"><code>backend</code>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_is_loaded ()">
 <a name="e-book-backend-is-loaded"></a><h3>e_book_backend_is_loaded ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_is_loaded            (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_is_loaded            (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
 Checks if <em class="parameter"><code>backend</code></em>'s storage has been opened and the backend
-itself is ready for accessing.</p>
+itself is ready for accessing.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -368,18 +416,19 @@ itself is ready for accessing.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if loaded, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if loaded, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_is_writable ()">
 <a name="e-book-backend-is-writable"></a><h3>e_book_backend_is_writable ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_is_writable          (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_is_writable          (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
-Checks if we can write to <em class="parameter"><code>backend</code></em>.</p>
+Checks if we can write to <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -390,18 +439,19 @@ Checks if we can write to <em class="parameter"><code>backend</code></em>.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if writeable, <code class="literal">FALSE</code> if not.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if writeable, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> if not.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_is_removed ()">
 <a name="e-book-backend-is-removed"></a><h3>e_book_backend_is_removed ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_is_removed           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_is_removed           (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
-Checks if <em class="parameter"><code>backend</code></em> has been removed from its physical storage.</p>
+Checks if <em class="parameter"><code>backend</code></em> has been removed from its physical storage.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -412,22 +462,23 @@ Checks if <em class="parameter"><code>backend</code></em> has been removed from 
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if <em class="parameter"><code>backend</code></em> has been removed, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>backend</code></em> has been removed, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_open ()">
 <a name="e-book-backend-open"></a><h3>e_book_backend_open ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_open                 (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> only_if_exists</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> only_if_exists</code></em>);</pre>
 <p>
 Executes an 'open' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -449,21 +500,22 @@ using <em class="parameter"><code>backend</code></em>.</p>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>only_if_exists</code></em> :</span></p></td>
 <td>
-<code class="literal">TRUE</code> to prevent the creation of a new book
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> to prevent the creation of a new book
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_remove ()">
 <a name="e-book-backend-remove"></a><h3>e_book_backend_remove ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_remove               (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>);</pre>
 <p>
 Executes a 'remove' request to remove all of <em class="parameter"><code>backend</code></em>'s data,
-specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>.</p>
+specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -486,15 +538,16 @@ specified by <em class="parameter"><code>opid</code></em> on <em class="paramete
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_create_contact ()">
 <a name="e-book-backend-create-contact"></a><h3>e_book_backend_create_contact ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_create_contact       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);</pre>
 <p>
 Executes a 'create contact' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -522,15 +575,16 @@ using <em class="parameter"><code>backend</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_remove_contacts ()">
 <a name="e-book-backend-remove-contacts"></a><h3>e_book_backend_remove_contacts ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_remove_contacts      (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> *id_list</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *id_list</code></em>);</pre>
 <p>
 Executes a 'remove contacts' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -558,15 +612,16 @@ using <em class="parameter"><code>backend</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_modify_contact ()">
 <a name="e-book-backend-modify-contact"></a><h3>e_book_backend_modify_contact ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_modify_contact       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);</pre>
 <p>
 Executes a 'modify contact' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -594,15 +649,16 @@ using <em class="parameter"><code>backend</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_get_contact ()">
 <a name="e-book-backend-get-contact"></a><h3>e_book_backend_get_contact ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_get_contact          (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>);</pre>
 <p>
 Executes a 'get contact' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -630,15 +686,16 @@ using <em class="parameter"><code>backend</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_get_contact_list ()">
 <a name="e-book-backend-get-contact-list"></a><h3>e_book_backend_get_contact_list ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_get_contact_list     (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *query</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *query</code></em>);</pre>
 <p>
 Executes a 'get contact list' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -666,15 +723,16 @@ using <em class="parameter"><code>backend</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_get_changes ()">
 <a name="e-book-backend-get-changes"></a><h3>e_book_backend_get_changes ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_get_changes          (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *change_id</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *change_id</code></em>);</pre>
 <p>
 Executes a 'get changes' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -702,17 +760,18 @@ using <em class="parameter"><code>backend</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_authenticate_user ()">
 <a name="e-book-backend-authenticate-user"></a><h3>e_book_backend_authenticate_user ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_authenticate_user    (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *user</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *passwd</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *auth_method</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *user</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *passwd</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *auth_method</code></em>);</pre>
 <p>
 Executes an 'authenticate' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -750,14 +809,15 @@ using <em class="parameter"><code>backend</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_get_supported_fields ()">
 <a name="e-book-backend-get-supported-fields"></a><h3>e_book_backend_get_supported_fields ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_get_supported_fields (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>);</pre>
 <p>
 Executes a 'get supported fields' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -780,14 +840,15 @@ using <em class="parameter"><code>backend</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_get_required_fields ()">
 <a name="e-book-backend-get-required-fields"></a><h3>e_book_backend_get_required_fields ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_get_required_fields  (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>);</pre>
 <p>
 Executes a 'get required fields' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -810,15 +871,16 @@ using <em class="parameter"><code>backend</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_get_supported_auth_methods ()">
 <a name="e-book-backend-get-supported-auth-methods"></a><h3>e_book_backend_get_supported_auth_methods ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_get_supported_auth_methods
                                                         (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>);</pre>
 <p>
 Executes a 'get supported auth methods' request specified by <em class="parameter"><code>opid</code></em> on <em class="parameter"><code>book</code></em>
-using <em class="parameter"><code>backend</code></em>.</p>
+using <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -841,13 +903,14 @@ using <em class="parameter"><code>backend</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_cancel_operation ()">
 <a name="e-book-backend-cancel-operation"></a><h3>e_book_backend_cancel_operation ()</h3>
-<pre class="programlisting"><span class="returnvalue">GNOME_Evolution_Addressbook_CallStatus</span>  e_book_backend_cancel_operation
-                                                        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_cancel_operation     (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>
-Cancel <em class="parameter"><code>book</code></em>'s running operation on <em class="parameter"><code>backend</code></em>.</p>
+Cancel <em class="parameter"><code>book</code></em>'s running operation on <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -862,21 +925,23 @@ Cancel <em class="parameter"><code>book</code></em>'s running operation on <em c
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A GNOME_Evolution_Addressbook_CallStatus indicating the outcome.
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> to set, when something fails
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_set_mode ()">
 <a name="e-book-backend-set-mode"></a><h3>e_book_backend_set_mode ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_set_mode             (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Addressbook_BookMode</span> mode</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EDataBookMode</span> mode</code></em>);</pre>
 <p>
 Sets <em class="parameter"><code>backend</code></em>'s online/offline mode to <em class="parameter"><code>mode</code></em>. Mode can be 1 for offline
-or 2 indicating that it is connected and online.</p>
+or 2 indicating that it is connected and online.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -894,13 +959,14 @@ or 2 indicating that it is connected and online.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_start_book_view ()">
 <a name="e-book-backend-start-book-view"></a><h3>e_book_backend_start_book_view ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_start_book_view      (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *view</code></em>);</pre>
 <p>
 Starts running the query specified by <em class="parameter"><code>book_view</code></em>, emitting
-signals for matching contacts.</p>
+signals for matching contacts.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -918,13 +984,14 @@ signals for matching contacts.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_stop_book_view ()">
 <a name="e-book-backend-stop-book-view"></a><h3>e_book_backend_stop_book_view ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_stop_book_view       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *view</code></em>);</pre>
 <p>
 Stops running the query specified by <em class="parameter"><code>book_view</code></em>, emitting
-no more signals.</p>
+no more signals.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -942,12 +1009,13 @@ no more signals.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_add_book_view ()">
 <a name="e-book-backend-add-book-view"></a><h3>e_book_backend_add_book_view ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_add_book_view        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *view</code></em>);</pre>
 <p>
-Adds <em class="parameter"><code>view</code></em> to <em class="parameter"><code>backend</code></em> for querying.</p>
+Adds <em class="parameter"><code>view</code></em> to <em class="parameter"><code>backend</code></em> for querying.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -965,12 +1033,13 @@ Adds <em class="parameter"><code>view</code></em> to <em class="parameter"><code
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_remove_book_view ()">
 <a name="e-book-backend-remove-book-view"></a><h3>e_book_backend_remove_book_view ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_remove_book_view     (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> *view</code></em>);</pre>
 <p>
-Removes <em class="parameter"><code>view</code></em> from <em class="parameter"><code>backend</code></em>.</p>
+Removes <em class="parameter"><code>view</code></em> from <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -988,11 +1057,12 @@ Removes <em class="parameter"><code>view</code></em> from <em class="parameter">
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_get_book_views ()">
 <a name="e-book-backend-get-book-views"></a><h3>e_book_backend_get_book_views ()</h3>
-<pre class="programlisting"><a href="../libedataserver/EList.html"><span class="returnvalue">EList</span></a> *             e_book_backend_get_book_views       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/EList.html"><span class="returnvalue">EList</span></a> *             e_book_backend_get_book_views       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
-Gets the list of <a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> views running on this backend.</p>
+Gets the list of <a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> views running on this backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1003,17 +1073,17 @@ Gets the list of <a class="link" href="EDataBookView.html" title="EDataBookView"
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a href="../libedataserver/EList.html"><span class="type">EList</span></a> of <a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> objects.
+<td> An <a href="/usr/share/gtk-doc/html/libedataserver/EList.html"><span class="type">EList</span></a> of <a class="link" href="EDataBookView.html" title="EDataBookView"><span class="type">EDataBookView</span></a> objects.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_notify_update ()">
 <a name="e-book-backend-notify-update"></a><h3>e_book_backend_notify_update ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_notify_update        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);</pre>
 <p>
 Notifies all of <em class="parameter"><code>backend</code></em>'s book views about the new or modified
 contacts <em class="parameter"><code>contact</code></em>.
@@ -1021,7 +1091,8 @@ contacts <em class="parameter"><code>contact</code></em>.
 <p>
 <a class="link" href="EDataBook.html#e-data-book-respond-create" title="e_data_book_respond_create ()"><code class="function">e_data_book_respond_create()</code></a> and <a class="link" href="EDataBook.html#e-data-book-respond-modify" title="e_data_book_respond_modify ()"><code class="function">e_data_book_respond_modify()</code></a> call this
 function for you. You only need to call this from your backend if
-contacts are created or modified by another (non-PAS-using) client.</p>
+contacts are created or modified by another (non-PAS-using) client.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1039,10 +1110,10 @@ contacts are created or modified by another (non-PAS-using) client.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_notify_remove ()">
 <a name="e-book-backend-notify-remove"></a><h3>e_book_backend_notify_remove ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_notify_remove        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>);</pre>
 <p>
 Notifies all of <em class="parameter"><code>backend</code></em>'s book views that the contact with UID
 <em class="parameter"><code>id</code></em> has been removed.
@@ -1050,7 +1121,8 @@ Notifies all of <em class="parameter"><code>backend</code></em>'s book views tha
 <p>
 <a class="link" href="EDataBook.html#e-data-book-respond-remove-contacts" title="e_data_book_respond_remove_contacts ()"><code class="function">e_data_book_respond_remove_contacts()</code></a> calls this function for you. You
 only need to call this from your backend if contacts are removed by
-another (non-PAS-using) client.</p>
+another (non-PAS-using) client.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1068,13 +1140,14 @@ another (non-PAS-using) client.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_notify_complete ()">
 <a name="e-book-backend-notify-complete"></a><h3>e_book_backend_notify_complete ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_notify_complete      (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
 Notifies all of <em class="parameter"><code>backend</code></em>'s book views that the current set of
 notifications is complete; use this after a series of
-<a class="link" href="EBookBackend.html#e-book-backend-notify-update" title="e_book_backend_notify_update ()"><code class="function">e_book_backend_notify_update()</code></a> and <a class="link" href="EBookBackend.html#e-book-backend-notify-remove" title="e_book_backend_notify_remove ()"><code class="function">e_book_backend_notify_remove()</code></a> calls.</p>
+<a class="link" href="EBookBackend.html#e-book-backend-notify-update" title="e_book_backend_notify_update ()"><code class="function">e_book_backend_notify_update()</code></a> and <a class="link" href="EBookBackend.html#e-book-backend-notify-remove" title="e_book_backend_notify_remove ()"><code class="function">e_book_backend_notify_remove()</code></a> calls.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -1085,12 +1158,13 @@ notifications is complete; use this after a series of
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_notify_writable ()">
 <a name="e-book-backend-notify-writable"></a><h3>e_book_backend_notify_writable ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_notify_writable      (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> is_writable</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_writable</code></em>);</pre>
 <p>
-Notifies all backends clients about the current writable state.</p>
+Notifies all backends clients about the current writable state.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1108,14 +1182,15 @@ Notifies all backends clients about the current writable state.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_notify_connection_status ()">
 <a name="e-book-backend-notify-connection-status"></a><h3>e_book_backend_notify_connection_status ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_notify_connection_status
                                                         (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> is_online</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_online</code></em>);</pre>
 <p>
 Notifies clients of <em class="parameter"><code>backend</code></em>'s connection status indicated by <em class="parameter"><code>is_online</code></em>.
-Meant to be used by backend implementations.</p>
+Meant to be used by backend implementations.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1133,12 +1208,13 @@ Meant to be used by backend implementations.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_notify_auth_required ()">
 <a name="e-book-backend-notify-auth-required"></a><h3>e_book_backend_notify_auth_required ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_notify_auth_required (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
 Notifies clients that <em class="parameter"><code>backend</code></em> requires authentication in order to
-connect. Means to be used by backend implementations.</p>
+connect. Means to be used by backend implementations.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -1149,13 +1225,14 @@ connect. Means to be used by backend implementations.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync ()">
 <a name="e-book-backend-sync"></a><h3>e_book_backend_sync ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync                 (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>);</pre>
 <p>
 Write all pending data to disk.  This is only required under special
 circumstances (for example before a live backup) and should not be used in
-normal use.</p>
+normal use.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -1164,15 +1241,17 @@ normal use.</p>
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 1.12</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_set_is_loaded ()">
 <a name="e-book-backend-set-is-loaded"></a><h3>e_book_backend_set_is_loaded ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_set_is_loaded        (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> is_loaded</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_loaded</code></em>);</pre>
 <p>
 Sets the flag indicating whether <em class="parameter"><code>backend</code></em> is loaded to <em class="parameter"><code>is_loaded</code></em>.
-Meant to be used by backend implementations.</p>
+Meant to be used by backend implementations.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1190,13 +1269,14 @@ Meant to be used by backend implementations.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_set_is_writable ()">
 <a name="e-book-backend-set-is-writable"></a><h3>e_book_backend_set_is_writable ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_set_is_writable      (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> is_writable</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_writable</code></em>);</pre>
 <p>
 Sets the flag indicating whether <em class="parameter"><code>backend</code></em> is writeable to <em class="parameter"><code>is_writeable</code></em>.
-Meant to be used by backend implementations.</p>
+Meant to be used by backend implementations.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1214,13 +1294,14 @@ Meant to be used by backend implementations.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_set_is_removed ()">
 <a name="e-book-backend-set-is-removed"></a><h3>e_book_backend_set_is_removed ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_set_is_removed       (<em class="parameter"><code><a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> is_removed</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> is_removed</code></em>);</pre>
 <p>
 Sets the flag indicating whether <em class="parameter"><code>backend</code></em> was removed to <em class="parameter"><code>is_removed</code></em>.
-Meant to be used by backend implementations.</p>
+Meant to be used by backend implementations.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1238,13 +1319,13 @@ Meant to be used by backend implementations.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_change_add_new ()">
 <a name="e-book-backend-change-add-new"></a><h3>e_book_backend_change_add_new ()</h3>
-<pre class="programlisting"><span class="returnvalue">GNOME_Evolution_Addressbook_BookChangeItem</span>* e_book_backend_change_add_new
-                                                        (<em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">EDataBookChange</span>*    e_book_backend_change_add_new       (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);</pre>
 <p>
 Creates a new change item indicating <em class="parameter"><code>vcard</code></em> was added.
-Meant to be used by backend implementations.</p>
+Meant to be used by backend implementations.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1255,20 +1336,20 @@ Meant to be used by backend implementations.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A new <span class="type">GNOME_Evolution_Addressbook_BookChangeItem</span>.
+<td> A new <span class="type">EDataBookChange</span>.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_change_modify_new ()">
 <a name="e-book-backend-change-modify-new"></a><h3>e_book_backend_change_modify_new ()</h3>
-<pre class="programlisting"><span class="returnvalue">GNOME_Evolution_Addressbook_BookChangeItem</span>* e_book_backend_change_modify_new
-                                                        (<em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">EDataBookChange</span>*    e_book_backend_change_modify_new    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);</pre>
 <p>
 Creates a new change item indicating <em class="parameter"><code>vcard</code></em> was modified.
-Meant to be used by backend implementations.</p>
+Meant to be used by backend implementations.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1279,20 +1360,20 @@ Meant to be used by backend implementations.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A new <span class="type">GNOME_Evolution_Addressbook_BookChangeItem</span>.
+<td> A new <span class="type">EDataBookChange</span>.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_change_delete_new ()">
 <a name="e-book-backend-change-delete-new"></a><h3>e_book_backend_change_delete_new ()</h3>
-<pre class="programlisting"><span class="returnvalue">GNOME_Evolution_Addressbook_BookChangeItem</span>* e_book_backend_change_delete_new
-                                                        (<em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">EDataBookChange</span>*    e_book_backend_change_delete_new    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>);</pre>
 <p>
 Creates a new change item indicating <em class="parameter"><code>vcard</code></em> was deleted.
-Meant to be used by backend implementations.</p>
+Meant to be used by backend implementations.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1303,20 +1384,20 @@ Meant to be used by backend implementations.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A new <span class="type">GNOME_Evolution_Addressbook_BookChangeItem</span>.
+<td> A new <span class="type">EDataBookChange</span>.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="struct EBookBackendClass">
 <a name="EBookBackendClass"></a><h3>struct EBookBackendClass</h3>
 <pre class="programlisting">struct EBookBackendClass {
 	GObjectClass parent_class;
 
 	/* Virtual methods */
-	GNOME_Evolution_Addressbook_CallStatus (*load_source) (EBookBackend *backend, ESource *source, gboolean only_if_exists);
+	void (*load_source) (EBookBackend *backend, ESource *source, gboolean only_if_exists, GError **error);
 	void (*remove) (EBookBackend *backend, EDataBook *book, guint32 opid);
         gchar *(*get_static_capabilities) (EBookBackend *backend);
 
@@ -1332,8 +1413,8 @@ Meant to be used by backend implementations.</p>
 	void (*get_required_fields) (EBookBackend *backend, EDataBook *bokk, guint32 opid);
 	void (*get_supported_fields) (EBookBackend *backend, EDataBook *book, guint32 opid);
 	void (*get_supported_auth_methods) (EBookBackend *backend, EDataBook *book, guint32 opid);
-	GNOME_Evolution_Addressbook_CallStatus (*cancel_operation) (EBookBackend *backend, EDataBook *book);
-	void (*set_mode) (EBookBackend *backend, GNOME_Evolution_Addressbook_BookMode  mode);
+	void (*cancel_operation) (EBookBackend *backend, EDataBook *book, GError **error);
+	void (*set_mode) (EBookBackend *backend, EDataBookMode mode);
 
 	/* Notification signals */
 	void (* last_client_gone) (EBookBackend *backend);
@@ -1351,12 +1432,21 @@ Meant to be used by backend implementations.</p>
 </p>
 </div>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Property Details">
+<a name="EBookBackend.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "cache-dir" property'>
+<a name="EBookBackend--cache-dir"></a><h3>The <code class="literal">"cache-dir"</code> property</h3>
+<pre class="programlisting">  "cache-dir"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p></p>
+<p>Default value: NULL</p>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
 <a name="EBookBackend.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title='The "last-client-gone" signal'>
 <a name="EBookBackend-last-client-gone"></a><h3>The <code class="literal">"last-client-gone"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="EBookBackend.html" title="EBookBackend"><span class="type">EBookBackend</span></a> *ebookbackend,
-                                                        <span class="type">gpointer</span>      user_data)         : Run First</pre>
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>      user_data)         : Run First</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -1378,6 +1468,6 @@ Meant to be used by backend implementations.</p>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

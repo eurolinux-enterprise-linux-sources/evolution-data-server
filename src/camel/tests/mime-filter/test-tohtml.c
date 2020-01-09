@@ -14,11 +14,6 @@
 
 #include "camel-test.h"
 
-#include <camel/camel-stream-fs.h>
-#include <camel/camel-stream-mem.h>
-#include <camel/camel-stream-filter.h>
-#include <camel/camel-mime-filter-tohtml.h>
-
 #define d(x)
 
 #define CHUNK_SIZE 4096
@@ -26,38 +21,42 @@
 static void
 test_filter(CamelMimeFilter *f, const gchar *inname, const gchar *outname)
 {
-	CamelStreamMem *in, *out;
+	CamelStream *in, *out;
 	CamelStream *indisk, *outdisk, *filter;
+	GByteArray *byte_array_in;
+	GByteArray *byte_array_out;
 	gint id;
 
 	camel_test_push("Data file '%s'", inname);
 
 	camel_test_push("setup");
 
-	indisk = camel_stream_fs_new_with_name(inname, O_RDONLY, 0);
+	indisk = camel_stream_fs_new_with_name(inname, O_RDONLY, 0, NULL);
 	check(indisk);
-	outdisk = camel_stream_fs_new_with_name(outname, O_RDONLY, 0);
+	outdisk = camel_stream_fs_new_with_name(outname, O_RDONLY, 0, NULL);
 	check(outdisk);
 
-	out = (CamelStreamMem *)camel_stream_mem_new();
-	check(camel_stream_write_to_stream(outdisk, (CamelStream *)out) > 0);
+	byte_array_out = g_byte_array_new ();
+	out = camel_stream_mem_new_with_byte_array (byte_array_out);
+	check(camel_stream_write_to_stream(outdisk, out, NULL) > 0);
 
 	camel_test_pull();
 
 	camel_test_push("reading through filter stream");
 
-	in = (CamelStreamMem *)camel_stream_mem_new();
+	byte_array_in = g_byte_array_new ();
+	in = camel_stream_mem_new_with_byte_array (byte_array_in);
 
-	filter = (CamelStream *)camel_stream_filter_new_with_stream(indisk);
+	filter = camel_stream_filter_new (indisk);
 	check_count(indisk, 2);
 	id = camel_stream_filter_add((CamelStreamFilter *)filter, f);
 	check_count(f, 2);
 
-	check(camel_stream_write_to_stream(filter, (CamelStream *)in) > 0);
-	check_msg(in->buffer->len == out->buffer->len
-		  && memcmp(in->buffer->data, out->buffer->data, in->buffer->len) == 0,
-		  "Buffer content mismatch, %d != %d, in = '%.*s' != out = '%.*s'", in->buffer->len, out->buffer->len,
-		  in->buffer->len, in->buffer->data, out->buffer->len, out->buffer->data);
+	check(camel_stream_write_to_stream(filter, in, NULL) > 0);
+	check_msg(byte_array_in->len == byte_array_out->len
+		  && memcmp(byte_array_in->data, byte_array_out->data, byte_array_in->len) == 0,
+		  "Buffer content mismatch, %d != %d, in = '%.*s' != out = '%.*s'", byte_array_in->len, byte_array_out->len,
+		  byte_array_in->len, byte_array_in->data, byte_array_out->len, byte_array_out->data);
 
 	camel_test_pull();
 
@@ -70,22 +69,23 @@ test_filter(CamelMimeFilter *f, const gchar *inname, const gchar *outname)
 	check_count(f, 1);
 	check_unref(in, 1);
 
-	check(camel_stream_reset(indisk) == 0);
+	check(camel_stream_reset(indisk, NULL) == 0);
 
 	camel_test_push("writing through filter stream");
 
-	in = (CamelStreamMem *)camel_stream_mem_new();
-	filter = (CamelStream *)camel_stream_filter_new_with_stream((CamelStream *)in);
+	byte_array_in = g_byte_array_new ();
+	in = camel_stream_mem_new_with_byte_array (byte_array_in);
+	filter = camel_stream_filter_new (in);
 	check_count(in, 2);
 	id = camel_stream_filter_add((CamelStreamFilter *)filter, f);
 	check_count(f, 2);
 
-	check(camel_stream_write_to_stream(indisk, filter) > 0);
-	check(camel_stream_flush(filter) == 0);
-	check_msg(in->buffer->len == out->buffer->len
-		  && memcmp(in->buffer->data, out->buffer->data, in->buffer->len) == 0,
-		  "Buffer content mismatch, %d != %d, in = '%.*s' != out = '%.*s'", in->buffer->len, out->buffer->len,
-		  in->buffer->len, in->buffer->data, out->buffer->len, out->buffer->data);
+	check(camel_stream_write_to_stream(indisk, filter, NULL) > 0);
+	check(camel_stream_flush(filter, NULL) == 0);
+	check_msg(byte_array_in->len == byte_array_out->len
+		  && memcmp(byte_array_in->data, byte_array_out->data, byte_array_in->len) == 0,
+		  "Buffer content mismatch, %d != %d, in = '%.*s' != out = '%.*s'", byte_array_in->len, byte_array_out->len,
+		  byte_array_in->len, byte_array_in->data, byte_array_out->len, byte_array_out->data);
 
 	camel_stream_filter_remove((CamelStreamFilter *)filter, id);
 	check_unref(filter, 1);
@@ -116,7 +116,7 @@ main (gint argc, gchar **argv)
 		sprintf(inname, "data/html.%d.in", i);
 		sprintf(outname, "data/html.%d.out", i);
 
-		if (stat(inname, &st) == -1)
+		if (g_stat(inname, &st) == -1)
 			break;
 
 		f = camel_mime_filter_tohtml_new(CAMEL_MIME_FILTER_TOHTML_CONVERT_URLS, 0);

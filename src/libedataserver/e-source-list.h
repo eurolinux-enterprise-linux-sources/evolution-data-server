@@ -67,16 +67,13 @@ ESourceList *e_source_list_new_for_gconf_default  (const gchar  *path);
 GSList       *e_source_list_peek_groups         (ESourceList *list);
 ESourceGroup *e_source_list_peek_group_by_uid   (ESourceList *list,
 						 const gchar  *uid);
-#ifndef EDS_DISABLE_DEPRECATED
-ESourceGroup *e_source_list_peek_group_by_name  (ESourceList *list,
-						 const gchar *name);
-#endif
 ESourceGroup *e_source_list_peek_group_by_base_uri (ESourceList *list, const gchar *base_uri);
 ESourceGroup *e_source_list_peek_group_by_properties (ESourceList *list, const gchar *property_name, ...);
 
 ESource      *e_source_list_peek_source_by_uid  (ESourceList *list,
 						 const gchar  *uid);
 ESource      *e_source_list_peek_source_any     (ESourceList *list);
+ESource      *e_source_list_peek_default_source (ESourceList *list);
 
 gboolean  e_source_list_add_group             (ESourceList  *list,
 					       ESourceGroup *group,

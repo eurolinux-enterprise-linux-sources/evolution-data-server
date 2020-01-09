@@ -28,79 +28,50 @@
 #endif
 
 #include "camel-address.h"
+#include "camel-debug.h"
 #include "camel-mime-message.h"
-#include "camel-private.h"
 #include "camel-transport.h"
 
-static CamelServiceClass *parent_class = NULL;
+#define CAMEL_TRANSPORT_GET_PRIVATE(obj) \
+	(G_TYPE_INSTANCE_GET_PRIVATE \
+	((obj), CAMEL_TYPE_TRANSPORT, CamelTransportPrivate))
 
-/* Returns the class for a CamelTransport */
-#define CT_CLASS(so) CAMEL_TRANSPORT_CLASS (CAMEL_OBJECT_GET_CLASS(so))
+struct _CamelTransportPrivate {
+	GMutex *send_lock;   /* for locking send operations */
+};
 
-static gint transport_setv (CamelObject *object, CamelException *ex, CamelArgV *args);
-static gint transport_getv (CamelObject *object, CamelException *ex, CamelArgGetV *args);
-
-static void
-camel_transport_class_init (CamelTransportClass *camel_transport_class)
-{
-	CamelObjectClass *camel_object_class = CAMEL_OBJECT_CLASS (camel_transport_class);
-
-	parent_class = CAMEL_SERVICE_CLASS (camel_type_get_global_classfuncs (camel_service_get_type ()));
-
-	/* virtual method overload */
-	camel_object_class->setv = transport_setv;
-	camel_object_class->getv = transport_getv;
-}
+G_DEFINE_ABSTRACT_TYPE (CamelTransport, camel_transport, CAMEL_TYPE_SERVICE)
 
 static void
-camel_transport_init (gpointer object, gpointer klass)
+transport_finalize (GObject *object)
 {
-	CamelTransport *xport = object;
+	CamelTransportPrivate *priv;
 
-	xport->priv = g_malloc0 (sizeof (struct _CamelTransportPrivate));
-	xport->priv->send_lock = g_mutex_new ();
+	priv = CAMEL_TRANSPORT_GET_PRIVATE (object);
+
+	g_mutex_free (priv->send_lock);
+
+	/* Chain up to parent's finalize() method. */
+	G_OBJECT_CLASS (camel_transport_parent_class)->finalize (object);
 }
 
 static void
-camel_transport_finalize (CamelObject *object)
+camel_transport_class_init (CamelTransportClass *class)
 {
-	CamelTransport *xport = CAMEL_TRANSPORT (object);
+	GObjectClass *object_class;
 
-	g_mutex_free (xport->priv->send_lock);
-	g_free (xport->priv);
+	g_type_class_add_private (class, sizeof (CamelTransportPrivate));
+
+	object_class = G_OBJECT_CLASS (class);
+	object_class->finalize = transport_finalize;
 }
 
-CamelType
-camel_transport_get_type (void)
+static void
+camel_transport_init (CamelTransport *transport)
 {
-	static CamelType type = CAMEL_INVALID_TYPE;
+	transport->priv = CAMEL_TRANSPORT_GET_PRIVATE (transport);
 
-	if (type == CAMEL_INVALID_TYPE) {
-		type = camel_type_register (CAMEL_SERVICE_TYPE,
-					    "CamelTransport",
-					    sizeof (CamelTransport),
-					    sizeof (CamelTransportClass),
-					    (CamelObjectClassInitFunc) camel_transport_class_init,
-					    NULL,
-					    (CamelObjectInitFunc) camel_transport_init,
-					    (CamelObjectFinalizeFunc) camel_transport_finalize);
-	}
-
-	return type;
-}
-
-static gint
-transport_setv (CamelObject *object, CamelException *ex, CamelArgV *args)
-{
-	/* CamelTransport doesn't currently have anything to set */
-	return CAMEL_OBJECT_CLASS (parent_class)->setv (object, ex, args);
-}
-
-static gint
-transport_getv (CamelObject *object, CamelException *ex, CamelArgGetV *args)
-{
-	/* CamelTransport doesn't currently have anything to get */
-	return CAMEL_OBJECT_CLASS (parent_class)->getv (object, ex, args);
+	transport->priv->send_lock = g_mutex_new ();
 }
 
 /**
@@ -109,7 +80,7 @@ transport_getv (CamelObject *object, CamelException *ex, CamelArgGetV *args)
  * @message: a #CamelMimeMessage to send
  * @from: a #CamelAddress to send from
  * @recipients: a #CamelAddress containing all recipients
- * @ex: a #CamelException
+ * @error: return location for a #GError, or %NULL
  *
  * Sends the message to the given recipients, regardless of the contents
  * of @message. If the message contains a "Bcc" header, the transport
@@ -118,21 +89,77 @@ transport_getv (CamelObject *object, CamelException *ex, CamelArgGetV *args)
  * Return %TRUE on success or %FALSE on fail
  **/
 gboolean
-camel_transport_send_to (CamelTransport *transport, CamelMimeMessage *message,
-			 CamelAddress *from, CamelAddress *recipients,
-			 CamelException *ex)
+camel_transport_send_to (CamelTransport *transport,
+                         CamelMimeMessage *message,
+                         CamelAddress *from,
+                         CamelAddress *recipients,
+                         GError **error)
 {
-	gboolean sent;
+	CamelTransportClass *class;
+	gboolean success;
 
 	g_return_val_if_fail (CAMEL_IS_TRANSPORT (transport), FALSE);
 	g_return_val_if_fail (CAMEL_IS_MIME_MESSAGE (message), FALSE);
 	g_return_val_if_fail (CAMEL_IS_ADDRESS (from), FALSE);
 	g_return_val_if_fail (CAMEL_IS_ADDRESS (recipients), FALSE);
 
-	CAMEL_TRANSPORT_LOCK (transport, send_lock);
-	sent = CT_CLASS (transport)->send_to (transport, message,
-					      from, recipients, ex);
-	CAMEL_TRANSPORT_UNLOCK (transport, send_lock);
+	class = CAMEL_TRANSPORT_GET_CLASS (transport);
+	g_return_val_if_fail (class->send_to != NULL, FALSE);
 
-	return sent;
+	camel_transport_lock (transport, CAMEL_TRANSPORT_SEND_LOCK);
+
+	success = class->send_to (transport, message, from, recipients, error);
+	CAMEL_CHECK_GERROR (transport, send_to, success, error);
+
+	camel_transport_unlock (transport, CAMEL_TRANSPORT_SEND_LOCK);
+
+	return success;
+}
+
+/**
+ * camel_transport_lock:
+ * @transport: a #CamelTransport
+ * @lock: lock type to lock
+ *
+ * Locks #transport's #lock. Unlock it with camel_transport_unlock().
+ *
+ * Since: 2.32
+ **/
+void
+camel_transport_lock (CamelTransport *transport,
+                      CamelTransportLock lock)
+{
+	g_return_if_fail (CAMEL_IS_TRANSPORT (transport));
+
+	switch (lock) {
+		case CAMEL_TRANSPORT_SEND_LOCK:
+			g_mutex_lock (transport->priv->send_lock);
+			break;
+		default:
+			g_return_if_reached ();
+	}
+}
+
+/**
+ * camel_transport_unlock:
+ * @transport: a #CamelTransport
+ * @lock: lock type to unlock
+ *
+ * Unlocks #transport's #lock, previously locked with camel_transport_lock().
+ *
+ * Since: 2.32
+ **/
+void
+camel_transport_unlock (CamelTransport *transport,
+                        CamelTransportLock lock)
+{
+	g_return_if_fail (CAMEL_IS_TRANSPORT (transport));
+
+	switch (lock) {
+		case CAMEL_TRANSPORT_SEND_LOCK:
+			g_mutex_unlock (transport->priv->send_lock);
+			break;
+		default:
+			g_return_if_reached ();
+	}
 }

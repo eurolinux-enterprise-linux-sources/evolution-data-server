@@ -22,16 +22,17 @@
  */
 
 #ifndef CAMEL_IMAP_STORE_H
-#define CAMEL_IMAP_STORE_H 1
+#define CAMEL_IMAP_STORE_H
 
-#include "camel-imap-types.h"
-#include <camel/camel-msgport.h>
-#include <camel/camel-offline-store.h>
 #include <sys/time.h>
-
-#ifdef ENABLE_THREADS
+#include <camel/camel.h>
 
 G_BEGIN_DECLS
+
+typedef struct _CamelImapStore CamelImapStore;
+typedef struct _CamelImapStoreClass CamelImapStoreClass;
+
+#ifdef ENABLE_THREADS
 
 typedef struct _CamelImapMsg CamelImapMsg;
 
@@ -47,18 +48,32 @@ CamelImapMsg *camel_imap_msg_new(void (*receive)(CamelImapStore *store, struct _
 				 gsize size);
 void camel_imap_msg_queue(CamelImapStore *store, CamelImapMsg *msg);
 
-G_END_DECLS
-
 #endif
 
-#define CAMEL_IMAP_STORE_TYPE     (camel_imap_store_get_type ())
-#define CAMEL_IMAP_STORE(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_IMAP_STORE_TYPE, CamelImapStore))
-#define CAMEL_IMAP_STORE_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_IMAP_STORE_TYPE, CamelImapStoreClass))
-#define CAMEL_IS_IMAP_STORE(o)    (CAMEL_CHECK_TYPE((o), CAMEL_IMAP_STORE_TYPE))
+G_END_DECLS
+
+/* Standard GObject macros */
+#define CAMEL_TYPE_IMAP_STORE \
+	(camel_imap_store_get_type ())
+#define CAMEL_IMAP_STORE(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_IMAP_STORE, CamelImapStore))
+#define CAMEL_IMAP_STORE_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_IMAP_STORE, CamelImapStoreClass))
+#define CAMEL_IS_IMAP_STORE(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_IMAP_STORE))
+#define CAMEL_IS_IMAP_STORE_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_IMAP_STORE))
+#define CAMEL_IMAP_STORE_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_IMAP_STORE, CamelImapStoreClass))
 
 G_BEGIN_DECLS
 
-enum {
+/*enum {
 	CAMEL_IMAP_STORE_ARG_FIRST  = CAMEL_OFFLINE_STORE_ARG_FIRST + 100,
 	CAMEL_IMAP_STORE_ARG_NAMESPACE,
 	CAMEL_IMAP_STORE_ARG_OVERRIDE_NAMESPACE,
@@ -67,7 +82,7 @@ enum {
 	CAMEL_IMAP_STORE_ARG_FILTER_JUNK,
 	CAMEL_IMAP_STORE_ARG_FILTER_JUNK_INBOX,
 	CAMEL_IMAP_STORE_ARG_CHECK_LSUB
-};
+};*/
 
 #define CAMEL_IMAP_STORE_NAMESPACE           (CAMEL_IMAP_STORE_ARG_NAMESPACE | CAMEL_ARG_STR)
 #define CAMEL_IMAP_STORE_OVERRIDE_NAMESPACE  (CAMEL_IMAP_STORE_ARG_OVERRIDE_NAMESPACE | CAMEL_ARG_INT)
@@ -114,7 +129,7 @@ typedef enum {
 #define IMAP_FETCH_MINIMAL_HEADERS 3
 
 struct _CamelImapStore {
-	CamelOfflineStore parent_object;
+	CamelOfflineStore parent;
 
 	CamelStream *istream;
 	CamelStream *ostream;
@@ -138,27 +153,26 @@ struct _CamelImapStore {
 	/* Information about the server */
 	CamelImapServerLevel server_level;
 	guint32 capabilities, parameters;
-	/* NB: namespace should be handled by summary->namespace */
-	gchar *namespace, dir_sep, *base_url, *storage_path;
+	gchar *users_namespace, dir_sep, *base_url, *storage_path;
 	GHashTable *authtypes;
 
 	time_t refresh_stamp;
 
 	guint32 headers;
 	gchar *custom_headers;
+
+	gchar *real_trash_path, *real_junk_path;
 };
 
-typedef struct {
+struct _CamelImapStoreClass {
 	CamelOfflineStoreClass parent_class;
+};
 
-} CamelImapStoreClass;
+GType camel_imap_store_get_type (void);
 
-/* Standard Camel function */
-CamelType camel_imap_store_get_type (void);
+gboolean camel_imap_store_connected (CamelImapStore *store, GError **error);
 
-gboolean camel_imap_store_connected (CamelImapStore *store, CamelException *ex);
-
-gssize camel_imap_store_readline (CamelImapStore *store, gchar **dest, CamelException *ex);
+gssize camel_imap_store_readline (CamelImapStore *store, gchar **dest, GError **error);
 
 G_END_DECLS
 

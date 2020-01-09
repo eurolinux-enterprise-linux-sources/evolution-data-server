@@ -22,19 +22,33 @@
  */
 
 #ifndef CAMEL_GROUPWISE_STORE_H
-#define CAMEL_GROUPWISE_STORE_H 1
+#define CAMEL_GROUPWISE_STORE_H
 
-#include <camel/camel-store.h>
-#include <camel/camel-offline-store.h>
+#include <camel/camel.h>
+
 #include "camel-groupwise-store-summary.h"
 
 #include <e-gw-connection.h>
 #include <e-gw-container.h>
 
-#define CAMEL_GROUPWISE_STORE_TYPE     (camel_groupwise_store_get_type ())
-#define CAMEL_GROUPWISE_STORE(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_GROUPWISE_STORE_TYPE, CamelGroupwiseStore))
-#define CAMEL_GROUPWISE_STORE_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_GROUPWISE_STORE_TYPE, CamelGroupwiseStoreClass))
-#define CAMEL_IS_GROUPWISE_STORE(o)    (CAMEL_CHECK_TYPE((o), CAMEL_GROUPWISE_STORE_TYPE))
+/* Standard GObject macros */
+#define CAMEL_TYPE_GROUPWISE_STORE \
+	(camel_groupwise_store_get_type ())
+#define CAMEL_GROUPWISE_STORE(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_GROUPWISE_STORE, CamelGroupwiseStore))
+#define CAMEL_GROUPWISE_STORE_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_GROUPWISE_STORE, CamelGroupwiseStoreClass))
+#define CAMEL_IS_GROUPWISE_STORE(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_GROUPWISE_STORE))
+#define CAMEL_IS_GROUPWISE_STORE_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_GROUPWISE_STORE))
+#define CAMEL_GROUPWISE_STORE_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_GROUPWISE_STORE, CamelGroupwiseStoreClass))
 
 #define GW_PARAM_FILTER_INBOX		(1 << 0)
 
@@ -45,7 +59,7 @@ typedef struct _CamelGroupwiseStoreClass CamelGroupwiseStoreClass;
 typedef struct _CamelGroupwiseStorePrivate CamelGroupwiseStorePrivate;
 
 struct _CamelGroupwiseStore {
-	CamelOfflineStore parent_object;
+	CamelOfflineStore parent;
 
 	struct _CamelGroupwiseStoreSummary *summary;
 
@@ -56,15 +70,13 @@ struct _CamelGroupwiseStore {
 	/* the parameters field is not to be included not. probably for 2.6*/
 	/*guint32 parameters;*/
 	time_t refresh_stamp;
-	guint list_loaded;
 };
 
 struct _CamelGroupwiseStoreClass {
 	CamelOfflineStoreClass parent_class;
 };
 
-/* Standard Camel function */
-CamelType camel_groupwise_store_get_type (void);
+GType camel_groupwise_store_get_type (void);
 gchar * groupwise_get_name(CamelService *service, gboolean brief);
 
 /*IMplemented*/
@@ -74,8 +86,8 @@ EGwConnection *cnc_lookup (CamelGroupwiseStorePrivate *priv);
 gchar *storage_path_lookup (CamelGroupwiseStorePrivate *priv);
 const gchar *groupwise_base_url_lookup (CamelGroupwiseStorePrivate *priv);
 CamelFolderInfo * create_junk_folder (CamelStore *store);
-gboolean camel_groupwise_store_connected (CamelGroupwiseStore *store, CamelException *ex);
-void gw_store_reload_folder (CamelGroupwiseStore *store, CamelFolder *folder, guint32 flags, CamelException *ex);
+gboolean camel_groupwise_store_connected (CamelGroupwiseStore *store, GError **error);
+gboolean gw_store_reload_folder (CamelGroupwiseStore *store, CamelFolder *folder, guint32 flags, GError **error);
 void groupwise_store_set_current_folder (CamelGroupwiseStore *groupwise_store, CamelFolder *folder);
 
 G_END_DECLS

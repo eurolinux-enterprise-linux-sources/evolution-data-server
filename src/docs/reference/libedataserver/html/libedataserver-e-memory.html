@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>e-memory</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
 <link rel="prev" href="EListIterator.html" title="EListIterator">
-<link rel="next" href="libedataserver-e-msgport.html" title="e-msgport">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="next" href="libedataserver-EProxy.html" title="EProxy">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -18,7 +18,7 @@
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
-<td><a accesskey="n" href="libedataserver-e-msgport.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="libedataserver-EProxy.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#libedataserver-e-memory.synopsis" class="shortcut">Top</a>
@@ -26,7 +26,7 @@
                   <a href="#libedataserver-e-memory.description" class="shortcut">Description</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="e-memory">
 <a name="libedataserver-e-memory"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -35,83 +35,46 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="libedataserver-e-memory.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">                    <a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk">EMemChunk</a>;
-<a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="returnvalue">EMemChunk</span></a> *         <a class="link" href="libedataserver-e-memory.html#e-memchunk-new" title="e_memchunk_new ()">e_memchunk_new</a>                      (<em class="parameter"><code><span class="type">gint</span> atomcount</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> atomsize</code></em>);
-<span class="returnvalue">gpointer</span>            <a class="link" href="libedataserver-e-memory.html#e-memchunk-alloc" title="e_memchunk_alloc ()">e_memchunk_alloc</a>                    (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);
-<span class="returnvalue">gpointer</span>            <a class="link" href="libedataserver-e-memory.html#e-memchunk-alloc0" title="e_memchunk_alloc0 ()">e_memchunk_alloc0</a>                   (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);
+<a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="returnvalue">EMemChunk</span></a> *         <a class="link" href="libedataserver-e-memory.html#e-memchunk-new" title="e_memchunk_new ()">e_memchunk_new</a>                      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> atomcount</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> atomsize</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="libedataserver-e-memory.html#e-memchunk-alloc" title="e_memchunk_alloc ()">e_memchunk_alloc</a>                    (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            <a class="link" href="libedataserver-e-memory.html#e-memchunk-alloc0" title="e_memchunk_alloc0 ()">e_memchunk_alloc0</a>                   (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-memory.html#e-memchunk-free" title="e_memchunk_free ()">e_memchunk_free</a>                     (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>,
-                                                         <em class="parameter"><code><span class="type">gpointer</span> mem</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> mem</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-memory.html#e-memchunk-empty" title="e_memchunk_empty ()">e_memchunk_empty</a>                    (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-memory.html#e-memchunk-clean" title="e_memchunk_clean ()">e_memchunk_clean</a>                    (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-memory.html#e-memchunk-destroy" title="e_memchunk_destroy ()">e_memchunk_destroy</a>                  (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);
-                    <a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool">EMemPool</a>;
-enum                <a class="link" href="libedataserver-e-memory.html#EMemPoolFlags" title="enum EMemPoolFlags">EMemPoolFlags</a>;
-<a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool"><span class="returnvalue">EMemPool</span></a> *          <a class="link" href="libedataserver-e-memory.html#e-mempool-new" title="e_mempool_new ()">e_mempool_new</a>                       (<em class="parameter"><code><span class="type">gint</span> blocksize</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> threshold</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemPoolFlags" title="enum EMemPoolFlags"><span class="type">EMemPoolFlags</span></a> flags</code></em>);
-<span class="returnvalue">gpointer</span>            <a class="link" href="libedataserver-e-memory.html#e-mempool-alloc" title="e_mempool_alloc ()">e_mempool_alloc</a>                     (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool"><span class="type">EMemPool</span></a> *pool</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> size</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="libedataserver-e-memory.html#e-mempool-strdup" title="e_mempool_strdup ()">e_mempool_strdup</a>                    (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool"><span class="type">EMemPool</span></a> *pool</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-memory.html#e-mempool-flush" title="e_mempool_flush ()">e_mempool_flush</a>                     (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool"><span class="type">EMemPool</span></a> *pool</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> freeall</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-memory.html#e-mempool-destroy" title="e_mempool_destroy ()">e_mempool_destroy</a>                   (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool"><span class="type">EMemPool</span></a> *pool</code></em>);
-                    <a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv">EStrv</a>;
-<a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="returnvalue">EStrv</span></a> *             <a class="link" href="libedataserver-e-memory.html#e-strv-new" title="e_strv_new ()">e_strv_new</a>                          (<em class="parameter"><code><span class="type">gint</span> size</code></em>);
-<a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="returnvalue">EStrv</span></a> *             <a class="link" href="libedataserver-e-memory.html#e-strv-set-ref" title="e_strv_set_ref ()">e_strv_set_ref</a>                      (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *str</code></em>);
-<a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="returnvalue">EStrv</span></a> *             <a class="link" href="libedataserver-e-memory.html#e-strv-set-ref-free" title="e_strv_set_ref_free ()">e_strv_set_ref_free</a>                 (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *str</code></em>);
-<a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="returnvalue">EStrv</span></a> *             <a class="link" href="libedataserver-e-memory.html#e-strv-set" title="e_strv_set ()">e_strv_set</a>                          (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);
-<a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="returnvalue">EStrv</span></a> *             <a class="link" href="libedataserver-e-memory.html#e-strv-pack" title="e_strv_pack ()">e_strv_pack</a>                         (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="libedataserver-e-memory.html#e-strv-get" title="e_strv_get ()">e_strv_get</a>                          (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-memory.html#e-strv-destroy" title="e_strv_destroy ()">e_strv_destroy</a>                      (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>);
-                    <a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv">EPoolv</a>;
-<a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="returnvalue">EPoolv</span></a> *            <a class="link" href="libedataserver-e-memory.html#e-poolv-new" title="e_poolv_new ()">e_poolv_new</a>                         (<em class="parameter"><code><span class="type">guint</span> size</code></em>);
-<a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="returnvalue">EPoolv</span></a> *            <a class="link" href="libedataserver-e-memory.html#e-poolv-cpy" title="e_poolv_cpy ()">e_poolv_cpy</a>                         (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="type">EPoolv</span></a> *dest</code></em>,
-                                                         <em class="parameter"><code>const <a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="type">EPoolv</span></a> *src</code></em>);
-<a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="returnvalue">EPoolv</span></a> *            <a class="link" href="libedataserver-e-memory.html#e-poolv-set" title="e_poolv_set ()">e_poolv_set</a>                         (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="type">EPoolv</span></a> *poolv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *str</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> freeit</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="libedataserver-e-memory.html#e-poolv-get" title="e_poolv_get ()">e_poolv_get</a>                         (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="type">EPoolv</span></a> *poolv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-memory.html#e-poolv-destroy" title="e_poolv_destroy ()">e_poolv_destroy</a>                     (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="type">EPoolv</span></a> *poolv</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="libedataserver-e-memory.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="libedataserver-e-memory.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="EMemChunk">
 <a name="EMemChunk"></a><h3>EMemChunk</h3>
 <pre class="programlisting">typedef struct _EMemChunk EMemChunk;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_memchunk_new ()">
 <a name="e-memchunk-new"></a><h3>e_memchunk_new ()</h3>
-<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="returnvalue">EMemChunk</span></a> *         e_memchunk_new                      (<em class="parameter"><code><span class="type">gint</span> atomcount</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> atomsize</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="returnvalue">EMemChunk</span></a> *         e_memchunk_new                      (<em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> atomcount</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> atomsize</code></em>);</pre>
 <p>
 Create a new memchunk header.  Memchunks are an efficient way to allocate
 and deallocate identical sized blocks of memory quickly, and space efficiently.
 </p>
 <p>
 e_memchunks are effectively the same as gmemchunks, only faster (much), and
-they use less memory overhead for housekeeping.</p>
+they use less memory overhead for housekeeping.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -134,9 +97,9 @@ they use less memory overhead for housekeeping.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_memchunk_alloc ()">
 <a name="e-memchunk-alloc"></a><h3>e_memchunk_alloc ()</h3>
-<pre class="programlisting"><span class="returnvalue">gpointer</span>            e_memchunk_alloc                    (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            e_memchunk_alloc                    (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -156,9 +119,9 @@ they use less memory overhead for housekeeping.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_memchunk_alloc0 ()">
 <a name="e-memchunk-alloc0"></a><h3>e_memchunk_alloc0 ()</h3>
-<pre class="programlisting"><span class="returnvalue">gpointer</span>            e_memchunk_alloc0                   (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="returnvalue">gpointer</span></a>            e_memchunk_alloc0                   (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -178,13 +141,14 @@ they use less memory overhead for housekeeping.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_memchunk_free ()">
 <a name="e-memchunk-free"></a><h3>e_memchunk_free ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_memchunk_free                     (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>,
-                                                         <em class="parameter"><code><span class="type">gpointer</span> mem</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> mem</code></em>);</pre>
 <p>
 Free a single atom back to the free pool of atoms in the given
-memchunk.</p>
+memchunk.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
@@ -195,16 +159,17 @@ memchunk.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_memchunk_empty ()">
 <a name="e-memchunk-empty"></a><h3>e_memchunk_empty ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_memchunk_empty                    (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);</pre>
 <p>
 Clean out the memchunk buffers.  Marks all allocated memory as free blocks,
 but does not give it back to the system.  Can be used if the memchunk
-is to be used repeatedly.</p>
+is to be used repeatedly.
+</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_memchunk_clean ()">
 <a name="e-memchunk-clean"></a><h3>e_memchunk_clean ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_memchunk_clean                    (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);</pre>
 <p>
@@ -214,463 +179,21 @@ back to the system.
 <p>
 This routine may take a while to run if there are many allocated
 memory blocks (if the total number of allocations is many times
-greater than atomcount).</p>
+greater than atomcount).
+</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_memchunk_destroy ()">
 <a name="e-memchunk-destroy"></a><h3>e_memchunk_destroy ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_memchunk_destroy                  (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemChunk" title="EMemChunk"><span class="type">EMemChunk</span></a> *m</code></em>);</pre>
 <p>
-Free the memchunk header, and all associated memory.</p>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="EMemPool"></a><h3>EMemPool</h3>
-<pre class="programlisting">typedef struct _EMemPool EMemPool;</pre>
-<p>
+Free the memchunk header, and all associated memory.
 </p>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="EMemPoolFlags"></a><h3>enum EMemPoolFlags</h3>
-<pre class="programlisting">typedef enum {
-	E_MEMPOOL_ALIGN_STRUCT = 0, /* allocate to native structure alignment */
-	E_MEMPOOL_ALIGN_WORD = 1, /* allocate to words - 16 bit alignment */
-	E_MEMPOOL_ALIGN_BYTE = 2, /* allocate to bytes - 8 bit alignment */
-	E_MEMPOOL_ALIGN_MASK = 3 /* which bits determine the alignment information */
-} EMemPoolFlags;
-</pre>
-<p>
-</p>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-mempool-new"></a><h3>e_mempool_new ()</h3>
-<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool"><span class="returnvalue">EMemPool</span></a> *          e_mempool_new                       (<em class="parameter"><code><span class="type">gint</span> blocksize</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> threshold</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemPoolFlags" title="enum EMemPoolFlags"><span class="type">EMemPoolFlags</span></a> flags</code></em>);</pre>
-<p>
-Create a new mempool header.  Mempools can be used to efficiently
-allocate data which can then be freed as a whole.
-</p>
-<p>
-Mempools can also be used to efficiently allocate arbitrarily
-aligned data (such as strings) without incurring the space overhead
-of aligning each allocation (which is not required for strings).
-</p>
-<p>
-However, each allocation cannot be freed individually, only all
-or nothing.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>blocksize</code></em> :</span></p></td>
-<td>The base blocksize to use for all system alocations.
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>threshold</code></em> :</span></p></td>
-<td>If the allocation exceeds the threshold, then it is
-allocated separately and stored in a separate list.
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
-<td>Alignment options: E_MEMPOOL_ALIGN_STRUCT uses native
-struct alignment, E_MEMPOOL_ALIGN_WORD aligns to 16 bits (2 bytes),
-and E_MEMPOOL_ALIGN_BYTE aligns to the nearest byte.  The default
-is to align to native structures.
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-mempool-alloc"></a><h3>e_mempool_alloc ()</h3>
-<pre class="programlisting"><span class="returnvalue">gpointer</span>            e_mempool_alloc                     (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool"><span class="type">EMemPool</span></a> *pool</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> size</code></em>);</pre>
-<p>
-Allocate a new data block in the mempool.  Size will
-be rounded up to the mempool's alignment restrictions
-before being used.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody><tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-mempool-strdup"></a><h3>e_mempool_strdup ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_mempool_strdup                    (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool"><span class="type">EMemPool</span></a> *pool</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);</pre>
-<p>
-</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>pool</code></em> :</span></p></td>
-<td>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
-<td>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-mempool-flush"></a><h3>e_mempool_flush ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                e_mempool_flush                     (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool"><span class="type">EMemPool</span></a> *pool</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> freeall</code></em>);</pre>
-<p>
-Flush used memory and mark allocated blocks as free.
-</p>
-<p>
-If <em class="parameter"><code>freeall</code></em> is <span class="type">TRUE</span>, then all allocated blocks are free'd
-as well.  Otherwise only blocks above the threshold are
-actually freed, and the others are simply marked as empty.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>freeall</code></em> :</span></p></td>
-<td>Free all system allocated blocks as well.
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-mempool-destroy"></a><h3>e_mempool_destroy ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                e_mempool_destroy                   (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EMemPool" title="EMemPool"><span class="type">EMemPool</span></a> *pool</code></em>);</pre>
-<p>
-Free all memory associated with a mempool.</p>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="EStrv"></a><h3>EStrv</h3>
-<pre class="programlisting">typedef struct _EStrv EStrv;</pre>
-<p>
-</p>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-strv-new"></a><h3>e_strv_new ()</h3>
-<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="returnvalue">EStrv</span></a> *             e_strv_new                          (<em class="parameter"><code><span class="type">gint</span> size</code></em>);</pre>
-<p>
-Create a new strv (string array) header.  strv's can be used to
-create and work with arrays of strings that can then be compressed
-into a space-efficient static structure.  This is useful
-where a number of strings are to be stored for lookup, and not
-generally edited afterwards.
-</p>
-<p>
-The size limit is currently 254 elements.  This will probably not
-change as arrays of this size suffer significant performance
-penalties when looking up strings with high indices.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
-<td>The number of elements in the strv.  Currently this is limited
-to 254 elements.
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-strv-set-ref"></a><h3>e_strv_set_ref ()</h3>
-<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="returnvalue">EStrv</span></a> *             e_strv_set_ref                      (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *str</code></em>);</pre>
-<p>
-Set a string array element by reference.  The string
-is not copied until the array is packed.
-</p>
-<p>
-If <em class="parameter"><code>strv</code></em> has been packed, then it is unpacked ready
-for more inserts, and should be packed again once finished with.
-The memory used by the original <em class="parameter"><code>strv</code></em> is not freed until
-the new strv is packed, or freed itself.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody><tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A new EStrv if the strv has already
-been packed, otherwise <em class="parameter"><code>strv</code></em>.
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-strv-set-ref-free"></a><h3>e_strv_set_ref_free ()</h3>
-<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="returnvalue">EStrv</span></a> *             e_strv_set_ref_free                 (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *str</code></em>);</pre>
-<p>
-Set a string by reference, similar to set_ref, but also
-free the string when finished with it.  The string
-is not copied until the strv is packed, and not at
-all if the index is overwritten.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody><tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <em class="parameter"><code>strv</code></em> if already unpacked, otherwise an packed
-EStrv.
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-strv-set"></a><h3>e_strv_set ()</h3>
-<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="returnvalue">EStrv</span></a> *             e_strv_set                          (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);</pre>
-<p>
-Set a string array reference.  The string <em class="parameter"><code>str</code></em> is copied
-into the string array at location <em class="parameter"><code>index</code></em>.
-</p>
-<p>
-If <em class="parameter"><code>strv</code></em> has been packed, then it is unpacked ready
-for more inserts, and should be packed again once finished with.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody><tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> A new EStrv if the strv has already
-been packed, otherwise <em class="parameter"><code>strv</code></em>.
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-strv-pack"></a><h3>e_strv_pack ()</h3>
-<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="returnvalue">EStrv</span></a> *             e_strv_pack                         (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>);</pre>
-<p>
-Pack the <em class="parameter"><code>strv</code></em> into a space efficient structure for later lookup.
-</p>
-<p>
-All strings are packed into a single allocated block, separated
-by single \0 characters, together with a count byte.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody><tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-strv-get"></a><h3>e_strv_get ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_strv_get                          (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>);</pre>
-<p>
-Retrieve a string by index.  This function works
-identically on both packed and unpacked strv's, although
-may be much slower on a packed strv.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody><tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-strv-destroy"></a><h3>e_strv_destroy ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                e_strv_destroy                      (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EStrv" title="EStrv"><span class="type">EStrv</span></a> *strv</code></em>);</pre>
-<p>
-Free a strv and all associated memory.  Works on packed
-or unpacked strv's.</p>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="EPoolv"></a><h3>EPoolv</h3>
-<pre class="programlisting">typedef struct _EPoolv EPoolv;</pre>
-<p>
-</p>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-poolv-new"></a><h3>e_poolv_new ()</h3>
-<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="returnvalue">EPoolv</span></a> *            e_poolv_new                         (<em class="parameter"><code><span class="type">guint</span> size</code></em>);</pre>
-<p>
-</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>size</code></em> :</span></p></td>
-<td>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-poolv-cpy"></a><h3>e_poolv_cpy ()</h3>
-<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="returnvalue">EPoolv</span></a> *            e_poolv_cpy                         (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="type">EPoolv</span></a> *dest</code></em>,
-                                                         <em class="parameter"><code>const <a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="type">EPoolv</span></a> *src</code></em>);</pre>
-<p>
-Copy the contents of a pooled string vector</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>dest</code></em> :</span></p></td>
-<td>destination pooled string vector
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>src</code></em> :</span></p></td>
-<td>source pooled string vector
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <em class="parameter"><code>dest</code></em>, which may be re-allocated if the strings
-are different lengths.
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-poolv-set"></a><h3>e_poolv_set ()</h3>
-<pre class="programlisting"><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="returnvalue">EPoolv</span></a> *            e_poolv_set                         (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="type">EPoolv</span></a> *poolv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *str</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> freeit</code></em>);</pre>
-<p>
-Set a string vector reference.  If the caller will no longer be
-referencing the string, freeit should be TRUE.  Otherwise, this
-will duplicate the string if it is not found in the pool.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>poolv</code></em> :</span></p></td>
-<td>pooled string vector
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
-<td>index in vector of string
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
-<td>string to set
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>freeit</code></em> :</span></p></td>
-<td>whether the caller is releasing its reference to the
-string
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <em class="parameter"><code>poolv</code></em>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-poolv-get"></a><h3>e_poolv_get ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_poolv_get                         (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="type">EPoolv</span></a> *poolv</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>);</pre>
-<p>
-Retrieve a string by index.  This could possibly just be a macro.
-</p>
-<p>
-Since the pool is never freed, this string does not need to be
-duplicated, but should not be modified.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>poolv</code></em> :</span></p></td>
-<td>pooled string vector
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
-<td>index in vector of string
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> string at that index.
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-poolv-destroy"></a><h3>e_poolv_destroy ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                e_poolv_destroy                     (<em class="parameter"><code><a class="link" href="libedataserver-e-memory.html#EPoolv" title="EPoolv"><span class="type">EPoolv</span></a> *poolv</code></em>);</pre>
-<p>
-Free a pooled string vector.  This doesn't free the strings from
-the vector, however.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>poolv</code></em> :</span></p></td>
-<td>pooled string vector to free
-</td>
-</tr></tbody>
-</table></div>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

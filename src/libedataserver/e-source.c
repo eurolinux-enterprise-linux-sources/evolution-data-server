@@ -274,7 +274,7 @@ compare_str_hashes (GHashTable *table1, GHashTable *table2)
  *
  * Update the ESource properties from @node.
  *
- * Return value: %TRUE if the data in @node was recognized and parsed into
+ * Returns: %TRUE if the data in @node was recognized and parsed into
  * acceptable values for @source, %FALSE otherwise.
  **/
 gboolean
@@ -326,7 +326,7 @@ e_source_update_from_xml_node (ESource *source,
 			   g_str_has_suffix (source->priv->absolute_uri, source->priv->relative_uri)) {
 			gchar *tmp = source->priv->absolute_uri;
 
-			tmp [strlen (tmp) - strlen (source->priv->relative_uri)] = 0;
+			tmp[strlen (tmp) - strlen (source->priv->relative_uri)] = 0;
 			source->priv->absolute_uri = g_strconcat (tmp, (gchar *)relative_uri, NULL);
 
 			g_free (tmp);
@@ -342,7 +342,12 @@ e_source_update_from_xml_node (ESource *source,
 
 	if (absolute_uri != NULL) {
 		g_free (source->priv->absolute_uri);
-		source->priv->absolute_uri = g_strdup ((gchar *)absolute_uri);
+
+		if (relative_uri && g_str_equal ((const gchar *) relative_uri, "system") &&
+		    (g_str_has_prefix ((const gchar *) absolute_uri, "file:") || g_str_equal ((const gchar *) absolute_uri, "local:/system")))
+			source->priv->absolute_uri = g_strdup ("local:system");
+		else
+			source->priv->absolute_uri = g_strdup ((gchar *)absolute_uri);
 		changed = TRUE;
 	}
 
@@ -408,7 +413,7 @@ e_source_update_from_xml_node (ESource *source,
  * Assuming that @node is a valid ESource specification, retrieve the name of
  * the source from it.
  *
- * Return value: Name of the source in the specified @node.  The caller must
+ * Returns: Name of the source in the specified @node.  The caller must
  * free the string.
  **/
 gchar *
@@ -445,7 +450,7 @@ e_source_build_absolute_uri (ESource *source)
 		uri_str = g_strconcat (base_uri_str, source->priv->relative_uri, NULL);
 	else {
 		if (source->priv->relative_uri != NULL)
-			uri_str = g_strconcat (base_uri_str, "/", source->priv->relative_uri,
+			uri_str = g_strconcat (base_uri_str, g_str_equal (base_uri_str, "local:") ? "" : "/", source->priv->relative_uri,
 				       NULL);
 		else
 			uri_str = g_strdup (base_uri_str);
@@ -563,28 +568,6 @@ e_source_set_readonly (ESource  *source,
 
 }
 
-#ifndef EDS_DISABLE_DEPRECATED
-void
-e_source_set_color (ESource *source,
-		    guint32 color)
-{
-	gchar color_spec[8];
-
-	g_return_if_fail (E_IS_SOURCE (source));
-
-	g_snprintf (color_spec, sizeof (color_spec), "#%06x", color);
-	e_source_set_color_spec (source, color_spec);
-}
-
-void
-e_source_unset_color (ESource *source)
-{
-	g_return_if_fail (E_IS_SOURCE (source));
-
-	e_source_set_color_spec (source, NULL);
-}
-#endif
-
 /**
  * e_source_set_color_spec:
  * @source: an ESource
@@ -653,7 +636,7 @@ e_source_peek_absolute_uri (ESource *source)
  * Return the textual representation of the color for @source, or %NULL if it
  * has none.  The returned string should be parsable by #gdk_color_parse().
  *
- * Return value: a string specifying the color
+ * Returns: a string specifying the color
  *
  * Since: 1.10
  **/
@@ -672,42 +655,6 @@ e_source_get_readonly (ESource *source)
 
 	return source->priv->readonly;
 }
-
-#ifndef EDS_DISABLE_DEPRECATED
-/**
- * e_source_get_color:
- * @source: An ESource
- * @color_return: Pointer to a variable where the returned color will be
- * stored.
- *
- * If @source has an associated color, return it in *@color_return.
- *
- * Return value: %TRUE if the @source has a defined color (and hence
- * *@color_return was set), %FALSE otherwise.
- **/
-gboolean
-e_source_get_color (ESource *source,
-		    guint32 *color_return)
-{
-	const gchar *color_spec;
-	guint32 color;
-
-	g_return_val_if_fail (E_IS_SOURCE (source), FALSE);
-
-	color_spec = e_source_peek_color_spec (source);
-
-	if (color_spec == NULL)
-		return FALSE;
-
-	if (sscanf (color_spec, "#%06x", &color) != 1)
-		return FALSE;
-
-	if (color_return != NULL)
-		*color_return = color;
-
-	return TRUE;
-}
-#endif
 
 gchar *
 e_source_get_uri (ESource *source)
@@ -755,8 +702,10 @@ dump_common_to_xml_node (ESource *source,
 	xmlSetProp (node, (xmlChar*)"uid", (xmlChar*)e_source_peek_uid (source));
 	xmlSetProp (node, (xmlChar*)"name", (xmlChar*)e_source_peek_name (source));
 	abs_uri = e_source_peek_absolute_uri (source);
+	/* do not store absolute uris for local:system sources */
 	relative_uri = e_source_peek_relative_uri (source);
-	if (abs_uri)
+	if (abs_uri && !(relative_uri && g_str_equal (relative_uri, "system") &&
+		    (g_str_has_prefix (abs_uri, "file:") || g_str_has_prefix (abs_uri, "local:"))))
 		xmlSetProp (node, (xmlChar*)"uri", (xmlChar*)abs_uri);
 	if (relative_uri)
 		xmlSetProp (node, (xmlChar*)"relative_uri", (xmlChar*)relative_uri);
@@ -809,7 +758,7 @@ e_source_to_standalone_xml (ESource *source)
 
 	returned_buffer = g_malloc (xml_buffer_size + 1);
 	memcpy (returned_buffer, xml_buffer, xml_buffer_size);
-	returned_buffer [xml_buffer_size] = '\0';
+	returned_buffer[xml_buffer_size] = '\0';
 	xmlFree (xml_buffer);
 
 	return returned_buffer;
@@ -822,8 +771,10 @@ e_source_to_standalone_xml (ESource *source)
  *
  * Compares if @a is equivalent to @b.
  *
- * Return value: %TRUE if @a is equivalent to @b,
+ * Returns: %TRUE if @a is equivalent to @b,
  * %FALSE otherwise.
+ *
+ * Since: 2.24
  **/
 gboolean
 e_source_equal (ESource *a, ESource *b)
@@ -878,8 +829,10 @@ e_source_equal (ESource *a, ESource *b)
  *
  * Compares if @a is equivalent to @b.
  *
- * Return value: %TRUE if @a is equivalent to @b,
+ * Returns: %TRUE if @a is equivalent to @b,
  * %FALSE otherwise.
+ *
+ * Since: 2.24
  **/
 gboolean
 e_source_xmlstr_equal (const gchar *a, const gchar *b)
@@ -931,6 +884,11 @@ e_source_get_property (ESource *source,
 	return g_hash_table_lookup (priv->properties, property);
 }
 
+/**
+ * e_source_get_duped_property:
+ *
+ * Since: 1.12
+ **/
 gchar *
 e_source_get_duped_property (ESource *source, const gchar *property)
 {
@@ -990,8 +948,8 @@ e_source_copy (ESource *source)
 	e_source_set_name (new_source, e_source_peek_name (source));
 
 	new_source->priv->color_spec = g_strdup (source->priv->color_spec);
-
 	new_source->priv->absolute_uri = g_strdup (e_source_peek_absolute_uri (source));
+	new_source->priv->relative_uri = g_strdup (e_source_peek_relative_uri (source));
 
 	e_source_foreach_property (source, (GHFunc) copy_property, new_source);
 

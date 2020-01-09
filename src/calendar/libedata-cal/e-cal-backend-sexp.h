@@ -28,9 +28,7 @@
 #include <glib-object.h>
 #include <libecal/e-cal-component.h>
 #include <libedata-cal/e-cal-backend.h>
-#include "libedataserver/e-sexp.h"
-
-G_BEGIN_DECLS
+#include <libedataserver/e-sexp.h>
 
 #define E_TYPE_CAL_BACKEND_SEXP        (e_cal_backend_sexp_get_type ())
 #define E_CAL_BACKEND_SEXP(o)          (G_TYPE_CHECK_INSTANCE_CAST ((o), E_TYPE_CAL_BACKEND_SEXP, ECalBackendSExp))
@@ -38,6 +36,8 @@ G_BEGIN_DECLS
 #define E_IS_CAL_BACKEND_SEXP(o)       (G_TYPE_CHECK_INSTANCE_TYPE ((o), E_TYPE_CAL_BACKEND_SEXP))
 #define E_IS_CAL_BACKEND_SEXP_CLASS(k) (G_TYPE_CHECK_CLASS_TYPE ((k), E_TYPE_CAL_BACKEND_SEXP))
 #define E_CAL_BACKEND_SEXP_GET_CLASS(k) (G_TYPE_INSTANCE_GET_CLASS ((obj), E_TYPE_CAL_BACKEND_SEXP, CALBackendSExpClass))
+
+G_BEGIN_DECLS
 
 typedef struct _ECalBackendSExpPrivate ECalBackendSExpPrivate;
 
@@ -70,6 +70,7 @@ ESExpResult *e_cal_backend_sexp_func_make_time      (ESExp *esexp, gint argc, ES
 ESExpResult *e_cal_backend_sexp_func_time_add_day   (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data);
 ESExpResult *e_cal_backend_sexp_func_time_day_begin (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data);
 ESExpResult *e_cal_backend_sexp_func_time_day_end   (ESExp *esexp, gint argc, ESExpResult **argv, gpointer data);
+gboolean	e_cal_backend_sexp_evaluate_occur_times	(ECalBackendSExp *sexp, time_t *start, time_t *end);
 
 G_END_DECLS
 

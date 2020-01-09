@@ -148,7 +148,7 @@ typedef struct {
 
 	/* For BYDAY modifier. A list of GINT_TO_POINTERs, in pairs.
 	   The first of each pair is the weekday, 0 = Monday to 6 = Sunday.
-	   The second of each pair is the week number [+-]0-53. */
+	   The second of each pair is the week number[+-]0-53. */
 	GList	      *byday;
 
 	/* For BYHOUR modifier. A list of GINT_TO_POINTERs, 0-23. */
@@ -477,11 +477,6 @@ static void cal_object_time_from_time		(CalObjTime *cotime,
 						 icaltimezone *zone);
 static gint cal_obj_date_only_compare_func	(gconstpointer arg1,
 						 gconstpointer arg2);
-
-static gboolean e_cal_recur_ensure_end_dates	(ECalComponent	*comp,
-						 gboolean	 refresh,
-						 ECalRecurResolveTimezoneFn tz_cb,
-						 gpointer	 tz_cb_data);
 static gboolean e_cal_recur_ensure_rule_end_date	(ECalComponent	*comp,
 						 icalproperty	*prop,
 						 gboolean	 exception,
@@ -895,7 +890,7 @@ e_cal_recur_generate_instances_of_rule (ECalComponent	 *comp,
  * struct icalrecurrencetype.
  */
 static GList *
-array_to_list (short *array, gint max_elements)
+array_to_list (gshort *array, gint max_elements)
 {
 	GList *l;
 	gint i;
@@ -905,6 +900,66 @@ array_to_list (short *array, gint max_elements)
 	for (i = 0; i < max_elements && array[i] != ICAL_RECURRENCE_ARRAY_MAX; i++)
 		l = g_list_prepend (l, GINT_TO_POINTER ((gint) (array[i])));
 	return g_list_reverse (l);
+}
+
+/** 
+ * e_cal_recur_get_enddate
+ * @ir: RRULE or EXRULE recurrence 
+ * @prop: An RRULE or EXRULE #icalproperty. 
+ * @zone: The DTSTART timezone, used for converting the UNTIL property if it
+ * is given as a DATE value.
+ * @convert_end_date: TRUE if the saved end date needs to be converted to the
+ * given @zone timezone. This is needed if the DTSTART is a DATE or floating
+ * time.
+ * 
+ * Finds out end time of (reccurent) event.
+ *
+ * Returns: End timepoint of given event
+ *
+ * Since: 2.32
+ */
+time_t
+e_cal_recur_obtain_enddate (struct icalrecurrencetype *ir, icalproperty *prop,
+          icaltimezone *zone, gboolean convert_end_date)
+{
+	time_t enddate = -1;
+
+	g_return_val_if_fail (prop != NULL, 0);
+	g_return_val_if_fail (ir != NULL, 0);
+
+	if (ir->count != 0) {
+		/* If COUNT is set, we use the pre-calculated enddate.
+		Note that this can be 0 if the RULE doesn't actually
+		generate COUNT instances. */
+		enddate = e_cal_recur_get_rule_end_date (prop, convert_end_date ? zone : NULL);
+	} else {
+		if (icaltime_is_null_time (ir->until)) {
+			/* If neither COUNT or UNTIL is set, the event
+			recurs forever. */
+		} else if (ir->until.is_date) {
+			/* If UNTIL is a DATE, we stop at the end of
+			the day, in local time (with the DTSTART timezone).
+			Note that UNTIL is inclusive so we stop before
+			midnight. */
+			ir->until.hour = 23;
+			ir->until.minute = 59;
+			ir->until.second = 59;
+			ir->until.is_date = FALSE;
+
+			enddate = icaltime_as_timet_with_zone (ir->until, zone);
+#if 0
+	g_print ("  until: %li - %s", r->enddate, ctime (&r->enddate));
+#endif
+
+		} else {
+		/* If UNTIL is a DATE-TIME, it must be in UTC. */
+		icaltimezone *utc_zone;
+		utc_zone = icaltimezone_get_utc_timezone ();
+		enddate = icaltime_as_timet_with_zone (ir->until, utc_zone);
+		}
+	}
+
+	return enddate;
 }
 
 /**
@@ -920,7 +975,7 @@ array_to_list (short *array, gint max_elements)
  * Converts an #icalproperty to a #ECalRecurrence.  This should be
  * freed using the e_cal_recur_free() function.
  *
- * Return value: #ECalRecurrence structure.
+ * Returns: #ECalRecurrence structure.
  **/
 static ECalRecurrence *
 e_cal_recur_from_icalproperty (icalproperty *prop, gboolean exception,
@@ -943,63 +998,26 @@ e_cal_recur_from_icalproperty (icalproperty *prop, gboolean exception,
 	r->freq = ir.freq;
 	r->interval = ir.interval;
 
-	if (ir.count != 0) {
-		/* If COUNT is set, we use the pre-calculated enddate.
-		   Note that this can be 0 if the RULE doesn't actually
-		   generate COUNT instances. */
-		r->enddate = e_cal_recur_get_rule_end_date (prop, convert_end_date ? zone : NULL);
-	} else {
-		if (icaltime_is_null_time (ir.until)) {
-			/* If neither COUNT or UNTIL is set, the event
-			   recurs forever. */
-			r->enddate = 0;
-		} else if (ir.until.is_date) {
-			/* If UNTIL is a DATE, we stop at the end of
-			   the day, in local time (with the DTSTART timezone).
-			   Note that UNTIL is inclusive so we stop before
-			   midnight. */
-			ir.until.hour = 23;
-			ir.until.minute = 59;
-			ir.until.second = 59;
-			ir.until.is_date = FALSE;
-
-			r->enddate = icaltime_as_timet_with_zone (ir.until,
-								  zone);
-#if 0
-			g_print ("  until: %li - %s", r->enddate, ctime (&r->enddate));
-#endif
-
-		} else {
-			/* If UNTIL is a DATE-TIME, it must be in UTC. */
-			icaltimezone *utc_zone;
-			utc_zone = icaltimezone_get_utc_timezone ();
-			r->enddate = icaltime_as_timet_with_zone (ir.until,
-								  utc_zone);
-		}
-	}
+  r->enddate = e_cal_recur_obtain_enddate (&ir, prop, zone, convert_end_date);
 
 	r->week_start_day = e_cal_recur_ical_weekday_to_weekday (ir.week_start);
 
-	r->bymonth = array_to_list (ir.by_month,
-				    sizeof (ir.by_month) / sizeof (ir.by_month[0]));
+	r->bymonth = array_to_list (ir.by_month, G_N_ELEMENTS (ir.by_month));
 	for (elem = r->bymonth; elem; elem = elem->next) {
 		/* We need to convert from 1-12 to 0-11, i.e. subtract 1. */
 		gint month = GPOINTER_TO_INT (elem->data) - 1;
 		elem->data = GINT_TO_POINTER (month);
 	}
 
-	r->byweekno = array_to_list (ir.by_week_no,
-				     sizeof (ir.by_week_no) / sizeof (ir.by_week_no[0]));
+	r->byweekno = array_to_list (ir.by_week_no, G_N_ELEMENTS (ir.by_week_no));
 
-	r->byyearday = array_to_list (ir.by_year_day,
-				      sizeof (ir.by_year_day) / sizeof (ir.by_year_day[0]));
+	r->byyearday = array_to_list (ir.by_year_day, G_N_ELEMENTS (ir.by_year_day));
 
-	r->bymonthday = array_to_list (ir.by_month_day,
-				       sizeof (ir.by_month_day) / sizeof (ir.by_month_day[0]));
+	r->bymonthday = array_to_list (ir.by_month_day, G_N_ELEMENTS (ir.by_month_day));
 
 	/* FIXME: libical only supports 8 values, out of possible 107 * 7. */
 	r->byday = NULL;
-	max_elements = sizeof (ir.by_day) / sizeof (ir.by_day[0]);
+	max_elements = G_N_ELEMENTS (ir.by_day);
 	for (i = 0; i < max_elements && ir.by_day[i] != ICAL_RECURRENCE_ARRAY_MAX; i++) {
 		enum icalrecurrencetype_weekday day;
 		gint weeknum, weekday;
@@ -1015,17 +1033,13 @@ e_cal_recur_from_icalproperty (icalproperty *prop, gboolean exception,
 					   GINT_TO_POINTER (weekday));
 	}
 
-	r->byhour = array_to_list (ir.by_hour,
-				   sizeof (ir.by_hour) / sizeof (ir.by_hour[0]));
+	r->byhour = array_to_list (ir.by_hour, G_N_ELEMENTS (ir.by_hour));
 
-	r->byminute = array_to_list (ir.by_minute,
-				     sizeof (ir.by_minute) / sizeof (ir.by_minute[0]));
+	r->byminute = array_to_list (ir.by_minute, G_N_ELEMENTS (ir.by_minute));
 
-	r->bysecond = array_to_list (ir.by_second,
-				     sizeof (ir.by_second) / sizeof (ir.by_second[0]));
+	r->bysecond = array_to_list (ir.by_second, G_N_ELEMENTS (ir.by_second));
 
-	r->bysetpos = array_to_list (ir.by_set_pos,
-				     sizeof (ir.by_set_pos) / sizeof (ir.by_set_pos[0]));
+	r->bysetpos = array_to_list (ir.by_set_pos, G_N_ELEMENTS (ir.by_set_pos));
 
 	return r;
 }
@@ -1618,6 +1632,9 @@ cal_obj_generate_set_yearly	(RecurData *recur_data,
 		/* If BYMONTHDAY & BYDAY are both set we need to expand them
 		   in parallel and add the results. */
 		if (recur->bymonthday && recur->byday) {
+			CalObjTime *prev_occ = NULL;
+			GArray *new_occs = g_array_new (FALSE, FALSE, sizeof (CalObjTime));
+
 			/* Copy the occs array. */
 			occs2 = g_array_new (FALSE, FALSE,
 					     sizeof (CalObjTime));
@@ -1629,9 +1646,24 @@ cal_obj_generate_set_yearly	(RecurData *recur_data,
 			occs2 = cal_obj_byday_expand_monthly (recur_data,
 							      occs2);
 
-			/* Add the 2 resulting arrays together. */
+			/* Add only intersection of those two arrays. */
 			g_array_append_vals (occs, occs2->data, occs2->len);
+			cal_obj_sort_occurrences (occs);
+			for (i = 0; i < occs->len; i++) {
+				CalObjTime *act_occ = &g_array_index (occs, CalObjTime, i);
+
+				if (prev_occ && cal_obj_time_compare_func (act_occ, prev_occ) == 0) {
+					prev_occ = NULL;
+					g_array_append_vals (new_occs, act_occ, 1);
+				} else {
+					prev_occ = act_occ;
+				}
+			}
+
+			g_array_free (occs, TRUE);
 			g_array_free (occs2, TRUE);
+
+			occs = new_occs;
 		} else {
 			occs = (*vtable->bymonthday_filter) (recur_data, occs);
 			/* Note that we explicitly call the monthly version
@@ -1821,7 +1853,7 @@ cal_obj_initialize_recur_data (RecurData  *recur_data,
 			       CalObjTime *event_start)
 {
 	GList *elem;
-	gint month, yearday, monthday, weekday, week_num, hour, minute, second;
+	gint month, yearday, monthday, weekday, hour, minute, second;
 
 	/* Clear the entire RecurData. */
 	memset (recur_data, 0, sizeof (RecurData));
@@ -1871,12 +1903,8 @@ cal_obj_initialize_recur_data (RecurData  *recur_data,
 	elem = recur->byday;
 	while (elem) {
 		weekday = GPOINTER_TO_INT (elem->data);
-		elem = elem->next;
-		/* The week number is not used when filtering. */
-		week_num = GPOINTER_TO_INT (elem->data);
-		elem = elem->next;
-
 		recur_data->weekdays[weekday] = 1;
+		elem = elem->next;
 	}
 
 	/* Create an array of hours from byhour for fast lookup. */
@@ -3745,14 +3773,20 @@ cal_obj_time_to_string		(CalObjTime	*cotime)
 }
 #endif
 
-/* This recalculates the end dates for recurrence & exception rules which use
-   the COUNT property. If refresh is TRUE it will recalculate all enddates
-   for rules which use COUNT. If refresh is FALSE, it will only calculate
-   the enddate if it hasn't already been set. It returns TRUE if the component
-   was changed, i.e. if the component should be saved at some point.
-   We store the enddate in the "X-EVOLUTION-ENDDATE" parameter of the RRULE
-   or EXRULE. */
-static gboolean
+/**
+ * e_cal_recur_ensure_end_dates:
+ *
+ * This recalculates the end dates for recurrence & exception rules which use
+ * the COUNT property. If @refresh is %TRUE it will recalculate all enddates
+ * for rules which use COUNT. If @refresh is %FALSE, it will only calculate
+ * the enddate if it hasn't already been set. It returns %TRUE if the component
+ * was changed, i.e. if the component should be saved at some point.
+ * We store the enddate in the "X-EVOLUTION-ENDDATE" parameter of the RRULE
+ * or EXRULE.
+ *
+ * Since: 2.32
+ **/
+gboolean
 e_cal_recur_ensure_end_dates (ECalComponent	*comp,
 			    gboolean		 refresh,
 			    ECalRecurResolveTimezoneFn  tz_cb,

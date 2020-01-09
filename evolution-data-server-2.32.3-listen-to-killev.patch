@@ -1,0 +1,112 @@
+diff -up evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c.listen-to-killev evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c
+--- evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c.listen-to-killev	2013-06-24 19:28:51.194963191 +0200
++++ evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c	2013-06-24 19:28:51.276963190 +0200
+@@ -574,6 +574,30 @@ on_name_lost (GDBusConnection *connectio
+ 	g_mutex_unlock (factory->priv->connections_lock);
+ }
+ 
++#ifndef G_OS_WIN32
++static void
++quit_signal (gint sig)
++{
++	g_return_if_fail (sig == SIGQUIT);
++
++	g_print ("Received quit signal...\n");
++	g_main_loop_quit (loop);
++}
++
++static void
++setup_quit_signal (void)
++{
++	struct sigaction sa, osa;
++
++	sigaction (SIGQUIT, NULL, &osa);
++
++	sa.sa_flags = 0;
++	sigemptyset (&sa.sa_mask);
++	sa.sa_handler = quit_signal;
++	sigaction (SIGQUIT, &sa, NULL);
++}
++#endif
++
+ gint
+ main (gint argc, gchar **argv)
+ {
+@@ -632,7 +656,11 @@ main (gint argc, gchar **argv)
+ 	/* Migrate user data from ~/.evolution to XDG base directories. */
+ 	e_data_book_migrate ();
+ 
+-	printf ("Server is up and running...\n");
++	#ifndef G_OS_WIN32
++	setup_quit_signal ();
++	#endif
++
++	g_print ("Server is up and running...\n");
+ 
+ 	g_main_loop_run (loop);
+ 
+@@ -640,7 +668,7 @@ main (gint argc, gchar **argv)
+ 	g_object_unref (eol);
+ 	g_object_unref (factory);
+ 
+-	printf ("Bye.\n");
++	g_print ("Bye.\n");
+ 
+ 	return 0;
+ }
+diff -up evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c.listen-to-killev evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c
+--- evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c.listen-to-killev	2013-06-24 19:28:51.196963191 +0200
++++ evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c	2013-06-24 19:28:51.276963190 +0200
+@@ -878,6 +878,30 @@ on_name_lost (GDBusConnection *connectio
+ 	}
+ }
+ 
++#ifndef G_OS_WIN32
++static void
++quit_signal (gint sig)
++{
++	g_return_if_fail (sig == SIGQUIT);
++
++	g_print ("Received quit signal...\n");
++	g_main_loop_quit (loop);
++}
++
++static void
++setup_quit_signal (void)
++{
++	struct sigaction sa, osa;
++
++	sigaction (SIGQUIT, NULL, &osa);
++
++	sa.sa_flags = 0;
++	sigemptyset (&sa.sa_mask);
++	sa.sa_handler = quit_signal;
++	sigaction (SIGQUIT, &sa, NULL);
++}
++#endif
++
+ gint
+ main (gint argc, gchar **argv)
+ {
+@@ -944,7 +968,11 @@ main (gint argc, gchar **argv)
+ 	/* Migrate user data from ~/.evolution to XDG base directories. */
+ 	e_data_cal_migrate ();
+ 
+-	printf ("Server is up and running...\n");
++	#ifndef G_OS_WIN32
++	setup_quit_signal ();
++	#endif
++
++	g_print ("Server is up and running...\n");
+ 
+ 	g_main_loop_run (loop);
+ 
+@@ -952,7 +980,7 @@ main (gint argc, gchar **argv)
+ 	g_object_unref (eol);
+ 	g_object_unref (factory);
+ 
+-	printf ("Bye.\n");
++	g_print ("Bye.\n");
+ 
+ 	return 0;
+ }

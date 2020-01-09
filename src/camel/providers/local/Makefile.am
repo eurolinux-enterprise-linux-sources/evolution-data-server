@@ -1,5 +1,3 @@
-## Process this file with automake to produce Makefile.in
-
 camel_provider_LTLIBRARIES = libcamellocal.la
 camel_provider_DATA = libcamellocal.urls
 
@@ -7,18 +5,13 @@ if OS_WIN32
 SYSDEP_PROVIDER_SOURCES =
 else
 SYSDEP_PROVIDER_SOURCES = \
-	camel-mh-folder.c			\
-	camel-mh-store.c			\
-	camel-mh-summary.c			\
-	camel-maildir-folder.c			\
-	camel-maildir-store.c			\
-	camel-maildir-summary.c			\
 	camel-spool-folder.c			\
 	camel-spool-store.c			\
 	camel-spool-summary.c
 endif
 
-AM_CPPFLAGS = \
+libcamellocal_la_CPPFLAGS = \
+	$(AM_CPPFLAGS)				\
 	-I$(top_srcdir)/camel			\
 	-I$(top_srcdir)				\
 	$(CAMEL_CFLAGS)				\
@@ -33,6 +26,12 @@ libcamellocal_la_SOURCES = 			\
 	camel-mbox-folder.c			\
 	camel-mbox-store.c			\
 	camel-mbox-summary.c			\
+	camel-mh-folder.c			\
+	camel-mh-store.c			\
+	camel-mh-summary.c			\
+	camel-maildir-folder.c			\
+	camel-maildir-store.c			\
+	camel-maildir-summary.c			\
 	$(SYSDEP_PROVIDER_SOURCES)
 
 noinst_HEADERS =				\
@@ -62,3 +61,5 @@ libcamellocal_la_LIBADD = \
 	$(CAMEL_LIBS)
 
 EXTRA_DIST = libcamellocal.urls
+
+-include $(top_srcdir)/git.mk

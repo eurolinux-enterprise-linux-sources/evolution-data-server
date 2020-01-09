@@ -1,0 +1,453 @@
+diff -up evolution-data-server-2.32.3/camel/camel-file-utils.c.camel-migrate-between-archs evolution-data-server-2.32.3/camel/camel-file-utils.c
+--- evolution-data-server-2.32.3/camel/camel-file-utils.c.camel-migrate-between-archs	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-file-utils.c	2013-06-19 12:00:12.640930473 +0200
+@@ -242,6 +242,28 @@ CFU_ENCODE_T(gsize)
+ CFU_DECODE_T(gsize)
+ 
+ /**
++ * camel_file_util_decode_gint32:
++ * @in: file to read from
++ * @dest: pointer to a variable to put the value in
++ *
++ * Decode an gint32 type; used for migration only.
++ *
++ * Returns: %0 on success, %-1 on failure.
++ **/
++CFU_DECODE_T(gint32)
++
++/**
++ * camel_file_util_decode_gint64:
++ * @in: file to read from
++ * @dest: pointer to a variable to put the value in
++ *
++ * Decode an gint64 type; used for migration only.
++ *
++ * Returns: %0 on success, %-1 on failure.
++ **/
++CFU_DECODE_T(gint64)
++
++/**
+  * camel_file_util_encode_string:
+  * @out: file to output to
+  * @str: value to output
+diff -up evolution-data-server-2.32.3/camel/camel-file-utils.h.camel-migrate-between-archs evolution-data-server-2.32.3/camel/camel-file-utils.h
+--- evolution-data-server-2.32.3/camel/camel-file-utils.h.camel-migrate-between-archs	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-file-utils.h	2013-06-19 12:00:12.640930473 +0200
+@@ -74,6 +74,10 @@ gssize camel_write_socket (gint fd, cons
+ 
+ gchar *camel_file_util_savename(const gchar *filename);
+ 
++/* only for migration between architectures */
++gint camel_file_util_decode_gint32 (FILE *in, gint32 *dest);
++gint camel_file_util_decode_gint64 (FILE *in, gint64 *dest);
++
+ G_END_DECLS
+ 
+ #endif /* CAMEL_FILE_UTILS_H */
+diff -up evolution-data-server-2.32.3/camel/camel-folder-summary.c.camel-migrate-between-archs evolution-data-server-2.32.3/camel/camel-folder-summary.c
+--- evolution-data-server-2.32.3/camel/camel-folder-summary.c.camel-migrate-between-archs	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-folder-summary.c	2013-06-19 12:00:12.644930473 +0200
+@@ -90,6 +90,8 @@ struct _CamelFolderSummaryPrivate {
+ 
+ 	gboolean need_preview;
+ 	GHashTable *preview_updates;
++
++	guint32 saved_time_t_size;	/* tries to guess sizeof(time_t) from the header data */
+ };
+ 
+ static GStaticMutex info_lock = G_STATIC_MUTEX_INIT;
+@@ -930,6 +932,7 @@ camel_folder_summary_init (CamelFolderSu
+ 		camel_strcase_hash, camel_strcase_equal);
+ 
+ 	summary->priv->flag_cache = g_hash_table_new (g_str_hash, g_str_equal);
++	summary->priv->saved_time_t_size = 0; /* zero means unknown; only correct values are 4 and 8 */
+ 
+ 	summary->message_info_chunks = NULL;
+ 	summary->content_info_chunks = NULL;
+@@ -2054,15 +2057,20 @@ camel_folder_summary_migrate_infos(Camel
+ 		return -1;
+ 	}
+ 
++	camel_db_begin_transaction (cdb, NULL);
++
+ 	ret = save_message_infos_to_db (s, TRUE, NULL);
+ 
+ 	if (ret != 0) {
++		camel_db_abort_transaction (cdb, NULL);
+ 		return -1;
+ 	}
+ 
+-	camel_db_begin_transaction (cdb, NULL);
+ 	ret = camel_db_write_folder_info_record (cdb, record, NULL);
+-	camel_db_end_transaction (cdb, NULL);
++	if (ret != 0)
++		camel_db_abort_transaction (cdb, NULL);
++	else
++		camel_db_end_transaction (cdb, NULL);
+ 
+ 	g_free (record->bdata);
+ 	g_free (record);
+@@ -3328,9 +3336,17 @@ my_list_size(struct _node **list)
+ static gint
+ summary_header_load(CamelFolderSummary *s, FILE *in)
+ {
++	long file_size;
++	guint64 n64;
++
++	s->priv->saved_time_t_size = 0; /* reset to unknown */
++
+ 	if (!s->summary_path)
+ 		return -1;
+ 
++	fseek (in, 0, SEEK_END);
++	file_size = ftell (in);
++
+ 	fseek(in, 0, SEEK_SET);
+ 
+ 	io(printf("Loading header\n"));
+@@ -3359,6 +3375,40 @@ summary_header_load(CamelFolderSummary *
+ 		return -1;
+ 	}
+ 
++	n64 = (guint64) s->time;
++	n64 = n64 >> 32;
++	if (n64 != 0 && sizeof (time_t) == 8) {
++		/* the saved summary is from 32bit system */
++		gint32 i32time;
++
++		fseek (in, 4, SEEK_SET);
++
++		if (camel_file_util_decode_fixed_int32 (in, (gint32 *) &s->flags) == -1
++		    || camel_file_util_decode_fixed_int32 (in, (gint32 *) &s->nextuid) == -1
++		    || camel_file_util_decode_gint32 (in, &i32time) == -1
++		    || camel_file_util_decode_fixed_int32(in, (gint32 *) &s->saved_count) == -1) {
++			return -1;
++		}
++
++		s->time = (time_t) i32time;
++		s->priv->saved_time_t_size = 4;
++	} else if (sizeof (time_t) == 4 && (s->time == 0 || (s->saved_count == 0 && ftell (in) != file_size))) {
++		/* the saved summary is from 64bit system */
++		gint64 i64time;
++
++		fseek (in, 4, SEEK_SET);
++
++		if (camel_file_util_decode_fixed_int32 (in, (gint32 *) &s->flags) == -1
++		    || camel_file_util_decode_fixed_int32 (in, (gint32 *) &s->nextuid) == -1
++		    || camel_file_util_decode_gint64 (in, &i64time) == -1
++		    || camel_file_util_decode_fixed_int32(in, (gint32 *) &s->saved_count) == -1) {
++			return -1;
++		}
++
++		s->time = (time_t) i64time;
++		s->priv->saved_time_t_size = 8;
++	}
++
+ 	/* version 13 */
+ 	if (s->version < 0x100 && s->version >= 13
+ 	    && (camel_file_util_decode_fixed_int32(in, (gint32 *) &s->unread_count) == -1
+@@ -3609,6 +3659,68 @@ message_info_new_from_header(CamelFolder
+ 	return (CamelMessageInfo *)mi;
+ }
+ 
++/**
++ * camel_folder_summary_get_saved_time_t_size:
++ * @summary: a #CamelFolderSummary
++ *
++ * During migration, when reading summary from a binary file, returns
++ * recognized saved size of time_t, if it differs from the native size.
++ * Expected return values are:
++ *   0 ... no difference
++ *   4 ... summary was saved on 32bit (and this is 64bit system)
++ *   8 ... summary was saved on 64bit (and this is 32bit system)
++ *  -1 ... error, @summary is not #CamelFolderSummary
++ **/
++guint32
++camel_folder_summary_get_saved_time_t_size (CamelFolderSummary *summary)
++{
++	g_return_val_if_fail (CAMEL_IS_FOLDER_SUMMARY (summary), -1);
++	g_return_val_if_fail (summary->priv != NULL, -1);
++
++	return summary->priv->saved_time_t_size;
++}
++
++static gint
++folder_summary_util_decode_time_t (CamelFolderSummary *summary,
++				   FILE *in,
++				   time_t *dest)
++{
++	guint32 saved_time_t_size;
++
++	saved_time_t_size = camel_folder_summary_get_saved_time_t_size (summary);
++
++	g_return_val_if_fail (saved_time_t_size != -1, -1);
++
++	if (saved_time_t_size == 0 || sizeof (time_t) == saved_time_t_size)
++		return camel_file_util_decode_time_t (in, dest);
++
++	if (saved_time_t_size == 4) {
++		gint32 i32time;
++
++		if (camel_file_util_decode_gint32 (in, &i32time) == -1)
++			return -1;
++
++		*dest = (time_t) i32time;
++
++		return 0;
++	}
++
++	if (saved_time_t_size == 8) {
++		gint64 i64time;
++
++		if (camel_file_util_decode_gint64 (in, &i64time) == -1)
++			return -1;
++
++		*dest = (time_t) i64time;
++
++		return 0;
++	}
++
++	g_warn_if_reached ();
++
++	return -1;
++}
++
+ static CamelMessageInfo *
+ message_info_migrate (CamelFolderSummary *s, FILE *in)
+ {
+@@ -3621,16 +3733,17 @@ message_info_migrate (CamelFolderSummary
+ 
+ 	io(printf("Loading message info\n"));
+ 
+-	camel_file_util_decode_string(in, &uid);
+-	camel_file_util_decode_uint32(in, &mi->flags);
+-	camel_file_util_decode_uint32(in, &mi->size);
+-	camel_file_util_decode_time_t(in, &mi->date_sent);
+-	camel_file_util_decode_time_t(in, &mi->date_received);
+-	camel_file_util_decode_string(in, &subject);
+-	camel_file_util_decode_string(in, &from);
+-	camel_file_util_decode_string(in, &to);
+-	camel_file_util_decode_string(in, &cc);
+-	camel_file_util_decode_string(in, &mlist);
++	if (camel_file_util_decode_string(in, &uid) == -1
++	    || camel_file_util_decode_uint32(in, &mi->flags) == -1
++	    || camel_file_util_decode_uint32(in, &mi->size) == -1
++	    || folder_summary_util_decode_time_t (s, in, &mi->date_sent) == -1
++	    || folder_summary_util_decode_time_t (s, in, &mi->date_received) == -1
++	    || camel_file_util_decode_string(in, &subject) == -1
++	    || camel_file_util_decode_string(in, &from) == -1
++	    || camel_file_util_decode_string(in, &to) == -1
++	    || camel_file_util_decode_string(in, &cc) == -1
++	    || camel_file_util_decode_string(in, &mlist) == -1)
++		goto error;
+ 
+ 	mi->uid = camel_pstring_add (uid, TRUE);
+ 	mi->subject = camel_pstring_add (subject, TRUE);
+@@ -3641,8 +3754,9 @@ message_info_migrate (CamelFolderSummary
+ 
+ 	mi->content = NULL;
+ 
+-	camel_file_util_decode_fixed_int32(in, (gint32 *) &mi->message_id.id.part.hi);
+-	camel_file_util_decode_fixed_int32(in, (gint32 *) &mi->message_id.id.part.lo);
++	if (camel_file_util_decode_fixed_int32(in, (gint32 *) &mi->message_id.id.part.hi) == -1 ||
++	    camel_file_util_decode_fixed_int32(in, (gint32 *) &mi->message_id.id.part.lo) == -1)
++		goto error;
+ 
+ 	if (camel_file_util_decode_uint32(in, &count) == -1)
+ 		goto error;
+@@ -3651,8 +3765,9 @@ message_info_migrate (CamelFolderSummary
+ 		mi->references = g_malloc(sizeof(*mi->references) + ((count-1) * sizeof(mi->references->references[0])));
+ 		mi->references->size = count;
+ 		for (i=0;i<count;i++) {
+-			camel_file_util_decode_fixed_int32(in, (gint32 *) &mi->references->references[i].id.part.hi);
+-			camel_file_util_decode_fixed_int32(in, (gint32 *) &mi->references->references[i].id.part.lo);
++			if (camel_file_util_decode_fixed_int32(in, (gint32 *) &mi->references->references[i].id.part.hi) == -1 ||
++			    camel_file_util_decode_fixed_int32(in, (gint32 *) &mi->references->references[i].id.part.lo) == -1)
++				goto error;
+ 		}
+ 	}
+ 
+diff -up evolution-data-server-2.32.3/camel/camel-folder-summary.h.camel-migrate-between-archs evolution-data-server-2.32.3/camel/camel-folder-summary.h
+--- evolution-data-server-2.32.3/camel/camel-folder-summary.h.camel-migrate-between-archs	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-folder-summary.h	2013-06-19 12:00:12.644930473 +0200
+@@ -518,6 +518,7 @@ void camel_message_info_dump (CamelMessa
+ 
+ /* Migration code */
+ gint camel_folder_summary_migrate_infos(CamelFolderSummary *s);
++guint32 camel_folder_summary_get_saved_time_t_size (CamelFolderSummary *summary);
+ 
+ void camel_folder_summary_lock   (CamelFolderSummary *summary, CamelFolderSummaryLock lock);
+ void camel_folder_summary_unlock (CamelFolderSummary *summary, CamelFolderSummaryLock lock);
+diff -up evolution-data-server-2.32.3/camel/camel-store-summary.c.camel-migrate-between-archs evolution-data-server-2.32.3/camel/camel-store-summary.c
+--- evolution-data-server-2.32.3/camel/camel-store-summary.c.camel-migrate-between-archs	2013-06-19 12:00:12.623930473 +0200
++++ evolution-data-server-2.32.3/camel/camel-store-summary.c	2013-06-19 12:00:12.641930473 +0200
+@@ -91,6 +91,11 @@ store_summary_summary_header_load (Camel
+ {
+ 	gint32 version, flags, count;
+ 	time_t time;
++	long file_size;
++	guint64 n64;
++
++	fseek (in, 0, SEEK_END);
++	file_size = ftell (in);
+ 
+ 	fseek (in, 0, SEEK_SET);
+ 
+@@ -113,6 +118,45 @@ store_summary_summary_header_load (Camel
+ 		return -1;
+ 	}
+ 
++	n64 = (guint64) summary->time;
++	n64 = n64 >> 32;
++	if (n64 != 0 && sizeof (time_t) == 8) {
++		/* the saved summary is from 32bit system */
++		gint32 i32time;
++
++		fseek (in, 0, SEEK_SET);
++
++		if (camel_file_util_decode_fixed_int32 (in, &version) == -1
++		    || camel_file_util_decode_fixed_int32 (in, &flags) == -1
++		    || camel_file_util_decode_gint32 (in, &i32time) == -1
++		    || camel_file_util_decode_fixed_int32 (in, &count) == -1) {
++			return -1;
++		}
++
++		summary->flags = flags;
++		summary->time = (time_t) i32time;
++		summary->count = count;
++		summary->version = version;
++
++	} else if (sizeof (time_t) == 4 && (time == 0 || (count == 0 && ftell (in) != file_size))) {
++		/* the saved summary is from 64bit system */
++		gint64 i64time;
++
++		fseek (in, 0, SEEK_SET);
++
++		if (camel_file_util_decode_fixed_int32 (in, &version) == -1
++		    || camel_file_util_decode_fixed_int32 (in, &flags) == -1
++		    || camel_file_util_decode_gint64 (in, &i64time) == -1
++		    || camel_file_util_decode_fixed_int32 (in, &count) == -1) {
++			return -1;
++		}
++
++		summary->flags = flags;
++		summary->time = (time_t) i64time;
++		summary->count = count;
++		summary->version = version;
++	}
++
+ 	return 0;
+ }
+ 
+diff -up evolution-data-server-2.32.3/camel/providers/local/camel-mbox-summary.c.camel-migrate-between-archs evolution-data-server-2.32.3/camel/providers/local/camel-mbox-summary.c
+--- evolution-data-server-2.32.3/camel/providers/local/camel-mbox-summary.c.camel-migrate-between-archs	2013-06-19 12:00:12.534930473 +0200
++++ evolution-data-server-2.32.3/camel/providers/local/camel-mbox-summary.c	2013-06-19 12:00:12.639930473 +0200
+@@ -238,6 +238,90 @@ summary_header_from_db (CamelFolderSumma
+ }
+ 
+ static gint
++mbox_folder_summary_header_decode_gsize (CamelFolderSummary *summary,
++					 FILE *in,
++					 gsize *dest)
++{
++	guint32 saved_time_t_size;
++
++	saved_time_t_size = camel_folder_summary_get_saved_time_t_size (summary);
++
++	g_return_val_if_fail (saved_time_t_size != -1, -1);
++
++	if (saved_time_t_size == 0 || sizeof (gsize) == saved_time_t_size)
++		return camel_file_util_decode_gsize (in, dest);
++
++	if (saved_time_t_size == 4) {
++		gint32 i32gsize;
++
++		if (camel_file_util_decode_gint32 (in, &i32gsize) == -1)
++			return -1;
++
++		*dest = (gsize) i32gsize;
++
++		return 0;
++	}
++
++	if (saved_time_t_size == 8) {
++		gint64 i64gsize;
++
++		if (camel_file_util_decode_gint64 (in, &i64gsize) == -1)
++			return -1;
++
++		*dest = (gsize) i64gsize;
++
++		return 0;
++	}
++
++	g_warn_if_reached ();
++
++	return -1;
++}
++
++/* there was no large file support in 2.28.3, thus it's safe to expect
++   that the sizeof(off_t) is the same as sizeof(time_t) */
++static gint
++mbox_folder_summary_header_decode_off_t (CamelFolderSummary *summary,
++					 FILE *in,
++					 off_t *dest)
++{
++	guint32 saved_time_t_size;
++
++	saved_time_t_size = camel_folder_summary_get_saved_time_t_size (summary);
++
++	g_return_val_if_fail (saved_time_t_size != -1, -1);
++
++	if (saved_time_t_size == 0 || sizeof (off_t) == saved_time_t_size)
++		return camel_file_util_decode_off_t (in, dest);
++
++	if (saved_time_t_size == 4) {
++		gint32 i32off;
++
++		if (camel_file_util_decode_gint32 (in, &i32off) == -1)
++			return -1;
++
++		*dest = (off_t) i32off;
++
++		return 0;
++	}
++
++	if (saved_time_t_size == 8) {
++		gint64 i64off;
++
++		if (camel_file_util_decode_gint64 (in, &i64off) == -1)
++			return -1;
++
++		*dest = (off_t) i64off;
++
++		return 0;
++	}
++
++	g_warn_if_reached ();
++
++	return -1;
++}
++
++static gint
+ summary_header_load(CamelFolderSummary *s, FILE *in)
+ {
+ 	CamelMboxSummary *mbs = CAMEL_MBOX_SUMMARY(s);
+@@ -251,7 +335,7 @@ summary_header_load(CamelFolderSummary *
+ 
+ 	/* version 1 */
+ 	if (camel_file_util_decode_fixed_int32(in, (gint32 *) &mbs->version) == -1
+-	    || camel_file_util_decode_gsize(in, &mbs->folder_size) == -1)
++	    || mbox_folder_summary_header_decode_gsize (s, in, &mbs->folder_size) == -1)
+ 		return -1;
+ 
+ 	return 0;
+@@ -417,7 +501,7 @@ message_info_migrate (CamelFolderSummary
+ 		off_t ot = -1;
+ 		CamelMboxMessageInfo *mbi = (CamelMboxMessageInfo *)mi;
+ 
+-		if (camel_file_util_decode_off_t(in, &ot) == -1)
++		if (mbox_folder_summary_header_decode_off_t (s, in, &ot) == -1)
+ 			goto error;
+ 
+ 		mbi->frompos = (goffset) ot;

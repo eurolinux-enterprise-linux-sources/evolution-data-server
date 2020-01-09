@@ -28,7 +28,6 @@
 
 #include <windows.h>
 
-#include <glib.h>
 #include <glib/gstdio.h>
 
 #include <libedataserver/e-data-server-util.h>
@@ -55,7 +54,7 @@ setup (void)
                 return;
         }
 
-        localedir = e_util_replace_prefix (E_DATA_SERVER_PREFIX, e_util_get_cp_prefix (), EVOLUTION_LOCALEDIR);
+        localedir = e_util_replace_prefix (E_DATA_SERVER_PREFIX, e_util_get_cp_prefix (), LOCALEDIR);
 
 	libexecdir = e_util_replace_prefix (E_DATA_SERVER_PREFIX, e_util_get_prefix (), CAMEL_LIBEXECDIR);
 	providerdir = e_util_replace_prefix (E_DATA_SERVER_PREFIX, e_util_get_prefix (), CAMEL_PROVIDERDIR);
@@ -63,7 +62,7 @@ setup (void)
 	G_UNLOCK (mutex);
 }
 
-#include "camel-private.h"	/* For prototypes */
+#include "camel-win32.h"	/* For prototypes */
 
 #define GETTER(varbl)				\
 const gchar *					\

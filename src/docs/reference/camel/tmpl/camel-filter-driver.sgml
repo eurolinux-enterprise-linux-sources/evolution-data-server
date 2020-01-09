@@ -25,8 +25,6 @@ CamelFilterDriver
 
 </para>
 
-@parent: 
-@priv: 
 
 <!-- ##### USER_FUNCTION CamelFilterGetFolderFunc ##### -->
 <para>
@@ -36,7 +34,7 @@ CamelFilterDriver
 @driver: 
 @uri: 
 @data: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -144,7 +142,7 @@ CamelFilterDriver
 </para>
 
 @driver: 
-@ex: 
+@error: 
 
 
 <!-- ##### FUNCTION camel_filter_driver_filter_message ##### -->
@@ -159,7 +157,7 @@ CamelFilterDriver
 @source: 
 @source_url: 
 @original_source_url: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -171,7 +169,7 @@ CamelFilterDriver
 @driver: 
 @mbox: 
 @original_source_url: 
-@ex: 
+@error: 
 @Returns: 
 
 
@@ -185,37 +183,7 @@ CamelFilterDriver
 @cache: 
 @uids: 
 @remove: 
-@ex: 
-@Returns: 
-
-
-<!-- ##### FUNCTION camel_filter_driver_expand_option ##### -->
-<para>
-
-</para>
-
-@d: 
-@s: 
-@action: 
-@op: 
-
-
-<!-- ##### FUNCTION camel_filter_driver_rule_count ##### -->
-<para>
-
-</para>
-
-@d: 
-@Returns: 
-
-
-<!-- ##### FUNCTION camel_filter_driver_rule_get ##### -->
-<para>
-
-</para>
-
-@d: 
-@n: 
+@error: 
 @Returns: 
 
 

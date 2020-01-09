@@ -25,5 +25,5 @@ CamelMaildirStore
 
 </para>
 
-@parent_object: 
+@parent: 
 

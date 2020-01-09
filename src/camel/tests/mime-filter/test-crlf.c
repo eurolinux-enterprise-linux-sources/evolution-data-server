@@ -9,11 +9,6 @@
 
 #include "camel-test.h"
 
-#include <camel/camel-stream-fs.h>
-#include <camel/camel-stream-mem.h>
-#include <camel/camel-stream-filter.h>
-#include <camel/camel-mime-filter-crlf.h>
-
 #define d(x)
 
 #define NUM_CASES 1
@@ -69,7 +64,7 @@ main (gint argc, gchar **argv)
 			}
 
 			camel_test_push ("Initializing objects");
-			source = camel_stream_fs_new_with_name (infile, 0, O_RDONLY);
+			source = camel_stream_fs_new_with_name (infile, 0, O_RDONLY, NULL);
 			if (!source) {
 				camel_test_fail ("Failed to open input case in \"%s\"", infile);
 				g_free (infile);
@@ -77,7 +72,7 @@ main (gint argc, gchar **argv)
 			}
 			g_free (infile);
 
-			correct = camel_stream_fs_new_with_name (outfile, 0, O_RDONLY);
+			correct = camel_stream_fs_new_with_name (outfile, 0, O_RDONLY, NULL);
 			if (!correct) {
 				camel_test_fail ("Failed to open correct output in \"%s\"", outfile);
 				g_free (outfile);
@@ -85,7 +80,7 @@ main (gint argc, gchar **argv)
 			}
 			g_free (outfile);
 
-			filter = camel_stream_filter_new_with_stream (CAMEL_STREAM (source));
+			filter = camel_stream_filter_new (CAMEL_STREAM (source));
 			if (!filter) {
 				camel_test_fail ("Couldn't create CamelStreamFilter??");
 				continue;
@@ -105,7 +100,7 @@ main (gint argc, gchar **argv)
 			comp_progress = 0;
 
 			while (1) {
-				comp_correct_chunk = camel_stream_read (correct, comp_correct, CHUNK_SIZE);
+				comp_correct_chunk = camel_stream_read (correct, comp_correct, CHUNK_SIZE, NULL);
 				comp_filter_chunk = 0;
 
 				if (comp_correct_chunk == 0)
@@ -116,7 +111,7 @@ main (gint argc, gchar **argv)
 
 					delta = camel_stream_read (CAMEL_STREAM (filter),
 								   comp_filter + comp_filter_chunk,
-								   CHUNK_SIZE - comp_filter_chunk);
+								   CHUNK_SIZE - comp_filter_chunk, NULL);
 
 					if (delta == 0) {
 						camel_test_fail ("Chunks are different sizes: correct is %d, "
@@ -144,10 +139,10 @@ main (gint argc, gchar **argv)
 
 			/* inefficient */
 			camel_test_push ("Cleaning up");
-			camel_object_unref (CAMEL_OBJECT (filter));
-			camel_object_unref (CAMEL_OBJECT (correct));
-			camel_object_unref (CAMEL_OBJECT (source));
-			camel_object_unref (CAMEL_OBJECT (sh));
+			g_object_unref (CAMEL_OBJECT (filter));
+			g_object_unref (CAMEL_OBJECT (correct));
+			g_object_unref (CAMEL_OBJECT (source));
+			g_object_unref (CAMEL_OBJECT (sh));
 			camel_test_pull ();
 
 			camel_test_pull ();

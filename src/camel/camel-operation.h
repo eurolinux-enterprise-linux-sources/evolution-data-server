@@ -19,14 +19,18 @@
  * USA
  */
 
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
 #ifndef CAMEL_OPERATION_H
-#define CAMEL_OPERATION_H 1
+#define CAMEL_OPERATION_H
 
 #include <glib.h>
 
 G_BEGIN_DECLS
 
-/* cancellation helper stuff, not yet finalised */
+/* cancellation helper stuff, not yet finalized */
 
 typedef struct _CamelOperation CamelOperation;
 
@@ -49,11 +53,9 @@ CamelOperation *camel_operation_register(CamelOperation *cc);
 void camel_operation_unregister (CamelOperation *cc);
 
 /* called internally by camel, for the current thread */
-void camel_operation_cancel_block(CamelOperation *cc);
-void camel_operation_cancel_unblock(CamelOperation *cc);
 gint camel_operation_cancel_check(CamelOperation *cc);
 gint camel_operation_cancel_fd(CamelOperation *cc);
-#ifdef HAVE_NSS
+#ifdef CAMEL_HAVE_NSS
 struct PRFileDesc *camel_operation_cancel_prfd(CamelOperation *cc);
 #endif
 /* return the registered operation for this thread, if there is one */
@@ -62,7 +64,6 @@ CamelOperation *camel_operation_registered(void);
 void camel_operation_start(CamelOperation *cc, const gchar *what, ...);
 void camel_operation_start_transient(CamelOperation *cc, const gchar *what, ...);
 void camel_operation_progress(CamelOperation *cc, gint pc);
-void camel_operation_progress_count(CamelOperation *cc, gint sofar);
 void camel_operation_end(CamelOperation *cc);
 
 G_END_DECLS

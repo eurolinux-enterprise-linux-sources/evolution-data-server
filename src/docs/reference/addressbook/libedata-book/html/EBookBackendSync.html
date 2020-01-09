@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EBookBackendSync</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="prev" href="EBookBackendSummary.html" title="EBookBackendSummary">
 <link rel="next" href="EDataBook.html" title="EDataBook">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -28,7 +28,7 @@
                   <a href="#EBookBackendSync.object-hierarchy" class="shortcut">Object Hierarchy</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="EBookBackendSync">
 <a name="EBookBackendSync"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -37,107 +37,107 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="EBookBackendSync.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis">typedef             <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus">EBookBackendSyncStatus</a>;
-struct              <a class="link" href="EBookBackendSync.html#EBookBackendSync-struct" title="struct EBookBackendSync">EBookBackendSync</a>;
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackendSync.html#e-book-backend-sync-construct" title="e_book_backend_sync_construct ()">e_book_backend_sync_construct</a>       (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-remove" title="e_book_backend_sync_remove ()">e_book_backend_sync_remove</a>      (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+<pre class="synopsis">struct              <a class="link" href="EBookBackendSync.html#EBookBackendSync-struct" title="struct EBookBackendSync">EBookBackendSync</a>;
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackendSync.html#e-book-backend-sync-construct" title="e_book_backend_sync_construct ()">e_book_backend_sync_construct</a>       (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-remove" title="e_book_backend_sync_remove ()">e_book_backend_sync_remove</a>          (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-create-contact" title="e_book_backend_sync_create_contact ()">e_book_backend_sync_create_contact</a>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-create-contact" title="e_book_backend_sync_create_contact ()">e_book_backend_sync_create_contact</a>  (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> **contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-remove-contacts" title="e_book_backend_sync_remove_contacts ()">e_book_backend_sync_remove_contacts</a> (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *id_list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **removed_ids</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-modify-contact" title="e_book_backend_sync_modify_contact ()">e_book_backend_sync_modify_contact</a>  (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> **contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-contact" title="e_book_backend_sync_get_contact ()">e_book_backend_sync_get_contact</a>     (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **vcard</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-contact-list" title="e_book_backend_sync_get_contact_list ()">e_book_backend_sync_get_contact_list</a>
                                                         (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> **contact</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-remove-contacts" title="e_book_backend_sync_remove_contacts ()">e_book_backend_sync_remove_contacts</a>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *query</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **contacts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-changes" title="e_book_backend_sync_get_changes ()">e_book_backend_sync_get_changes</a>     (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *change_id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **changes</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-authenticate-user" title="e_book_backend_sync_authenticate_user ()">e_book_backend_sync_authenticate_user</a>
                                                         (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> *id_list</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **removed_ids</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-modify-contact" title="e_book_backend_sync_modify_contact ()">e_book_backend_sync_modify_contact</a>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *user</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *passwd</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *auth_method</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-required-fields" title="e_book_backend_sync_get_required_fields ()">e_book_backend_sync_get_required_fields</a>
                                                         (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> **contact</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-contact" title="e_book_backend_sync_get_contact ()">e_book_backend_sync_get_contact</a> (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> **vcard</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-contact-list" title="e_book_backend_sync_get_contact_list ()">e_book_backend_sync_get_contact_list</a>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **fields</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-supported-fields" title="e_book_backend_sync_get_supported_fields ()">e_book_backend_sync_get_supported_fields</a>
                                                         (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *query</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **contacts</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-changes" title="e_book_backend_sync_get_changes ()">e_book_backend_sync_get_changes</a> (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *change_id</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **changes</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-authenticate-user" title="e_book_backend_sync_authenticate_user ()">e_book_backend_sync_authenticate_user</a>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **fields</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-supported-auth-methods" title="e_book_backend_sync_get_supported_auth_methods ()">e_book_backend_sync_get_supported_auth_methods</a>
                                                         (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *user</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *passwd</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *auth_method</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-required-fields" title="e_book_backend_sync_get_required_fields ()">e_book_backend_sync_get_required_fields</a>
-                                                        (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **fields</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-supported-fields" title="e_book_backend_sync_get_supported_fields ()">e_book_backend_sync_get_supported_fields</a>
-                                                        (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **fields</code></em>);
-<a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  <a class="link" href="EBookBackendSync.html#e-book-backend-sync-get-supported-auth-methods" title="e_book_backend_sync_get_supported_auth_methods ()">e_book_backend_sync_get_supported_auth_methods</a>
-                                                        (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **methods</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **methods</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
 <a name="EBookBackendSync.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  GObject
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----<a class="link" href="EBookBackend.html" title="EBookBackend">EBookBackend</a>
          +----EBookBackendSync
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="EBookBackendSync.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="EBookBackendSync.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
-<a name="EBookBackendSyncStatus"></a><h3>EBookBackendSyncStatus</h3>
-<pre class="programlisting">typedef GNOME_Evolution_Addressbook_CallStatus EBookBackendSyncStatus;
-</pre>
-<p>
-</p>
-</div>
-<hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="struct EBookBackendSync">
 <a name="EBookBackendSync-struct"></a><h3>struct EBookBackendSync</h3>
 <pre class="programlisting">struct EBookBackendSync;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_construct ()">
 <a name="e-book-backend-sync-construct"></a><h3>e_book_backend_sync_construct ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_sync_construct       (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_sync_construct       (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>);</pre>
 <p>
-Does nothing.</p>
+Does nothing.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -148,21 +148,23 @@ Does nothing.</p>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code>.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a>.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_remove ()">
 <a name="e-book-backend-sync-remove"></a><h3>e_book_backend_sync_remove ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_remove      (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_remove          (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
 Remove <em class="parameter"><code>book</code></em>'s database and storage overhead from the storage
-medium. This will delete all contacts in <em class="parameter"><code>book</code></em>.</p>
+medium. This will delete all contacts in <em class="parameter"><code>book</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -182,24 +184,25 @@ medium. This will delete all contacts in <em class="parameter"><code>book</code>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_create_contact ()">
 <a name="e-book-backend-sync-create-contact"></a><h3>e_book_backend_sync_create_contact ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_create_contact
-                                                        (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_create_contact  (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> **contact</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> **contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
-Creates a new contact with the contents of <em class="parameter"><code>vcard</code></em> in <em class="parameter"><code>backend</code></em>.</p>
+Creates a new contact with the contents of <em class="parameter"><code>vcard</code></em> in <em class="parameter"><code>backend</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -225,30 +228,31 @@ Creates a new contact with the contents of <em class="parameter"><code>vcard</co
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>contact</code></em> :</span></p></td>
-<td>a pointer to a location to store the resulting <a href="../libebook/EContact.html"><span class="type">EContact</span></a>
+<td>a pointer to a location to store the resulting <a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_remove_contacts ()">
 <a name="e-book-backend-sync-remove-contacts"></a><h3>e_book_backend_sync_remove_contacts ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_remove_contacts
-                                                        (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_remove_contacts (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> *id_list</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **removed_ids</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *id_list</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **removed_ids</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
 Removes the contacts specified by <em class="parameter"><code>id_list</code></em> from <em class="parameter"><code>backend</code></em>. The returned list
 of removed contacts is in the same format as the passed-in list, and must be
-freed by the caller.</p>
+freed by the caller.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -269,7 +273,7 @@ freed by the caller.</p>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>id_list</code></em> :</span></p></td>
-<td>a <span class="type">GList</span> of pointers to unique contact ID strings
+<td>a <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> of pointers to unique contact ID strings
 </td>
 </tr>
 <tr>
@@ -278,25 +282,26 @@ freed by the caller.</p>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_modify_contact ()">
 <a name="e-book-backend-sync-modify-contact"></a><h3>e_book_backend_sync_modify_contact ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_modify_contact
-                                                        (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_modify_contact  (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> **contact</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> **contact</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
 Modifies the contact specified by the ID embedded in <em class="parameter"><code>vcard</code></em>, to
-reflect the full contents of <em class="parameter"><code>vcard</code></em>.</p>
+reflect the full contents of <em class="parameter"><code>vcard</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -322,27 +327,29 @@ reflect the full contents of <em class="parameter"><code>vcard</code></em>.</p>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>contact</code></em> :</span></p></td>
-<td>a pointer to a location to store the resulting <a href="../libebook/EContact.html"><span class="type">EContact</span></a>
+<td>a pointer to a location to store the resulting <a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_get_contact ()">
 <a name="e-book-backend-sync-get-contact"></a><h3>e_book_backend_sync_get_contact ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_get_contact (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_get_contact     (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> **vcard</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> **vcard</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
-Gets a contact from <em class="parameter"><code>book</code></em>.</p>
+Gets a contact from <em class="parameter"><code>book</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -372,25 +379,27 @@ Gets a contact from <em class="parameter"><code>book</code></em>.</p>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_get_contact_list ()">
 <a name="e-book-backend-sync-get-contact-list"></a><h3>e_book_backend_sync_get_contact_list ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_get_contact_list
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_get_contact_list
                                                         (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *query</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **contacts</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *query</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **contacts</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
 Gets a list of contacts from <em class="parameter"><code>book</code></em>. The list and its elements must be freed
-by the caller.</p>
+by the caller.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -420,25 +429,27 @@ by the caller.</p>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_get_changes ()">
 <a name="e-book-backend-sync-get-changes"></a><h3>e_book_backend_sync_get_changes ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_get_changes (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_get_changes     (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *change_id</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **changes</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *change_id</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **changes</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
 Gets the changes made to <em class="parameter"><code>book</code></em> since the last call to this function.
 The returned list will contain items of CORBA type
-<span class="type">GNOME_Evolution_Addressbook_BookChangeItem</span>.</p>
+<span class="type">EDataBookChange</span>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -468,25 +479,27 @@ The returned list will contain items of CORBA type
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_authenticate_user ()">
 <a name="e-book-backend-sync-authenticate-user"></a><h3>e_book_backend_sync_authenticate_user ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_authenticate_user
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_authenticate_user
                                                         (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *user</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *passwd</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *auth_method</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *user</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *passwd</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *auth_method</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
-Authenticates <em class="parameter"><code>user</code></em> against <em class="parameter"><code>book</code></em>.</p>
+Authenticates <em class="parameter"><code>user</code></em> against <em class="parameter"><code>book</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -521,25 +534,27 @@ Authenticates <em class="parameter"><code>user</code></em> against <em class="pa
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_get_required_fields ()">
 <a name="e-book-backend-sync-get-required-fields"></a><h3>e_book_backend_sync_get_required_fields ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_get_required_fields
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_get_required_fields
                                                         (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **fields</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **fields</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
 Gets a list of the fields required for all contacts in <em class="parameter"><code>book</code></em>. The
-fields are represented by strings from <a href="../libebook/EContact.html#e-contact-field-name"><span class="type">e_contact_field_name</span></a>. The list
-and its contents must be freed by the caller.</p>
+fields are represented by strings from <a href="/usr/share/gtk-doc/html/libebook/EContact.html#e-contact-field-name"><span class="type">e_contact_field_name</span></a>. The list
+and its contents must be freed by the caller.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -564,25 +579,27 @@ and its contents must be freed by the caller.</p>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_get_supported_fields ()">
 <a name="e-book-backend-sync-get-supported-fields"></a><h3>e_book_backend_sync_get_supported_fields ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_get_supported_fields
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_get_supported_fields
                                                         (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **fields</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **fields</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
 Gets a list of the fields supported for contacts in <em class="parameter"><code>book</code></em>. Other fields
-may not be stored. The fields are represented by strings from <a href="../libebook/EContact.html#e-contact-field-name"><span class="type">e_contact_field_name</span></a>.
-The list and its contents must be freed by the caller.</p>
+may not be stored. The fields are represented by strings from <a href="/usr/share/gtk-doc/html/libebook/EContact.html#e-contact-field-name"><span class="type">e_contact_field_name</span></a>.
+The list and its contents must be freed by the caller.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -607,25 +624,27 @@ The list and its contents must be freed by the caller.</p>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sync_get_supported_auth_methods ()">
 <a name="e-book-backend-sync-get-supported-auth-methods"></a><h3>e_book_backend_sync_get_supported_auth_methods ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="returnvalue">EBookBackendSyncStatus</span></a>  e_book_backend_sync_get_supported_auth_methods
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_backend_sync_get_supported_auth_methods
                                                         (<em class="parameter"><code><a class="link" href="EBookBackendSync.html" title="EBookBackendSync"><span class="type">EBookBackendSync</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataBook.html" title="EDataBook"><span class="type">EDataBook</span></a> *book</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> opid</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> **methods</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#guint32"><span class="type">guint32</span></a> opid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> **methods</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **perror</code></em>);</pre>
 <p>
 Gets a list of the authentication methods supported by <em class="parameter"><code>book</code></em>. The
 methods are represented by strings. The list and its contents must
-be freed by the caller.</p>
+be freed by the caller.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -650,8 +669,8 @@ be freed by the caller.</p>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> An <a class="link" href="EBookBackendSync.html#EBookBackendSyncStatus" title="EBookBackendSyncStatus"><span class="type">EBookBackendSyncStatus</span></a> indicating the outcome of the operation.
+<td><p><span class="term"><em class="parameter"><code>perror</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
@@ -661,6 +680,6 @@ be freed by the caller.</p>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

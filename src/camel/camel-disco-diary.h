@@ -21,21 +21,43 @@
  * USA
  */
 
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
 #ifndef CAMEL_DISABLE_DEPRECATED
 
 #ifndef CAMEL_DISCO_DIARY_H
-#define CAMEL_DISCO_DIARY_H 1
+#define CAMEL_DISCO_DIARY_H
 
-#include "camel-object.h"
 #include <stdarg.h>
 #include <stdio.h>
 
-#define CAMEL_DISCO_DIARY_TYPE     (camel_disco_diary_get_type ())
-#define CAMEL_DISCO_DIARY(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_DISCO_DIARY_TYPE, CamelDiscoDiary))
-#define CAMEL_DISCO_DIARY_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_DISCO_DIARY_TYPE, CamelDiscoDiaryClass))
-#define CAMEL_IS_DISCO_DIARY(o)    (CAMEL_CHECK_TYPE((o), CAMEL_DISCO_DIARY_TYPE))
+#include <camel/camel-disco-store.h>
+
+/* Standard GObject macros */
+#define CAMEL_TYPE_DISCO_DIARY \
+	(camel_disco_diary_get_type ())
+#define CAMEL_DISCO_DIARY(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_DISCO_DIARY, CamelDiscoDiary))
+#define CAMEL_DISCO_DIARY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_DISCO_DIARY, CamelDiscoDiaryClass))
+#define CAMEL_IS_DISCO_DIARY(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_DISCO_DIARY))
+#define CAMEL_IS_DISCO_DIARY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_DISCO_DIARY))
+#define CAMEL_DISCO_DIARY_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_DISCO_DIARY, CamelDiscoDiaryClass))
 
 G_BEGIN_DECLS
+
+typedef struct _CamelDiscoDiary CamelDiscoDiary;
+typedef struct _CamelDiscoDiaryClass CamelDiscoDiaryClass;
 
 typedef enum {
 	CAMEL_DISCO_DIARY_END = 0,
@@ -45,49 +67,36 @@ typedef enum {
 	CAMEL_DISCO_DIARY_FOLDER_TRANSFER
 } CamelDiscoDiaryAction;
 
-typedef enum {
-	CAMEL_DISCO_DIARY_ARG_NONE = 0,
-
-	CAMEL_DISCO_DIARY_ARG_FOLDER,
-	CAMEL_DISCO_DIARY_ARG_UID,
-	CAMEL_DISCO_DIARY_ARG_UID_LIST
-} CamelDiscoDiaryArgType;
-
 struct _CamelDiscoDiary {
-	CamelObject parent_object;
+	CamelObject parent;
 
 	CamelDiscoStore *store;
 	FILE *file;
 	GHashTable *folders, *uidmap;
 };
 
-typedef struct {
+struct _CamelDiscoDiaryClass {
 	CamelObjectClass parent_class;
+};
 
-} CamelDiscoDiaryClass;
-
-/* public methods */
-CamelDiscoDiary *camel_disco_diary_new    (CamelDiscoStore *store,
-					   const gchar *filename,
-					   CamelException *ex);
-
-gboolean         camel_disco_diary_empty  (CamelDiscoDiary *diary);
-
-void             camel_disco_diary_log    (CamelDiscoDiary *diary,
-					   CamelDiscoDiaryAction action,
-					   ...);
-void             camel_disco_diary_replay (CamelDiscoDiary *diary,
-					   CamelException *ex);
+GType		camel_disco_diary_get_type	(void);
+CamelDiscoDiary *
+		camel_disco_diary_new		(CamelDiscoStore *store,
+						 const gchar *filename,
+						 GError **error);
+gboolean	camel_disco_diary_empty		(CamelDiscoDiary *diary);
+void		camel_disco_diary_log		(CamelDiscoDiary *diary,
+						 CamelDiscoDiaryAction action,
+						 ...);
+void		camel_disco_diary_replay	(CamelDiscoDiary *diary,
+						 GError **error);
 
 /* Temporary->Permanent UID map stuff */
-void        camel_disco_diary_uidmap_add    (CamelDiscoDiary *diary,
-					     const gchar *old_uid,
-					     const gchar *new_uid);
-const gchar *camel_disco_diary_uidmap_lookup (CamelDiscoDiary *diary,
-					     const gchar *uid);
-
-/* Standard Camel function */
-CamelType camel_disco_diary_get_type (void);
+void		camel_disco_diary_uidmap_add	(CamelDiscoDiary *diary,
+						 const gchar *old_uid,
+						 const gchar *new_uid);
+const gchar *	camel_disco_diary_uidmap_lookup	(CamelDiscoDiary *diary,
+						 const gchar *uid);
 
 G_END_DECLS
 

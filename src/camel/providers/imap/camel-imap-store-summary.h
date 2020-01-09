@@ -19,20 +19,35 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _CAMEL_IMAP_STORE_SUMMARY_H
-#define _CAMEL_IMAP_STORE_SUMMARY_H
+#ifndef CAMEL_IMAP_STORE_SUMMARY_H
+#define CAMEL_IMAP_STORE_SUMMARY_H
 
-#include <camel/camel-object.h>
-#include <camel/camel-store-summary.h>
+#include <camel/camel.h>
 
-#define CAMEL_IMAP_STORE_SUMMARY(obj)         CAMEL_CHECK_CAST (obj, camel_imap_store_summary_get_type (), CamelImapStoreSummary)
-#define CAMEL_IMAP_STORE_SUMMARY_CLASS(klass) CAMEL_CHECK_CLASS_CAST (klass, camel_imap_store_summary_get_type (), CamelImapStoreSummaryClass)
-#define CAMEL_IS_IMAP_STORE_SUMMARY(obj)      CAMEL_CHECK_TYPE (obj, camel_imap_store_summary_get_type ())
+/* Standard GObject macros */
+#define CAMEL_TYPE_IMAP_STORE_SUMMARY \
+	(camel_imap_store_summary_get_type ())
+#define CAMEL_IMAP_STORE_SUMMARY(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_IMAP_STORE_SUMMARY, CamelImapStoreSummary))
+#define CAMEL_IMAP_STORE_SUMMARY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_IMAP_STORE_SUMMARY, CamelImapStoreSummaryClass))
+#define CAMEL_IS_IMAP_STORE_SUMMARY(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_IMAP_STORE_SUMMARY))
+#define CAMEL_IS_IMAP_STORE_SUMMARY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_IMAP_STORE_SUMMARY))
+#define CAMEL_IMAP_STORE_SUMMARY_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_IMAP_STORE_SUMMARY, CamelImapStoreSummaryClass))
 
 G_BEGIN_DECLS
 
-typedef struct _CamelImapStoreSummary      CamelImapStoreSummary;
+typedef struct _CamelImapStoreSummary CamelImapStoreSummary;
 typedef struct _CamelImapStoreSummaryClass CamelImapStoreSummaryClass;
+typedef struct _CamelImapStoreSummaryPrivate CamelImapStoreSummaryPrivate;
 
 typedef struct _CamelImapStoreInfo CamelImapStoreInfo;
 
@@ -52,29 +67,30 @@ struct _CamelImapStoreNamespace {
 	gchar *path;		/* display path */
 	gchar *full_name;	/* real name */
 	gchar sep;		/* directory separator */
+
+	struct _CamelImapStoreNamespace *next;
 };
 
 struct _CamelImapStoreSummary {
 	CamelStoreSummary summary;
-
-	struct _CamelImapStoreSummaryPrivate *priv;
+	CamelImapStoreSummaryPrivate *priv;
 
 	/* header info */
 	guint32 version;	/* version of base part of file */
 	guint32 capabilities;
-	CamelImapStoreNamespace *namespace; /* eventually to be a list */
+	CamelImapStoreNamespace *namespace; /* list of namespaces, the first is always main namespace */
 };
 
 struct _CamelImapStoreSummaryClass {
 	CamelStoreSummaryClass summary_class;
 };
 
-CamelType			 camel_imap_store_summary_get_type	(void);
+GType			 camel_imap_store_summary_get_type	(void);
 CamelImapStoreSummary      *camel_imap_store_summary_new	(void);
 
-/* TODO: this api needs some more work, needs to support lists */
-CamelImapStoreNamespace *camel_imap_store_summary_namespace_new(CamelImapStoreSummary *s, const gchar *full_name, gchar dir_sep);
-void camel_imap_store_summary_namespace_set(CamelImapStoreSummary *s, CamelImapStoreNamespace *ns);
+void camel_imap_store_summary_namespace_set_main (CamelImapStoreSummary *s, const gchar *full_name, gchar dir_sep);
+void camel_imap_store_summary_namespace_add_secondary (CamelImapStoreSummary *s, const gchar *full_name, gchar dir_sep);
+CamelImapStoreNamespace *camel_imap_store_summary_get_main_namespace (CamelImapStoreSummary *s);
 CamelImapStoreNamespace *camel_imap_store_summary_namespace_find_path(CamelImapStoreSummary *s, const gchar *path);
 CamelImapStoreNamespace *camel_imap_store_summary_namespace_find_full(CamelImapStoreSummary *s, const gchar *full_name);
 
@@ -93,4 +109,4 @@ gchar *camel_imap_store_summary_full_from_path(CamelImapStoreSummary *s, const g
 
 G_END_DECLS
 
-#endif /* ! _CAMEL_IMAP_STORE_SUMMARY_H */
+#endif /* CAMEL_IMAP_STORE_SUMMARY_H */

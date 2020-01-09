@@ -7,7 +7,14 @@
       <sub name="e-dbhash" link="libebackend-e-dbhash.html"/>
       <sub name="e-data-server-module" link="libebackend-e-data-server-module.html"/>
       <sub name="e-db3-utils" link="libebackend-e-db3-utils.html"/>
+      <sub name="EOfflineListener" link="libebackend-EOfflineListener.html"/>
     </sub>
+    <sub name="Index" link="ix01.html"/>
+    <sub name="Index of deprecated symbols" link="api-index-deprecated.html"/>
+    <sub name="Index of new symbols in 2.30" link="api-index-2.30.html"/>
+    <sub name="Index of new symbols in 2.28" link="api-index-2.28.html"/>
+    <sub name="Index of new symbols in 2.26" link="api-index-2.26.html"/>
+    <sub name="Index of new symbols in 2.24" link="api-index-2.24.html"/>
   </chapters>
   <functions>
     <keyword type="struct" name="EFileCachePrivate" link="libebackend-e-file-cache.html#EFileCachePrivate"/>
@@ -46,5 +53,9 @@
     <keyword type="function" name="eds_module_list_types ()" link="libebackend-e-data-server-module.html#eds-module-list-types"/>
     <keyword type="function" name="e_db3_utils_maybe_recover ()" link="libebackend-e-db3-utils.html#e-db3-utils-maybe-recover"/>
     <keyword type="function" name="e_db3_utils_upgrade_format ()" link="libebackend-e-db3-utils.html#e-db3-utils-upgrade-format"/>
+    <keyword type="enum" name="enum EOfflineListenerState" link="libebackend-EOfflineListener.html#EOfflineListenerState" since="2.30"/>
+    <keyword type="struct" name="EOfflineListener" link="libebackend-EOfflineListener.html#EOfflineListener" since="2.30"/>
+    <keyword type="function" name="e_offline_listener_new ()" link="libebackend-EOfflineListener.html#e-offline-listener-new" since="2.30"/>
+    <keyword type="function" name="e_offline_listener_get_state ()" link="libebackend-EOfflineListener.html#e-offline-listener-get-state" since="2.30"/>
   </functions>
 </book>

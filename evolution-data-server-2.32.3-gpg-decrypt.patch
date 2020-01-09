@@ -1,0 +1,16 @@
+diff -up evolution-data-server-2.32.3/camel/camel-gpg-context.c.gpg-decrypt evolution-data-server-2.32.3/camel/camel-gpg-context.c
+--- evolution-data-server-2.32.3/camel/camel-gpg-context.c.gpg-decrypt	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-gpg-context.c	2013-06-11 17:15:33.018371114 +0200
+@@ -1977,7 +1977,11 @@ gpg_decrypt (CamelCipherContext *context
+ 		}
+ 	}
+ 
+-	if (gpg_ctx_op_wait (gpg) != 0) {
++	/* Report errors only if nothing was decrypted; missing sender's key used
++	   for signature of a signed and encrypted messages causes GPG to return
++	   failure, thus count with it.
++	 */
++	if (gpg_ctx_op_wait (gpg) != 0 && gpg->nodata) {
+ 		const gchar *diagnostics;
+ 
+ 		diagnostics = gpg_ctx_get_diagnostics (gpg);

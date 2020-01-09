@@ -1,0 +1,269 @@
+Contains added guards on parameters plus set of below patches.
+The guards were added upstream too, only in various other fixes.
+
+commit a3a146f93949ff0e4dd8d08378e719e2bf9b9187
+    Bug #639201 - Crash on startup - pop3_get_message, camel_pop3_delete_old
+
+commit 3594576b5710f46d4ac6e3b1c014cc343943182c
+    Bug #686727 - POP3 provider deadlocks on finalize
+
+commit 753949ff886dcff52ee584f79e593046b564a662
+    Bug #691126 - Fix warnings found by Clang (POP3 part)
+
+commit b75c9169bf4bd4276eb9b031b41dc8f70528d1fd
+    Bug #672837 - Crash in camel_pop3_engine_command_free
+
+commit 753949ff886dcff52ee584f79e593046b564a662
+    Bug #691126 - Fix warnings found by Clang (POP3 part)
+
+diff -up evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-engine.c.pop3-guards evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-engine.c
+--- evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-engine.c.pop3-guards	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-engine.c	2013-06-24 19:14:42.653963406 +0200
+@@ -100,6 +100,8 @@ read_greeting (CamelPOP3Engine *pe)
+ 	guchar *line, *apop, *apopend;
+ 	guint len;
+ 
++	g_return_val_if_fail (pe != NULL, -1);
++
+ 	/* first, read the greeting */
+ 	if (camel_pop3_stream_line (pe->stream, &line, &len) == -1
+ 	    || strncmp ((gchar *) line, "+OK", 3) != 0)
+@@ -221,6 +223,8 @@ get_capabilities(CamelPOP3Engine *pe)
+ {
+ 	CamelPOP3Command *pc;
+ 
++	g_return_if_fail (pe != NULL);
++
+ 	if (!(pe->flags & CAMEL_POP3_ENGINE_DISABLE_EXTENSIONS)) {
+ 		pc = camel_pop3_engine_command_new(pe, CAMEL_POP3_COMMAND_MULTI, cmd_capa, NULL, "CAPA\r\n");
+ 		while (camel_pop3_engine_iterate(pe, pc) > 0)
+@@ -242,9 +246,11 @@ get_capabilities(CamelPOP3Engine *pe)
+ }
+ 
+ /* returns true if the command was sent, false if it was just queued */
+-static gint
++static gboolean
+ engine_command_queue(CamelPOP3Engine *pe, CamelPOP3Command *pc)
+ {
++	g_return_val_if_fail (pe != NULL, FALSE);
++
+ 	if (((pe->capa & CAMEL_POP3_CAP_PIPE) == 0 || (pe->sentlen + strlen(pc->data)) > CAMEL_POP3_SEND_LIMIT)
+ 	    && pe->current != NULL) {
+ 		camel_dlist_addtail(&pe->queue, (CamelDListNode *)pc);
+@@ -277,6 +283,8 @@ camel_pop3_engine_iterate(CamelPOP3Engin
+ 	guint len;
+ 	CamelPOP3Command *pc, *pw, *pn;
+ 
++	g_return_val_if_fail (pe != NULL, -1);
++
+ 	if (pcwait && pcwait->state >= CAMEL_POP3_COMMAND_OK)
+ 		return 0;
+ 
+@@ -383,6 +391,8 @@ camel_pop3_engine_command_new(CamelPOP3E
+ 	CamelPOP3Command *pc;
+ 	va_list ap;
+ 
++	g_return_val_if_fail (pe != NULL, NULL);
++
+ 	pc = g_malloc0(sizeof(*pc));
+ 	pc->func = func;
+ 	pc->func_data = data;
+@@ -390,6 +400,7 @@ camel_pop3_engine_command_new(CamelPOP3E
+ 
+ 	va_start(ap, fmt);
+ 	pc->data = g_strdup_vprintf(fmt, ap);
++	va_end (ap);
+ 	pc->state = CAMEL_POP3_COMMAND_IDLE;
+ 
+ 	/* TODO: what about write errors? */
+@@ -401,7 +412,9 @@ camel_pop3_engine_command_new(CamelPOP3E
+ void
+ camel_pop3_engine_command_free(CamelPOP3Engine *pe, CamelPOP3Command *pc)
+ {
+-	if (pe->current != pc)
++	g_return_if_fail (pc != NULL);
++
++	if (pe && pe->current != pc)
+ 		camel_dlist_remove((CamelDListNode *)pc);
+ 	g_free(pc->data);
+ 	g_free(pc);
+diff -up evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-folder.c.pop3-guards evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-folder.c
+--- evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-folder.c.pop3-guards	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-folder.c	2013-06-24 19:14:42.654963406 +0200
+@@ -248,6 +248,9 @@ pop3_refresh_info (CamelFolder *folder, 
+ 	parent_store = camel_folder_get_parent_store (folder);
+ 	pop3_store = CAMEL_POP3_STORE (parent_store);
+ 
++	g_return_val_if_fail (pop3_store != NULL, FALSE);
++	g_return_val_if_fail (pop3_store->engine != NULL, FALSE);
++
+ 	camel_operation_start (NULL, _("Retrieving POP summary"));
+ 
+ 	pop3_folder->uids = g_ptr_array_new ();
+@@ -318,6 +321,9 @@ pop3_sync (CamelFolder *folder,
+ 	pop3_folder = CAMEL_POP3_FOLDER (folder);
+ 	pop3_store = CAMEL_POP3_STORE (parent_store);
+ 
++	g_return_val_if_fail (pop3_store != NULL, FALSE);
++	g_return_val_if_fail (pop3_store->engine != NULL, FALSE);
++
+ 	if (pop3_store->delete_after && !expunge) {
+ 		d(printf("%s(%d): pop3_store->delete_after = [%d], expunge=[%d]\n",
+ 			 __FILE__, __LINE__, pop3_store->delete_after, expunge));
+@@ -390,6 +396,7 @@ pop3_get_message_time_from_cache (CamelF
+ 	parent_store = camel_folder_get_parent_store (folder);
+ 	pop3_store = CAMEL_POP3_STORE (parent_store);
+ 
++	g_return_val_if_fail (pop3_store != NULL, FALSE);
+ 	g_return_val_if_fail (pop3_store->cache != NULL, FALSE);
+ 
+ 	if ((stream = camel_data_cache_get (pop3_store->cache, "cache", uid, NULL)) != NULL
+@@ -435,6 +442,10 @@ camel_pop3_delete_old (CamelFolder *fold
+ 
+ 	pop3_folder = CAMEL_POP3_FOLDER (folder);
+ 	pop3_store = CAMEL_POP3_STORE (parent_store);
++
++	g_return_val_if_fail (pop3_store != NULL, -1);
++	g_return_val_if_fail (pop3_store->engine != NULL, -1);
++
+ 	temp = time(&temp);
+ 
+ 	d(printf("%s(%d): pop3_folder->uids->len=[%d]\n", __FILE__, __LINE__, pop3_folder->uids->len));
+@@ -442,6 +453,19 @@ camel_pop3_delete_old (CamelFolder *fold
+ 		message_time = 0;
+ 		fi = pop3_folder->uids->pdata[i];
+ 
++		if (fi->cmd) {
++			while (camel_pop3_engine_iterate (pop3_store->engine, fi->cmd) > 0) {
++				; /* do nothing - iterating until end */
++			}
++
++			camel_pop3_engine_command_free (pop3_store->engine, fi->cmd);
++			fi->cmd = NULL;
++		}
++
++		/* continue, if message wasn't received yet */
++		if (!fi->uid)
++			continue;
++
+ 		d(printf("%s(%d): fi->uid=[%s]\n", __FILE__, __LINE__, fi->uid));
+ 		if (!pop3_get_message_time_from_cache (folder, fi->uid, &message_time)) {
+ 			d(printf("could not get message time from cache, trying from pop3\n"));
+@@ -584,11 +608,16 @@ pop3_get_message (CamelFolder *folder, c
+ 	gint i, last;
+ 	CamelStream *stream = NULL;
+ 
++	g_return_val_if_fail (uid != NULL, NULL);
++
+ 	parent_store = camel_folder_get_parent_store (folder);
+ 
+ 	pop3_folder = CAMEL_POP3_FOLDER (folder);
+ 	pop3_store = CAMEL_POP3_STORE (parent_store);
+ 
++	g_return_val_if_fail (pop3_store != NULL, NULL);
++	g_return_val_if_fail (pop3_store->engine != NULL, NULL);
++
+ 	fi = g_hash_table_lookup(pop3_folder->uids_uid, uid);
+ 	if (fi == NULL) {
+ 		g_set_error (
+diff -up evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-store.c.pop3-guards evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-store.c
+--- evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-store.c.pop3-guards	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-store.c	2013-06-24 19:14:42.655963406 +0200
+@@ -510,7 +510,7 @@ pop3_try_authenticate (CamelService *ser
+ }
+ 
+ static void
+-pop3_store_finalize (GObject *object)
++pop3_store_dispose (GObject *object)
+ {
+ 	CamelPOP3Store *pop3_store = CAMEL_POP3_STORE (object);
+ 
+@@ -519,10 +519,23 @@ pop3_store_finalize (GObject *object)
+ 
+ 	camel_service_disconnect((CamelService *)pop3_store, TRUE, NULL);
+ 
+-	if (pop3_store->engine)
++	/* Chain up to parent's dispose() method. */
++	G_OBJECT_CLASS (camel_pop3_store_parent_class)->dispose (object);
++}
++
++static void
++pop3_store_finalize (GObject *object)
++{
++	CamelPOP3Store *pop3_store = CAMEL_POP3_STORE (object);
++
++	if (pop3_store->engine) {
+ 		g_object_unref (pop3_store->engine);
+-	if (pop3_store->cache)
++		pop3_store->engine = NULL;
++	}
++	if (pop3_store->cache) {
+ 		g_object_unref (pop3_store->cache);
++		pop3_store->cache = NULL;
++	}
+ 
+ 	/* Chain up to parent's finalize() method. */
+ 	G_OBJECT_CLASS (camel_pop3_store_parent_class)->finalize (object);
+@@ -605,7 +618,7 @@ pop3_store_disconnect (CamelService *ser
+ 	CamelServiceClass *service_class;
+ 	CamelPOP3Store *store = CAMEL_POP3_STORE (service);
+ 
+-	if (clean) {
++	if (clean && store->engine) {
+ 		CamelPOP3Command *pc;
+ 
+ 		pc = camel_pop3_engine_command_new(store->engine, 0, NULL, NULL, "QUIT\r\n");
+@@ -619,8 +632,10 @@ pop3_store_disconnect (CamelService *ser
+ 	if (!service_class->disconnect (service, clean, error))
+ 		return FALSE;
+ 
+-	g_object_unref (store->engine);
+-	store->engine = NULL;
++	if (store->engine) {
++		g_object_unref (store->engine);
++		store->engine = NULL;
++	}
+ 
+ 	return TRUE;
+ }
+@@ -728,6 +743,7 @@ camel_pop3_store_class_init (CamelPOP3St
+ 	CamelStoreClass *store_class;
+ 
+ 	object_class = G_OBJECT_CLASS (class);
++	object_class->dispose = pop3_store_dispose;
+ 	object_class->finalize = pop3_store_finalize;
+ 
+ 	service_class = CAMEL_SERVICE_CLASS (class);
+@@ -763,6 +779,9 @@ camel_pop3_store_expunge (CamelPOP3Store
+ {
+ 	CamelPOP3Command *pc;
+ 
++	g_return_if_fail (store != NULL);
++	g_return_if_fail (store->engine != NULL);
++
+ 	pc = camel_pop3_engine_command_new (
+ 		store->engine, 0, NULL, NULL, "QUIT\r\n");
+ 
+diff -up evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-stream.c.pop3-guards evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-stream.c
+--- evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-stream.c.pop3-guards	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/pop3/camel-pop3-stream.c	2013-06-24 19:14:42.654963406 +0200
+@@ -37,7 +37,7 @@ extern gint camel_verbose_debug;
+ #define dd(x) (camel_verbose_debug?(x):0)
+ 
+ #define CAMEL_POP3_STREAM_SIZE (4096)
+-#define CAMEL_POP3_STREAM_LINE (1024) /* maximum line size */
++#define CAMEL_POP3_STREAM_LINE_SIZE (1024) /* maximum line size */
+ 
+ G_DEFINE_TYPE (CamelPOP3Stream, camel_pop3_stream, CAMEL_TYPE_STREAM)
+ 
+@@ -239,8 +239,8 @@ camel_pop3_stream_init (CamelPOP3Stream 
+ {
+ 	/* +1 is room for appending a 0 if we need to for a line */
+ 	is->ptr = is->end = is->buf = g_malloc (CAMEL_POP3_STREAM_SIZE+1);
+-	is->lineptr = is->linebuf = g_malloc (CAMEL_POP3_STREAM_LINE+1);
+-	is->lineend = is->linebuf + CAMEL_POP3_STREAM_LINE;
++	is->lineptr = is->linebuf = g_malloc (CAMEL_POP3_STREAM_LINE_SIZE+1);
++	is->lineend = is->linebuf + CAMEL_POP3_STREAM_LINE_SIZE;
+ 
+ 	/* init sentinal */
+ 	is->ptr[0] = '\n';

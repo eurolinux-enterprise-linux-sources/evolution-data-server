@@ -32,7 +32,7 @@
 #include <winsock2.h>
 #ifndef IN6_ARE_ADDR_EQUAL
 #define IN6_ARE_ADDR_EQUAL(a, b)	\
-    (memcmp ((void*)(a), (void*)(b), sizeof (struct in6_addr)) == 0)
+    (memcmp ((gpointer)(a), (gpointer)(b), sizeof (struct in6_addr)) == 0)
 #endif
 #else
 #include <netinet/in.h>
@@ -48,6 +48,8 @@
 #include <libsoup/soup-address.h>
 #include <libsoup/soup-uri.h>
 #include "e-proxy.h"
+
+G_DEFINE_TYPE (EProxy, e_proxy, G_TYPE_OBJECT)
 
 /* Debug */
 #define d(x)
@@ -179,7 +181,7 @@ e_proxy_class_init (EProxyClass *klass)
 }
 
 static void
-e_proxy_init (EProxy *pxy, EProxyClass *klass)
+e_proxy_init (EProxy *pxy)
 {
 	EProxyPrivate *priv;
 
@@ -243,28 +245,6 @@ e_proxy_dispose (GObject *object)
 		g_free (priv);
 		priv = NULL;
 	}
-}
-
-GType
-e_proxy_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static GTypeInfo info = {
-                        sizeof (EProxyClass),
-                        (GBaseInitFunc) NULL,
-                        (GBaseFinalizeFunc) NULL,
-                        (GClassInitFunc) e_proxy_class_init,
-                        NULL, NULL,
-                        sizeof (EProxy),
-                        0,
-                        (GInstanceInitFunc) e_proxy_init
-                };
-		type = g_type_register_static (G_TYPE_OBJECT, "EProxy", &info, 0);
-	}
-
-	return type;
 }
 
 static gboolean
@@ -575,6 +555,40 @@ ep_change_uri (SoupURI **soup_uri, const gchar *uri)
 	return changed;
 }
 
+static gchar *
+update_proxy_uri (const gchar *uri, const gchar *proxy_user, const gchar *proxy_pw)
+{
+	gchar *res, *user = NULL, *pw = NULL;
+	gboolean is_https;
+
+	g_return_val_if_fail (uri != NULL, NULL);
+
+	if (proxy_user && *proxy_user) {
+		user = soup_uri_encode (proxy_user, ":/;#@?\\");
+		if (proxy_pw)
+			pw = soup_uri_encode (proxy_pw, ":/;#@?\\");
+	}
+
+	if (!user)
+		return g_strdup (uri);
+
+	/*  here can be only http or https and nothing else */
+	is_https = g_str_has_prefix (uri, "https://");
+
+	res = g_strdup_printf ("%s://%s%s%s%s%s",
+		is_https ? "https" : "http",
+		user ? user : "",
+		pw ? ":" : "",
+		pw ? pw : "",
+		(user || pw) ? "@" : "",
+		uri + strlen ("http://") + (is_https ? 1 : 0));
+
+	g_free (user);
+	g_free (pw);
+
+	return res;
+}
+
 static void
 ep_set_proxy (GConfClient *client,
 	      gpointer user_data,
@@ -642,23 +656,25 @@ ep_set_proxy (GConfClient *client,
 	}
 
 	if (gconf_client_get_bool (client, RIGHT_KEY (HTTP_USE_AUTH), NULL)) {
-		gchar *proxy_user, *proxy_pw, *tmp = NULL;
+		gchar *proxy_user, *proxy_pw, *tmp = NULL, *tmps = NULL;
 
 		proxy_user = gconf_client_get_string (client, RIGHT_KEY (HTTP_AUTH_USER), NULL);
 		proxy_pw = gconf_client_get_string (client, RIGHT_KEY (HTTP_AUTH_PWD), NULL);
 
-		if (proxy_user && *proxy_user && proxy_pw && *proxy_pw) {
+		if (uri_http && proxy_user && *proxy_user) {
 			tmp = uri_http;
-			uri_http = g_strdup_printf ("http://%s:%s@%s", proxy_user, proxy_pw, tmp + strlen ("http://"));
-		} else if (proxy_user && *proxy_user) {
-			/* proxy without password, just try it */
-			tmp = uri_http;
-			uri_http = g_strdup_printf ("http://%s@%s", proxy_user, tmp + strlen ("http://"));
+			uri_http = update_proxy_uri (uri_http, proxy_user, proxy_pw);
+		}
+
+		if (uri_https && proxy_user && *proxy_user) {
+			tmps = uri_https;
+			uri_https = update_proxy_uri (uri_https, proxy_user, proxy_pw);
 		}
 
 		g_free (proxy_user);
 		g_free (proxy_pw);
 		g_free (tmp);
+		g_free (tmps);
 	}
 
 	changed = ep_change_uri (&priv->uri_http, uri_http) || changed;
@@ -722,6 +738,11 @@ ep_setting_changed (GConfClient *client, guint32 cnxn_id, GConfEntry *entry, gpo
 	}
 }
 
+/**
+ * e_proxy_new:
+ *
+ * Since: 2.24
+ **/
 EProxy*
 e_proxy_new (void)
 {
@@ -732,6 +753,11 @@ e_proxy_new (void)
 	return proxy;
 }
 
+/**
+ * e_proxxy_setup_proxy:
+ *
+ * Since: 2.24
+ **/
 void
 e_proxy_setup_proxy (EProxy* proxy)
 {
@@ -770,6 +796,11 @@ e_proxy_setup_proxy (EProxy* proxy)
 	g_object_unref (client);
 }
 
+/**
+ * e_proxy_peek_uri_for:
+ *
+ * Since: 2.26
+ **/
 SoupURI*
 e_proxy_peek_uri_for (EProxy* proxy, const gchar *uri)
 {
@@ -788,6 +819,11 @@ e_proxy_peek_uri_for (EProxy* proxy, const gchar *uri)
 	return proxy->priv->uri_http;
 }
 
+/**
+ * e_proxy_require_proxy_for_uri:
+ *
+ * Since: 2.24
+ **/
 gboolean
 e_proxy_require_proxy_for_uri (EProxy* proxy, const gchar * uri)
 {

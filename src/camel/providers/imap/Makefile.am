@@ -1,9 +1,9 @@
-## Process this file with automake to produce Makefile.in
-
 camel_provider_LTLIBRARIES = libcamelimap.la
 camel_provider_DATA = libcamelimap.urls
 
-AM_CPPFLAGS = -I.. \
+libcamelimap_la_CPPFLAGS = \
+	$(AM_CPPFLAGS)				\
+	-I.. 					\
 	-I$(srcdir)/..				\
 	-I$(top_srcdir)/camel			\
 	-I$(top_srcdir)				\
@@ -34,7 +34,6 @@ noinst_HEADERS =			\
 	camel-imap-store-summary.h		\
 	camel-imap-summary.h			\
 	camel-imap-journal.h			\
-	camel-imap-types.h			\
 	camel-imap-utils.h			\
 	camel-imap-wrapper.h                    \
 	camel-imap-private.h
@@ -48,3 +47,5 @@ libcamelimap_la_LIBADD = \
 	$(CAMEL_LIBS)
 
 EXTRA_DIST = libcamelimap.urls
+
+-include $(top_srcdir)/git.mk

@@ -30,14 +30,8 @@
 
 #include <string.h>
 
-#include <glib.h>
 #include <glib/gi18n-lib.h>
 #include <gmodule.h>
-
-#include "camel-provider.h"
-#include "camel-sasl.h"
-#include "camel-session.h"
-#include "camel-url.h"
 
 #include "camel-groupwise-store.h"
 #include "camel-groupwise-transport.h"
@@ -47,7 +41,7 @@ static guint groupwise_url_hash (gconstpointer key);
 static gint check_equal (gchar *s1, gchar *s2);
 static gint groupwise_url_equal (gconstpointer a, gconstpointer b);
 
-CamelProviderConfEntry groupwise_conf_entries[] = {
+static CamelProviderConfEntry groupwise_conf_entries[] = {
 	/* override the labels/defaults of the standard settings */
 
 	{ CAMEL_PROVIDER_CONF_SECTION_START, "mailcheck", NULL,
@@ -112,7 +106,7 @@ CamelServiceAuthType camel_groupwise_password_authtype = {
 
 static gint
 groupwise_auto_detect_cb (CamelURL *url, GHashTable **auto_detected,
-			 CamelException *ex)
+			 GError **error)
 {
 	*auto_detected = g_hash_table_new (g_str_hash, g_str_equal);
 
@@ -126,11 +120,10 @@ void
 camel_provider_module_init(void)
 {
 	CamelProvider *imap_provider = NULL;
-	CamelException ex = CAMEL_EXCEPTION_INITIALISER;
 	gboolean use_imap = g_getenv ("USE_IMAP") != NULL;
 
 	if (use_imap)
-	    imap_provider =  camel_provider_get("imap://", &ex);
+		imap_provider = camel_provider_get("imapx://", NULL);
 
 	groupwise_provider.url_hash = groupwise_url_hash;
 	groupwise_provider.url_equal = groupwise_url_equal;
@@ -139,10 +132,10 @@ camel_provider_module_init(void)
 	groupwise_provider.translation_domain = GETTEXT_PACKAGE;
 
 	if (use_imap)
-		groupwise_provider.object_types[CAMEL_PROVIDER_STORE] = imap_provider->object_types [CAMEL_PROVIDER_STORE];
+		groupwise_provider.object_types[CAMEL_PROVIDER_STORE] = imap_provider->object_types[CAMEL_PROVIDER_STORE];
 	else	{
-		groupwise_provider.object_types[CAMEL_PROVIDER_STORE] =  camel_groupwise_store_get_type();
-		groupwise_provider.object_types[CAMEL_PROVIDER_TRANSPORT] = camel_groupwise_transport_get_type();
+		groupwise_provider.object_types[CAMEL_PROVIDER_STORE] =  camel_groupwise_store_get_type ();
+		groupwise_provider.object_types[CAMEL_PROVIDER_TRANSPORT] = camel_groupwise_transport_get_type ();
 	}
 
 	camel_provider_register (&groupwise_provider);

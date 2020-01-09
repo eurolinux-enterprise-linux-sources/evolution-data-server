@@ -46,7 +46,7 @@ CamelImapJournal
 
 </para>
 
-@parent_object: 
+@parent: 
 @folders: 
 @uidmap: 
 @rp_in_progress: 

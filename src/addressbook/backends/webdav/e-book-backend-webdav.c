@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <glib.h>
+#include <glib/gi18n-lib.h>
 
 #include <libedataserver/e-url.h>
 #include <libedataserver/e-flag.h>
@@ -45,15 +46,21 @@
 #include <libedata-book/e-book-backend-cache.h>
 #include "e-book-backend-webdav.h"
 
-#include <libsoup/soup-uri.h>
-#include <libsoup/soup-session-sync.h>
-#include <libsoup/soup-auth.h>
+#include <libsoup/soup.h>
 
 #include <libxml/parser.h>
 #include <libxml/xmlreader.h>
+#include <libxml/xpath.h>
+#include <libxml/xpathInternals.h>
+
+#define EDB_ERROR(_code) e_data_book_create_error (E_DATA_BOOK_STATUS_ ## _code, NULL)
+#define EDB_ERROR_EX(_code, _msg) e_data_book_create_error (E_DATA_BOOK_STATUS_ ## _code, _msg)
 
 #define USERAGENT             "Evolution/" VERSION
 #define WEBDAV_CLOSURE_NAME   "EBookBackendWebdav.BookView::closure"
+#define WEBDAV_CTAG_KEY "WEBDAV_CTAG"
+
+G_DEFINE_TYPE (EBookBackendWebdav, e_book_backend_webdav, E_TYPE_BOOK_BACKEND)
 
 static EBookBackendClass *parent_class;
 
@@ -65,6 +72,7 @@ struct _EBookBackendWebdavPrivate {
 	gchar             *uri;
 	gchar              *username;
 	gchar              *password;
+	gboolean supports_getctag;
 
 	EBookBackendCache *cache;
 };
@@ -74,6 +82,31 @@ typedef struct {
 	GThread            *thread;
 	EFlag              *running;
 } WebdavBackendSearchClosure;
+
+static void
+webdav_debug_setup (SoupSession *session)
+{
+	const gchar *debug_str;
+	SoupLogger *logger;
+	SoupLoggerLogLevel level;
+
+	g_return_if_fail (session != NULL);
+
+	debug_str = g_getenv ("WEBDAV_DEBUG");
+	if (!debug_str || !*debug_str)
+		return;
+
+	if (g_ascii_strcasecmp (debug_str, "all") == 0)
+		level = SOUP_LOGGER_LOG_BODY;
+	else if (g_ascii_strcasecmp (debug_str, "headers") == 0)
+		level = SOUP_LOGGER_LOG_HEADERS;
+	else
+		level = SOUP_LOGGER_LOG_MINIMAL;
+
+	logger = soup_logger_new (level, 100 * 1024 * 1024);
+	soup_session_add_feature (session, SOUP_SESSION_FEATURE (logger));
+	g_object_unref (logger);
+}
 
 static void
 closure_destroy(WebdavBackendSearchClosure *closure)
@@ -107,14 +140,13 @@ static EContact*
 download_contact(EBookBackendWebdav *webdav, const gchar *uri)
 {
 	SoupMessage *message;
-	const gchar  *content_type;
 	const gchar  *etag;
 	EContact    *contact;
 	guint        status;
 
 	message = soup_message_new(SOUP_METHOD_GET, uri);
-	soup_message_headers_append(message->request_headers,
-				    "User-Agent", USERAGENT);
+	soup_message_headers_append (message->request_headers, "User-Agent", USERAGENT);
+	soup_message_headers_append (message->request_headers, "Connection", "close");
 
 	status = soup_session_send_message(webdav->priv->session, message);
 	if (status != 200) {
@@ -122,19 +154,14 @@ download_contact(EBookBackendWebdav *webdav, const gchar *uri)
 		g_object_unref(message);
 		return NULL;
 	}
-	/* TODO: write a real Content-Type parser,
-	 * DECIDE: should we also accept text/plain for webdav servers that
-	 * don't know about text/x-vcard?*/
-	content_type = soup_message_headers_get(message->response_headers,
-						"Content-Type");
-	if (content_type != NULL && strstr(content_type, "text/x-vcard") == NULL) {
-		g_message("'%s' doesn't have mime-type text/x-vcard but '%s'", uri,
-			  content_type);
+
+	if (message->response_body == NULL) {
+		g_message("no response body after requesting '%s'", uri);
 		g_object_unref(message);
 		return NULL;
 	}
-	if (message->response_body == NULL) {
-		g_message("no response body after requesting '%s'", uri);
+
+	if (message->response_body->length <= 11 || 0 != g_ascii_strncasecmp ((const gchar *) message->response_body->data, "BEGIN:VCARD", 11)) {
 		g_object_unref(message);
 		return NULL;
 	}
@@ -166,7 +193,7 @@ upload_contact(EBookBackendWebdav *webdav, EContact *contact)
 	SoupMessage *message;
 	gchar       *uri;
 	gchar       *etag;
-	const gchar  *new_etag;
+	const gchar  *new_etag, *redir_uri;
 	gchar        *request;
 	guint        status;
 	const gchar  *property;
@@ -179,8 +206,8 @@ upload_contact(EBookBackendWebdav *webdav, EContact *contact)
 	}
 
 	message = soup_message_new(SOUP_METHOD_PUT, uri);
-	soup_message_headers_append(message->request_headers,
-				    "User-Agent", USERAGENT);
+	soup_message_headers_append (message->request_headers, "User-Agent", USERAGENT);
+	soup_message_headers_append (message->request_headers, "Connection", "close");
 
 	property = e_source_get_property(source, "avoid_ifmatch");
 	if (property != NULL && strcmp(property, "1") == 0) {
@@ -211,15 +238,35 @@ upload_contact(EBookBackendWebdav *webdav, EContact *contact)
 	e_contact_set(contact, E_CONTACT_UID, NULL);
 	e_contact_set(contact, E_CONTACT_REV, NULL);
 	request = e_vcard_to_string(E_VCARD(contact), EVC_FORMAT_VCARD_30);
-	soup_message_set_request(message, "text/x-vcard", SOUP_MEMORY_TEMPORARY,
+	soup_message_set_request(message, "text/vcard", SOUP_MEMORY_TEMPORARY,
 				 request, strlen(request));
 
 	status   = soup_session_send_message(webdav->priv->session, message);
 	new_etag = soup_message_headers_get(message->response_headers, "ETag");
 
+	redir_uri = soup_message_headers_get (message->response_headers, "Location");
+
 	/* set UID and REV fields */
 	e_contact_set(contact, E_CONTACT_REV, (gconstpointer) new_etag);
-	e_contact_set(contact, E_CONTACT_UID, uri);
+	if (redir_uri && *redir_uri) {
+		if (!strstr (redir_uri, "://")) {
+			/* it's a relative URI */
+			SoupURI *suri = soup_uri_new (uri);
+			gchar *full_uri;
+
+			soup_uri_set_path (suri, redir_uri);
+			full_uri = soup_uri_to_string (suri, TRUE);
+
+			e_contact_set (contact, E_CONTACT_UID, full_uri);
+
+			g_free (full_uri);
+			soup_uri_free (suri);
+		} else {
+			e_contact_set (contact, E_CONTACT_UID, redir_uri);
+		}
+	} else {
+		e_contact_set (contact, E_CONTACT_UID, uri);
+	}
 
 	g_object_unref(message);
 	g_free(request);
@@ -228,8 +275,8 @@ upload_contact(EBookBackendWebdav *webdav, EContact *contact)
 	return status;
 }
 
-static GNOME_Evolution_Addressbook_CallStatus
-e_book_backend_handle_auth_request(EBookBackendWebdav *webdav)
+static GError *
+webdav_handle_auth_request(EBookBackendWebdav *webdav)
 {
 	EBookBackendWebdavPrivate *priv = webdav->priv;
 
@@ -239,9 +286,9 @@ e_book_backend_handle_auth_request(EBookBackendWebdav *webdav)
 		g_free(priv->password);
 		priv->password = NULL;
 
-		return GNOME_Evolution_Addressbook_AuthenticationFailed;
+		return EDB_ERROR (AUTHENTICATION_FAILED);
 	} else {
-		return GNOME_Evolution_Addressbook_AuthenticationRequired;
+		return EDB_ERROR (AUTHENTICATION_REQUIRED);
 	}
 }
 
@@ -255,9 +302,8 @@ e_book_backend_webdav_create_contact(EBookBackend *backend,
 	gchar                     *uid;
 	guint                      status;
 
-	if (priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
-		e_data_book_respond_create(book, opid,
-				GNOME_Evolution_Addressbook_RepositoryOffline, NULL);
+	if (priv->mode == E_DATA_BOOK_MODE_LOCAL) {
+		e_data_book_respond_create (book, opid, EDB_ERROR (REPOSITORY_OFFLINE), NULL);
 		return;
 	}
 
@@ -276,29 +322,29 @@ e_book_backend_webdav_create_contact(EBookBackend *backend,
 	if (status != 201 && status != 204) {
 		g_object_unref(contact);
 		if (status == 401 || status == 407) {
-			GNOME_Evolution_Addressbook_CallStatus res
-				= e_book_backend_handle_auth_request(webdav);
-			e_data_book_respond_create(book, opid, res, NULL);
+			e_data_book_respond_create (book, opid, webdav_handle_auth_request (webdav), NULL);
 		} else {
-			g_warning("create resource '%s' failed with http status: %d",
-				  uid, status);
-			e_data_book_respond_create(book, opid,
-					GNOME_Evolution_Addressbook_OtherError, NULL);
+			e_data_book_respond_create (book, opid,
+					e_data_book_create_error_fmt (E_DATA_BOOK_STATUS_OTHER_ERROR,
+						_("Create resource '%s' failed with HTTP status: %d"), uid, status),
+					NULL);
 		}
 		g_free(uid);
 		return;
 	}
 	/* PUT request didn't return an etag? try downloading to get one */
 	if (e_contact_get_const(contact, E_CONTACT_REV) == NULL) {
+		const gchar *new_uid;
 		EContact *new_contact;
 
 		g_warning("Server didn't return etag for new address resource");
-		new_contact = download_contact(webdav, uid);
+		new_uid = e_contact_get_const (contact, E_CONTACT_UID);
+		new_contact = download_contact (webdav, new_uid);
 		g_object_unref(contact);
 
 		if (new_contact == NULL) {
-			e_data_book_respond_create(book, opid,
-					GNOME_Evolution_Addressbook_OtherError, NULL);
+			e_data_book_respond_create (book, opid,
+					EDB_ERROR (OTHER_ERROR), NULL);
 			g_free(uid);
 			return;
 		}
@@ -306,8 +352,7 @@ e_book_backend_webdav_create_contact(EBookBackend *backend,
 	}
 
 	e_book_backend_cache_add_contact(priv->cache, contact);
-	e_data_book_respond_create(book, opid,
-			GNOME_Evolution_Addressbook_Success, contact);
+	e_data_book_respond_create (book, opid, EDB_ERROR (SUCCESS), contact);
 
 	if (contact)
 		g_object_unref(contact);
@@ -321,8 +366,8 @@ delete_contact(EBookBackendWebdav *webdav, const gchar *uri)
 	guint        status;
 
 	message = soup_message_new(SOUP_METHOD_DELETE, uri);
-	soup_message_headers_append(message->request_headers,
-				    "User-Agent", USERAGENT);
+	soup_message_headers_append (message->request_headers, "User-Agent", USERAGENT);
+	soup_message_headers_append (message->request_headers, "Connection", "close");
 
 	status = soup_session_send_message(webdav->priv->session, message);
 	g_object_unref(message);
@@ -339,9 +384,9 @@ e_book_backend_webdav_remove_contacts(EBookBackend *backend,
 	GList                     *deleted_ids = NULL;
 	GList                     *list;
 
-	if (priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
-		e_data_book_respond_create(book, opid,
-				GNOME_Evolution_Addressbook_RepositoryOffline, NULL);
+	if (priv->mode == E_DATA_BOOK_MODE_LOCAL) {
+		e_data_book_respond_remove_contacts (book, opid,
+				EDB_ERROR (REPOSITORY_OFFLINE), NULL);
 		return;
 	}
 
@@ -352,12 +397,10 @@ e_book_backend_webdav_remove_contacts(EBookBackend *backend,
 		status = delete_contact(webdav, uid);
 		if (status != 204) {
 			if (status == 401 || status == 407) {
-				GNOME_Evolution_Addressbook_CallStatus res
-					= e_book_backend_handle_auth_request(webdav);
-				e_data_book_respond_remove_contacts(book, opid, res,
+				e_data_book_respond_remove_contacts (book, opid, webdav_handle_auth_request (webdav),
 								    deleted_ids);
 			} else {
-				g_warning("DELETE failed with http status %d", status);
+				g_warning("DELETE failed with HTTP status %d", status);
 			}
 			continue;
 		}
@@ -366,7 +409,7 @@ e_book_backend_webdav_remove_contacts(EBookBackend *backend,
 	}
 
 	e_data_book_respond_remove_contacts (book, opid,
-			GNOME_Evolution_Addressbook_Success,  deleted_ids);
+			EDB_ERROR (SUCCESS),  deleted_ids);
 }
 
 static void
@@ -380,9 +423,9 @@ e_book_backend_webdav_modify_contact(EBookBackend *backend,
 	const gchar                *etag;
 	guint status;
 
-	if (priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+	if (priv->mode == E_DATA_BOOK_MODE_LOCAL) {
 		e_data_book_respond_create(book, opid,
-				GNOME_Evolution_Addressbook_RepositoryOffline, NULL);
+				EDB_ERROR (REPOSITORY_OFFLINE), NULL);
 		g_object_unref(contact);
 		return;
 	}
@@ -392,23 +435,23 @@ e_book_backend_webdav_modify_contact(EBookBackend *backend,
 	if (status != 201 && status != 204) {
 		g_object_unref(contact);
 		if (status == 401 || status == 407) {
-			GNOME_Evolution_Addressbook_CallStatus res
-				= e_book_backend_handle_auth_request(webdav);
-			e_data_book_respond_remove_contacts(book, opid, res, NULL);
+			e_data_book_respond_remove_contacts (book, opid, webdav_handle_auth_request (webdav), NULL);
 			return;
 		}
 		/* data changed on server while we were editing */
 		if (status == 412) {
-			g_warning("contact on server changed -> not modifying");
 			/* too bad no special error code in evolution for this... */
-			e_data_book_respond_modify(book, opid,
-					GNOME_Evolution_Addressbook_OtherError, NULL);
+			e_data_book_respond_modify (book, opid,
+					e_data_book_create_error_fmt (E_DATA_BOOK_STATUS_OTHER_ERROR,
+						"Contact on server changed -> not modifying"),
+					NULL);
 			return;
 		}
 
-		g_warning("modify contact failed with http status: %d", status);
-		e_data_book_respond_modify(book, opid,
-				GNOME_Evolution_Addressbook_OtherError, NULL);
+		e_data_book_respond_modify (book, opid,
+				e_data_book_create_error_fmt (E_DATA_BOOK_STATUS_OTHER_ERROR,
+					"Modify contact failed with HTTP status: %d", status),
+				NULL);
 		return;
 	}
 
@@ -429,8 +472,7 @@ e_book_backend_webdav_modify_contact(EBookBackend *backend,
 	}
 	e_book_backend_cache_add_contact(priv->cache, contact);
 
-	e_data_book_respond_modify(book, opid,
-			GNOME_Evolution_Addressbook_Success, contact);
+	e_data_book_respond_modify (book, opid, EDB_ERROR (SUCCESS), contact);
 
 	g_object_unref(contact);
 }
@@ -444,7 +486,7 @@ e_book_backend_webdav_get_contact(EBookBackend *backend, EDataBook *book,
 	EContact                  *contact;
 	gchar                      *vcard;
 
-	if (priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+	if (priv->mode == E_DATA_BOOK_MODE_LOCAL) {
 		contact = e_book_backend_cache_get_contact(priv->cache, uid);
 	} else {
 		contact = download_contact(webdav, uid);
@@ -456,14 +498,12 @@ e_book_backend_webdav_get_contact(EBookBackend *backend, EDataBook *book,
 	}
 
 	if (contact == NULL) {
-		e_data_book_respond_get_contact(book, opid,
-				GNOME_Evolution_Addressbook_OtherError, NULL);
+		e_data_book_respond_get_contact (book, opid, EDB_ERROR (CONTACT_NOT_FOUND), NULL);
 		return;
 	}
 
 	vcard = e_vcard_to_string(E_VCARD(contact), EVC_FORMAT_VCARD_30);
-	e_data_book_respond_get_contact(book, opid,
-			GNOME_Evolution_Addressbook_Success, vcard);
+	e_data_book_respond_get_contact (book, opid, EDB_ERROR (SUCCESS), vcard);
 	g_free(vcard);
 	g_object_unref(contact);
 }
@@ -615,8 +655,8 @@ send_propfind(EBookBackendWebdav *webdav)
 		"<propfind xmlns=\"DAV:\"><prop><getetag/></prop></propfind>";
 
 	message = soup_message_new(SOUP_METHOD_PROPFIND, priv->uri);
-	soup_message_headers_append(message->request_headers,
-				    "User-Agent", USERAGENT);
+	soup_message_headers_append (message->request_headers, "User-Agent", USERAGENT);
+	soup_message_headers_append (message->request_headers, "Connection", "close");
 	soup_message_headers_append(message->request_headers, "Depth", "1");
 	soup_message_set_request(message, "text/xml", SOUP_MEMORY_TEMPORARY,
 			(gchar *) request, strlen(request));
@@ -626,7 +666,151 @@ send_propfind(EBookBackendWebdav *webdav)
 	return message;
 }
 
-static GNOME_Evolution_Addressbook_CallStatus
+static xmlXPathObjectPtr
+xpath_eval (xmlXPathContextPtr ctx, const gchar *format, ...)
+{
+	xmlXPathObjectPtr  result;
+	va_list            args;
+	gchar              *expr;
+
+	if (ctx == NULL) {
+		return NULL;
+	}
+
+	va_start (args, format);
+	expr = g_strdup_vprintf (format, args);
+	va_end (args);
+
+	result = xmlXPathEvalExpression ((xmlChar *) expr, ctx);
+	g_free (expr);
+
+	if (result == NULL) {
+		return NULL;
+	}
+
+	if (result->type == XPATH_NODESET &&
+	    xmlXPathNodeSetIsEmpty (result->nodesetval)) {
+		xmlXPathFreeObject (result);
+		return NULL;
+	}
+
+	return result;
+}
+
+static gchar *
+xp_object_get_string (xmlXPathObjectPtr result)
+{
+	gchar *ret = NULL;
+
+	if (result == NULL)
+		return ret;
+
+	if (result->type == XPATH_STRING) {
+		ret = g_strdup ((gchar *) result->stringval);
+	}
+
+	xmlXPathFreeObject (result);
+	return ret;
+}
+
+static guint
+xp_object_get_status (xmlXPathObjectPtr result)
+{
+	gboolean res;
+	guint    ret = 0;
+
+	if (result == NULL)
+		return ret;
+
+	if (result->type == XPATH_STRING) {
+		res = soup_headers_parse_status_line ((gchar *) result->stringval, NULL, &ret, NULL);
+		if (!res) {
+			ret = 0;
+		}
+	}
+
+	xmlXPathFreeObject (result);
+	return ret;
+}
+
+static gboolean
+check_addressbook_changed (EBookBackendWebdav *webdav, gchar **new_ctag)
+{
+	gboolean res = TRUE;
+	const gchar *request = "<?xml version=\"1.0\" encoding=\"utf-8\"?><propfind xmlns=\"DAV:\"><prop><getctag/></prop></propfind>";
+	EBookBackendWebdavPrivate *priv;
+	SoupMessage *message;
+
+	g_return_val_if_fail (webdav != NULL, TRUE);
+	g_return_val_if_fail (new_ctag != NULL, TRUE);
+
+	*new_ctag = NULL;
+	priv = webdav->priv;
+
+	if (!priv->supports_getctag)
+		return TRUE;
+
+	priv->supports_getctag = FALSE;
+
+	message = soup_message_new (SOUP_METHOD_PROPFIND, priv->uri);
+	if (!message)
+		return TRUE;
+
+	soup_message_headers_append (message->request_headers, "User-Agent", USERAGENT);
+	soup_message_headers_append (message->request_headers, "Connection", "close");
+	soup_message_headers_append (message->request_headers, "Depth", "0");
+	soup_message_set_request (message, "text/xml", SOUP_MEMORY_TEMPORARY, (gchar *) request, strlen (request));
+	soup_session_send_message (priv->session, message);
+
+	if (message->status_code == 207 && message->response_body) {
+		xmlDocPtr xml;
+
+		xml = xmlReadMemory (message->response_body->data, message->response_body->length, NULL, NULL, XML_PARSE_NOWARNING);
+		if (xml) {
+			const gchar *GETCTAG_XPATH_STATUS = "string(/D:multistatus/D:response/D:propstat/D:prop/D:getctag/../../D:status)";
+			const gchar *GETCTAG_XPATH_VALUE = "string(/D:multistatus/D:response/D:propstat/D:prop/D:getctag)";
+			xmlXPathContextPtr xpctx;
+
+			xpctx = xmlXPathNewContext (xml);
+			xmlXPathRegisterNs (xpctx, (xmlChar *) "D", (xmlChar *) "DAV:");
+
+			if (xp_object_get_status (xpath_eval (xpctx, GETCTAG_XPATH_STATUS)) == 200) {
+				gchar *txt = xp_object_get_string (xpath_eval (xpctx, GETCTAG_XPATH_VALUE));
+
+				if (txt && *txt) {
+					gint len = strlen (txt);
+
+					if (*txt == '\"' && len > 2 && txt [len - 1] == '\"') {
+						/* dequote */
+						*new_ctag = g_strndup (txt + 1, len - 2);
+					} else {
+						*new_ctag = txt;
+						txt = NULL;
+					}
+
+					if (*new_ctag) {
+						const gchar *my_ctag;
+
+						my_ctag = e_file_cache_get_object (E_FILE_CACHE (priv->cache), WEBDAV_CTAG_KEY);
+						res = !my_ctag || !g_str_equal (my_ctag, *new_ctag);
+						priv->supports_getctag = TRUE;
+					}
+				}
+
+				g_free (txt);
+			}
+
+			xmlXPathFreeContext (xpctx);
+			xmlFreeDoc (xml);
+		}
+	}
+
+	g_object_unref (message);
+
+	return res;
+}
+
+static GError *
 download_contacts(EBookBackendWebdav *webdav, EFlag *running,
                   EDataBookView *book_view)
 {
@@ -639,6 +823,25 @@ download_contacts(EBookBackendWebdav *webdav, EFlag *running,
 	response_element_t        *next;
 	gint                        count;
 	gint                        i;
+	gchar                     *new_ctag = NULL;
+
+	if (!check_addressbook_changed (webdav, &new_ctag)) {
+		if (book_view) {
+			GList *contact_list, *cl;
+
+			contact_list = e_book_backend_cache_get_contacts (priv->cache, e_data_book_view_get_card_query (book_view));
+			for (cl = contact_list; cl != NULL; cl = g_list_next (cl)) {
+				EContact *contact = cl->data;
+
+				e_data_book_view_notify_update (book_view, contact);
+
+				g_object_unref (contact);
+			}
+			g_list_free (contact_list);
+		}
+		g_free (new_ctag);
+		return EDB_ERROR (SUCCESS);
+	}
 
 	if (book_view != NULL) {
 		e_data_book_view_notify_status_message(book_view,
@@ -649,23 +852,20 @@ download_contacts(EBookBackendWebdav *webdav, EFlag *running,
 	status  = message->status_code;
 
 	if (status == 401 || status == 407) {
-		GNOME_Evolution_Addressbook_CallStatus res
-			= e_book_backend_handle_auth_request(webdav);
 		g_object_unref(message);
-		e_data_book_view_unref(book_view);
-		return res;
+		g_free (new_ctag);
+		return webdav_handle_auth_request (webdav);
 	}
 	if (status != 207) {
-		g_warning("PROPFIND on webdav failed with http status %d", status);
 		g_object_unref(message);
-		e_data_book_view_unref(book_view);
-		return GNOME_Evolution_Addressbook_OtherError;
+		g_free (new_ctag);
+		return e_data_book_create_error_fmt (E_DATA_BOOK_STATUS_OTHER_ERROR, "PROPFIND on webdav failed with HTTP status %d", status);
 	}
 	if (message->response_body == NULL) {
-		g_warning("No response body in webdav PROPEFIND result");
+		g_warning("No response body in webdav PROPFIND result");
 		g_object_unref(message);
-		e_data_book_view_unref(book_view);
-		return GNOME_Evolution_Addressbook_OtherError;
+		g_free (new_ctag);
+		return e_data_book_create_error_fmt (E_DATA_BOOK_STATUS_OTHER_ERROR, "No response body in webdav PROPFIND result");
 	}
 
 	/* parse response */
@@ -748,7 +948,13 @@ download_contacts(EBookBackendWebdav *webdav, EFlag *running,
 	xmlFreeTextReader(reader);
 	g_object_unref(message);
 
-	return GNOME_Evolution_Addressbook_Success;
+	if (new_ctag) {
+		if (!e_file_cache_replace_object (E_FILE_CACHE (priv->cache), WEBDAV_CTAG_KEY, new_ctag))
+			e_file_cache_add_object (E_FILE_CACHE (priv->cache), WEBDAV_CTAG_KEY, new_ctag);
+	}
+	g_free (new_ctag);
+
+	return EDB_ERROR (SUCCESS);
 }
 
 static gpointer
@@ -757,7 +963,7 @@ book_view_thread(gpointer data)
 	EDataBookView                          *book_view = data;
 	WebdavBackendSearchClosure             *closure   = get_closure(book_view);
 	EBookBackendWebdav                     *webdav    = closure->webdav;
-	GNOME_Evolution_Addressbook_CallStatus  status;
+	GError *error;
 
 	e_flag_set(closure->running);
 
@@ -765,12 +971,14 @@ book_view_thread(gpointer data)
 	 * it's stopped */
 	e_data_book_view_ref(book_view);
 
-	status = download_contacts(webdav, closure->running, book_view);
-
-	e_data_book_view_unref(book_view);
+	error = download_contacts (webdav, closure->running, book_view);
 
 	/* report back status if query wasn't aborted */
-	e_data_book_view_notify_complete(book_view, status);
+	e_data_book_view_notify_complete (book_view, error);
+	e_data_book_view_unref (book_view);
+
+	if (error)
+		g_error_free (error);
 	return NULL;
 }
 
@@ -781,7 +989,7 @@ e_book_backend_webdav_start_book_view(EBookBackend *backend,
 	EBookBackendWebdav        *webdav = E_BOOK_BACKEND_WEBDAV(backend);
 	EBookBackendWebdavPrivate *priv   = webdav->priv;
 
-	if (priv->mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
+	if (priv->mode == E_DATA_BOOK_MODE_REMOTE) {
 		WebdavBackendSearchClosure *closure
 			= init_closure(book_view, E_BOOK_BACKEND_WEBDAV(backend));
 
@@ -800,8 +1008,7 @@ e_book_backend_webdav_start_book_view(EBookBackend *backend,
 			g_object_unref(contact);
 		}
 		g_list_free(contacts);
-		e_data_book_view_notify_complete(book_view,
-				GNOME_Evolution_Addressbook_Success);
+		e_data_book_view_notify_complete (book_view, NULL /* Success */);
 	}
 }
 
@@ -813,7 +1020,7 @@ e_book_backend_webdav_stop_book_view(EBookBackend *backend,
 	WebdavBackendSearchClosure *closure;
 	gboolean                    need_join;
 
-	if (webdav->priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL)
+	if (webdav->priv->mode == E_DATA_BOOK_MODE_LOCAL)
 		return;
 
 	closure = get_closure(book_view);
@@ -838,13 +1045,12 @@ e_book_backend_webdav_get_contact_list(EBookBackend *backend, EDataBook *book,
 	GList                     *vcard_list;
 	GList                     *c;
 
-	if (priv->mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
+	if (priv->mode == E_DATA_BOOK_MODE_REMOTE) {
 		/* make sure the cache is up to date */
-		GNOME_Evolution_Addressbook_CallStatus status =
-			download_contacts(webdav, NULL, NULL);
+		GError *error = download_contacts (webdav, NULL, NULL);
 
-		if (status != GNOME_Evolution_Addressbook_Success) {
-			e_data_book_respond_get_contact_list(book, opid, status, NULL);
+		if (error) {
+			e_data_book_respond_get_contact_list (book, opid, error, NULL);
 			return;
 		}
 	}
@@ -861,8 +1067,7 @@ e_book_backend_webdav_get_contact_list(EBookBackend *backend, EDataBook *book,
 	}
 	g_list_free(contact_list);
 
-	e_data_book_respond_get_contact_list(book, opid,
-			GNOME_Evolution_Addressbook_Success, vcard_list);
+	e_data_book_respond_get_contact_list (book, opid, EDB_ERROR (SUCCESS), vcard_list);
 }
 
 static void
@@ -890,11 +1095,9 @@ e_book_backend_webdav_authenticate_user(EBookBackend *backend, EDataBook *book,
 		g_free(priv->password);
 		priv->password = NULL;
 
-		e_data_book_respond_authenticate_user(book, opid,
-				GNOME_Evolution_Addressbook_AuthenticationFailed);
+		e_data_book_respond_authenticate_user (book, opid, EDB_ERROR (AUTHENTICATION_FAILED));
 	} else {
-		e_data_book_respond_authenticate_user(book, opid,
-				GNOME_Evolution_Addressbook_Success);
+		e_data_book_respond_authenticate_user (book, opid, EDB_ERROR (SUCCESS));
 	}
 }
 
@@ -910,8 +1113,7 @@ e_book_backend_webdav_get_supported_fields(EBookBackend *backend,
 		fields = g_list_append(fields, g_strdup(e_contact_field_name(i)));
 	}
 
-	e_data_book_respond_get_supported_fields(book, opid,
-			GNOME_Evolution_Addressbook_Success, fields);
+	e_data_book_respond_get_supported_fields (book, opid, EDB_ERROR (SUCCESS), fields);
 	g_list_foreach(fields, (GFunc) g_free, NULL);
 	g_list_free(fields);
 }
@@ -924,8 +1126,7 @@ e_book_backend_webdav_get_supported_auth_methods(EBookBackend *backend,
 
 	auth_methods = g_list_append(auth_methods, g_strdup("plain/password"));
 
-	e_data_book_respond_get_supported_auth_methods(book, opid,
-			GNOME_Evolution_Addressbook_Success, auth_methods);
+	e_data_book_respond_get_supported_auth_methods (book, opid, EDB_ERROR (SUCCESS), auth_methods);
 
 	g_list_foreach(auth_methods, (GFunc) g_free, NULL);
 	g_list_free(auth_methods);
@@ -941,8 +1142,7 @@ e_book_backend_webdav_get_required_fields(EBookBackend *backend,
 	field_name = e_contact_field_name(E_CONTACT_FILE_AS);
 	fields     = g_list_append(fields , g_strdup(field_name));
 
-	e_data_book_respond_get_supported_fields(book, opid,
-			GNOME_Evolution_Addressbook_Success, fields);
+	e_data_book_respond_get_supported_fields (book, opid, EDB_ERROR (SUCCESS), fields);
 	g_list_free (fields);
 }
 
@@ -979,57 +1179,97 @@ proxy_settings_changed (EProxy *proxy, gpointer user_data)
 	g_object_set (priv->session, SOUP_SESSION_PROXY_URI, proxy_uri, NULL);
 }
 
-static GNOME_Evolution_Addressbook_CallStatus
+static void
 e_book_backend_webdav_load_source(EBookBackend *backend,
-                                  ESource *source, gboolean only_if_exists)
+                                  ESource *source, gboolean only_if_exists, GError **perror)
 {
 	EBookBackendWebdav        *webdav = E_BOOK_BACKEND_WEBDAV(backend);
 	EBookBackendWebdavPrivate *priv   = webdav->priv;
-	const gchar               *uri;
-	const gchar                *offline;
-	const gchar                *uri_without_protocol;
-	const gchar                *protocol;
-	const gchar                *use_ssl;
-	const gchar                *suffix;
+	gchar                     *uri;
+	const gchar               *cache_dir;
+	const gchar               *offline;
+	const gchar               *use_ssl;
+	gchar                     *filename;
 	SoupSession               *session;
+	SoupURI                   *suri;
+
+	/* will try fetch ctag for the first time, if it fails then sets this to FALSE */
+	priv->supports_getctag = TRUE;
+
+	cache_dir = e_book_backend_get_cache_dir (backend);
 
 	uri = e_source_get_uri(source);
 	if (uri == NULL) {
-		g_warning("no uri given for addressbook");
-		return  GNOME_Evolution_Addressbook_OtherError;
+		g_propagate_error (perror, EDB_ERROR_EX (OTHER_ERROR, "No uri given for addressbook"));
+		return;
+	}
+
+	suri = soup_uri_new (uri);
+	g_free (uri);
+
+	if (!suri) {
+		g_propagate_error (perror, EDB_ERROR_EX (OTHER_ERROR, "Invalid uri given for addressbook"));
+		return;
 	}
 
 	offline = e_source_get_property(source, "offline_sync");
 	if (offline && g_str_equal(offline, "1"))
 		priv->marked_for_offline = TRUE;
 
-	if (priv->mode == GNOME_Evolution_Addressbook_MODE_LOCAL
+	if (priv->mode == E_DATA_BOOK_MODE_LOCAL
 			&& !priv->marked_for_offline ) {
-		return GNOME_Evolution_Addressbook_OfflineUnavailable;
+		soup_uri_free (suri);
+		g_propagate_error (perror, EDB_ERROR (OFFLINE_UNAVAILABLE));
+		return;
 	}
 
-	if (strncmp(uri, "webdav://", 9) != 0) {
+	if (!suri->scheme || !g_str_equal (suri->scheme, "webdav")) {
 		/* the book is not for us */
-		return GNOME_Evolution_Addressbook_OtherError;
+		soup_uri_free (suri);
+		g_propagate_error (perror, EDB_ERROR_EX (OTHER_ERROR, "Not a webdav uri"));
+		return;
 	}
 
-	uri_without_protocol = uri + 9;
-	use_ssl              = e_source_get_property(source, "use_ssl");
-	if (use_ssl != NULL && strcmp(use_ssl, "1") == 0) {
-		protocol = "https://";
+	use_ssl = e_source_get_property (source, "use_ssl");
+	if (use_ssl != NULL && strcmp (use_ssl, "1") == 0) {
+		soup_uri_set_scheme (suri, "https");
 	} else {
-		protocol = "http://";
+		soup_uri_set_scheme (suri, "https");
 	}
 
 	/* append slash if missing */
-	suffix = "";
-	if (uri_without_protocol[strlen(uri_without_protocol) - 1] != '/')
-		suffix = "/";
+	if (!suri->path || !*suri->path || suri->path[strlen (suri->path) - 1] != '/') {
+		gchar *new_path = g_strconcat (suri->path ? suri->path : "", "/", NULL);
+		soup_uri_set_path (suri, new_path);
+		g_free (new_path);
+	}
 
-	priv->uri
-		= g_strdup_printf("%s%s%s", protocol, uri_without_protocol, suffix);
+	if (suri->host && strchr (suri->host, '@')) {
+		gchar *at = strchr (suri->host, '@');
+		gchar *new_user;
 
-	priv->cache = e_book_backend_cache_new(priv->uri);
+		*at = '\0';
+
+		new_user = g_strconcat (suri->user ? suri->user : "", "@", suri->host, NULL);
+
+		*at = '@';
+
+		soup_uri_set_host (suri, at + 1);
+		soup_uri_set_user (suri, new_user);
+
+		g_free (new_user);
+	}
+
+	priv->uri = soup_uri_to_string (suri, FALSE);
+	if (!priv->uri) {
+		soup_uri_free (suri);
+		g_propagate_error (perror, EDB_ERROR_EX (OTHER_ERROR, "Cannot transform SoupURI to string"));
+		return;
+	}
+
+	filename = g_build_filename (cache_dir, "cache.xml", NULL);
+	priv->cache = e_book_backend_cache_new (filename);
+	g_free (filename);
 
 	session = soup_session_sync_new();
 	g_signal_connect(session, "authenticate", G_CALLBACK(soup_authenticate),
@@ -1040,6 +1280,7 @@ e_book_backend_webdav_load_source(EBookBackend *backend,
 	e_proxy_setup_proxy (priv->proxy);
 	g_signal_connect (priv->proxy, "changed", G_CALLBACK (proxy_settings_changed), priv);
 	proxy_settings_changed (priv->proxy, priv);
+	webdav_debug_setup (priv->session);
 
 	e_book_backend_notify_auth_required(backend);
 	e_book_backend_set_is_loaded(backend, TRUE);
@@ -1047,18 +1288,19 @@ e_book_backend_webdav_load_source(EBookBackend *backend,
 	e_book_backend_set_is_writable(backend, TRUE);
 	e_book_backend_notify_writable(backend, TRUE);
 
-	return GNOME_Evolution_Addressbook_Success;
+	soup_uri_free (suri);
 }
 
 static void
 e_book_backend_webdav_remove(EBookBackend *backend,	EDataBook *book,
 		guint32 opid)
 {
-	e_data_book_respond_remove(book, opid, GNOME_Evolution_Addressbook_Success);
+	e_data_book_respond_remove (book, opid, EDB_ERROR (SUCCESS));
 }
 
 static void
-e_book_backend_webdav_set_mode(EBookBackend *backend, gint mode)
+e_book_backend_webdav_set_mode(EBookBackend *backend,
+                               EDataBookMode mode)
 {
 	EBookBackendWebdav *webdav = E_BOOK_BACKEND_WEBDAV(backend);
 
@@ -1068,11 +1310,11 @@ e_book_backend_webdav_set_mode(EBookBackend *backend, gint mode)
 	if (!e_book_backend_is_loaded(backend))
 		return;
 
-	if (mode == GNOME_Evolution_Addressbook_MODE_LOCAL) {
+	if (mode == E_DATA_BOOK_MODE_LOCAL) {
 		e_book_backend_set_is_writable(backend, FALSE);
 		e_book_backend_notify_writable(backend, FALSE);
 		e_book_backend_notify_connection_status(backend, FALSE);
-	} else if (mode == GNOME_Evolution_Addressbook_MODE_REMOTE) {
+	} else if (mode == E_DATA_BOOK_MODE_REMOTE) {
 		e_book_backend_set_is_writable(backend, TRUE);
 		e_book_backend_notify_writable(backend, TRUE);
 		e_book_backend_notify_connection_status(backend, TRUE);
@@ -1085,27 +1327,16 @@ e_book_backend_webdav_get_static_capabilities(EBookBackend *backend)
 	return g_strdup("net,do-initial-query,contact-lists");
 }
 
-static GNOME_Evolution_Addressbook_CallStatus
-e_book_backend_webdav_cancel_operation(EBookBackend *backend, EDataBook *book)
+static void
+e_book_backend_webdav_cancel_operation (EBookBackend *backend, EDataBook *book, GError **perror)
 {
-	return GNOME_Evolution_Addressbook_CouldNotCancel;
+	g_propagate_error (perror, EDB_ERROR (COULD_NOT_CANCEL));
 }
 
 EBookBackend *
 e_book_backend_webdav_new(void)
 {
-	EBookBackendWebdav *backend
-		= g_object_new(E_TYPE_BOOK_BACKEND_WEBDAV, NULL);
-
-	g_assert(backend != NULL);
-	g_assert(E_IS_BOOK_BACKEND_WEBDAV(backend));
-
-	if (!e_book_backend_construct(E_BOOK_BACKEND(backend))) {
-		g_object_unref(backend);
-		return NULL;
-	}
-
-	return E_BOOK_BACKEND(backend);
+	return g_object_new (E_TYPE_BOOK_BACKEND_WEBDAV, NULL);
 }
 
 static void
@@ -1165,27 +1396,3 @@ e_book_backend_webdav_init(EBookBackendWebdav *backend)
 			E_TYPE_BOOK_BACKEND_WEBDAV, EBookBackendWebdavPrivate);
 }
 
-GType
-e_book_backend_webdav_get_type(void)
-{
-	static GType type = 0;
-
-	if (! type) {
-		GTypeInfo info = {
-			sizeof(EBookBackendWebdavClass),
-			NULL, /* base_class_init */
-			NULL, /* base_class_finalize */
-			(GClassInitFunc)  e_book_backend_webdav_class_init,
-			NULL, /* class_finalize */
-			NULL, /* class_data */
-			sizeof(EBookBackendWebdav),
-			0,    /* n_preallocs */
-			(GInstanceInitFunc) e_book_backend_webdav_init
-		};
-
-		type = g_type_register_static(E_TYPE_BOOK_BACKEND, "EBookBackendWebdav",
-				&info, 0);
-	}
-
-	return type;
-}

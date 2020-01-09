@@ -21,14 +21,19 @@
  *
  */
 
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
 #ifndef CAMEL_FILTER_SEARCH_H
 #define CAMEL_FILTER_SEARCH_H
 
-#include <glib.h>
 #include <camel/camel-mime-message.h>
 #include <camel/camel-folder-summary.h>
 
 G_BEGIN_DECLS
+
+struct _CamelSession;
 
 enum {
 	CAMEL_SEARCH_ERROR    = -1,
@@ -36,13 +41,13 @@ enum {
 	CAMEL_SEARCH_MATCHED  =  1
 };
 
-typedef CamelMimeMessage * (*CamelFilterSearchGetMessageFunc) (gpointer data, CamelException *ex);
+typedef CamelMimeMessage * (*CamelFilterSearchGetMessageFunc) (gpointer data, GError **error);
 
-gint camel_filter_search_match (CamelSession *session,
+gint camel_filter_search_match (struct _CamelSession *session,
 			       CamelFilterSearchGetMessageFunc get_message, gpointer data,
 			       CamelMessageInfo *info, const gchar *source,
-			       const gchar *expression, CamelException *ex);
+			       const gchar *expression, GError **error);
 
 G_END_DECLS
 
-#endif /* ! CAMEL_FILTER_SEARCH_H */
+#endif /* CAMEL_FILTER_SEARCH_H */

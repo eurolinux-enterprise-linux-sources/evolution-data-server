@@ -1,5 +1,5 @@
 #ifndef CAMEL_IMAP_PRIVATE_H
-#define CAMEL_IMAP_PRIVATE_H 1
+#define CAMEL_IMAP_PRIVATE_H
 
 /* need a way to configure and save this data, if this header is to
    be installed.  For now, dont install it */
@@ -16,6 +16,7 @@ struct _CamelImapFolderPrivate {
 	GStaticRecMutex cache_lock;	/* for locking the cache object */
 #endif
 	GHashTable *ignore_recent;	/* hash table of UIDs to ignore as recent when updating folder */
+	gboolean check_folder;		/* persistent property */
 };
 
 #ifdef ENABLE_THREADS

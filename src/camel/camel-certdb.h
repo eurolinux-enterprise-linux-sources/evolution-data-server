@@ -20,21 +20,40 @@
  *
  */
 
-#ifndef __CAMEL_CERTDB_H__
-#define __CAMEL_CERTDB_H__
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
+#ifndef CAMEL_CERTDB_H
+#define CAMEL_CERTDB_H
 
 #include <stdio.h>
 #include <camel/camel-object.h>
 
-#define CAMEL_CERTDB_TYPE         (camel_certdb_get_type ())
-#define CAMEL_CERTDB(obj)         (CAMEL_CHECK_CAST (obj, camel_certdb_get_type (), CamelCertDB))
-#define CAMEL_CERTDB_CLASS(klass) (CAMEL_CHECK_CLASS_CAST (klass, camel_certdb_get_type (), CamelCertDBClass))
-#define CAMEL_IS_CERTDB(obj)      (CAMEL_CHECK_TYPE (obj, camel_certdb_get_type ()))
+/* Standard GObject macros */
+#define CAMEL_TYPE_CERTDB \
+	(camel_certdb_get_type ())
+#define CAMEL_CERTDB(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_CERTDB, CamelCertDB))
+#define CAMEL_CERTDB_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_CERTDB, CamelCertDBClass))
+#define CAMEL_IS_CERTDB(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_CERTDB))
+#define CAMEL_IS_CERTDB_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_CERTDB))
+#define CAMEL_CERTDB_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_CERTDB, CamelCertDBClass))
 
 G_BEGIN_DECLS
 
 typedef struct _CamelCertDB CamelCertDB;
 typedef struct _CamelCertDBClass CamelCertDBClass;
+typedef struct _CamelCertDBPrivate CamelCertDBPrivate;
 
 enum {
 	CAMEL_CERTDB_DIRTY  = (1 << 0)
@@ -67,9 +86,21 @@ typedef struct {
 	GByteArray *rawcert;
 } CamelCert;
 
+/**
+ * CamelCertDBLock:
+ *
+ * Since: 2.32
+ **/
+typedef enum {
+	CAMEL_CERTDB_DB_LOCK,
+	CAMEL_CERTDB_IO_LOCK,
+	CAMEL_CERTDB_ALLOC_LOCK,
+	CAMEL_CERTDB_REF_LOCK
+} CamelCertDBLock;
+
 struct _CamelCertDB {
-	CamelObject parent_object;
-	struct _CamelCertDBPrivate *priv;
+	CamelObject parent;
+	CamelCertDBPrivate *priv;
 
 	gchar *filename;
 	guint32 version;
@@ -100,7 +131,7 @@ struct _CamelCertDBClass {
 	void (*cert_set_string) (CamelCertDB *certdb, CamelCert *cert, gint string, const gchar *value);
 };
 
-CamelType camel_certdb_get_type (void);
+GType camel_certdb_get_type (void);
 
 CamelCertDB *camel_certdb_new (void);
 
@@ -141,6 +172,9 @@ void camel_cert_set_string (CamelCertDB *certdb, CamelCert *cert, gint string, c
 CamelCertTrust camel_cert_get_trust (CamelCertDB *certdb, CamelCert *cert);
 void camel_cert_set_trust (CamelCertDB *certdb, CamelCert *cert, CamelCertTrust trust);
 
+void camel_certdb_lock	 (CamelCertDB *certdb, CamelCertDBLock lock);
+void camel_certdb_unlock (CamelCertDB *certdb, CamelCertDBLock lock);
+
 G_END_DECLS
 
-#endif /* __CAMEL_CERTDB_H__ */
+#endif /* CAMEL_CERTDB_H */

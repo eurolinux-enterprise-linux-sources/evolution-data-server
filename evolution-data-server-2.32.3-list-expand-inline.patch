@@ -1,0 +1,63 @@
+diff -up evolution-data-server-2.32.3/libedataserverui/e-name-selector-entry.c.list-expand-inline evolution-data-server-2.32.3/libedataserverui/e-name-selector-entry.c
+--- evolution-data-server-2.32.3/libedataserverui/e-name-selector-entry.c.list-expand-inline	2013-06-11 14:38:58.233373252 +0200
++++ evolution-data-server-2.32.3/libedataserverui/e-name-selector-entry.c	2013-06-11 14:38:58.237373252 +0200
+@@ -2338,30 +2338,47 @@ editor_closed_cb (GtkObject *editor, gpo
+ static void
+ popup_activate_inline_expand (ENameSelectorEntry *name_selector_entry, GtkWidget *menu_item)
+ {
+-	const gchar *email_list, *text;
+-	gchar *sanitized_text;
++	const gchar *text;
++	GString *sanitized_text = g_string_new ("");
+ 	EDestination *destination = name_selector_entry->priv->popup_destination;
+ 	gint position, start, end;
++	const GList *dests;
+ 
+ 	position = GPOINTER_TO_INT(g_object_get_data ((GObject *)name_selector_entry, "index"));
+ 
+-	email_list = e_destination_get_address(destination);
+-	text = gtk_entry_get_text (GTK_ENTRY (name_selector_entry));
+-	get_range_at_position (text, position, &start, &end);
++	for (dests = e_destination_list_get_dests (destination); dests; dests = dests->next) {
++		const EDestination *dest = dests->data;
++		gchar *sanitized;
+ 
+-	g_signal_handlers_block_by_func (name_selector_entry, user_delete_text, name_selector_entry);
++		if (!dest)
++			continue;
+ 
+-	gtk_editable_delete_text (GTK_EDITABLE (name_selector_entry), start, end);
++		text = e_destination_get_address (dest);
++		if (!text || !*text)
++			continue;
+ 
+-	sanitized_text = sanitize_string (email_list);
+-	gtk_editable_insert_text (GTK_EDITABLE (name_selector_entry), sanitized_text, -1, &start);
+-	g_free (sanitized_text);
++		sanitized = sanitize_string (text);
++		if (!sanitized)
++			continue;
+ 
+-	g_signal_handlers_unblock_by_func (name_selector_entry, user_delete_text, name_selector_entry);
++		if (*sanitized) {
++			if (*sanitized_text->str)
++				g_string_append (sanitized_text, ", ");
++
++			g_string_append (sanitized_text, sanitized);
++		}
++
++		g_free (sanitized);
++	}
++
++	text = gtk_entry_get_text (GTK_ENTRY (name_selector_entry));
++	get_range_at_position (text, position, &start, &end);
++	gtk_editable_delete_text (GTK_EDITABLE (name_selector_entry), start, end);
++	gtk_editable_insert_text (GTK_EDITABLE (name_selector_entry), sanitized_text->str, -1, &start);
++	g_string_free (sanitized_text, TRUE);
+ 
+ 	clear_completion_model (name_selector_entry);
+ 	generate_attribute_list (name_selector_entry);
+-
+ }
+ 
+ static void

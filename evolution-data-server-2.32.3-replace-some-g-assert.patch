@@ -1,0 +1,527 @@
+diff -up evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend.c.replace-some-g-assert evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend.c
+--- evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend.c.replace-some-g-assert	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend.c	2013-08-06 19:21:27.804280366 +0200
+@@ -264,7 +264,7 @@ e_book_backend_load_source (EBookBackend
+ 	backend->priv->source = g_object_ref (source);
+ 	book_backend_set_default_cache_dir (backend);
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->load_source);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->load_source);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->load_source) (backend, source, only_if_exists, &local_error);
+ 
+@@ -350,7 +350,7 @@ e_book_backend_remove (EBookBackend *bac
+ 	g_return_if_fail (E_IS_BOOK_BACKEND (backend));
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->remove);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->remove);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->remove) (backend, book, opid);
+ }
+@@ -375,7 +375,7 @@ e_book_backend_create_contact (EBookBack
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 	g_return_if_fail (vcard);
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->create_contact);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->create_contact);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->create_contact) (backend, book, opid, vcard);
+ }
+@@ -400,7 +400,7 @@ e_book_backend_remove_contacts (EBookBac
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 	g_return_if_fail (id_list);
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->remove_contacts);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->remove_contacts);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->remove_contacts) (backend, book, opid, id_list);
+ }
+@@ -425,7 +425,7 @@ e_book_backend_modify_contact (EBookBack
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 	g_return_if_fail (vcard);
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->modify_contact);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->modify_contact);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->modify_contact) (backend, book, opid, vcard);
+ }
+@@ -450,7 +450,7 @@ e_book_backend_get_contact (EBookBackend
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 	g_return_if_fail (id);
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->get_contact);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->get_contact);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->get_contact) (backend, book, opid, id);
+ }
+@@ -475,7 +475,7 @@ e_book_backend_get_contact_list (EBookBa
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 	g_return_if_fail (query);
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->get_contact_list);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->get_contact_list);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->get_contact_list) (backend, book, opid, query);
+ }
+@@ -495,7 +495,7 @@ e_book_backend_start_book_view (EBookBac
+ 	g_return_if_fail (E_IS_BOOK_BACKEND (backend));
+ 	g_return_if_fail (E_IS_DATA_BOOK_VIEW (book_view));
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->start_book_view);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->start_book_view);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->start_book_view) (backend, book_view);
+ }
+@@ -515,7 +515,7 @@ e_book_backend_stop_book_view (EBookBack
+ 	g_return_if_fail (E_IS_BOOK_BACKEND (backend));
+ 	g_return_if_fail (E_IS_DATA_BOOK_VIEW (book_view));
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->stop_book_view);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->stop_book_view);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->stop_book_view) (backend, book_view);
+ }
+@@ -540,7 +540,7 @@ e_book_backend_get_changes (EBookBackend
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 	g_return_if_fail (change_id);
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->get_changes);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->get_changes);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->get_changes) (backend, book, opid, change_id);
+ }
+@@ -569,7 +569,7 @@ e_book_backend_authenticate_user (EBookB
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 	g_return_if_fail (user && passwd && auth_method);
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->authenticate_user);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->authenticate_user);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->authenticate_user) (backend, book, opid, user, passwd, auth_method);
+ }
+@@ -592,7 +592,7 @@ e_book_backend_get_required_fields (EBoo
+ 	g_return_if_fail (E_IS_BOOK_BACKEND (backend));
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->get_required_fields);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->get_required_fields);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->get_required_fields) (backend, book, opid);
+ }
+@@ -615,7 +615,7 @@ e_book_backend_get_supported_fields (EBo
+ 	g_return_if_fail (E_IS_BOOK_BACKEND (backend));
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->get_supported_fields);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->get_supported_fields);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->get_supported_fields) (backend, book, opid);
+ }
+@@ -637,7 +637,7 @@ e_book_backend_get_supported_auth_method
+ 	g_return_if_fail (E_IS_BOOK_BACKEND (backend));
+ 	g_return_if_fail (E_IS_DATA_BOOK (book));
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->get_supported_auth_methods);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->get_supported_auth_methods);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->get_supported_auth_methods) (backend, book, opid);
+ }
+@@ -658,7 +658,7 @@ e_book_backend_cancel_operation (EBookBa
+ 	e_return_data_book_error_if_fail (E_IS_BOOK_BACKEND (backend), E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (E_IS_DATA_BOOK (book), E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->cancel_operation);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->cancel_operation);
+ 
+ 	(* E_BOOK_BACKEND_GET_CLASS (backend)->cancel_operation) (backend, book, error);
+ }
+@@ -809,7 +809,7 @@ e_book_backend_get_static_capabilities (
+ {
+ 	g_return_val_if_fail (E_IS_BOOK_BACKEND (backend), NULL);
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->get_static_capabilities);
++	g_return_val_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->get_static_capabilities, NULL);
+ 
+ 	return E_BOOK_BACKEND_GET_CLASS (backend)->get_static_capabilities (backend);
+ }
+@@ -925,7 +925,7 @@ e_book_backend_set_mode (EBookBackend *b
+ {
+ 	g_return_if_fail (E_IS_BOOK_BACKEND (backend));
+ 
+-	g_assert (E_BOOK_BACKEND_GET_CLASS (backend)->set_mode);
++	g_return_if_fail (E_BOOK_BACKEND_GET_CLASS (backend)->set_mode);
+ 
+         (* E_BOOK_BACKEND_GET_CLASS (backend)->set_mode) (backend,  mode);
+ 
+diff -up evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend-sync.c.replace-some-g-assert evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend-sync.c
+--- evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend-sync.c.replace-some-g-assert	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/addressbook/libedata-book/e-book-backend-sync.c	2013-08-06 19:21:27.805280366 +0200
+@@ -58,7 +58,7 @@ e_book_backend_sync_create_contact (EBoo
+ 	e_return_data_book_error_if_fail (vcard, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (contact, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->create_contact_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->create_contact_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->create_contact_sync) (backend, book, opid, vcard, contact, error);
+ }
+@@ -82,7 +82,7 @@ e_book_backend_sync_remove (EBookBackend
+ 	e_return_data_book_error_if_fail (E_IS_BOOK_BACKEND_SYNC (backend), E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (E_IS_DATA_BOOK (book), E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->remove_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->remove_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->remove_sync) (backend, book, opid, error);
+ }
+@@ -113,7 +113,7 @@ e_book_backend_sync_remove_contacts (EBo
+ 	e_return_data_book_error_if_fail (id_list, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (removed_ids, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->remove_contacts_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->remove_contacts_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->remove_contacts_sync) (backend, book, opid, id_list, removed_ids, error);
+ }
+@@ -143,7 +143,7 @@ e_book_backend_sync_modify_contact (EBoo
+ 	e_return_data_book_error_if_fail (vcard, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (contact, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->modify_contact_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->modify_contact_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->modify_contact_sync) (backend, book, opid, vcard, contact, error);
+ }
+@@ -171,7 +171,7 @@ e_book_backend_sync_get_contact (EBookBa
+ 	e_return_data_book_error_if_fail (id, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (vcard, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_contact_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_contact_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_contact_sync) (backend, book, opid, id, vcard, error);
+ }
+@@ -201,7 +201,7 @@ e_book_backend_sync_get_contact_list (EB
+ 	e_return_data_book_error_if_fail (query, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (contacts, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_contact_list_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_contact_list_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_contact_list_sync) (backend, book, opid, query, contacts, error);
+ }
+@@ -232,7 +232,7 @@ e_book_backend_sync_get_changes (EBookBa
+ 	e_return_data_book_error_if_fail (change_id, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (changes, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_changes_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_changes_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_changes_sync) (backend, book, opid, change_id, changes, error);
+ }
+@@ -262,7 +262,7 @@ e_book_backend_sync_authenticate_user (E
+ 	e_return_data_book_error_if_fail (E_IS_DATA_BOOK (book), E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (user && passwd && auth_method, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->authenticate_user_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->authenticate_user_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->authenticate_user_sync) (backend, book, opid, user, passwd, auth_method, error);
+ }
+@@ -290,7 +290,7 @@ e_book_backend_sync_get_required_fields 
+ 	e_return_data_book_error_if_fail (E_IS_DATA_BOOK (book), E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (fields, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_required_fields_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_required_fields_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_required_fields_sync) (backend, book, opid, fields, error);
+ }
+@@ -318,7 +318,7 @@ e_book_backend_sync_get_supported_fields
+ 	e_return_data_book_error_if_fail (E_IS_DATA_BOOK (book), E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (fields, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_supported_fields_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_supported_fields_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_supported_fields_sync) (backend, book, opid, fields, error);
+ }
+@@ -346,7 +346,7 @@ e_book_backend_sync_get_supported_auth_m
+ 	e_return_data_book_error_if_fail (E_IS_DATA_BOOK (book), E_DATA_BOOK_STATUS_INVALID_ARG);
+ 	e_return_data_book_error_if_fail (methods, E_DATA_BOOK_STATUS_INVALID_ARG);
+ 
+-	g_assert (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_supported_auth_methods_sync);
++	g_return_if_fail (E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_supported_auth_methods_sync);
+ 
+ 	(* E_BOOK_BACKEND_SYNC_GET_CLASS (backend)->get_supported_auth_methods_sync) (backend, book, opid, methods, error);
+ }
+diff -up evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c.replace-some-g-assert evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c
+--- evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c.replace-some-g-assert	2013-08-06 19:21:27.758280366 +0200
++++ evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-factory.c	2013-08-06 19:21:27.806280366 +0200
+@@ -538,7 +538,7 @@ on_bus_acquired (GDBusConnection *connec
+ 	if (error)
+ 		die ("Failed to register a BookFactory object", error);
+ 
+-	g_assert (registration_id > 0);
++	g_warn_if_fail (registration_id > 0);
+ }
+ 
+ static void
+diff -up evolution-data-server-2.32.3/calendar/libedata-cal/e-cal-backend.c.replace-some-g-assert evolution-data-server-2.32.3/calendar/libedata-cal/e-cal-backend.c
+--- evolution-data-server-2.32.3/calendar/libedata-cal/e-cal-backend.c.replace-some-g-assert	2013-08-06 19:21:27.656280366 +0200
++++ evolution-data-server-2.32.3/calendar/libedata-cal/e-cal-backend.c	2013-08-06 19:21:27.809280366 +0200
+@@ -266,7 +266,7 @@ cal_backend_finalize (GObject *object)
+ 
+ 	priv = E_CAL_BACKEND_GET_PRIVATE (object);
+ 
+-	g_assert (priv->clients == NULL);
++	g_warn_if_fail (priv->clients == NULL);
+ 
+ 	g_object_unref (priv->queries);
+ 
+@@ -617,7 +617,7 @@ e_cal_backend_get_cal_address (ECalBacke
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->get_cal_address != NULL);
++	g_return_if_fail (CLASS (backend)->get_cal_address != NULL);
+ 	(* CLASS (backend)->get_cal_address) (backend, cal, context);
+ }
+ 
+@@ -662,7 +662,7 @@ e_cal_backend_get_alarm_email_address (E
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->get_alarm_email_address != NULL);
++	g_return_if_fail (CLASS (backend)->get_alarm_email_address != NULL);
+ 	(* CLASS (backend)->get_alarm_email_address) (backend, cal, context);
+ }
+ 
+@@ -679,7 +679,7 @@ e_cal_backend_get_ldap_attribute (ECalBa
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->get_ldap_attribute != NULL);
++	g_return_if_fail (CLASS (backend)->get_ldap_attribute != NULL);
+ 	(* CLASS (backend)->get_ldap_attribute) (backend, cal, context);
+ }
+ 
+@@ -696,7 +696,7 @@ e_cal_backend_get_static_capabilities (E
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->get_static_capabilities != NULL);
++	g_return_if_fail (CLASS (backend)->get_static_capabilities != NULL);
+ 	(* CLASS (backend)->get_static_capabilities) (backend, cal, context);
+ }
+ 
+@@ -720,7 +720,7 @@ e_cal_backend_open (ECalBackend *backend
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->open != NULL);
++	g_return_if_fail (CLASS (backend)->open != NULL);
+ 	(* CLASS (backend)->open) (backend, cal, context, only_if_exists, username, password);
+ }
+ 
+@@ -739,7 +739,7 @@ e_cal_backend_refresh (ECalBackend *back
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->refresh != NULL);
++	g_return_if_fail (CLASS (backend)->refresh != NULL);
+ 	(* CLASS (backend)->refresh) (backend, cal, context);
+ }
+ 
+@@ -756,7 +756,7 @@ e_cal_backend_remove (ECalBackend *backe
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->remove != NULL);
++	g_return_if_fail (CLASS (backend)->remove != NULL);
+ 	(* CLASS (backend)->remove) (backend, cal, context);
+ }
+ 
+@@ -777,7 +777,7 @@ e_cal_backend_is_loaded (ECalBackend *ba
+ 	g_return_val_if_fail (backend != NULL, FALSE);
+ 	g_return_val_if_fail (E_IS_CAL_BACKEND (backend), FALSE);
+ 
+-	g_assert (CLASS (backend)->is_loaded != NULL);
++	g_return_val_if_fail (CLASS (backend)->is_loaded != NULL, FALSE);
+ 	result = (* CLASS (backend)->is_loaded) (backend);
+ 
+ 	return result;
+@@ -797,7 +797,7 @@ e_cal_backend_is_read_only (ECalBackend 
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->is_read_only != NULL);
++	g_return_if_fail (CLASS (backend)->is_read_only != NULL);
+ 	(* CLASS (backend)->is_read_only) (backend, cal);
+ }
+ 
+@@ -814,7 +814,7 @@ e_cal_backend_start_query (ECalBackend *
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->start_query != NULL);
++	g_return_if_fail (CLASS (backend)->start_query != NULL);
+ 	(* CLASS (backend)->start_query) (backend, query);
+ }
+ 
+@@ -831,10 +831,10 @@ e_cal_backend_get_mode (ECalBackend *bac
+ {
+ 	CalMode result;
+ 
+-	g_return_val_if_fail (backend != NULL, FALSE);
+-	g_return_val_if_fail (E_IS_CAL_BACKEND (backend), FALSE);
++	g_return_val_if_fail (backend != NULL, CAL_MODE_INVALID);
++	g_return_val_if_fail (E_IS_CAL_BACKEND (backend), CAL_MODE_INVALID);
+ 
+-	g_assert (CLASS (backend)->get_mode != NULL);
++	g_return_val_if_fail (CLASS (backend)->get_mode != NULL, CAL_MODE_INVALID);
+ 	result = (* CLASS (backend)->get_mode) (backend);
+ 
+ 	return result;
+@@ -853,7 +853,7 @@ e_cal_backend_set_mode (ECalBackend *bac
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->set_mode != NULL);
++	g_return_if_fail (CLASS (backend)->set_mode != NULL);
+ 	(* CLASS (backend)->set_mode) (backend, mode);
+ }
+ 
+@@ -870,7 +870,7 @@ e_cal_backend_get_default_object (ECalBa
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->get_default_object != NULL);
++	g_return_if_fail (CLASS (backend)->get_default_object != NULL);
+ 	(* CLASS (backend)->get_default_object) (backend, cal, context);
+ }
+ 
+@@ -891,7 +891,7 @@ e_cal_backend_get_object (ECalBackend *b
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 	g_return_if_fail (uid != NULL);
+ 
+-	g_assert (CLASS (backend)->get_object != NULL);
++	g_return_if_fail (CLASS (backend)->get_object != NULL);
+ 	(* CLASS (backend)->get_object) (backend, cal, context, uid, rid);
+ }
+ 
+@@ -909,7 +909,7 @@ e_cal_backend_get_object_list (ECalBacke
+ 	g_return_if_fail (backend != NULL);
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 
+-	g_assert (CLASS (backend)->get_object_list != NULL);
++	g_return_if_fail (CLASS (backend)->get_object_list != NULL);
+ 	(* CLASS (backend)->get_object_list) (backend, cal, context, sexp);
+ }
+ 
+@@ -930,7 +930,7 @@ e_cal_backend_get_attachment_list (ECalB
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 	g_return_if_fail (uid != NULL);
+ 
+-	g_assert (CLASS (backend)->get_object != NULL);
++	g_return_if_fail (CLASS (backend)->get_object != NULL);
+ 	(* CLASS (backend)->get_attachment_list) (backend, cal, context, uid, rid);
+ }
+ 
+@@ -952,7 +952,7 @@ e_cal_backend_get_free_busy (ECalBackend
+ 	g_return_if_fail (start != -1 && end != -1);
+ 	g_return_if_fail (start <= end);
+ 
+-	g_assert (CLASS (backend)->get_free_busy != NULL);
++	g_return_if_fail (CLASS (backend)->get_free_busy != NULL);
+ 	(* CLASS (backend)->get_free_busy) (backend, cal, context, users, start, end);
+ }
+ 
+@@ -972,7 +972,7 @@ e_cal_backend_get_changes (ECalBackend *
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 	g_return_if_fail (change_id != NULL);
+ 
+-	g_assert (CLASS (backend)->get_changes != NULL);
++	g_return_if_fail (CLASS (backend)->get_changes != NULL);
+ 	(* CLASS (backend)->get_changes) (backend, cal, context, change_id);
+ }
+ 
+@@ -994,7 +994,7 @@ e_cal_backend_discard_alarm (ECalBackend
+ 	g_return_if_fail (uid != NULL);
+ 	g_return_if_fail (auid != NULL);
+ 
+-	g_assert (CLASS (backend)->discard_alarm != NULL);
++	g_return_if_fail (CLASS (backend)->discard_alarm != NULL);
+ 	(* CLASS (backend)->discard_alarm) (backend, cal, context, uid, auid);
+ }
+ 
+@@ -1059,7 +1059,7 @@ e_cal_backend_remove_object (ECalBackend
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 	g_return_if_fail (uid != NULL);
+ 
+-	g_assert (CLASS (backend)->remove_object != NULL);
++	g_return_if_fail (CLASS (backend)->remove_object != NULL);
+ 	(* CLASS (backend)->remove_object) (backend, cal, context, uid, rid, mod);
+ }
+ 
+@@ -1078,7 +1078,7 @@ e_cal_backend_receive_objects (ECalBacke
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 	g_return_if_fail (calobj != NULL);
+ 
+-	g_assert (CLASS (backend)->receive_objects != NULL);
++	g_return_if_fail (CLASS (backend)->receive_objects != NULL);
+ 	(* CLASS (backend)->receive_objects) (backend, cal, context, calobj);
+ }
+ 
+@@ -1097,7 +1097,7 @@ e_cal_backend_send_objects (ECalBackend 
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 	g_return_if_fail (calobj != NULL);
+ 
+-	g_assert (CLASS (backend)->send_objects != NULL);
++	g_return_if_fail (CLASS (backend)->send_objects != NULL);
+ 	(* CLASS (backend)->send_objects) (backend, cal, context, calobj);
+ }
+ 
+@@ -1118,7 +1118,7 @@ e_cal_backend_get_timezone (ECalBackend 
+ 	g_return_if_fail (E_IS_CAL_BACKEND (backend));
+ 	g_return_if_fail (tzid != NULL);
+ 
+-	g_assert (CLASS (backend)->get_timezone != NULL);
++	g_return_if_fail (CLASS (backend)->get_timezone != NULL);
+ 	(* CLASS (backend)->get_timezone) (backend, cal, context, tzid);
+ }
+ 
+diff -up evolution-data-server-2.32.3/calendar/libedata-cal/e-cal-backend-sync.c.replace-some-g-assert evolution-data-server-2.32.3/calendar/libedata-cal/e-cal-backend-sync.c
+--- evolution-data-server-2.32.3/calendar/libedata-cal/e-cal-backend-sync.c.replace-some-g-assert	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/libedata-cal/e-cal-backend-sync.c	2013-08-06 19:21:27.807280366 +0200
+@@ -22,7 +22,7 @@ struct _ECalBackendSyncPrivate {
+ };
+ 
+ #define LOCK_WRAPPER(func, args) \
+-  g_assert (E_CAL_BACKEND_SYNC_GET_CLASS (backend)->func); \
++  g_return_if_fail (E_CAL_BACKEND_SYNC_GET_CLASS (backend)->func); \
+   if (backend->priv->mutex_lock) \
+     g_mutex_lock (backend->priv->sync_mutex); \
+   (* E_CAL_BACKEND_SYNC_GET_CLASS (backend)->func) args; \
+diff -up evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c.replace-some-g-assert evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c
+--- evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c.replace-some-g-assert	2013-08-06 19:21:27.759280366 +0200
++++ evolution-data-server-2.32.3/calendar/libedata-cal/e-data-cal-factory.c	2013-08-06 19:21:27.808280366 +0200
+@@ -677,7 +677,7 @@ e_data_cal_factory_register_backend (EDa
+ 		method = class->get_protocol (backend_factory);
+ 		methods = g_slist_append (methods, (gpointer) method);
+ 	} else {
+-		g_assert_not_reached ();
++		g_return_if_reached ();
+ 	}
+ 
+ 	kind = class->get_kind (backend_factory);
+@@ -844,7 +844,7 @@ on_bus_acquired (GDBusConnection *connec
+ 	if (error)
+ 		die ("Failed to register a CalFactory object", error);
+ 
+-	g_assert (registration_id > 0);
++	g_warn_if_fail (registration_id > 0);
+ }
+ 
+ static void

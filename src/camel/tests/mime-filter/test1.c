@@ -9,11 +9,6 @@
 
 #include "camel-test.h"
 
-#include <camel/camel-stream-fs.h>
-#include <camel/camel-stream-mem.h>
-#include <camel/camel-stream-filter.h>
-#include <camel/camel-mime-filter-canon.h>
-
 #define d(x)
 
 #define NUM_CASES 1
@@ -21,8 +16,8 @@
 
 struct {
 	gint flags;
-	gchar *in;
-	gchar *out;
+	const gchar *in;
+	const gchar *out;
 } tests[] = {
 	{ CAMEL_MIME_FILTER_CANON_FROM|CAMEL_MIME_FILTER_CANON_CRLF,
 	  "From \nRussia - with love.\n\n",
@@ -56,7 +51,7 @@ struct {
 gint
 main (gint argc, gchar **argv)
 {
-	CamelStreamFilter *filter;
+	CamelStream *filter;
 	CamelMimeFilter *sh;
 	gint i;
 
@@ -64,20 +59,22 @@ main (gint argc, gchar **argv)
 
 	camel_test_start("canonicalisation filter tests");
 
-	for (i=0;i<sizeof(tests)/sizeof(tests[0]);i++) {
+	for (i = 0; i < G_N_ELEMENTS (tests); i++) {
 		gint step;
 
 		camel_test_push("Data test %d '%s'\n", i, tests[i].in);
 
 		/* try all write sizes */
 		for (step=1;step<20;step++) {
-			CamelStreamMem *out;
-			gchar *p;
+			GByteArray *byte_array;
+			CamelStream *out;
+			const gchar *p;
 
 			camel_test_push("Chunk size %d\n", step);
 
-			out = (CamelStreamMem *)camel_stream_mem_new();
-			filter = camel_stream_filter_new_with_stream((CamelStream *)out);
+			byte_array = g_byte_array_new ();
+			out = camel_stream_mem_new_with_byte_array (byte_array);
+			filter = camel_stream_filter_new (out);
 			sh = camel_mime_filter_canon_new(tests[i].flags);
 			check(camel_stream_filter_add(filter, sh) != -1);
 			check_unref(sh, 2);
@@ -86,13 +83,13 @@ main (gint argc, gchar **argv)
 			while (*p) {
 				gint w = MIN(strlen(p), step);
 
-				check(camel_stream_write((CamelStream *)filter, p, w) == w);
+				check(camel_stream_write((CamelStream *)filter, p, w, NULL) == w);
 				p += w;
 			}
-			camel_stream_flush((CamelStream *)filter);
+			camel_stream_flush((CamelStream *)filter, NULL);
 
-			check_msg(out->buffer->len == strlen(tests[i].out), "Buffer length mismatch: expected %d got %d\n or '%s' got '%.*s'", strlen(tests[i].out), out->buffer->len, tests[i].out, out->buffer->len, out->buffer->data);
-			check_msg(0 == memcmp(out->buffer->data, tests[i].out, out->buffer->len), "Buffer mismatch: expected '%s' got '%.*s'", tests[i].out, out->buffer->len, out->buffer->data);
+			check_msg(byte_array->len == strlen(tests[i].out), "Buffer length mismatch: expected %d got %d\n or '%s' got '%.*s'", strlen(tests[i].out), byte_array->len, tests[i].out, byte_array->len, byte_array->data);
+			check_msg(0 == memcmp(byte_array->data, tests[i].out, byte_array->len), "Buffer mismatch: expected '%s' got '%.*s'", tests[i].out, byte_array->len, byte_array->data);
 			check_unref(filter, 1);
 			check_unref(out, 1);
 

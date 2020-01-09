@@ -59,9 +59,9 @@ typedef enum {
 } CalMode;
 
 #define cal_mode_to_corba(mode) \
-	(mode == CAL_MODE_LOCAL   ? GNOME_Evolution_Calendar_MODE_LOCAL  : \
-	 mode == CAL_MODE_REMOTE  ? GNOME_Evolution_Calendar_MODE_REMOTE : \
-	 GNOME_Evolution_Calendar_MODE_ANY)
+	(mode == CAL_MODE_LOCAL   ? Local  : \
+	 mode == CAL_MODE_REMOTE  ? Remote : \
+	 AnyMode)
 
 void cal_obj_uid_list_free (GList *list);
 
@@ -115,7 +115,14 @@ gboolean e_cal_util_event_dates_match (icalcomponent *icalcomp1, icalcomponent *
 #define CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ATTEND       "organizer-must-attend"
 #define CAL_STATIC_CAPABILITY_ORGANIZER_NOT_EMAIL_ADDRESS "organizer-not-email-address"
 #define CAL_STATIC_CAPABILITY_REMOVE_ALARMS               "remove-alarms"
+
+/**
+ * CAL_STATIC_CAPABILITY_CREATE_MESSAGES:
+ *
+ * Since: 2.26
+ **/
 #define CAL_STATIC_CAPABILITY_CREATE_MESSAGES             "create-messages"
+
 #define CAL_STATIC_CAPABILITY_SAVE_SCHEDULES              "save-schedules"
 #define CAL_STATIC_CAPABILITY_NO_CONV_TO_ASSIGN_TASK	  "no-conv-to-assign-task"
 #define CAL_STATIC_CAPABILITY_NO_CONV_TO_RECUR		  "no-conv-to-recur"
@@ -128,6 +135,13 @@ gboolean e_cal_util_event_dates_match (icalcomponent *icalcomp1, icalcomponent *
 #define CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY		 "delegate-to-many"
 #define CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING     "has-unaccepted-meeting"
 
+/**
+ * CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED:
+ *
+ * Since: 2.30
+ **/
+#define CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED		"refresh-supported"
+
 /* Recurrent events. Management for instances */
 icalcomponent *e_cal_util_construct_instance (icalcomponent *icalcomp,
 					    struct icaltimetype rid);
@@ -137,6 +151,13 @@ void           e_cal_util_remove_instances (icalcomponent *icalcomp,
 
 gchar *e_cal_util_get_system_timezone_location (void);
 icaltimezone *e_cal_util_get_system_timezone (void);
+void e_cal_util_get_component_occur_times (ECalComponent *comp,
+				   time_t* start,
+				   time_t* end,
+				   ECalRecurResolveTimezoneFn tz_cb,
+				   gpointer tz_cb_data,
+				   const icaltimezone *default_timezone,
+				   icalcomponent_kind kind);
 
 G_END_DECLS
 

@@ -1,22 +1,20 @@
-## Process this file with automake to produce Makefile.in
-
 SUBDIRS = . providers tests
 
 if OS_WIN32
 LIBCAMEL_PLATFORM_DEP_SOURCES = \
-	camel-win32.c \
-	camel-net-utils-win32.h
+	camel-win32.c
 LIBCAMEL_PROVIDER_PLATFORM_DEP_SOURCES =
 LOCK_HELPER =
 else
 LIBCAMEL_PLATFORM_DEP_SOURCES = \
 	camel-lock-client.c \
 	camel-stream-process.c
-LIBCAMEL_PROVIDER_PLATFORM_DEP_SOURCES =	\
-	camel-movemail.c			\
-	camel-sasl-kerberos4.c
+LIBCAMEL_PROVIDER_PLATFORM_DEP_SOURCES = camel-movemail.c
 LOCK_HELPER = camel-lock-helper-1.2
 endif
+
+MARSHAL_GENERATED = camel-marshal.c camel-marshal.h
+@EVO_MARSHAL_RULE@
 
 %-$(API_VERSION).pc: %.pc
 	 cp $< $@
@@ -33,19 +31,21 @@ camellibexec_PROGRAMS =	$(LOCK_HELPER) camel-index-control-1.2
 
 lib_LTLIBRARIES = libcamel-1.2.la libcamel-provider-1.2.la
 
-AM_CPPFLAGS = -I.. -I$(srcdir)/.. 			 	\
-	-DCAMEL_LIBEXECDIR=\""$(camellibexecdir)"\"	\
-	-DCAMEL_PROVIDERDIR=\""$(camel_providerdir)"\" 	\
-	-DG_LOG_DOMAIN=\"camel\"			\
-	-DE_DATA_SERVER_PREFIX=\"$(prefix)\"		\
-	-DEVOLUTION_LOCALEDIR=\""$(localedir)"\"	\
+libcamel_provider_1_2_la_CPPFLAGS = \
+	$(AM_CPPFLAGS)						\
+	-I$(top_srcdir) 					\
+	-I$(top_builddir)					\
+	-I$(srcdir)						\
+	-DCAMEL_LIBEXECDIR=\""$(camellibexecdir)"\"		\
+	-DCAMEL_PROVIDERDIR=\""$(camel_providerdir)"\"		\
+	-DG_LOG_DOMAIN=\"camel\"				\
+	-DE_DATA_SERVER_PREFIX=\"$(prefix)\"			\
+	-DLOCALEDIR=\""$(localedir)"\"				\
+	-DCAMEL_COMPILATION					\
 	$(CAMEL_CFLAGS)
 
 libcamel_provider_1_2_la_SOURCES = 		\
 	camel-cipher-context.c			\
-	camel-digest-folder.c			\
-	camel-digest-store.c			\
-	camel-digest-summary.c			\
 	camel-disco-diary.c			\
 	camel-disco-folder.c			\
 	camel-disco-store.c			\
@@ -78,7 +78,6 @@ libcamel_provider_1_2_la_SOURCES = 		\
 	camel-smime-context.c			\
 	camel-store-summary.c			\
 	camel-store.c				\
-	camel-tcp-stream-openssl.c		\
 	camel-tcp-stream-raw.c			\
 	camel-tcp-stream-ssl.c			\
 	camel-tcp-stream.c			\
@@ -92,9 +91,6 @@ libcamel_provider_1_2_la_SOURCES = 		\
 
 libcamel_providerinclude_HEADERS =		\
 	camel-cipher-context.h			\
-	camel-digest-folder.h			\
-	camel-digest-store.h			\
-	camel-digest-summary.h			\
 	camel-disco-diary.h			\
 	camel-disco-folder.h			\
 	camel-disco-store.h			\
@@ -107,20 +103,16 @@ libcamel_providerinclude_HEADERS =		\
 	camel-gpg-context.h			\
 	camel-http-stream.h			\
 	camel-html-parser.h			\
-	camel-iconv.h				\
 	camel-lock-helper.h			\
 	camel-movemail.h			\
-	camel-news-address.h			\
 	camel-offline-folder.h			\
 	camel-offline-journal.h			\
 	camel-offline-store.h			\
-	camel-process.h				\
 	camel-provider.h			\
 	camel-sasl-anonymous.h			\
 	camel-sasl-cram-md5.h			\
 	camel-sasl-digest-md5.h			\
 	camel-sasl-gssapi.h			\
-	camel-sasl-kerberos4.h			\
 	camel-sasl-login.h			\
 	camel-sasl-ntlm.h			\
 	camel-sasl-plain.h			\
@@ -152,9 +144,22 @@ libcamel_provider_1_2_la_LIBADD =			\
 	$(SOCKET_LIBS)				\
 	$(REGEX_LIBS)
 
+libcamel_1_2_la_CPPFLAGS = \
+	$(AM_CPPFLAGS)						\
+	-I$(top_srcdir) 					\
+	-I$(top_builddir)					\
+	-I$(srcdir)						\
+	-DCAMEL_LIBEXECDIR=\""$(camellibexecdir)"\"		\
+	-DCAMEL_PROVIDERDIR=\""$(camel_providerdir)"\"		\
+	-DG_LOG_DOMAIN=\"camel\"				\
+	-DE_DATA_SERVER_PREFIX=\"$(prefix)\"			\
+	-DLOCALEDIR=\""$(localedir)"\"				\
+	-DCAMEL_COMPILATION					\
+	$(CAMEL_CFLAGS)
+
 libcamel_1_2_la_SOURCES = 			\
+	$(MARSHAL_GENERATED)			\
 	camel-address.c				\
-	camel-arg.c				\
 	camel-block-file.c			\
 	camel-certdb.c				\
 	camel-charset-map.c			\
@@ -162,7 +167,6 @@ libcamel_1_2_la_SOURCES = 			\
 	camel-data-wrapper.c			\
 	camel-db.c				\
 	camel-debug.c				\
-	camel-exception.c			\
 	camel-file-utils.c			\
 	camel-html-parser.c			\
 	camel-iconv.c				\
@@ -172,6 +176,7 @@ libcamel_1_2_la_SOURCES = 			\
 	camel-list-utils.c			\
 	camel-lock.c				\
 	camel-medium.c				\
+	camel-mempool.c				\
 	camel-mime-filter-basic.c		\
 	camel-mime-filter-bestenc.c		\
 	camel-mime-filter-canon.c		\
@@ -203,6 +208,7 @@ libcamel_1_2_la_SOURCES = 			\
 	camel-net-utils.c			\
 	camel-nntp-address.c			\
 	camel-object.c				\
+	camel-object-bag.c			\
 	camel-operation.c			\
 	camel-partition-table.c			\
 	camel-seekable-stream.c			\
@@ -225,7 +231,6 @@ libcamel_1_2_la_SOURCES = 			\
 
 libcamelinclude_HEADERS =			\
 	camel-address.h				\
-	camel-arg.h				\
 	camel-block-file.h			\
 	camel-certdb.h				\
 	camel-charset-map.h			\
@@ -233,10 +238,7 @@ libcamelinclude_HEADERS =			\
 	camel-data-wrapper.h			\
 	camel-db.h				\
 	camel-debug.h				\
-	camel-exception-list.def		\
-	camel-exception.h			\
 	camel-file-utils.h			\
-	camel-i18n.h				\
 	camel-iconv.h				\
 	camel-index.h				\
 	camel-internet-address.h		\
@@ -245,6 +247,7 @@ libcamelinclude_HEADERS =			\
 	camel-lock-client.h			\
 	camel-lock.h				\
 	camel-medium.h				\
+	camel-mempool.h				\
 	camel-mime-filter-basic.h		\
 	camel-mime-filter-bestenc.h		\
 	camel-mime-filter-canon.h		\
@@ -275,6 +278,7 @@ libcamelinclude_HEADERS =			\
 	camel-net-utils.h			\
 	camel-nntp-address.h			\
 	camel-object.h				\
+	camel-object-bag.h			\
 	camel-operation.h			\
 	camel-partition-table.h			\
 	camel-search-private.h			\
@@ -291,7 +295,6 @@ libcamelinclude_HEADERS =			\
 	camel-string-utils.h			\
 	camel-text-index.h			\
 	camel-trie.h				\
-	camel-types.h				\
 	camel-url-scanner.h			\
 	camel-url.h				\
 	camel-utf8.h				\
@@ -306,21 +309,47 @@ libcamel_1_2_la_LIBADD =				\
 	$(ICONV_LIBS)							\
 	$(REGEX_LIBS)
 
+camel_lock_helper_1_2_CPPFLAGS = \
+	$(AM_CPPFLAGS)						\
+	-I$(top_srcdir) 					\
+	-I$(top_builddir)					\
+	-I$(srcdir)						\
+	-DCAMEL_LIBEXECDIR=\""$(camellibexecdir)"\"		\
+	-DCAMEL_PROVIDERDIR=\""$(camel_providerdir)"\"		\
+	-DG_LOG_DOMAIN=\"camel\"				\
+	-DE_DATA_SERVER_PREFIX=\"$(prefix)\"			\
+	-DLOCALEDIR=\""$(localedir)"\"				\
+	-DCAMEL_COMPILATION					\
+	$(CAMEL_CFLAGS)
 
-camel_lock_helper_1_2_SOURCES = 		\
+camel_lock_helper_1_2_SOURCES = \
+	camel-lock.c					\
+	camel-lock.h					\
 	camel-lock-helper.c 			\
 	camel-lock-helper.h
 
 # NOTE: This needs to be cleaned up, it shouldn't link with all this crap,
 # because it might be setuid.
-camel_lock_helper_1_2_LDADD =			\
-	camel-lock.o				\
+camel_lock_helper_1_2_LDADD = \
 	$(libcamel_1_2_la_LIBADD)
 
-camel_index_control_1_2_SOURCES =		\
+camel_index_control_1_2_CPPFLAGS = \
+	$(AM_CPPFLAGS)						\
+	-I$(top_srcdir) 					\
+	-I$(top_builddir)					\
+	-I$(srcdir)						\
+	-DCAMEL_LIBEXECDIR=\""$(camellibexecdir)"\"		\
+	-DCAMEL_PROVIDERDIR=\""$(camel_providerdir)"\"		\
+	-DG_LOG_DOMAIN=\"camel\"				\
+	-DE_DATA_SERVER_PREFIX=\"$(prefix)\"			\
+	-DLOCALEDIR=\""$(localedir)"\"				\
+	-DCAMEL_COMPILATION					\
+	$(CAMEL_CFLAGS)
+
+camel_index_control_1_2_SOURCES = \
 	camel-index-control.c
 
-camel_index_control_1_2_LDADD =			\
+camel_index_control_1_2_LDADD = \
 	libcamel-1.2.la				\
 	$(libcamel_1_2_la_LIBADD)
 
@@ -361,15 +390,17 @@ install-exec-hook:
 
 noinst_HEADERS =				\
 	camel-charset-map-private.h		\
-	camel-private.h				
+	camel-win32.h				
 
-BUILT_SOURCES = camel-mime-tables.c
+BUILT_SOURCES = camel-mime-tables.c $(MARSHAL_GENERATED)
 
 EXTRA_DIST =					\
 	$(pkgconfig_in_files)	 		\
+	camel-marshal.list			\
 	gentables.pl				\
-	ChangeLog.pre-1-4			\
 	README
 
 CLEANFILES = $(BUILT_SOURCES)
 DISTCLEANFILES = $(pkgconfig_DATA)
+
+-include $(top_srcdir)/git.mk

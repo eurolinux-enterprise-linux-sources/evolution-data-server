@@ -21,17 +21,31 @@
  */
 
 #ifndef CAMEL_NNTP_STORE_H
-#define CAMEL_NNTP_STORE_H 1
+#define CAMEL_NNTP_STORE_H
 
-#include <camel/camel-disco-store.h>
+#include <camel/camel.h>
 
 #include "camel-nntp-stream.h"
 #include "camel-nntp-store-summary.h"
 
-#define CAMEL_NNTP_STORE_TYPE     (camel_nntp_store_get_type ())
-#define CAMEL_NNTP_STORE(obj)     (CAMEL_CHECK_CAST((obj), CAMEL_NNTP_STORE_TYPE, CamelNNTPStore))
-#define CAMEL_NNTP_STORE_CLASS(k) (CAMEL_CHECK_CLASS_CAST ((k), CAMEL_NNTP_STORE_TYPE, CamelNNTPStoreClass))
-#define CAMEL_IS_NNTP_STORE(o)    (CAMEL_CHECK_TYPE((o), CAMEL_NNTP_STORE_TYPE))
+/* Standard GObject macros */
+#define CAMEL_TYPE_NNTP_STORE \
+	(camel_nntp_store_get_type ())
+#define CAMEL_NNTP_STORE(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_NNTP_STORE, CamelNNTPStore))
+#define CAMEL_NNTP_STORE_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_NNTP_STORE, CamelNNTPStoreClass))
+#define CAMEL_IS_NNTP_STORE(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_NNTP_STORE))
+#define CAMEL_IS_NNTP_STORE_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_NNTP_STORE))
+#define CAMEL_NNTP_STORE_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_NNTP_STORE, CamelNNTPStoreClass))
 
 #define CAMEL_NNTP_EXT_SEARCH     (1<<0)
 #define CAMEL_NNTP_EXT_SETGET     (1<<1)
@@ -45,7 +59,6 @@
 G_BEGIN_DECLS
 
 struct _CamelNNTPFolder;
-struct _CamelException;
 
 typedef struct _CamelNNTPStore CamelNNTPStore;
 typedef struct _CamelNNTPStoreClass CamelNNTPStoreClass;
@@ -66,7 +79,7 @@ struct _xover_header {
 };
 
 struct _CamelNNTPStore {
-	CamelDiscoStore parent_object;
+	CamelDiscoStore parent;
 
 	CamelNNTPStorePrivate *priv;
 
@@ -75,6 +88,7 @@ struct _CamelNNTPStore {
 	guint posting_allowed:1;
 	guint do_short_folder_notation:1;
 	guint folder_hierarchy_relative:1;
+	gboolean password_reprompt;
 
 	struct _CamelNNTPStoreSummary *summary;
 
@@ -93,13 +107,12 @@ struct _CamelNNTPStoreClass {
 
 };
 
-/* Standard Camel function */
-CamelType camel_nntp_store_get_type (void);
+GType camel_nntp_store_get_type (void);
 
-gint camel_nntp_raw_commandv (CamelNNTPStore *store, struct _CamelException *ex, gchar **line, const gchar *fmt, va_list ap);
-gint camel_nntp_raw_command(CamelNNTPStore *store, struct _CamelException *ex, gchar **line, const gchar *fmt, ...);
-gint camel_nntp_raw_command_auth(CamelNNTPStore *store, struct _CamelException *ex, gchar **line, const gchar *fmt, ...);
-gint camel_nntp_command (CamelNNTPStore *store, struct _CamelException *ex, struct _CamelNNTPFolder *folder, gchar **line, const gchar *fmt, ...);
+gint camel_nntp_raw_commandv (CamelNNTPStore *store, struct _GError **error, gchar **line, const gchar *fmt, va_list ap);
+gint camel_nntp_raw_command(CamelNNTPStore *store, struct _GError **error, gchar **line, const gchar *fmt, ...);
+gint camel_nntp_raw_command_auth(CamelNNTPStore *store, struct _GError **error, gchar **line, const gchar *fmt, ...);
+gint camel_nntp_command (CamelNNTPStore *store, struct _GError **error, struct _CamelNNTPFolder *folder, gchar **line, const gchar *fmt, ...);
 
 G_END_DECLS
 

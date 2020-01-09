@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ESource</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
 <link rel="prev" href="libedataserver-ESExp.html" title="ESExp">
 <link rel="next" href="ESourceGroup.html" title="ESourceGroup">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -30,7 +30,7 @@
                   <a href="#ESource.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="ESource">
 <a name="ESource"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -39,96 +39,91 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="ESource.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">                    <a class="link" href="ESource.html#ESource-struct" title="ESource">ESource</a>;
-<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESource.html#e-source-new" title="e_source_new ()">e_source_new</a>                        (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *relative_uri</code></em>);
-<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESource.html#e-source-new-with-absolute-uri" title="e_source_new_with_absolute_uri ()">e_source_new_with_absolute_uri</a>      (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *absolute_uri</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESource.html#e-source-new" title="e_source_new ()">e_source_new</a>                        (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *relative_uri</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESource.html#e-source-new-with-absolute-uri" title="e_source_new_with_absolute_uri ()">e_source_new_with_absolute_uri</a>      (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *absolute_uri</code></em>);
 <a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESource.html#e-source-new-from-xml-node" title="e_source_new_from_xml_node ()">e_source_new_from_xml_node</a>          (<em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>);
-<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESource.html#e-source-new-from-standalone-xml" title="e_source_new_from_standalone_xml ()">e_source_new_from_standalone_xml</a>    (<em class="parameter"><code>const <span class="type">gchar</span> *xml</code></em>);
+<a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESource.html#e-source-new-from-standalone-xml" title="e_source_new_from_standalone_xml ()">e_source_new_from_standalone_xml</a>    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *xml</code></em>);
 <a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESource.html#e-source-copy" title="e_source_copy ()">e_source_copy</a>                       (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESource.html#e-source-update-from-xml-node" title="e_source_update_from_xml_node ()">e_source_update_from_xml_node</a>       (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESource.html#e-source-update-from-xml-node" title="e_source_update_from_xml_node ()">e_source_update_from_xml_node</a>       (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
                                                          <em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> *changed_return</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="ESource.html#e-source-uid-from-xml-node" title="e_source_uid_from_xml_node ()">e_source_uid_from_xml_node</a>          (<em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *changed_return</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESource.html#e-source-uid-from-xml-node" title="e_source_uid_from_xml_node ()">e_source_uid_from_xml_node</a>          (<em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-set-group" title="e_source_set_group ()">e_source_set_group</a>                  (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
                                                          <em class="parameter"><code><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="type">ESourceGroup</span></a> *group</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-set-name" title="e_source_set_name ()">e_source_set_name</a>                   (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-set-relative-uri" title="e_source_set_relative_uri ()">e_source_set_relative_uri</a>           (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *relative_uri</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *relative_uri</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-set-absolute-uri" title="e_source_set_absolute_uri ()">e_source_set_absolute_uri</a>           (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *absolute_uri</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *absolute_uri</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-set-color-spec" title="e_source_set_color_spec ()">e_source_set_color_spec</a>             (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *color_spec</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *color_spec</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-set-readonly" title="e_source_set_readonly ()">e_source_set_readonly</a>               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> readonly</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-set-color" title="e_source_set_color ()">e_source_set_color</a>                  (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> color</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-unset-color" title="e_source_unset_color ()">e_source_unset_color</a>                (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> readonly</code></em>);
 <a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      <a class="link" href="ESource.html#e-source-peek-group" title="e_source_peek_group ()">e_source_peek_group</a>                 (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="ESource.html#e-source-peek-uid" title="e_source_peek_uid ()">e_source_peek_uid</a>                   (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="ESource.html#e-source-peek-name" title="e_source_peek_name ()">e_source_peek_name</a>                  (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="ESource.html#e-source-peek-relative-uri" title="e_source_peek_relative_uri ()">e_source_peek_relative_uri</a>          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="ESource.html#e-source-peek-absolute-uri" title="e_source_peek_absolute_uri ()">e_source_peek_absolute_uri</a>          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="ESource.html#e-source-peek-color-spec" title="e_source_peek_color_spec ()">e_source_peek_color_spec</a>            (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESource.html#e-source-get-readonly" title="e_source_get_readonly ()">e_source_get_readonly</a>               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESource.html#e-source-get-color" title="e_source_get_color ()">e_source_get_color</a>                  (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> *color_return</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="ESource.html#e-source-get-uri" title="e_source_get_uri ()">e_source_get_uri</a>                    (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESource.html#e-source-peek-uid" title="e_source_peek_uid ()">e_source_peek_uid</a>                   (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESource.html#e-source-peek-name" title="e_source_peek_name ()">e_source_peek_name</a>                  (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESource.html#e-source-peek-relative-uri" title="e_source_peek_relative_uri ()">e_source_peek_relative_uri</a>          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESource.html#e-source-peek-absolute-uri" title="e_source_peek_absolute_uri ()">e_source_peek_absolute_uri</a>          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESource.html#e-source-peek-color-spec" title="e_source_peek_color_spec ()">e_source_peek_color_spec</a>            (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESource.html#e-source-get-readonly" title="e_source_get_readonly ()">e_source_get_readonly</a>               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESource.html#e-source-get-uri" title="e_source_get_uri ()">e_source_get_uri</a>                    (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-dump-to-xml-node" title="e_source_dump_to_xml_node ()">e_source_dump_to_xml_node</a>           (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
                                                          <em class="parameter"><code><span class="type">xmlNodePtr</span> parent_node</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="ESource.html#e-source-to-standalone-xml" title="e_source_to_standalone_xml ()">e_source_to_standalone_xml</a>          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="ESource.html#e-source-get-property" title="e_source_get_property ()">e_source_get_property</a>               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *property</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESource.html#e-source-to-standalone-xml" title="e_source_to_standalone_xml ()">e_source_to_standalone_xml</a>          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ESource.html#e-source-get-property" title="e_source_get_property ()">e_source_get_property</a>               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-set-property" title="e_source_set_property ()">e_source_set_property</a>               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *property</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ESource.html#e-source-foreach-property" title="e_source_foreach_property ()">e_source_foreach_property</a>           (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code><span class="type">GHFunc</span> func</code></em>,
-                                                         <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="ESource.html#e-source-get-duped-property" title="e_source_get_duped_property ()">e_source_get_duped_property</a>         (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *property</code></em>);
-<span class="returnvalue">gchar</span> *             <a class="link" href="ESource.html#e-source-build-absolute-uri" title="e_source_build_absolute_uri ()">e_source_build_absolute_uri</a>         (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESource.html#e-source-equal" title="e_source_equal ()">e_source_equal</a>                      (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *a</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHFunc"><span class="type">GHFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESource.html#e-source-get-duped-property" title="e_source_get_duped_property ()">e_source_get_duped_property</a>         (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             <a class="link" href="ESource.html#e-source-build-absolute-uri" title="e_source_build_absolute_uri ()">e_source_build_absolute_uri</a>         (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESource.html#e-source-equal" title="e_source_equal ()">e_source_equal</a>                      (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *a</code></em>,
                                                          <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *b</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ESource.html#e-source-xmlstr-equal" title="e_source_xmlstr_equal ()">e_source_xmlstr_equal</a>               (<em class="parameter"><code>const <span class="type">gchar</span> *a</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *b</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ESource.html#e-source-xmlstr-equal" title="e_source_xmlstr_equal ()">e_source_xmlstr_equal</a>               (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *a</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *b</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
 <a name="ESource.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  GObject
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----ESource
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Signals">
 <a name="ESource.signals"></a><h2>Signals</h2>
 <pre class="synopsis">
   "<a class="link" href="ESource.html#ESource-changed" title='The "changed" signal'>changed</a>"                                        : Run Last
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="ESource.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="ESource.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="ESource">
 <a name="ESource-struct"></a><h3>ESource</h3>
 <pre class="programlisting">typedef struct _ESource ESource;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_new ()">
 <a name="e-source-new"></a><h3>e_source_new ()</h3>
-<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_new                        (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *relative_uri</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_new                        (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *relative_uri</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -153,10 +148,10 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="ESour
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_new_with_absolute_uri ()">
 <a name="e-source-new-with-absolute-uri"></a><h3>e_source_new_with_absolute_uri ()</h3>
-<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_new_with_absolute_uri      (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *absolute_uri</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_new_with_absolute_uri      (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *absolute_uri</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -181,7 +176,7 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="ESour
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_new_from_xml_node ()">
 <a name="e-source-new-from-xml-node"></a><h3>e_source_new_from_xml_node ()</h3>
 <pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_new_from_xml_node          (<em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>);</pre>
 <p>
@@ -203,9 +198,9 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="ESour
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_new_from_standalone_xml ()">
 <a name="e-source-new-from-standalone-xml"></a><h3>e_source_new_from_standalone_xml ()</h3>
-<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_new_from_standalone_xml    (<em class="parameter"><code>const <span class="type">gchar</span> *xml</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_new_from_standalone_xml    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *xml</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -225,7 +220,7 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="ESour
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_copy ()">
 <a name="e-source-copy"></a><h3>e_source_copy ()</h3>
 <pre class="programlisting"><a class="link" href="ESource.html" title="ESource"><span class="returnvalue">ESource</span></a> *           e_source_copy                       (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
@@ -247,13 +242,14 @@ const <span class="returnvalue">gchar</span> *       <a class="link" href="ESour
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_update_from_xml_node ()">
 <a name="e-source-update-from-xml-node"></a><h3>e_source_update_from_xml_node ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_update_from_xml_node       (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_update_from_xml_node       (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
                                                          <em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> *changed_return</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> *changed_return</code></em>);</pre>
 <p>
-Update the ESource properties from <em class="parameter"><code>node</code></em>.</p>
+Update the ESource properties from <em class="parameter"><code>node</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -274,17 +270,17 @@ Update the ESource properties from <em class="parameter"><code>node</code></em>.
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if the data in <em class="parameter"><code>node</code></em> was recognized and parsed into
-acceptable values for <em class="parameter"><code>source</code></em>, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the data in <em class="parameter"><code>node</code></em> was recognized and parsed into
+acceptable values for <em class="parameter"><code>source</code></em>, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_uid_from_xml_node ()">
 <a name="e-source-uid-from-xml-node"></a><h3>e_source_uid_from_xml_node ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_source_uid_from_xml_node          (<em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_uid_from_xml_node          (<em class="parameter"><code><span class="type">xmlNodePtr</span> node</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -304,7 +300,7 @@ acceptable values for <em class="parameter"><code>source</code></em>, <code clas
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_set_group ()">
 <a name="e-source-set-group"></a><h3>e_source_set_group ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_source_set_group                  (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
                                                          <em class="parameter"><code><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="type">ESourceGroup</span></a> *group</code></em>);</pre>
@@ -327,10 +323,10 @@ acceptable values for <em class="parameter"><code>source</code></em>, <code clas
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_set_name ()">
 <a name="e-source-set-name"></a><h3>e_source_set_name ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_source_set_name                   (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *name</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -350,10 +346,10 @@ acceptable values for <em class="parameter"><code>source</code></em>, <code clas
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_set_relative_uri ()">
 <a name="e-source-set-relative-uri"></a><h3>e_source_set_relative_uri ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_source_set_relative_uri           (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *relative_uri</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *relative_uri</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -373,10 +369,10 @@ acceptable values for <em class="parameter"><code>source</code></em>, <code clas
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_set_absolute_uri ()">
 <a name="e-source-set-absolute-uri"></a><h3>e_source_set_absolute_uri ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_source_set_absolute_uri           (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *absolute_uri</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *absolute_uri</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -396,14 +392,15 @@ acceptable values for <em class="parameter"><code>source</code></em>, <code clas
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_set_color_spec ()">
 <a name="e-source-set-color-spec"></a><h3>e_source_set_color_spec ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_source_set_color_spec             (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *color_spec</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *color_spec</code></em>);</pre>
 <p>
 Store a textual representation of a color in <em class="parameter"><code>source</code></em>.  The <em class="parameter"><code>color_spec</code></em>
-string should be parsable by #<code class="function">gdk_color_parse()</code>, or <code class="literal">NULL</code> to unset the
-color in <em class="parameter"><code>source</code></em>.</p>
+string should be parsable by #<a href="http://library.gnome.org/devel/gdk/gdk3-Colors.html#gdk-color-parse"><code class="function">gdk_color_parse()</code></a>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> to unset the
+color in <em class="parameter"><code>source</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -422,10 +419,10 @@ color in <em class="parameter"><code>source</code></em>.</p>
 <p class="since">Since 1.10</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_set_readonly ()">
 <a name="e-source-set-readonly"></a><h3>e_source_set_readonly ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_source_set_readonly               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> readonly</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> readonly</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -445,53 +442,7 @@ color in <em class="parameter"><code>source</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
-<a name="e-source-set-color"></a><h3>e_source_set_color ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                e_source_set_color                  (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> color</code></em>);</pre>
-<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
-<h3 class="title">Warning</h3>
-<p><code class="literal">e_source_set_color</code> is deprecated and should not be used in newly-written code.</p>
-</div>
-<p>
-</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
-<td>
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>color</code></em> :</span></p></td>
-<td>
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
-<a name="e-source-unset-color"></a><h3>e_source_unset_color ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                e_source_unset_color                (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
-<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
-<h3 class="title">Warning</h3>
-<p><code class="literal">e_source_unset_color</code> is deprecated and should not be used in newly-written code.</p>
-</div>
-<p>
-</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody><tr>
-<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
-<td>
-</td>
-</tr></tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_peek_group ()">
 <a name="e-source-peek-group"></a><h3>e_source_peek_group ()</h3>
 <pre class="programlisting"><a class="link" href="ESourceGroup.html" title="ESourceGroup"><span class="returnvalue">ESourceGroup</span></a> *      e_source_peek_group                 (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
@@ -513,9 +464,9 @@ color in <em class="parameter"><code>source</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_peek_uid ()">
 <a name="e-source-peek-uid"></a><h3>e_source_peek_uid ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_source_peek_uid                   (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_peek_uid                   (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -535,9 +486,9 @@ color in <em class="parameter"><code>source</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_peek_name ()">
 <a name="e-source-peek-name"></a><h3>e_source_peek_name ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_source_peek_name                  (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_peek_name                  (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -557,9 +508,9 @@ color in <em class="parameter"><code>source</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_peek_relative_uri ()">
 <a name="e-source-peek-relative-uri"></a><h3>e_source_peek_relative_uri ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_source_peek_relative_uri          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_peek_relative_uri          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -579,9 +530,9 @@ color in <em class="parameter"><code>source</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_peek_absolute_uri ()">
 <a name="e-source-peek-absolute-uri"></a><h3>e_source_peek_absolute_uri ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_source_peek_absolute_uri          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_peek_absolute_uri          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -601,12 +552,13 @@ color in <em class="parameter"><code>source</code></em>.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_peek_color_spec ()">
 <a name="e-source-peek-color-spec"></a><h3>e_source_peek_color_spec ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_source_peek_color_spec            (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_peek_color_spec            (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
-Return the textual representation of the color for <em class="parameter"><code>source</code></em>, or <code class="literal">NULL</code> if it
-has none.  The returned string should be parsable by #<code class="function">gdk_color_parse()</code>.</p>
+Return the textual representation of the color for <em class="parameter"><code>source</code></em>, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if it
+has none.  The returned string should be parsable by #<a href="http://library.gnome.org/devel/gdk/gdk3-Colors.html#gdk-color-parse"><code class="function">gdk_color_parse()</code></a>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -626,9 +578,9 @@ has none.  The returned string should be parsable by #<code class="function">gdk
 <p class="since">Since 1.10</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_get_readonly ()">
 <a name="e-source-get-readonly"></a><h3>e_source_get_readonly ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_get_readonly               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_get_readonly               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -648,43 +600,9 @@ has none.  The returned string should be parsable by #<code class="function">gdk
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
-<a name="e-source-get-color"></a><h3>e_source_get_color ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_get_color                  (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code><span class="type">guint32</span> *color_return</code></em>);</pre>
-<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
-<h3 class="title">Warning</h3>
-<p><code class="literal">e_source_get_color</code> is deprecated and should not be used in newly-written code.</p>
-</div>
-<p>
-If <em class="parameter"><code>source</code></em> has an associated color, return it in *<em class="parameter"><code>color_return</code></em>.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
-<td>An ESource
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>color_return</code></em> :</span></p></td>
-<td>Pointer to a variable where the returned color will be
-stored.
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if the <em class="parameter"><code>source</code></em> has a defined color (and hence
-*<em class="parameter"><code>color_return</code></em> was set), <code class="literal">FALSE</code> otherwise.
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_get_uri ()">
 <a name="e-source-get-uri"></a><h3>e_source_get_uri ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_source_get_uri                    (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_get_uri                    (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -704,7 +622,7 @@ stored.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_dump_to_xml_node ()">
 <a name="e-source-dump-to-xml-node"></a><h3>e_source_dump_to_xml_node ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_source_dump_to_xml_node           (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
                                                          <em class="parameter"><code><span class="type">xmlNodePtr</span> parent_node</code></em>);</pre>
@@ -727,9 +645,9 @@ stored.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_to_standalone_xml ()">
 <a name="e-source-to-standalone-xml"></a><h3>e_source_to_standalone_xml ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_source_to_standalone_xml          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_to_standalone_xml          (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -749,10 +667,10 @@ stored.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_get_property ()">
 <a name="e-source-get-property"></a><h3>e_source_get_property ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_source_get_property               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *property</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_source_get_property               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -777,11 +695,11 @@ stored.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_set_property ()">
 <a name="e-source-set-property"></a><h3>e_source_set_property ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_source_set_property               (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *property</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *value</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -806,11 +724,11 @@ stored.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_foreach_property ()">
 <a name="e-source-foreach-property"></a><h3>e_source_foreach_property ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_source_foreach_property           (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code><span class="type">GHFunc</span> func</code></em>,
-                                                         <em class="parameter"><code><span class="type">gpointer</span> data</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Hash-Tables.html#GHFunc"><span class="type">GHFunc</span></a> func</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> data</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -835,12 +753,10 @@ stored.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_get_duped_property ()">
 <a name="e-source-get-duped-property"></a><h3>e_source_get_duped_property ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_source_get_duped_property         (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *property</code></em>);</pre>
-<p>
-</p>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_get_duped_property         (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *property</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -861,11 +777,12 @@ stored.
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 1.12</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_build_absolute_uri ()">
 <a name="e-source-build-absolute-uri"></a><h3>e_source_build_absolute_uri ()</h3>
-<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_source_build_absolute_uri         (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *             e_source_build_absolute_uri         (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *source</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -885,12 +802,13 @@ stored.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_equal ()">
 <a name="e-source-equal"></a><h3>e_source_equal ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_equal                      (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *a</code></em>,
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_equal                      (<em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *a</code></em>,
                                                          <em class="parameter"><code><a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *b</code></em>);</pre>
 <p>
-Compares if <em class="parameter"><code>a</code></em> is equivalent to <em class="parameter"><code>b</code></em>.</p>
+Compares if <em class="parameter"><code>a</code></em> is equivalent to <em class="parameter"><code>b</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -906,20 +824,23 @@ Compares if <em class="parameter"><code>a</code></em> is equivalent to <em class
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if <em class="parameter"><code>a</code></em> is equivalent to <em class="parameter"><code>b</code></em>,
-<code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>a</code></em> is equivalent to <em class="parameter"><code>b</code></em>,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
+
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_source_xmlstr_equal ()">
 <a name="e-source-xmlstr-equal"></a><h3>e_source_xmlstr_equal ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_xmlstr_equal               (<em class="parameter"><code>const <span class="type">gchar</span> *a</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *b</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_source_xmlstr_equal               (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *a</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *b</code></em>);</pre>
 <p>
-Compares if <em class="parameter"><code>a</code></em> is equivalent to <em class="parameter"><code>b</code></em>.</p>
+Compares if <em class="parameter"><code>a</code></em> is equivalent to <em class="parameter"><code>b</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -935,20 +856,22 @@ Compares if <em class="parameter"><code>a</code></em> is equivalent to <em class
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if <em class="parameter"><code>a</code></em> is equivalent to <em class="parameter"><code>b</code></em>,
-<code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if <em class="parameter"><code>a</code></em> is equivalent to <em class="parameter"><code>b</code></em>,
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
+
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Signal Details">
 <a name="ESource.signal-details"></a><h2>Signal Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title='The "changed" signal'>
 <a name="ESource-changed"></a><h3>The <code class="literal">"changed"</code> signal</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESource.html" title="ESource"><span class="type">ESource</span></a> *esource,
-                                                        <span class="type">gpointer</span> user_data)      : Run Last</pre>
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a> user_data)      : Run Last</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -970,6 +893,6 @@ Compares if <em class="parameter"><code>a</code></em> is equivalent to <em class
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

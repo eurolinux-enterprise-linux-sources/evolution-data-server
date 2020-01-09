@@ -4,18 +4,24 @@
   <chapters>
     <sub name="Evolution-Data-Server Manual: Address Book Client (libebook)" link="ch01.html">
       <sub name="EBook" link="EBook.html"/>
-      <sub name="EBookListener" link="EBookListener.html"/>
       <sub name="e-book-query" link="libebook-e-book-query.html"/>
       <sub name="e-book-types" link="libebook-e-book-types.html"/>
       <sub name="EBookView" link="EBookView.html"/>
-      <sub name="EBookViewListener" link="EBookViewListener.html"/>
       <sub name="EVCard" link="EVCard.html"/>
       <sub name="EContact" link="EContact.html"/>
       <sub name="EDestination" link="EDestination.html"/>
       <sub name="e-address-western" link="libebook-EAddressWestern.html"/>
       <sub name="e-name-western" link="libebook-ENameWestern.html"/>
     </sub>
-    <sub name="Index" link="ix01.html"/>
+    <sub name="Index" link="api-index-full.html"/>
+    <sub name="Index of deprecated symbols" link="api-index-deprecated.html"/>
+    <sub name="Index of new symbols in 2.32" link="api-index-2.32.html"/>
+    <sub name="Index of new symbols in 2.30" link="api-index-2.30.html"/>
+    <sub name="Index of new symbols in 2.28" link="api-index-2.28.html"/>
+    <sub name="Index of new symbols in 2.26" link="api-index-2.26.html"/>
+    <sub name="Index of new symbols in 2.24" link="api-index-2.24.html"/>
+    <sub name="Index of new symbols in 2.22" link="api-index-2.22.html"/>
+    <sub name="Index of new symbols in 1.12" link="api-index-1.12.html"/>
   </chapters>
   <functions>
     <function name="EBook" link="EBook.html#EBook-struct"/>
@@ -53,13 +59,37 @@
     <function name="e_book_set_self ()" link="EBook.html#e-book-set-self"/>
     <function name="e_book_is_self ()" link="EBook.html#e-book-is-self"/>
     <function name="e_book_get_addressbooks ()" link="EBook.html#e-book-get-addressbooks"/>
-    <function name="EBookCallback ()" link="EBook.html#EBookCallback"/>
+    <function name="e_return_error_if_fail()" link="EBook.html#e-return-error-if-fail"/>
+    <function name="e_return_async_error_if_fail()" link="EBook.html#e-return-async-error-if-fail"/>
+    <function name="e_return_ex_async_error_val_if_fail()" link="EBook.html#e-return-ex-async-error-val-if-fail"/>
+    <function name="EBookAsyncCallback ()" link="EBook.html#EBookAsyncCallback"/>
     <function name="EBookOpenProgressCallback ()" link="EBook.html#EBookOpenProgressCallback"/>
+    <function name="EBookIdAsyncCallback ()" link="EBook.html#EBookIdAsyncCallback"/>
+    <function name="EBookContactAsyncCallback ()" link="EBook.html#EBookContactAsyncCallback"/>
+    <function name="EBookListAsyncCallback ()" link="EBook.html#EBookListAsyncCallback"/>
+    <function name="EBookBookViewAsyncCallback ()" link="EBook.html#EBookBookViewAsyncCallback"/>
+    <function name="EBookEListAsyncCallback ()" link="EBook.html#EBookEListAsyncCallback"/>
+    <function name="EBookCallback ()" link="EBook.html#EBookCallback"/>
     <function name="EBookIdCallback ()" link="EBook.html#EBookIdCallback"/>
     <function name="EBookEListCallback ()" link="EBook.html#EBookEListCallback"/>
     <function name="EBookListCallback ()" link="EBook.html#EBookListCallback"/>
     <function name="EBookContactCallback ()" link="EBook.html#EBookContactCallback"/>
     <function name="EBookBookViewCallback ()" link="EBook.html#EBookBookViewCallback"/>
+    <function name="e_book_open_async ()" link="EBook.html#e-book-open-async"/>
+    <function name="e_book_remove_async ()" link="EBook.html#e-book-remove-async"/>
+    <function name="e_book_get_supported_fields_async ()" link="EBook.html#e-book-get-supported-fields-async"/>
+    <function name="e_book_get_supported_auth_methods_async ()" link="EBook.html#e-book-get-supported-auth-methods-async"/>
+    <function name="e_book_authenticate_user_async ()" link="EBook.html#e-book-authenticate-user-async"/>
+    <function name="e_book_get_contact_async ()" link="EBook.html#e-book-get-contact-async"/>
+    <function name="e_book_get_contacts_async ()" link="EBook.html#e-book-get-contacts-async"/>
+    <function name="e_book_remove_contact_async ()" link="EBook.html#e-book-remove-contact-async"/>
+    <function name="e_book_remove_contact_by_id_async ()" link="EBook.html#e-book-remove-contact-by-id-async"/>
+    <function name="e_book_remove_contacts_async ()" link="EBook.html#e-book-remove-contacts-async"/>
+    <function name="e_book_add_contact_async ()" link="EBook.html#e-book-add-contact-async"/>
+    <function name="e_book_commit_contact_async ()" link="EBook.html#e-book-commit-contact-async"/>
+    <function name="e_book_get_book_view_async ()" link="EBook.html#e-book-get-book-view-async"/>
+    <function name="e_book_get_changes_async ()" link="EBook.html#e-book-get-changes-async"/>
+    <function name="e_book_get_required_fields_async ()" link="EBook.html#e-book-get-required-fields-async"/>
     <function name="e_book_async_open ()" link="EBook.html#e-book-async-open"/>
     <function name="e_book_async_remove ()" link="EBook.html#e-book-async-remove"/>
     <function name="e_book_async_get_supported_fields ()" link="EBook.html#e-book-async-get-supported-fields"/>
@@ -79,12 +109,6 @@
     <function name="The &quot;backend-died&quot; signal" link="EBook.html#EBook-backend-died"/>
     <function name="The &quot;connection-status&quot; signal" link="EBook.html#EBook-connection-status"/>
     <function name="The &quot;writable-status&quot; signal" link="EBook.html#EBook-writable-status"/>
-    <function name="EBookListener" link="EBookListener.html#EBookListener-struct"/>
-    <function name="EBookListenerResponse" link="EBookListener.html#EBookListenerResponse"/>
-    <function name="enum EBookListenerOperation" link="EBookListener.html#EBookListenerOperation"/>
-    <function name="e_book_listener_new ()" link="EBookListener.html#e-book-listener-new"/>
-    <function name="e_book_listener_stop ()" link="EBookListener.html#e-book-listener-stop"/>
-    <function name="The &quot;response&quot; signal" link="EBookListener.html#EBookListener-response"/>
     <function name="EBookQuery" link="libebook-e-book-query.html#EBookQuery"/>
     <function name="enum EBookQueryTest" link="libebook-e-book-query.html#EBookQueryTest"/>
     <function name="e_book_query_from_string ()" link="libebook-e-book-query.html#e-book-query-from-string"/>
@@ -105,27 +129,20 @@
     <function name="E_BOOK_ERROR" link="libebook-e-book-types.html#E-BOOK-ERROR:CAPS"/>
     <function name="e_book_error_quark ()" link="libebook-e-book-types.html#e-book-error-quark"/>
     <function name="enum EBookStatus" link="libebook-e-book-types.html#EBookStatus"/>
+    <function name="E_BOOK_ERROR_CORBA_EXCEPTION" link="libebook-e-book-types.html#E-BOOK-ERROR-CORBA-EXCEPTION:CAPS"/>
     <function name="enum EBookViewStatus" link="libebook-e-book-types.html#EBookViewStatus"/>
     <function name="enum EBookChangeType" link="libebook-e-book-types.html#EBookChangeType"/>
     <function name="EBookChange" link="libebook-e-book-types.html#EBookChange"/>
     <function name="EBookView" link="EBookView.html#EBookView-struct"/>
-    <function name="e_book_view_new ()" link="EBookView.html#e-book-view-new"/>
     <function name="e_book_view_start ()" link="EBookView.html#e-book-view-start"/>
     <function name="e_book_view_stop ()" link="EBookView.html#e-book-view-stop"/>
-    <function name="e_book_view_set_book ()" link="EBookView.html#e-book-view-set-book"/>
     <function name="e_book_view_get_book ()" link="EBookView.html#e-book-view-get-book"/>
     <function name="The &quot;contacts-added&quot; signal" link="EBookView.html#EBookView-contacts-added"/>
     <function name="The &quot;contacts-changed&quot; signal" link="EBookView.html#EBookView-contacts-changed"/>
     <function name="The &quot;contacts-removed&quot; signal" link="EBookView.html#EBookView-contacts-removed"/>
     <function name="The &quot;sequence-complete&quot; signal" link="EBookView.html#EBookView-sequence-complete"/>
     <function name="The &quot;status-message&quot; signal" link="EBookView.html#EBookView-status-message"/>
-    <function name="EBookViewListener" link="EBookViewListener.html#EBookViewListener-struct"/>
-    <function name="EBookViewListenerResponse" link="EBookViewListener.html#EBookViewListenerResponse"/>
-    <function name="enum EBookViewListenerOperation" link="EBookViewListener.html#EBookViewListenerOperation"/>
-    <function name="e_book_view_listener_new ()" link="EBookViewListener.html#e-book-view-listener-new"/>
-    <function name="e_book_view_listener_start ()" link="EBookViewListener.html#e-book-view-listener-start"/>
-    <function name="e_book_view_listener_stop ()" link="EBookViewListener.html#e-book-view-listener-stop"/>
-    <function name="The &quot;response&quot; signal" link="EBookViewListener.html#EBookViewListener-response"/>
+    <function name="The &quot;view-complete&quot; signal" link="EBookView.html#EBookView-view-complete"/>
     <function name="EVCard" link="EVCard.html#EVCard-struct"/>
     <function name="enum EVCardFormat" link="EVCard.html#EVCardFormat"/>
     <function name="EVCardAttribute" link="EVCard.html#EVCardAttribute"/>
@@ -139,6 +156,9 @@
     <function name="e_vcard_attribute_copy ()" link="EVCard.html#e-vcard-attribute-copy"/>
     <function name="e_vcard_remove_attributes ()" link="EVCard.html#e-vcard-remove-attributes"/>
     <function name="e_vcard_remove_attribute ()" link="EVCard.html#e-vcard-remove-attribute"/>
+    <function name="e_vcard_append_attribute ()" link="EVCard.html#e-vcard-append-attribute"/>
+    <function name="e_vcard_append_attribute_with_value ()" link="EVCard.html#e-vcard-append-attribute-with-value"/>
+    <function name="e_vcard_append_attribute_with_values ()" link="EVCard.html#e-vcard-append-attribute-with-values"/>
     <function name="e_vcard_add_attribute ()" link="EVCard.html#e-vcard-add-attribute"/>
     <function name="e_vcard_add_attribute_with_value ()" link="EVCard.html#e-vcard-add-attribute-with-value"/>
     <function name="e_vcard_add_attribute_with_values ()" link="EVCard.html#e-vcard-add-attribute-with-values"/>

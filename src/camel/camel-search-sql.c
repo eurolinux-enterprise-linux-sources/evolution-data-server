@@ -30,7 +30,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <glib.h>
 #include "camel-search-sql.h"
 
 #define d(x)
@@ -103,13 +102,13 @@ typedef struct Node {
 	gchar post_token; /* post token to apppend with substitute */
 	gchar rval; /* rhs value for binary ops */
 	gint level; /* depth in the hier */
-	gint prefix:1; /* unary operator to be searched ?*/
-	gint sys_node:1; /* is it a predefined term ? */
-	gint ignore_lhs:1; /* ignore lhs value ?*/
-	gint swap :1;
-	gint prenode :1;
-	gint operator:1;
-	gint execute:1;
+	guint prefix:1; /* unary operator to be searched ?*/
+	guint sys_node:1; /* is it a predefined term ? */
+	guint ignore_lhs:1; /* ignore lhs value ?*/
+	guint swap :1;
+	guint prenode :1;
+	guint operator:1;
+	guint execute:1;
 	gint ref;
 }Node;
 
@@ -199,13 +198,14 @@ escape_values (gchar *str)
 }
 
 /**
- * camel_search_sexp_to_sql:
+ * camel_sexp_to_sql:
  * @txt: A valid sexp expression
  *
  * Converts a valid sexp expression to a sql statement with table fields converted into it.
  * This is very specific to Evolution. It might crash is the sexp is invalid. The callers must ensure that the sexp is valid
+ *
+ * Since: 2.24
  **/
-
 gchar *
 camel_sexp_to_sql (const gchar *txt)
 {
@@ -278,8 +278,8 @@ camel_sexp_to_sql (const gchar *txt)
 
 								if (token != G_TOKEN_LEFT_PAREN) {
 									/* remove #t*/
-									token = g_scanner_get_next_token (scanner);
-									token = g_scanner_get_next_token (scanner);
+									g_scanner_get_next_token (scanner);
+									g_scanner_get_next_token (scanner);
 								}
 
 							}

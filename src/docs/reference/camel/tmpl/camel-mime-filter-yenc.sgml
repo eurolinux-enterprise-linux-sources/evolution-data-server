@@ -25,12 +25,6 @@ CamelMimeFilterYenc
 
 </para>
 
-@parent_object: 
-@direction: 
-@part: 
-@state: 
-@pcrc: 
-@crc: 
 
 <!-- ##### ENUM CamelMimeFilterYencDirection ##### -->
 <para>

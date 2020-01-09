@@ -114,7 +114,7 @@ load_from_gconf (ESourceList *list)
 		} else {
 			gboolean group_changed;
 
-			list->priv->ignore_group_changed ++;
+			list->priv->ignore_group_changed++;
 
 			if (e_source_group_update_from_xmldoc (existing_group, xmldoc, &group_changed)) {
 				new_groups_list = g_slist_prepend (new_groups_list, existing_group);
@@ -125,7 +125,7 @@ load_from_gconf (ESourceList *list)
 					changed = TRUE;
 			}
 
-			list->priv->ignore_group_changed --;
+			list->priv->ignore_group_changed--;
 		}
 
 		xmlFreeDoc (xmldoc);
@@ -150,7 +150,7 @@ load_from_gconf (ESourceList *list)
 			g_signal_handlers_disconnect_by_func (group, group_changed_callback, list);
 		}
 
-		if (! changed && q != NULL) {
+		if (!changed && q != NULL) {
 			if (q->data != p->data)
 				changed = TRUE;
 			q = q->next;
@@ -191,12 +191,14 @@ sync_idle_callback (ESourceList *list)
 {
 	GError *error = NULL;
 
-	if (! e_source_list_sync (list, &error)) {
-		g_warning ("Cannot update \"%s\": %s", list->priv->gconf_path, error->message);
+	g_object_ref (list);
+	if (!e_source_list_sync (list, &error)) {
+		g_warning ("Cannot update \"%s\": %s", list->priv->gconf_path, error ? error->message : "Unknown error");
 		g_error_free (error);
 	}
 
 	list->priv->sync_idle_id= 0;
+	g_object_unref (list);
 
 	return FALSE;
 }
@@ -205,11 +207,15 @@ static void
 group_changed_callback (ESourceGroup *group,
 			ESourceList *list)
 {
-	if (! list->priv->ignore_group_changed)
+	g_object_ref (list);
+
+	if (!list->priv->ignore_group_changed)
 		g_signal_emit (list, signals[CHANGED], 0);
 
 	if (list->priv->sync_idle_id == 0)
 		list->priv->sync_idle_id = g_idle_add ((GSourceFunc) sync_idle_callback, list);
+
+	g_object_unref (list);
 }
 
 static void
@@ -218,7 +224,9 @@ conf_changed_callback (GConfClient *client,
 		       GConfEntry *entry,
 		       ESourceList *list)
 {
+	g_object_ref (list);
 	load_from_gconf (list);
+	g_object_unref (list);
 }
 
 /* GObject methods.  */
@@ -230,13 +238,18 @@ impl_dispose (GObject *object)
 {
 	ESourceListPrivate *priv = E_SOURCE_LIST (object)->priv;
 
+	if (priv->gconf_client != NULL && priv->gconf_notify_id != 0) {
+		gconf_client_notify_remove (priv->gconf_client, priv->gconf_notify_id);
+		priv->gconf_notify_id = 0;
+	}
+
 	if (priv->sync_idle_id != 0) {
 		GError *error = NULL;
 
 		g_source_remove (priv->sync_idle_id);
 		priv->sync_idle_id = 0;
 
-		if (! e_source_list_sync (E_SOURCE_LIST (object), &error))
+		if (!e_source_list_sync (E_SOURCE_LIST (object), &error))
 			g_warning ("Could not update \"%s\": %s",
 				   priv->gconf_path, error->message);
 	}
@@ -252,16 +265,8 @@ impl_dispose (GObject *object)
 	}
 
 	if (priv->gconf_client != NULL) {
-		if (priv->gconf_notify_id != 0) {
-			gconf_client_notify_remove (priv->gconf_client,
-						    priv->gconf_notify_id);
-			priv->gconf_notify_id = 0;
-		}
-
 		g_object_unref (priv->gconf_client);
 		priv->gconf_client = NULL;
-	} else {
-		g_assert_not_reached ();
 	}
 
 	(* G_OBJECT_CLASS (e_source_list_parent_class)->dispose) (object);
@@ -271,12 +276,6 @@ static void
 impl_finalize (GObject *object)
 {
 	ESourceListPrivate *priv = E_SOURCE_LIST (object)->priv;
-
-	if (priv->gconf_notify_id != 0) {
-		gconf_client_notify_remove (priv->gconf_client,
-					    priv->gconf_notify_id);
-		priv->gconf_notify_id = 0;
-	}
 
 	g_free (priv->gconf_path);
 	g_free (priv);
@@ -311,7 +310,7 @@ e_source_list_class_init (ESourceListClass *class)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1,
-			      G_TYPE_POINTER);
+			      E_TYPE_SOURCE_GROUP);
 
 	signals[GROUP_ADDED] =
 		g_signal_new ("group_added",
@@ -321,7 +320,7 @@ e_source_list_class_init (ESourceListClass *class)
 			      NULL, NULL,
 			      g_cclosure_marshal_VOID__OBJECT,
 			      G_TYPE_NONE, 1,
-			      G_TYPE_POINTER);
+			      E_TYPE_SOURCE_GROUP);
 }
 
 static void
@@ -334,26 +333,12 @@ e_source_list_init (ESourceList *source_list)
 	source_list->priv = priv;
 }
 
-/* returns the type */
-static GType
-get_source_list_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		if (!(type = g_type_from_name ("ESourceList")))
-			type = e_source_list_get_type ();
-	}
-
-	return type;
-}
-
 /* Public methods.  */
 
 ESourceList *
 e_source_list_new (void)
 {
-	ESourceList *list = g_object_new (get_source_list_type (), NULL);
+	ESourceList *list = g_object_new (e_source_list_get_type (), NULL);
 
 	return list;
 }
@@ -367,7 +352,7 @@ e_source_list_new_for_gconf (GConfClient *client,
 	g_return_val_if_fail (GCONF_IS_CLIENT (client), NULL);
 	g_return_val_if_fail (path != NULL, NULL);
 
-	list = g_object_new (get_source_list_type (), NULL);
+	list = g_object_new (e_source_list_get_type (), NULL);
 
 	list->priv->gconf_path = g_strdup (path);
 	list->priv->gconf_client = client;
@@ -391,7 +376,7 @@ e_source_list_new_for_gconf_default (const gchar  *path)
 
 	g_return_val_if_fail (path != NULL, NULL);
 
-	list = g_object_new (get_source_list_type (), NULL);
+	list = g_object_new (e_source_list_get_type (), NULL);
 
 	list->priv->gconf_path = g_strdup (path);
 	list->priv->gconf_client = gconf_client_get_default ();
@@ -434,34 +419,12 @@ e_source_list_peek_group_by_uid (ESourceList *list,
 	return NULL;
 }
 
-#ifndef EDS_DISABLE_DEPRECATED
-/**
- * Note: This function isn't safe with respect of localized names,
- * use e_source_list_peek_group_by_base_uri instead.
- **/
-ESourceGroup *
-e_source_list_peek_group_by_name (ESourceList *list,
-				  const gchar *name)
-{
-	GSList *p;
-
-	g_return_val_if_fail (E_IS_SOURCE_LIST (list), NULL);
-	g_return_val_if_fail (name != NULL, NULL);
-
-	for (p = list->priv->groups; p != NULL; p = p->next) {
-		ESourceGroup *group = E_SOURCE_GROUP (p->data);
-
-		if (strcmp (e_source_group_peek_name (group), name) == 0)
-			return group;
-	}
-
-	return NULL;
-}
-#endif
-
 /**
  * e_source_list_peek_group_by_base_uri:
+ *
  * Returns the first group which base uri begins with a base_uri.
+ *
+ * Since: 2.28
  **/
 ESourceGroup *
 e_source_list_peek_group_by_base_uri (ESourceList *list, const gchar *base_uri)
@@ -507,10 +470,13 @@ check_group_property (const gchar *property_name, const gchar *property_value, s
 
 /**
  * e_source_list_peek_group_by_properties:
+ *
  * Peeks group by its properties. Parameters are pairs of strings
  * property_name, property_value, terminated by NULL! ESourceGroup
  * is returned only if matches all the properties. Values are compared
  * case insensitively.
+ *
+ * Since: 2.28
  **/
 ESourceGroup *
 e_source_list_peek_group_by_properties (ESourceList *list, const gchar *property_name, ...)
@@ -595,6 +561,63 @@ e_source_list_peek_source_any (ESourceList *list)
 	return NULL;
 }
 
+/**
+ * e_source_list_peek_default_source:
+ * @source_list: an #ESourceList
+ *
+ * Attempts to find a default #ESource in @source_list by looking for
+ * a source with a property named "default", or else a source with a
+ * property named "system".  If no such #ESource exists, the function
+ * returns %NULL.
+ *
+ * Returns: the default #ESource in @source_list, or %NULL
+ *
+ * Since: 2.32
+ **/
+ESource *
+e_source_list_peek_default_source (ESourceList *source_list)
+{
+	ESource *system_source = NULL;
+	GSList *groups;
+	GSList *iter1;
+
+	g_return_val_if_fail (E_IS_SOURCE_LIST (source_list), NULL);
+
+	groups = e_source_list_peek_groups (source_list);
+
+	for (iter1 = groups; iter1 != NULL; iter1 = iter1->next) {
+		ESourceGroup *source_group;
+		GSList *sources;
+		GSList *iter2;
+		gboolean is_local_group;
+
+		source_group = E_SOURCE_GROUP (iter1->data);
+		sources = e_source_group_peek_sources (source_group);
+
+		is_local_group = e_source_group_peek_base_uri (source_group)
+				 && g_str_equal (e_source_group_peek_base_uri (source_group), "local:");
+
+		for (iter2 = sources; iter2 != NULL; iter2 = iter2->next) {
+			ESource *source;
+
+			source = E_SOURCE (iter2->data);
+
+			/* If we find the default source, we're done. */
+			if (e_source_get_property (source, "default"))
+				return source;
+
+			/* Make a note of the system source.  If we fail
+			 * to find a default source we fall back to this. */
+			if (e_source_get_property (source, "system") ||
+			    (is_local_group && !system_source && e_source_peek_relative_uri (source)
+			     && g_str_equal (e_source_peek_relative_uri (source), "system")))
+				system_source = source;
+		}
+	}
+
+	return system_source;
+}
+
 gboolean
 e_source_list_add_group (ESourceList *list,
 			 ESourceGroup *group,
@@ -650,9 +673,12 @@ e_source_list_remove_group_by_uid (ESourceList *list,
 
 /**
  * e_source_list_ensure_group:
+ *
  * Ensures group with the @base_uri will exists in the @list and its name will be @name.
  * If ret_it will be TRUE the group will be also returned, in that case caller should
  * g_object_unref the group. Otherwise it returns NULL.
+ *
+ * Since: 2.28
  **/
 ESourceGroup *
 e_source_list_ensure_group (ESourceList *list, const gchar *name, const gchar *base_uri, gboolean ret_it)
@@ -693,8 +719,11 @@ e_source_list_ensure_group (ESourceList *list, const gchar *name, const gchar *b
 
 /**
  * e_source_list_remove_group_by_base_uri:
+ *
  * Removes group with given base_uri.
  * Returns TRUE if group was found.
+ *
+ * Since: 2.28
  **/
 gboolean
 e_source_list_remove_group_by_base_uri (ESourceList *list, const gchar *base_uri)

@@ -1,0 +1,85 @@
+diff -up evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-view.c.book-view-blocks-factory evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-view.c
+--- evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-view.c.book-view-blocks-factory	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/addressbook/libedata-book/e-data-book-view.c	2013-06-13 15:42:25.874993491 +0200
+@@ -57,7 +57,6 @@ struct _EDataBookViewPrivate {
+ 	GArray *removes;
+ 
+ 	GHashTable *ids;
+-	guint idle_id;
+ 
+ 	guint flush_id;
+ };
+@@ -501,49 +500,48 @@ e_data_book_view_new (EDataBook *book, c
+ 	return view;
+ }
+ 
+-static gboolean
+-bookview_idle_start (gpointer data)
++static gpointer
++bookview_thread_start (gpointer data)
+ {
+ 	EDataBookView *book_view = data;
+ 
+ 	book_view->priv->running = TRUE;
+-	book_view->priv->idle_id = 0;
+ 
+ 	e_book_backend_start_book_view (book_view->priv->backend, book_view);
+ 
+-	return FALSE;
++	g_object_unref (book_view);
++
++	return NULL;
+ }
+ 
+ static gboolean
+ impl_DataBookView_start (EGdbusBookView *object, GDBusMethodInvocation *invocation, EDataBookView *book_view)
+ {
+-	book_view->priv->idle_id = g_idle_add (bookview_idle_start, book_view);
++	g_thread_create (bookview_thread_start, g_object_ref (book_view), FALSE, NULL);
+ 
+ 	e_gdbus_book_view_complete_start (object, invocation);
+ 
+ 	return TRUE;
+ }
+ 
+-static gboolean
+-bookview_idle_stop (gpointer data)
++static gpointer
++bookview_thread_stop (gpointer data)
+ {
+ 	EDataBookView *book_view = data;
+ 
+ 	e_book_backend_stop_book_view (book_view->priv->backend, book_view);
+ 
+ 	book_view->priv->running = FALSE;
+-	book_view->priv->idle_id = 0;
+ 
+-	return FALSE;
++	g_object_unref (book_view);
++
++	return NULL;
+ }
+ 
+ static gboolean
+ impl_DataBookView_stop (EGdbusBookView *object, GDBusMethodInvocation *invocation, EDataBookView *book_view)
+ {
+-	if (book_view->priv->idle_id)
+-		g_source_remove (book_view->priv->idle_id);
+-
+-	book_view->priv->idle_id = g_idle_add (bookview_idle_stop, book_view);
++	g_thread_create (bookview_thread_stop, g_object_ref (book_view), FALSE, NULL);
+ 
+ 	e_gdbus_book_view_complete_stop (object, invocation);
+ 
+@@ -606,11 +604,6 @@ e_data_book_view_dispose (GObject *objec
+ 		priv->card_sexp = NULL;
+ 	}
+ 
+-	if (priv->idle_id) {
+-		g_source_remove (priv->idle_id);
+-		priv->idle_id = 0;
+-	}
+-
+ 	g_mutex_lock (priv->pending_mutex);
+ 
+ 	if (priv->flush_id) {

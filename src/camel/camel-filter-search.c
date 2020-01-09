@@ -37,7 +37,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <glib.h>
 #include <glib/gi18n-lib.h>
 
 #ifndef G_OS_WIN32
@@ -47,7 +46,6 @@
 #include <libedataserver/e-sexp.h>
 
 #include "camel-debug.h"
-#include "camel-exception.h"
 #include "camel-filter-search.h"
 #include "camel-iconv.h"
 #include "camel-mime-message.h"
@@ -69,7 +67,7 @@ typedef struct {
 	CamelMimeMessage *message;
 	CamelMessageInfo *info;
 	const gchar *source;
-	CamelException *ex;
+	GError **error;
 } FilterMessageSearch;
 
 /* ESExp callbacks */
@@ -131,7 +129,7 @@ camel_filter_search_get_message (FilterMessageSearch *fms, struct _ESExp *sexp)
 	if (fms->message)
 		return fms->message;
 
-	fms->message = fms->get_message (fms->get_message_data, fms->ex);
+	fms->message = fms->get_message (fms->get_message_data, fms->error);
 
 	if (fms->message == NULL)
 		e_sexp_fatal_error (sexp, _("Failed to retrieve message"));
@@ -164,25 +162,27 @@ check_header (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMes
 			}
 		} else {
 			CamelMimeMessage *message;
+			CamelMimePart *mime_part;
 			struct _camel_header_raw *header;
 			const gchar *charset = NULL;
 			camel_search_t type = CAMEL_SEARCH_TYPE_ENCODED;
 			CamelContentType *ct;
 
 			message = camel_filter_search_get_message (fms, f);
+			mime_part = CAMEL_MIME_PART (message);
 
 			/* FIXME: what about Resent-To, Resent-Cc and Resent-From? */
 			if (g_ascii_strcasecmp("to", name) == 0 || g_ascii_strcasecmp("cc", name) == 0 || g_ascii_strcasecmp("from", name) == 0)
 				type = CAMEL_SEARCH_TYPE_ADDRESS_ENCODED;
 			else if (message) {
-				ct = camel_mime_part_get_content_type (CAMEL_MIME_PART (message));
+				ct = camel_mime_part_get_content_type (mime_part);
 				if (ct) {
 					charset = camel_content_type_param (ct, "charset");
 					charset = camel_iconv_charset_name (charset);
 				}
 			}
 
-			for (header = ((CamelMimePart *)message)->headers; header && !matched; header = header->next) {
+			for (header = mime_part->headers; header && !matched; header = header->next) {
 				if (!g_ascii_strcasecmp(header->name, name)) {
 					for (i=1; i<argc && !matched; i++) {
 						if (argv[i]->type == ESEXP_RES_STRING)
@@ -194,7 +194,7 @@ check_header (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMes
 	}
 
 	r = e_sexp_result_new (f, ESEXP_RES_BOOL);
-	r->value.bool = matched;
+	r->value.boolean = matched;
 
 	return r;
 }
@@ -245,7 +245,7 @@ header_exists (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMe
 	}
 
 	r = e_sexp_result_new (f, ESEXP_RES_BOOL);
-	r->value.bool = matched;
+	r->value.boolean = matched;
 
 	return r;
 }
@@ -262,11 +262,11 @@ header_regex (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMes
 
 	if (argc > 1 && argv[0]->type == ESEXP_RES_STRING
 	    && (contents = camel_medium_get_header (CAMEL_MEDIUM (message), argv[0]->value.string))
-	    && camel_search_build_match_regex(&pattern, CAMEL_SEARCH_MATCH_REGEX|CAMEL_SEARCH_MATCH_ICASE, argc-1, argv+1, fms->ex) == 0) {
-		r->value.bool = regexec (&pattern, contents, 0, NULL, 0) == 0;
+	    && camel_search_build_match_regex(&pattern, CAMEL_SEARCH_MATCH_REGEX|CAMEL_SEARCH_MATCH_ICASE, argc-1, argv+1, fms->error) == 0) {
+		r->value.boolean = regexec (&pattern, contents, 0, NULL, 0) == 0;
 		regfree (&pattern);
 	} else
-		r->value.bool = FALSE;
+		r->value.boolean = FALSE;
 
 	return r;
 }
@@ -274,12 +274,14 @@ header_regex (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMes
 static gchar *
 get_full_header (CamelMimeMessage *message)
 {
-	CamelMimePart *mp = CAMEL_MIME_PART (message);
+	CamelMimePart *mime_part;
 	GString *str = g_string_new ("");
 	gchar   *ret;
 	struct _camel_header_raw *h;
 
-	for (h = mp->headers; h; h = h->next) {
+	mime_part = CAMEL_MIME_PART (message);
+
+	for (h = mime_part->headers; h; h = h->next) {
 		if (h->value != NULL) {
 			g_string_append (str, h->name);
 			if (isspace (h->value[0]))
@@ -306,14 +308,14 @@ header_full_regex (struct _ESExp *f, gint argc, struct _ESExpResult **argv, Filt
 	gchar *contents;
 
 	if (camel_search_build_match_regex(&pattern, CAMEL_SEARCH_MATCH_REGEX|CAMEL_SEARCH_MATCH_ICASE|CAMEL_SEARCH_MATCH_NEWLINE,
-					   argc, argv, fms->ex) == 0) {
+					   argc, argv, fms->error) == 0) {
 		message = camel_filter_search_get_message (fms, f);
 		contents = get_full_header (message);
-		r->value.bool = regexec (&pattern, contents, 0, NULL, 0) == 0;
+		r->value.boolean = regexec (&pattern, contents, 0, NULL, 0) == 0;
 		g_free (contents);
 		regfree (&pattern);
 	} else
-		r->value.bool = FALSE;
+		r->value.boolean = FALSE;
 
 	return r;
 }
@@ -328,7 +330,7 @@ match_all (struct _ESExp *f, gint argc, struct _ESExpTerm **argv, FilterMessageS
 		return e_sexp_term_eval (f, argv[0]);
 
 	r = e_sexp_result_new (f, ESEXP_RES_BOOL);
-	r->value.bool = TRUE;
+	r->value.boolean = TRUE;
 
 	return r;
 }
@@ -340,12 +342,12 @@ body_contains (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMe
 	CamelMimeMessage *message;
 	regex_t pattern;
 
-	if (camel_search_build_match_regex (&pattern, CAMEL_SEARCH_MATCH_ICASE, argc, argv, fms->ex) == 0) {
+	if (camel_search_build_match_regex (&pattern, CAMEL_SEARCH_MATCH_ICASE, argc, argv, fms->error) == 0) {
 		message = camel_filter_search_get_message (fms, f);
-		r->value.bool = camel_search_message_body_contains ((CamelDataWrapper *) message, &pattern);
+		r->value.boolean = camel_search_message_body_contains ((CamelDataWrapper *) message, &pattern);
 		regfree (&pattern);
 	} else
-		r->value.bool = FALSE;
+		r->value.boolean = FALSE;
 
 	return r;
 }
@@ -358,12 +360,12 @@ body_regex (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMessa
 	regex_t pattern;
 
 	if (camel_search_build_match_regex(&pattern, CAMEL_SEARCH_MATCH_ICASE|CAMEL_SEARCH_MATCH_REGEX|CAMEL_SEARCH_MATCH_NEWLINE,
-					   argc, argv, fms->ex) == 0) {
+					   argc, argv, fms->error) == 0) {
 		message = camel_filter_search_get_message (fms, f);
-		r->value.bool = camel_search_message_body_contains ((CamelDataWrapper *) message, &pattern);
+		r->value.boolean = camel_search_message_body_contains ((CamelDataWrapper *) message, &pattern);
 		regfree (&pattern);
 	} else
-		r->value.bool = FALSE;
+		r->value.boolean = FALSE;
 
 	return r;
 }
@@ -385,7 +387,7 @@ user_flag (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMessag
 	}
 
 	r = e_sexp_result_new (f, ESEXP_RES_BOOL);
-	r->value.bool = truth;
+	r->value.boolean = truth;
 
 	return r;
 }
@@ -399,7 +401,7 @@ system_flag (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMess
 		e_sexp_fatal_error(f, _("Invalid arguments to (system-flag)"));
 
 	r = e_sexp_result_new (f, ESEXP_RES_BOOL);
-	r->value.bool = camel_system_flag_get (camel_message_info_flags(fms->info), argv[0]->value.string);
+	r->value.boolean = camel_system_flag_get (camel_message_info_flags(fms->info), argv[0]->value.string);
 
 	return r;
 }
@@ -492,7 +494,7 @@ header_source (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMe
 	}
 
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = truth;
+	r->value.boolean = truth;
 
 	return r;
 }
@@ -575,9 +577,10 @@ run_command (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMess
 				       &error)) {
 		g_ptr_array_free (args, TRUE);
 
-		camel_exception_setv (fms->ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Failed to create child process '%s': %s"),
-				      argv[0]->value.string, error->message);
+		g_set_error (
+			fms->error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Failed to create child process '%s': %s"),
+			argv[0]->value.string, error->message);
 		g_error_free (error);
 		return -1;
 	}
@@ -587,9 +590,10 @@ run_command (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMess
 	message = camel_filter_search_get_message (fms, f);
 
 	stream = camel_stream_fs_new_with_fd (pipe_to_child);
-	camel_data_wrapper_write_to_stream (CAMEL_DATA_WRAPPER (message), stream);
-	camel_stream_flush (stream);
-	camel_object_unref (stream);
+	camel_data_wrapper_write_to_stream (
+		CAMEL_DATA_WRAPPER (message), stream, NULL);
+	camel_stream_flush (stream, NULL);
+	g_object_unref (stream);
 
 	context = g_main_context_new ();
 	child_watch_data.loop = g_main_loop_new (context, FALSE);
@@ -694,16 +698,19 @@ junk_test (struct _ESExp *f, gint argc, struct _ESExpResult **argv, FilterMessag
  * @info:
  * @source:
  * @expression:
- * @ex:
+ * @error: return location for a #GError, or %NULL
  *
  * Returns: one of CAMEL_SEARCH_MATCHED, CAMEL_SEARCH_NOMATCH, or
  * CAMEL_SEARCH_ERROR.
  **/
 gint
 camel_filter_search_match (CamelSession *session,
-			   CamelFilterSearchGetMessageFunc get_message, gpointer data,
-			   CamelMessageInfo *info, const gchar *source,
-			   const gchar *expression, CamelException *ex)
+                           CamelFilterSearchGetMessageFunc get_message,
+                           gpointer data,
+                           CamelMessageInfo *info,
+                           const gchar *source,
+                           const gchar *expression,
+                           GError **error)
 {
 	FilterMessageSearch fms;
 	ESExp *sexp;
@@ -717,11 +724,11 @@ camel_filter_search_match (CamelSession *session,
 	fms.message = NULL;
 	fms.info = info;
 	fms.source = source;
-	fms.ex = ex;
+	fms.error = error;
 
 	sexp = e_sexp_new ();
 
-	for (i = 0; i < sizeof (symbols) / sizeof (symbols[0]); i++) {
+	for (i = 0; i < G_N_ELEMENTS (symbols); i++) {
 		if (symbols[i].type == 1)
 			e_sexp_add_ifunction (sexp, 0, symbols[i].name, (ESExpIFunc *)symbols[i].func, &fms);
 		else
@@ -730,23 +737,26 @@ camel_filter_search_match (CamelSession *session,
 
 	e_sexp_input_text (sexp, expression, strlen (expression));
 	if (e_sexp_parse (sexp) == -1) {
-		if (!camel_exception_is_set (ex))
-			/* A filter search is a search through your filters, ie. your filters is the corpus being searched thru. */
-			camel_exception_setv (ex, 1, _("Error executing filter search: %s: %s"),
-					      e_sexp_error (sexp), expression);
+		/* A filter search is a search through your filters,
+		 * ie. your filters is the corpus being searched thru. */
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Error executing filter search: %s: %s"),
+			e_sexp_error (sexp), expression);
 		goto error;
 	}
 
 	result = e_sexp_eval (sexp);
 	if (result == NULL) {
-		if (!camel_exception_is_set (ex))
-			camel_exception_setv (ex, 1, _("Error executing filter search: %s: %s"),
-					      e_sexp_error (sexp), expression);
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Error executing filter search: %s: %s"),
+			e_sexp_error (sexp), expression);
 		goto error;
 	}
 
 	if (result->type == ESEXP_RES_BOOL)
-		retval = result->value.bool ? CAMEL_SEARCH_MATCHED : CAMEL_SEARCH_NOMATCH;
+		retval = result->value.boolean ? CAMEL_SEARCH_MATCHED : CAMEL_SEARCH_NOMATCH;
 	else
 		retval = CAMEL_SEARCH_NOMATCH;
 
@@ -754,13 +764,13 @@ camel_filter_search_match (CamelSession *session,
 	e_sexp_unref (sexp);
 
 	if (fms.message)
-		camel_object_unref (fms.message);
+		g_object_unref (fms.message);
 
 	return retval;
 
  error:
 	if (fms.message)
-		camel_object_unref (fms.message);
+		g_object_unref (fms.message);
 
 	e_sexp_unref (sexp);
 

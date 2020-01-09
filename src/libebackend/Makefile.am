@@ -1,14 +1,16 @@
-AM_CPPFLAGS =								\
-	-I$(top_srcdir)							\
-	-DG_LOG_DOMAIN=\"e-data-server\"				\
-	-DE_DATA_SERVER_EXTENSIONDIR=\"$(extensiondir)\"		\
-	$(DB_CFLAGS)							\
-	$(E_BACKEND_CFLAGS)
-
 lib_LTLIBRARIES = libebackend-1.2.la
+
+libebackend_1_2_la_CPPFLAGS = \
+	$(AM_CPPFLAGS)						\
+	-I$(top_srcdir)						\
+	-DG_LOG_DOMAIN=\"e-data-server\"			\
+	-DE_DATA_SERVER_EXTENSIONDIR=\"$(extensiondir)\"	\
+	$(DB_CFLAGS)						\
+	$(E_BACKEND_CFLAGS)
 
 libebackend_1_2_la_SOURCES =		\
 	e-data-server-module.c		\
+	e-offline-listener.c		\
 	e-dbhash.c			\
 	e-db3-utils.c			\
 	e-file-cache.c
@@ -25,6 +27,7 @@ libebackendincludedir = $(privincludedir)/libebackend
 
 libebackendinclude_HEADERS =		\
 	e-data-server-module.h		\
+	e-offline-listener.h		\
 	e-db3-utils.h			\
 	e-dbhash.h			\
 	e-file-cache.h
@@ -39,3 +42,5 @@ EXTRA_DIST = 						\
 	$(pkgconfig_DATA:-$(API_VERSION).pc=.pc.in)
 
 DISTCLEANFILES = $(pkgconfig_DATA)
+
+-include $(top_srcdir)/git.mk

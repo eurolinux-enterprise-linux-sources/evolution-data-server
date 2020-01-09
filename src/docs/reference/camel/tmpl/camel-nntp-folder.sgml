@@ -50,5 +50,6 @@ CamelNNTPFolder
 @folder: 
 @line: 
 @ex: 
+@Returns: 
 
 

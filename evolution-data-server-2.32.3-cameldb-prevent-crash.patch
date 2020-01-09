@@ -1,0 +1,18 @@
+diff -up evolution-data-server-2.32.3/camel/camel-db.c.cameldb-prevent-crash evolution-data-server-2.32.3/camel/camel-db.c
+--- evolution-data-server-2.32.3/camel/camel-db.c.cameldb-prevent-crash	2013-10-01 15:07:11.916769365 +0200
++++ evolution-data-server-2.32.3/camel/camel-db.c	2013-10-01 15:07:11.918769365 +0200
+@@ -1139,9 +1139,11 @@ camel_db_get_folder_uids_flags (CamelDB 
+ 	 ret = camel_db_select (db, sel_query, read_uids_flags_callback, &data, error);
+ 	 sqlite3_free (sel_query);
+ 
+-	 for (i=0; i<uids->len; i++) {
+-		 g_hash_table_insert (table, uids->pdata[i], flags->pdata[i]);
+-	 }
++	if (uids->len == flags->len) {
++		for (i=0; i<uids->len; i++) {
++			g_hash_table_insert (table, uids->pdata[i], flags->pdata[i]);
++		}
++	}
+ 
+ 	 g_ptr_array_free (flags, TRUE);
+ 	 return ret;

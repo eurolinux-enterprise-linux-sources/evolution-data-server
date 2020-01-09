@@ -411,6 +411,109 @@ The writable status for this book is being reported.
 @Returns: 
 
 
+<!-- ##### MACRO e_return_error_if_fail ##### -->
+<para>
+
+</para>
+
+@expr: 
+@error_code: 
+
+
+<!-- ##### MACRO e_return_async_error_if_fail ##### -->
+<para>
+
+</para>
+
+@expr: 
+@error: 
+
+
+<!-- ##### MACRO e_return_ex_async_error_val_if_fail ##### -->
+<para>
+
+</para>
+
+@expr: 
+@error: 
+
+
+<!-- ##### USER_FUNCTION EBookAsyncCallback ##### -->
+<para>
+
+</para>
+
+@book: 
+@error: 
+@closure: 
+
+
+<!-- ##### USER_FUNCTION EBookOpenProgressCallback ##### -->
+<para>
+
+</para>
+
+@book: 
+@status_message: 
+@percent: 
+@closure: 
+
+
+<!-- ##### USER_FUNCTION EBookIdAsyncCallback ##### -->
+<para>
+
+</para>
+
+@book: 
+@error: 
+@id: 
+@closure: 
+
+
+<!-- ##### USER_FUNCTION EBookContactAsyncCallback ##### -->
+<para>
+
+</para>
+
+@book: 
+@error: 
+@contact: 
+@closure: 
+
+
+<!-- ##### USER_FUNCTION EBookListAsyncCallback ##### -->
+<para>
+
+</para>
+
+@book: 
+@error: 
+@list: 
+@closure: 
+
+
+<!-- ##### USER_FUNCTION EBookBookViewAsyncCallback ##### -->
+<para>
+
+</para>
+
+@book: 
+@error: 
+@book_view: 
+@closure: 
+
+
+<!-- ##### USER_FUNCTION EBookEListAsyncCallback ##### -->
+<para>
+
+</para>
+
+@book: 
+@error: 
+@list: 
+@closure: 
+
+
 <!-- ##### USER_FUNCTION EBookCallback ##### -->
 <para>
 
@@ -428,7 +531,7 @@ The writable status for this book is being reported.
 
 @book: 
 @status_message: 
-@Param3: 
+@percent: 
 @closure: 
 
 
@@ -485,6 +588,186 @@ The writable status for this book is being reported.
 @status: 
 @book_view: 
 @closure: 
+
+
+<!-- ##### FUNCTION e_book_open_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@only_if_exists: 
+@open_response: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_remove_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_get_supported_fields_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_get_supported_auth_methods_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_authenticate_user_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@user: 
+@passwd: 
+@auth_method: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_get_contact_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@id: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_get_contacts_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@query: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_remove_contact_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@contact: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_remove_contact_by_id_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@id: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_remove_contacts_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@ids: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_add_contact_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@contact: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_commit_contact_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@contact: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_get_book_view_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@query: 
+@requested_fields: 
+@max_results: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_get_changes_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@changeid: 
+@cb: 
+@closure: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_book_get_required_fields_async ##### -->
+<para>
+
+</para>
+
+@book: 
+@cb: 
+@closure: 
+@Returns: 
 
 
 <!-- ##### FUNCTION e_book_async_open ##### -->

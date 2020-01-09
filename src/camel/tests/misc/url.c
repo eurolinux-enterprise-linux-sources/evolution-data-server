@@ -4,15 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <camel/camel-url.h>
-#include <camel/camel-exception.h>
 
 #include "camel-test.h"
 
-gchar *base = "http://a/b/c/d;p?q#f";
+const gchar *base = "http://a/b/c/d;p?q#f";
 
 struct {
-	gchar *url_string, *result;
+	const gchar *url_string, *result;
 } tests[] = {
 	{ "g:h", "g:h" },
 	{ "g", "http://a/b/c/g" },
@@ -69,26 +67,25 @@ struct {
 	{ "pop://us%3ar@host", "pop://us%3ar@host" },
 	{ "pop://us%2fr@host", "pop://us%2fr@host" }
 };
-gint num_tests = sizeof (tests) / sizeof (tests[0]);
 
 gint
 main (gint argc, gchar **argv)
 {
 	CamelURL *base_url, *url;
-	CamelException ex;
 	gchar *url_string;
 	gint i;
+	GError *error = NULL;
 
 	camel_test_init (argc, argv);
 
 	camel_test_start ("URL parsing");
 
 	camel_test_push ("base URL parsing");
-	camel_exception_init (&ex);
-	base_url = camel_url_new (base, &ex);
+	base_url = camel_url_new (base, &error);
 	if (!base_url) {
-		camel_test_fail ("Could not parse %s: %s\n", base,
-				 camel_exception_get_description (&ex));
+		camel_test_fail (
+			"Could not parse %s: %s\n",
+			base, error->message);
 	}
 	camel_test_pull ();
 
@@ -101,7 +98,7 @@ main (gint argc, gchar **argv)
 	camel_test_pull ();
 	g_free (url_string);
 
-	for (i = 0; i < num_tests; i++) {
+	for (i = 0; i < G_N_ELEMENTS (tests); i++) {
 		camel_test_push ("<%s> + <%s> = <%s>?", base, tests[i].url_string, tests[i].result);
 		url = camel_url_new_with_base (base_url, tests[i].url_string);
 		if (!url) {

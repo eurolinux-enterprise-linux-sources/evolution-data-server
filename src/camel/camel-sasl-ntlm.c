@@ -25,10 +25,17 @@
 #include <ctype.h>
 #include <string.h>
 
-#include <glib.h>
 #include <glib/gi18n-lib.h>
 
 #include "camel-sasl-ntlm.h"
+
+#define CAMEL_SASL_NTLM_GET_PRIVATE(obj) \
+	(G_TYPE_INSTANCE_GET_PRIVATE \
+	((obj), CAMEL_TYPE_SASL_NTLM, CamelSaslNTLMPrivate))
+
+struct _CamelSaslNTLMPrivate {
+	gint placeholder;  /* allow for future expansion */
+};
 
 CamelServiceAuthType camel_sasl_ntlm_authtype = {
 	N_("NTLM / SPA"),
@@ -40,41 +47,12 @@ CamelServiceAuthType camel_sasl_ntlm_authtype = {
 	TRUE
 };
 
-static CamelSaslClass *parent_class = NULL;
+G_DEFINE_TYPE (CamelSaslNTLM, camel_sasl_ntlm, CAMEL_TYPE_SASL)
 
-static GByteArray *ntlm_challenge (CamelSasl *sasl, GByteArray *token, CamelException *ex);
-
-static void
-camel_sasl_ntlm_class_init (CamelSaslNTLMClass *camel_sasl_ntlm_class)
-{
-	CamelSaslClass *camel_sasl_class = CAMEL_SASL_CLASS (camel_sasl_ntlm_class);
-
-	parent_class = CAMEL_SASL_CLASS (camel_type_get_global_classfuncs (camel_sasl_get_type ()));
-
-	/* virtual method overload */
-	camel_sasl_class->challenge = ntlm_challenge;
-}
-
-CamelType
-camel_sasl_ntlm_get_type (void)
-{
-	static CamelType type = CAMEL_INVALID_TYPE;
-
-	if (type == CAMEL_INVALID_TYPE) {
-		type = camel_type_register (
-			camel_sasl_get_type (), "CamelSaslNTLM",
-			sizeof (CamelSaslNTLM),
-			sizeof (CamelSaslNTLMClass),
-			(CamelObjectClassInitFunc) camel_sasl_ntlm_class_init,
-			NULL, NULL, NULL);
-	}
-
-	return type;
-}
-
-#define NTLM_REQUEST "NTLMSSP\x00\x01\x00\x00\x00\x06\x82\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x30\x00\x00\x00\x00\x00\x00\x00\x30\x00\x00\x00"
+#define NTLM_REQUEST "NTLMSSP\x00\x01\x00\x00\x00\x06\x82\x08\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x30\x00\x00\x00\x00\x00\x00\x00\x30\x00\x00\x00"
 
 #define NTLM_CHALLENGE_DOMAIN_OFFSET		12
+#define NTLM_CHALLENGE_FLAGS_OFFSET		20
 #define NTLM_CHALLENGE_NONCE_OFFSET		24
 
 #define NTLM_RESPONSE_HEADER         "NTLMSSP\x00\x03\x00\x00\x00"
@@ -135,64 +113,6 @@ ntlm_set_string (GByteArray *ba, gint offset, const gchar *data, gint len)
 	g_byte_array_append (ba, (guint8 *) data, len);
 }
 
-static GByteArray *
-ntlm_challenge (CamelSasl *sasl, GByteArray *token, CamelException *ex)
-{
-	GByteArray *ret;
-	guchar nonce[8], hash[21], lm_resp[24], nt_resp[24];
-	GString *domain;
-
-	ret = g_byte_array_new ();
-
-	if (!token || token->len < NTLM_CHALLENGE_NONCE_OFFSET + 8)
-		goto fail;
-
-	memcpy (nonce, token->data + NTLM_CHALLENGE_NONCE_OFFSET, 8);
-	ntlm_lanmanager_hash (sasl->service->url->passwd, (gchar *) hash);
-	ntlm_calc_response (hash, nonce, lm_resp);
-	ntlm_nt_hash (sasl->service->url->passwd, (gchar *) hash);
-	ntlm_calc_response (hash, nonce, nt_resp);
-
-	domain = ntlm_get_string (token, NTLM_CHALLENGE_DOMAIN_OFFSET);
-	if (domain == NULL)
-		goto fail;
-
-	/* Don't jump to 'fail' label after this point. */
-	g_byte_array_set_size (ret, NTLM_RESPONSE_BASE_SIZE);
-	memset (ret->data, 0, NTLM_RESPONSE_BASE_SIZE);
-	memcpy (ret->data, NTLM_RESPONSE_HEADER,
-		sizeof (NTLM_RESPONSE_HEADER) - 1);
-	memcpy (ret->data + NTLM_RESPONSE_FLAGS_OFFSET,
-		NTLM_RESPONSE_FLAGS, sizeof (NTLM_RESPONSE_FLAGS) - 1);
-
-	ntlm_set_string (ret, NTLM_RESPONSE_DOMAIN_OFFSET,
-			 domain->str, domain->len);
-	ntlm_set_string (ret, NTLM_RESPONSE_USER_OFFSET,
-			 sasl->service->url->user,
-			 strlen (sasl->service->url->user));
-	ntlm_set_string (ret, NTLM_RESPONSE_HOST_OFFSET,
-			 "UNKNOWN", sizeof ("UNKNOWN") - 1);
-	ntlm_set_string (ret, NTLM_RESPONSE_LM_RESP_OFFSET,
-			 (const gchar *) lm_resp, sizeof (lm_resp));
-	ntlm_set_string (ret, NTLM_RESPONSE_NT_RESP_OFFSET,
-			 (const gchar *) nt_resp, sizeof (nt_resp));
-
-	sasl->authenticated = TRUE;
-
-	g_string_free (domain, TRUE);
-
-	goto exit;
-
-fail:
-	/* If the challenge is malformed, restart authentication.
-	 * XXX A malicious server could make this loop indefinitely. */
-	g_byte_array_append (ret, (guint8 *) NTLM_REQUEST,
-			     sizeof (NTLM_REQUEST) - 1);
-
-exit:
-	return ret;
-}
-
 /* MD4 */
 static void md4sum                (const guchar *in,
 				   gint                  nbytes,
@@ -214,15 +134,15 @@ static void setup_schedule        (const guchar *key_56, DES_KS ks);
 static void
 ntlm_lanmanager_hash (const gchar *password, gchar hash[21])
 {
-	guchar lm_password [15];
+	guchar lm_password[15];
 	DES_KS ks;
 	gint i;
 
-	for (i = 0; i < 14 && password [i]; i++)
-		lm_password [i] = toupper ((guchar) password [i]);
+	for (i = 0; i < 14 && password[i]; i++)
+		lm_password[i] = toupper ((guchar) password[i]);
 
 	for (; i < 15; i++)
-		lm_password [i] = '\0';
+		lm_password[i] = '\0';
 
 	memcpy (hash, LM_PASSWORD_MAGIC, 21);
 
@@ -263,14 +183,14 @@ setup_schedule (const guchar *key_56, DES_KS ks)
 	gint i, c, bit;
 
 	for (i = 0; i < 8; i++) {
-		key [i] = KEYBITS (key_56, i * 7);
+		key[i] = KEYBITS (key_56, i * 7);
 
 		/* Fix parity */
 		for (c = bit = 0; bit < 8; bit++)
-			if (key [i] & (1 << bit))
+			if (key[i] & (1 << bit))
 				c++;
 		if (!(c & 1))
-			key [i] ^= 0x01;
+			key[i] ^= 0x01;
 	}
 
         deskey (ks, key, 0);
@@ -737,4 +657,133 @@ deskey (DES_KS k, guchar *key, gint decrypt)
 		 | ((guint32)ks[5] << 8)
 		 | ((guint32)ks[7]);
 	}
+}
+
+static GByteArray *
+sasl_ntlm_challenge (CamelSasl *sasl,
+                     GByteArray *token,
+                     GError **error)
+{
+	CamelService *service;
+	GByteArray *ret;
+	gchar *user;
+	guchar nonce[8], hash[21], lm_resp[24], nt_resp[24];
+	GString *domain = NULL;
+
+	service = camel_sasl_get_service (sasl);
+
+	ret = g_byte_array_new ();
+
+	if (!token || token->len < NTLM_CHALLENGE_NONCE_OFFSET + 8)
+		goto fail;
+
+	/* 0x00080000: Negotiate NTLM2 Key */
+	if (token->data[NTLM_CHALLENGE_FLAGS_OFFSET + 2] & 8) {
+		/* NTLM2 session response */
+		struct {
+			guint32 srv[2];
+			guint32 clnt[2];
+		} sess_nonce;
+		GChecksum *md5;
+		guint8 digest[16];
+		gsize digest_len = sizeof(digest);
+
+		sess_nonce.clnt[0] = g_random_int();
+		sess_nonce.clnt[1] = g_random_int();
+
+		/* LM response is 8-byte client nonce, NUL-padded to 24 */
+		memcpy(lm_resp, sess_nonce.clnt, 8);
+		memset(lm_resp + 8, 0, 16);
+
+		/* Session nonce is client nonce + server nonce */
+		memcpy (sess_nonce.srv,
+			token->data + NTLM_CHALLENGE_NONCE_OFFSET, 8);
+
+		/* Take MD5 of session nonce */
+		md5 = g_checksum_new (G_CHECKSUM_MD5);
+		g_checksum_update (md5, (void *)&sess_nonce, 16);
+		g_checksum_get_digest (md5, (void *)&digest, &digest_len);
+		g_checksum_get_digest (md5, digest, &digest_len);
+
+		g_checksum_free (md5);
+		ntlm_nt_hash (service->url->passwd, (gchar *) hash);
+
+		ntlm_calc_response (hash, digest, nt_resp);
+	} else {
+		/* NTLM1 */
+		memcpy (nonce, token->data + NTLM_CHALLENGE_NONCE_OFFSET, 8);
+		ntlm_lanmanager_hash (service->url->passwd, (gchar *) hash);
+		ntlm_calc_response (hash, nonce, lm_resp);
+		ntlm_nt_hash (service->url->passwd, (gchar *) hash);
+		ntlm_calc_response (hash, nonce, nt_resp);
+	}
+
+	/* If a domain is supplied as part of the username, use it */
+	user = strchr (service->url->user, '\\');
+	if (user) {
+		domain = g_string_new_len (service->url->user,
+					   user - service->url->user);
+		user++;
+	} else
+		user = service->url->user;
+
+	/* Otherwise, fall back to the domain of the server, if possible */
+	if (domain == NULL)
+		domain = ntlm_get_string (token, NTLM_CHALLENGE_DOMAIN_OFFSET);
+	if (domain == NULL)
+		goto fail;
+
+	/* Don't jump to 'fail' label after this point. */
+	g_byte_array_set_size (ret, NTLM_RESPONSE_BASE_SIZE);
+	memset (ret->data, 0, NTLM_RESPONSE_BASE_SIZE);
+	memcpy (ret->data, NTLM_RESPONSE_HEADER,
+		sizeof (NTLM_RESPONSE_HEADER) - 1);
+	memcpy (ret->data + NTLM_RESPONSE_FLAGS_OFFSET,
+		NTLM_RESPONSE_FLAGS, sizeof (NTLM_RESPONSE_FLAGS) - 1);
+	/* Mask in the NTLM2SESSION flag */
+	ret->data[NTLM_RESPONSE_FLAGS_OFFSET + 2] |=
+		token->data[NTLM_CHALLENGE_FLAGS_OFFSET + 2] & 8;
+
+	ntlm_set_string (ret, NTLM_RESPONSE_DOMAIN_OFFSET,
+			 domain->str, domain->len);
+	ntlm_set_string (ret, NTLM_RESPONSE_USER_OFFSET,
+			 user, strlen (user));
+	ntlm_set_string (ret, NTLM_RESPONSE_HOST_OFFSET,
+			 "UNKNOWN", sizeof ("UNKNOWN") - 1);
+	ntlm_set_string (ret, NTLM_RESPONSE_LM_RESP_OFFSET,
+			 (const gchar *) lm_resp, sizeof (lm_resp));
+	ntlm_set_string (ret, NTLM_RESPONSE_NT_RESP_OFFSET,
+			 (const gchar *) nt_resp, sizeof (nt_resp));
+
+	camel_sasl_set_authenticated (sasl, TRUE);
+
+	g_string_free (domain, TRUE);
+
+	goto exit;
+
+fail:
+	/* If the challenge is malformed, restart authentication.
+	 * XXX A malicious server could make this loop indefinitely. */
+	g_byte_array_append (ret, (guint8 *) NTLM_REQUEST,
+			     sizeof (NTLM_REQUEST) - 1);
+
+exit:
+	return ret;
+}
+
+static void
+camel_sasl_ntlm_class_init (CamelSaslNTLMClass *class)
+{
+	CamelSaslClass *sasl_class;
+
+	g_type_class_add_private (class, sizeof (CamelSaslNTLMPrivate));
+
+	sasl_class = CAMEL_SASL_CLASS (class);
+	sasl_class->challenge = sasl_ntlm_challenge;
+}
+
+static void
+camel_sasl_ntlm_init (CamelSaslNTLM *sasl)
+{
+	sasl->priv = CAMEL_SASL_NTLM_GET_PRIVATE (sasl);
 }

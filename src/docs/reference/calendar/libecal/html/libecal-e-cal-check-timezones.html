@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>e-cal-check-timezones</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Calendar Client (libecal)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Calendar Client (libecal)">
 <link rel="prev" href="libecal-e-cal-system-timezone.html" title="e-cal-system-timezone">
-<link rel="next" href="ix01.html" title="Index">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="next" href="api-index-full.html" title="Index">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -18,7 +18,7 @@
 <td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
 <td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
 <th width="100%" align="center">Evolution-Data-Server Manual: Calendar Client (libecal)</th>
-<td><a accesskey="n" href="ix01.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+<td><a accesskey="n" href="api-index-full.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
 </tr>
 <tr><td colspan="5" class="shortcuts">
 <a href="#libecal-e-cal-check-timezones.synopsis" class="shortcut">Top</a>
@@ -26,7 +26,7 @@
                   <a href="#libecal-e-cal-check-timezones.description" class="shortcut">Description</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="e-cal-check-timezones">
 <a name="libecal-e-cal-check-timezones"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -35,36 +35,36 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="libecal-e-cal-check-timezones.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis"><span class="returnvalue">gboolean</span>            <a class="link" href="libecal-e-cal-check-timezones.html#e-cal-check-timezones" title="e_cal_check_timezones ()">e_cal_check_timezones</a>               (<em class="parameter"><code><span class="type">icalcomponent</span> *comp</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> *comps</code></em>,
+<pre class="synopsis"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="libecal-e-cal-check-timezones.html#e-cal-check-timezones" title="e_cal_check_timezones ()">e_cal_check_timezones</a>               (<em class="parameter"><code><span class="type">icalcomponent</span> *comp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *comps</code></em>,
                                                          <em class="parameter"><code><span class="type">icaltimezone</span>* (tzlookupconst gchar *tzid, gconstpointer custom, GError **error) ()</code></em>,
-                                                         <em class="parameter"><code><span class="type">gconstpointer</span> custom</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-<span class="returnvalue">icaltimezone</span> *      <a class="link" href="libecal-e-cal-check-timezones.html#e-cal-tzlookup-ecal" title="e_cal_tzlookup_ecal ()">e_cal_tzlookup_ecal</a>                 (<em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>,
-                                                         <em class="parameter"><code><span class="type">gconstpointer</span> custom</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-<span class="returnvalue">icaltimezone</span> *      <a class="link" href="libecal-e-cal-check-timezones.html#e-cal-tzlookup-icomp" title="e_cal_tzlookup_icomp ()">e_cal_tzlookup_icomp</a>                (<em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>,
-                                                         <em class="parameter"><code><span class="type">gconstpointer</span> custom</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="libecal-e-cal-check-timezones.html#e-cal-match-tzid" title="e_cal_match_tzid ()">e_cal_match_tzid</a>                    (<em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> custom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">icaltimezone</span> *      <a class="link" href="libecal-e-cal-check-timezones.html#e-cal-tzlookup-ecal" title="e_cal_tzlookup_ecal ()">e_cal_tzlookup_ecal</a>                 (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> custom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+<span class="returnvalue">icaltimezone</span> *      <a class="link" href="libecal-e-cal-check-timezones.html#e-cal-tzlookup-icomp" title="e_cal_tzlookup_icomp ()">e_cal_tzlookup_icomp</a>                (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> custom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="libecal-e-cal-check-timezones.html#e-cal-match-tzid" title="e_cal_match_tzid ()">e_cal_match_tzid</a>                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="libecal-e-cal-check-timezones.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="libecal-e-cal-check-timezones.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_check_timezones ()">
 <a name="e-cal-check-timezones"></a><h3>e_cal_check_timezones ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_cal_check_timezones               (<em class="parameter"><code><span class="type">icalcomponent</span> *comp</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> *comps</code></em>,
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_cal_check_timezones               (<em class="parameter"><code><span class="type">icalcomponent</span> *comp</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *comps</code></em>,
                                                          <em class="parameter"><code><span class="type">icaltimezone</span>* (tzlookupconst gchar *tzid, gconstpointer custom, GError **error) ()</code></em>,
-                                                         <em class="parameter"><code><span class="type">gconstpointer</span> custom</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> custom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>
 This function cleans up VEVENT, VJOURNAL, VTODO and VTIMEZONE
 items which are to be imported into Evolution.
@@ -100,7 +100,8 @@ events (the behavior in Evolution &lt;= 2.22.1).
 The way this problem is resolved is by renaming the new VTIMEZONE
 definition until the TZID is unique. A running count is appended to
 the TZID. All items referencing the renamed TZID are adapted
-accordingly.</p>
+accordingly.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -132,20 +133,23 @@ accordingly.</p>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
 <td> TRUE if successful, FALSE otherwise.
+
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_tzlookup_ecal ()">
 <a name="e-cal-tzlookup-ecal"></a><h3>e_cal_tzlookup_ecal ()</h3>
-<pre class="programlisting"><span class="returnvalue">icaltimezone</span> *      e_cal_tzlookup_ecal                 (<em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>,
-                                                         <em class="parameter"><code><span class="type">gconstpointer</span> custom</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">icaltimezone</span> *      e_cal_tzlookup_ecal                 (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> custom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>
 An implementation of the tzlookup callback which clients
-can use. Calls <a class="link" href="ECal.html#e-cal-get-timezone" title="e_cal_get_timezone ()"><span class="type">e_cal_get_timezone</span></a>.</p>
+can use. Calls <a class="link" href="ECal.html#e-cal-get-timezone" title="e_cal_get_timezone ()"><code class="function">e_cal_get_timezone()</code></a>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -171,17 +175,19 @@ can use. Calls <a class="link" href="ECal.html#e-cal-get-timezone" title="e_cal_
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_tzlookup_icomp ()">
 <a name="e-cal-tzlookup-icomp"></a><h3>e_cal_tzlookup_icomp ()</h3>
-<pre class="programlisting"><span class="returnvalue">icaltimezone</span> *      e_cal_tzlookup_icomp                (<em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>,
-                                                         <em class="parameter"><code><span class="type">gconstpointer</span> custom</code></em>,
-                                                         <em class="parameter"><code><span class="type">GError</span> **error</code></em>);</pre>
+<pre class="programlisting"><span class="returnvalue">icaltimezone</span> *      e_cal_tzlookup_icomp                (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gconstpointer"><span class="type">gconstpointer</span></a> custom</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>
 An implementation of the tzlookup callback which backends
 like the file backend can use. Searches for the timezone
-in the component list.</p>
+in the component list.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -209,17 +215,22 @@ in the component list.</p>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_match_tzid ()">
 <a name="e-cal-match-tzid"></a><h3>e_cal_match_tzid ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_cal_match_tzid                    (<em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_cal_match_tzid                    (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);</pre>
+<p>
+Matches <em class="parameter"><code>tzid</code></em> against the system timezone definitions
+and returns the matching TZID, or <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#NULL:CAPS"><code class="literal">NULL</code></a> if none found
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>tzid</code></em> :</span></p></td>
-<td>
+<td>a timezone ID
 </td>
 </tr>
 <tr>
@@ -229,11 +240,12 @@ in the component list.</p>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

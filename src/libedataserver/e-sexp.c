@@ -98,6 +98,10 @@
 #define r(x)			/* run debug */
 #define d(x)			/* general debug */
 
+#ifdef E_SEXP_IS_G_OBJECT
+G_DEFINE_TYPE (ESExp, e_sexp, G_TYPE_OBJECT)
+#endif
+
 static struct _ESExpTerm * parse_list(ESExp *f, gint gotbrace);
 static struct _ESExpTerm * parse_value(ESExp *f);
 
@@ -108,6 +112,12 @@ static void parse_dump_term(struct _ESExpTerm *t, gint depth);
 #ifdef E_SEXP_IS_G_OBJECT
 static GObjectClass *parent_class;
 #endif
+
+typedef gboolean (ESGeneratorFunc) (gint argc, struct _ESExpResult **argv, struct _ESExpResult *r);
+typedef gboolean (ESOperatorFunc) (gint argc, struct _ESExpResult **argv, struct _ESExpResult *r);
+
+/* FIXME: constant _TIME_MAX used in different files, move it somewhere */
+#define _TIME_MAX	((time_t) INT_MAX)	/* Max valid time_t	*/
 
 static const GScannerConfig scanner_config =
 {
@@ -173,6 +183,9 @@ e_sexp_result_new(struct _ESExp *f, gint type)
 {
 	struct _ESExpResult *r = e_memchunk_alloc0(f->result_chunks);
 	r->type = type;
+	r->occuring_start = 0;
+	r->occuring_end = _TIME_MAX;
+	r->time_generator = FALSE;
 	return r;
 }
 
@@ -277,7 +290,7 @@ term_eval_and(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer da
 				g_hash_table_insert(ht, a1[j], GINT_TO_POINTER(n+1));
 			}
 		} else if (r1->type == ESEXP_RES_BOOL) {
-			bool = bool && r1->value.bool;
+			bool = bool && r1->value.boolean;
 		}
 		e_sexp_result_free(f, r1);
 	}
@@ -290,7 +303,7 @@ term_eval_and(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer da
 		r->value.ptrarray = lambdafoo.uids;
 	} else if (type == ESEXP_RES_BOOL) {
 		r->type = ESEXP_RES_BOOL;
-		r->value.bool = bool;
+		r->value.boolean = bool;
 	}
 
 	g_hash_table_destroy(ht);
@@ -336,7 +349,7 @@ term_eval_or(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer dat
 				g_hash_table_insert(ht, a1[j], (gpointer)1);
 			}
 		} else if (r1->type == ESEXP_RES_BOOL) {
-			bool |= r1->value.bool;
+			bool |= r1->value.boolean;
 		}
 		e_sexp_result_free(f, r1);
 	}
@@ -349,7 +362,7 @@ term_eval_or(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer dat
 		r->value.ptrarray = lambdafoo.uids;
 	} else if (type == ESEXP_RES_BOOL) {
 		r->type = ESEXP_RES_BOOL;
-		r->value.bool = bool;
+		r->value.boolean = bool;
 	}
 	g_hash_table_destroy(ht);
 
@@ -365,11 +378,11 @@ term_eval_not(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer 
 
 	if (argc>0) {
 		if (argv[0]->type == ESEXP_RES_BOOL
-		    && argv[0]->value.bool)
+		    && argv[0]->value.boolean)
 			res = FALSE;
 	}
 	r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-	r->value.bool = res;
+	r->value.boolean = res;
 	return r;
 }
 
@@ -391,13 +404,13 @@ term_eval_lt(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer dat
 			e_sexp_fatal_error(f, "Incompatible types in compare <");
 		} else if (r1->type == ESEXP_RES_INT) {
 			r->type = ESEXP_RES_BOOL;
-			r->value.bool = r1->value.number < r2->value.number;
+			r->value.boolean = r1->value.number < r2->value.number;
 		} else if (r1->type == ESEXP_RES_TIME) {
 			r->type = ESEXP_RES_BOOL;
-			r->value.bool = r1->value.time < r2->value.time;
+			r->value.boolean = r1->value.time < r2->value.time;
 		} else if (r1->type == ESEXP_RES_STRING) {
 			r->type = ESEXP_RES_BOOL;
-			r->value.bool = strcmp(r1->value.string, r2->value.string) < 0;
+			r->value.boolean = strcmp(r1->value.string, r2->value.string) < 0;
 		}
 		e_sexp_result_free(f, r1);
 		e_sexp_result_free(f, r2);
@@ -423,13 +436,13 @@ term_eval_gt(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer dat
 			e_sexp_fatal_error(f, "Incompatible types in compare >");
 		} else if (r1->type == ESEXP_RES_INT) {
 			r->type = ESEXP_RES_BOOL;
-			r->value.bool = r1->value.number > r2->value.number;
+			r->value.boolean = r1->value.number > r2->value.number;
 		} else if (r1->type == ESEXP_RES_TIME) {
 			r->type = ESEXP_RES_BOOL;
-			r->value.bool = r1->value.time > r2->value.time;
+			r->value.boolean = r1->value.time > r2->value.time;
 		} else if (r1->type == ESEXP_RES_STRING) {
 			r->type = ESEXP_RES_BOOL;
-			r->value.bool = strcmp(r1->value.string, r2->value.string) > 0;
+			r->value.boolean = strcmp(r1->value.string, r2->value.string) > 0;
 		}
 		e_sexp_result_free(f, r1);
 		e_sexp_result_free(f, r2);
@@ -449,15 +462,15 @@ term_eval_eq(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer dat
 		r1 = e_sexp_term_eval(f, argv[0]);
 		r2 = e_sexp_term_eval(f, argv[1]);
 		if (r1->type != r2->type) {
-			r->value.bool = FALSE;
+			r->value.boolean = FALSE;
 		} else if (r1->type == ESEXP_RES_INT) {
-			r->value.bool = r1->value.number == r2->value.number;
+			r->value.boolean = r1->value.number == r2->value.number;
 		} else if (r1->type == ESEXP_RES_BOOL) {
-			r->value.bool = r1->value.bool == r2->value.bool;
+			r->value.boolean = r1->value.boolean == r2->value.boolean;
 		} else if (r1->type == ESEXP_RES_TIME) {
-			r->value.bool = r1->value.time == r2->value.time;
+			r->value.boolean = r1->value.time == r2->value.time;
 		} else if (r1->type == ESEXP_RES_STRING) {
-			r->value.bool = strcmp(r1->value.string, r2->value.string) == 0;
+			r->value.boolean = strcmp(r1->value.string, r2->value.string) == 0;
 		}
 		e_sexp_result_free(f, r1);
 		e_sexp_result_free(f, r2);
@@ -589,7 +602,7 @@ term_eval_castint(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpoin
 		r->value.number = argv[0]->value.number;
 		break;
 	case ESEXP_RES_BOOL:
-		r->value.number = argv[0]->value.bool != 0;
+		r->value.number = argv[0]->value.boolean != 0;
 		break;
 	case ESEXP_RES_STRING:
 		r->value.number = strtoul(argv[0]->value.string, NULL, 10);
@@ -617,7 +630,7 @@ term_eval_caststring(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gp
 		r->value.string = g_strdup_printf("%d", argv[0]->value.number);
 		break;
 	case ESEXP_RES_BOOL:
-		r->value.string = g_strdup_printf("%d", argv[0]->value.bool != 0);
+		r->value.string = g_strdup_printf("%d", argv[0]->value.boolean != 0);
 		break;
 	case ESEXP_RES_STRING:
 		r->value.string = g_strdup(argv[0]->value.string);
@@ -639,7 +652,7 @@ term_eval_if (struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer da
 
 	if (argc >=2 && argc<=3) {
 		r = e_sexp_term_eval(f, argv[0]);
-		doit = (r->type == ESEXP_RES_BOOL && r->value.bool);
+		doit = (r->type == ESEXP_RES_BOOL && r->value.boolean);
 		e_sexp_result_free(f, r);
 		if (doit) {
 			return e_sexp_term_eval(f, argv[1]);
@@ -696,10 +709,10 @@ e_sexp_term_eval(struct _ESExp *f, struct _ESExpTerm *t)
 	case ESEXP_TERM_BOOL:
 		r(printf(" (gint %d)\n", t->value.number));
 		r = e_sexp_result_new(f, ESEXP_RES_BOOL);
-		r->value.bool = t->value.bool;
+		r->value.boolean = t->value.boolean;
 		break;
 	case ESEXP_TERM_TIME:
-		r(printf(" (time_t %d)\n", t->value.time));
+		r(printf(" (time_t %ld)\n", t->value.time));
 		r = e_sexp_result_new (f, ESEXP_RES_TIME);
 		r->value.time = t->value.time;
 		break;
@@ -754,7 +767,7 @@ eval_dump_result(ESExpResult *r, gint depth)
 		printf("string: '%s'\n", r->value.string);
 		break;
 	case ESEXP_RES_BOOL:
-		printf("bool: %c\n", r->value.bool?'t':'f');
+		printf("bool: %c\n", r->value.boolean?'t':'f');
 		break;
 	case ESEXP_RES_TIME:
 		printf("time_t: %ld\n", (glong) r->value.time);
@@ -789,7 +802,7 @@ parse_dump_term(struct _ESExpTerm *t, gint depth)
 		printf(" %d", t->value.number);
 		break;
 	case ESEXP_TERM_BOOL:
-		printf(" #%c", t->value.bool?'t':'f');
+		printf(" #%c", t->value.boolean?'t':'f');
 		break;
 	case ESEXP_TERM_TIME:
 		printf(" %ld", (glong) t->value.time);
@@ -815,6 +828,235 @@ parse_dump_term(struct _ESExpTerm *t, gint depth)
 	printf("\n");
 }
 #endif
+
+const gchar *time_functions[] = {
+	"time-now",
+	"make-time",
+	"time-add-day",
+	"time-day-begin",
+	"time-day-end"
+};
+
+static gboolean
+binary_generator (gint argc, struct _ESExpResult **argv, struct _ESExpResult *r)
+{
+	g_return_val_if_fail (r != NULL, FALSE);
+	g_return_val_if_fail (argc == 2, FALSE);
+
+	if ((argv[0]->type != ESEXP_RES_TIME) || (argv[1]->type != ESEXP_RES_TIME))
+		return FALSE;
+
+	r->occuring_start = argv[0]->value.time;
+	r->occuring_end = argv[1]->value.time;
+
+	return TRUE;
+}
+
+static gboolean
+unary_generator(gint argc, struct _ESExpResult **argv, struct _ESExpResult *r)
+{
+	/* unary generator with end time */
+	g_return_val_if_fail (r != NULL, FALSE);
+	g_return_val_if_fail (argc == 1, FALSE);
+
+	if (argv[0]->type != ESEXP_RES_TIME)
+		return FALSE;
+
+        r->occuring_start = 0;
+	r->occuring_end = argv[0]->value.time;
+
+	return TRUE;
+}
+
+static const struct {
+	const gchar *name;
+	ESGeneratorFunc *func;
+} generators[] = {
+	{"occur-in-time-range?", binary_generator},
+	{"due-in-time-range?", binary_generator},
+	{"has-alarms-in-range?", binary_generator},
+	{"completed-before?", unary_generator},
+};
+
+const gint generators_count = sizeof(generators) / sizeof(generators[0]);
+
+static gboolean
+or_operator(gint argc, struct _ESExpResult **argv, struct _ESExpResult *r)
+{
+	/*
+	   A          B           A or B
+	   ----       ----        ------
+	   norm(0)    norm(0)     norm(0)
+	   gen(1)     norm(0)     norm(0)
+	   norm(0)    gen(1)      norm(0)
+	   gen(1)     gen(1)      gen*(1)
+	   */
+
+	g_return_val_if_fail (r != NULL, FALSE);
+	g_return_val_if_fail (argc == 2, FALSE);
+
+	if ((r->time_generator = argv[0]->time_generator & argv[1]->time_generator)) {
+		r->occuring_start = MIN(argv[0]->occuring_start, argv[1]->occuring_start);
+		r->occuring_end = MAX(argv[0]->occuring_end, argv[1]->occuring_end);
+	}
+
+	return TRUE;
+}
+
+static gboolean
+and_operator(gint argc, struct _ESExpResult **argv, struct _ESExpResult *r)
+{
+	/*
+	   A           B          A and B
+	   ----        ----       ------- -
+	   norm(0)     norm(0)    norm(0)
+	   gen(1)      norm(0)    gen(1)
+	   norm(0)     gen(1)     gen(1)
+	   gen(1)      gen(1)     gen(1)
+	   */
+
+	g_return_val_if_fail (r != NULL, FALSE);
+	g_return_val_if_fail (argc == 2, FALSE);
+
+	if ((r->time_generator = argv[0]->time_generator | argv[1]->time_generator)) {
+		/* constraint interval */
+		r->occuring_start = MAX(argv[0]->occuring_start, argv[1]->occuring_start);
+		r->occuring_end = MIN(argv[0]->occuring_end, argv[1]->occuring_end);
+	}
+
+	return TRUE;
+}
+
+static const struct {
+	const gchar *name;
+	ESOperatorFunc *func;
+} operators[] = {
+	{"or", or_operator},
+	{"and", and_operator}
+};
+
+const gint operators_count = sizeof(operators) / sizeof(operators[0]);
+
+static ESOperatorFunc*
+get_operator_function(const gchar *fname)
+{
+	gint i;
+
+	g_return_val_if_fail (fname != NULL, NULL);
+
+	for (i = 0; i < sizeof(operators) / sizeof(operators[0]); i++)
+		if (strcmp(operators[i].name, fname) == 0)
+			return operators[i].func;
+
+	return NULL;
+}
+
+static inline gboolean
+is_time_function(const gchar *fname)
+{
+	gint i;
+
+	g_return_val_if_fail (fname != NULL, FALSE);
+
+	for (i = 0; i < sizeof(time_functions) / sizeof(time_functions[0]); i++)
+		if (strcmp(time_functions[i], fname) == 0)
+			return TRUE;
+
+	return FALSE;
+}
+
+static ESGeneratorFunc*
+get_generator_function(const gchar *fname)
+{
+	gint i;
+
+	g_return_val_if_fail (fname != NULL, NULL);
+
+	for (i = 0; i < sizeof(generators) / sizeof(generators[0]); i++)
+		if (strcmp(generators[i].name, fname) == 0)
+			return generators[i].func;
+
+	return NULL;
+}
+
+/* this must only be called from inside term evaluation callbacks! */
+static struct _ESExpResult *
+e_sexp_term_evaluate_occur_times(struct _ESExp *f, struct _ESExpTerm *t, time_t *start, time_t *end)
+{
+	struct _ESExpResult *r = NULL;
+	gint i, argc;
+	struct _ESExpResult **argv;
+	gboolean ok = TRUE;
+
+	g_return_val_if_fail(t != NULL, NULL);
+	g_return_val_if_fail(start != NULL, NULL);
+	g_return_val_if_fail(end != NULL, NULL);
+
+	/*
+	printf("eval term :\n");
+	parse_dump_term(t, 0);
+	*/
+
+	switch (t->type) {
+	case ESEXP_TERM_STRING:
+		r(printf(" (string \"%s\")\n", t->value.string));
+		r = e_sexp_result_new(f, ESEXP_RES_STRING);
+		r->value.string = g_strdup(t->value.string);
+		break;
+	case ESEXP_TERM_IFUNC:
+	case ESEXP_TERM_FUNC:
+	{
+		ESGeneratorFunc *generator = NULL;
+		ESOperatorFunc *operator = NULL;
+
+		r(printf(" (function \"%s\"\n", t->value.func.sym->name));
+
+		r = e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
+		argc = t->value.func.termcount;
+		argv = alloca(sizeof(argv[0]) * argc);
+
+		for (i=0;i<t->value.func.termcount;i++) {
+			argv[i] = e_sexp_term_evaluate_occur_times (f, t->value.func.terms[i],
+								    start, end);
+		}
+
+		if (is_time_function(t->value.func.sym->name)) {
+			/* evaluate time */
+			if (t->value.func.sym->f.func)
+				r = t->value.func.sym->f.func(f, t->value.func.termcount,
+					      argv, t->value.func.sym->data);
+		} else if ((generator = get_generator_function(t->value.func.sym->name)) != NULL) {
+			/* evaluate generator function */
+			r->time_generator = TRUE;
+			ok = generator(argc, argv, r);
+		} else if ((operator = get_operator_function(t->value.func.sym->name)) != NULL)
+			/* evaluate operator function */
+			ok = operator(argc, argv, r);
+		else {
+			/* normal function: we need to scan all objects */
+			r->time_generator = FALSE;
+		}
+
+		e_sexp_resultv_free(f, t->value.func.termcount, argv);
+		break;
+	}
+	case ESEXP_TERM_INT:
+	case ESEXP_TERM_BOOL:
+	case ESEXP_TERM_TIME:
+		break;
+	default:
+		ok = FALSE;
+		break;
+	}
+
+	if (!ok)
+		e_sexp_fatal_error(f, "Error in parse tree");
+
+	if (r==NULL)
+		r = e_sexp_result_new(f, ESEXP_RES_UNDEFINED);
+
+	return r;
+}
 
 /*
   PARSER
@@ -897,7 +1139,13 @@ parse_values(ESExp *f, gint *len)
 	return terms;
 }
 
-ESExpTerm * e_sexp_parse_value (ESExp *f)
+/**
+ * e_sexp_parse_value:
+ *
+ * Since: 2.28
+ **/
+ESExpTerm *
+e_sexp_parse_value (ESExp *f)
 {
 	return parse_value (f);
 }
@@ -960,7 +1208,7 @@ parse_value(ESExp *f)
 		}
 
 		t = parse_term_new(f, ESEXP_TERM_BOOL);
-		t->value.bool = (str[0] == 't');
+		t->value.boolean = (str[0] == 't');
 		break; }
 	case G_TOKEN_SYMBOL:
 		s = g_scanner_cur_value(gs).v_symbol;
@@ -1124,7 +1372,7 @@ e_sexp_init (ESExp *s)
 	s->result_chunks = e_memchunk_new(16, sizeof(struct _ESExpResult));
 
 	/* load in builtin symbols? */
-	for (i=0;i<sizeof(symbols)/sizeof(symbols[0]);i++) {
+	for (i = 0; i < G_N_ELEMENTS (symbols); i++) {
 		if (symbols[i].type == 1) {
 			e_sexp_add_ifunction(s, 0, symbols[i].name, (ESExpIFunc *)symbols[i].func, (gpointer)&symbols[i]);
 		} else {
@@ -1136,32 +1384,6 @@ e_sexp_init (ESExp *s)
 	s->refcount = 1;
 #endif
 }
-
-#ifdef E_SEXP_IS_G_OBJECT
-GType
-e_sexp_get_type (void)
-{
-	static GType type = 0;
-
-	if (!type) {
-		static const GTypeInfo info = {
-			sizeof (ESExpClass),
-			NULL, /* base_class_init */
-			NULL, /* base_class_finalize */
-			(GClassInitFunc) e_sexp_class_init,
-			NULL, /* class_finalize */
-			NULL, /* class_data */
-			sizeof (ESExp),
-			0,    /* n_preallocs */
-			(GInstanceInitFunc) e_sexp_init,
-		};
-
-		type = g_type_register_static (G_TYPE_OBJECT, "ESExp", &info, 0);
-	}
-
-	return type;
-}
-#endif
 
 ESExp *
 e_sexp_new (void)
@@ -1324,6 +1546,46 @@ e_sexp_eval(ESExp *f)
 }
 
 /**
+ * e_cal_backend_sexp_evaluate_occur_times:
+ * @f: An #ESExp object.
+ * @start: Start of the time window will be stored here.
+ * @end: End of the time window will be stored here.
+ *
+ * Determines biggest time window given by expressions "occur-in-range" in sexp.
+ *
+ * Since: 2.32
+ */
+gboolean
+e_sexp_evaluate_occur_times(ESExp *f, time_t *start, time_t *end)
+{
+	struct _ESExpResult *r;
+	gboolean generator;
+	g_return_val_if_fail (IS_E_SEXP (f), FALSE);
+	g_return_val_if_fail (f->tree != NULL, FALSE);
+	g_return_val_if_fail (start != NULL, FALSE);
+	g_return_val_if_fail (end != NULL, FALSE);
+
+	*start = *end = -1;
+
+	if (setjmp(f->failenv)) {
+		g_warning("Error in execution: %s", f->error);
+		return FALSE;
+	}
+
+	r = e_sexp_term_evaluate_occur_times(f, f->tree, start, end);
+	generator = r->time_generator;
+
+	if (generator) {
+		*start = r->occuring_start;
+		*end = r->occuring_end;
+	}
+
+	e_sexp_result_free(f, r);
+
+	return generator;
+}
+
+/**
  * e_sexp_encode_bool:
  * @s:
  * @state:
@@ -1360,7 +1622,7 @@ e_sexp_encode_string(GString *s, const gchar *string)
 	else
 		p = string;
 	g_string_append(s, " \"");
-	while ( (c = *p++) ) {
+	while ((c = *p++)) {
 		if (c=='\\' || c=='\"' || c=='\'')
 			g_string_append_c(s, '\\');
 		g_string_append_c(s, c);
@@ -1381,7 +1643,10 @@ gint main(gint argc, gchar **argv)
 
 	e_sexp_add_variable(f, 0, "test", NULL);
 
-	e_sexp_input_text(f, t, strlen(t));
+	if (argc < 2 || !argv[1])
+		return;
+
+	e_sexp_input_text(f, t, t);
 	e_sexp_parse(f);
 
 	if (f->tree) {

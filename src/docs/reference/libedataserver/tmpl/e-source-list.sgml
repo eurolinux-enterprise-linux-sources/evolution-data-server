@@ -96,16 +96,6 @@ ESourceList
 @Returns: 
 
 
-<!-- ##### FUNCTION e_source_list_peek_group_by_name ##### -->
-<para>
-
-</para>
-
-@list: 
-@name: 
-@Returns: 
-
-
 <!-- ##### FUNCTION e_source_list_peek_group_by_base_uri ##### -->
 <para>
 
@@ -138,6 +128,15 @@ ESourceList
 
 
 <!-- ##### FUNCTION e_source_list_peek_source_any ##### -->
+<para>
+
+</para>
+
+@list: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_source_list_peek_default_source ##### -->
 <para>
 
 </para>

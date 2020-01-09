@@ -20,6 +20,39 @@ Base class for calendar/tasks backend implementations.
 <!-- ##### SECTION Image ##### -->
 
 
+<!-- ##### STRUCT ECalBackend ##### -->
+<para>
+
+</para>
+
+
+<!-- ##### SIGNAL ECalBackend::last-client-gone ##### -->
+<para>
+
+</para>
+
+@ecalbackend: the object which received the signal.
+
+<!-- ##### ARG ECalBackend:cache-dir ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ECalBackend:kind ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ECalBackend:source ##### -->
+<para>
+
+</para>
+
+<!-- ##### ARG ECalBackend:uri ##### -->
+<para>
+
+</para>
+
 <!-- ##### FUNCTION e_cal_backend_get_source ##### -->
 <para>
 
@@ -45,6 +78,24 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @Returns: 
+
+
+<!-- ##### FUNCTION e_cal_backend_get_cache_dir ##### -->
+<para>
+
+</para>
+
+@backend: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_cal_backend_set_cache_dir ##### -->
+<para>
+
+</para>
+
+@backend: 
+@cache_dir: 
 
 
 <!-- ##### FUNCTION e_cal_backend_add_client ##### -->
@@ -108,6 +159,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 
 
 <!-- ##### FUNCTION e_cal_backend_get_alarm_email_address ##### -->
@@ -117,6 +169,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 
 
 <!-- ##### FUNCTION e_cal_backend_get_ldap_attribute ##### -->
@@ -126,6 +179,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 
 
 <!-- ##### FUNCTION e_cal_backend_get_static_capabilities ##### -->
@@ -135,6 +189,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 
 
 <!-- ##### FUNCTION e_cal_backend_open ##### -->
@@ -144,9 +199,20 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @only_if_exists: 
 @username: 
 @password: 
+
+
+<!-- ##### FUNCTION e_cal_backend_refresh ##### -->
+<para>
+
+</para>
+
+@backend: 
+@cal: 
+@context: 
 
 
 <!-- ##### FUNCTION e_cal_backend_remove ##### -->
@@ -156,6 +222,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 
 
 <!-- ##### FUNCTION e_cal_backend_create_object ##### -->
@@ -165,6 +232,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @calobj: 
 
 
@@ -175,6 +243,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @calobj: 
 @mod: 
 
@@ -186,6 +255,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @uid: 
 @rid: 
 @mod: 
@@ -198,6 +268,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @uid: 
 @auid: 
 
@@ -209,6 +280,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @calobj: 
 
 
@@ -219,6 +291,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @calobj: 
 
 
@@ -229,6 +302,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 
 
 <!-- ##### FUNCTION e_cal_backend_get_object ##### -->
@@ -238,6 +312,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @uid: 
 @rid: 
 
@@ -249,6 +324,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @sexp: 
 
 
@@ -259,6 +335,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @uid: 
 @rid: 
 
@@ -306,6 +383,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @tzid: 
 
 
@@ -316,17 +394,8 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @object: 
-
-
-<!-- ##### FUNCTION e_cal_backend_set_default_timezone ##### -->
-<para>
-
-</para>
-
-@backend: 
-@cal: 
-@tzid: 
 
 
 <!-- ##### FUNCTION e_cal_backend_set_default_zone ##### -->
@@ -336,6 +405,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @tzobj: 
 
 
@@ -346,6 +416,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @change_id: 
 
 
@@ -356,6 +427,7 @@ Base class for calendar/tasks backend implementations.
 
 @backend: 
 @cal: 
+@context: 
 @users: 
 @start: 
 @end: 
@@ -452,7 +524,7 @@ Base class for calendar/tasks backend implementations.
 </para>
 
 @backend: 
-@status: 
+@error: 
 
 
 <!-- ##### FUNCTION e_cal_backend_notify_view_progress_start ##### -->
@@ -488,6 +560,7 @@ Base class for calendar/tasks backend implementations.
 </para>
 
 @backend: 
+@context: 
 @address: 
 
 

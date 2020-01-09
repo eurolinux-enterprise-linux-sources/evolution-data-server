@@ -24,16 +24,23 @@
 #include <config.h>
 #endif
 
-#include <pthread.h>
 #include <string.h>
 #include <time.h>
 
-#include <glib.h>
 #include <glib/gi18n-lib.h>
 
 #include "camel-sasl-popb4smtp.h"
 #include "camel-service.h"
 #include "camel-session.h"
+#include "camel-store.h"
+
+#define CAMEL_SASL_POPB4SMTP_GET_PRIVATE(obj) \
+	(G_TYPE_INSTANCE_GET_PRIVATE \
+	((obj), CAMEL_TYPE_SASL_POPB4SMTP, CamelSaslPOPB4SMTPPrivate))
+
+struct _CamelSaslPOPB4SMTPPrivate {
+	gint placeholder;  /* allow for future expansion */
+};
 
 CamelServiceAuthType camel_sasl_popb4smtp_authtype = {
 	N_("POP before SMTP"),
@@ -50,68 +57,44 @@ static GHashTable *poplast;
 /* use 1 hour as our pop timeout */
 #define POPB4SMTP_TIMEOUT (60*60)
 
-static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
-#define POPB4SMTP_LOCK(l) pthread_mutex_lock(&l)
-#define POPB4SMTP_UNLOCK(l) pthread_mutex_unlock(&l)
+static GStaticMutex lock = G_STATIC_MUTEX_INIT;
+#define POPB4SMTP_LOCK(l) g_static_mutex_lock(&l)
+#define POPB4SMTP_UNLOCK(l) g_static_mutex_unlock(&l)
 
-static CamelSaslClass *parent_class = NULL;
-
-/* Returns the class for a CamelSaslPOPB4SMTP */
-#define CSP_CLASS(so) CAMEL_SASL_POPB4SMTP_CLASS (CAMEL_OBJECT_GET_CLASS (so))
-
-static GByteArray *popb4smtp_challenge (CamelSasl *sasl, GByteArray *token, CamelException *ex);
-
-static void
-camel_sasl_popb4smtp_class_init (CamelSaslPOPB4SMTPClass *camel_sasl_popb4smtp_class)
-{
-	CamelSaslClass *camel_sasl_class = CAMEL_SASL_CLASS (camel_sasl_popb4smtp_class);
-
-	parent_class = CAMEL_SASL_CLASS (camel_type_get_global_classfuncs (camel_sasl_get_type ()));
-
-	/* virtual method overload */
-	camel_sasl_class->challenge = popb4smtp_challenge;
-
-	poplast = g_hash_table_new(g_str_hash, g_str_equal);
-}
-
-CamelType
-camel_sasl_popb4smtp_get_type (void)
-{
-	static CamelType type = CAMEL_INVALID_TYPE;
-
-	if (type == CAMEL_INVALID_TYPE) {
-		type = camel_type_register (camel_sasl_get_type (),
-					    "CamelSaslPOPB4SMTP",
-					    sizeof (CamelSaslPOPB4SMTP),
-					    sizeof (CamelSaslPOPB4SMTPClass),
-					    (CamelObjectClassInitFunc) camel_sasl_popb4smtp_class_init,
-					    NULL,
-					    NULL,
-					    NULL);
-	}
-
-	return type;
-}
+G_DEFINE_TYPE (CamelSaslPOPB4SMTP, camel_sasl_popb4smtp, CAMEL_TYPE_SASL)
 
 static GByteArray *
-popb4smtp_challenge (CamelSasl *sasl, GByteArray *token, CamelException *ex)
+sasl_popb4smtp_challenge (CamelSasl *sasl,
+                          GByteArray *token,
+                          GError **error)
 {
 	gchar *popuri;
-	CamelSession *session = sasl->service->session;
+	CamelService *service;
+	CamelSession *session;
 	CamelStore *store;
 	time_t now, *timep;
 
-	sasl->authenticated = FALSE;
+	service = camel_sasl_get_service (sasl);
+	session = service->session;
+	camel_sasl_set_authenticated (sasl, FALSE);
 
-	popuri = camel_session_get_password (session, sasl->service, NULL, _("POP Source URI"), "popb4smtp_uri", 0, ex);
+	popuri = camel_session_get_password (
+		session, service, NULL, _("POP Source URI"),
+		"popb4smtp_uri", 0, error);
 
 	if (popuri == NULL) {
-		camel_exception_setv(ex, 1, _("POP Before SMTP auth using an unknown transport"));
+		g_set_error (
+			error, CAMEL_SERVICE_ERROR,
+			CAMEL_SERVICE_ERROR_CANT_AUTHENTICATE,
+			_("POP Before SMTP authentication using an unknown transport"));
 		return NULL;
 	}
 
 	if (g_ascii_strncasecmp(popuri, "pop:", 4) != 0) {
-		camel_exception_setv(ex, 1, _("POP Before SMTP auth using a non-pop source"));
+		g_set_error (
+			error, CAMEL_SERVICE_ERROR,
+			CAMEL_SERVICE_ERROR_CANT_AUTHENTICATE,
+			_("POP Before SMTP authentication using a non-POP source"));
 		return NULL;
 	}
 
@@ -124,7 +107,7 @@ popb4smtp_challenge (CamelSasl *sasl, GByteArray *token, CamelException *ex)
 	timep = g_hash_table_lookup(poplast, popuri);
 	if (timep) {
 		if ((*timep + POPB4SMTP_TIMEOUT) > now) {
-			sasl->authenticated = TRUE;
+			camel_sasl_set_authenticated (sasl, TRUE);
 			POPB4SMTP_UNLOCK(lock);
 			g_free(popuri);
 			return NULL;
@@ -135,13 +118,13 @@ popb4smtp_challenge (CamelSasl *sasl, GByteArray *token, CamelException *ex)
 	}
 
 	/* connect to pop session */
-	store = camel_session_get_store(session, popuri, ex);
+	store = camel_session_get_store(session, popuri, error);
 	if (store) {
-		sasl->authenticated = TRUE;
-		camel_object_unref((CamelObject *)store);
+		camel_sasl_set_authenticated (sasl, TRUE);
+		g_object_unref (store);
 		*timep = now;
 	} else {
-		sasl->authenticated = FALSE;
+		camel_sasl_set_authenticated (sasl, FALSE);
 		*timep = 0;
 	}
 
@@ -150,4 +133,23 @@ popb4smtp_challenge (CamelSasl *sasl, GByteArray *token, CamelException *ex)
 	g_free(popuri);
 
 	return NULL;
+}
+
+static void
+camel_sasl_popb4smtp_class_init (CamelSaslPOPB4SMTPClass *class)
+{
+	CamelSaslClass *sasl_class;
+
+	g_type_class_add_private (class, sizeof (CamelSaslPOPB4SMTPPrivate));
+
+	sasl_class = CAMEL_SASL_CLASS (class);
+	sasl_class->challenge = sasl_popb4smtp_challenge;
+
+	poplast = g_hash_table_new (g_str_hash, g_str_equal);
+}
+
+static void
+camel_sasl_popb4smtp_init (CamelSaslPOPB4SMTP *sasl)
+{
+	sasl->priv = CAMEL_SASL_POPB4SMTP_GET_PRIVATE (sasl);
 }

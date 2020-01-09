@@ -25,10 +25,6 @@ CamelSeekableStream
 
 </para>
 
-@parent_object: 
-@position: 
-@bound_start: 
-@bound_end: 
 
 <!-- ##### ENUM CamelStreamSeekPolicy ##### -->
 <para>
@@ -54,6 +50,7 @@ CamelSeekableStream
 @stream: 
 @offset: 
 @policy: 
+@error: 
 @Returns: 
 
 
@@ -74,6 +71,7 @@ CamelSeekableStream
 @stream: 
 @start: 
 @end: 
+@error: 
 @Returns: 
 
 

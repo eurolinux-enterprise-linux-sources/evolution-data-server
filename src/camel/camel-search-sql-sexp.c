@@ -30,9 +30,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <glib.h>
 #include "camel-search-sql-sexp.h"
-#include "libedataserver/e-sexp.h"
 #define d(x) /* x;printf("\n"); */
 
 #ifdef TEST_MAIN
@@ -89,7 +87,7 @@ func_and(ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer data)
 	d(printf("executing and: %d", argc));
 
 	string = g_string_new("( ");
-	for (i = 0; i < argc; i ++) {
+	for (i = 0; i < argc; i++) {
 		r1 = e_sexp_term_eval(f, argv[i]);
 
 		if (r1->type != ESEXP_RES_STRING) {
@@ -122,7 +120,7 @@ func_or(ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer data)
 	d(printf("executing or: %d", argc));
 
 	string = g_string_new("( ");
-	for (i = 0; i < argc; i ++) {
+	for (i = 0; i < argc; i++) {
 		r1 = e_sexp_term_eval(f, argv[i]);
 
 		if (r1->type != ESEXP_RES_STRING) {
@@ -194,7 +192,7 @@ eval_eq(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer data)
 			if (r2->type == ESEXP_RES_INT)
 				g_string_append_printf(str, "%d", r2->value.number);
 			if (r2->type == ESEXP_RES_BOOL)
-				g_string_append_printf(str, "%d", r2->value.bool);
+				g_string_append_printf(str, "%d", r2->value.boolean);
 			else if (r2->type == ESEXP_RES_TIME)
 				g_string_append_printf(str, "%ld", r2->value.time);
 			else if (r2->type == ESEXP_RES_STRING) {
@@ -239,7 +237,7 @@ eval_lt(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer data)
 		if (r2->type == ESEXP_RES_INT)
 			g_string_append_printf(str, "%d", r2->value.number);
 		if (r2->type == ESEXP_RES_BOOL)
-			g_string_append_printf(str, "%d", r2->value.bool);
+			g_string_append_printf(str, "%d", r2->value.boolean);
 		else if (r2->type == ESEXP_RES_TIME)
 			g_string_append_printf(str, "%ld", r2->value.time);
 		else if (r2->type == ESEXP_RES_STRING)
@@ -278,7 +276,7 @@ eval_gt(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer data)
 		if (r2->type == ESEXP_RES_INT)
 			g_string_append_printf(str, "%d", r2->value.number);
 		if (r2->type == ESEXP_RES_BOOL)
-			g_string_append_printf(str, "%d", r2->value.bool);
+			g_string_append_printf(str, "%d", r2->value.boolean);
 		else if (r2->type == ESEXP_RES_TIME)
 			g_string_append_printf(str, "%ld", r2->value.time);
 		else if (r2->type == ESEXP_RES_STRING)
@@ -299,11 +297,14 @@ match_all(struct _ESExp *f, gint argc, struct _ESExpTerm **argv, gpointer data)
 	ESExpResult *r;
 
 	d(printf("executing match-all: %d", argc));
-	if (argv[0]->type != ESEXP_TERM_BOOL)
+	if (argc == 0) {
+		r = e_sexp_result_new (f, ESEXP_RES_STRING);
+		r->value.string = g_strdup ("1");
+	} else if (argv[0]->type != ESEXP_TERM_BOOL)
 		r = e_sexp_term_eval(f, argv[0]);
 	else {
 		r = e_sexp_result_new(f, ESEXP_RES_STRING);
-		r->value.string = g_strdup(argv[0]->value.bool ? "1" : "0");
+		r->value.string = g_strdup(argv[0]->value.boolean ? "1" : "0");
 	}
 
 	return r;
@@ -465,10 +466,10 @@ user_flag(struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data
 	if (argc != 1) {
 		r->value.string = g_strdup ("(0)");
 	} else {
-		tstr = g_strdup_printf("%%%s%%", argv[0]->value.string);
+		tstr = g_strdup_printf("%s", argv[0]->value.string);
 		qstr = get_db_safe_string(tstr);
 		g_free(tstr);
-		r->value.string = g_strdup_printf("(labels LIKE %s)", qstr);
+		r->value.string = g_strdup_printf("(labels MATCH %s)", qstr);
 		g_free(qstr);
 	}
 
@@ -571,7 +572,7 @@ sql_exp (struct _ESExp *f, gint argc, struct _ESExpResult **argv, gpointer data)
 static struct {
 	const gchar *name;
 	ESExpFunc *func;
-	gint immediate :1;
+	guint immediate :1;
 } symbols[] = {
 	{ "and", (ESExpFunc *) func_and, 1 },
 	{ "or", (ESExpFunc *) func_or, 1},
@@ -600,6 +601,11 @@ static struct {
 /*	{ "uid", CAMEL_STRUCT_OFFSET(CamelFolderSearchClass, uid), 1 },	*/
 };
 
+/**
+ * camel_sexp_to_sql_sexp:
+ *
+ * Since: 2.26
+ **/
 gchar *
 camel_sexp_to_sql_sexp (const gchar *sql)
 {
@@ -610,7 +616,7 @@ camel_sexp_to_sql_sexp (const gchar *sql)
 
 	sexp = e_sexp_new();
 
-	for (i=0;i<sizeof(symbols)/sizeof(symbols[0]);i++) {
+	for (i = 0; i < G_N_ELEMENTS (symbols); i++) {
 		if (symbols[i].immediate)
 			e_sexp_add_ifunction(sexp, 0, symbols[i].name,
 					     (ESExpIFunc *) symbols[i].func, NULL);

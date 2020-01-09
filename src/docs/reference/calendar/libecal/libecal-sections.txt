@@ -168,44 +168,6 @@ e_cal_component_get_type
 </SECTION>
 
 <SECTION>
-<FILE>e-cal-listener</FILE>
-<TITLE>ECalListener</TITLE>
-ECalListener
-ECalListenerCalSetModeFn
-e_cal_listener_construct
-e_cal_listener_new
-e_cal_listener_stop_notification
-<SUBSECTION Standard>
-E_CAL_LISTENER
-E_IS_CAL_LISTENER
-E_TYPE_CAL_LISTENER
-E_CAL_LISTENER_CLASS
-E_IS_CAL_LISTENER_CLASS
-ECalListenerClass
-<SUBSECTION Private>
-ECalListenerPrivate
-e_cal_listener_get_type
-</SECTION>
-
-<SECTION>
-<FILE>e-cal-view-listener</FILE>
-<TITLE>ECalViewListener</TITLE>
-ECalViewListener
-e_cal_view_listener_new
-<SUBSECTION Standard>
-E_CAL_VIEW_LISTENER
-E_IS_CAL_VIEW_LISTENER
-E_TYPE_CAL_VIEW_LISTENER
-E_CAL_VIEW_LISTENER_CLASS
-E_IS_CAL_VIEW_LISTENER_CLASS
-E_CAL_VIEW_LISTENER_GET_CLASS
-ECalViewListenerClass
-<SUBSECTION Private>
-ECalViewListenerPrivate
-e_cal_view_listener_get_type
-</SECTION>
-
-<SECTION>
 <FILE>e-cal</FILE>
 <TITLE>ECal</TITLE>
 ECal
@@ -227,6 +189,7 @@ e_cal_new_system_memos
 e_cal_set_auth_func
 e_cal_open
 e_cal_open_async
+e_cal_refresh
 e_cal_remove
 e_cal_uri_list
 e_cal_get_source_type
@@ -242,6 +205,7 @@ e_cal_get_organizer_must_attend
 e_cal_get_save_schedules
 e_cal_get_static_capability
 e_cal_get_organizer_must_accept
+e_cal_get_refresh_supported
 e_cal_set_mode
 e_cal_get_default_object
 e_cal_get_object
@@ -295,6 +259,8 @@ e_cal_get_type
 ECalRecurInstanceFn
 ECalRecurResolveTimezoneFn
 e_cal_recur_generate_instances
+e_cal_recur_obtain_enddate
+e_cal_recur_ensure_end_dates
 e_cal_get_recur_nth
 e_cal_recur_nth
 </SECTION>
@@ -332,6 +298,7 @@ E_CALENDAR_ERROR
 e_calendar_error_quark
 ECalChangeType
 ECalendarStatus
+E_CALENDAR_STATUS_CORBA_EXCEPTION
 </SECTION>
 
 <SECTION>
@@ -389,10 +356,12 @@ CAL_STATIC_CAPABILITY_DELEGATE_SUPPORTED
 CAL_STATIC_CAPABILITY_NO_ORGANIZER
 CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY
 CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING
+CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED
 e_cal_util_construct_instance
 e_cal_util_remove_instances
 e_cal_util_get_system_timezone_location
 e_cal_util_get_system_timezone
+e_cal_util_get_component_occur_times
 </SECTION>
 
 <SECTION>
@@ -401,6 +370,7 @@ e_cal_util_get_system_timezone
 ECalView
 e_cal_view_get_client
 e_cal_view_start
+e_cal_view_stop
 <SUBSECTION Standard>
 E_TYPE_CAL_VIEW
 E_CAL_VIEW

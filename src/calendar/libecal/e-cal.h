@@ -81,7 +81,10 @@ struct _ECalClass {
 
 	/* Notification signals */
 
+	#ifndef E_CAL_DISABLE_DEPRECATED
 	void (* cal_opened) (ECal *ecal, ECalendarStatus status);
+	#endif
+	void (* cal_opened_ex) (ECal *ecal, const GError *error);
 	void (* cal_set_mode) (ECal *ecal, ECalSetModeStatus status, CalMode mode);
 
 	void (* backend_error) (ECal *ecal, const gchar *message);
@@ -110,6 +113,7 @@ void e_cal_set_auth_func (ECal *ecal, ECalAuthFunc func, gpointer data);
 
 gboolean e_cal_open (ECal *ecal, gboolean only_if_exists, GError **error);
 void e_cal_open_async (ECal *ecal, gboolean only_if_exists);
+gboolean e_cal_refresh (ECal *ecal, GError **error);
 gboolean e_cal_remove (ECal *ecal, GError **error);
 
 GList *e_cal_uri_list (ECal *ecal, CalMode mode);
@@ -130,6 +134,7 @@ gboolean e_cal_get_organizer_must_attend (ECal *ecal);
 gboolean e_cal_get_save_schedules (ECal *ecal);
 gboolean e_cal_get_static_capability (ECal *ecal, const gchar *cap);
 gboolean e_cal_get_organizer_must_accept (ECal *ecal);
+gboolean e_cal_get_refresh_supported (ECal *ecal);
 
 gboolean e_cal_set_mode (ECal *ecal, CalMode mode);
 

@@ -25,7 +25,6 @@
 #endif
 
 #include <string.h>
-#include <pthread.h>
 
 #include "camel-string-utils.h"
 
@@ -112,7 +111,7 @@ camel_strdown (gchar *str)
  *
  * ASCII to-lower function.
  *
- * Return value:
+ * Returns:
  **/
 gchar camel_tolower(gchar c)
 {
@@ -128,7 +127,7 @@ gchar camel_tolower(gchar c)
  *
  * ASCII to-upper function.
  *
- * Return value:
+ * Returns:
  **/
 gchar camel_toupper(gchar c)
 {
@@ -139,7 +138,7 @@ gchar camel_toupper(gchar c)
 }
 
 /* working stuff for pstrings */
-static pthread_mutex_t pstring_lock = PTHREAD_MUTEX_INITIALIZER;
+static GStaticMutex pstring_lock = G_STATIC_MUTEX_INIT;
 static GHashTable *pstring_table = NULL;
 
 /**
@@ -151,7 +150,7 @@ static GHashTable *pstring_table = NULL;
  *
  * The NULL and empty strings are special cased to constant values.
  *
- * Return value: A pointer to an equivalent string of @s.  Use
+ * Returns: A pointer to an equivalent string of @s.  Use
  * camel_pstring_free() when it is no longer needed.
  **/
 const gchar *
@@ -170,7 +169,7 @@ camel_pstring_add (gchar *str, gboolean own)
 		return "";
 	}
 
-	pthread_mutex_lock (&pstring_lock);
+	g_static_mutex_lock (&pstring_lock);
 	if (pstring_table == NULL)
 		pstring_table = g_hash_table_new (g_str_hash, g_str_equal);
 
@@ -184,7 +183,7 @@ camel_pstring_add (gchar *str, gboolean own)
 		g_hash_table_insert (pstring_table, pstr, GINT_TO_POINTER (1));
 	}
 
-	pthread_mutex_unlock (&pstring_lock);
+	g_static_mutex_unlock (&pstring_lock);
 
 	return pstr;
 }
@@ -197,8 +196,10 @@ camel_pstring_add (gchar *str, gboolean own)
  *
  * The NULL and empty strings are special cased to constant values.
  *
- * Return value: A pointer to an equivalent string of @s.  Use
+ * Returns: A pointer to an equivalent string of @s.  Use
  * camel_pstring_free() when it is no longer needed.
+ *
+ * Since: 2.24
  **/
 const gchar *
 camel_pstring_peek (const gchar *str)
@@ -213,7 +214,7 @@ camel_pstring_peek (const gchar *str)
 		return "";
 	}
 
-	pthread_mutex_lock (&pstring_lock);
+	g_static_mutex_lock (&pstring_lock);
 	if (pstring_table == NULL)
 		pstring_table = g_hash_table_new (g_str_hash, g_str_equal);
 
@@ -222,7 +223,7 @@ camel_pstring_peek (const gchar *str)
 		g_hash_table_insert (pstring_table, pstr, GINT_TO_POINTER (1));
 	}
 
-	pthread_mutex_unlock (&pstring_lock);
+	g_static_mutex_unlock (&pstring_lock);
 
 	return pstr;
 }
@@ -237,7 +238,7 @@ camel_pstring_peek (const gchar *str)
  *
  * The NULL and empty strings are special cased to constant values.
  *
- * Return value: A pointer to an equivalent string of @s.  Use
+ * Returns: A pointer to an equivalent string of @s.  Use
  * camel_pstring_free() when it is no longer needed.
  **/
 const gchar *
@@ -266,7 +267,7 @@ camel_pstring_free(const gchar *s)
 	if (s == NULL || s[0] == 0)
 		return;
 
-	pthread_mutex_lock(&pstring_lock);
+	g_static_mutex_lock (&pstring_lock);
 	if (g_hash_table_lookup_extended(pstring_table, s, (gpointer *)&p, &pcount)) {
 		count = GPOINTER_TO_INT(pcount)-1;
 		if (count == 0) {
@@ -286,5 +287,5 @@ camel_pstring_free(const gchar *s)
 			g_assert (0);
 		}
 	}
-	pthread_mutex_unlock(&pstring_lock);
+	g_static_mutex_unlock (&pstring_lock);
 }

@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>EBookBackendSExp</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Address Book Backend (libedata-book)">
 <link rel="prev" href="EBookBackendFactory.html" title="EBookBackendFactory">
 <link rel="next" href="EBookBackendSummary.html" title="EBookBackendSummary">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -28,7 +28,7 @@
                   <a href="#EBookBackendSExp.object-hierarchy" class="shortcut">Object Hierarchy</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="EBookBackendSExp">
 <a name="EBookBackendSExp"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -37,42 +37,43 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="EBookBackendSExp.synopsis"></a><h2>Synopsis</h2>
 <pre class="synopsis">struct              <a class="link" href="EBookBackendSExp.html#EBookBackendSExp-struct" title="struct EBookBackendSExp">EBookBackendSExp</a>;
-<a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="returnvalue">EBookBackendSExp</span></a> *  <a class="link" href="EBookBackendSExp.html#e-book-backend-sexp-new" title="e_book_backend_sexp_new ()">e_book_backend_sexp_new</a>             (<em class="parameter"><code>const <span class="type">gchar</span> *text</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackendSExp.html#e-book-backend-sexp-match-vcard" title="e_book_backend_sexp_match_vcard ()">e_book_backend_sexp_match_vcard</a>     (<em class="parameter"><code><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> *sexp</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="EBookBackendSExp.html#e-book-backend-sexp-match-contact" title="e_book_backend_sexp_match_contact ()">e_book_backend_sexp_match_contact</a>   (<em class="parameter"><code><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> *sexp</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);
+<a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="returnvalue">EBookBackendSExp</span></a> *  <a class="link" href="EBookBackendSExp.html#e-book-backend-sexp-new" title="e_book_backend_sexp_new ()">e_book_backend_sexp_new</a>             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackendSExp.html#e-book-backend-sexp-match-vcard" title="e_book_backend_sexp_match_vcard ()">e_book_backend_sexp_match_vcard</a>     (<em class="parameter"><code><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> *sexp</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="EBookBackendSExp.html#e-book-backend-sexp-match-contact" title="e_book_backend_sexp_match_contact ()">e_book_backend_sexp_match_contact</a>   (<em class="parameter"><code><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> *sexp</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
 <a name="EBookBackendSExp.object-hierarchy"></a><h2>Object Hierarchy</h2>
 <pre class="synopsis">
-  GObject
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
    +----EBookBackendSExp
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Description">
 <a name="EBookBackendSExp.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="EBookBackendSExp.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="struct EBookBackendSExp">
 <a name="EBookBackendSExp-struct"></a><h3>struct EBookBackendSExp</h3>
 <pre class="programlisting">struct EBookBackendSExp;</pre>
 <p>
 </p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sexp_new ()">
 <a name="e-book-backend-sexp-new"></a><h3>e_book_backend_sexp_new ()</h3>
-<pre class="programlisting"><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="returnvalue">EBookBackendSExp</span></a> *  e_book_backend_sexp_new             (<em class="parameter"><code>const <span class="type">gchar</span> *text</code></em>);</pre>
+<pre class="programlisting"><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="returnvalue">EBookBackendSExp</span></a> *  e_book_backend_sexp_new             (<em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *text</code></em>);</pre>
 <p>
-Creates a new <a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> from <em class="parameter"><code>text</code></em>.</p>
+Creates a new <a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> from <em class="parameter"><code>text</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -90,12 +91,13 @@ Creates a new <a class="link" href="EBookBackendSExp.html" title="EBookBackendSE
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sexp_match_vcard ()">
 <a name="e-book-backend-sexp-match-vcard"></a><h3>e_book_backend_sexp_match_vcard ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_sexp_match_vcard     (<em class="parameter"><code><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> *sexp</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *vcard</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_sexp_match_vcard     (<em class="parameter"><code><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> *sexp</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *vcard</code></em>);</pre>
 <p>
-Checks if <em class="parameter"><code>vcard</code></em> matches <em class="parameter"><code>sexp</code></em>.</p>
+Checks if <em class="parameter"><code>vcard</code></em> matches <em class="parameter"><code>sexp</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -111,19 +113,20 @@ Checks if <em class="parameter"><code>vcard</code></em> matches <em class="param
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if the VCard matches, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the VCard matches, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_book_backend_sexp_match_contact ()">
 <a name="e-book-backend-sexp-match-contact"></a><h3>e_book_backend_sexp_match_contact ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_book_backend_sexp_match_contact   (<em class="parameter"><code><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> *sexp</code></em>,
-                                                         <em class="parameter"><code><a href="../libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_book_backend_sexp_match_contact   (<em class="parameter"><code><a class="link" href="EBookBackendSExp.html" title="EBookBackendSExp"><span class="type">EBookBackendSExp</span></a> *sexp</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a> *contact</code></em>);</pre>
 <p>
-Checks if <em class="parameter"><code>contact</code></em> matches <em class="parameter"><code>sexp</code></em>.</p>
+Checks if <em class="parameter"><code>contact</code></em> matches <em class="parameter"><code>sexp</code></em>.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -134,12 +137,12 @@ Checks if <em class="parameter"><code>contact</code></em> matches <em class="par
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>contact</code></em> :</span></p></td>
-<td>an <a href="../libebook/EContact.html"><span class="type">EContact</span></a>
+<td>an <a href="/usr/share/gtk-doc/html/libebook/EContact.html"><span class="type">EContact</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> <code class="literal">TRUE</code> if the contact matches, <code class="literal">FALSE</code> otherwise.
+<td> <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#TRUE:CAPS"><code class="literal">TRUE</code></a> if the contact matches, <a href="http://library.gnome.org/devel/glib/unstable/glib-Standard-Macros.html#FALSE:CAPS"><code class="literal">FALSE</code></a> otherwise.
 </td>
 </tr>
 </tbody>
@@ -149,6 +152,6 @@ Checks if <em class="parameter"><code>contact</code></em> matches <em class="par
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>

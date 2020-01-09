@@ -25,12 +25,6 @@ CamelDataWrapper
 
 </para>
 
-@parent_object: 
-@priv: 
-@encoding: 
-@mime_type: 
-@stream: 
-@offline: 
 
 <!-- ##### FUNCTION camel_data_wrapper_new ##### -->
 <para>
@@ -48,6 +42,7 @@ CamelDataWrapper
 
 @data_wrapper: 
 @stream: 
+@error: 
 @Returns: 
 
 
@@ -58,6 +53,7 @@ CamelDataWrapper
 
 @data_wrapper: 
 @stream: 
+@error: 
 @Returns: 
 
 
@@ -104,6 +100,7 @@ CamelDataWrapper
 
 @data_wrapper: 
 @stream: 
+@error: 
 @Returns: 
 
 
@@ -114,5 +111,30 @@ CamelDataWrapper
 
 @data_wrapper: 
 @Returns: 
+
+
+<!-- ##### ENUM CamelDataWrapperLock ##### -->
+<para>
+
+</para>
+
+@CAMEL_DATA_WRAPPER_STREAM_LOCK: 
+
+<!-- ##### FUNCTION camel_data_wrapper_lock ##### -->
+<para>
+
+</para>
+
+@data_wrapper: 
+@lock: 
+
+
+<!-- ##### FUNCTION camel_data_wrapper_unlock ##### -->
+<para>
+
+</para>
+
+@data_wrapper: 
+@lock: 
 
 

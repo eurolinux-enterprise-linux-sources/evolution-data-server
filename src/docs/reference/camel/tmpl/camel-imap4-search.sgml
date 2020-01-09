@@ -20,27 +20,3 @@ CamelIMAP4Search
 <!-- ##### SECTION Image ##### -->
 
 
-<!-- ##### STRUCT CamelIMAP4Search ##### -->
-<para>
-
-</para>
-
-@parent_object: 
-@engine: 
-@lastuid: 
-@validity: 
-@cache: 
-@matches: 
-@matches_hash: 
-@matches_count: 
-
-<!-- ##### FUNCTION camel_imap4_search_new ##### -->
-<para>
-
-</para>
-
-@engine: 
-@cachedir: 
-@Returns: 
-
-

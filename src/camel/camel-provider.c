@@ -34,16 +34,14 @@
 #include <string.h>
 #include <sys/types.h>
 
-#include <glib.h>
 #include <glib/gi18n-lib.h>
 #include <glib/gstdio.h>
 #include <gmodule.h>
 
-#include "camel-exception.h"
-#include "camel-private.h"
 #include "camel-provider.h"
 #include "camel-string-utils.h"
 #include "camel-vee-store.h"
+#include "camel-win32.h"
 
 /* table of CamelProviderModule's */
 static GHashTable *module_table;
@@ -69,10 +67,10 @@ static CamelProvider vee_provider = {
 	/* ... */
 };
 
-static pthread_once_t setup_once = PTHREAD_ONCE_INIT;
+static GOnce setup_once = G_ONCE_INIT;
 
-static void
-provider_setup(void)
+static gpointer
+provider_setup (gpointer param)
 {
 	module_table = g_hash_table_new(camel_strcase_hash, camel_strcase_equal);
 	provider_table = g_hash_table_new(camel_strcase_hash, camel_strcase_equal);
@@ -81,6 +79,8 @@ provider_setup(void)
 	vee_provider.url_hash = camel_url_hash;
 	vee_provider.url_equal = camel_url_equal;
 	camel_provider_register(&vee_provider);
+
+	return NULL;
 }
 
 /**
@@ -106,7 +106,7 @@ camel_provider_init (void)
 	CamelProviderModule *m;
 	static gint loaded = 0;
 
-	pthread_once(&setup_once, provider_setup);
+	g_once (&setup_once, provider_setup, NULL);
 
 	if (loaded)
 		return;
@@ -165,46 +165,53 @@ camel_provider_init (void)
 /**
  * camel_provider_load:
  * @path: the path to a shared library
- * @ex: a CamelException
+ * @error: return location for a #GError, or %NULL
  *
  * Loads the provider at @path, and calls its initialization function,
  * passing @session as an argument. The provider should then register
  * itself with @session.
+ *
+ * Returns: %TRUE on success, %FALSE on failure
  **/
-void
-camel_provider_load(const gchar *path, CamelException *ex)
+gboolean
+camel_provider_load (const gchar *path,
+                     GError **error)
 {
 	GModule *module;
-	CamelProvider *(*camel_provider_module_init) (void);
+	CamelProvider *(*provider_module_init) (void);
 
-	pthread_once(&setup_once, provider_setup);
+	g_once (&setup_once, provider_setup, NULL);
 
 	if (!g_module_supported ()) {
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Could not load %s: Module loading "
-				      "not supported on this system."),
-				      path);
-		return;
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Could not load %s: Module loading "
+			  "not supported on this system."), path);
+		return FALSE;
 	}
 
 	module = g_module_open (path, G_MODULE_BIND_LAZY);
-	if (!module) {
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Could not load %s: %s"),
-				      path, g_module_error ());
-		return;
+	if (module == NULL) {
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Could not load %s: %s"),
+			path, g_module_error ());
+		return FALSE;
 	}
 
 	if (!g_module_symbol (module, "camel_provider_module_init",
-			      (gpointer *)&camel_provider_module_init)) {
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Could not load %s: No initialization "
-					"code in module."), path);
+			      (gpointer *)&provider_module_init)) {
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Could not load %s: No initialization "
+			  "code in module."), path);
 		g_module_close (module);
-		return;
+		return FALSE;
 	}
 
-	camel_provider_module_init ();
+	provider_module_init ();
+
+	return TRUE;
 }
 
 /**
@@ -293,7 +300,7 @@ add_to_list (gpointer key, gpointer value, gpointer user_data)
  * is %TRUE, it will first load in all available providers that haven't
  * yet been loaded.
  *
- * Return value: a GList of providers, which the caller must free.
+ * Returns: a GList of providers, which the caller must free.
  **/
 GList *
 camel_provider_list(gboolean load)
@@ -336,15 +343,16 @@ camel_provider_list(gboolean load)
 /**
  * camel_provider_get:
  * @url_string: the URL for the service whose provider you want
- * @ex: a CamelException
+ * @error: return location for a #GError, or %NULL
  *
  * This returns the CamelProvider that would be used to handle
  * @url_string, loading it in from disk if necessary.
  *
- * Return value: the provider, or %NULL, in which case @ex will be set.
+ * Returns: the provider, or %NULL, in which case @error will be set.
  **/
 CamelProvider *
-camel_provider_get(const gchar *url_string, CamelException *ex)
+camel_provider_get (const gchar *url_string,
+                    GError **error)
 {
 	CamelProvider *provider = NULL;
 	gchar *protocol;
@@ -367,17 +375,18 @@ camel_provider_get(const gchar *url_string, CamelException *ex)
 		m = g_hash_table_lookup(module_table, protocol);
 		if (m && !m->loaded) {
 			m->loaded = 1;
-			camel_provider_load(m->path, ex);
-			if (camel_exception_is_set (ex))
+			if (!camel_provider_load (m->path, error))
 				goto fail;
 		}
 		provider = g_hash_table_lookup(provider_table, protocol);
 	}
 
 	if (provider == NULL)
-		camel_exception_setv(ex, CAMEL_EXCEPTION_SERVICE_URL_INVALID,
-				     _("No provider available for protocol '%s'"),
-				     protocol);
+		g_set_error (
+			error, CAMEL_SERVICE_ERROR,
+			CAMEL_SERVICE_ERROR_URL_INVALID,
+			_("No provider available for protocol '%s'"),
+			protocol);
 fail:
 	UNLOCK();
 
@@ -389,7 +398,7 @@ fail:
  * @provider: camel provider
  * @url: a #CamelURL
  * @auto_detected: output hash table of auto-detected values
- * @ex: exception
+ * @error: return location for a #GError, or %NULL
  *
  * After filling in the standard Username/Hostname/Port/Path settings
  * (which must be set in @url), if the provider supports it, you
@@ -406,13 +415,15 @@ fail:
  * Returns: 0 on success or -1 on fail.
  **/
 gint
-camel_provider_auto_detect (CamelProvider *provider, CamelURL *url,
-			    GHashTable **auto_detected, CamelException *ex)
+camel_provider_auto_detect (CamelProvider *provider,
+                            CamelURL *url,
+                            GHashTable **auto_detected,
+                            GError **error)
 {
 	g_return_val_if_fail (provider != NULL, -1);
 
 	if (provider->auto_detect) {
-		return provider->auto_detect (url, auto_detected, ex);
+		return provider->auto_detect (url, auto_detected, error);
 	} else {
 		*auto_detected = NULL;
 		return 0;

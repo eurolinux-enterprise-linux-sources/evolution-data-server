@@ -20,8 +20,12 @@
  * USA
  */
 
+#if !defined (__CAMEL_H_INSIDE__) && !defined (CAMEL_COMPILATION)
+#error "Only <camel/camel.h> can be included directly."
+#endif
+
 #ifndef CAMEL_NET_UTILS_H
-#define CAMEL_NET_UTILS_H 1
+#define CAMEL_NET_UTILS_H
 
 #include <sys/types.h>
 
@@ -29,15 +33,12 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #else
-#define WIN32_LEAN_AND_MEAN
-#include <winsock2.h>
-#undef WIN32_LEAN_AND_MEAN
-#include <ws2tcpip.h>
+#define socklen_t int
+struct sockaddr;
+struct addrinfo;
 #endif
 
 G_BEGIN_DECLS
-
-struct _CamelException;
 
 #ifndef _WIN32
 #ifdef NEED_ADDRINFO
@@ -88,11 +89,15 @@ struct addrinfo {
 #endif
 
 struct addrinfo *camel_getaddrinfo(const gchar *name, const gchar *service,
-				   const struct addrinfo *hints, struct _CamelException *ex);
+				   const struct addrinfo *hints, GError **error);
 void camel_freeaddrinfo(struct addrinfo *host);
 gint camel_getnameinfo(const struct sockaddr *sa, socklen_t salen, gchar **host, gchar **serv,
-		      gint flags, struct _CamelException *ex);
+		      gint flags, GError **error);
 
 G_END_DECLS
+
+#ifdef _WIN32
+#undef socklen_t
+#endif
 
 #endif /* CAMEL_NET_UTILS_H */

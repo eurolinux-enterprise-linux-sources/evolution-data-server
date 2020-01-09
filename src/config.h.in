@@ -6,6 +6,12 @@
 /* Base version (Major.Minor) */
 #undef BASE_VERSION
 
+/* Define if you have NSS */
+#undef CAMEL_HAVE_NSS
+
+/* Define if you have a supported SSL library */
+#undef CAMEL_HAVE_SSL
+
 /* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
    systems. This function is required for `alloca.c' support on those systems.
    */
@@ -17,20 +23,8 @@
 /* Define to 1 if using `alloca.c'. */
 #undef C_ALLOCA
 
-/* Define if you want E2K_DEBUG to be available */
-#undef E2K_DEBUG
-
 /* Define if Calendar should be built */
 #undef ENABLE_CALENDAR
-
-/* Build Hula backend */
-#undef ENABLE_HULA
-
-/* Really don't try this at home */
-#undef ENABLE_IMAP4
-
-/* Really don't try this at home */
-#undef ENABLE_IMAPP
 
 /* Enable IPv6 support */
 #undef ENABLE_IPv6
@@ -82,7 +76,7 @@
 /* Have nl_langinfo (CODESET) */
 #undef HAVE_CODESET
 
-/* Have <comm_err.h> */
+/* Have <com_err.h> */
 #undef HAVE_COM_ERR_H
 
 /* Define to 1 if you have the `dcgettext' function. */
@@ -91,7 +85,7 @@
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
-/* Have <et/comm_err.h> */
+/* Have <et/com_err.h> */
 #undef HAVE_ET_COM_ERR_H
 
 /* Define to 1 if you have the `fsync' function. */
@@ -112,11 +106,11 @@
 /* Define if you have Heimdal */
 #undef HAVE_HEIMDAL_KRB5
 
+/* libical provides ical_set_unknown_token_handling_setting function */
+#undef HAVE_ICAL_UNKNOWN_TOKEN_HANDLING
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
-
-/* Define if you have Krb4 */
-#undef HAVE_KRB4
 
 /* Define if you have Krb5 */
 #undef HAVE_KRB5
@@ -126,9 +120,6 @@
 
 /* Define if you have LDAP support */
 #undef HAVE_LDAP
-
-/* Define to 1 if you have the `ldap_ntlm_bind' function. */
-#undef HAVE_LDAP_NTLM_BIND
 
 /* strftime supports use of l and k */
 #undef HAVE_LKSTRFTIME
@@ -148,9 +139,6 @@
 /* Define to 1 if you have the <nspr.h> header file. */
 #undef HAVE_NSPR_H
 
-/* Define if you have NSS */
-#undef HAVE_NSS
-
 /* Define to 1 if you have the <nss.h> header file. */
 #undef HAVE_NSS_H
 
@@ -162,9 +150,6 @@
 
 /* Define to 1 if you have the <smime.h> header file. */
 #undef HAVE_SMIME_H
-
-/* Define if you have a supported SSL library */
-#undef HAVE_SSL
 
 /* Define to 1 if you have the <ssl.h> header file. */
 #undef HAVE_SSL_H
@@ -223,6 +208,9 @@
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
+/* Have <wspiapi.h> */
+#undef HAVE_WSPIAPI_H
+
 /* IDL interface version (Major.Minor) */
 #undef INTERFACE_VERSION
 
@@ -233,8 +221,8 @@
 /* Enable getaddrinfo emulation */
 #undef NEED_ADDRINFO
 
-/* Need krb_sendauth proto */
-#undef NEED_KRB_SENDAUTH_PROTO
+/* Define to 1 if your C compiler doesn't accept -c and -o together. */
+#undef NO_MINUS_C_MINUS_O
 
 /* Define to 0 if your system does not have the O_LARGEFILE flag */
 #undef O_LARGEFILE
@@ -253,6 +241,9 @@
 
 /* Define to the one symbol short name of this package. */
 #undef PACKAGE_TARNAME
+
+/* Define to the home page for this package. */
+#undef PACKAGE_URL
 
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION

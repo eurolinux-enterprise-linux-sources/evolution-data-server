@@ -1,0 +1,379 @@
+diff -up evolution-data-server-2.32.3/addressbook/tests/ebook/ebook-test-utils.c.covscan-issues evolution-data-server-2.32.3/addressbook/tests/ebook/ebook-test-utils.c
+--- evolution-data-server-2.32.3/addressbook/tests/ebook/ebook-test-utils.c.covscan-issues	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/addressbook/tests/ebook/ebook-test-utils.c	2013-06-13 10:36:16.883998152 +0200
+@@ -318,10 +318,9 @@ get_required_fields_cb (EBook           
+ 
+         test_print ("successfully asynchronously retrieved the required fields\n");
+ 
+-        if (closure) {
++        if (closure->cb)
+                 (*closure->cb) (closure);
+-                g_free (closure);
+-        }
++	g_free (closure);
+ }
+ 
+ void
+@@ -395,10 +394,9 @@ get_supported_auth_methods_cb (EBook    
+         test_print ("successfully asynchronously retrieved the supported auth "
+                         "methods\n");
+ 
+-        if (closure) {
++        if (closure->cb)
+                 (*closure->cb) (closure);
+-                g_free (closure);
+-        }
++	g_free (closure);
+ }
+ 
+ void
+@@ -453,10 +451,9 @@ get_supported_fields_cb (EBook          
+ 
+         test_print ("successfully asynchronously retrieved the supported fields\n");
+ 
+-        if (closure) {
++        if (closure->cb)
+                 (*closure->cb) (closure);
+-                g_free (closure);
+-        }
++	g_free (closure);
+ }
+ 
+ void
+@@ -762,7 +759,7 @@ get_book_view_cb (EBook            *book
+         closure->view = view;
+ 
+         test_print ("successfully asynchronously retrieved the book view\n");
+-        if (closure)
++        if (closure->cb)
+                 (*closure->cb) (closure);
+ }
+ 
+diff -up evolution-data-server-2.32.3/addressbook/tests/ebook/test-ebook-commit-contact.c.covscan-issues evolution-data-server-2.32.3/addressbook/tests/ebook/test-ebook-commit-contact.c
+--- evolution-data-server-2.32.3/addressbook/tests/ebook/test-ebook-commit-contact.c.covscan-issues	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/addressbook/tests/ebook/test-ebook-commit-contact.c	2013-06-13 10:36:16.883998152 +0200
+@@ -27,7 +27,8 @@ verify_commit (EContact *contact)
+ 	EVCardAttribute *attr;
+ 	gchar *email_value;
+ 
+-	g_assert ((attr = e_vcard_get_attribute (E_VCARD (contact), EVC_EMAIL)));
++	attr = e_vcard_get_attribute (E_VCARD (contact), EVC_EMAIL);
++	g_assert (attr != NULL);
+ 	g_assert (e_vcard_attribute_is_single_valued (attr));
+ 	email_value = e_vcard_attribute_get_value (attr);
+ 	g_assert (!g_strcmp0 (email_value, EMAIL_ADD));
+diff -up evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c.covscan-issues evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c
+--- evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c.covscan-issues	2013-06-13 10:36:16.862998152 +0200
++++ evolution-data-server-2.32.3/calendar/backends/file/e-cal-backend-file.c	2013-06-13 10:36:16.884998152 +0200
+@@ -3663,11 +3663,6 @@ main(gint argc, gchar **argv)
+ 
+ 	cbfile = g_object_new (E_TYPE_CAL_BACKEND_FILE, NULL);
+ 	open_cal (cbfile, calendar_fname, NULL);
+-	if (cbfile == NULL)
+-	{
+-		g_message (G_STRLOC " Could not open calendar %s", calendar_fname);
+-		exit (-1);
+-	}
+ 
+ 	if (fname)
+ 	{
+diff -up evolution-data-server-2.32.3/calendar/tests/ecal/ecal-test-utils.c.covscan-issues evolution-data-server-2.32.3/calendar/tests/ecal/ecal-test-utils.c
+--- evolution-data-server-2.32.3/calendar/tests/ecal/ecal-test-utils.c.covscan-issues	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/calendar/tests/ecal/ecal-test-utils.c	2013-06-13 10:36:16.884998152 +0200
+@@ -128,7 +128,7 @@ open_ex_cb (ECal            *cal,
+ 
+         test_print ("successfully asynchronously removed the temporary "
+                         "calendar\n");
+-        if (closure)
++        if (closure->cb)
+                 (*closure->cb) (closure);
+ 
+ 	g_signal_handlers_disconnect_by_func (cal, open_ex_cb, closure);
+@@ -487,7 +487,7 @@ cal_set_mode_cb (ECal            *cal,
+ 	closure->mode = mode;
+ 
+         test_print ("successfully set the calendar mode to %d\n", mode);
+-        if (closure)
++        if (closure->cb)
+                 (*closure->cb) (closure);
+ 
+ 	g_signal_handlers_disconnect_by_func (cal, cal_set_mode_cb, closure);
+diff -up evolution-data-server-2.32.3/camel/camel-certdb.c.covscan-issues evolution-data-server-2.32.3/camel/camel-certdb.c
+--- evolution-data-server-2.32.3/camel/camel-certdb.c.covscan-issues	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-certdb.c	2013-06-13 10:36:16.881998152 +0200
+@@ -242,14 +242,14 @@ camel_certdb_load (CamelCertDB *certdb)
+ 	g_return_val_if_fail (CAMEL_IS_CERTDB (certdb), -1);
+ 	g_return_val_if_fail (certdb->filename, -1);
+ 
+-	in = g_fopen (certdb->filename, "rb");
+-	if (in == NULL)
+-		return -1;
+-
+ 	class = CAMEL_CERTDB_GET_CLASS (certdb);
+ 	g_return_val_if_fail (class->header_load != NULL, -1);
+ 	g_return_val_if_fail (class->cert_load != NULL, -1);
+ 
++	in = g_fopen (certdb->filename, "rb");
++	if (in == NULL)
++		return -1;
++
+ 	camel_certdb_lock (certdb, CAMEL_CERTDB_IO_LOCK);
+ 	if (class->header_load (certdb, in) == -1)
+ 		goto error;
+@@ -323,6 +323,10 @@ camel_certdb_save (CamelCertDB *certdb)
+ 	g_return_val_if_fail (CAMEL_IS_CERTDB (certdb), -1);
+ 	g_return_val_if_fail (certdb->filename, -1);
+ 
++	class = CAMEL_CERTDB_GET_CLASS (certdb);
++	g_return_val_if_fail (class->header_save != NULL, -1);
++	g_return_val_if_fail (class->cert_save != NULL, -1);
++
+ 	/* no change, nothing new to save, simply return success */
+ 	if ((certdb->flags & CAMEL_CERTDB_DIRTY) == 0)
+ 		return 0;
+@@ -343,10 +347,6 @@ camel_certdb_save (CamelCertDB *certdb)
+ 		return -1;
+ 	}
+ 
+-	class = CAMEL_CERTDB_GET_CLASS (certdb);
+-	g_return_val_if_fail (class->header_save != NULL, -1);
+-	g_return_val_if_fail (class->cert_save != NULL, -1);
+-
+ 	camel_certdb_lock (certdb, CAMEL_CERTDB_IO_LOCK);
+ 
+ 	certdb->saved_certs = certdb->certs->len;
+diff -up evolution-data-server-2.32.3/camel/camel-gpg-context.c.covscan-issues evolution-data-server-2.32.3/camel/camel-gpg-context.c
+--- evolution-data-server-2.32.3/camel/camel-gpg-context.c.covscan-issues	2013-06-13 10:36:16.841998152 +0200
++++ evolution-data-server-2.32.3/camel/camel-gpg-context.c	2013-06-13 10:36:16.882998152 +0200
+@@ -935,7 +935,7 @@ gpg_ctx_parse_status (struct _GpgCtx *gp
+ 			if (!strncmp ((gchar *) status, "SIG_CREATED ", 12)) {
+ 				/* SIG_CREATED <type> <pubkey algo> <hash algo> <class> <timestamp> <key fpr> */
+ 				const gchar *str, *p;
+-				gint i;
++				gint i = 0;
+ 
+ 				str = (const gchar *) status + 12;
+ 				while (p = strchr (str, ' '), i < 2 && p) {
+diff -up evolution-data-server-2.32.3/camel/camel-object.c.covscan-issues evolution-data-server-2.32.3/camel/camel-object.c
+--- evolution-data-server-2.32.3/camel/camel-object.c.covscan-issues	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-object.c	2013-06-13 10:36:16.880998152 +0200
+@@ -453,7 +453,8 @@ camel_object_state_write (CamelObject *o
+ 		    && class->state_write (object, fp) == 0) {
+ 			if (fclose (fp) == 0) {
+ 				res = 0;
+-				g_rename (savename, state_filename);
++				if (g_rename (savename, state_filename) == -1)
++					g_warning("Could not rename object state file from '%s' to '%s': %s", savename, state_filename, g_strerror(errno));
+ 			}
+ 		} else {
+ 			fclose(fp);
+diff -up evolution-data-server-2.32.3/camel/camel-store-summary.c.covscan-issues evolution-data-server-2.32.3/camel/camel-store-summary.c
+--- evolution-data-server-2.32.3/camel/camel-store-summary.c.covscan-issues	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-store-summary.c	2013-06-13 10:36:16.882998152 +0200
+@@ -195,11 +195,11 @@ store_summary_store_info_save (CamelStor
+ {
+ 	io (printf ("Saving folder info\n"));
+ 
+-	camel_file_util_encode_string (
+-		out, camel_store_info_path (summary, info));
+-	camel_file_util_encode_uint32 (out, info->flags);
+-	camel_file_util_encode_uint32 (out, info->unread);
+-	camel_file_util_encode_uint32 (out, info->total);
++	if (camel_file_util_encode_string (out, camel_store_info_path (summary, info)) == -1 ||
++	    camel_file_util_encode_uint32 (out, info->flags) == -1 ||
++	    camel_file_util_encode_uint32 (out, info->unread) == -1 ||
++	    camel_file_util_encode_uint32 (out, info->total) == -1)
++		return -1;
+ 
+ 	return ferror (out);
+ }
+diff -up evolution-data-server-2.32.3/camel/camel-vee-folder.c.covscan-issues evolution-data-server-2.32.3/camel/camel-vee-folder.c
+--- evolution-data-server-2.32.3/camel/camel-vee-folder.c.covscan-issues	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/camel-vee-folder.c	2013-06-13 10:36:16.879998152 +0200
+@@ -120,7 +120,7 @@ expression_is_correlating (const gchar *
+ {
+ 	/* XXX: Actually parse the expression to avoid triggering on
+ 	 * "match-threads" in the text the user is searching for! */
+-	return (strstr (expr, "match-threads") != NULL);
++	return (expr && strstr (expr, "match-threads") != NULL);
+ }
+ 
+ /* Hold all these with summary lock and unmatched summary lock held */
+diff -up evolution-data-server-2.32.3/camel/providers/imap/camel-imap-folder.c.covscan-issues evolution-data-server-2.32.3/camel/providers/imap/camel-imap-folder.c
+--- evolution-data-server-2.32.3/camel/providers/imap/camel-imap-folder.c.covscan-issues	2011-04-21 21:35:36.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/imap/camel-imap-folder.c	2013-06-13 10:36:16.872998152 +0200
+@@ -2685,6 +2685,8 @@ do_copy (CamelFolder *source,
+ 	store = CAMEL_IMAP_STORE (parent_store);
+ 	mark_moved = is_google_account (parent_store) && store && store->real_trash_path && *store->real_trash_path;
+ 
++	g_return_val_if_fail (store != NULL, FALSE);
++
+ 	full_name = camel_folder_get_full_name (destination);
+ 
+ 	while (uid < uids->len && local_error == NULL) {
+diff -up evolution-data-server-2.32.3/camel/providers/imapx/camel-imapx-server.c.covscan-issues evolution-data-server-2.32.3/camel/providers/imapx/camel-imapx-server.c
+--- evolution-data-server-2.32.3/camel/providers/imapx/camel-imapx-server.c.covscan-issues	2013-06-13 10:36:16.856998152 +0200
++++ evolution-data-server-2.32.3/camel/providers/imapx/camel-imapx-server.c	2013-06-13 10:36:16.875998152 +0200
+@@ -851,7 +851,7 @@ imapx_command_start (CamelIMAPXServer *i
+ 		g_static_rec_mutex_unlock (&imap->ostream_lock);
+ 
+ 		camel_dlist_remove ((CamelDListNode *)ic);
+-		if (ic && ic->complete)
++		if (ic->complete)
+ 			ic->complete (imap, ic);
+ 		return FALSE;
+ 	}
+@@ -1354,7 +1354,7 @@ imapx_untagged(CamelIMAPXServer *imap, G
+ 		if (imap->select_folder)
+ 			((CamelIMAPXFolder *) imap->select_folder)->exists_on_server = id;
+ 
+-		if (imapx_idle_supported (imap) && imapx_in_idle (imap)) {
++		if (imapx_idle_supported (imap) && imapx_in_idle (imap) && imap->select_folder) {
+ 			if (camel_folder_summary_count (imap->select_folder->summary) < id)
+ 				imapx_stop_idle (imap, error);
+ 		}
+@@ -1590,7 +1590,7 @@ imapx_untagged(CamelIMAPXServer *imap, G
+ 
+ 		// TODO: we want to make sure the names match?
+ 
+-		if (job->u.list.flags & CAMEL_STORE_FOLDER_INFO_SUBSCRIBED) {
++		if (job && (job->u.list.flags & CAMEL_STORE_FOLDER_INFO_SUBSCRIBED) != 0) {
+ 			c(printf("lsub: '%s' (%c)\n", linfo->name, linfo->separator));
+ 
+ 		} else {
+@@ -2441,7 +2441,7 @@ imapx_command_select_done (CamelIMAPXSer
+ 						&cw->error, CAMEL_IMAPX_ERROR, 1,
+ 						"SELECT %s failed: %s",
+ 						camel_folder_get_full_name(cw->select),
+-						ic->status->text? ic->status->text:"<unknown reason>");
++						(ic->status && ic->status->text) ? ic->status->text : "<unknown reason>");
+ 				cw->complete(is, cw);
+ 				cw = cn;
+ 				cn = cn->next;
+@@ -3423,7 +3423,9 @@ imapx_command_append_message_done (Camel
+ 				mi->uid = camel_pstring_add (uid, TRUE);
+ 
+ 				cur = camel_data_cache_get_filename  (ifolder->cache, "cur", mi->uid, NULL);
+-				g_rename (job->u.append_message.path, cur);
++				if (g_rename (job->u.append_message.path, cur) == -1) {
++					g_debug ("Failed to rename imapx message file '%s' to '%s': %s", job->u.append_message.path, cur, g_strerror (errno));
++				}
+ 
+ 				/* should we update the message count ? */
+ 				camel_folder_summary_add (job->folder->summary, mi);
+diff -up evolution-data-server-2.32.3/camel/providers/imapx/camel-imapx-utils.c.covscan-issues evolution-data-server-2.32.3/camel/providers/imapx/camel-imapx-utils.c
+--- evolution-data-server-2.32.3/camel/providers/imapx/camel-imapx-utils.c.covscan-issues	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/imapx/camel-imapx-utils.c	2013-06-13 10:36:16.877998152 +0200
+@@ -819,6 +819,7 @@ imapx_parse_ext_optional(CamelIMAPXStrea
+ 
+ 			dinfo->disposition = g_strdup((gchar *) token);
+ 			imapx_parse_param_list(is, &dinfo->params, NULL);
++			break;
+ 		case IMAPX_TOK_TOKEN:
+ 			d(printf("body_fld_dsp: NIL\n"));
+ 			break;
+@@ -1448,7 +1449,7 @@ imapx_dump_fetch(struct _fetch_info *fin
+ 		camel_stream_printf(sout, "Date: '%s'\n", finfo->date);
+ 	if (finfo->section)
+ 		camel_stream_printf(sout, "Section: '%s'\n", finfo->section);
+-	if (finfo->date)
++	if (finfo->uid)
+ 		camel_stream_printf(sout, "UID: '%s'\n", finfo->uid);
+ 	g_object_unref (sout);
+ }
+@@ -2115,6 +2116,8 @@ camel_imapx_namespace_list_copy (const s
+ {
+ 	CamelIMAPXNamespaceList *new;
+ 
++	g_return_val_if_fail (nsl != NULL, NULL);
++
+ 	new = g_malloc (sizeof (CamelIMAPXNamespaceList));
+ 	new->personal = imapx_namespace_copy (nsl->personal);
+ 	new->other = imapx_namespace_copy (nsl->other);
+diff -up evolution-data-server-2.32.3/camel/providers/imapx/test-imapx.c.covscan-issues evolution-data-server-2.32.3/camel/providers/imapx/test-imapx.c
+--- evolution-data-server-2.32.3/camel/providers/imapx/test-imapx.c.covscan-issues	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/imapx/test-imapx.c	2013-06-13 10:36:16.878998152 +0200
+@@ -45,7 +45,7 @@ main (gint argc, gchar *argv[])
+ 	camel_session_construct (session, "/tmp/test-camel-imapx");
+ 
+ 	service = camel_session_get_service (session, uri, CAMEL_PROVIDER_STORE, NULL);
+-	camel_service_connect (service, NULL);
++	g_return_val_if_fail (camel_service_connect (service, NULL), -2);
+ 
+ 	camel_store_get_folder_info ((CamelStore *)service, "", 3, NULL);
+ 	folder = camel_store_get_folder ((CamelStore *)service, "INBOX", 0, NULL);
+diff -up evolution-data-server-2.32.3/camel/providers/local/camel-mbox-folder.c.covscan-issues evolution-data-server-2.32.3/camel/providers/local/camel-mbox-folder.c
+--- evolution-data-server-2.32.3/camel/providers/local/camel-mbox-folder.c.covscan-issues	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/local/camel-mbox-folder.c	2013-06-13 10:36:16.872998152 +0200
+@@ -265,10 +265,12 @@ fail_write:
+ 
+ 		fd = camel_stream_fs_get_fd (CAMEL_STREAM_FS (output_stream));
+ 
+-		/* reset the file to original size */
+-		do {
+-			retval = ftruncate (fd, mbs->folder_size);
+-		} while (retval == -1 && errno == EINTR);
++		if (fd >= 0) {
++			/* reset the file to original size */
++			do {
++				retval = ftruncate (fd, mbs->folder_size);
++			} while (retval == -1 && errno == EINTR);
++		}
+ 
+ 		g_object_unref (output_stream);
+ 	}
+diff -up evolution-data-server-2.32.3/camel/providers/nntp/camel-nntp-store.c.covscan-issues evolution-data-server-2.32.3/camel/providers/nntp/camel-nntp-store.c
+--- evolution-data-server-2.32.3/camel/providers/nntp/camel-nntp-store.c.covscan-issues	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/camel/providers/nntp/camel-nntp-store.c	2013-06-13 10:36:16.870998152 +0200
+@@ -637,9 +637,13 @@ nntp_store_get_subscribed_folder_info (C
+ 				folder = (CamelNNTPFolder *)camel_store_get_folder((CamelStore *)store, si->path, 0, NULL);
+ 				if (folder) {
+ 					CamelFolderChangeInfo *changes = NULL;
++					GError *local_error = NULL;
+ 
+ 					camel_service_lock (CAMEL_SERVICE (store), CAMEL_SERVICE_REC_CONNECT_LOCK);
+-					camel_nntp_command(store, NULL, folder, &line, NULL);
++					if (camel_nntp_command(store, &local_error, folder, &line, NULL) == -1) {
++						g_debug ("%s: Failed to issue command: %s", G_STRFUNC, local_error ? local_error->message : "Unknown error");
++					}
++					g_clear_error (&local_error);
+ 					if (camel_folder_change_info_changed(folder->changes)) {
+ 						changes = folder->changes;
+ 						folder->changes = camel_folder_change_info_new();
+diff -up evolution-data-server-2.32.3/libedataserver/e-categories.c.covscan-issues evolution-data-server-2.32.3/libedataserver/e-categories.c
+--- evolution-data-server-2.32.3/libedataserver/e-categories.c.covscan-issues	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/libedataserver/e-categories.c	2013-06-13 10:36:16.883998152 +0200
+@@ -19,6 +19,7 @@
+ 
+ #include <config.h>
+ #include <string.h>
++#include <errno.h>
+ #include <libxml/parser.h>
+ #include <glib/gstdio.h>
+ #include <glib/gi18n-lib.h>
+@@ -138,7 +139,9 @@ build_categories_filename (void)
+ 		old_filename = g_build_filename (
+ 			g_get_home_dir (), ".evolution",
+ 			"categories.xml", NULL);
+-		g_rename (old_filename, filename);
++		if (g_rename (old_filename, filename) == -1) {
++			g_debug ("Failed to rename categories file '%s' to '%s': %s", old_filename, filename, g_strerror (errno));
++		}
+ 		g_free (old_filename);
+ 	}
+ 
+diff -up evolution-data-server-2.32.3/libedataserverui/test-contact-store.c.covscan-issues evolution-data-server-2.32.3/libedataserverui/test-contact-store.c
+--- evolution-data-server-2.32.3/libedataserverui/test-contact-store.c.covscan-issues	2011-04-21 21:35:37.000000000 +0200
++++ evolution-data-server-2.32.3/libedataserverui/test-contact-store.c	2013-06-13 10:36:16.882998152 +0200
+@@ -100,7 +100,10 @@ start_test (const gchar *gconf_path)
+ 	gtk_container_add (GTK_CONTAINER (scrolled_window), tree_view);
+ 
+ 	book = e_book_new_default_addressbook (NULL);
+-	e_book_open (book, TRUE, NULL);
++	if (!e_book_open (book, TRUE, NULL)) {
++		g_object_unref (book);
++		return FALSE;
++	}
+ 	e_contact_store_add_book (contact_store, book);
+ 	g_object_unref (book);
+ 

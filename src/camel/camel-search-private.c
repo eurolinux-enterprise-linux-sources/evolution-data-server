@@ -33,55 +33,14 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <glib.h>
 #include <glib/gi18n-lib.h>
 
-#include <libedataserver/e-sexp.h>
-
-#include "camel-exception.h"
 #include "camel-mime-message.h"
 #include "camel-multipart.h"
 #include "camel-search-private.h"
 #include "camel-stream-mem.h"
 
 #define d(x)
-
-static inline guint32
-camel_utf8_getc(const guchar **ptr)
-{
-	register guchar *p = (guchar *)*ptr;
-	register guchar c, r;
-	register guint32 v, m;
-
-again:
-	r = *p++;
-loop:
-	if (r < 0x80) {
-		*ptr = p;
-		v = r;
-	} else if (r < 0xfe) { /* valid start char? */
-		v = r;
-		m = 0x7f80;	/* used to mask out the length bits */
-		do {
-			c = *p++;
-			if ((c & 0xc0) != 0x80) {
-				r = c;
-				goto loop;
-			}
-			v = (v<<6) | (c & 0x3f);
-			r<<=1;
-			m<<=5;
-		} while (r & 0x40);
-
-		*ptr = p;
-
-		v &= ~m;
-	} else {
-		goto again;
-	}
-
-	return v;
-}
 
 /* builds the regex into pattern */
 /* taken from camel-folder-search, with added isregex & exception parameter */
@@ -92,8 +51,11 @@ loop:
 
    A small issue is that case-insenstivity wont work entirely correct for utf8 strings. */
 gint
-camel_search_build_match_regex (regex_t *pattern, camel_search_flags_t type, gint argc,
-				struct _ESExpResult **argv, CamelException *ex)
+camel_search_build_match_regex (regex_t *pattern,
+                                camel_search_flags_t type,
+                                gint argc,
+                                struct _ESExpResult **argv,
+                                GError **error)
 {
 	GString *match = g_string_new("");
 	gint c, i, count=0, err;
@@ -141,13 +103,14 @@ camel_search_build_match_regex (regex_t *pattern, camel_search_flags_t type, gin
 	if (err != 0) {
 		/* regerror gets called twice to get the full error string
 		   length to do proper posix error reporting */
-		gint len = regerror (err, pattern, 0, 0);
+		gint len = regerror (err, pattern, NULL, 0);
 		gchar *buffer = g_malloc0 (len + 1);
 
 		regerror (err, pattern, buffer, len);
-		camel_exception_setv (ex, CAMEL_EXCEPTION_SYSTEM,
-				      _("Regular expression compilation failed: %s: %s"),
-				      match->str, buffer);
+		g_set_error (
+			error, CAMEL_ERROR, CAMEL_ERROR_GENERIC,
+			_("Regular expression compilation failed: %s: %s"),
+			match->str, buffer);
 
 		regfree (pattern);
 	}
@@ -476,7 +439,7 @@ camel_search_header_match (const gchar *value, const gchar *match, camel_search_
 		for (i=0; !truth && camel_internet_address_get(cia, i, &name, &addr);i++)
 			truth = (name && header_match(name, match, how)) || (addr && header_match(addr, match, how));
 
-		camel_object_unref (cia);
+		g_object_unref (cia);
 		break;
 	}
 
@@ -492,7 +455,7 @@ camel_search_message_body_contains (CamelDataWrapper *object, regex_t *pattern)
 	gint truth = FALSE;
 	gint parts, i;
 
-	containee = camel_medium_get_content_object (CAMEL_MEDIUM (object));
+	containee = camel_medium_get_content (CAMEL_MEDIUM (object));
 
 	if (containee == NULL)
 		return FALSE;
@@ -511,12 +474,15 @@ camel_search_message_body_contains (CamelDataWrapper *object, regex_t *pattern)
 	} else if (camel_content_type_is(CAMEL_DATA_WRAPPER (containee)->mime_type, "text", "*")
 		|| camel_content_type_is(CAMEL_DATA_WRAPPER (containee)->mime_type, "x-evolution", "evolution-rss-feed")) {
 		/* for all other text parts, we look inside, otherwise we dont care */
-		CamelStreamMem *mem = (CamelStreamMem *)camel_stream_mem_new ();
+		CamelStream *stream;
+		GByteArray *byte_array;
 
-		camel_data_wrapper_write_to_stream (containee, CAMEL_STREAM (mem));
-		camel_stream_write (CAMEL_STREAM (mem), "", 1);
-		truth = regexec (pattern, (gchar *) mem->buffer->data, 0, NULL, 0) == 0;
-		camel_object_unref (mem);
+		byte_array = g_byte_array_new ();
+		stream = camel_stream_mem_new_with_byte_array (byte_array);
+		camel_data_wrapper_write_to_stream (containee, stream, NULL);
+		camel_stream_write (stream, "", 1, NULL);
+		truth = regexec (pattern, (gchar *) byte_array->data, 0, NULL, 0) == 0;
+		g_object_unref (stream);
 	}
 
 	return truth;

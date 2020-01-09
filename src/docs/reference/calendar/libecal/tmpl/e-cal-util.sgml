@@ -415,6 +415,13 @@ Various utility functions.
 
 
 
+<!-- ##### MACRO CAL_STATIC_CAPABILITY_REFRESH_SUPPORTED ##### -->
+<para>
+
+</para>
+
+
+
 <!-- ##### FUNCTION e_cal_util_construct_instance ##### -->
 <para>
 
@@ -451,5 +458,19 @@ Various utility functions.
 
 @void: 
 @Returns: 
+
+
+<!-- ##### FUNCTION e_cal_util_get_component_occur_times ##### -->
+<para>
+
+</para>
+
+@comp: 
+@start: 
+@end: 
+@tz_cb: 
+@tz_cb_data: 
+@default_timezone: 
+@kind: 
 
 

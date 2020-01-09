@@ -1,124 +1,186 @@
-%define use_nss 1
 %define ldap_support 1
 %define static_ldap 1
 %define krb5_support 1
 %define nntp_support 1
+%define largefile_support 1
 
-%define glib2_version 2.16.1
-%define gtk2_version 2.14.0
+%define glib2_version 2.26.0
+%define gtk2_version 2.20.1
 %define gtk_doc_version 1.9
 %define intltool_version 0.35.5
-%define libbonobo_version 2.20.3
+%define libgdata_version 0.6.3
 %define libgweather_version 2.25.4
 %define libical_version 0.43
-%define orbit2_version 2.9.8
 %define soup_version 2.3.0
 %define sqlite_version 3.5
+%define nss_version 3.14
 
-%define eds_base_version 2.28
-%define eds_api_version 1.2
+%define eds_base_version 2.32
 
 %define use_gnome_keyring 1
-%define support_imap4_provider 0
 
-%define camel_provider_dir %{_libdir}/evolution-data-server-%{eds_api_version}/camel-providers
-%define eds_extensions_dir %{_libdir}/evolution-data-server-%{eds_api_version}/extensions
+%define camel_provider_dir %{_libdir}/evolution-data-server-1.2/camel-providers
+%define eds_extensions_dir %{_libdir}/evolution-data-server-1.2/extensions
 
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 2.28.3
-Release: 16%{?dist}
+Version: 2.32.3
+Release: 18%{?dist}
 Group: System Environment/Libraries
 Summary: Backend data server for Evolution
 License: LGPLv2+
 URL: http://projects.gnome.org/evolution/
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-Source: http://download.gnome.org/sources/%{name}/2.28/%{name}-%{version}.tar.bz2
+Source: http://download.gnome.org/sources/%{name}/2.32/%{name}-%{version}.tar.bz2
 
 Provides: evolution-webcal = %{version}
 Obsoletes: evolution-webcal < 2.24.0
 
 ### Patches ###
 
-# RH bug #215702 / GNOME bug #487988
-Patch10: evolution-data-server-1.8.0-fix-ldap-query.patch
-
-# GNOME bug #373146
-Patch11: evolution-data-server-1.10.1-camel-folder-summary-crash.patch
-
 # RH bug #243296
-Patch12: evolution-data-server-1.11.5-fix-64bit-acinclude.patch
-
-# This makes our 2.28.3 equivalent to upstream's 2.28.3.1.
-Patch13: evolution-data-server-2.28.3-remove-imap-debug-spew.patch
-
-# RH bug #576215 / GNOME bug #613639
-Patch14: eds-dir-prefix.patch
-
-# RH bug #589192
-Patch15: evolution-data-server-2.28.3-el6-translation-updates.patch
-
-# RH bug #553556 / GNOME bug #601535
-Patch16: evolution-data-server-2.28.3-unlocalized-categories.patch
-
-# RH bug #605320 / GNOME bug #550622 & GNOME bug #604305
-Patch17: evolution-data-server-2.28.3-imap-attachment-flag.patch
+Patch01: evolution-data-server-1.11.5-fix-64bit-acinclude.patch
 
 # RH bug #609024 / GNOME bug #550414
-Patch18: evolution-data-server-2.28.3-summary-mismatch.patch
-
-# RH bug #619286
-Patch19: evolution-data-server-2.28.3-name-selector-entry.patch
+Patch02: evolution-data-server-2.28.3-summary-mismatch.patch
 
 # RH bug #629919
-Patch20: evolution-data-server-2.28.3-improve-year-formatting.patch
-
-# RH bug #657117 / GNOME bug #634658
-Patch21: evolution-data-server-2.28.3-vfolder-unread-counts.patch
-
-# RH bug #634949
-Patch22: evolution-data-server-2.28.3-google-book.patch
-
-# RH bug #660356
-Patch23: evolution-data-server-2.28.3-webcal-and-ecalview.patch
-
-# RH bug #666879 / GNOME bug #627937
-Patch24: evolution-data-server-2.28.3-crash-in-name-selector-entry.patch
+Patch03: evolution-data-server-2.28.3-improve-year-formatting.patch
 
 # add nss/nspr libraries to LDAP_LIBS, because latest openldap requires it
-Patch25: evolution-data-server-2.28.3-ldap-with-nss.patch
+Patch04: evolution-data-server-2.28.3-ldap-with-nss.patch
 
-# RH bug #734048
-Patch26: evolution-data-server-2.28.3-caldav-uri-encoding.patch
+# Build break in libedataserverui API docs
+Patch05: evolution-data-server-2.32.3-fix-libedataserverui-docs.patch
+
+# Set of post 2.32.3 release bug fixes from gnome-2-32 branch;
+# the patch contains list of included fixes
+Patch06: evolution-data-server-2.32.3-gnome-2-32-branch.patch
+
+# RH bug #710058
+Patch07: evolution-data-server-2.32.3-list-expand-inline.patch
+
+# RH bug #589263
+Patch08: evolution-data-server-2.32.3-file-cache-freeze.patch
+
+# RH bug #815371
+Patch09: evolution-data-server-2.32.3-name-selector-entry-qp-paste.patch
+
+# RH bug #804651
+Patch10: evolution-data-server-2.32.3-caldav-offline-setup-test.patch
+
+# RH bug #739968
+Patch11: evolution-data-server-2.32.3-init-dbus-glib.patch
+
+# RH bug #710005
+Patch12: evolution-data-server-2.32.3-name-selector-entry-qp-lists.patch
+
+# RH bug #962499
+Patch13: evolution-data-server-2.32.3-gpg-decrypt.patch
+
+# RH bug #955587
+Patch14: evolution-data-server-2.32.3-gpg-smime-not-attachments.patch
+
+# RH bug #811980
+Patch15: evolution-data-server-2.32.3-caldav-put-to-google.patch
+
+# RH bug #750916
+Patch16: evolution-data-server-2.32.3-tls-for-imaps.patch
+
+# RH bug #705859
+Patch17: evolution-data-server-2.32.3-cal-mem-leaks.patch
+
+# Address some of the Coverity scan issues
+Patch18: evolution-data-server-2.32.3-covscan-issues.patch
+
+# RH bug #971621
+Patch19: evolution-data-server-2.32.3-book-view-blocks-factory.patch
+
+# RH bug #696620
+Patch20: evolution-data-server-2.32.3-crash-http-cal-retrieval-done.patch
+
+# RH bug #700726
+Patch21: evolution-data-server-2.32.3-camel-migrate-between-archs.patch
+
+# RH bug #975438
+Patch22: evolution-data-server-2.32.3-book-summary-query-check.patch
+
+# RH bug #735674
+Patch23: evolution-data-server-2.32.3-pop3-guards.patch
+
+# RH bug #977395
+Patch24: evolution-data-server-2.32.3-listen-to-killev.patch
+
+# RH bug #982681
+Patch25: evolution-data-server-2.32.3-google-contact-list-name.patch
+
+# RH bug #970013
+Patch26: evolution-data-server-2.32.3-imapx-qresync-default-disable.patch
+
+# RH bug #983031
+Patch27: evolution-data-server-2.32.3-google-book-other-fax.patch
+
+# RH bug #975409
+Patch28: evolution-data-server-2.32.3-alarm-description-for-file-calendars.patch
+
+# RH bug #950005
+Patch29: evolution-data-server-2.32.3-ignore-cached-zero-sized-files.patch
+
+# RH bug #983964
+Patch30: evolution-data-server-2.32.3-calendar-operation-thread.patch
+
+# RH bug #990380 - CVE-2013-4166
+Patch31: evolution-data-server-2.32.3-CVE-2013-4166.patch
+
+# RH bug #991074
+Patch32: evolution-data-server-2.32.3-replace-some-g-assert.patch
+
+# RH bug #979722
+Patch33: evolution-data-server-2.32.3-camel-ssl-ciphers.patch
+
+# Also covers RH bug #700789
+Patch34: evolution-data-server-2.32.3-translation-updates.patch
+
+# RH bug #1004784
+Patch35: evolution-data-server-2.32.3-webdav-owncloud-create.patch
+
+# RH bug #1009426
+Patch36: evolution-data-server-2.32.3-cameldb-upgrade-no-such-table.patch
+
+# RH bug #1014032
+Patch37: evolution-data-server-2.32.3-cameldb-prevent-crash.patch
+
+## Dependencies ###
+
+Requires: glib2 >= %{glib2_version}
+Requires: gtk2 >= %{gtk2_version}
 
 ### Build Dependencies ###
 
 BuildRequires: GConf2-devel
-BuildRequires: ORBit2-devel >= %{orbit2_version}
 BuildRequires: bison
 BuildRequires: db4-devel
+BuildRequires: dbus-glib-devel >= 0.6
 BuildRequires: gettext
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: gnome-common
 BuildRequires: gnutls-devel
+BuildRequires: gperf
 BuildRequires: gtk-doc >= %{gtk_doc_version}
 BuildRequires: gtk2-devel >= %{gtk2_version}
 BuildRequires: intltool >= %{intltool_version}
-BuildRequires: libbonobo-devel >= %{libbonobo_version}
-BuildRequires: libglade2-devel
+%if %{use_gnome_keyring}
+BuildRequires: gnome-keyring-devel
+%endif
+BuildRequires: libgdata-devel >= %{libgdata_version}
 BuildRequires: libgweather-devel >= %{libgweather_version}
 BuildRequires: libical-devel >= %{libical_version}
 BuildRequires: libsoup-devel >= %{soup_version}
 BuildRequires: libtool
-BuildRequires: sqlite-devel >= %{sqlite_version}
-
-%if %{use_nss}
 BuildRequires: nspr-devel
-BuildRequires: nss-devel
-%else
-BuildRequires: openssl-devel
-%endif
+BuildRequires: nss-devel >= %{nss_version}
+BuildRequires: sqlite-devel >= %{sqlite_version}
 
 %if %{ldap_support}
 %if %{static_ldap}
@@ -137,8 +199,8 @@ BuildRequires: krb5-devel
 %endif
 
 %description
-The %{name} package provides a unified backend
-for programs that work with contacts, tasks, and calendar information.
+The %{name} package provides a unified backend for programs that work
+with contacts, tasks, and calendar information.
 
 It was originally developed for Evolution (hence the name), but is now used
 by other packages.
@@ -147,8 +209,11 @@ by other packages.
 Summary: Development files for building against %{name}
 Group: Development/Libraries
 Requires: %{name} = %{version}-%{release}
-Requires: %{name}-doc = %{version}-%{release}
-Requires: libbonobo-devel
+Requires: dbus-glib-devel
+%if %{use_gnome_keyring}
+Requires: gnome-keyring-devel
+%endif
+Requires: libgdata-devel
 Requires: libgweather-devel
 Requires: libical-devel
 Requires: libsoup-devel
@@ -168,23 +233,43 @@ This package contains developer documentation for %{name}.
 %prep
 %setup -q
 
-%patch10 -p1 -b .fix-ldap-query
-%patch11 -p1 -b .camel-folder-summary-crash
-%patch12 -p1 -b .fix-64bit-acinclude
-%patch13 -p1 -b .remove-imap-debug-spew
-%patch14 -p1 -b .eds-dir-prefix
-%patch15 -p1 -b .el6-translation-updates
-%patch16 -p1 -b .unlocalized-categories
-%patch17 -p1 -b .imap-attachment-flag
-%patch18 -p1 -b .summary-mismatch
-%patch19 -p1 -b .name-selector-entry
-%patch20 -p1 -b .improve-year-formatting
-%patch21 -p1 -b .vfolder-unread-counts
-%patch22 -p1 -b .google-book
-%patch23 -p1 -b .webcal-and-ecalview
-%patch24 -p1 -b .crash-in-name-selector-entry
-%patch25 -p1 -b .ldap-with-nss
-%patch26 -p1 -b .caldav-uri-encoding
+%patch01 -p1 -b .fix-64bit-acinclude
+%patch02 -p1 -b .summary-mismatch
+%patch03 -p1 -b .improve-year-formatting
+%patch04 -p1 -b .ldap-with-nss
+%patch05 -p1 -b .fix-libedataserverui-docs
+%patch06 -p1 -b .gnome-2-32-branch
+%patch07 -p1 -b .list-expand-inline
+%patch08 -p1 -b .file-cache-freeze
+%patch09 -p1 -b .name-selector-entry-qp-paste
+%patch10 -p1 -b .caldav-offline-setup-test
+%patch11 -p1 -b .init-dbus-glib
+%patch12 -p1 -b .name-selector-entry-qp-lists
+%patch13 -p1 -b .gpg-decrypt
+%patch14 -p1 -b .gpg-smime-not-attachments
+%patch15 -p1 -b .caldav-put-to-google
+%patch16 -p1 -b .tls-for-imaps
+%patch17 -p1 -b .cal-mem-leaks
+%patch18 -p1 -b .covscan-issues
+%patch19 -p1 -b .book-view-blocks-factory
+%patch20 -p1 -b .crash-http-cal-retrieval-done
+%patch21 -p1 -b .camel-migrate-between-archs
+%patch22 -p1 -b .book-summary-query-check
+%patch23 -p1 -b .pop3-guards
+%patch24 -p1 -b .listen-to-killev
+%patch25 -p1 -b .google-contact-list-name
+%patch26 -p1 -b .imapx-qresync-default-disable
+%patch27 -p1 -b .google-book-other-fax
+%patch28 -p1 -b .alarm-description-for-file-calendars
+%patch29 -p1 -b .ignore-cached-zero-sized-files
+%patch30 -p1 -b .calendar-operation-thread
+%patch31 -p1 -b .CVE-2013-4166
+%patch32 -p1 -b .replace-some-g-assert
+%patch33 -p1 -b .camel-ssl-ciphers
+%patch34 -p1 -b .translation-updates
+%patch35 -p1 -b .webdav-owncloud-create
+%patch36 -p1 -b .cameldb-upgrade-no-such-table
+%patch37 -p1 -b .cameldb-prevent-crash
 
 mkdir -p krb5-fakeprefix/include
 mkdir -p krb5-fakeprefix/lib
@@ -201,6 +286,13 @@ if pkg-config openssl ; then
 	export LIBS="-lsasl2 `pkg-config --libs openssl`"
 else
 	export LIBS="-lsasl2 -lssl -lcrypto"
+fi
+# newer versions of openldap are built with Mozilla NSS crypto, so also need
+# those libs to link with the static ldap libs
+if pkg-config nss ; then
+    export LIBS="$LIBS `pkg-config --libs nss`"
+else
+    export LIBS="$LIBS -lssl3 -lsmime3 -lnss3 -lnssutil3 -lplds4 -lplc4 -lnspr4"
 fi
 %else
 %define ldap_flags --with-openldap=yes
@@ -222,39 +314,27 @@ fi
 %define nntp_flags --enable-nntp=no
 %endif
 
-%if %{use_nss}
-%define ssl_flags --enable-nss=yes --enable-smime=yes
+%if %{largefile_support}
+%define largefile_flags --enable-largefile
 %else
-%define ssl_flags --enable-openssl=yes
+%define largefile_flags --disable-largefile
 %endif
 
-%if %{use_nss}
+%define ssl_flags --enable-nss=yes --enable-smime=yes
+
 if ! pkg-config --exists nss; then 
   echo "Unable to find suitable version of nss to use!"
   exit 1
 fi
-%endif
 
 %if %{use_gnome_keyring}
 %define keyring_flags --enable-gnome-keyring
 %else
-%define keyring flags --disable-gnome-keyring
-%endif
-
-%if %{support_imap4_provider}
-%define imap4_flags --enable-imap4=yes
-%else
-%define imap4_flags --enable-imap4=no
+%define keyring_flags --disable-gnome-keyring
 %endif
 
 export CPPFLAGS="-I%{_includedir}/et"
-export CFLAGS="$RPM_OPT_FLAGS -DLDAP_DEPRECATED -fPIC -I%{_includedir}/et -fno-strict-aliasing"
-%if ! %{use_nss}
-if pkg-config openssl ; then
-	CFLAGS="$CFLAGS `pkg-config --cflags openssl`"
-	LDFLAGS="$LDFLAGS `pkg-config --libs-only-L openssl`"
-fi
-%endif
+export CFLAGS="$RPM_OPT_FLAGS -DLDAP_DEPRECATED -fPIC -I%{_includedir}/et"
 
 # Regenerate configure to pick up configure.in and acinclude.m4 changes.
 aclocal -I m4
@@ -272,8 +352,8 @@ autoconf
 	--enable-file-locking=fcntl \
 	--enable-dot-locking=no \
 	--enable-gtk-doc \
-	%ldap_flags %krb5_flags %nntp_flags %ssl_flags %imap4_flags \
-	%keyring_flags
+	%ldap_flags %krb5_flags %nntp_flags %ssl_flags \
+	%largetfile_flags %keyring_flags
 export tagname=CC
 make %{?_smp_mflags} LIBTOOL=/usr/bin/libtool
 
@@ -285,8 +365,8 @@ make DESTDIR=$RPM_BUILD_ROOT LIBTOOL=/usr/bin/libtool install
 # remove libtool archives for importers and the like
 find $RPM_BUILD_ROOT/%{_libdir} -name '*.la' -exec rm {} \;
 rm -f $RPM_BUILD_ROOT/%{_libdir}/*.a
-rm -f $RPM_BUILD_ROOT/%{_libdir}/evolution-data-server-%{eds_api_version}/camel-providers/*.a
-rm -f $RPM_BUILD_ROOT/%{_libdir}/evolution-data-server-%{eds_api_version}/extensions/*.a
+rm -f $RPM_BUILD_ROOT/%{_libdir}/evolution-data-server-1.2/camel-providers/*.a
+rm -f $RPM_BUILD_ROOT/%{_libdir}/evolution-data-server-1.2/extensions/*.a
 
 # give the libraries some executable bits 
 find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
@@ -303,28 +383,28 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}-%{eds_base_version}.lang
 %defattr(-,root,root,-)
 %doc README COPYING ChangeLog NEWS AUTHORS
-%{_libdir}/bonobo/servers/GNOME_Evolution_DataServer_%{eds_api_version}.server
-%{_libdir}/libcamel-%{eds_api_version}.so.*
-%{_libdir}/libcamel-provider-%{eds_api_version}.so.*
-%{_libdir}/libebackend-%{eds_api_version}.so.*
-%{_libdir}/libebook-%{eds_api_version}.so.*
-%{_libdir}/libecal-%{eds_api_version}.so.*
-%{_libdir}/libedata-book-%{eds_api_version}.so.*
-%{_libdir}/libedata-cal-%{eds_api_version}.so.*
-%{_libdir}/libedataserver-%{eds_api_version}.so.*
-%{_libdir}/libedataserverui-%{eds_api_version}.so.*
-%{_libdir}/libegroupwise-%{eds_api_version}.so.*
-%{_libdir}/libexchange-storage-%{eds_api_version}.so.*
-%{_libdir}/libgdata-%{eds_api_version}.so.*
-%{_libdir}/libgdata-google-%{eds_api_version}.so.*
+%{_libdir}/libcamel-1.2.so.*
+%{_libdir}/libcamel-provider-1.2.so.*
+%{_libdir}/libebackend-1.2.so.*
+%{_libdir}/libebook-1.2.so.*
+%{_libdir}/libecal-1.2.so.*
+%{_libdir}/libedata-book-1.2.so.*
+%{_libdir}/libedata-cal-1.2.so.*
+%{_libdir}/libedataserver-1.2.so.*
+%{_libdir}/libedataserverui-1.2.so.*
+%{_libdir}/libegroupwise-1.2.so.*
 
-%{_libexecdir}/evolution-data-server-%{eds_base_version}
-%{_libexecdir}/camel-index-control-%{eds_api_version}
-%{_libexecdir}/camel-lock-helper-%{eds_api_version}
+%{_libexecdir}/camel-index-control-1.2
+%{_libexecdir}/camel-lock-helper-1.2
+%{_libexecdir}/e-addressbook-factory
+%{_libexecdir}/e-calendar-factory
+
 %{_datadir}/evolution-data-server-%{eds_base_version}
-%{_datadir}/idl/evolution-data-server-%{eds_api_version}
+%{_datadir}/dbus-1/services/org.gnome.evolution.dataserver.AddressBook.service
+%{_datadir}/dbus-1/services/org.gnome.evolution.dataserver.Calendar.service
 %{_datadir}/pixmaps/evolution-data-server
-%dir %{_libdir}/evolution-data-server-%{eds_api_version}
+
+%dir %{_libdir}/evolution-data-server-1.2
 %dir %{camel_provider_dir}
 %dir %{eds_extensions_dir}
 
@@ -335,10 +415,8 @@ rm -rf $RPM_BUILD_ROOT
 %{camel_provider_dir}/libcamelimap.so
 %{camel_provider_dir}/libcamelimap.urls
 
-%if %{support_imap4_provider}
-%{camel_provider_dir}/libcamelimap4.so
-%{camel_provider_dir}/libcamelimap4.urls
-%endif
+%{camel_provider_dir}/libcamelimapx.so
+%{camel_provider_dir}/libcamelimapx.urls
 
 %{camel_provider_dir}/libcamellocal.so
 %{camel_provider_dir}/libcamellocal.urls
@@ -365,7 +443,6 @@ rm -rf $RPM_BUILD_ROOT
 %{eds_extensions_dir}/libecalbackendcaldav.so
 %{eds_extensions_dir}/libecalbackendcontacts.so
 %{eds_extensions_dir}/libecalbackendfile.so
-%{eds_extensions_dir}/libecalbackendgoogle.so
 %{eds_extensions_dir}/libecalbackendgroupwise.so
 %{eds_extensions_dir}/libecalbackendhttp.so
 %{eds_extensions_dir}/libecalbackendweather.so
@@ -373,33 +450,27 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root,-)
 %{_includedir}/evolution-data-server-%{eds_base_version}
-%{_libdir}/libcamel-%{eds_api_version}.so
-%{_libdir}/libcamel-provider-%{eds_api_version}.so
-%{_libdir}/libebackend-%{eds_api_version}.so
-%{_libdir}/libebook-%{eds_api_version}.so
-%{_libdir}/libecal-%{eds_api_version}.so
-%{_libdir}/libedata-book-%{eds_api_version}.so
-%{_libdir}/libedata-cal-%{eds_api_version}.so
-%{_libdir}/libedataserver-%{eds_api_version}.so
-%{_libdir}/libedataserverui-%{eds_api_version}.so
-%{_libdir}/libegroupwise-%{eds_api_version}.so
-%{_libdir}/libexchange-storage-%{eds_api_version}.so
-%{_libdir}/libgdata-%{eds_api_version}.so
-%{_libdir}/libgdata-google-%{eds_api_version}.so
-%{_libdir}/pkgconfig/camel-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/camel-provider-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/evolution-data-server-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libebackend-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libebook-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libecal-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libedata-book-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libedata-cal-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libedataserver-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libedataserverui-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libegroupwise-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libexchange-storage-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libgdata-%{eds_api_version}.pc
-%{_libdir}/pkgconfig/libgdata-google-%{eds_api_version}.pc
+%{_libdir}/libcamel-1.2.so
+%{_libdir}/libcamel-provider-1.2.so
+%{_libdir}/libebackend-1.2.so
+%{_libdir}/libebook-1.2.so
+%{_libdir}/libecal-1.2.so
+%{_libdir}/libedata-book-1.2.so
+%{_libdir}/libedata-cal-1.2.so
+%{_libdir}/libedataserver-1.2.so
+%{_libdir}/libedataserverui-1.2.so
+%{_libdir}/libegroupwise-1.2.so
+%{_libdir}/pkgconfig/camel-1.2.pc
+%{_libdir}/pkgconfig/camel-provider-1.2.pc
+%{_libdir}/pkgconfig/evolution-data-server-1.2.pc
+%{_libdir}/pkgconfig/libebackend-1.2.pc
+%{_libdir}/pkgconfig/libebook-1.2.pc
+%{_libdir}/pkgconfig/libecal-1.2.pc
+%{_libdir}/pkgconfig/libedata-book-1.2.pc
+%{_libdir}/pkgconfig/libedata-cal-1.2.pc
+%{_libdir}/pkgconfig/libedataserver-1.2.pc
+%{_libdir}/pkgconfig/libedataserverui-1.2.pc
+%{_libdir}/pkgconfig/libegroupwise-1.2.pc
 
 %files doc
 %defattr(-,root,root,-)
@@ -413,6 +484,90 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gtk-doc/html/libedataserverui
 
 %changelog
+* Tue Oct 01 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-18.el6
+- Add patch for RH bug #1014032 (Prevent a crash in CamelDB)
+
+* Mon Sep 30 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-17.el6
+- Add patch for RH bug #1009426 ('no such table' error after upgrade)
+
+* Fri Sep 06 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-16.el6
+- Add patch for RH bug #1004784 (Create contact on ownCloud with WebDAV fails)
+
+* Wed Aug 14 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-15.el6
+- Update translation patch
+
+* Mon Aug 12 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-14.el6
+- Add patch for translation updates
+
+* Thu Aug 08 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-13.el6
+- Add patch for RH bug #979722 (Mail connects with weak SSL)
+- Bump nss version requirement to 3.14
+
+* Tue Aug 06 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-12.el6
+- Add patch for RH bug #991074 (Unnecessary crash due to g_assert() call)
+
+* Wed Jul 31 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-11.el6
+- Add patch for RH bug #990380 (CVE-2013-4166)
+
+* Fri Jul 26 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-10.el6
+- Add patch for RH bug #950005 (Ignore cached zero-sized files)
+- Add patch for RH bug #983964 (Do calendar operations in a thread)
+
+* Wed Jul 24 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-9.el6
+- Add patch for RH bug #970013 (Disable IMAP+ QResync feature by default)
+- Add patch for RH bug #983031 (Google book saves other fax as business fax)
+- Add patch for RH bug #975409 (Custom alarm message for local calendars)
+
+* Wed Jul 10 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-8.el6
+- Add patch for RH bug #982681 (Google contact list name changes on load)
+
+* Mon Jun 24 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-7.el6
+- Add patch for RH bug #735674 (Add parameter guards to POP3 provider)
+- Add patch for RH bug #977395 (Be able to close factories with killev)
+
+* Wed Jun 19 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-6.el6
+- Add patch for RH bug #700726 (Try to read binary camel summaries from other archs)
+- Add patch for RH bug #975438 (Category Unmatched search doesn't work with Name contains)
+
+* Thu Jun 13 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-5.el6
+- Add patch for RH bug #971621 (Book view blocks factory)
+- Add patch for RH bug #696620 (Crash of in retrieval_done of an On The Web calendar)
+
+* Thu Jun 13 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-4.el6
+- Add patch for some issues found by Coverity scan
+
+* Tue Jun 11 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-3.el6
+- Add patch for RH bug #710058 (Expand list inline with comma separator)
+- Add patch for RH bug #589263 (EFileCache recursive freeze/thaw)
+- Add patch for RH bug #815371 (Encoded email address shown after paste)
+- Add patch for RH bug #804651 (Incorrect CalDAV offline setup test)
+- Add patch for RH bug #739968 (Initialize dbus-glib threading for GConf)
+- Add patch for RH bug #710005 (Encoded email address shown after list inline expand)
+- Add patch for RH bug #962499 (GPG decrypt failed with missing signature certificate)
+- Add patch for RH bug #955587 (GPG and S/MIME parts are not attachments)
+- Add patch for RH bug #811980 (CalDAV fails to write to Google calendar)
+- Add patch for RH bug #750916 (Offer also TLS for IMAPS)
+- Add patch for RH bug #705859 (Calendar code memory leaks)
+
+* Fri Jun 07 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-2.el6
+- Add patch with some gnome-2-32 branch bug fixes, which landed after 2.32.3 release
+
+* Mon Jun 03 2013 Milan Crha <mcrha@redhat.com> - 2.32.3-1.el6
+- Rebase to 2.32.3
+- Remove patch for RH bug #215702 (part of rebase)
+- Remove patch for GNOME bug #373146 (obsolete by rebase)
+- Remove patch for 'Remove debug spew from IMAP provider' (part of rebase)
+- Remove patch for RH bug #576215 (part of rebase)
+- Remove patch for RH bug #589192 (obsolete by rebase)
+- Remove patch for RH bug #553556 (part of rebase)
+- Remove patch for RH bug #605320 (part of rebase)
+- Remove patch for RH bug #619286 (part of rebase)
+- Remove patch for RH bug #657117 (part of rebase)
+- Remove patch for RH bug #634949 (part of rebase)
+- Remove patch for RH bug #660356 (obsolete by rebase)
+- Remove patch for RH bug #666879 (part of rebase)
+- Remove patch for RH bug #734048 (part of rebase)
+
 * Fri Sep 07 2012 Matthew Barnes <mbarnes@redhat.com> - 2.28.3-16.el6
 - Add patch for RH bug #734048 (caldav URI encoding).
 

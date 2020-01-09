@@ -26,13 +26,30 @@ Miscellaneous utility functions for evolution-data-server.
 </para>
 
 
-<!-- ##### FUNCTION e_util_mkdir_hier ##### -->
+<!-- ##### FUNCTION e_get_user_cache_dir ##### -->
 <para>
 
 </para>
 
-@path: 
-@mode: 
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_get_user_config_dir ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION e_get_user_data_dir ##### -->
+<para>
+
+</para>
+
+@void: 
 @Returns: 
 
 
@@ -95,12 +112,12 @@ Miscellaneous utility functions for evolution-data-server.
 @Returns: 
 
 
-<!-- ##### FUNCTION e_util_pthread_id ##### -->
+<!-- ##### FUNCTION e_util_gthread_id ##### -->
 <para>
 
 </para>
 
-@t: 
+@thread: 
 @Returns: 
 
 
@@ -117,7 +134,7 @@ Miscellaneous utility functions for evolution-data-server.
 
 </para>
 
-@s: 
+@string: 
 @max: 
 @fmt: 
 @tm: 
@@ -129,7 +146,7 @@ Miscellaneous utility functions for evolution-data-server.
 
 </para>
 
-@s: 
+@string: 
 @max: 
 @fmt: 
 @tm: 

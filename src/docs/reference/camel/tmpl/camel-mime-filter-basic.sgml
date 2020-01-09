@@ -25,12 +25,6 @@ CamelMimeFilterBasic
 
 </para>
 
-@parent: 
-@priv: 
-@type: 
-@uubuf: 
-@state: 
-@save: 
 
 <!-- ##### ENUM CamelMimeFilterBasicType ##### -->
 <para>
@@ -45,15 +39,6 @@ CamelMimeFilterBasic
 @CAMEL_MIME_FILTER_BASIC_UU_DEC: 
 
 <!-- ##### FUNCTION camel_mime_filter_basic_new ##### -->
-<para>
-
-</para>
-
-@void: 
-@Returns: 
-
-
-<!-- ##### FUNCTION camel_mime_filter_basic_new_type ##### -->
 <para>
 
 </para>

@@ -18,17 +18,29 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#ifndef _CAMEL_LOCAL_SUMMARY_H
-#define _CAMEL_LOCAL_SUMMARY_H
+#ifndef CAMEL_LOCAL_SUMMARY_H
+#define CAMEL_LOCAL_SUMMARY_H
 
-#include <camel/camel-folder-summary.h>
-#include <camel/camel-folder.h>
-#include <camel/camel-exception.h>
-#include <camel/camel-index.h>
+#include <camel/camel.h>
 
-#define CAMEL_LOCAL_SUMMARY(obj)         CAMEL_CHECK_CAST (obj, camel_local_summary_get_type (), CamelLocalSummary)
-#define CAMEL_LOCAL_SUMMARY_CLASS(klass) CAMEL_CHECK_CLASS_CAST (klass, camel_local_summary_get_type (), CamelLocalSummaryClass)
-#define CAMEL_IS_LOCAL_SUMMARY(obj)      CAMEL_CHECK_TYPE (obj, camel_local_summary_get_type ())
+/* Standard GObject macros */
+#define CAMEL_TYPE_LOCAL_SUMMARY \
+	(camel_local_summary_get_type ())
+#define CAMEL_LOCAL_SUMMARY(obj) \
+	(G_TYPE_CHECK_INSTANCE_CAST \
+	((obj), CAMEL_TYPE_LOCAL_SUMMARY, CamelLocalSummary))
+#define CAMEL_LOCAL_SUMMARY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_CAST \
+	((cls), CAMEL_TYPE_LOCAL_SUMMARY, CamelLocalSummaryClass))
+#define CAMEL_IS_LOCAL_SUMMARY(obj) \
+	(G_TYPE_CHECK_INSTANCE_TYPE \
+	((obj), CAMEL_TYPE_LOCAL_SUMMARY))
+#define CAMEL_IS_LOCAL_SUMMARY_CLASS(cls) \
+	(G_TYPE_CHECK_CLASS_TYPE \
+	((cls), CAMEL_TYPE_LOCAL_SUMMARY))
+#define CAMEL_LOCAL_SUMMARY_GET_CLASS(obj) \
+	(G_TYPE_INSTANCE_GET_CLASS \
+	((obj), CAMEL_TYPE_LOCAL_SUMMARY, CamelLocalSummaryClass))
 
 G_BEGIN_DECLS
 
@@ -63,27 +75,27 @@ struct _CamelLocalSummary {
 struct _CamelLocalSummaryClass {
 	CamelFolderSummaryClass parent_class;
 
-	gint (*load)(CamelLocalSummary *cls, gint forceindex, CamelException *ex);
-	gint (*check)(CamelLocalSummary *cls, CamelFolderChangeInfo *changeinfo, CamelException *ex);
-	gint (*sync)(CamelLocalSummary *cls, gboolean expunge, CamelFolderChangeInfo *changeinfo, CamelException *ex);
-	CamelMessageInfo *(*add)(CamelLocalSummary *cls, CamelMimeMessage *msg, const CamelMessageInfo *info, CamelFolderChangeInfo *, CamelException *ex);
+	gint (*load)(CamelLocalSummary *cls, gint forceindex, GError **error);
+	gint (*check)(CamelLocalSummary *cls, CamelFolderChangeInfo *changeinfo, GError **error);
+	gint (*sync)(CamelLocalSummary *cls, gboolean expunge, CamelFolderChangeInfo *changeinfo, GError **error);
+	CamelMessageInfo *(*add)(CamelLocalSummary *cls, CamelMimeMessage *msg, const CamelMessageInfo *info, CamelFolderChangeInfo *, GError **error);
 
 	gchar *(*encode_x_evolution)(CamelLocalSummary *cls, const CamelLocalMessageInfo *info);
 	gint (*decode_x_evolution)(CamelLocalSummary *cls, const gchar *xev, CamelLocalMessageInfo *info);
 	gint (*need_index)(void);
 };
 
-CamelType	camel_local_summary_get_type	(void);
+GType	camel_local_summary_get_type	(void);
 void	camel_local_summary_construct	(CamelLocalSummary *new, const gchar *filename, const gchar *local_name, CamelIndex *index);
 
 /* load/check the summary */
-gint camel_local_summary_load(CamelLocalSummary *cls, gint forceindex, CamelException *ex);
+gint camel_local_summary_load(CamelLocalSummary *cls, gint forceindex, GError **error);
 /* check for new/removed messages */
-gint camel_local_summary_check(CamelLocalSummary *cls, CamelFolderChangeInfo *, CamelException *ex);
+gint camel_local_summary_check(CamelLocalSummary *cls, CamelFolderChangeInfo *, GError **error);
 /* perform a folder sync or expunge, if needed */
-gint camel_local_summary_sync(CamelLocalSummary *cls, gboolean expunge, CamelFolderChangeInfo *, CamelException *ex);
+gint camel_local_summary_sync(CamelLocalSummary *cls, gboolean expunge, CamelFolderChangeInfo *, GError **error);
 /* add a new message to the summary */
-CamelMessageInfo *camel_local_summary_add(CamelLocalSummary *cls, CamelMimeMessage *msg, const CamelMessageInfo *info, CamelFolderChangeInfo *, CamelException *ex);
+CamelMessageInfo *camel_local_summary_add(CamelLocalSummary *cls, CamelMimeMessage *msg, const CamelMessageInfo *info, CamelFolderChangeInfo *, GError **error);
 
 /* force the next check to be a full check/rebuild */
 void camel_local_summary_check_force(CamelLocalSummary *cls);
@@ -97,4 +109,4 @@ gint camel_local_summary_write_headers(gint fd, struct _camel_header_raw *header
 
 G_END_DECLS
 
-#endif /* ! _CAMEL_LOCAL_SUMMARY_H */
+#endif /* CAMEL_LOCAL_SUMMARY_H */

@@ -4,14 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <camel/camel-object.h>
-#include <camel/camel-mime-utils.h>
 
 #include "camel-test.h"
 
 struct {
-	gchar *header;
-	gchar *values[5];
+	const gchar *header;
+	const gchar *values[5];
 } test1[] = {
 	{ "<test@camel.host>", { "test@camel.host" } },
 	{ "(this is a comment) <test@camel.host>", { "test@camel.host" } },
@@ -35,7 +33,7 @@ main (gint argc, gchar **argv)
 
 	camel_test_start("references decoding");
 
-	for (i=0;i<sizeof(test1)/sizeof(test1[0]);i++) {
+	for (i = 0; i < G_N_ELEMENTS (test1); i++) {
 		struct _camel_header_references *head, *node;
 
 		camel_test_push("references decoding[%d] '%s'", i, test1[i].header);

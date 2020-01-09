@@ -62,7 +62,7 @@ static void
 source_changed_callback (ESource *source,
 			 ESourceGroup *group)
 {
-	if (! group->priv->ignore_source_changed)
+	if (!group->priv->ignore_source_changed)
 		g_signal_emit (group, signals[CHANGED], 0);
 }
 
@@ -246,8 +246,10 @@ e_source_group_new (const gchar *name,
 	return new;
 }
 
-ESourceGroup *
-e_source_group_new_from_xml (const gchar *xml)
+static ESourceGroup *source_group_new_from_xmldoc (xmlDocPtr doc, gboolean can_migrate);
+
+static ESourceGroup *
+source_group_new_from_xml (const gchar *xml, gboolean can_migrate)
 {
 	xmlDocPtr doc;
 	ESourceGroup *group;
@@ -256,14 +258,20 @@ e_source_group_new_from_xml (const gchar *xml)
 	if (doc == NULL)
 		return NULL;
 
-	group = e_source_group_new_from_xmldoc (doc);
+	group = source_group_new_from_xmldoc (doc, can_migrate);
 	xmlFreeDoc (doc);
 
 	return group;
 }
 
 ESourceGroup *
-e_source_group_new_from_xmldoc (xmlDocPtr doc)
+e_source_group_new_from_xml (const gchar *xml)
+{
+	return source_group_new_from_xml (xml, TRUE);
+}
+
+static ESourceGroup *
+source_group_new_from_xmldoc (xmlDocPtr doc, gboolean can_migrate)
 {
 	xmlNodePtr root, p;
 	xmlChar *uid;
@@ -294,7 +302,16 @@ e_source_group_new_from_xmldoc (xmlDocPtr doc)
 	new->priv->uid = g_strdup (GC uid);
 
 	e_source_group_set_name (new, GC name);
-	e_source_group_set_base_uri (new, GC base_uri);
+
+	/* XXX The "On This Computer" group used to specify an
+	 *     absolute "file:" URI pointing to its local storage
+	 *     directory, but that caused all kinds of portability
+	 *     issues so now we just use "local:" and leave the
+	 *     absolute file system path implicit. */
+	if (can_migrate && g_str_has_prefix (GC base_uri, "file:"))
+		e_source_group_set_base_uri (new, "local:");
+	else
+		e_source_group_set_base_uri (new, GC base_uri);
 
 	for (p = root->children; p != NULL; p = p->next) {
 		ESource *new_source;
@@ -328,6 +345,12 @@ e_source_group_new_from_xmldoc (xmlDocPtr doc)
 	if (readonly_str != NULL)
 		xmlFree (readonly_str);
 	return new;
+}
+
+ESourceGroup *
+e_source_group_new_from_xmldoc (xmlDocPtr doc)
+{
+	return source_group_new_from_xmldoc (doc, TRUE);
 }
 
 gboolean
@@ -389,7 +412,16 @@ e_source_group_update_from_xmldoc (ESourceGroup *group,
 	}
 	xmlFree (name);
 
-	if (strcmp (group->priv->base_uri, GC base_uri) != 0) {
+	/* XXX The "On This Computer" group used to specify an
+	 *     absolute "file:" URI pointing to its local storage
+	 *     directory, but that caused all kinds of portability
+	 *     issues so now we just use "local:" and leave the
+	 *     absolute file system path implicit. */
+	if (g_str_has_prefix (GC base_uri, "file:")) {
+		g_free (group->priv->base_uri);
+		group->priv->base_uri = g_strdup ("local:");
+		changed = TRUE;
+	} else if (strcmp (group->priv->base_uri, GC base_uri) != 0) {
 		g_free (group->priv->base_uri);
 		group->priv->base_uri = g_strdup (GC base_uri);
 		changed = TRUE;
@@ -457,7 +489,7 @@ e_source_group_update_from_xmldoc (ESourceGroup *group,
 		} else {
 			gboolean source_changed;
 
-			group->priv->ignore_source_changed ++;
+			group->priv->ignore_source_changed++;
 
 			if (e_source_update_from_xml_node (existing_source, nodep, &source_changed)) {
 				new_sources_list = g_slist_prepend (new_sources_list, existing_source);
@@ -468,7 +500,7 @@ e_source_group_update_from_xmldoc (ESourceGroup *group,
 					changed = TRUE;
 			}
 
-			group->priv->ignore_source_changed --;
+			group->priv->ignore_source_changed--;
 		}
 
 		g_free (uid);
@@ -489,7 +521,7 @@ e_source_group_update_from_xmldoc (ESourceGroup *group,
 			g_signal_handlers_disconnect_by_func (source, source_changed_callback, group);
 		}
 
-		if (! changed && q != NULL) {
+		if (!changed && q != NULL) {
 			if (q->data != p->data)
 				changed = TRUE;
 			q = q->next;
@@ -782,7 +814,7 @@ e_source_group_to_xml (ESourceGroup *group)
 
 	returned_buffer = g_malloc (xml_buffer_size + 1);
 	memcpy (returned_buffer, xml_buffer, xml_buffer_size);
-	returned_buffer [xml_buffer_size] = '\0';
+	returned_buffer[xml_buffer_size] = '\0';
 	xmlFree (xml_buffer);
 
 	return returned_buffer;
@@ -820,8 +852,10 @@ compare_source_lists (GSList *a, GSList *b)
  *
  * Compares if @a is equivalent to @b.
  *
- * Return value: %TRUE if @a is equivalent to @b,
+ * Returns: %TRUE if @a is equivalent to @b,
  * %FALSE otherwise.
+ *
+ * Since: 2.24
  **/
 gboolean
 e_source_group_equal (ESourceGroup *a, ESourceGroup *b)
@@ -865,8 +899,10 @@ e_source_group_equal (ESourceGroup *a, ESourceGroup *b)
  *
  * Compares if @a is equivalent to @b.
  *
- * Return value: %TRUE if @a is equivalent to @b,
+ * Returns: %TRUE if @a is equivalent to @b,
  * %FALSE otherwise.
+ *
+ * Since: 2.24
  **/
 gboolean
 e_source_group_xmlstr_equal (const gchar *a, const gchar *b)
@@ -874,8 +910,8 @@ e_source_group_xmlstr_equal (const gchar *a, const gchar *b)
 	ESourceGroup *grpa, *grpb;
 	gboolean retval;
 
-	grpa = e_source_group_new_from_xml (a);
-	grpb = e_source_group_new_from_xml (b);
+	grpa = source_group_new_from_xml (a, FALSE);
+	grpb = source_group_new_from_xml (b, FALSE);
 
 	retval = e_source_group_equal (grpa, grpb);
 
@@ -885,6 +921,11 @@ e_source_group_xmlstr_equal (const gchar *a, const gchar *b)
 	return retval;
 }
 
+/**
+ * e_source_group_get_property:
+ *
+ * Since: 1.12
+ **/
 gchar *
 e_source_group_get_property (ESourceGroup *source_group,
 			     const gchar *property)
@@ -897,6 +938,11 @@ e_source_group_get_property (ESourceGroup *source_group,
 	return g_strdup (g_hash_table_lookup (priv->properties, property));
 }
 
+/**
+ * e_source_group_set_property:
+ *
+ * Since: 1.12
+ **/
 void
 e_source_group_set_property (ESourceGroup *source_group,
 			     const gchar *property,
@@ -915,6 +961,11 @@ e_source_group_set_property (ESourceGroup *source_group,
 	g_signal_emit (source_group, signals[CHANGED], 0);
 }
 
+/**
+ * e_source_group_foreach_property:
+ *
+ * Since: 1.12
+ **/
 void
 e_source_group_foreach_property (ESourceGroup *source_group, GHFunc func, gpointer data)
 {

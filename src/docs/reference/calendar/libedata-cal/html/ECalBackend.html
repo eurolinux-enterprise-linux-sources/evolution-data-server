@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ECalBackend</title>
-<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
 <link rel="home" href="index.html" title="Evolution-Data-Server Manual: Calendar Backend (libedata-cal)">
 <link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Calendar Backend (libedata-cal)">
 <link rel="prev" href="ch01.html" title="Evolution-Data-Server Manual: Calendar Backend (libedata-cal)">
 <link rel="next" href="ECalBackendCache.html" title="ECalBackendCache">
-<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.15 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -24,9 +24,15 @@
 <a href="#ECalBackend.synopsis" class="shortcut">Top</a>
                    | 
                   <a href="#ECalBackend.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ECalBackend.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ECalBackend.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#ECalBackend.signals" class="shortcut">Signals</a>
 </td></tr>
 </table>
-<div class="refentry" lang="en">
+<div class="refentry" title="ECalBackend">
 <a name="ECalBackend"></a><div class="titlepage"></div>
 <div class="refnamediv"><table width="100%"><tr>
 <td valign="top">
@@ -35,190 +41,248 @@
 </td>
 <td valign="top" align="right"></td>
 </tr></table></div>
-<div class="refsynopsisdiv">
+<div class="refsynopsisdiv" title="Synopsis">
 <a name="ECalBackend.synopsis"></a><h2>Synopsis</h2>
-<pre class="synopsis"><a href="../libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ECalBackend.html#e-cal-backend-get-source" title="e_cal_backend_get_source ()">e_cal_backend_get_source</a>            (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
-const <span class="returnvalue">gchar</span> *       <a class="link" href="ECalBackend.html#e-cal-backend-get-uri" title="e_cal_backend_get_uri ()">e_cal_backend_get_uri</a>               (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
+<pre class="synopsis">                    <a class="link" href="ECalBackend.html#ECalBackend-struct" title="ECalBackend">ECalBackend</a>;
+<a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ECalBackend.html#e-cal-backend-get-source" title="e_cal_backend_get_source ()">e_cal_backend_get_source</a>            (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ECalBackend.html#e-cal-backend-get-uri" title="e_cal_backend_get_uri ()">e_cal_backend_get_uri</a>               (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
 <span class="returnvalue">icalcomponent_kind</span>  <a class="link" href="ECalBackend.html#e-cal-backend-get-kind" title="e_cal_backend_get_kind ()">e_cal_backend_get_kind</a>              (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
+const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       <a class="link" href="ECalBackend.html#e-cal-backend-get-cache-dir" title="e_cal_backend_get_cache_dir ()">e_cal_backend_get_cache_dir</a>         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-set-cache-dir" title="e_cal_backend_set_cache_dir ()">e_cal_backend_set_cache_dir</a>         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *cache_dir</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-add-client" title="e_cal_backend_add_client ()">e_cal_backend_add_client</a>            (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-remove-client" title="e_cal_backend_remove_client ()">e_cal_backend_remove_client</a>         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-add-query" title="e_cal_backend_add_query ()">e_cal_backend_add_query</a>             (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>);
-<a href="../libedataserver/EList.html"><span class="returnvalue">EList</span></a> *             <a class="link" href="ECalBackend.html#e-cal-backend-get-queries" title="e_cal_backend_get_queries ()">e_cal_backend_get_queries</a>           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>);
+<a href="/usr/share/gtk-doc/html/libedataserver/EList.html"><span class="returnvalue">EList</span></a> *             <a class="link" href="ECalBackend.html#e-cal-backend-get-queries" title="e_cal_backend_get_queries ()">e_cal_backend_get_queries</a>           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-remove-query" title="e_cal_backend_remove_query ()">e_cal_backend_remove_query</a>          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>);
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-is-read-only" title="e_cal_backend_is_read_only ()">e_cal_backend_is_read_only</a>          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-cal-address" title="e_cal_backend_get_cal_address ()">e_cal_backend_get_cal_address</a>       (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-alarm-email-address" title="e_cal_backend_get_alarm_email_address ()">e_cal_backend_get_alarm_email_address</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-ldap-attribute" title="e_cal_backend_get_ldap_attribute ()">e_cal_backend_get_ldap_attribute</a>    (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-static-capabilities" title="e_cal_backend_get_static_capabilities ()">e_cal_backend_get_static_capabilities</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-open" title="e_cal_backend_open ()">e_cal_backend_open</a>                  (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> only_if_exists</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *username</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *password</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> only_if_exists</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *username</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *password</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-refresh" title="e_cal_backend_refresh ()">e_cal_backend_refresh</a>               (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-remove" title="e_cal_backend_remove ()">e_cal_backend_remove</a>                (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-create-object" title="e_cal_backend_create_object ()">e_cal_backend_create_object</a>         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *calobj</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *calobj</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-modify-object" title="e_cal_backend_modify_object ()">e_cal_backend_modify_object</a>         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *calobj</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/libecal-e-cal-util.html#CalObjModType"><span class="type">CalObjModType</span></a> mod</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *calobj</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libecal/libecal-e-cal-util.html#CalObjModType"><span class="type">CalObjModType</span></a> mod</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-remove-object" title="e_cal_backend_remove_object ()">e_cal_backend_remove_object</a>         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *rid</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/libecal-e-cal-util.html#CalObjModType"><span class="type">CalObjModType</span></a> mod</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libecal/libecal-e-cal-util.html#CalObjModType"><span class="type">CalObjModType</span></a> mod</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-discard-alarm" title="e_cal_backend_discard_alarm ()">e_cal_backend_discard_alarm</a>         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *auid</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *auid</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-receive-objects" title="e_cal_backend_receive_objects ()">e_cal_backend_receive_objects</a>       (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *calobj</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *calobj</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-send-objects" title="e_cal_backend_send_objects ()">e_cal_backend_send_objects</a>          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *calobj</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *calobj</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-default-object" title="e_cal_backend_get_default_object ()">e_cal_backend_get_default_object</a>    (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-object" title="e_cal_backend_get_object ()">e_cal_backend_get_object</a>            (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *rid</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-object-list" title="e_cal_backend_get_object_list ()">e_cal_backend_get_object_list</a>       (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *sexp</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sexp</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-attachment-list" title="e_cal_backend_get_attachment_list ()">e_cal_backend_get_attachment_list</a>   (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *rid</code></em>);
-<span class="returnvalue">gboolean</span>            <a class="link" href="ECalBackend.html#e-cal-backend-is-loaded" title="e_cal_backend_is_loaded ()">e_cal_backend_is_loaded</a>             (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>);
+<a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            <a class="link" href="ECalBackend.html#e-cal-backend-is-loaded" title="e_cal_backend_is_loaded ()">e_cal_backend_is_loaded</a>             (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-start-query" title="e_cal_backend_start_query ()">e_cal_backend_start_query</a>           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>);
-<a href="../libecal/libecal-e-cal-util.html#CalMode"><span class="returnvalue">CalMode</span></a>             <a class="link" href="ECalBackend.html#e-cal-backend-get-mode" title="e_cal_backend_get_mode ()">e_cal_backend_get_mode</a>              (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>);
+<a href="/usr/share/gtk-doc/html/libecal/libecal-e-cal-util.html#CalMode"><span class="returnvalue">CalMode</span></a>             <a class="link" href="ECalBackend.html#e-cal-backend-get-mode" title="e_cal_backend_get_mode ()">e_cal_backend_get_mode</a>              (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-set-mode" title="e_cal_backend_set_mode ()">e_cal_backend_set_mode</a>              (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/libecal-e-cal-util.html#CalMode"><span class="type">CalMode</span></a> mode</code></em>);
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libecal/libecal-e-cal-util.html#CalMode"><span class="type">CalMode</span></a> mode</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-timezone" title="e_cal_backend_get_timezone ()">e_cal_backend_get_timezone</a>          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-add-timezone" title="e_cal_backend_add_timezone ()">e_cal_backend_add_timezone</a>          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *object</code></em>);
-<span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-set-default-timezone" title="e_cal_backend_set_default_timezone ()">e_cal_backend_set_default_timezone</a>  (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-set-default-zone" title="e_cal_backend_set_default_zone ()">e_cal_backend_set_default_zone</a>      (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzobj</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzobj</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-changes" title="e_cal_backend_get_changes ()">e_cal_backend_get_changes</a>           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *change_id</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *change_id</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-get-free-busy" title="e_cal_backend_get_free_busy ()">e_cal_backend_get_free_busy</a>         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> *users</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *users</code></em>,
                                                          <em class="parameter"><code><span class="type">time_t</span> start</code></em>,
                                                          <em class="parameter"><code><span class="type">time_t</span> end</code></em>);
 <span class="returnvalue">icaltimezone</span>*       <a class="link" href="ECalBackend.html#e-cal-backend-internal-get-default-timezone" title="e_cal_backend_internal_get_default_timezone ()">e_cal_backend_internal_get_default_timezone</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
 <span class="returnvalue">icaltimezone</span>*       <a class="link" href="ECalBackend.html#e-cal-backend-internal-get-timezone" title="e_cal_backend_internal_get_timezone ()">e_cal_backend_internal_get_timezone</a> (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-set-notification-proxy" title="e_cal_backend_set_notification_proxy ()">e_cal_backend_set_notification_proxy</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *proxy</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-object-created" title="e_cal_backend_notify_object_created ()">e_cal_backend_notify_object_created</a> (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *calobj</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *calobj</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-object-modified" title="e_cal_backend_notify_object_modified ()">e_cal_backend_notify_object_modified</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *old_object</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *object</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *old_object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-object-removed" title="e_cal_backend_notify_object_removed ()">e_cal_backend_notify_object_removed</a> (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <a href="../libecal/ECalComponent.html#ECalComponentId"><span class="type">ECalComponentId</span></a> *id</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *old_object</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *object</code></em>);
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/libecal/ECalComponent.html#ECalComponentId"><span class="type">ECalComponentId</span></a> *id</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *old_object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-mode" title="e_cal_backend_notify_mode ()">e_cal_backend_notify_mode</a>           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Calendar_CalListener_SetModeStatus</span> status</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Calendar_CalMode</span> mode</code></em>);
+                                                         <em class="parameter"><code><span class="type">EDataCalViewListenerSetModeStatus</span> status</code></em>,
+                                                         <em class="parameter"><code><span class="type">EDataCalMode</span> mode</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-auth-required" title="e_cal_backend_notify_auth_required ()">e_cal_backend_notify_auth_required</a>  (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-error" title="e_cal_backend_notify_error ()">e_cal_backend_notify_error</a>          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-view-done" title="e_cal_backend_notify_view_done ()">e_cal_backend_notify_view_done</a>      (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Calendar_CallStatus</span> status</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-view-progress-start" title="e_cal_backend_notify_view_progress_start ()">e_cal_backend_notify_view_progress_start</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-view-progress" title="e_cal_backend_notify_view_progress ()">e_cal_backend_notify_view_progress</a>  (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> percent</code></em>);
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> percent</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-readonly" title="e_cal_backend_notify_readonly ()">e_cal_backend_notify_readonly</a>       (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> read_only</code></em>);
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> read_only</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-cal-address" title="e_cal_backend_notify_cal_address ()">e_cal_backend_notify_cal_address</a>    (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *address</code></em>);
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *address</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-objects-added" title="e_cal_backend_notify_objects_added ()">e_cal_backend_notify_objects_added</a>  (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">GList</span> *objects</code></em>);
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *objects</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-objects-removed" title="e_cal_backend_notify_objects_removed ()">e_cal_backend_notify_objects_removed</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">GList</span> *ids</code></em>);
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *ids</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-notify-objects-modified" title="e_cal_backend_notify_objects_modified ()">e_cal_backend_notify_objects_modified</a>
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">GList</span> *objects</code></em>);
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *objects</code></em>);
 <span class="returnvalue">void</span>                <a class="link" href="ECalBackend.html#e-cal-backend-empty-cache" title="e_cal_backend_empty_cache ()">e_cal_backend_empty_cache</a>           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><span class="type">struct _ECalBackendCache</span> *cache</code></em>);
 </pre>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Object Hierarchy">
+<a name="ECalBackend.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  <a href="http://library.gnome.org/devel/gobject/unstable/gobject-The-Base-Object-Type.html#GObject">GObject</a>
+   +----ECalBackend
+         +----<a class="link" href="ECalBackendSync.html" title="ECalBackendSync">ECalBackendSync</a>
+</pre>
+</div>
+<div class="refsect1" title="Properties">
+<a name="ECalBackend.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ECalBackend.html#ECalBackend--cache-dir" title='The "cache-dir" property'>cache-dir</a>"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write
+  "<a class="link" href="ECalBackend.html#ECalBackend--kind" title='The "kind" property'>kind</a>"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gulong"><span class="type">gulong</span></a>                : Read / Write / Construct Only
+  "<a class="link" href="ECalBackend.html#ECalBackend--source" title='The "source" property'>source</a>"                   <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>*              : Read / Write / Construct Only
+  "<a class="link" href="ECalBackend.html#ECalBackend--uri" title='The "uri" property'>uri</a>"                      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1" title="Signals">
+<a name="ECalBackend.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="ECalBackend.html#ECalBackend-last-client-gone" title='The "last-client-gone" signal'>last-client-gone</a>"                               : Run First
+</pre>
+</div>
+<div class="refsect1" title="Description">
 <a name="ECalBackend.description"></a><h2>Description</h2>
 <p>
 </p>
 </div>
-<div class="refsect1" lang="en">
+<div class="refsect1" title="Details">
 <a name="ECalBackend.details"></a><h2>Details</h2>
-<div class="refsect2" lang="en">
-<a name="e-cal-backend-get-source"></a><h3>e_cal_backend_get_source ()</h3>
-<pre class="programlisting"><a href="../libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_cal_backend_get_source            (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
+<div class="refsect2" title="ECalBackend">
+<a name="ECalBackend-struct"></a><h3>ECalBackend</h3>
+<pre class="programlisting">typedef struct _ECalBackend ECalBackend;</pre>
 <p>
-Gets the <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> associated with the given backend.</p>
+</p>
+</div>
+<hr>
+<div class="refsect2" title="e_cal_backend_get_source ()">
+<a name="e-cal-backend-get-source"></a><h3>e_cal_backend_get_source ()</h3>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_cal_backend_get_source            (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
+<p>
+Gets the <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> associated with the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>An <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> object.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
-<td> The <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> for the backend.
+<td> The <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a> for the backend.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_uri ()">
 <a name="e-cal-backend-get-uri"></a><h3>e_cal_backend_get_uri ()</h3>
-<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_cal_backend_get_uri               (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_cal_backend_get_uri               (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
 <p>
 Queries the URI of a calendar backend, which must already have an open
-calendar.</p>
+calendar.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -230,17 +294,18 @@ calendar.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_kind ()">
 <a name="e-cal-backend-get-kind"></a><h3>e_cal_backend_get_kind ()</h3>
 <pre class="programlisting"><span class="returnvalue">icalcomponent_kind</span>  e_cal_backend_get_kind              (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
 <p>
-Gets the kind of components the given backend stores.</p>
+Gets the kind of components the given backend stores.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>An <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> object.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -252,89 +317,148 @@ Gets the kind of components the given backend stores.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_cache_dir ()">
+<a name="e-cal-backend-get-cache-dir"></a><h3>e_cal_backend_get_cache_dir ()</h3>
+<pre class="programlisting">const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="returnvalue">gchar</span></a> *       e_cal_backend_get_cache_dir         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
+<p>
+Returns the cache directory for the given backend.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the cache directory for the backend
+
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2" title="e_cal_backend_set_cache_dir ()">
+<a name="e-cal-backend-set-cache-dir"></a><h3>e_cal_backend_set_cache_dir ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_set_cache_dir         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *cache_dir</code></em>);</pre>
+<p>
+Sets the cache directory for the given backend.
+</p>
+<p>
+Note that <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> is initialized with a usable default based on
+<a class="link" href="ECalBackend.html#ECalBackend--source" title='The "source" property'><span class="type">"source"</span></a> and <a class="link" href="ECalBackend.html#ECalBackend--kind" title='The "kind" property'><span class="type">"kind"</span></a> properties.  Backends should
+not override the default without good reason.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cache_dir</code></em> :</span></p></td>
+<td>a local cache directory
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 2.32</p>
+</div>
+<hr>
+<div class="refsect2" title="e_cal_backend_add_client ()">
 <a name="e-cal-backend-add-client"></a><h3>e_cal_backend_add_client ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_add_client            (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);</pre>
 <p>
 Adds a new client to the given backend. For any event, the backend will
-notify all clients added via this function.</p>
+notify all clients added via this function.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>An ECalBackend object.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An EDataCal object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_remove_client ()">
 <a name="e-cal-backend-remove-client"></a><h3>e_cal_backend_remove_client ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_remove_client         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);</pre>
 <p>
-Removes a client from the list of connected clients to the given backend.</p>
+Removes a client from the list of connected clients to the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>An <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> object.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_add_query ()">
 <a name="e-cal-backend-add-query"></a><h3>e_cal_backend_add_query ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_add_query             (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>);</pre>
 <p>
 Adds a query to the list of live queries being run by the given backend.
 Doing so means that any listener on the query will get notified of any
-change that affect the live query.</p>
+change that affect the live query.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>An <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> object.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>query</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> object.
+<td>An <span class="type">EDataCalView</span> object.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_queries ()">
 <a name="e-cal-backend-get-queries"></a><h3>e_cal_backend_get_queries ()</h3>
-<pre class="programlisting"><a href="../libedataserver/EList.html"><span class="returnvalue">EList</span></a> *             e_cal_backend_get_queries           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libedataserver/EList.html"><span class="returnvalue">EList</span></a> *             e_cal_backend_get_queries           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
 <p>
-Gets the list of live queries being run on the given backend.</p>
+Gets the list of live queries being run on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>An <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> object.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -346,65 +470,70 @@ Gets the list of live queries being run on the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_remove_query ()">
 <a name="e-cal-backend-remove-query"></a><h3>e_cal_backend_remove_query ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_remove_query          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>);</pre>
 <p>
-Removes query from the list of live queries for the backend.</p>
+Removes query from the list of live queries for the backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>An <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> object.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>query</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> object, previously added with <em class="parameter"><code>ref</code></em> e_cal_backend_add_query.
+<td>An <span class="type">EDataCalView</span> object, previously added with <em class="parameter"><code>ref</code></em> e_cal_backend_add_query.
 </td>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_is_read_only ()">
 <a name="e-cal-backend-is-read-only"></a><h3>e_cal_backend_is_read_only ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_is_read_only          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);</pre>
 <p>
-Queries whether a calendar backend is read only or not.</p>
+Queries whether a calendar backend is read only or not.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_cal_address ()">
 <a name="e-cal-backend-get-cal-address"></a><h3>e_cal_backend_get_cal_address ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_cal_address       (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);</pre>
 <p>
 Queries the cal address associated with a calendar backend, which
-must already have an open calendar.</p>
+must already have an open calendar.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -412,38 +541,51 @@ must already have an open calendar.</p>
 <td>
 </td>
 </tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_alarm_email_address ()">
 <a name="e-cal-backend-get-alarm-email-address"></a><h3>e_cal_backend_get_alarm_email_address ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_alarm_email_address
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);</pre>
 <p>
-Calls the get_static_capabilities method on the given backend.</p>
+Calls the get_static_capabilities method on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>An <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> object.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_ldap_attribute ()">
 <a name="e-cal-backend-get-ldap-attribute"></a><h3>e_cal_backend_get_ldap_attribute ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_ldap_attribute    (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -459,15 +601,21 @@ Calls the get_static_capabilities method on the given backend.</p>
 <td>
 </td>
 </tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_static_capabilities ()">
 <a name="e-cal-backend-get-static-capabilities"></a><h3>e_cal_backend_get_static_capabilities ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_static_capabilities
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -483,31 +631,43 @@ Calls the get_static_capabilities method on the given backend.</p>
 <td>
 </td>
 </tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_open ()">
 <a name="e-cal-backend-open"></a><h3>e_cal_backend_open ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_open                  (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> only_if_exists</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *username</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *password</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> only_if_exists</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *username</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *password</code></em>);</pre>
 <p>
 Opens a calendar backend with data from a calendar stored at the specified
-URI.</p>
+URI.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -531,47 +691,92 @@ does not exist.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
-<a name="e-cal-backend-remove"></a><h3>e_cal_backend_remove ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_remove                (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);</pre>
+<div class="refsect2" title="e_cal_backend_refresh ()">
+<a name="e-cal-backend-refresh"></a><h3>e_cal_backend_refresh ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_refresh               (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);</pre>
 <p>
-Removes the calendar being accessed by the given backend.</p>
+Refreshes the calendar being accessed by the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="since">Since 2.30</p>
+</div>
+<hr>
+<div class="refsect2" title="e_cal_backend_remove ()">
+<a name="e-cal-backend-remove"></a><h3>e_cal_backend_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_remove                (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);</pre>
+<p>
+Removes the calendar being accessed by the given backend.
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_create_object ()">
 <a name="e-cal-backend-create-object"></a><h3>e_cal_backend_create_object ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_create_object         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *calobj</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *calobj</code></em>);</pre>
 <p>
-Calls the create_object method on the given backend.</p>
+Calls the create_object method on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -583,25 +788,32 @@ Calls the create_object method on the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_modify_object ()">
 <a name="e-cal-backend-modify-object"></a><h3>e_cal_backend_modify_object ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_modify_object         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *calobj</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/libecal-e-cal-util.html#CalObjModType"><span class="type">CalObjModType</span></a> mod</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *calobj</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libecal/libecal-e-cal-util.html#CalObjModType"><span class="type">CalObjModType</span></a> mod</code></em>);</pre>
 <p>
-Calls the modify_object method on the given backend.</p>
+Calls the modify_object method on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -618,27 +830,34 @@ Calls the modify_object method on the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_remove_object ()">
 <a name="e-cal-backend-remove-object"></a><h3>e_cal_backend_remove_object ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_remove_object         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *rid</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/libecal-e-cal-util.html#CalObjModType"><span class="type">CalObjModType</span></a> mod</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>,
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libecal/libecal-e-cal-util.html#CalObjModType"><span class="type">CalObjModType</span></a> mod</code></em>);</pre>
 <p>
 Removes an object in a calendar backend.  The backend will notify all of its
-clients about the change.</p>
+clients about the change.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -660,26 +879,33 @@ clients about the change.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_discard_alarm ()">
 <a name="e-cal-backend-discard-alarm"></a><h3>e_cal_backend_discard_alarm ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_discard_alarm         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *auid</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *auid</code></em>);</pre>
 <p>
 Discards an alarm from the given component. This allows the specific backend
-to do whatever is needed to really discard the alarm.</p>
+to do whatever is needed to really discard the alarm.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -696,24 +922,31 @@ to do whatever is needed to really discard the alarm.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_receive_objects ()">
 <a name="e-cal-backend-receive-objects"></a><h3>e_cal_backend_receive_objects ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_receive_objects       (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *calobj</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *calobj</code></em>);</pre>
 <p>
-Calls the receive_objects method on the given backend.</p>
+Calls the receive_objects method on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -725,24 +958,31 @@ Calls the receive_objects method on the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_send_objects ()">
 <a name="e-cal-backend-send-objects"></a><h3>e_cal_backend_send_objects ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_send_objects          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *calobj</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *calobj</code></em>);</pre>
 <p>
-Calls the send_objects method on the given backend.</p>
+Calls the send_objects method on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -754,49 +994,63 @@ Calls the send_objects method on the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_default_object ()">
 <a name="e-cal-backend-get-default-object"></a><h3>e_cal_backend_get_default_object ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_default_object    (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>);</pre>
+                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>);</pre>
 <p>
-Calls the get_default_object method on the given backend.</p>
+Calls the get_default_object method on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_object ()">
 <a name="e-cal-backend-get-object"></a><h3>e_cal_backend_get_object ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_object            (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *rid</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>);</pre>
 <p>
 Queries a calendar backend for a calendar object based on its unique
-identifier and its recurrence ID (if a recurrent appointment).</p>
+identifier and its recurrence ID (if a recurrent appointment).
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -813,24 +1067,31 @@ identifier and its recurrence ID (if a recurrent appointment).</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_object_list ()">
 <a name="e-cal-backend-get-object-list"></a><h3>e_cal_backend_get_object_list ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_object_list       (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *sexp</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *sexp</code></em>);</pre>
 <p>
-Calls the get_object_list method on the given backend.</p>
+Calls the get_object_list method on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -842,26 +1103,33 @@ Calls the get_object_list method on the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_attachment_list ()">
 <a name="e-cal-backend-get-attachment-list"></a><h3>e_cal_backend_get_attachment_list ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_attachment_list   (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *rid</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *uid</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *rid</code></em>);</pre>
 <p>
 Queries a calendar backend for attachments present in a calendar object based
-on its unique identifier and its recurrence ID (if a recurrent appointment).</p>
+on its unique identifier and its recurrence ID (if a recurrent appointment).
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -878,17 +1146,18 @@ on its unique identifier and its recurrence ID (if a recurrent appointment).</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_is_loaded ()">
 <a name="e-cal-backend-is-loaded"></a><h3>e_cal_backend_is_loaded ()</h3>
-<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_cal_backend_is_loaded             (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
+<pre class="programlisting"><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="returnvalue">gboolean</span></a>            e_cal_backend_is_loaded             (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
 <p>
-Queries whether a calendar backend has been loaded yet.</p>
+Queries whether a calendar backend has been loaded yet.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -901,18 +1170,19 @@ otherwise.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_start_query ()">
 <a name="e-cal-backend-start-query"></a><h3>e_cal_backend_start_query ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_start_query           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>);</pre>
 <p>
-Starts a new live query on the given backend.</p>
+Starts a new live query on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -924,17 +1194,18 @@ Starts a new live query on the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_mode ()">
 <a name="e-cal-backend-get-mode"></a><h3>e_cal_backend_get_mode ()</h3>
-<pre class="programlisting"><a href="../libecal/libecal-e-cal-util.html#CalMode"><span class="returnvalue">CalMode</span></a>             e_cal_backend_get_mode              (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
+<pre class="programlisting"><a href="/usr/share/gtk-doc/html/libecal/libecal-e-cal-util.html#CalMode"><span class="returnvalue">CalMode</span></a>             e_cal_backend_get_mode              (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
 <p>
-Queries whether a calendar backend is connected remotely.</p>
+Queries whether a calendar backend is connected remotely.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -946,12 +1217,13 @@ Queries whether a calendar backend is connected remotely.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_set_mode ()">
 <a name="e-cal-backend-set-mode"></a><h3>e_cal_backend_set_mode ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_set_mode              (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a href="../libecal/libecal-e-cal-util.html#CalMode"><span class="type">CalMode</span></a> mode</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="/usr/share/gtk-doc/html/libecal/libecal-e-cal-util.html#CalMode"><span class="type">CalMode</span></a> mode</code></em>);</pre>
 <p>
-Sets the mode of the calendar</p>
+Sets the mode of the calendar
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -969,22 +1241,28 @@ Sets the mode of the calendar</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_timezone ()">
 <a name="e-cal-backend-get-timezone"></a><h3>e_cal_backend_get_timezone ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_timezone          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -997,24 +1275,31 @@ NULL.
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_add_timezone ()">
 <a name="e-cal-backend-add-timezone"></a><h3>e_cal_backend_add_timezone ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_add_timezone          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *object</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object</code></em>);</pre>
 <p>
-Add a timezone object to the given backend.</p>
+Add a timezone object to the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -1026,55 +1311,32 @@ Add a timezone object to the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
-<a name="e-cal-backend-set-default-timezone"></a><h3>e_cal_backend_set_default_timezone ()</h3>
-<pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_set_default_timezone  (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);</pre>
-<p>
-Sets the default timezone for the calendar, which is used to resolve
-DATE and floating DATE-TIME values.</p>
-<div class="variablelist"><table border="0">
-<col align="left" valign="top">
-<tbody>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
-</td>
-</tr>
-<tr>
-<td><p><span class="term"><em class="parameter"><code>tzid</code></em> :</span></p></td>
-<td>The TZID identifying the timezone.
-</td>
-</tr>
-</tbody>
-</table></div>
-</div>
-<hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_set_default_zone ()">
 <a name="e-cal-backend-set-default-zone"></a><h3>e_cal_backend_set_default_zone ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_set_default_zone      (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzobj</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzobj</code></em>);</pre>
 <p>
 Sets the default timezone for the calendar, which is used to resolve
-DATE and floating DATE-TIME values.</p>
+DATE and floating DATE-TIME values.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -1086,25 +1348,32 @@ DATE and floating DATE-TIME values.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_changes ()">
 <a name="e-cal-backend-get-changes"></a><h3>e_cal_backend_get_changes ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_changes           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *change_id</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *change_id</code></em>);</pre>
 <p>
 Builds a sequence of objects and the type of change that occurred on them since
-the last time the give change_id was seen</p>
+the last time the give change_id was seen
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -1116,26 +1385,33 @@ the last time the give change_id was seen</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_get_free_busy ()">
 <a name="e-cal-backend-get-free-busy"></a><h3>e_cal_backend_get_free_busy ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_get_free_busy         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> *cal</code></em>,
-                                                         <em class="parameter"><code><span class="type">GList</span> *users</code></em>,
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *users</code></em>,
                                                          <em class="parameter"><code><span class="type">time_t</span> start</code></em>,
                                                          <em class="parameter"><code><span class="type">time_t</span> end</code></em>);</pre>
 <p>
-Gets a free/busy object for the given time interval</p>
+Gets a free/busy object for the given time interval
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>cal</code></em> :</span></p></td>
-<td>An <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a> object.
+<td>an <a class="link" href="EDataCal.html" title="EDataCal"><span class="type">EDataCal</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
+<td>
 </td>
 </tr>
 <tr>
@@ -1157,18 +1433,19 @@ Gets a free/busy object for the given time interval</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_internal_get_default_timezone ()">
 <a name="e-cal-backend-internal-get-default-timezone"></a><h3>e_cal_backend_internal_get_default_timezone ()</h3>
 <pre class="programlisting"><span class="returnvalue">icaltimezone</span>*       e_cal_backend_internal_get_default_timezone
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
 <p>
-Calls the internal_get_default_timezone method on the given backend.</p>
+Calls the internal_get_default_timezone method on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -1180,18 +1457,19 @@ Calls the internal_get_default_timezone method on the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_internal_get_timezone ()">
 <a name="e-cal-backend-internal-get-timezone"></a><h3>e_cal_backend_internal_get_timezone ()</h3>
 <pre class="programlisting"><span class="returnvalue">icaltimezone</span>*       e_cal_backend_internal_get_timezone (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *tzid</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *tzid</code></em>);</pre>
 <p>
-Calls the internal_get_timezone method on the given backend.</p>
+Calls the internal_get_timezone method on the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -1208,19 +1486,20 @@ Calls the internal_get_timezone method on the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_set_notification_proxy ()">
 <a name="e-cal-backend-set-notification-proxy"></a><h3>e_cal_backend_set_notification_proxy ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_set_notification_proxy
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *proxy</code></em>);</pre>
 <p>
-Sets the backend that will act as notification proxy for the given backend.</p>
+Sets the backend that will act as notification proxy for the given backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -1232,23 +1511,24 @@ Sets the backend that will act as notification proxy for the given backend.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_object_created ()">
 <a name="e-cal-backend-notify-object-created"></a><h3>e_cal_backend_notify_object_created ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_object_created (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *calobj</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *calobj</code></em>);</pre>
 <p>
 Notifies each of the backend's listeners about a new object.
 </p>
 <p>
 #<a class="link" href="EDataCal.html#e-data-cal-notify-object-created" title="e_data_cal_notify_object_created ()"><code class="function">e_data_cal_notify_object_created()</code></a> calls this for you. You only need to
 call <a class="link" href="ECalBackend.html#e-cal-backend-notify-object-created" title="e_cal_backend_notify_object_created ()"><code class="function">e_cal_backend_notify_object_created()</code></a> yourself to report objects
-created by non-EDS clients.</p>
+created by non-EDS clients.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -1260,25 +1540,26 @@ created by non-EDS clients.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_object_modified ()">
 <a name="e-cal-backend-notify-object-modified"></a><h3>e_cal_backend_notify_object_modified ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_object_modified
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *old_object</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *object</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *old_object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object</code></em>);</pre>
 <p>
 Notifies each of the backend's listeners about a modified object.
 </p>
 <p>
 #<a class="link" href="EDataCal.html#e-data-cal-notify-object-modified" title="e_data_cal_notify_object_modified ()"><code class="function">e_data_cal_notify_object_modified()</code></a> calls this for you. You only need to
 call <a class="link" href="ECalBackend.html#e-cal-backend-notify-object-modified" title="e_cal_backend_notify_object_modified ()"><code class="function">e_cal_backend_notify_object_modified()</code></a> yourself to report objects
-modified by non-EDS clients.</p>
+modified by non-EDS clients.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -1295,25 +1576,26 @@ modified by non-EDS clients.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_object_removed ()">
 <a name="e-cal-backend-notify-object-removed"></a><h3>e_cal_backend_notify_object_removed ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_object_removed (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <a href="../libecal/ECalComponent.html#ECalComponentId"><span class="type">ECalComponentId</span></a> *id</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *old_object</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *object</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="/usr/share/gtk-doc/html/libecal/ECalComponent.html#ECalComponentId"><span class="type">ECalComponentId</span></a> *id</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *old_object</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *object</code></em>);</pre>
 <p>
 Notifies each of the backend's listeners about a removed object.
 </p>
 <p>
 <a class="link" href="EDataCal.html#e-data-cal-notify-object-removed" title="e_data_cal_notify_object_removed ()"><code class="function">e_data_cal_notify_object_removed()</code></a> calls this for you. You only need to
 call <a class="link" href="ECalBackend.html#e-cal-backend-notify-object-removed" title="e_cal_backend_notify_object_removed ()"><code class="function">e_cal_backend_notify_object_removed()</code></a> yourself to report objects
-removed by non-EDS clients.</p>
+removed by non-EDS clients.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -1335,20 +1617,21 @@ removed by non-EDS clients.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_mode ()">
 <a name="e-cal-backend-notify-mode"></a><h3>e_cal_backend_notify_mode ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_mode           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Calendar_CalListener_SetModeStatus</span> status</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Calendar_CalMode</span> mode</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EDataCalViewListenerSetModeStatus</span> status</code></em>,
+                                                         <em class="parameter"><code><span class="type">EDataCalMode</span> mode</code></em>);</pre>
 <p>
 Notifies each of the backend's listeners about the results of a
-setMode call.</p>
+setMode call.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -1365,34 +1648,36 @@ setMode call.</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_auth_required ()">
 <a name="e-cal-backend-notify-auth-required"></a><h3>e_cal_backend_notify_auth_required ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_auth_required  (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
 <p>
 Notifies each of the backend's listeners that authentication is required to
-open the calendar.</p>
+open the calendar.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr></tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_error ()">
 <a name="e-cal-backend-notify-error"></a><h3>e_cal_backend_notify_error ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_error          (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>);</pre>
 <p>
-Notifies each of the backend's listeners about an error</p>
+Notifies each of the backend's listeners about an error
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -1404,59 +1689,63 @@ Notifies each of the backend's listeners about an error</p>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_view_done ()">
 <a name="e-cal-backend-notify-view-done"></a><h3>e_cal_backend_notify_view_done ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_view_done      (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">GNOME_Evolution_Calendar_CallStatus</span> status</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Error-Reporting.html#GError"><span class="type">GError</span></a> *error</code></em>);</pre>
 <p>
-Notifies each of the backend's listeners about the view_done in downloading the items.</p>
+Notifies each of the backend's listeners about the view_done in downloading the items.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
-<td><p><span class="term"><em class="parameter"><code>status</code></em> :</span></p></td>
-<td>returns the status once the view is fully populated.
+<td><p><span class="term"><em class="parameter"><code>error</code></em> :</span></p></td>
+<td>returns the error, if any, once the view is fully populated.
 </td>
 </tr>
 </tbody>
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_view_progress_start ()">
 <a name="e-cal-backend-notify-view-progress-start"></a><h3>e_cal_backend_notify_view_progress_start ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_view_progress_start
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>);</pre>
 <p>
 This methods has to be used before e_cal_backend_notify_view_progress.
-Sets last notified percent value to 0.</p>
+Sets last notified percent value to 0.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody><tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr></tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_view_progress ()">
 <a name="e-cal-backend-notify-view-progress"></a><h3>e_cal_backend_notify_view_progress ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_view_progress  (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">gchar</span> *message</code></em>,
-                                                         <em class="parameter"><code><span class="type">gint</span> percent</code></em>);</pre>
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *message</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gint"><span class="type">gint</span></a> percent</code></em>);</pre>
 <p>
-Notifies each of the backend's listeners about the view_progress in downloading the items.</p>
+Notifies each of the backend's listeners about the view_progress in downloading the items.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -1473,10 +1762,10 @@ Notifies each of the backend's listeners about the view_progress in downloading 
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_readonly ()">
 <a name="e-cal-backend-notify-readonly"></a><h3>e_cal_backend_notify_readonly ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_readonly       (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gboolean</span> read_only</code></em>);</pre>
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gboolean"><span class="type">gboolean</span></a> read_only</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -1496,10 +1785,11 @@ Notifies each of the backend's listeners about the view_progress in downloading 
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_cal_address ()">
 <a name="e-cal-backend-notify-cal-address"></a><h3>e_cal_backend_notify_cal_address ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_cal_address    (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><span class="type">gchar</span> *address</code></em>);</pre>
+                                                         <em class="parameter"><code><span class="type">EServerMethodContext</span> context</code></em>,
+                                                         <em class="parameter"><code><a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a> *address</code></em>);</pre>
 <p>
 </p>
 <div class="variablelist"><table border="0">
@@ -1507,6 +1797,11 @@ Notifies each of the backend's listeners about the view_progress in downloading 
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>context</code></em> :</span></p></td>
 <td>
 </td>
 </tr>
@@ -1519,13 +1814,11 @@ Notifies each of the backend's listeners about the view_progress in downloading 
 </table></div>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_objects_added ()">
 <a name="e-cal-backend-notify-objects-added"></a><h3>e_cal_backend_notify_objects_added ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_objects_added  (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">GList</span> *objects</code></em>);</pre>
-<p>
-</p>
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *objects</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1546,16 +1839,15 @@ Notifies each of the backend's listeners about the view_progress in downloading 
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_objects_removed ()">
 <a name="e-cal-backend-notify-objects-removed"></a><h3>e_cal_backend_notify_objects_removed ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_objects_removed
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">GList</span> *ids</code></em>);</pre>
-<p>
-</p>
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *ids</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1576,16 +1868,15 @@ Notifies each of the backend's listeners about the view_progress in downloading 
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_notify_objects_modified ()">
 <a name="e-cal-backend-notify-objects-modified"></a><h3>e_cal_backend_notify_objects_modified ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_notify_objects_modified
                                                         (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
-                                                         <em class="parameter"><code><a class="link" href="EDataCalView.html" title="EDataCalView"><span class="type">EDataCalView</span></a> *query</code></em>,
-                                                         <em class="parameter"><code>const <span class="type">GList</span> *objects</code></em>);</pre>
-<p>
-</p>
+                                                         <em class="parameter"><code><span class="type">EDataCalView</span> *query</code></em>,
+                                                         <em class="parameter"><code>const <a href="http://library.gnome.org/devel/glib/unstable/glib-Doubly-Linked-Lists.html#GList"><span class="type">GList</span></a> *objects</code></em>);</pre>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
@@ -1606,21 +1897,23 @@ Notifies each of the backend's listeners about the view_progress in downloading 
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.24</p>
 </div>
 <hr>
-<div class="refsect2" lang="en">
+<div class="refsect2" title="e_cal_backend_empty_cache ()">
 <a name="e-cal-backend-empty-cache"></a><h3>e_cal_backend_empty_cache ()</h3>
 <pre class="programlisting"><span class="returnvalue">void</span>                e_cal_backend_empty_cache           (<em class="parameter"><code><a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *backend</code></em>,
                                                          <em class="parameter"><code><span class="type">struct _ECalBackendCache</span> *cache</code></em>);</pre>
 <p>
 Empties backend's cache with all notifications and so on, thus all listening
-will know there is nothing in this backend.</p>
+will know there is nothing in this backend.
+</p>
 <div class="variablelist"><table border="0">
 <col align="left" valign="top">
 <tbody>
 <tr>
 <td><p><span class="term"><em class="parameter"><code>backend</code></em> :</span></p></td>
-<td>A calendar backend.
+<td>an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a>
 </td>
 </tr>
 <tr>
@@ -1630,11 +1923,65 @@ will know there is nothing in this backend.</p>
 </tr>
 </tbody>
 </table></div>
+<p class="since">Since 2.28</p>
+</div>
+</div>
+<div class="refsect1" title="Property Details">
+<a name="ECalBackend.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" title='The "cache-dir" property'>
+<a name="ECalBackend--cache-dir"></a><h3>The <code class="literal">"cache-dir"</code> property</h3>
+<pre class="programlisting">  "cache-dir"                <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write</pre>
+<p></p>
+<p>Default value: NULL</p>
+</div>
+<hr>
+<div class="refsect2" title='The "kind" property'>
+<a name="ECalBackend--kind"></a><h3>The <code class="literal">"kind"</code> property</h3>
+<pre class="programlisting">  "kind"                     <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gulong"><span class="type">gulong</span></a>                : Read / Write / Construct Only</pre>
+<p></p>
+<p>Allowed values: &lt;= 25</p>
+</div>
+<hr>
+<div class="refsect2" title='The "source" property'>
+<a name="ECalBackend--source"></a><h3>The <code class="literal">"source"</code> property</h3>
+<pre class="programlisting">  "source"                   <a href="/usr/share/gtk-doc/html/libedataserver/ESource.html"><span class="type">ESource</span></a>*              : Read / Write / Construct Only</pre>
+<p></p>
+</div>
+<hr>
+<div class="refsect2" title='The "uri" property'>
+<a name="ECalBackend--uri"></a><h3>The <code class="literal">"uri"</code> property</h3>
+<pre class="programlisting">  "uri"                      <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gchar"><span class="type">gchar</span></a>*                : Read / Write / Construct Only</pre>
+<p></p>
+<p>Default value: ""</p>
+</div>
+</div>
+<div class="refsect1" title="Signal Details">
+<a name="ECalBackend.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" title='The "last-client-gone" signal'>
+<a name="ECalBackend-last-client-gone"></a><h3>The <code class="literal">"last-client-gone"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> *ecalbackend,
+                                                        <a href="http://library.gnome.org/devel/glib/unstable/glib-Basic-Types.html#gpointer"><span class="type">gpointer</span></a>     user_data)        : Run First</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ecalbackend</code></em> :</span></p></td>
+<td>the object which received the signal.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 </div>
 </div>
 <div class="footer">
 <hr>
-          Generated by GTK-Doc V1.14</div>
+          Generated by GTK-Doc V1.15</div>
 </body>
 </html>
