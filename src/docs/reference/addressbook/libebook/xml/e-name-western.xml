@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libebook-ENameWestern">
+<refmeta>
+<refentrytitle role="top_of_page" id="libebook-ENameWestern.top_of_page">e-name-western</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEBOOK Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-name-western</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libebook-ENameWestern.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="ENameWestern">ENameWestern</link>;
+<link linkend="ENameWestern"><returnvalue>ENameWestern</returnvalue></link> *      <link linkend="e-name-western-parse">e_name_western_parse</link>                (<parameter>const <link linkend="gchar"><type>gchar</type></link> *full_name</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-name-western-free">e_name_western_free</link>                 (<parameter><link linkend="ENameWestern"><type>ENameWestern</type></link> *w</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libebook-ENameWestern.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libebook-ENameWestern.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ENameWestern" role="struct">
+<title>ENameWestern</title>
+<indexterm zone="ENameWestern"><primary>ENameWestern</primary></indexterm>
+<programlisting>typedef struct {
+	/* Public */
+	gchar *prefix;
+	gchar *first;
+	gchar *middle;
+	gchar *nick;
+	gchar *last;
+	gchar *suffix;
+
+	/* Private */
+	gchar *full;
+} ENameWestern;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-name-western-parse" role="function">
+<title>e_name_western_parse ()</title>
+<indexterm zone="e-name-western-parse"><primary>e_name_western_parse</primary></indexterm>
+<programlisting><link linkend="ENameWestern"><returnvalue>ENameWestern</returnvalue></link> *      e_name_western_parse                (<parameter>const <link linkend="gchar"><type>gchar</type></link> *full_name</parameter>);</programlisting>
+<para>
+Parses <parameter>full_name</parameter> and returns an <link linkend="ENameWestern"><type>ENameWestern</type></link> struct filled with
+the component parts of the name.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>full_name</parameter>&#160;:</term>
+<listitem><simpara>A string containing a western name.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="ENameWestern"><type>ENameWestern</type></link> struct.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-name-western-free" role="function">
+<title>e_name_western_free ()</title>
+<indexterm zone="e-name-western-free"><primary>e_name_western_free</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_name_western_free                 (<parameter><link linkend="ENameWestern"><type>ENameWestern</type></link> *w</parameter>);</programlisting>
+<para>
+Frees the <parameter>w</parameter> struct and its contents.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>w</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ENameWestern"><type>ENameWestern</type></link> struct
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

@@ -1,0 +1,386 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ESourceSelector">
+<refmeta>
+<refentrytitle role="top_of_page" id="ESourceSelector.top_of_page">ESourceSelector</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVERUI Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>ESourceSelector</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ESourceSelector.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="ESourceSelector-struct">ESourceSelector</link>;
+<link linkend="GtkWidget"><returnvalue>GtkWidget</returnvalue></link> *         <link linkend="e-source-selector-new">e_source_selector_new</link>               (<parameter><link linkend="ESourceList"><type>ESourceList</type></link> *list</parameter>);
+<link linkend="ESourceList"><returnvalue>ESourceList</returnvalue></link> *       <link linkend="e-source-selector-get-source-list">e_source_selector_get_source_list</link>   (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-selector-select-source">e_source_selector_select_source</link>     (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-selector-unselect-source">e_source_selector_unselect_source</link>   (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-selector-source-is-selected">e_source_selector_source_is_selected</link>
+                                                        (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="GSList"><returnvalue>GSList</returnvalue></link> *            <link linkend="e-source-selector-get-selection">e_source_selector_get_selection</link>     (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-selector-free-selection">e_source_selector_free_selection</link>    (<parameter><link linkend="GSList"><type>GSList</type></link> *list</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-selector-show-selection">e_source_selector_show_selection</link>    (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> show</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-selector-selection-shown">e_source_selector_selection_shown</link>   (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-selector-set-select-new">e_source_selector_set_select_new</link>    (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> state</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-selector-edit-primary-selection">e_source_selector_edit_primary_selection</link>
+                                                        (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-source-selector-peek-primary-selection">e_source_selector_peek_primary_selection</link>
+                                                        (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-selector-set-primary-selection">e_source_selector_set_primary_selection</link>
+                                                        (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="ESourceGroup"><returnvalue>ESourceGroup</returnvalue></link> *      <link linkend="e-source-selector-get-primary-source-group">e_source_selector_get_primary_source_group</link>
+                                                        (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="ESourceSelector.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="GtkObject">GtkObject</link>
+               +----<link linkend="GtkWidget">GtkWidget</link>
+                     +----<link linkend="GtkContainer">GtkContainer</link>
+                           +----<link linkend="GtkTreeView">GtkTreeView</link>
+                                 +----ESourceSelector
+</synopsis>
+</refsect1>
+<refsect1 id="ESourceSelector.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+ESourceSelector implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link> and  <link linkend="GtkBuildable">GtkBuildable</link>.</para>
+</refsect1>
+<refsect1 id="ESourceSelector.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ESourceSelector--source-list">source-list</link>&quot;              <link linkend="ESourceList"><type>ESourceList</type></link>*          : Read / Write / Construct Only
+</synopsis>
+</refsect1>
+<refsect1 id="ESourceSelector.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="ESourceSelector-data-dropped">data-dropped</link>&quot;                                   : Run Last
+  &quot;<link linkend="ESourceSelector-popup-event">popup-event</link>&quot;                                    : Run Last
+  &quot;<link linkend="ESourceSelector-primary-selection-changed">primary-selection-changed</link>&quot;                      : Run Last
+  &quot;<link linkend="ESourceSelector-selection-changed">selection-changed</link>&quot;                              : Run Last
+</synopsis>
+</refsect1>
+
+<refsect1 id="ESourceSelector.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="ESourceSelector.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ESourceSelector-struct" role="struct">
+<title>ESourceSelector</title>
+<indexterm zone="ESourceSelector-struct"><primary>ESourceSelector</primary></indexterm>
+<programlisting>typedef struct _ESourceSelector ESourceSelector;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-source-selector-new" role="function">
+<title>e_source_selector_new ()</title>
+<indexterm zone="e-source-selector-new"><primary>e_source_selector_new</primary></indexterm>
+<programlisting><link linkend="GtkWidget"><returnvalue>GtkWidget</returnvalue></link> *         e_source_selector_new               (<parameter><link linkend="ESourceList"><type>ESourceList</type></link> *list</parameter>);</programlisting>
+<para>
+Create a new view for <parameter>list</parameter>.  The view will update automatically when <parameter>list</parameter>
+changes.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>A source list.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The newly created widget.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-get-source-list" role="function">
+<title>e_source_selector_get_source_list ()</title>
+<indexterm zone="e-source-selector-get-source-list"><primary>e_source_selector_get_source_list</primary></indexterm>
+<programlisting><link linkend="ESourceList"><returnvalue>ESourceList</returnvalue></link> *       e_source_selector_get_source_list   (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);</programlisting>
+<para>
+Returns the <link linkend="ESourceList"><type>ESourceList</type></link> that <parameter>selector</parameter> is rendering.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ESourceSelector"><type>ESourceSelector</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> an <link linkend="ESourceList"><type>ESourceList</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-select-source" role="function">
+<title>e_source_selector_select_source ()</title>
+<indexterm zone="e-source-selector-select-source"><primary>e_source_selector_select_source</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_selector_select_source     (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+Select <parameter>source</parameter> in <parameter>selector</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESourceSelector"><type>ESourceSelector</type></link> widget
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESource"><type>ESource</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-unselect-source" role="function">
+<title>e_source_selector_unselect_source ()</title>
+<indexterm zone="e-source-selector-unselect-source"><primary>e_source_selector_unselect_source</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_selector_unselect_source   (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+Unselect <parameter>source</parameter> in <parameter>selector</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESourceSelector"><type>ESourceSelector</type></link> widget
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESource"><type>ESource</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-source-is-selected" role="function">
+<title>e_source_selector_source_is_selected ()</title>
+<indexterm zone="e-source-selector-source-is-selected"><primary>e_source_selector_source_is_selected</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_selector_source_is_selected
+                                                        (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+Check whether <parameter>source</parameter> is selected in <parameter>selector</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESourceSelector"><type>ESourceSelector</type></link> widget
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESource"><type>ESource</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if <parameter>source</parameter> is currently selected, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-get-selection" role="function">
+<title>e_source_selector_get_selection ()</title>
+<indexterm zone="e-source-selector-get-selection"><primary>e_source_selector_get_selection</primary></indexterm>
+<programlisting><link linkend="GSList"><returnvalue>GSList</returnvalue></link> *            e_source_selector_get_selection     (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);</programlisting>
+<para>
+Get the list of selected sources, i.e. those that were enabled through the
+corresponding checkboxes in the tree.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ESourceSelector"><type>ESourceSelector</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A list of the ESources currently selected.  The sources will
+be in the same order as they appear on the screen, and the list should be
+freed using <link linkend="e-source-selector-free-selection"><function>e_source_selector_free_selection()</function></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-free-selection" role="function">
+<title>e_source_selector_free_selection ()</title>
+<indexterm zone="e-source-selector-free-selection"><primary>e_source_selector_free_selection</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_selector_free_selection    (<parameter><link linkend="GSList"><type>GSList</type></link> *list</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-show-selection" role="function">
+<title>e_source_selector_show_selection ()</title>
+<indexterm zone="e-source-selector-show-selection"><primary>e_source_selector_show_selection</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_selector_show_selection    (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> show</parameter>);</programlisting>
+<para>
+Specify whether the checkboxes in the ESourceSelector should be shown or
+not.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>An ESourceSelector widget
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>show</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-selection-shown" role="function">
+<title>e_source_selector_selection_shown ()</title>
+<indexterm zone="e-source-selector-selection-shown"><primary>e_source_selector_selection_shown</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_selector_selection_shown   (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);</programlisting>
+<para>
+Check whether the checkboxes in the ESourceSelector are being shown or not.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ESourceSelector"><type>ESourceSelector</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the checkboxes are shown, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-set-select-new" role="function">
+<title>e_source_selector_set_select_new ()</title>
+<indexterm zone="e-source-selector-set-select-new"><primary>e_source_selector_set_select_new</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_selector_set_select_new    (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> state</parameter>);</programlisting>
+<para>
+Set whether or not to select new sources added to <parameter>selector</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESourceSelector"><type>ESourceSelector</type></link> widget
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>state</parameter>&#160;:</term>
+<listitem><simpara>A gboolean
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-edit-primary-selection" role="function">
+<title>e_source_selector_edit_primary_selection ()</title>
+<indexterm zone="e-source-selector-edit-primary-selection"><primary>e_source_selector_edit_primary_selection</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_selector_edit_primary_selection
+                                                        (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);</programlisting>
+<para>
+Allows the user to rename the primary selected source by opening an
+entry box directly in <parameter>selector</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESourceSelector"><type>ESourceSelector</type></link> widget
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-peek-primary-selection" role="function">
+<title>e_source_selector_peek_primary_selection ()</title>
+<indexterm zone="e-source-selector-peek-primary-selection"><primary>e_source_selector_peek_primary_selection</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_source_selector_peek_primary_selection
+                                                        (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);</programlisting>
+<para>
+Get the primary selected source.  The primary selection is the one that is
+highlighted through the normal <link linkend="GtkTreeView"><type>GtkTreeView</type></link> selection mechanism (as opposed
+to the "normal" selection, which is the set of source whose checkboxes are
+checked).</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESourceSelector"><type>ESourceSelector</type></link> widget
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The selected source.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-set-primary-selection" role="function">
+<title>e_source_selector_set_primary_selection ()</title>
+<indexterm zone="e-source-selector-set-primary-selection"><primary>e_source_selector_set_primary_selection</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_selector_set_primary_selection
+                                                        (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+Set the primary selected source.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ESourceSelector"><type>ESourceSelector</type></link> widget
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ESource"><type>ESource</type></link> to select
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-get-primary-source-group" role="function">
+<title>e_source_selector_get_primary_source_group ()</title>
+<indexterm zone="e-source-selector-get-primary-source-group"><primary>e_source_selector_get_primary_source_group</primary></indexterm>
+<programlisting><link linkend="ESourceGroup"><returnvalue>ESourceGroup</returnvalue></link> *      e_source_selector_get_primary_source_group
+                                                        (<parameter><link linkend="ESourceSelector"><type>ESourceSelector</type></link> *selector</parameter>);</programlisting>
+<para>
+Gets the primary source group associated with the selector.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>selector</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ESourceSelector"><type>ESourceSelector</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> primary_source_group if selector is valid, NULL otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="ESourceSelector.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ESourceSelector--source-list" role="property"><title>The <literal>&quot;source-list&quot;</literal> property</title>
+<indexterm zone="ESourceSelector--source-list"><primary>ESourceSelector:source-list</primary></indexterm>
+<programlisting>  &quot;source-list&quot;              <link linkend="ESourceList"><type>ESourceList</type></link>*          : Read / Write / Construct Only</programlisting>
+<para></para></refsect2>
+</refsect1>
+<refsect1 id="ESourceSelector.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="ESourceSelector-data-dropped" role="signal"><title>The <literal>&quot;data-dropped&quot;</literal> signal</title>
+<indexterm zone="ESourceSelector-data-dropped"><primary>ESourceSelector::data-dropped</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            user_function                      (<link linkend="ESourceSelector"><type>ESourceSelector</type></link>  *esourceselector,
+                                                        <link linkend="GtkSelectionData"><type>GtkSelectionData</type></link> *arg1,
+                                                        <link linkend="ESource"><type>ESource</type></link>          *arg2,
+                                                        <link linkend="GdkDragAction"><type>GdkDragAction</type></link>     arg3,
+                                                        <link linkend="guint"><type>guint</type></link>             arg4,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>          user_data)            : Run Last</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>esourceselector</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg2</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg3</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg4</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="ESourceSelector-popup-event" role="signal"><title>The <literal>&quot;popup-event&quot;</literal> signal</title>
+<indexterm zone="ESourceSelector-popup-event"><primary>ESourceSelector::popup-event</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            user_function                      (<link linkend="ESourceSelector"><type>ESourceSelector</type></link> *esourceselector,
+                                                        <link linkend="GObject"><type>GObject</type></link>         *arg1,
+                                                        <link linkend="GdkEvent"><type>GdkEvent</type></link>        *event,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>         user_data)            : Run Last</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>esourceselector</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="ESourceSelector-primary-selection-changed" role="signal"><title>The <literal>&quot;primary-selection-changed&quot;</literal> signal</title>
+<indexterm zone="ESourceSelector-primary-selection-changed"><primary>ESourceSelector::primary-selection-changed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="ESourceSelector"><type>ESourceSelector</type></link> *esourceselector,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>         user_data)            : Run Last</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>esourceselector</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="ESourceSelector-selection-changed" role="signal"><title>The <literal>&quot;selection-changed&quot;</literal> signal</title>
+<indexterm zone="ESourceSelector-selection-changed"><primary>ESourceSelector::selection-changed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="ESourceSelector"><type>ESourceSelector</type></link> *esourceselector,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>         user_data)            : Run Last</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>esourceselector</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+</refentry>

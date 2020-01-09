@@ -1,0 +1,704 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libecal-e-cal-util">
+<refmeta>
+<refentrytitle role="top_of_page" id="libecal-e-cal-util.top_of_page">e-cal-util</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBECAL Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-cal-util</refname>
+<refpurpose>Various utility functions.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libecal-e-cal-util.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="CalObjInstance">CalObjInstance</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cal-obj-instance-list-free">cal_obj_instance_list_free</link>          (<parameter><link linkend="GList"><type>GList</type></link> *list</parameter>);
+enum                <link linkend="CalObjModType">CalObjModType</link>;
+enum                <link linkend="CalMode">CalMode</link>;
+#define             <link linkend="cal-mode-to-corba">cal_mode_to_corba</link>                   (mode)
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="cal-obj-uid-list-free">cal_obj_uid_list_free</link>               (<parameter><link linkend="GList"><type>GList</type></link> *list</parameter>);
+<link linkend="icalcomponent"><returnvalue>icalcomponent</returnvalue></link> *     <link linkend="e-cal-util-new-top-level">e_cal_util_new_top_level</link>            (<parameter><type>void</type></parameter>);
+<link linkend="icalcomponent"><returnvalue>icalcomponent</returnvalue></link> *     <link linkend="e-cal-util-new-component">e_cal_util_new_component</link>            (<parameter><link linkend="icalcomponent-kind"><type>icalcomponent_kind</type></link> kind</parameter>);
+<link linkend="icalcomponent"><returnvalue>icalcomponent</returnvalue></link> *     <link linkend="e-cal-util-parse-ics-string">e_cal_util_parse_ics_string</link>         (<parameter>const <link linkend="gchar"><type>gchar</type></link> *string</parameter>);
+<link linkend="icalcomponent"><returnvalue>icalcomponent</returnvalue></link> *     <link linkend="e-cal-util-parse-ics-file">e_cal_util_parse_ics_file</link>           (<parameter>const <link linkend="gchar"><type>gchar</type></link> *filename</parameter>);
+<link linkend="ECalComponentAlarms"><returnvalue>ECalComponentAlarms</returnvalue></link> * <link linkend="e-cal-util-generate-alarms-for-comp">e_cal_util_generate_alarms_for_comp</link>
+                                                        (<parameter><link linkend="ECalComponent"><type>ECalComponent</type></link> *comp</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> start</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> end</parameter>,
+                                                         <parameter><link linkend="ECalComponentAlarmAction"><type>ECalComponentAlarmAction</type></link> *omit</parameter>,
+                                                         <parameter><link linkend="ECalRecurResolveTimezoneFn"><type>ECalRecurResolveTimezoneFn</type></link> resolve_tzid</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>,
+                                                         <parameter><link linkend="icaltimezone"><type>icaltimezone</type></link> *default_timezone</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-cal-util-generate-alarms-for-list">e_cal_util_generate_alarms_for_list</link> (<parameter><link linkend="GList"><type>GList</type></link> *comps</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> start</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> end</parameter>,
+                                                         <parameter><link linkend="ECalComponentAlarmAction"><type>ECalComponentAlarmAction</type></link> *omit</parameter>,
+                                                         <parameter><link linkend="GSList"><type>GSList</type></link> **comp_alarms</parameter>,
+                                                         <parameter><link linkend="ECalRecurResolveTimezoneFn"><type>ECalRecurResolveTimezoneFn</type></link> resolve_tzid</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>,
+                                                         <parameter><link linkend="icaltimezone"><type>icaltimezone</type></link> *default_timezone</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-cal-util-priority-to-string">e_cal_util_priority_to_string</link>       (<parameter><link linkend="gint"><type>gint</type></link> priority</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-cal-util-priority-from-string">e_cal_util_priority_from_string</link>     (<parameter>const <link linkend="gchar"><type>gchar</type></link> *string</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-cal-util-add-timezones-from-component">e_cal_util_add_timezones_from_component</link>
+                                                        (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *vcal_comp</parameter>,
+                                                         <parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-util-component-is-instance">e_cal_util_component_is_instance</link>    (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-util-component-has-alarms">e_cal_util_component_has_alarms</link>     (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-util-component-has-organizer">e_cal_util_component_has_organizer</link>  (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-util-component-has-recurrences">e_cal_util_component_has_recurrences</link>
+                                                        (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-util-component-has-rdates">e_cal_util_component_has_rdates</link>     (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-util-component-has-rrules">e_cal_util_component_has_rrules</link>     (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-util-component-has-attendee">e_cal_util_component_has_attendee</link>   (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-util-event-dates-match">e_cal_util_event_dates_match</link>        (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp1</parameter>,
+                                                         <parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp2</parameter>);
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-ALARM-REPEAT:CAPS">CAL_STATIC_CAPABILITY_NO_ALARM_REPEAT</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-AUDIO-ALARMS:CAPS">CAL_STATIC_CAPABILITY_NO_AUDIO_ALARMS</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-DISPLAY-ALARMS:CAPS">CAL_STATIC_CAPABILITY_NO_DISPLAY_ALARMS</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-EMAIL-ALARMS:CAPS">CAL_STATIC_CAPABILITY_NO_EMAIL_ALARMS</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-PROCEDURE-ALARMS:CAPS">CAL_STATIC_CAPABILITY_NO_PROCEDURE_ALARMS</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-TASK-ASSIGNMENT:CAPS">CAL_STATIC_CAPABILITY_NO_TASK_ASSIGNMENT</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-THISANDFUTURE:CAPS">CAL_STATIC_CAPABILITY_NO_THISANDFUTURE</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-THISANDPRIOR:CAPS">CAL_STATIC_CAPABILITY_NO_THISANDPRIOR</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-TRANSPARENCY:CAPS">CAL_STATIC_CAPABILITY_NO_TRANSPARENCY</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-ONE-ALARM-ONLY:CAPS">CAL_STATIC_CAPABILITY_ONE_ALARM_ONLY</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-ORGANIZER-MUST-ATTEND:CAPS">CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ATTEND</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-ORGANIZER-NOT-EMAIL-ADDRESS:CAPS">CAL_STATIC_CAPABILITY_ORGANIZER_NOT_EMAIL_ADDRESS</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-REMOVE-ALARMS:CAPS">CAL_STATIC_CAPABILITY_REMOVE_ALARMS</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-CREATE-MESSAGES:CAPS">CAL_STATIC_CAPABILITY_CREATE_MESSAGES</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-SAVE-SCHEDULES:CAPS">CAL_STATIC_CAPABILITY_SAVE_SCHEDULES</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-CONV-TO-ASSIGN-TASK:CAPS">CAL_STATIC_CAPABILITY_NO_CONV_TO_ASSIGN_TASK</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-CONV-TO-RECUR:CAPS">CAL_STATIC_CAPABILITY_NO_CONV_TO_RECUR</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-GEN-OPTIONS:CAPS">CAL_STATIC_CAPABILITY_NO_GEN_OPTIONS</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-REQ-SEND-OPTIONS:CAPS">CAL_STATIC_CAPABILITY_REQ_SEND_OPTIONS</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-RECURRENCES-NO-MASTER:CAPS">CAL_STATIC_CAPABILITY_RECURRENCES_NO_MASTER</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-ORGANIZER-MUST-ACCEPT:CAPS">CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ACCEPT</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-DELEGATE-SUPPORTED:CAPS">CAL_STATIC_CAPABILITY_DELEGATE_SUPPORTED</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-NO-ORGANIZER:CAPS">CAL_STATIC_CAPABILITY_NO_ORGANIZER</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-DELEGATE-TO-MANY:CAPS">CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY</link>
+#define             <link linkend="CAL-STATIC-CAPABILITY-HAS-UNACCEPTED-MEETING:CAPS">CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING</link>
+<link linkend="icalcomponent"><returnvalue>icalcomponent</returnvalue></link> *     <link linkend="e-cal-util-construct-instance">e_cal_util_construct_instance</link>       (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>,
+                                                         <parameter><type>struct icaltimetype</type> rid</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-cal-util-remove-instances">e_cal_util_remove_instances</link>         (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>,
+                                                         <parameter><type>struct icaltimetype</type> rid</parameter>,
+                                                         <parameter><link linkend="CalObjModType"><type>CalObjModType</type></link> mod</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-cal-util-get-system-timezone-location">e_cal_util_get_system_timezone_location</link>
+                                                        (<parameter><type>void</type></parameter>);
+<link linkend="icaltimezone"><returnvalue>icaltimezone</returnvalue></link> *      <link linkend="e-cal-util-get-system-timezone">e_cal_util_get_system_timezone</link>      (<parameter><type>void</type></parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libecal-e-cal-util.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libecal-e-cal-util.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="CalObjInstance" role="struct">
+<title>CalObjInstance</title>
+<indexterm zone="CalObjInstance"><primary>CalObjInstance</primary></indexterm>
+<programlisting>typedef struct {
+	gchar *uid;			/* UID of the object */
+	time_t start;			/* Start time of instance */
+	time_t end;			/* End time of instance */
+} CalObjInstance;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="cal-obj-instance-list-free" role="function">
+<title>cal_obj_instance_list_free ()</title>
+<indexterm zone="cal-obj-instance-list-free"><primary>cal_obj_instance_list_free</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cal_obj_instance_list_free          (<parameter><link linkend="GList"><type>GList</type></link> *list</parameter>);</programlisting>
+<para>
+Frees a list of <link linkend="CalObjInstance"><type>CalObjInstance</type></link> structures.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>List of <link linkend="CalObjInstance"><type>CalObjInstance</type></link> structures.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="CalObjModType" role="enum">
+<title>enum CalObjModType</title>
+<indexterm zone="CalObjModType"><primary>CalObjModType</primary></indexterm>
+<programlisting>typedef enum {
+	CALOBJ_MOD_THIS          = 1 &lt;&lt; 0,
+	CALOBJ_MOD_THISANDPRIOR  = 1 &lt;&lt; 1,
+	CALOBJ_MOD_THISANDFUTURE = 1 &lt;&lt; 2,
+	CALOBJ_MOD_ALL           = 0x07
+} CalObjModType;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CalMode" role="enum">
+<title>enum CalMode</title>
+<indexterm zone="CalMode"><primary>CalMode</primary></indexterm>
+<programlisting>typedef enum {
+	CAL_MODE_INVALID = -1,
+	CAL_MODE_LOCAL   = 1 &lt;&lt; 0,
+	CAL_MODE_REMOTE  = 1 &lt;&lt; 1,
+	CAL_MODE_ANY     = 0x07
+} CalMode;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="cal-mode-to-corba" role="macro">
+<title>cal_mode_to_corba()</title>
+<indexterm zone="cal-mode-to-corba"><primary>cal_mode_to_corba</primary></indexterm>
+<programlisting>#define             cal_mode_to_corba(mode)</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="cal-obj-uid-list-free" role="function">
+<title>cal_obj_uid_list_free ()</title>
+<indexterm zone="cal-obj-uid-list-free"><primary>cal_obj_uid_list_free</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                cal_obj_uid_list_free               (<parameter><link linkend="GList"><type>GList</type></link> *list</parameter>);</programlisting>
+<para>
+Frees a list of unique identifiers for calendar objects.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>List of strings with unique identifiers.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-new-top-level" role="function">
+<title>e_cal_util_new_top_level ()</title>
+<indexterm zone="e-cal-util-new-top-level"><primary>e_cal_util_new_top_level</primary></indexterm>
+<programlisting><link linkend="icalcomponent"><returnvalue>icalcomponent</returnvalue></link> *     e_cal_util_new_top_level            (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Creates a new VCALENDAR component.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created top level component.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-new-component" role="function">
+<title>e_cal_util_new_component ()</title>
+<indexterm zone="e-cal-util-new-component"><primary>e_cal_util_new_component</primary></indexterm>
+<programlisting><link linkend="icalcomponent"><returnvalue>icalcomponent</returnvalue></link> *     e_cal_util_new_component            (<parameter><link linkend="icalcomponent-kind"><type>icalcomponent_kind</type></link> kind</parameter>);</programlisting>
+<para>
+Creates a new <link linkend="icalcomponent"><type>icalcomponent</type></link> of the specified kind.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>kind</parameter>&#160;:</term>
+<listitem><simpara>Kind of the component to create.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the newly created component.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-parse-ics-string" role="function">
+<title>e_cal_util_parse_ics_string ()</title>
+<indexterm zone="e-cal-util-parse-ics-string"><primary>e_cal_util_parse_ics_string</primary></indexterm>
+<programlisting><link linkend="icalcomponent"><returnvalue>icalcomponent</returnvalue></link> *     e_cal_util_parse_ics_string         (<parameter>const <link linkend="gchar"><type>gchar</type></link> *string</parameter>);</programlisting>
+<para>
+Parses an iCalendar string and returns a new <link linkend="icalcomponent"><type>icalcomponent</type></link> representing
+that string. Note that this function deals with multiple VCALENDAR's in the
+string, something that Mozilla used to do and which libical does not
+support.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>string</parameter>&#160;:</term>
+<listitem><simpara>iCalendar string to be parsed.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a newly created <link linkend="icalcomponent"><type>icalcomponent</type></link> or NULL if the string isn't a
+valid iCalendar string.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-parse-ics-file" role="function">
+<title>e_cal_util_parse_ics_file ()</title>
+<indexterm zone="e-cal-util-parse-ics-file"><primary>e_cal_util_parse_ics_file</primary></indexterm>
+<programlisting><link linkend="icalcomponent"><returnvalue>icalcomponent</returnvalue></link> *     e_cal_util_parse_ics_file           (<parameter>const <link linkend="gchar"><type>gchar</type></link> *filename</parameter>);</programlisting>
+<para>
+Parses the given file, and, if it contains a valid iCalendar object,
+parse it and return a new <link linkend="icalcomponent"><type>icalcomponent</type></link>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&#160;:</term>
+<listitem><simpara>Name of the file to be parsed.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a newly created <link linkend="icalcomponent"><type>icalcomponent</type></link> or NULL if the file doesn't
+contain a valid iCalendar object.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-generate-alarms-for-comp" role="function">
+<title>e_cal_util_generate_alarms_for_comp ()</title>
+<indexterm zone="e-cal-util-generate-alarms-for-comp"><primary>e_cal_util_generate_alarms_for_comp</primary></indexterm>
+<programlisting><link linkend="ECalComponentAlarms"><returnvalue>ECalComponentAlarms</returnvalue></link> * e_cal_util_generate_alarms_for_comp
+                                                        (<parameter><link linkend="ECalComponent"><type>ECalComponent</type></link> *comp</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> start</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> end</parameter>,
+                                                         <parameter><link linkend="ECalComponentAlarmAction"><type>ECalComponentAlarmAction</type></link> *omit</parameter>,
+                                                         <parameter><link linkend="ECalRecurResolveTimezoneFn"><type>ECalRecurResolveTimezoneFn</type></link> resolve_tzid</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>,
+                                                         <parameter><link linkend="icaltimezone"><type>icaltimezone</type></link> *default_timezone</parameter>);</programlisting>
+<para>
+Generates alarm instances for a calendar component.  Returns the instances
+structure, or NULL if no alarm instances occurred in the specified time
+range.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>comp</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="ECalComponent"><type>ECalComponent</type></link> to generate alarms from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start</parameter>&#160;:</term>
+<listitem><simpara>Start time.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end</parameter>&#160;:</term>
+<listitem><simpara>End time.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>omit</parameter>&#160;:</term>
+<listitem><simpara>Alarm types to omit
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>resolve_tzid</parameter>&#160;:</term>
+<listitem><simpara>Callback for resolving timezones
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>Data to be passed to the resolve_tzid callback
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>default_timezone</parameter>&#160;:</term>
+<listitem><simpara>The timezone used to resolve DATE and floating DATE-TIME
+values.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a list of all the alarms found for the given component on
+the given time tange. The list of alarms should be freed by using the
+<link linkend="e-cal-component-free-alarm-list"><type>e_cal_component_free_alarm_list</type></link> function.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-generate-alarms-for-list" role="function">
+<title>e_cal_util_generate_alarms_for_list ()</title>
+<indexterm zone="e-cal-util-generate-alarms-for-list"><primary>e_cal_util_generate_alarms_for_list</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_cal_util_generate_alarms_for_list (<parameter><link linkend="GList"><type>GList</type></link> *comps</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> start</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> end</parameter>,
+                                                         <parameter><link linkend="ECalComponentAlarmAction"><type>ECalComponentAlarmAction</type></link> *omit</parameter>,
+                                                         <parameter><link linkend="GSList"><type>GSList</type></link> **comp_alarms</parameter>,
+                                                         <parameter><link linkend="ECalRecurResolveTimezoneFn"><type>ECalRecurResolveTimezoneFn</type></link> resolve_tzid</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>,
+                                                         <parameter><link linkend="icaltimezone"><type>icaltimezone</type></link> *default_timezone</parameter>);</programlisting>
+<para>
+Iterates through all the components in the <parameter>comps</parameter> list and generates alarm
+instances for them; putting them in the <parameter>comp_alarms</parameter> list.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>comps</parameter>&#160;:</term>
+<listitem><simpara>List of <link linkend="ECalComponent"><type>ECalComponent</type></link>'s.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start</parameter>&#160;:</term>
+<listitem><simpara>Start time.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end</parameter>&#160;:</term>
+<listitem><simpara>End time.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>omit</parameter>&#160;:</term>
+<listitem><simpara>Alarm types to omit
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>comp_alarms</parameter>&#160;:</term>
+<listitem><simpara>List to be returned
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>resolve_tzid</parameter>&#160;:</term>
+<listitem><simpara>Callback for resolving timezones
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>Data to be passed to the resolve_tzid callback
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>default_timezone</parameter>&#160;:</term>
+<listitem><simpara>The timezone used to resolve DATE and floating DATE-TIME
+values.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the number of elements it added to the list.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-priority-to-string" role="function">
+<title>e_cal_util_priority_to_string ()</title>
+<indexterm zone="e-cal-util-priority-to-string"><primary>e_cal_util_priority_to_string</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_cal_util_priority_to_string       (<parameter><link linkend="gint"><type>gint</type></link> priority</parameter>);</programlisting>
+<para>
+Converts an iCalendar PRIORITY value to a translated string. Any unknown
+priority value (i.e. not 0-9) will be returned as "" (undefined).</para>
+<variablelist role="params">
+<varlistentry><term><parameter>priority</parameter>&#160;:</term>
+<listitem><simpara>Priority value.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a string representing the PRIORITY value. This value is a
+constant, so it should never be freed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-priority-from-string" role="function">
+<title>e_cal_util_priority_from_string ()</title>
+<indexterm zone="e-cal-util-priority-from-string"><primary>e_cal_util_priority_from_string</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_cal_util_priority_from_string     (<parameter>const <link linkend="gchar"><type>gchar</type></link> *string</parameter>);</programlisting>
+<para>
+Converts a translated priority string to an iCalendar priority value.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>string</parameter>&#160;:</term>
+<listitem><simpara>A string representing the PRIORITY value.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the priority (0-9) or -1 if the priority string is not valid.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-add-timezones-from-component" role="function">
+<title>e_cal_util_add_timezones_from_component ()</title>
+<indexterm zone="e-cal-util-add-timezones-from-component"><primary>e_cal_util_add_timezones_from_component</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_cal_util_add_timezones_from_component
+                                                        (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *vcal_comp</parameter>,
+                                                         <parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);</programlisting>
+<para>
+Adds VTIMEZONE components to a VCALENDAR for all tzid's
+in the given <parameter>icalcomp</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>vcal_comp</parameter>&#160;:</term>
+<listitem><simpara>A VCALENDAR component.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>An iCalendar component, of any type.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-component-is-instance" role="function">
+<title>e_cal_util_component_is_instance ()</title>
+<indexterm zone="e-cal-util-component-is-instance"><primary>e_cal_util_component_is_instance</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_util_component_is_instance    (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);</programlisting>
+<para>
+Checks whether an <link linkend="icalcomponent"><type>icalcomponent</type></link> is an instance of a recurring appointment or not.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="icalcomponent"><type>icalcomponent</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if it is an instance, FALSE if not.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-component-has-alarms" role="function">
+<title>e_cal_util_component_has_alarms ()</title>
+<indexterm zone="e-cal-util-component-has-alarms"><primary>e_cal_util_component_has_alarms</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_util_component_has_alarms     (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);</programlisting>
+<para>
+Checks whether an <link linkend="icalcomponent"><type>icalcomponent</type></link> has any alarm.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="icalcomponent"><type>icalcomponent</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if it has alarms, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-component-has-organizer" role="function">
+<title>e_cal_util_component_has_organizer ()</title>
+<indexterm zone="e-cal-util-component-has-organizer"><primary>e_cal_util_component_has_organizer</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_util_component_has_organizer  (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);</programlisting>
+<para>
+Checks whether an <link linkend="icalcomponent"><type>icalcomponent</type></link> has an organizer or not.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="icalcomponent"><type>icalcomponent</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if there is an organizer, FALSE if not.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-component-has-recurrences" role="function">
+<title>e_cal_util_component_has_recurrences ()</title>
+<indexterm zone="e-cal-util-component-has-recurrences"><primary>e_cal_util_component_has_recurrences</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_util_component_has_recurrences
+                                                        (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);</programlisting>
+<para>
+Checks if an <link linkend="icalcomponent"><type>icalcomponent</type></link> has recurrence dates or rules.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="icalcomponent"><type>icalcomponent</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if there are recurrence dates/rules, FALSE if not.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-component-has-rdates" role="function">
+<title>e_cal_util_component_has_rdates ()</title>
+<indexterm zone="e-cal-util-component-has-rdates"><primary>e_cal_util_component_has_rdates</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_util_component_has_rdates     (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);</programlisting>
+<para>
+Checks if an <link linkend="icalcomponent"><type>icalcomponent</type></link> has recurrence dates.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="icalcomponent"><type>icalcomponent</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if there are recurrence dates, FALSE if not.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-component-has-rrules" role="function">
+<title>e_cal_util_component_has_rrules ()</title>
+<indexterm zone="e-cal-util-component-has-rrules"><primary>e_cal_util_component_has_rrules</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_util_component_has_rrules     (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);</programlisting>
+<para>
+Checks if an <link linkend="icalcomponent"><type>icalcomponent</type></link> has recurrence rules.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="icalcomponent"><type>icalcomponent</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if there are recurrence rules, FALSE if not.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-component-has-attendee" role="function">
+<title>e_cal_util_component_has_attendee ()</title>
+<indexterm zone="e-cal-util-component-has-attendee"><primary>e_cal_util_component_has_attendee</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_util_component_has_attendee   (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);</programlisting>
+<para>
+Checks if an <link linkend="icalcomponent"><type>icalcomponent</type></link> has any attendees.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="icalcomponent"><type>icalcomponent</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if there are attendees, FALSE if not.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-event-dates-match" role="function">
+<title>e_cal_util_event_dates_match ()</title>
+<indexterm zone="e-cal-util-event-dates-match"><primary>e_cal_util_event_dates_match</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_util_event_dates_match        (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp1</parameter>,
+                                                         <parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp2</parameter>);</programlisting>
+<para>
+Compare the dates of two <link linkend="icalcomponent"><type>icalcomponent</type></link>'s to check if they match.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp1</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="icalcomponent"><type>icalcomponent</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>icalcomp2</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="icalcomponent"><type>icalcomponent</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if the dates of both components match, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-ALARM-REPEAT:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_ALARM_REPEAT</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-ALARM-REPEAT:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_ALARM_REPEAT</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_ALARM_REPEAT             "no-alarm-repeat"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-AUDIO-ALARMS:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_AUDIO_ALARMS</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-AUDIO-ALARMS:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_AUDIO_ALARMS</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_AUDIO_ALARMS             "no-audio-alarms"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-DISPLAY-ALARMS:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_DISPLAY_ALARMS</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-DISPLAY-ALARMS:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_DISPLAY_ALARMS</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_DISPLAY_ALARMS           "no-display-alarms"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-EMAIL-ALARMS:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_EMAIL_ALARMS</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-EMAIL-ALARMS:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_EMAIL_ALARMS</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_EMAIL_ALARMS             "no-email-alarms"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-PROCEDURE-ALARMS:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_PROCEDURE_ALARMS</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-PROCEDURE-ALARMS:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_PROCEDURE_ALARMS</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_PROCEDURE_ALARMS         "no-procedure-alarms"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-TASK-ASSIGNMENT:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_TASK_ASSIGNMENT</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-TASK-ASSIGNMENT:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_TASK_ASSIGNMENT</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_TASK_ASSIGNMENT          "no-task-assignment"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-THISANDFUTURE:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_THISANDFUTURE</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-THISANDFUTURE:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_THISANDFUTURE</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_THISANDFUTURE            "no-thisandfuture"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-THISANDPRIOR:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_THISANDPRIOR</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-THISANDPRIOR:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_THISANDPRIOR</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_THISANDPRIOR             "no-thisandprior"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-TRANSPARENCY:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_TRANSPARENCY</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-TRANSPARENCY:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_TRANSPARENCY</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_TRANSPARENCY             "no-transparency"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-ONE-ALARM-ONLY:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_ONE_ALARM_ONLY</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-ONE-ALARM-ONLY:CAPS"><primary>CAL_STATIC_CAPABILITY_ONE_ALARM_ONLY</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_ONE_ALARM_ONLY              "one-alarm-only"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-ORGANIZER-MUST-ATTEND:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ATTEND</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-ORGANIZER-MUST-ATTEND:CAPS"><primary>CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ATTEND</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ATTEND       "organizer-must-attend"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-ORGANIZER-NOT-EMAIL-ADDRESS:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_ORGANIZER_NOT_EMAIL_ADDRESS</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-ORGANIZER-NOT-EMAIL-ADDRESS:CAPS"><primary>CAL_STATIC_CAPABILITY_ORGANIZER_NOT_EMAIL_ADDRESS</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_ORGANIZER_NOT_EMAIL_ADDRESS "organizer-not-email-address"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-REMOVE-ALARMS:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_REMOVE_ALARMS</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-REMOVE-ALARMS:CAPS"><primary>CAL_STATIC_CAPABILITY_REMOVE_ALARMS</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_REMOVE_ALARMS               "remove-alarms"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-CREATE-MESSAGES:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_CREATE_MESSAGES</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-CREATE-MESSAGES:CAPS"><primary>CAL_STATIC_CAPABILITY_CREATE_MESSAGES</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_CREATE_MESSAGES             "create-messages"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-SAVE-SCHEDULES:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_SAVE_SCHEDULES</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-SAVE-SCHEDULES:CAPS"><primary>CAL_STATIC_CAPABILITY_SAVE_SCHEDULES</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_SAVE_SCHEDULES              "save-schedules"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-CONV-TO-ASSIGN-TASK:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_CONV_TO_ASSIGN_TASK</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-CONV-TO-ASSIGN-TASK:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_CONV_TO_ASSIGN_TASK</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_CONV_TO_ASSIGN_TASK	  "no-conv-to-assign-task"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-CONV-TO-RECUR:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_CONV_TO_RECUR</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-CONV-TO-RECUR:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_CONV_TO_RECUR</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_CONV_TO_RECUR		  "no-conv-to-recur"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-GEN-OPTIONS:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_GEN_OPTIONS</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-GEN-OPTIONS:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_GEN_OPTIONS</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_GEN_OPTIONS		  "no-general-options"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-REQ-SEND-OPTIONS:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_REQ_SEND_OPTIONS</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-REQ-SEND-OPTIONS:CAPS"><primary>CAL_STATIC_CAPABILITY_REQ_SEND_OPTIONS</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_REQ_SEND_OPTIONS		  "require-send-options"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-RECURRENCES-NO-MASTER:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_RECURRENCES_NO_MASTER</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-RECURRENCES-NO-MASTER:CAPS"><primary>CAL_STATIC_CAPABILITY_RECURRENCES_NO_MASTER</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_RECURRENCES_NO_MASTER       "recurrences-no-master-object"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-ORGANIZER-MUST-ACCEPT:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ACCEPT</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-ORGANIZER-MUST-ACCEPT:CAPS"><primary>CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ACCEPT</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_ORGANIZER_MUST_ACCEPT      "organizer-must-accept"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-DELEGATE-SUPPORTED:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_DELEGATE_SUPPORTED</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-DELEGATE-SUPPORTED:CAPS"><primary>CAL_STATIC_CAPABILITY_DELEGATE_SUPPORTED</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_DELEGATE_SUPPORTED	 "delegate-support"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-NO-ORGANIZER:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_NO_ORGANIZER</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-NO-ORGANIZER:CAPS"><primary>CAL_STATIC_CAPABILITY_NO_ORGANIZER</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_NO_ORGANIZER		 "no-organizer"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-DELEGATE-TO-MANY:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-DELEGATE-TO-MANY:CAPS"><primary>CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_DELEGATE_TO_MANY		 "delegate-to-many"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="CAL-STATIC-CAPABILITY-HAS-UNACCEPTED-MEETING:CAPS" role="macro">
+<title>CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING</title>
+<indexterm zone="CAL-STATIC-CAPABILITY-HAS-UNACCEPTED-MEETING:CAPS"><primary>CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING</primary></indexterm>
+<programlisting>#define CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING     "has-unaccepted-meeting"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-cal-util-construct-instance" role="function">
+<title>e_cal_util_construct_instance ()</title>
+<indexterm zone="e-cal-util-construct-instance"><primary>e_cal_util_construct_instance</primary></indexterm>
+<programlisting><link linkend="icalcomponent"><returnvalue>icalcomponent</returnvalue></link> *     e_cal_util_construct_instance       (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>,
+                                                         <parameter><type>struct icaltimetype</type> rid</parameter>);</programlisting>
+<para>
+This checks that <parameter>rid</parameter> indicates a valid recurrence of <parameter>icalcomp</parameter>, and
+if so, generates a copy of <parameter>comp</parameter> containing a RECURRENCE-ID of <parameter>rid</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>A recurring <link linkend="icalcomponent"><type>icalcomponent</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rid</parameter>&#160;:</term>
+<listitem><simpara>The RECURRENCE-ID to construct a component for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the instance, or <link linkend="NULL:CAPS"><literal>NULL</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-remove-instances" role="function">
+<title>e_cal_util_remove_instances ()</title>
+<indexterm zone="e-cal-util-remove-instances"><primary>e_cal_util_remove_instances</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_cal_util_remove_instances         (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>,
+                                                         <parameter><type>struct icaltimetype</type> rid</parameter>,
+                                                         <parameter><link linkend="CalObjModType"><type>CalObjModType</type></link> mod</parameter>);</programlisting>
+<para>
+Removes one or more instances from <parameter>comp</parameter> according to <parameter>rid</parameter> and <parameter>mod</parameter>.
+</para>
+<para>
+FIXME: should probably have a return value indicating whether or not
+<parameter>icalcomp</parameter> still has any instances</para>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>A (recurring) <link linkend="icalcomponent"><type>icalcomponent</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rid</parameter>&#160;:</term>
+<listitem><simpara>The base RECURRENCE-ID to remove
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mod</parameter>&#160;:</term>
+<listitem><simpara>How to interpret <parameter>rid</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-get-system-timezone-location" role="function">
+<title>e_cal_util_get_system_timezone_location ()</title>
+<indexterm zone="e-cal-util-get-system-timezone-location"><primary>e_cal_util_get_system_timezone_location</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_cal_util_get_system_timezone_location
+                                                        (<parameter><type>void</type></parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>system timezone location string, NULL on an error.
+Returned pointer should be freed with <link linkend="g-free"><function>g_free()</function></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-util-get-system-timezone" role="function">
+<title>e_cal_util_get_system_timezone ()</title>
+<indexterm zone="e-cal-util-get-system-timezone"><primary>e_cal_util_get_system_timezone</primary></indexterm>
+<programlisting><link linkend="icaltimezone"><returnvalue>icaltimezone</returnvalue></link> *      e_cal_util_get_system_timezone      (<parameter><type>void</type></parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>icaltimezone object of the system timezone. NULL on an error.
+Returned pointer is part of the built-in timezones, thus do not free it.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

@@ -1,0 +1,511 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Utility Functions</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="prev" href="libedataserver-e-uid.html" title="User ID Generation">
+<link rel="next" href="libedataserver-e-url.html" title="EUrl">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libedataserver-e-uid.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="libedataserver-e-url.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libedataserver-e-util.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libedataserver-e-util.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="libedataserver-e-util"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libedataserver-e-util.top_of_page"></a>Utility Functions</span></h2>
+<p>Utility Functions — Miscellaneous utility functions for evolution-data-server.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="libedataserver-e-util.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="libedataserver-e-util.html#tm" title="struct tm">tm</a>;
+<span class="returnvalue">gint</span>                <a class="link" href="libedataserver-e-util.html#e-util-mkdir-hier" title="e_util_mkdir_hier ()">e_util_mkdir_hier</a>                   (<em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">mode_t</span> mode</code></em>);
+<span class="returnvalue">gchar</span> *             <a class="link" href="libedataserver-e-util.html#e-util-strstrcase" title="e_util_strstrcase ()">e_util_strstrcase</a>                   (<em class="parameter"><code>const <span class="type">gchar</span> *haystack</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *needle</code></em>);
+<span class="returnvalue">gchar</span> *             <a class="link" href="libedataserver-e-util.html#e-util-unicode-get-utf8" title="e_util_unicode_get_utf8 ()">e_util_unicode_get_utf8</a>             (<em class="parameter"><code>const <span class="type">gchar</span> *text</code></em>,
+                                                         <em class="parameter"><code><span class="type">gunichar</span> *out</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="libedataserver-e-util.html#e-util-utf8-strstrcase" title="e_util_utf8_strstrcase ()">e_util_utf8_strstrcase</a>              (<em class="parameter"><code>const <span class="type">gchar</span> *haystack</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *needle</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="libedataserver-e-util.html#e-util-utf8-strstrcasedecomp" title="e_util_utf8_strstrcasedecomp ()">e_util_utf8_strstrcasedecomp</a>        (<em class="parameter"><code>const <span class="type">gchar</span> *haystack</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *needle</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="libedataserver-e-util.html#e-util-utf8-strcasecmp" title="e_util_utf8_strcasecmp ()">e_util_utf8_strcasecmp</a>              (<em class="parameter"><code>const <span class="type">gchar</span> *s1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *s2</code></em>);
+<span class="returnvalue">gchar</span> *             <a class="link" href="libedataserver-e-util.html#e-util-utf8-remove-accents" title="e_util_utf8_remove_accents ()">e_util_utf8_remove_accents</a>          (<em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);
+<span class="returnvalue">guint64</span>             <a class="link" href="libedataserver-e-util.html#e-util-pthread-id" title="e_util_pthread_id ()">e_util_pthread_id</a>                   (<em class="parameter"><code><span class="type">pthread_t</span> t</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-util.html#e-filename-make-safe" title="e_filename_make_safe ()">e_filename_make_safe</a>                (<em class="parameter"><code><span class="type">gchar</span> *string</code></em>);
+<span class="returnvalue">gsize</span>               <a class="link" href="libedataserver-e-util.html#e-utf8-strftime" title="e_utf8_strftime ()">e_utf8_strftime</a>                     (<em class="parameter"><code><span class="type">gchar</span> *s</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> max</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">struct tm</span> *tm</code></em>);
+<span class="returnvalue">gsize</span>               <a class="link" href="libedataserver-e-util.html#e-strftime" title="e_strftime ()">e_strftime</a>                          (<em class="parameter"><code><span class="type">gchar</span> *s</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> max</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">struct tm</span> *tm</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="libedataserver-e-util.html#e-util-get-prefix" title="e_util_get_prefix ()">e_util_get_prefix</a>                   (<em class="parameter"><code><span class="type">void</span></code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="libedataserver-e-util.html#e-util-get-cp-prefix" title="e_util_get_cp_prefix ()">e_util_get_cp_prefix</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="libedataserver-e-util.html#e-util-get-localedir" title="e_util_get_localedir ()">e_util_get_localedir</a>                (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">gchar</span> *             <a class="link" href="libedataserver-e-util.html#e-util-replace-prefix" title="e_util_replace_prefix ()">e_util_replace_prefix</a>               (<em class="parameter"><code>const <span class="type">gchar</span> *configure_time_prefix</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *runtime_prefix</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *configure_time_path</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="libedataserver-e-util.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="libedataserver-e-util.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="tm"></a><h3>struct tm</h3>
+<pre class="programlisting">struct tm;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-mkdir-hier"></a><h3>e_util_mkdir_hier ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                e_util_mkdir_hier                   (<em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">mode_t</span> mode</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">e_util_mkdir_hier</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Creates a directory hierarchy based on the string <em class="parameter"><code>path</code></em>. If <em class="parameter"><code>path</code></em>
+is an absolute path, the directories will be created relative to
+the root of the file system; otherwise, the directories will be
+created relative to the current directory.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>The directory hierarchy to create.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td>The permissions to use for the directories.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> 0 on success; -1 on failure.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-strstrcase"></a><h3>e_util_strstrcase ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_util_strstrcase                   (<em class="parameter"><code>const <span class="type">gchar</span> *haystack</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *needle</code></em>);</pre>
+<p>
+Find the first instance of <em class="parameter"><code>needle</code></em> in <em class="parameter"><code>haystack</code></em>, ignoring case for
+bytes that are ASCII characters.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>haystack</code></em> :</span></p></td>
+<td>The string to search in.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>needle</code></em> :</span></p></td>
+<td>The string to search for.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A pointer to the start of <em class="parameter"><code>needle</code></em> in <em class="parameter"><code>haystack</code></em>, or NULL if
+         <em class="parameter"><code>needle</code></em> is not found.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-unicode-get-utf8"></a><h3>e_util_unicode_get_utf8 ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_util_unicode_get_utf8             (<em class="parameter"><code>const <span class="type">gchar</span> *text</code></em>,
+                                                         <em class="parameter"><code><span class="type">gunichar</span> *out</code></em>);</pre>
+<p>
+Get a UTF-8 character from the beginning of <em class="parameter"><code>text</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>text</code></em> :</span></p></td>
+<td>The string to take the UTF-8 character from.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>The location to store the UTF-8 character in.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A pointer to the next character in <em class="parameter"><code>text</code></em> after <em class="parameter"><code>out</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-utf8-strstrcase"></a><h3>e_util_utf8_strstrcase ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_util_utf8_strstrcase              (<em class="parameter"><code>const <span class="type">gchar</span> *haystack</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *needle</code></em>);</pre>
+<p>
+Find the first instance of <em class="parameter"><code>needle</code></em> in <em class="parameter"><code>haystack</code></em>, ignoring case. (No
+proper case folding or decomposing is done.) Both <em class="parameter"><code>needle</code></em> and
+<em class="parameter"><code>haystack</code></em> are UTF-8 strings.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>haystack</code></em> :</span></p></td>
+<td>The string to search in.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>needle</code></em> :</span></p></td>
+<td>The string to search for.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A pointer to the first instance of <em class="parameter"><code>needle</code></em> in <em class="parameter"><code>haystack</code></em>, or
+         <code class="literal">NULL</code> if no match is found, or if either of the strings are
+         not legal UTF-8 strings.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-utf8-strstrcasedecomp"></a><h3>e_util_utf8_strstrcasedecomp ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_util_utf8_strstrcasedecomp        (<em class="parameter"><code>const <span class="type">gchar</span> *haystack</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *needle</code></em>);</pre>
+<p>
+Find the first instance of <em class="parameter"><code>needle</code></em> in <em class="parameter"><code>haystack</code></em>, where both <em class="parameter"><code>needle</code></em>
+and <em class="parameter"><code>haystack</code></em> are UTF-8 strings. Both strings are stripped and
+decomposed for comparison, and case is ignored.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>haystack</code></em> :</span></p></td>
+<td>The string to search in.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>needle</code></em> :</span></p></td>
+<td>The string to search for.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A pointer to the first instance of <em class="parameter"><code>needle</code></em> in <em class="parameter"><code>haystack</code></em>, or
+         <code class="literal">NULL</code> if either of the strings are not legal UTF-8 strings.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-utf8-strcasecmp"></a><h3>e_util_utf8_strcasecmp ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                e_util_utf8_strcasecmp              (<em class="parameter"><code>const <span class="type">gchar</span> *s1</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *s2</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s1</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s2</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-utf8-remove-accents"></a><h3>e_util_utf8_remove_accents ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_util_utf8_remove_accents          (<em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>newly allocates string, copy of 'str', without accents.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-pthread-id"></a><h3>e_util_pthread_id ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint64</span>             e_util_pthread_id                   (<em class="parameter"><code><span class="type">pthread_t</span> t</code></em>);</pre>
+<p>
+Returns a 64-bit integer hopefully uniquely identifying the
+thread. To be used in debugging output and logging only. To test
+whether two pthread_t values refer to the same thread, use
+<code class="function">pthread_equal()</code>.
+</p>
+<p>
+There is no guarantee that calling <a class="link" href="libedataserver-e-util.html#e-util-pthread-id" title="e_util_pthread_id ()"><code class="function">e_util_pthread_id()</code></a> on one
+thread first and later after that thread has dies on another won't
+return the same integer.
+</p>
+<p>
+On some platforms it might even be that when called two times on
+the same thread's pthread_t (with some pthread API calls inbetween)
+we will return different values (this of course makes this function
+rather useless on such platforms).
+</p>
+<p>
+On Linux and Win32, known to really return a unique id for each
+thread existing at a certain time. No guarantee that ids won't be
+reused after a thread has terminated, though.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>t</code></em> :</span></p></td>
+<td>A pthread_t value
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A 64-bit integer.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-filename-make-safe"></a><h3>e_filename_make_safe ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_filename_make_safe                (<em class="parameter"><code><span class="type">gchar</span> *string</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-utf8-strftime"></a><h3>e_utf8_strftime ()</h3>
+<pre class="programlisting"><span class="returnvalue">gsize</span>               e_utf8_strftime                     (<em class="parameter"><code><span class="type">gchar</span> *s</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> max</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">struct tm</span> *tm</code></em>);</pre>
+<p>
+The UTF-8 equivalent of <a class="link" href="libedataserver-e-util.html#e-strftime" title="e_strftime ()"><code class="function">e_strftime()</code></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>The string array to store the result in.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max</code></em> :</span></p></td>
+<td>The size of array <em class="parameter"><code>s</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>The formatting to use on <em class="parameter"><code>tm</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tm</code></em> :</span></p></td>
+<td>The time value to format.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The number of characters placed in <em class="parameter"><code>s</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-strftime"></a><h3>e_strftime ()</h3>
+<pre class="programlisting"><span class="returnvalue">gsize</span>               e_strftime                          (<em class="parameter"><code><span class="type">gchar</span> *s</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> max</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">struct tm</span> *tm</code></em>);</pre>
+<p>
+This function is a wrapper around the strftime(3) function, which
+converts the &amp;percnt;l and &amp;percnt;k (12h and 24h) format variables if necessary.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>The string array to store the result in.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max</code></em> :</span></p></td>
+<td>The size of array <em class="parameter"><code>s</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>The formatting to use on <em class="parameter"><code>tm</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tm</code></em> :</span></p></td>
+<td>The time value to format.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The number of characters placed in <em class="parameter"><code>s</code></em>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-get-prefix"></a><h3>e_util_get_prefix ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_util_get_prefix                   (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-get-cp-prefix"></a><h3>e_util_get_cp_prefix ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_util_get_cp_prefix                (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-get-localedir"></a><h3>e_util_get_localedir ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_util_get_localedir                (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-util-replace-prefix"></a><h3>e_util_replace_prefix ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *             e_util_replace_prefix               (<em class="parameter"><code>const <span class="type">gchar</span> *configure_time_prefix</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *runtime_prefix</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *configure_time_path</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>configure_time_prefix</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>runtime_prefix</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>configure_time_path</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

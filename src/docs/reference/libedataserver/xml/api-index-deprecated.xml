@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<indexdiv>
+<indexdiv><title>C</title>
+<indexentry><primaryie linkends="e-categories-get-color-for"><link linkend="e-categories-get-color-for">e_categories_get_color_for</link>, function in <link linkend="libedataserver-e-categories">e-categories</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-categories-set-color-for"><link linkend="e-categories-set-color-for">e_categories_set_color_for</link>, function in <link linkend="libedataserver-e-categories">e-categories</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>I</title>
+<indexentry><primaryie linkends="e-iconv"><link linkend="e-iconv">e_iconv</link>, function in <link linkend="libedataserver-e-iconv">e-iconv</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-iconv-charset-language"><link linkend="e-iconv-charset-language">e_iconv_charset_language</link>, function in <link linkend="libedataserver-e-iconv">e-iconv</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-iconv-charset-name"><link linkend="e-iconv-charset-name">e_iconv_charset_name</link>, function in <link linkend="libedataserver-e-iconv">e-iconv</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-iconv-close"><link linkend="e-iconv-close">e_iconv_close</link>, function in <link linkend="libedataserver-e-iconv">e-iconv</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-iconv-locale-charset"><link linkend="e-iconv-locale-charset">e_iconv_locale_charset</link>, function in <link linkend="libedataserver-e-iconv">e-iconv</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-iconv-locale-language"><link linkend="e-iconv-locale-language">e_iconv_locale_language</link>, function in <link linkend="libedataserver-e-iconv">e-iconv</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-iconv-open"><link linkend="e-iconv-open">e_iconv_open</link>, function in <link linkend="libedataserver-e-iconv">e-iconv</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>M</title>
+<indexentry><primaryie linkends="MD5Context"><link linkend="MD5Context">MD5Context</link>, struct in <link linkend="libedataserver-md5-utils">md5-utils</link></primaryie></indexentry>
+<indexentry><primaryie linkends="md5-final"><link linkend="md5-final">md5_final</link>, function in <link linkend="libedataserver-md5-utils">md5-utils</link></primaryie></indexentry>
+<indexentry><primaryie linkends="md5-get-digest"><link linkend="md5-get-digest">md5_get_digest</link>, function in <link linkend="libedataserver-md5-utils">md5-utils</link></primaryie></indexentry>
+<indexentry><primaryie linkends="md5-get-digest-from-file"><link linkend="md5-get-digest-from-file">md5_get_digest_from_file</link>, function in <link linkend="libedataserver-md5-utils">md5-utils</link></primaryie></indexentry>
+<indexentry><primaryie linkends="md5-init"><link linkend="md5-init">md5_init</link>, function in <link linkend="libedataserver-md5-utils">md5-utils</link></primaryie></indexentry>
+<indexentry><primaryie linkends="md5-update"><link linkend="md5-update">md5_update</link>, function in <link linkend="libedataserver-md5-utils">md5-utils</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EMsg"><link linkend="EMsg">EMsg</link>, struct in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EMsgPort"><link linkend="EMsgPort">EMsgPort</link>, struct in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-msgport-destroy"><link linkend="e-msgport-destroy">e_msgport_destroy</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-msgport-fd"><link linkend="e-msgport-fd">e_msgport_fd</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-msgport-get"><link linkend="e-msgport-get">e_msgport_get</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-msgport-new"><link linkend="e-msgport-new">e_msgport_new</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-msgport-prfd"><link linkend="e-msgport-prfd">e_msgport_prfd</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-msgport-put"><link linkend="e-msgport-put">e_msgport_put</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-msgport-reply"><link linkend="e-msgport-reply">e_msgport_reply</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-msgport-wait"><link linkend="e-msgport-wait">e_msgport_wait</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EMutex"><link linkend="EMutex">EMutex</link>, struct in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-mutex-assert-locked"><link linkend="e-mutex-assert-locked">e_mutex_assert_locked</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-mutex-cond-wait"><link linkend="e-mutex-cond-wait">e_mutex_cond_wait</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-mutex-destroy"><link linkend="e-mutex-destroy">e_mutex_destroy</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-mutex-lock"><link linkend="e-mutex-lock">e_mutex_lock</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-mutex-new"><link linkend="e-mutex-new">e_mutex_new</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-mutex-t"><link linkend="e-mutex-t">e_mutex_t</link>, enum in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-mutex-unlock"><link linkend="e-mutex-unlock">e_mutex_unlock</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>S</title>
+<indexentry><primaryie linkends="e-source-get-color"><link linkend="e-source-get-color">e_source_get_color</link>, function in <link linkend="ESource">ESource</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-source-list-peek-group-by-name"><link linkend="e-source-list-peek-group-by-name">e_source_list_peek_group_by_name</link>, function in <link linkend="ESourceList">ESourceList</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-source-set-color"><link linkend="e-source-set-color">e_source_set_color</link>, function in <link linkend="ESource">ESource</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-source-unset-color"><link linkend="e-source-unset-color">e_source_unset_color</link>, function in <link linkend="ESource">ESource</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>T</title>
+<indexentry><primaryie linkends="EThread"><link linkend="EThread">EThread</link>, struct in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EThreadFunc"><link linkend="EThreadFunc">EThreadFunc</link>, user_function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-thread-busy"><link linkend="e-thread-busy">e_thread_busy</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-thread-destroy"><link linkend="e-thread-destroy">e_thread_destroy</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-thread-new"><link linkend="e-thread-new">e_thread_new</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-thread-put"><link linkend="e-thread-put">e_thread_put</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-thread-set-msg-destroy"><link linkend="e-thread-set-msg-destroy">e_thread_set_msg_destroy</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-thread-set-msg-lost"><link linkend="e-thread-set-msg-lost">e_thread_set_msg_lost</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-thread-set-msg-received"><link linkend="e-thread-set-msg-received">e_thread_set_msg_received</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-thread-set-queue-limit"><link linkend="e-thread-set-queue-limit">e_thread_set_queue_limit</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-thread-set-reply-port"><link linkend="e-thread-set-reply-port">e_thread_set_reply_port</link>, function in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-thread-t"><link linkend="e-thread-t">e_thread_t</link>, enum in <link linkend="libedataserver-e-msgport">e-msgport</link></primaryie></indexentry>
+<indexentry><primaryie linkends="ETrie"><link linkend="ETrie">ETrie</link>, struct in <link linkend="libedataserver-e-trie">e-trie</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-trie-add"><link linkend="e-trie-add">e_trie_add</link>, function in <link linkend="libedataserver-e-trie">e-trie</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-trie-free"><link linkend="e-trie-free">e_trie_free</link>, function in <link linkend="libedataserver-e-trie">e-trie</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-trie-new"><link linkend="e-trie-new">e_trie_new</link>, function in <link linkend="libedataserver-e-trie">e-trie</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-trie-search"><link linkend="e-trie-search">e_trie_search</link>, function in <link linkend="libedataserver-e-trie">e-trie</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>U</title>
+<indexentry><primaryie linkends="e-util-mkdir-hier"><link linkend="e-util-mkdir-hier">e_util_mkdir_hier</link>, function in <link linkend="libedataserver-e-util">e-util</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

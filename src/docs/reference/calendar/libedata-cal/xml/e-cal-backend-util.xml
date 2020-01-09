@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libedata-cal-e-cal-backend-util">
+<refmeta>
+<refentrytitle role="top_of_page" id="libedata-cal-e-cal-backend-util.top_of_page">e-cal-backend-util</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATA-CAL Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-cal-backend-util</refname>
+<refpurpose>Utility functions for backends.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libedata-cal-e-cal-backend-util.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-backend-mail-account-get-default">e_cal_backend_mail_account_get_default</link>
+                                                        (<parameter><link linkend="gchar"><type>gchar</type></link> **address</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **name</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-backend-mail-account-is-valid">e_cal_backend_mail_account_is_valid</link> (<parameter><link linkend="gchar"><type>gchar</type></link> *user</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **name</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-cal-backend-status-to-string">e_cal_backend_status_to_string</link>      (<parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-cal-backend-user-declined">e_cal_backend_user_declined</link>         (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libedata-cal-e-cal-backend-util.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libedata-cal-e-cal-backend-util.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="e-cal-backend-mail-account-get-default" role="function">
+<title>e_cal_backend_mail_account_get_default ()</title>
+<indexterm zone="e-cal-backend-mail-account-get-default"><primary>e_cal_backend_mail_account_get_default</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_backend_mail_account_get_default
+                                                        (<parameter><link linkend="gchar"><type>gchar</type></link> **address</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **name</parameter>);</programlisting>
+<para>
+Retrieve the default mail account as stored in Evolution configuration.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>address</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for default address.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for name.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if there is a default account, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-mail-account-is-valid" role="function">
+<title>e_cal_backend_mail_account_is_valid ()</title>
+<indexterm zone="e-cal-backend-mail-account-is-valid"><primary>e_cal_backend_mail_account_is_valid</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_backend_mail_account_is_valid (<parameter><link linkend="gchar"><type>gchar</type></link> *user</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **name</parameter>);</programlisting>
+<para>
+Checks that a mail account is valid, and returns its name.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>user</parameter>&#160;:</term>
+<listitem><simpara>User name for the account to check.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for the account name.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if the account is valid, FALSE if not.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-status-to-string" role="function">
+<title>e_cal_backend_status_to_string ()</title>
+<indexterm zone="e-cal-backend-status-to-string"><primary>e_cal_backend_status_to_string</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_cal_backend_status_to_string      (<parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);</programlisting>
+<para>
+Converts status code to string.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-user-declined" role="function">
+<title>e_cal_backend_user_declined ()</title>
+<indexterm zone="e-cal-backend-user-declined"><primary>e_cal_backend_user_declined</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_cal_backend_user_declined         (<parameter><link linkend="icalcomponent"><type>icalcomponent</type></link> *icalcomp</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>icalcomp</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

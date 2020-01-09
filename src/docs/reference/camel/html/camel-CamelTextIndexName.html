@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CamelTextIndex</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Camel Reference Manual">
+<link rel="up" href="Storage.html" title="Metadata Storage">
+<link rel="prev" href="camel-CamelKeyTable.html" title="CamelKeyTable">
+<link rel="next" href="Utilities.html" title="Utilities">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="camel-CamelKeyTable.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="Storage.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Camel Reference Manual</th>
+<td><a accesskey="n" href="Utilities.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#camel-CamelTextIndexName.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#camel-CamelTextIndexName.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="camel-CamelTextIndexName"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="camel-CamelTextIndexName.top_of_page"></a>CamelTextIndex</span></h2>
+<p>CamelTextIndex</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="camel-CamelTextIndexName.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis"><span class="returnvalue">void</span>                (<a class="link" href="camel-CamelTextIndexName.html#CamelTextIndexFunc" title="CamelTextIndexFunc ()">*CamelTextIndexFunc</a>)               (<em class="parameter"><code><a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex"><span class="type">CamelTextIndex</span></a> *idx</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *word</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> *buffer</code></em>);
+                    <a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex">CamelTextIndex</a>;
+                    <a class="link" href="camel-CamelTextIndexName.html#CamelTextIndexCursor" title="CamelTextIndexCursor">CamelTextIndexCursor</a>;
+                    <a class="link" href="camel-CamelTextIndexName.html#CamelTextIndexKeyCursor" title="CamelTextIndexKeyCursor">CamelTextIndexKeyCursor</a>;
+                    <a class="link" href="camel-CamelTextIndexName.html#CamelTextIndexName" title="CamelTextIndexName">CamelTextIndexName</a>;
+<a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex"><span class="returnvalue">CamelTextIndex</span></a> *    <a class="link" href="camel-CamelTextIndexName.html#camel-text-index-new" title="camel_text_index_new ()">camel_text_index_new</a>                (<em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> flags</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelTextIndexName.html#camel-text-index-check" title="camel_text_index_check ()">camel_text_index_check</a>              (<em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelTextIndexName.html#camel-text-index-rename" title="camel_text_index_rename ()">camel_text_index_rename</a>             (<em class="parameter"><code>const <span class="type">gchar</span> *old</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *new</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelTextIndexName.html#camel-text-index-remove" title="camel_text_index_remove ()">camel_text_index_remove</a>             (<em class="parameter"><code>const <span class="type">gchar</span> *old</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelTextIndexName.html#camel-text-index-dump" title="camel_text_index_dump ()">camel_text_index_dump</a>               (<em class="parameter"><code><a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex"><span class="type">CamelTextIndex</span></a> *idx</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelTextIndexName.html#camel-text-index-info" title="camel_text_index_info ()">camel_text_index_info</a>               (<em class="parameter"><code><a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex"><span class="type">CamelTextIndex</span></a> *idx</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelTextIndexName.html#camel-text-index-validate" title="camel_text_index_validate ()">camel_text_index_validate</a>           (<em class="parameter"><code><a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex"><span class="type">CamelTextIndex</span></a> *idx</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="camel-CamelTextIndexName.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="camel-CamelTextIndexName.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="CamelTextIndexFunc"></a><h3>CamelTextIndexFunc ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                (*CamelTextIndexFunc)               (<em class="parameter"><code><a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex"><span class="type">CamelTextIndex</span></a> *idx</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *word</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> *buffer</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>word</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelTextIndex"></a><h3>CamelTextIndex</h3>
+<pre class="programlisting">typedef struct {
+	CamelIndex parent;
+
+	struct _CamelTextIndexPrivate *priv;
+} CamelTextIndex;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelTextIndexCursor"></a><h3>CamelTextIndexCursor</h3>
+<pre class="programlisting">typedef struct {
+	CamelIndexCursor parent;
+
+	struct _CamelTextIndexCursorPrivate *priv;
+} CamelTextIndexCursor;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelTextIndexKeyCursor"></a><h3>CamelTextIndexKeyCursor</h3>
+<pre class="programlisting">typedef struct {
+	CamelIndexCursor parent;
+
+	struct _CamelTextIndexKeyCursorPrivate *priv;
+} CamelTextIndexKeyCursor;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelTextIndexName"></a><h3>CamelTextIndexName</h3>
+<pre class="programlisting">typedef struct {
+	CamelIndexName parent;
+
+	struct _CamelTextIndexNamePrivate *priv;
+} CamelTextIndexName;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-text-index-new"></a><h3>camel_text_index_new ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex"><span class="returnvalue">CamelTextIndex</span></a> *    camel_text_index_new                (<em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> flags</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-text-index-check"></a><h3>camel_text_index_check ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_text_index_check              (<em class="parameter"><code>const <span class="type">gchar</span> *path</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>path</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-text-index-rename"></a><h3>camel_text_index_rename ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_text_index_rename             (<em class="parameter"><code>const <span class="type">gchar</span> *old</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *new</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>old</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>new</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-text-index-remove"></a><h3>camel_text_index_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_text_index_remove             (<em class="parameter"><code>const <span class="type">gchar</span> *old</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>old</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-text-index-dump"></a><h3>camel_text_index_dump ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_text_index_dump               (<em class="parameter"><code><a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex"><span class="type">CamelTextIndex</span></a> *idx</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-text-index-info"></a><h3>camel_text_index_info ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_text_index_info               (<em class="parameter"><code><a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex"><span class="type">CamelTextIndex</span></a> *idx</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-text-index-validate"></a><h3>camel_text_index_validate ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_text_index_validate           (<em class="parameter"><code><a class="link" href="camel-CamelTextIndexName.html#CamelTextIndex" title="CamelTextIndex"><span class="type">CamelTextIndex</span></a> *idx</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>idx</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

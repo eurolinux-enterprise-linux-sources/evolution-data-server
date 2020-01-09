@@ -1,0 +1,346 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libedataserver-e-xml-hash-utils">
+<refmeta>
+<refentrytitle role="top_of_page" id="libedataserver-e-xml-hash-utils.top_of_page">EXMLHash</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVER Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EXMLHash</refname>
+<refpurpose>Functions for manipulating xml as a hash table.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libedataserver-e-xml-hash-utils.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>enum                <link linkend="EXmlHashType">EXmlHashType</link>;
+<link linkend="GHashTable"><returnvalue>GHashTable</returnvalue></link> *        <link linkend="e-xml-to-hash">e_xml_to_hash</link>                       (<parameter><link linkend="xmlDoc"><type>xmlDoc</type></link> *doc</parameter>,
+                                                         <parameter><link linkend="EXmlHashType"><type>EXmlHashType</type></link> type</parameter>);
+<link linkend="xmlDoc"><returnvalue>xmlDoc</returnvalue></link> *            <link linkend="e-xml-from-hash">e_xml_from_hash</link>                     (<parameter><link linkend="GHashTable"><type>GHashTable</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="EXmlHashType"><type>EXmlHashType</type></link> type</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *root_node</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-xml-destroy-hash">e_xml_destroy_hash</link>                  (<parameter><link linkend="GHashTable"><type>GHashTable</type></link> *hash</parameter>);
+enum                <link linkend="EXmlHashStatus">EXmlHashStatus</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="EXmlHashFunc">*EXmlHashFunc</link>)                     (<parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *value</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            (<link linkend="EXmlHashRemoveFunc">*EXmlHashRemoveFunc</link>)               (<parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *value</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);
+typedef             <link linkend="EXmlHash">EXmlHash</link>;
+<link linkend="EXmlHash"><returnvalue>EXmlHash</returnvalue></link> *          <link linkend="e-xmlhash-new">e_xmlhash_new</link>                       (<parameter>const <link linkend="gchar"><type>gchar</type></link> *filename</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-xmlhash-add">e_xmlhash_add</link>                       (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-xmlhash-remove">e_xmlhash_remove</link>                    (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>);
+<link linkend="EXmlHashStatus"><returnvalue>EXmlHashStatus</returnvalue></link>      <link linkend="e-xmlhash-compare">e_xmlhash_compare</link>                   (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *compare_data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-xmlhash-foreach-key">e_xmlhash_foreach_key</link>               (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="EXmlHashFunc"><type>EXmlHashFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-xmlhash-foreach-key-remove">e_xmlhash_foreach_key_remove</link>        (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="EXmlHashRemoveFunc"><type>EXmlHashRemoveFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-xmlhash-write">e_xmlhash_write</link>                     (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-xmlhash-destroy">e_xmlhash_destroy</link>                   (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libedataserver-e-xml-hash-utils.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libedataserver-e-xml-hash-utils.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EXmlHashType" role="enum">
+<title>enum EXmlHashType</title>
+<indexterm zone="EXmlHashType"><primary>EXmlHashType</primary></indexterm>
+<programlisting>typedef enum {
+	E_XML_HASH_TYPE_OBJECT_UID,
+	E_XML_HASH_TYPE_PROPERTY
+} EXmlHashType;
+</programlisting>
+<variablelist role="enum">
+<varlistentry id="E-XML-HASH-TYPE-OBJECT-UID:CAPS" role="constant">
+<term><literal>E_XML_HASH_TYPE_OBJECT_UID</literal></term>
+<listitem><simpara>Use the object UID as the hash key.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="E-XML-HASH-TYPE-PROPERTY:CAPS" role="constant">
+<term><literal>E_XML_HASH_TYPE_PROPERTY</literal></term>
+<listitem><simpara>Use the property name as the hash key.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-xml-to-hash" role="function">
+<title>e_xml_to_hash ()</title>
+<indexterm zone="e-xml-to-hash"><primary>e_xml_to_hash</primary></indexterm>
+<programlisting><link linkend="GHashTable"><returnvalue>GHashTable</returnvalue></link> *        e_xml_to_hash                       (<parameter><link linkend="xmlDoc"><type>xmlDoc</type></link> *doc</parameter>,
+                                                         <parameter><link linkend="EXmlHashType"><type>EXmlHashType</type></link> type</parameter>);</programlisting>
+<para>
+Creates a <link linkend="GHashTable"><type>GHashTable</type></link> representation of the <link linkend="xmlDoc"><type>xmlDoc</type></link> <parameter>doc</parameter>.
+If <parameter>type</parameter> is * <parameter>E_XML_HASH_TYPE_PROPERTY</parameter>, all XML nodes will be
+indexed in the <link linkend="GHashTable"><type>GHashTable</type></link> by name. If <parameter>type</parameter> is
+<link linkend="E-XML-HASH-TYPE-OBJECT-UID:CAPS"><literal>E_XML_HASH_TYPE_OBJECT_UID</literal></link>, then XML objects will be indexed in
+the hash by their UID (other nodes will still be indexed by name).</para>
+<variablelist role="params">
+<varlistentry><term><parameter>doc</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="xmlDoc"><type>xmlDoc</type></link> to store in a hash table.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>The value type to use as a key in the hash table.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The newly-created <link linkend="GHashTable"><type>GHashTable</type></link> representation of <parameter>doc</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-xml-from-hash" role="function">
+<title>e_xml_from_hash ()</title>
+<indexterm zone="e-xml-from-hash"><primary>e_xml_from_hash</primary></indexterm>
+<programlisting><link linkend="xmlDoc"><returnvalue>xmlDoc</returnvalue></link> *            e_xml_from_hash                     (<parameter><link linkend="GHashTable"><type>GHashTable</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="EXmlHashType"><type>EXmlHashType</type></link> type</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *root_node</parameter>);</programlisting>
+<para>
+Uses the key/value pair representation of an XML structure in <parameter>hash</parameter>
+to build an equivalent <link linkend="xmlDoc"><type>xmlDoc</type></link>. This is the reverse of
+<link linkend="e-xml-to-hash"><function>e_xml_to_hash()</function></link>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="GHashTable"><type>GHashTable</type></link> to extract the XML from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="EXmlHashType"><type>EXmlHashType</type></link> used to store the XML.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>root_node</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The <link linkend="xmlDoc"><type>xmlDoc</type></link> created from the data in <parameter>hash</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-xml-destroy-hash" role="function">
+<title>e_xml_destroy_hash ()</title>
+<indexterm zone="e-xml-destroy-hash"><primary>e_xml_destroy_hash</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_xml_destroy_hash                  (<parameter><link linkend="GHashTable"><type>GHashTable</type></link> *hash</parameter>);</programlisting>
+<para>
+Frees the memory used by <parameter>hash</parameter> and its contents.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="GHashTable"><type>GHashTable</type></link> to destroy.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EXmlHashStatus" role="enum">
+<title>enum EXmlHashStatus</title>
+<indexterm zone="EXmlHashStatus"><primary>EXmlHashStatus</primary></indexterm>
+<programlisting>typedef enum {
+	E_XMLHASH_STATUS_SAME,
+	E_XMLHASH_STATUS_DIFFERENT,
+	E_XMLHASH_STATUS_NOT_FOUND
+} EXmlHashStatus;
+</programlisting>
+<variablelist role="enum">
+<varlistentry id="E-XMLHASH-STATUS-SAME:CAPS" role="constant">
+<term><literal>E_XMLHASH_STATUS_SAME</literal></term>
+<listitem><simpara>The compared values are the same.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="E-XMLHASH-STATUS-DIFFERENT:CAPS" role="constant">
+<term><literal>E_XMLHASH_STATUS_DIFFERENT</literal></term>
+<listitem><simpara>The compared values are different.
+</simpara></listitem>
+</varlistentry>
+<varlistentry id="E-XMLHASH-STATUS-NOT-FOUND:CAPS" role="constant">
+<term><literal>E_XMLHASH_STATUS_NOT_FOUND</literal></term>
+<listitem><simpara>The key to compare against was not found.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EXmlHashFunc" role="function">
+<title>EXmlHashFunc ()</title>
+<indexterm zone="EXmlHashFunc"><primary>EXmlHashFunc</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*EXmlHashFunc)                     (<parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *value</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EXmlHashRemoveFunc" role="function">
+<title>EXmlHashRemoveFunc ()</title>
+<indexterm zone="EXmlHashRemoveFunc"><primary>EXmlHashRemoveFunc</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            (*EXmlHashRemoveFunc)               (<parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *value</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EXmlHash" role="typedef">
+<title>EXmlHash</title>
+<indexterm zone="EXmlHash"><primary>EXmlHash</primary></indexterm>
+<programlisting>typedef struct EXmlHash EXmlHash;
+</programlisting>
+<para>
+A hash table representation of an XML file.</para>
+</refsect2>
+<refsect2 id="e-xmlhash-new" role="function">
+<title>e_xmlhash_new ()</title>
+<indexterm zone="e-xmlhash-new"><primary>e_xmlhash_new</primary></indexterm>
+<programlisting><link linkend="EXmlHash"><returnvalue>EXmlHash</returnvalue></link> *          e_xmlhash_new                       (<parameter>const <link linkend="gchar"><type>gchar</type></link> *filename</parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EXmlHash"><type>EXmlHash</type></link> from the file <parameter>filename</parameter>. If <parameter>filename</parameter> does
+not already exist, an empty <link linkend="EXmlHash"><type>EXmlHash</type></link> will be created.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&#160;:</term>
+<listitem><simpara>The name of an XML file.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The new <link linkend="EXmlHash"><type>EXmlHash</type></link> structure, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if unable to parse
+         <parameter>filename</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-xmlhash-add" role="function">
+<title>e_xmlhash_add ()</title>
+<indexterm zone="e-xmlhash-add"><primary>e_xmlhash_add</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_xmlhash_add                       (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *data</parameter>);</programlisting>
+<para>
+Adds a new key/value pair to the <link linkend="EXmlHash"><type>EXmlHash</type></link> <parameter>hash</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="EXmlHash"><type>EXmlHash</type></link> to add an entry to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>The key to use for the entry.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>The value of the new entry.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-xmlhash-remove" role="function">
+<title>e_xmlhash_remove ()</title>
+<indexterm zone="e-xmlhash-remove"><primary>e_xmlhash_remove</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_xmlhash_remove                    (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>);</programlisting>
+<para>
+Remove the entry in <parameter>hash</parameter> with key equal to <parameter>key</parameter>, if it exists.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="EXmlHash"><type>EXmlHash</type></link> to remove an entry from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>The key of the entry to remove.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-xmlhash-compare" role="function">
+<title>e_xmlhash_compare ()</title>
+<indexterm zone="e-xmlhash-compare"><primary>e_xmlhash_compare</primary></indexterm>
+<programlisting><link linkend="EXmlHashStatus"><returnvalue>EXmlHashStatus</returnvalue></link>      e_xmlhash_compare                   (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *compare_data</parameter>);</programlisting>
+<para>
+Compares the value with key equal to <parameter>key</parameter> in <parameter>hash</parameter> against
+<parameter>compare_data</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="EXmlHash"><type>EXmlHash</type></link> to compare against.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>The key of the hash entry to compare with.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>compare_data</parameter>&#160;:</term>
+<listitem><simpara>The data to compare against the hash entry.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> E_XMLHASH_STATUS_SAME if the value and <parameter>compare_data</parameter> are
+         equal,E_XMLHASH_STATUS_DIFFERENT if they are different, or
+         E_XMLHASH_STATUS_NOT_FOUND if there is no entry in <parameter>hash</parameter> with
+         its key equal to <parameter>key</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-xmlhash-foreach-key" role="function">
+<title>e_xmlhash_foreach_key ()</title>
+<indexterm zone="e-xmlhash-foreach-key"><primary>e_xmlhash_foreach_key</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_xmlhash_foreach_key               (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="EXmlHashFunc"><type>EXmlHashFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);</programlisting>
+<para>
+Executes <parameter>func</parameter> against each key/value pair in <parameter>hash</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="EXmlHash"><type>EXmlHash</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="EXmlHashFunc"><type>EXmlHashFunc</type></link> to execute on the data in <parameter>hash</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>The data to pass to <parameter>func</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-xmlhash-foreach-key-remove" role="function">
+<title>e_xmlhash_foreach_key_remove ()</title>
+<indexterm zone="e-xmlhash-foreach-key-remove"><primary>e_xmlhash_foreach_key_remove</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_xmlhash_foreach_key_remove        (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>,
+                                                         <parameter><link linkend="EXmlHashRemoveFunc"><type>EXmlHashRemoveFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-xmlhash-write" role="function">
+<title>e_xmlhash_write ()</title>
+<indexterm zone="e-xmlhash-write"><primary>e_xmlhash_write</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_xmlhash_write                     (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>);</programlisting>
+<para>
+Writes the XML represented by <parameter>hash</parameter> to the file originally passed
+to <link linkend="e-xmlhash-new"><function>e_xmlhash_new()</function></link>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="EXmlHash"><type>EXmlHash</type></link> to write.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-xmlhash-destroy" role="function">
+<title>e_xmlhash_destroy ()</title>
+<indexterm zone="e-xmlhash-destroy"><primary>e_xmlhash_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_xmlhash_destroy                   (<parameter><link linkend="EXmlHash"><type>EXmlHash</type></link> *hash</parameter>);</programlisting>
+<para>
+Frees the memory associated with <parameter>hash</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>hash</parameter>&#160;:</term>
+<listitem><simpara>The <link linkend="EXmlHash"><type>EXmlHash</type></link> to destroy.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

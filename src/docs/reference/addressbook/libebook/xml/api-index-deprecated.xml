@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<indexdiv>
+<indexdiv><title>V</title>
+<indexentry><primaryie linkends="EVC-X-DEST-EMAIL:CAPS"><link linkend="EVC-X-DEST-EMAIL:CAPS">EVC_X_DEST_EMAIL</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-DEST-NAME:CAPS"><link linkend="EVC-X-DEST-NAME:CAPS">EVC_X_DEST_NAME</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

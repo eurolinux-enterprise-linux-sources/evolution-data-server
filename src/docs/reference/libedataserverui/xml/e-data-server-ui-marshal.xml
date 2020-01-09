@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libedataserverui-e-data-server-ui-marshal">
+<refmeta>
+<refentrytitle role="top_of_page" id="libedataserverui-e-data-server-ui-marshal.top_of_page">e-data-server-ui-marshal</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVERUI Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-data-server-ui-marshal</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libedataserverui-e-data-server-ui-marshal.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-server-ui-marshal-BOOLEAN--BOXED-OBJECT-FLAGS-UINT">e_data_server_ui_marshal_BOOLEAN__BOXED_OBJECT_FLAGS_UINT</link>
+                                                        (<parameter><link linkend="GClosure"><type>GClosure</type></link> *closure</parameter>,
+                                                         <parameter><link linkend="GValue"><type>GValue</type></link> *return_value</parameter>,
+                                                         <parameter><link linkend="guint"><type>guint</type></link> n_param_values</parameter>,
+                                                         <parameter>const <link linkend="GValue"><type>GValue</type></link> *param_values</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> invocation_hint</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> marshal_data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-server-ui-marshal-BOOLEAN--OBJECT-BOXED">e_data_server_ui_marshal_BOOLEAN__OBJECT_BOXED</link>
+                                                        (<parameter><link linkend="GClosure"><type>GClosure</type></link> *closure</parameter>,
+                                                         <parameter><link linkend="GValue"><type>GValue</type></link> *return_value</parameter>,
+                                                         <parameter><link linkend="guint"><type>guint</type></link> n_param_values</parameter>,
+                                                         <parameter>const <link linkend="GValue"><type>GValue</type></link> *param_values</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> invocation_hint</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> marshal_data</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libedataserverui-e-data-server-ui-marshal.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libedataserverui-e-data-server-ui-marshal.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="e-data-server-ui-marshal-BOOLEAN--BOXED-OBJECT-FLAGS-UINT" role="function">
+<title>e_data_server_ui_marshal_BOOLEAN__BOXED_OBJECT_FLAGS_UINT ()</title>
+<indexterm zone="e-data-server-ui-marshal-BOOLEAN--BOXED-OBJECT-FLAGS-UINT"><primary>e_data_server_ui_marshal_BOOLEAN__BOXED_OBJECT_FLAGS_UINT</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_server_ui_marshal_BOOLEAN__BOXED_OBJECT_FLAGS_UINT
+                                                        (<parameter><link linkend="GClosure"><type>GClosure</type></link> *closure</parameter>,
+                                                         <parameter><link linkend="GValue"><type>GValue</type></link> *return_value</parameter>,
+                                                         <parameter><link linkend="guint"><type>guint</type></link> n_param_values</parameter>,
+                                                         <parameter>const <link linkend="GValue"><type>GValue</type></link> *param_values</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> invocation_hint</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> marshal_data</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>return_value</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_param_values</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>param_values</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>invocation_hint</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>marshal_data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-server-ui-marshal-BOOLEAN--OBJECT-BOXED" role="function">
+<title>e_data_server_ui_marshal_BOOLEAN__OBJECT_BOXED ()</title>
+<indexterm zone="e-data-server-ui-marshal-BOOLEAN--OBJECT-BOXED"><primary>e_data_server_ui_marshal_BOOLEAN__OBJECT_BOXED</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_server_ui_marshal_BOOLEAN__OBJECT_BOXED
+                                                        (<parameter><link linkend="GClosure"><type>GClosure</type></link> *closure</parameter>,
+                                                         <parameter><link linkend="GValue"><type>GValue</type></link> *return_value</parameter>,
+                                                         <parameter><link linkend="guint"><type>guint</type></link> n_param_values</parameter>,
+                                                         <parameter>const <link linkend="GValue"><type>GValue</type></link> *param_values</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> invocation_hint</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> marshal_data</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>return_value</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_param_values</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>param_values</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>invocation_hint</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>marshal_data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

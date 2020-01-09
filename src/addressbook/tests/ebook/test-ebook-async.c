@@ -1,0 +1,102 @@
+/* -*- Mode: C; tab-width: 8; indent-tabs-mode: t; c-basic-offset: 8 -*- */
+
+#include <stdlib.h>
+#include <libebook/e-book.h>
+
+static GMainLoop *loop;
+
+static void
+print_email (EContact *contact)
+{
+	const gchar *file_as = e_contact_get_const (contact, E_CONTACT_FILE_AS);
+	const gchar *name_or_org = e_contact_get_const (contact, E_CONTACT_NAME_OR_ORG);
+	GList *emails, *e;
+
+	printf ("Contact: %s\n", file_as);
+	printf ("Name or org: %s\n", name_or_org);
+	printf ("Email addresses:\n");
+	emails = e_contact_get (contact, E_CONTACT_EMAIL);
+	for (e = emails; e; e = e->next) {
+		printf ("\t%s\n",  (gchar *)e->data);
+	}
+	g_list_foreach (emails, (GFunc)g_free, NULL);
+	g_list_free (emails);
+
+	printf ("\n");
+}
+
+static void
+print_all_emails_cb (EBook *book, EBookStatus status, GList *contacts, gpointer closure)
+{
+	GList *c;
+
+	if (status == E_BOOK_ERROR_OK) {
+		for (c = contacts; c; c = c->next) {
+			EContact *contact = E_CONTACT (c->data);
+
+			print_email (contact);
+		}
+	}
+
+	g_main_loop_quit (loop);
+}
+
+static void
+print_all_emails (EBook *book)
+{
+	EBookQuery *query;
+
+	query = e_book_query_field_exists (E_CONTACT_FULL_NAME);
+
+	e_book_async_get_contacts (book, query, print_all_emails_cb, NULL);
+
+	e_book_query_unref (query);
+}
+
+static void
+print_email_cb (EBook *book, EBookStatus status, EContact *contact, gpointer closure)
+{
+	if (status == E_BOOK_ERROR_OK)
+		print_email (contact);
+
+	printf ("printing all contacts\n");
+	print_all_emails (book);
+}
+
+static void
+print_one_email (EBook *book)
+{
+	e_book_async_get_contact (book, "pas-id-0002023", print_email_cb, NULL);
+}
+
+static void
+book_loaded_cb (EBook *book, EBookStatus status, gpointer data)
+{
+	if (status != E_BOOK_ERROR_OK)
+		return;
+
+	printf ("printing one contact\n");
+	print_one_email (book);
+}
+
+gint
+main (gint argc, gchar **argv)
+{
+	EBook *book;
+
+	g_type_init ();
+	loop = g_main_loop_new (NULL, TRUE);
+
+	/*
+	** the actual ebook foo
+	*/
+
+	book = e_book_new_system_addressbook (NULL);
+
+	printf ("loading addressbook\n");
+	e_book_async_open (book, FALSE, book_loaded_cb, book);
+
+	g_main_loop_run (loop);
+
+	return 0;
+}

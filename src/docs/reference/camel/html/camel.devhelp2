@@ -1,0 +1,1635 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
+<book xmlns="http://www.devhelp.net/book" title="Camel Reference Manual" link="index.html" author="" name="camel" version="2" language="c">
+  <chapters>
+    <sub name="Camel Classes" link="classes.html">
+      <sub name="Class Hierarchy" link="ClassTree.html"/>
+      <sub name="Fundamentals" link="Fundamentals.html">
+        <sub name="camel-arg" link="camel-camel-arg.html"/>
+        <sub name="camel-debug" link="camel-camel-debug.html"/>
+        <sub name="camel-exception" link="camel-camel-exception.html"/>
+        <sub name="CamelObject" link="camel-CamelObject.html"/>
+        <sub name="camel-operation" link="camel-camel-operation.html"/>
+        <sub name="camel-url" link="camel-camel-url.html"/>
+      </sub>
+      <sub name="Streams" link="Streams.html">
+        <sub name="CamelStream" link="camel-CamelStream.html"/>
+        <sub name="CamelSeekableStream" link="camel-CamelSeekableStream.html"/>
+        <sub name="CamelSeekableSubstream" link="camel-CamelSeekableSubstream.html"/>
+        <sub name="CamelStreamBuffer" link="camel-CamelStreamBuffer.html"/>
+        <sub name="CamelStreamFilter" link="camel-CamelStreamFilter.html"/>
+        <sub name="CamelStreamFs" link="camel-CamelStreamFs.html"/>
+        <sub name="CamelStreamMem" link="camel-CamelStreamMem.html"/>
+        <sub name="CamelStreamNull" link="camel-CamelStreamNull.html"/>
+        <sub name="CamelStreamProcess" link="camel-CamelStreamProcess.html"/>
+        <sub name="CamelStreamVFS" link="camel-CamelStreamVFS.html"/>
+        <sub name="CamelHttpStream" link="camel-CamelHttpStream.html"/>
+        <sub name="CamelTcpStream" link="camel-CamelTcpStream.html"/>
+        <sub name="CamelTcpStreamRaw" link="camel-CamelTcpStreamRaw.html"/>
+        <sub name="CamelTcpStreamSSL" link="camel-CamelTcpStreamSSL.html"/>
+      </sub>
+      <sub name="Stream Filters" link="StreamFilters.html">
+        <sub name="CamelMimeFilter" link="camel-CamelMimeFilter.html"/>
+        <sub name="CamelMimeFilterBasic" link="camel-CamelMimeFilterBasic.html"/>
+        <sub name="CamelMimeFilterBestenc" link="camel-CamelMimeFilterBestenc.html"/>
+        <sub name="CamelMimeFilterCanon" link="camel-CamelMimeFilterCanon.html"/>
+        <sub name="CamelMimeFilterCharset" link="camel-CamelMimeFilterCharset.html"/>
+        <sub name="CamelMimeFilterCRLF" link="camel-CamelMimeFilterCRLF.html"/>
+        <sub name="CamelMimeFilterEnriched" link="camel-CamelMimeFilterEnriched.html"/>
+        <sub name="CamelMimeFilterFrom" link="camel-CamelMimeFilterFrom.html"/>
+        <sub name="CamelMimeFilterGZip" link="camel-CamelMimeFilterGZip.html"/>
+        <sub name="CamelMimeFilterHTML" link="camel-CamelMimeFilterHTML.html"/>
+        <sub name="CamelMimeFilterIndex" link="camel-CamelMimeFilterIndex.html"/>
+        <sub name="CamelMimeFilterLinewrap" link="camel-CamelMimeFilterLinewrap.html"/>
+        <sub name="CamelMimeFilterPgp" link="camel-CamelMimeFilterPgp.html"/>
+        <sub name="CamelMimeFilterProgress" link="camel-CamelMimeFilterProgress.html"/>
+        <sub name="CamelMimeFilterSave" link="camel-CamelMimeFilterSave.html"/>
+        <sub name="CamelMimeFilterToHTML" link="camel-CamelMimeFilterToHTML.html"/>
+        <sub name="CamelMimeFilterWindows" link="camel-CamelMimeFilterWindows.html"/>
+        <sub name="CamelMimeFilterYenc" link="camel-CamelMimeFilterYenc.html"/>
+      </sub>
+      <sub name="Services" link="Services.html">
+        <sub name="CamelSession" link="camel-CamelSession.html"/>
+        <sub name="camel-provider" link="camel-camel-provider.html"/>
+        <sub name="CamelService" link="camel-CamelService.html"/>
+        <sub name="CamelStore" link="camel-CamelStore.html"/>
+        <sub name="CamelStoreSummary" link="camel-CamelStoreSummary.html"/>
+        <sub name="CamelOfflineStore" link="camel-CamelOfflineStore.html"/>
+        <sub name="CamelTransport" link="camel-CamelTransport.html"/>
+      </sub>
+      <sub name="Filters" link="Filters.html">
+        <sub name="CamelFilterDriver" link="camel-CamelFilterDriver.html"/>
+        <sub name="camel-filter-search" link="camel-camel-filter-search.html"/>
+      </sub>
+      <sub name="Folders" link="Folders.html">
+        <sub name="CamelFolder" link="camel-CamelFolder.html"/>
+        <sub name="CamelFolderSearch" link="camel-CamelFolderSearch.html"/>
+        <sub name="CamelFolderSummary" link="camel-CamelFolderSummary.html"/>
+        <sub name="camel-folder-thread" link="camel-camel-folder-thread.html"/>
+        <sub name="CamelOfflineFolder" link="camel-CamelOfflineFolder.html"/>
+        <sub name="CamelOfflineJournal" link="camel-CamelOfflineJournal.html"/>
+      </sub>
+      <sub name="Search Folders" link="SearchFolders.html">
+        <sub name="CamelVeeFolder" link="camel-CamelVeeFolder.html"/>
+        <sub name="CamelVeeStore" link="camel-CamelVeeStore.html"/>
+        <sub name="CamelVeeSummary" link="camel-CamelVeeSummary.html"/>
+        <sub name="CamelVTrashFolder" link="camel-CamelVTrashFolder.html"/>
+      </sub>
+      <sub name="Addresses" link="Addresses.html">
+        <sub name="CamelAddress" link="camel-CamelAddress.html"/>
+        <sub name="CamelInternetAddress" link="camel-CamelInternetAddress.html"/>
+        <sub name="CamelNNTPAddress" link="camel-CamelNNTPAddress.html"/>
+      </sub>
+      <sub name="Crypto Contexts" link="Crypto.html">
+        <sub name="CamelCipherContext" link="camel-CamelCipherContext.html"/>
+        <sub name="CamelGpgContext" link="camel-CamelGpgContext.html"/>
+        <sub name="CamelSMIMEContext" link="camel-CamelSMIMEContext.html"/>
+        <sub name="CamelSasl" link="camel-CamelSasl.html"/>
+        <sub name="CamelSaslAnonymous" link="camel-CamelSaslAnonymous.html"/>
+        <sub name="CamelSaslCramMd5" link="camel-CamelSaslCramMd5.html"/>
+        <sub name="CamelSaslDigestMd5" link="camel-CamelSaslDigestMd5.html"/>
+        <sub name="CamelSaslGssapi" link="camel-CamelSaslGssapi.html"/>
+        <sub name="CamelSaslKerberos4" link="camel-CamelSaslKerberos4.html"/>
+        <sub name="CamelSaslLogin" link="camel-CamelSaslLogin.html"/>
+        <sub name="CamelSaslNTLM" link="camel-CamelSaslNTLM.html"/>
+        <sub name="CamelSaslPlain" link="camel-CamelSaslPlain.html"/>
+        <sub name="CamelSaslPOPB4SMTP" link="camel-CamelSaslPOPB4SMTP.html"/>
+      </sub>
+      <sub name="MIME Objects" link="MIME.html">
+        <sub name="CamelDataWrapper" link="camel-CamelDataWrapper.html"/>
+        <sub name="CamelMedium" link="camel-CamelMedium.html"/>
+        <sub name="CamelMimePart" link="camel-CamelMimePart.html"/>
+        <sub name="CamelMultipart" link="camel-CamelMultipart.html"/>
+        <sub name="CamelMultipartSigned" link="camel-CamelMultipartSigned.html"/>
+        <sub name="CamelMultipartEncrypted" link="camel-CamelMultipartEncrypted.html"/>
+        <sub name="CamelMimeMessage" link="camel-CamelMimeMessage.html"/>
+        <sub name="CamelMimeParser" link="camel-CamelMimeParser.html"/>
+      </sub>
+      <sub name="Metadata Storage" link="Storage.html">
+        <sub name="CamelKeyFile" link="camel-CamelKeyFile.html"/>
+        <sub name="CamelCertDB" link="camel-CamelCertDB.html"/>
+        <sub name="CamelDataCache" link="camel-CamelDataCache.html"/>
+        <sub name="CamelDB" link="camel-CamelDB.html"/>
+        <sub name="CamelIndex" link="camel-CamelIndex.html"/>
+        <sub name="CamelKeyTable" link="camel-CamelKeyTable.html"/>
+        <sub name="CamelTextIndex" link="camel-CamelTextIndexName.html"/>
+      </sub>
+      <sub name="Utilities" link="Utilities.html">
+        <sub name="camel-charset-map" link="camel-camel-charset-map.html"/>
+        <sub name="camel-file-utils" link="camel-camel-file-utils.html"/>
+        <sub name="camel-iconv" link="camel-camel-iconv.html"/>
+        <sub name="camel-junk-plugin" link="camel-camel-junk-plugin.html"/>
+        <sub name="camel-list-utils" link="camel-camel-list-utils.html"/>
+        <sub name="camel-lock" link="camel-camel-lock.html"/>
+        <sub name="camel-lock-client" link="camel-camel-lock-client.html"/>
+        <sub name="camel-mime-utils" link="camel-camel-mime-utils.html"/>
+        <sub name="camel-movemail" link="camel-camel-movemail.html"/>
+        <sub name="CamelMsgPort" link="camel-CamelMsgPort.html"/>
+        <sub name="camel-net-utils" link="camel-camel-net-utils.html"/>
+        <sub name="camel-search-sql" link="camel-camel-search-sql.html"/>
+        <sub name="camel-search-sql-sexp" link="camel-camel-search-sql-sexp.html"/>
+        <sub name="camel-string-utils" link="camel-camel-string-utils.html"/>
+        <sub name="camel-trie" link="camel-camel-trie.html"/>
+        <sub name="camel-uid-cache" link="camel-camel-uid-cache.html"/>
+        <sub name="camel-url-scanner" link="camel-camel-url-scanner.html"/>
+        <sub name="camel-utf8" link="camel-camel-utf8.html"/>
+      </sub>
+      <sub name="Deprecated Objects" link="Deprecated.html">
+        <sub name="camel-i18n" link="camel-camel-i18n.html"/>
+        <sub name="CamelNewsAddress" link="camel-CamelNewsAddress.html"/>
+        <sub name="camel-process" link="camel-camel-process.html"/>
+      </sub>
+      <sub name="Index" link="ix01.html"/>
+      <sub name="Index of deprecated symbols" link="ix02.html"/>
+    </sub>
+  </chapters>
+  <functions>
+    <keyword type="struct" name="CamelArg" link="camel-camel-arg.html#CamelArg"/>
+    <keyword type="struct" name="CamelArgV" link="camel-camel-arg.html#CamelArgV"/>
+    <keyword type="struct" name="CamelArgGet" link="camel-camel-arg.html#CamelArgGet"/>
+    <keyword type="struct" name="CamelArgGetV" link="camel-camel-arg.html#CamelArgGetV"/>
+    <keyword type="macro" name="ca_object" link="camel-camel-arg.html#ca-object"/>
+    <keyword type="macro" name="ca_int" link="camel-camel-arg.html#ca-int"/>
+    <keyword type="macro" name="ca_double" link="camel-camel-arg.html#ca-double"/>
+    <keyword type="macro" name="ca_str" link="camel-camel-arg.html#ca-str"/>
+    <keyword type="macro" name="ca_ptr" link="camel-camel-arg.html#ca-ptr"/>
+    <keyword type="macro" name="CAMEL_ARGV_MAX" link="camel-camel-arg.html#CAMEL-ARGV-MAX:CAPS"/>
+    <keyword type="macro" name="camel_argv_start()" link="camel-camel-arg.html#camel-argv-start"/>
+    <keyword type="macro" name="camel_argv_end()" link="camel-camel-arg.html#camel-argv-end"/>
+    <keyword type="function" name="camel_argv_build ()" link="camel-camel-arg.html#camel-argv-build"/>
+    <keyword type="function" name="camel_arggetv_build ()" link="camel-camel-arg.html#camel-arggetv-build"/>
+    <keyword type="macro" name="camel_argv_ignore()" link="camel-camel-arg.html#camel-argv-ignore"/>
+    <keyword type="struct" name="CamelProperty" link="camel-camel-arg.html#CamelProperty"/>
+    <keyword type="macro" name="CAMEL_DEBUG_IMAP" link="camel-camel-debug.html#CAMEL-DEBUG-IMAP:CAPS"/>
+    <keyword type="macro" name="CAMEL_DEBUG_IMAP_FOLDER" link="camel-camel-debug.html#CAMEL-DEBUG-IMAP-FOLDER:CAPS"/>
+    <keyword type="function" name="camel_debug_init ()" link="camel-camel-debug.html#camel-debug-init"/>
+    <keyword type="function" name="camel_debug ()" link="camel-camel-debug.html#camel-debug"/>
+    <keyword type="function" name="camel_debug_start ()" link="camel-camel-debug.html#camel-debug-start"/>
+    <keyword type="function" name="camel_debug_end ()" link="camel-camel-debug.html#camel-debug-end"/>
+    <keyword type="variable" name="camel_verbose_debug" link="camel-camel-debug.html#camel-verbose-debug" deprecated=""/>
+    <keyword type="enum" name="enum ExceptionId" link="camel-camel-exception.html#ExceptionId"/>
+    <keyword type="struct" name="struct CamelException" link="camel-camel-exception.html#CamelException"/>
+    <keyword type="macro" name="CAMEL_EXCEPTION_INITIALISER" link="camel-camel-exception.html#CAMEL-EXCEPTION-INITIALISER:CAPS"/>
+    <keyword type="function" name="camel_exception_new ()" link="camel-camel-exception.html#camel-exception-new"/>
+    <keyword type="function" name="camel_exception_free ()" link="camel-camel-exception.html#camel-exception-free"/>
+    <keyword type="function" name="camel_exception_init ()" link="camel-camel-exception.html#camel-exception-init"/>
+    <keyword type="function" name="camel_exception_clear ()" link="camel-camel-exception.html#camel-exception-clear"/>
+    <keyword type="function" name="camel_exception_set ()" link="camel-camel-exception.html#camel-exception-set"/>
+    <keyword type="function" name="camel_exception_setv ()" link="camel-camel-exception.html#camel-exception-setv"/>
+    <keyword type="function" name="camel_exception_xfer ()" link="camel-camel-exception.html#camel-exception-xfer"/>
+    <keyword type="function" name="camel_exception_get_id ()" link="camel-camel-exception.html#camel-exception-get-id"/>
+    <keyword type="function" name="camel_exception_get_description ()" link="camel-camel-exception.html#camel-exception-get-description"/>
+    <keyword type="macro" name="camel_exception_is_set()" link="camel-camel-exception.html#camel-exception-is-set"/>
+    <keyword type="macro" name="CAMEL_OBJECT_TRACK_INSTANCES" link="camel-CamelObject.html#CAMEL-OBJECT-TRACK-INSTANCES:CAPS"/>
+    <keyword type="typedef" name="CamelType" link="camel-CamelObject.html#CamelType"/>
+    <keyword type="struct" name="CamelObject" link="camel-CamelObject.html#CamelObject"/>
+    <keyword type="macro" name="CAMEL_CHECK_CAST()" link="camel-CamelObject.html#CAMEL-CHECK-CAST:CAPS"/>
+    <keyword type="macro" name="CAMEL_CHECK_CLASS_CAST()" link="camel-CamelObject.html#CAMEL-CHECK-CLASS-CAST:CAPS"/>
+    <keyword type="macro" name="CAMEL_CHECK_TYPE()" link="camel-CamelObject.html#CAMEL-CHECK-TYPE:CAPS"/>
+    <keyword type="macro" name="CAMEL_CHECK_CLASS_TYPE()" link="camel-CamelObject.html#CAMEL-CHECK-CLASS-TYPE:CAPS"/>
+    <keyword type="variable" name="camel_object_type" link="camel-CamelObject.html#camel-object-type"/>
+    <keyword type="macro" name="CAMEL_OBJECT_TYPE" link="camel-CamelObject.html#CAMEL-OBJECT-TYPE:CAPS"/>
+    <keyword type="macro" name="CAMEL_OBJECT_GET_TYPE()" link="camel-CamelObject.html#CAMEL-OBJECT-GET-TYPE:CAPS"/>
+    <keyword type="typedef" name="CamelObjectHookID" link="camel-CamelObject.html#CamelObjectHookID"/>
+    <keyword type="struct" name="CamelObjectMeta" link="camel-CamelObject.html#CamelObjectMeta" deprecated=""/>
+    <keyword type="variable" name="camel_interface_type" link="camel-CamelObject.html#camel-interface-type" deprecated=""/>
+    <keyword type="macro" name="CAMEL_INTERFACE_TYPE" link="camel-CamelObject.html#CAMEL-INTERFACE-TYPE:CAPS" deprecated=""/>
+    <keyword type="struct" name="CamelInterface" link="camel-CamelObject.html#CamelInterface" deprecated=""/>
+    <keyword type="function" name="CamelObjectClassInitFunc ()" link="camel-CamelObject.html#CamelObjectClassInitFunc"/>
+    <keyword type="function" name="CamelObjectClassFinalizeFunc ()" link="camel-CamelObject.html#CamelObjectClassFinalizeFunc"/>
+    <keyword type="function" name="CamelObjectInitFunc ()" link="camel-CamelObject.html#CamelObjectInitFunc"/>
+    <keyword type="function" name="CamelObjectFinalizeFunc ()" link="camel-CamelObject.html#CamelObjectFinalizeFunc"/>
+    <keyword type="function" name="CamelObjectEventPrepFunc ()" link="camel-CamelObject.html#CamelObjectEventPrepFunc"/>
+    <keyword type="function" name="CamelObjectEventHookFunc ()" link="camel-CamelObject.html#CamelObjectEventHookFunc"/>
+    <keyword type="macro" name="CAMEL_INVALID_TYPE" link="camel-CamelObject.html#CAMEL-INVALID-TYPE:CAPS"/>
+    <keyword type="enum" name="enum CamelObjectFlags" link="camel-CamelObject.html#CamelObjectFlags"/>
+    <keyword type="function" name="camel_type_init ()" link="camel-CamelObject.html#camel-type-init"/>
+    <keyword type="function" name="camel_type_register ()" link="camel-CamelObject.html#camel-type-register"/>
+    <keyword type="function" name="camel_interface_register ()" link="camel-CamelObject.html#camel-interface-register" deprecated=""/>
+    <keyword type="macro" name="camel_type_get_global_classfuncs()" link="camel-CamelObject.html#camel-type-get-global-classfuncs"/>
+    <keyword type="function" name="camel_type_to_name ()" link="camel-CamelObject.html#camel-type-to-name"/>
+    <keyword type="function" name="camel_name_to_type ()" link="camel-CamelObject.html#camel-name-to-type"/>
+    <keyword type="function" name="camel_object_class_add_event ()" link="camel-CamelObject.html#camel-object-class-add-event"/>
+    <keyword type="function" name="camel_object_class_add_interface ()" link="camel-CamelObject.html#camel-object-class-add-interface" deprecated=""/>
+    <keyword type="function" name="camel_object_class_dump_tree ()" link="camel-CamelObject.html#camel-object-class-dump-tree"/>
+    <keyword type="function" name="camel_object_cast ()" link="camel-CamelObject.html#camel-object-cast"/>
+    <keyword type="function" name="camel_object_is ()" link="camel-CamelObject.html#camel-object-is"/>
+    <keyword type="function" name="camel_object_class_cast ()" link="camel-CamelObject.html#camel-object-class-cast"/>
+    <keyword type="function" name="camel_object_class_is ()" link="camel-CamelObject.html#camel-object-class-is"/>
+    <keyword type="function" name="camel_interface_cast ()" link="camel-CamelObject.html#camel-interface-cast" deprecated=""/>
+    <keyword type="function" name="camel_interface_is ()" link="camel-CamelObject.html#camel-interface-is" deprecated=""/>
+    <keyword type="function" name="camel_object_new ()" link="camel-CamelObject.html#camel-object-new"/>
+    <keyword type="function" name="camel_object_ref ()" link="camel-CamelObject.html#camel-object-ref"/>
+    <keyword type="function" name="camel_object_unref ()" link="camel-CamelObject.html#camel-object-unref"/>
+    <keyword type="function" name="camel_object_hook_event ()" link="camel-CamelObject.html#camel-object-hook-event"/>
+    <keyword type="function" name="camel_object_remove_event ()" link="camel-CamelObject.html#camel-object-remove-event"/>
+    <keyword type="function" name="camel_object_unhook_event ()" link="camel-CamelObject.html#camel-object-unhook-event"/>
+    <keyword type="function" name="camel_object_trigger_event ()" link="camel-CamelObject.html#camel-object-trigger-event"/>
+    <keyword type="function" name="camel_object_get_interface ()" link="camel-CamelObject.html#camel-object-get-interface" deprecated=""/>
+    <keyword type="function" name="camel_object_set ()" link="camel-CamelObject.html#camel-object-set"/>
+    <keyword type="function" name="camel_object_setv ()" link="camel-CamelObject.html#camel-object-setv"/>
+    <keyword type="function" name="camel_object_get ()" link="camel-CamelObject.html#camel-object-get"/>
+    <keyword type="function" name="camel_object_getv ()" link="camel-CamelObject.html#camel-object-getv"/>
+    <keyword type="function" name="camel_object_get_ptr ()" link="camel-CamelObject.html#camel-object-get-ptr"/>
+    <keyword type="function" name="camel_object_get_int ()" link="camel-CamelObject.html#camel-object-get-int"/>
+    <keyword type="function" name="camel_object_meta_get ()" link="camel-CamelObject.html#camel-object-meta-get"/>
+    <keyword type="function" name="camel_object_meta_set ()" link="camel-CamelObject.html#camel-object-meta-set"/>
+    <keyword type="function" name="camel_object_state_read ()" link="camel-CamelObject.html#camel-object-state-read"/>
+    <keyword type="function" name="camel_object_state_write ()" link="camel-CamelObject.html#camel-object-state-write"/>
+    <keyword type="function" name="camel_object_free ()" link="camel-CamelObject.html#camel-object-free"/>
+    <keyword type="struct" name="CamelObjectBag" link="camel-CamelObject.html#CamelObjectBag"/>
+    <keyword type="function" name="CamelCopyFunc ()" link="camel-CamelObject.html#CamelCopyFunc"/>
+    <keyword type="function" name="camel_object_bag_new ()" link="camel-CamelObject.html#camel-object-bag-new"/>
+    <keyword type="function" name="camel_object_bag_get ()" link="camel-CamelObject.html#camel-object-bag-get"/>
+    <keyword type="function" name="camel_object_bag_peek ()" link="camel-CamelObject.html#camel-object-bag-peek"/>
+    <keyword type="function" name="camel_object_bag_reserve ()" link="camel-CamelObject.html#camel-object-bag-reserve"/>
+    <keyword type="function" name="camel_object_bag_add ()" link="camel-CamelObject.html#camel-object-bag-add"/>
+    <keyword type="function" name="camel_object_bag_abort ()" link="camel-CamelObject.html#camel-object-bag-abort"/>
+    <keyword type="function" name="camel_object_bag_rekey ()" link="camel-CamelObject.html#camel-object-bag-rekey"/>
+    <keyword type="function" name="camel_object_bag_list ()" link="camel-CamelObject.html#camel-object-bag-list"/>
+    <keyword type="function" name="camel_object_bag_remove ()" link="camel-CamelObject.html#camel-object-bag-remove"/>
+    <keyword type="function" name="camel_object_bag_destroy ()" link="camel-CamelObject.html#camel-object-bag-destroy"/>
+    <keyword type="macro" name="CAMEL_MAKE_CLASS()" link="camel-CamelObject.html#CAMEL-MAKE-CLASS:CAPS"/>
+    <keyword type="struct" name="CamelIteratorVTable" link="camel-CamelObject.html#CamelIteratorVTable" deprecated=""/>
+    <keyword type="struct" name="CamelIterator" link="camel-CamelObject.html#CamelIterator" deprecated=""/>
+    <keyword type="function" name="camel_iterator_new ()" link="camel-CamelObject.html#camel-iterator-new" deprecated=""/>
+    <keyword type="function" name="camel_iterator_free ()" link="camel-CamelObject.html#camel-iterator-free" deprecated=""/>
+    <keyword type="function" name="camel_iterator_next ()" link="camel-CamelObject.html#camel-iterator-next" deprecated=""/>
+    <keyword type="function" name="camel_iterator_reset ()" link="camel-CamelObject.html#camel-iterator-reset" deprecated=""/>
+    <keyword type="function" name="camel_iterator_length ()" link="camel-CamelObject.html#camel-iterator-length" deprecated=""/>
+    <keyword type="struct" name="CamelOperation" link="camel-camel-operation.html#CamelOperation"/>
+    <keyword type="function" name="CamelOperationStatusFunc ()" link="camel-camel-operation.html#CamelOperationStatusFunc"/>
+    <keyword type="enum" name="enum camel_operation_status_t" link="camel-camel-operation.html#camel-operation-status-t"/>
+    <keyword type="function" name="camel_operation_new ()" link="camel-camel-operation.html#camel-operation-new"/>
+    <keyword type="function" name="camel_operation_mute ()" link="camel-camel-operation.html#camel-operation-mute"/>
+    <keyword type="function" name="camel_operation_ref ()" link="camel-camel-operation.html#camel-operation-ref"/>
+    <keyword type="function" name="camel_operation_unref ()" link="camel-camel-operation.html#camel-operation-unref"/>
+    <keyword type="function" name="camel_operation_cancel ()" link="camel-camel-operation.html#camel-operation-cancel"/>
+    <keyword type="function" name="camel_operation_uncancel ()" link="camel-camel-operation.html#camel-operation-uncancel"/>
+    <keyword type="function" name="camel_operation_register ()" link="camel-camel-operation.html#camel-operation-register"/>
+    <keyword type="function" name="camel_operation_unregister ()" link="camel-camel-operation.html#camel-operation-unregister"/>
+    <keyword type="function" name="camel_operation_cancel_block ()" link="camel-camel-operation.html#camel-operation-cancel-block"/>
+    <keyword type="function" name="camel_operation_cancel_unblock ()" link="camel-camel-operation.html#camel-operation-cancel-unblock"/>
+    <keyword type="function" name="camel_operation_cancel_check ()" link="camel-camel-operation.html#camel-operation-cancel-check"/>
+    <keyword type="function" name="camel_operation_cancel_fd ()" link="camel-camel-operation.html#camel-operation-cancel-fd"/>
+    <keyword type="function" name="camel_operation_cancel_prfd ()" link="camel-camel-operation.html#camel-operation-cancel-prfd"/>
+    <keyword type="function" name="camel_operation_registered ()" link="camel-camel-operation.html#camel-operation-registered"/>
+    <keyword type="function" name="camel_operation_start ()" link="camel-camel-operation.html#camel-operation-start"/>
+    <keyword type="function" name="camel_operation_start_transient ()" link="camel-camel-operation.html#camel-operation-start-transient"/>
+    <keyword type="function" name="camel_operation_progress ()" link="camel-camel-operation.html#camel-operation-progress"/>
+    <keyword type="function" name="camel_operation_progress_count ()" link="camel-camel-operation.html#camel-operation-progress-count"/>
+    <keyword type="function" name="camel_operation_end ()" link="camel-camel-operation.html#camel-operation-end"/>
+    <keyword type="struct" name="CamelURL" link="camel-camel-url.html#CamelURL"/>
+    <keyword type="macro" name="CAMEL_URL_HIDE_PASSWORD" link="camel-camel-url.html#CAMEL-URL-HIDE-PASSWORD:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_HIDE_PARAMS" link="camel-camel-url.html#CAMEL-URL-HIDE-PARAMS:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_HIDE_AUTH" link="camel-camel-url.html#CAMEL-URL-HIDE-AUTH:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_HIDE_ALL" link="camel-camel-url.html#CAMEL-URL-HIDE-ALL:CAPS"/>
+    <keyword type="function" name="camel_url_new_with_base ()" link="camel-camel-url.html#camel-url-new-with-base"/>
+    <keyword type="function" name="camel_url_new ()" link="camel-camel-url.html#camel-url-new"/>
+    <keyword type="function" name="camel_url_to_string ()" link="camel-camel-url.html#camel-url-to-string"/>
+    <keyword type="function" name="camel_url_free ()" link="camel-camel-url.html#camel-url-free"/>
+    <keyword type="function" name="camel_url_encode ()" link="camel-camel-url.html#camel-url-encode"/>
+    <keyword type="function" name="camel_url_decode ()" link="camel-camel-url.html#camel-url-decode"/>
+    <keyword type="function" name="camel_url_decode_path ()" link="camel-camel-url.html#camel-url-decode-path"/>
+    <keyword type="function" name="camel_url_set_protocol ()" link="camel-camel-url.html#camel-url-set-protocol"/>
+    <keyword type="function" name="camel_url_set_user ()" link="camel-camel-url.html#camel-url-set-user"/>
+    <keyword type="function" name="camel_url_set_authmech ()" link="camel-camel-url.html#camel-url-set-authmech"/>
+    <keyword type="function" name="camel_url_set_passwd ()" link="camel-camel-url.html#camel-url-set-passwd"/>
+    <keyword type="function" name="camel_url_set_host ()" link="camel-camel-url.html#camel-url-set-host"/>
+    <keyword type="function" name="camel_url_set_port ()" link="camel-camel-url.html#camel-url-set-port"/>
+    <keyword type="function" name="camel_url_set_path ()" link="camel-camel-url.html#camel-url-set-path"/>
+    <keyword type="function" name="camel_url_set_param ()" link="camel-camel-url.html#camel-url-set-param"/>
+    <keyword type="function" name="camel_url_set_query ()" link="camel-camel-url.html#camel-url-set-query"/>
+    <keyword type="function" name="camel_url_set_fragment ()" link="camel-camel-url.html#camel-url-set-fragment"/>
+    <keyword type="function" name="camel_url_get_param ()" link="camel-camel-url.html#camel-url-get-param"/>
+    <keyword type="function" name="camel_url_hash ()" link="camel-camel-url.html#camel-url-hash"/>
+    <keyword type="function" name="camel_url_equal ()" link="camel-camel-url.html#camel-url-equal"/>
+    <keyword type="function" name="camel_url_copy ()" link="camel-camel-url.html#camel-url-copy"/>
+    <keyword type="struct" name="struct CamelStream" link="camel-CamelStream.html#CamelStream"/>
+    <keyword type="function" name="camel_stream_read ()" link="camel-CamelStream.html#camel-stream-read"/>
+    <keyword type="function" name="camel_stream_write ()" link="camel-CamelStream.html#camel-stream-write"/>
+    <keyword type="function" name="camel_stream_flush ()" link="camel-CamelStream.html#camel-stream-flush"/>
+    <keyword type="function" name="camel_stream_close ()" link="camel-CamelStream.html#camel-stream-close"/>
+    <keyword type="function" name="camel_stream_eos ()" link="camel-CamelStream.html#camel-stream-eos"/>
+    <keyword type="function" name="camel_stream_reset ()" link="camel-CamelStream.html#camel-stream-reset"/>
+    <keyword type="function" name="camel_stream_write_string ()" link="camel-CamelStream.html#camel-stream-write-string"/>
+    <keyword type="function" name="camel_stream_printf ()" link="camel-CamelStream.html#camel-stream-printf"/>
+    <keyword type="function" name="camel_stream_vprintf ()" link="camel-CamelStream.html#camel-stream-vprintf"/>
+    <keyword type="function" name="camel_stream_write_to_stream ()" link="camel-CamelStream.html#camel-stream-write-to-stream"/>
+    <keyword type="struct" name="struct CamelSeekableStream" link="camel-CamelSeekableStream.html#CamelSeekableStream"/>
+    <keyword type="enum" name="enum CamelStreamSeekPolicy" link="camel-CamelSeekableStream.html#CamelStreamSeekPolicy"/>
+    <keyword type="macro" name="CAMEL_STREAM_UNBOUND" link="camel-CamelSeekableStream.html#CAMEL-STREAM-UNBOUND:CAPS"/>
+    <keyword type="function" name="camel_seekable_stream_seek ()" link="camel-CamelSeekableStream.html#camel-seekable-stream-seek"/>
+    <keyword type="function" name="camel_seekable_stream_tell ()" link="camel-CamelSeekableStream.html#camel-seekable-stream-tell"/>
+    <keyword type="function" name="camel_seekable_stream_set_bounds ()" link="camel-CamelSeekableStream.html#camel-seekable-stream-set-bounds"/>
+    <keyword type="struct" name="struct CamelSeekableSubstream" link="camel-CamelSeekableSubstream.html#CamelSeekableSubstream"/>
+    <keyword type="function" name="camel_seekable_substream_new ()" link="camel-CamelSeekableSubstream.html#camel-seekable-substream-new"/>
+    <keyword type="struct" name="struct CamelStreamBuffer" link="camel-CamelStreamBuffer.html#CamelStreamBuffer"/>
+    <keyword type="enum" name="enum CamelStreamBufferMode" link="camel-CamelStreamBuffer.html#CamelStreamBufferMode"/>
+    <keyword type="function" name="camel_stream_buffer_new ()" link="camel-CamelStreamBuffer.html#camel-stream-buffer-new"/>
+    <keyword type="function" name="camel_stream_buffer_new_with_vbuf ()" link="camel-CamelStreamBuffer.html#camel-stream-buffer-new-with-vbuf"/>
+    <keyword type="function" name="camel_stream_buffer_gets ()" link="camel-CamelStreamBuffer.html#camel-stream-buffer-gets"/>
+    <keyword type="function" name="camel_stream_buffer_read_line ()" link="camel-CamelStreamBuffer.html#camel-stream-buffer-read-line"/>
+    <keyword type="struct" name="struct CamelStreamFilter" link="camel-CamelStreamFilter.html#CamelStreamFilter"/>
+    <keyword type="function" name="camel_stream_filter_new_with_stream ()" link="camel-CamelStreamFilter.html#camel-stream-filter-new-with-stream"/>
+    <keyword type="function" name="camel_stream_filter_add ()" link="camel-CamelStreamFilter.html#camel-stream-filter-add"/>
+    <keyword type="function" name="camel_stream_filter_remove ()" link="camel-CamelStreamFilter.html#camel-stream-filter-remove"/>
+    <keyword type="struct" name="struct CamelStreamFs" link="camel-CamelStreamFs.html#CamelStreamFs"/>
+    <keyword type="function" name="camel_stream_fs_new_with_name ()" link="camel-CamelStreamFs.html#camel-stream-fs-new-with-name"/>
+    <keyword type="function" name="camel_stream_fs_new_with_name_and_bounds ()" link="camel-CamelStreamFs.html#camel-stream-fs-new-with-name-and-bounds"/>
+    <keyword type="function" name="camel_stream_fs_new_with_fd ()" link="camel-CamelStreamFs.html#camel-stream-fs-new-with-fd"/>
+    <keyword type="function" name="camel_stream_fs_new_with_fd_and_bounds ()" link="camel-CamelStreamFs.html#camel-stream-fs-new-with-fd-and-bounds"/>
+    <keyword type="struct" name="struct CamelStreamMem" link="camel-CamelStreamMem.html#CamelStreamMem"/>
+    <keyword type="function" name="camel_stream_mem_new ()" link="camel-CamelStreamMem.html#camel-stream-mem-new"/>
+    <keyword type="function" name="camel_stream_mem_new_with_byte_array ()" link="camel-CamelStreamMem.html#camel-stream-mem-new-with-byte-array"/>
+    <keyword type="function" name="camel_stream_mem_new_with_buffer ()" link="camel-CamelStreamMem.html#camel-stream-mem-new-with-buffer"/>
+    <keyword type="function" name="camel_stream_mem_set_secure ()" link="camel-CamelStreamMem.html#camel-stream-mem-set-secure"/>
+    <keyword type="function" name="camel_stream_mem_set_byte_array ()" link="camel-CamelStreamMem.html#camel-stream-mem-set-byte-array"/>
+    <keyword type="function" name="camel_stream_mem_set_buffer ()" link="camel-CamelStreamMem.html#camel-stream-mem-set-buffer"/>
+    <keyword type="struct" name="struct CamelStreamNull" link="camel-CamelStreamNull.html#CamelStreamNull"/>
+    <keyword type="function" name="camel_stream_null_new ()" link="camel-CamelStreamNull.html#camel-stream-null-new"/>
+    <keyword type="struct" name="CamelStreamProcess" link="camel-CamelStreamProcess.html#CamelStreamProcess"/>
+    <keyword type="function" name="camel_stream_process_new ()" link="camel-CamelStreamProcess.html#camel-stream-process-new"/>
+    <keyword type="function" name="camel_stream_process_connect ()" link="camel-CamelStreamProcess.html#camel-stream-process-connect"/>
+    <keyword type="struct" name="CamelStreamVFS" link="camel-CamelStreamVFS.html#CamelStreamVFS"/>
+    <keyword type="enum" name="enum CamelStreamVFSOpenMethod" link="camel-CamelStreamVFS.html#CamelStreamVFSOpenMethod"/>
+    <keyword type="function" name="camel_stream_vfs_new_with_uri ()" link="camel-CamelStreamVFS.html#camel-stream-vfs-new-with-uri"/>
+    <keyword type="function" name="camel_stream_vfs_new_with_stream ()" link="camel-CamelStreamVFS.html#camel-stream-vfs-new-with-stream"/>
+    <keyword type="function" name="camel_stream_vfs_is_writable ()" link="camel-CamelStreamVFS.html#camel-stream-vfs-is-writable"/>
+    <keyword type="struct" name="struct CamelHttpStream" link="camel-CamelHttpStream.html#CamelHttpStream"/>
+    <keyword type="enum" name="enum CamelHttpMethod" link="camel-CamelHttpStream.html#CamelHttpMethod"/>
+    <keyword type="function" name="camel_http_stream_new ()" link="camel-CamelHttpStream.html#camel-http-stream-new"/>
+    <keyword type="function" name="camel_http_stream_set_user_agent ()" link="camel-CamelHttpStream.html#camel-http-stream-set-user-agent"/>
+    <keyword type="function" name="camel_http_stream_set_proxy ()" link="camel-CamelHttpStream.html#camel-http-stream-set-proxy"/>
+    <keyword type="function" name="camel_http_stream_set_proxy_authrealm ()" link="camel-CamelHttpStream.html#camel-http-stream-set-proxy-authrealm"/>
+    <keyword type="function" name="camel_http_stream_set_proxy_authpass ()" link="camel-CamelHttpStream.html#camel-http-stream-set-proxy-authpass"/>
+    <keyword type="function" name="camel_http_stream_get_content_type ()" link="camel-CamelHttpStream.html#camel-http-stream-get-content-type"/>
+    <keyword type="struct" name="struct CamelTcpStream" link="camel-CamelTcpStream.html#CamelTcpStream"/>
+    <keyword type="enum" name="enum CamelSockOpt" link="camel-CamelTcpStream.html#CamelSockOpt"/>
+    <keyword type="typedef" name="CamelLinger" link="camel-CamelTcpStream.html#CamelLinger"/>
+    <keyword type="struct" name="CamelSockOptData" link="camel-CamelTcpStream.html#CamelSockOptData"/>
+    <keyword type="function" name="camel_tcp_stream_connect ()" link="camel-CamelTcpStream.html#camel-tcp-stream-connect"/>
+    <keyword type="function" name="camel_tcp_stream_getsockopt ()" link="camel-CamelTcpStream.html#camel-tcp-stream-getsockopt"/>
+    <keyword type="function" name="camel_tcp_stream_setsockopt ()" link="camel-CamelTcpStream.html#camel-tcp-stream-setsockopt"/>
+    <keyword type="function" name="camel_tcp_stream_get_local_address ()" link="camel-CamelTcpStream.html#camel-tcp-stream-get-local-address"/>
+    <keyword type="function" name="camel_tcp_stream_get_remote_address ()" link="camel-CamelTcpStream.html#camel-tcp-stream-get-remote-address"/>
+    <keyword type="struct" name="struct CamelTcpStreamRaw" link="camel-CamelTcpStreamRaw.html#CamelTcpStreamRaw"/>
+    <keyword type="function" name="camel_tcp_stream_raw_new ()" link="camel-CamelTcpStreamRaw.html#camel-tcp-stream-raw-new"/>
+    <keyword type="struct" name="struct CamelTcpStreamSSL" link="camel-CamelTcpStreamSSL.html#CamelTcpStreamSSL"/>
+    <keyword type="macro" name="CAMEL_TCP_STREAM_SSL_ENABLE_SSL2" link="camel-CamelTcpStreamSSL.html#CAMEL-TCP-STREAM-SSL-ENABLE-SSL2:CAPS"/>
+    <keyword type="macro" name="CAMEL_TCP_STREAM_SSL_ENABLE_SSL3" link="camel-CamelTcpStreamSSL.html#CAMEL-TCP-STREAM-SSL-ENABLE-SSL3:CAPS"/>
+    <keyword type="macro" name="CAMEL_TCP_STREAM_SSL_ENABLE_TLS" link="camel-CamelTcpStreamSSL.html#CAMEL-TCP-STREAM-SSL-ENABLE-TLS:CAPS"/>
+    <keyword type="function" name="camel_tcp_stream_ssl_new ()" link="camel-CamelTcpStreamSSL.html#camel-tcp-stream-ssl-new"/>
+    <keyword type="function" name="camel_tcp_stream_ssl_new_raw ()" link="camel-CamelTcpStreamSSL.html#camel-tcp-stream-ssl-new-raw"/>
+    <keyword type="function" name="camel_tcp_stream_ssl_enable_ssl ()" link="camel-CamelTcpStreamSSL.html#camel-tcp-stream-ssl-enable-ssl"/>
+    <keyword type="struct" name="struct CamelMimeFilter" link="camel-CamelMimeFilter.html#CamelMimeFilter"/>
+    <keyword type="function" name="camel_mime_filter_new ()" link="camel-CamelMimeFilter.html#camel-mime-filter-new"/>
+    <keyword type="function" name="camel_mime_filter_filter ()" link="camel-CamelMimeFilter.html#camel-mime-filter-filter"/>
+    <keyword type="function" name="camel_mime_filter_complete ()" link="camel-CamelMimeFilter.html#camel-mime-filter-complete"/>
+    <keyword type="function" name="camel_mime_filter_reset ()" link="camel-CamelMimeFilter.html#camel-mime-filter-reset"/>
+    <keyword type="function" name="camel_mime_filter_backup ()" link="camel-CamelMimeFilter.html#camel-mime-filter-backup"/>
+    <keyword type="function" name="camel_mime_filter_set_size ()" link="camel-CamelMimeFilter.html#camel-mime-filter-set-size"/>
+    <keyword type="struct" name="struct CamelMimeFilterBasic" link="camel-CamelMimeFilterBasic.html#CamelMimeFilterBasic"/>
+    <keyword type="enum" name="enum CamelMimeFilterBasicType" link="camel-CamelMimeFilterBasic.html#CamelMimeFilterBasicType"/>
+    <keyword type="function" name="camel_mime_filter_basic_new ()" link="camel-CamelMimeFilterBasic.html#camel-mime-filter-basic-new"/>
+    <keyword type="function" name="camel_mime_filter_basic_new_type ()" link="camel-CamelMimeFilterBasic.html#camel-mime-filter-basic-new-type"/>
+    <keyword type="enum" name="enum CamelBestencRequired" link="camel-CamelMimeFilterBestenc.html#CamelBestencRequired"/>
+    <keyword type="enum" name="enum CamelBestencEncoding" link="camel-CamelMimeFilterBestenc.html#CamelBestencEncoding"/>
+    <keyword type="struct" name="struct CamelMimeFilterBestenc" link="camel-CamelMimeFilterBestenc.html#CamelMimeFilterBestenc"/>
+    <keyword type="function" name="camel_mime_filter_bestenc_new ()" link="camel-CamelMimeFilterBestenc.html#camel-mime-filter-bestenc-new"/>
+    <keyword type="function" name="camel_mime_filter_bestenc_get_best_encoding ()" link="camel-CamelMimeFilterBestenc.html#camel-mime-filter-bestenc-get-best-encoding"/>
+    <keyword type="function" name="camel_mime_filter_bestenc_get_best_charset ()" link="camel-CamelMimeFilterBestenc.html#camel-mime-filter-bestenc-get-best-charset"/>
+    <keyword type="function" name="camel_mime_filter_bestenc_set_flags ()" link="camel-CamelMimeFilterBestenc.html#camel-mime-filter-bestenc-set-flags"/>
+    <keyword type="struct" name="CamelMimeFilterCanon" link="camel-CamelMimeFilterCanon.html#CamelMimeFilterCanon"/>
+    <keyword type="function" name="camel_mime_filter_canon_new ()" link="camel-CamelMimeFilterCanon.html#camel-mime-filter-canon-new"/>
+    <keyword type="struct" name="struct CamelMimeFilterCharset" link="camel-CamelMimeFilterCharset.html#CamelMimeFilterCharset"/>
+    <keyword type="function" name="camel_mime_filter_charset_new ()" link="camel-CamelMimeFilterCharset.html#camel-mime-filter-charset-new"/>
+    <keyword type="function" name="camel_mime_filter_charset_new_convert ()" link="camel-CamelMimeFilterCharset.html#camel-mime-filter-charset-new-convert"/>
+    <keyword type="struct" name="struct CamelMimeFilterCRLF" link="camel-CamelMimeFilterCRLF.html#CamelMimeFilterCRLF"/>
+    <keyword type="enum" name="enum CamelMimeFilterCRLFDirection" link="camel-CamelMimeFilterCRLF.html#CamelMimeFilterCRLFDirection"/>
+    <keyword type="enum" name="enum CamelMimeFilterCRLFMode" link="camel-CamelMimeFilterCRLF.html#CamelMimeFilterCRLFMode"/>
+    <keyword type="function" name="camel_mime_filter_crlf_new ()" link="camel-CamelMimeFilterCRLF.html#camel-mime-filter-crlf-new"/>
+    <keyword type="struct" name="CamelMimeFilterEnriched" link="camel-CamelMimeFilterEnriched.html#CamelMimeFilterEnriched"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_ENRICHED_IS_RICHTEXT" link="camel-CamelMimeFilterEnriched.html#CAMEL-MIME-FILTER-ENRICHED-IS-RICHTEXT:CAPS"/>
+    <keyword type="function" name="camel_mime_filter_enriched_new ()" link="camel-CamelMimeFilterEnriched.html#camel-mime-filter-enriched-new"/>
+    <keyword type="function" name="camel_enriched_to_html ()" link="camel-CamelMimeFilterEnriched.html#camel-enriched-to-html"/>
+    <keyword type="struct" name="CamelMimeFilterFrom" link="camel-CamelMimeFilterFrom.html#CamelMimeFilterFrom"/>
+    <keyword type="function" name="camel_mime_filter_from_new ()" link="camel-CamelMimeFilterFrom.html#camel-mime-filter-from-new"/>
+    <keyword type="struct" name="CamelMimeFilterGZip" link="camel-CamelMimeFilterGZip.html#CamelMimeFilterGZip"/>
+    <keyword type="enum" name="enum CamelMimeFilterGZipMode" link="camel-CamelMimeFilterGZip.html#CamelMimeFilterGZipMode"/>
+    <keyword type="function" name="camel_mime_filter_gzip_new ()" link="camel-CamelMimeFilterGZip.html#camel-mime-filter-gzip-new"/>
+    <keyword type="struct" name="CamelMimeFilterHTML" link="camel-CamelMimeFilterHTML.html#CamelMimeFilterHTML"/>
+    <keyword type="function" name="camel_mime_filter_html_new ()" link="camel-CamelMimeFilterHTML.html#camel-mime-filter-html-new"/>
+    <keyword type="struct" name="struct CamelMimeFilterIndex" link="camel-CamelMimeFilterIndex.html#CamelMimeFilterIndex"/>
+    <keyword type="function" name="camel_mime_filter_index_new ()" link="camel-CamelMimeFilterIndex.html#camel-mime-filter-index-new"/>
+    <keyword type="function" name="camel_mime_filter_index_new_index ()" link="camel-CamelMimeFilterIndex.html#camel-mime-filter-index-new-index"/>
+    <keyword type="function" name="camel_mime_filter_index_set_name ()" link="camel-CamelMimeFilterIndex.html#camel-mime-filter-index-set-name"/>
+    <keyword type="function" name="camel_mime_filter_index_set_index ()" link="camel-CamelMimeFilterIndex.html#camel-mime-filter-index-set-index"/>
+    <keyword type="struct" name="struct CamelMimeFilterLinewrap" link="camel-CamelMimeFilterLinewrap.html#CamelMimeFilterLinewrap"/>
+    <keyword type="function" name="camel_mime_filter_linewrap_new ()" link="camel-CamelMimeFilterLinewrap.html#camel-mime-filter-linewrap-new"/>
+    <keyword type="struct" name="CamelMimeFilterPgp" link="camel-CamelMimeFilterPgp.html#CamelMimeFilterPgp"/>
+    <keyword type="function" name="camel_mime_filter_pgp_new ()" link="camel-CamelMimeFilterPgp.html#camel-mime-filter-pgp-new"/>
+    <keyword type="struct" name="CamelMimeFilterProgress" link="camel-CamelMimeFilterProgress.html#CamelMimeFilterProgress"/>
+    <keyword type="function" name="camel_mime_filter_progress_new ()" link="camel-CamelMimeFilterProgress.html#camel-mime-filter-progress-new"/>
+    <keyword type="struct" name="struct CamelMimeFilterSave" link="camel-CamelMimeFilterSave.html#CamelMimeFilterSave"/>
+    <keyword type="function" name="camel_mime_filter_save_new ()" link="camel-CamelMimeFilterSave.html#camel-mime-filter-save-new"/>
+    <keyword type="function" name="camel_mime_filter_save_new_with_stream ()" link="camel-CamelMimeFilterSave.html#camel-mime-filter-save-new-with-stream"/>
+    <keyword type="struct" name="CamelMimeFilterToHTML" link="camel-CamelMimeFilterToHTML.html#CamelMimeFilterToHTML"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_TOHTML_PRE" link="camel-CamelMimeFilterToHTML.html#CAMEL-MIME-FILTER-TOHTML-PRE:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_TOHTML_CONVERT_NL" link="camel-CamelMimeFilterToHTML.html#CAMEL-MIME-FILTER-TOHTML-CONVERT-NL:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_TOHTML_CONVERT_SPACES" link="camel-CamelMimeFilterToHTML.html#CAMEL-MIME-FILTER-TOHTML-CONVERT-SPACES:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_TOHTML_CONVERT_URLS" link="camel-CamelMimeFilterToHTML.html#CAMEL-MIME-FILTER-TOHTML-CONVERT-URLS:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_TOHTML_MARK_CITATION" link="camel-CamelMimeFilterToHTML.html#CAMEL-MIME-FILTER-TOHTML-MARK-CITATION:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_TOHTML_CONVERT_ADDRESSES" link="camel-CamelMimeFilterToHTML.html#CAMEL-MIME-FILTER-TOHTML-CONVERT-ADDRESSES:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_TOHTML_ESCAPE_8BIT" link="camel-CamelMimeFilterToHTML.html#CAMEL-MIME-FILTER-TOHTML-ESCAPE-8BIT:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_TOHTML_CITE" link="camel-CamelMimeFilterToHTML.html#CAMEL-MIME-FILTER-TOHTML-CITE:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_TOHTML_PRESERVE_8BIT" link="camel-CamelMimeFilterToHTML.html#CAMEL-MIME-FILTER-TOHTML-PRESERVE-8BIT:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_FILTER_TOHTML_FORMAT_FLOWED" link="camel-CamelMimeFilterToHTML.html#CAMEL-MIME-FILTER-TOHTML-FORMAT-FLOWED:CAPS"/>
+    <keyword type="function" name="camel_mime_filter_tohtml_new ()" link="camel-CamelMimeFilterToHTML.html#camel-mime-filter-tohtml-new"/>
+    <keyword type="function" name="camel_text_to_html ()" link="camel-CamelMimeFilterToHTML.html#camel-text-to-html"/>
+    <keyword type="struct" name="CamelMimeFilterWindows" link="camel-CamelMimeFilterWindows.html#CamelMimeFilterWindows"/>
+    <keyword type="function" name="camel_mime_filter_windows_new ()" link="camel-CamelMimeFilterWindows.html#camel-mime-filter-windows-new"/>
+    <keyword type="function" name="camel_mime_filter_windows_is_windows_charset ()" link="camel-CamelMimeFilterWindows.html#camel-mime-filter-windows-is-windows-charset"/>
+    <keyword type="function" name="camel_mime_filter_windows_real_charset ()" link="camel-CamelMimeFilterWindows.html#camel-mime-filter-windows-real-charset"/>
+    <keyword type="struct" name="CamelMimeFilterYenc" link="camel-CamelMimeFilterYenc.html#CamelMimeFilterYenc"/>
+    <keyword type="enum" name="enum CamelMimeFilterYencDirection" link="camel-CamelMimeFilterYenc.html#CamelMimeFilterYencDirection"/>
+    <keyword type="macro" name="CAMEL_MIME_YDECODE_STATE_INIT" link="camel-CamelMimeFilterYenc.html#CAMEL-MIME-YDECODE-STATE-INIT:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_YENCODE_STATE_INIT" link="camel-CamelMimeFilterYenc.html#CAMEL-MIME-YENCODE-STATE-INIT:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_YDECODE_STATE_EOLN" link="camel-CamelMimeFilterYenc.html#CAMEL-MIME-YDECODE-STATE-EOLN:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_YDECODE_STATE_ESCAPE" link="camel-CamelMimeFilterYenc.html#CAMEL-MIME-YDECODE-STATE-ESCAPE:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_YDECODE_STATE_BEGIN" link="camel-CamelMimeFilterYenc.html#CAMEL-MIME-YDECODE-STATE-BEGIN:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_YDECODE_STATE_PART" link="camel-CamelMimeFilterYenc.html#CAMEL-MIME-YDECODE-STATE-PART:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_YDECODE_STATE_DECODE" link="camel-CamelMimeFilterYenc.html#CAMEL-MIME-YDECODE-STATE-DECODE:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_YDECODE_STATE_END" link="camel-CamelMimeFilterYenc.html#CAMEL-MIME-YDECODE-STATE-END:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_YENCODE_CRC_INIT" link="camel-CamelMimeFilterYenc.html#CAMEL-MIME-YENCODE-CRC-INIT:CAPS"/>
+    <keyword type="macro" name="CAMEL_MIME_YENCODE_CRC_FINAL()" link="camel-CamelMimeFilterYenc.html#CAMEL-MIME-YENCODE-CRC-FINAL:CAPS"/>
+    <keyword type="function" name="camel_mime_filter_yenc_new ()" link="camel-CamelMimeFilterYenc.html#camel-mime-filter-yenc-new"/>
+    <keyword type="function" name="camel_mime_filter_yenc_set_state ()" link="camel-CamelMimeFilterYenc.html#camel-mime-filter-yenc-set-state"/>
+    <keyword type="function" name="camel_mime_filter_yenc_set_crc ()" link="camel-CamelMimeFilterYenc.html#camel-mime-filter-yenc-set-crc"/>
+    <keyword type="function" name="camel_mime_filter_yenc_get_pcrc ()" link="camel-CamelMimeFilterYenc.html#camel-mime-filter-yenc-get-pcrc"/>
+    <keyword type="function" name="camel_mime_filter_yenc_get_crc ()" link="camel-CamelMimeFilterYenc.html#camel-mime-filter-yenc-get-crc"/>
+    <keyword type="function" name="camel_ydecode_step ()" link="camel-CamelMimeFilterYenc.html#camel-ydecode-step"/>
+    <keyword type="function" name="camel_yencode_step ()" link="camel-CamelMimeFilterYenc.html#camel-yencode-step"/>
+    <keyword type="function" name="camel_yencode_close ()" link="camel-CamelMimeFilterYenc.html#camel-yencode-close"/>
+    <keyword type="struct" name="struct CamelSession" link="camel-CamelSession.html#CamelSession"/>
+    <keyword type="function" name="CamelTimeoutCallback ()" link="camel-CamelSession.html#CamelTimeoutCallback"/>
+    <keyword type="enum" name="enum CamelSessionAlertType" link="camel-CamelSession.html#CamelSessionAlertType"/>
+    <keyword type="struct" name="CamelSessionThreadOps" link="camel-CamelSession.html#CamelSessionThreadOps"/>
+    <keyword type="struct" name="CamelSessionThreadMsg" link="camel-CamelSession.html#CamelSessionThreadMsg"/>
+    <keyword type="function" name="camel_session_construct ()" link="camel-CamelSession.html#camel-session-construct"/>
+    <keyword type="function" name="camel_session_get_service ()" link="camel-CamelSession.html#camel-session-get-service"/>
+    <keyword type="function" name="camel_session_get_service_connected ()" link="camel-CamelSession.html#camel-session-get-service-connected"/>
+    <keyword type="macro" name="camel_session_get_store()" link="camel-CamelSession.html#camel-session-get-store"/>
+    <keyword type="macro" name="camel_session_get_transport()" link="camel-CamelSession.html#camel-session-get-transport"/>
+    <keyword type="function" name="camel_session_get_storage_path ()" link="camel-CamelSession.html#camel-session-get-storage-path"/>
+    <keyword type="function" name="camel_session_get_password ()" link="camel-CamelSession.html#camel-session-get-password"/>
+    <keyword type="function" name="camel_session_forget_password ()" link="camel-CamelSession.html#camel-session-forget-password"/>
+    <keyword type="function" name="camel_session_alert_user ()" link="camel-CamelSession.html#camel-session-alert-user"/>
+    <keyword type="function" name="camel_session_build_password_prompt ()" link="camel-CamelSession.html#camel-session-build-password-prompt"/>
+    <keyword type="function" name="camel_session_is_online ()" link="camel-CamelSession.html#camel-session-is-online"/>
+    <keyword type="function" name="camel_session_set_online ()" link="camel-CamelSession.html#camel-session-set-online"/>
+    <keyword type="function" name="camel_session_get_filter_driver ()" link="camel-CamelSession.html#camel-session-get-filter-driver"/>
+    <keyword type="function" name="camel_session_check_junk ()" link="camel-CamelSession.html#camel-session-check-junk"/>
+    <keyword type="function" name="camel_session_set_check_junk ()" link="camel-CamelSession.html#camel-session-set-check-junk"/>
+    <keyword type="function" name="camel_session_thread_msg_new ()" link="camel-CamelSession.html#camel-session-thread-msg-new"/>
+    <keyword type="function" name="camel_session_thread_msg_free ()" link="camel-CamelSession.html#camel-session-thread-msg-free"/>
+    <keyword type="function" name="camel_session_thread_queue ()" link="camel-CamelSession.html#camel-session-thread-queue"/>
+    <keyword type="function" name="camel_session_thread_wait ()" link="camel-CamelSession.html#camel-session-thread-wait"/>
+    <keyword type="function" name="camel_session_get_network_state ()" link="camel-CamelSession.html#camel-session-get-network-state"/>
+    <keyword type="function" name="camel_session_set_network_state ()" link="camel-CamelSession.html#camel-session-set-network-state"/>
+    <keyword type="function" name="camel_session_get_junk_headers ()" link="camel-CamelSession.html#camel-session-get-junk-headers"/>
+    <keyword type="function" name="camel_session_set_junk_headers ()" link="camel-CamelSession.html#camel-session-set-junk-headers"/>
+    <keyword type="function" name="camel_session_lookup_addressbook ()" link="camel-CamelSession.html#camel-session-lookup-addressbook"/>
+    <keyword type="function" name="camel_session_forward_to ()" link="camel-CamelSession.html#camel-session-forward-to"/>
+    <keyword type="struct" name="CamelProvider" link="camel-camel-provider.html#CamelProvider"/>
+    <keyword type="enum" name="enum CamelProviderType" link="camel-camel-provider.html#CamelProviderType"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_IS_LOCAL" link="camel-camel-provider.html#CAMEL-PROVIDER-IS-LOCAL:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_IS_EXTERNAL" link="camel-camel-provider.html#CAMEL-PROVIDER-IS-EXTERNAL:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_IS_SOURCE" link="camel-camel-provider.html#CAMEL-PROVIDER-IS-SOURCE:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_IS_STORAGE" link="camel-camel-provider.html#CAMEL-PROVIDER-IS-STORAGE:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_SUPPORTS_SSL" link="camel-camel-provider.html#CAMEL-PROVIDER-SUPPORTS-SSL:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_HAS_LICENSE" link="camel-camel-provider.html#CAMEL-PROVIDER-HAS-LICENSE:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_DISABLE_SENT_FOLDER" link="camel-camel-provider.html#CAMEL-PROVIDER-DISABLE-SENT-FOLDER:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_PART_USER" link="camel-camel-provider.html#CAMEL-URL-PART-USER:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_PART_AUTH" link="camel-camel-provider.html#CAMEL-URL-PART-AUTH:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_PART_PASSWORD" link="camel-camel-provider.html#CAMEL-URL-PART-PASSWORD:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_PART_HOST" link="camel-camel-provider.html#CAMEL-URL-PART-HOST:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_PART_PORT" link="camel-camel-provider.html#CAMEL-URL-PART-PORT:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_PART_PATH" link="camel-camel-provider.html#CAMEL-URL-PART-PATH:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_PART_PATH_DIR" link="camel-camel-provider.html#CAMEL-URL-PART-PATH-DIR:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_PART_NEED" link="camel-camel-provider.html#CAMEL-URL-PART-NEED:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_PART_HIDDEN" link="camel-camel-provider.html#CAMEL-URL-PART-HIDDEN:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_ALLOWS()" link="camel-camel-provider.html#CAMEL-PROVIDER-ALLOWS:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_NEEDS()" link="camel-camel-provider.html#CAMEL-PROVIDER-NEEDS:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_HIDDEN()" link="camel-camel-provider.html#CAMEL-PROVIDER-HIDDEN:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_ALLOW_USER" link="camel-camel-provider.html#CAMEL-URL-ALLOW-USER:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_ALLOW_AUTH" link="camel-camel-provider.html#CAMEL-URL-ALLOW-AUTH:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_ALLOW_PASSWORD" link="camel-camel-provider.html#CAMEL-URL-ALLOW-PASSWORD:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_ALLOW_HOST" link="camel-camel-provider.html#CAMEL-URL-ALLOW-HOST:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_ALLOW_PORT" link="camel-camel-provider.html#CAMEL-URL-ALLOW-PORT:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_ALLOW_PATH" link="camel-camel-provider.html#CAMEL-URL-ALLOW-PATH:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_NEED_USER" link="camel-camel-provider.html#CAMEL-URL-NEED-USER:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_NEED_AUTH" link="camel-camel-provider.html#CAMEL-URL-NEED-AUTH:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_NEED_PASSWORD" link="camel-camel-provider.html#CAMEL-URL-NEED-PASSWORD:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_NEED_HOST" link="camel-camel-provider.html#CAMEL-URL-NEED-HOST:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_NEED_PORT" link="camel-camel-provider.html#CAMEL-URL-NEED-PORT:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_NEED_PATH" link="camel-camel-provider.html#CAMEL-URL-NEED-PATH:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_NEED_PATH_DIR" link="camel-camel-provider.html#CAMEL-URL-NEED-PATH-DIR:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_HIDDEN_USER" link="camel-camel-provider.html#CAMEL-URL-HIDDEN-USER:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_HIDDEN_AUTH" link="camel-camel-provider.html#CAMEL-URL-HIDDEN-AUTH:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_HIDDEN_PASSWORD" link="camel-camel-provider.html#CAMEL-URL-HIDDEN-PASSWORD:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_HIDDEN_HOST" link="camel-camel-provider.html#CAMEL-URL-HIDDEN-HOST:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_HIDDEN_PORT" link="camel-camel-provider.html#CAMEL-URL-HIDDEN-PORT:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_HIDDEN_PATH" link="camel-camel-provider.html#CAMEL-URL-HIDDEN-PATH:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_FRAGMENT_IS_PATH" link="camel-camel-provider.html#CAMEL-URL-FRAGMENT-IS-PATH:CAPS"/>
+    <keyword type="macro" name="CAMEL_URL_PATH_IS_ABSOLUTE" link="camel-camel-provider.html#CAMEL-URL-PATH-IS-ABSOLUTE:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_IS_STORE_AND_TRANSPORT()" link="camel-camel-provider.html#CAMEL-PROVIDER-IS-STORE-AND-TRANSPORT:CAPS"/>
+    <keyword type="enum" name="enum CamelProviderConfType" link="camel-camel-provider.html#CamelProviderConfType"/>
+    <keyword type="struct" name="CamelProviderConfEntry" link="camel-camel-provider.html#CamelProviderConfEntry"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_CONF_DEFAULT_USERNAME" link="camel-camel-provider.html#CAMEL-PROVIDER-CONF-DEFAULT-USERNAME:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_CONF_DEFAULT_HOSTNAME" link="camel-camel-provider.html#CAMEL-PROVIDER-CONF-DEFAULT-HOSTNAME:CAPS"/>
+    <keyword type="macro" name="CAMEL_PROVIDER_CONF_DEFAULT_PATH" link="camel-camel-provider.html#CAMEL-PROVIDER-CONF-DEFAULT-PATH:CAPS"/>
+    <keyword type="function" name="CamelProviderAutoDetectFunc ()" link="camel-camel-provider.html#CamelProviderAutoDetectFunc"/>
+    <keyword type="struct" name="CamelProviderModule" link="camel-camel-provider.html#CamelProviderModule"/>
+    <keyword type="function" name="camel_provider_init ()" link="camel-camel-provider.html#camel-provider-init"/>
+    <keyword type="function" name="camel_provider_load ()" link="camel-camel-provider.html#camel-provider-load"/>
+    <keyword type="function" name="camel_provider_register ()" link="camel-camel-provider.html#camel-provider-register"/>
+    <keyword type="function" name="camel_provider_list ()" link="camel-camel-provider.html#camel-provider-list"/>
+    <keyword type="function" name="camel_provider_get ()" link="camel-camel-provider.html#camel-provider-get"/>
+    <keyword type="function" name="camel_provider_module_init ()" link="camel-camel-provider.html#camel-provider-module-init"/>
+    <keyword type="function" name="camel_provider_auto_detect ()" link="camel-camel-provider.html#camel-provider-auto-detect"/>
+    <keyword type="struct" name="struct CamelService" link="camel-CamelService.html#CamelService"/>
+    <keyword type="macro" name="CAMEL_SERVICE_USERNAME" link="camel-CamelService.html#CAMEL-SERVICE-USERNAME:CAPS"/>
+    <keyword type="macro" name="CAMEL_SERVICE_AUTH" link="camel-CamelService.html#CAMEL-SERVICE-AUTH:CAPS"/>
+    <keyword type="macro" name="CAMEL_SERVICE_HOSTNAME" link="camel-CamelService.html#CAMEL-SERVICE-HOSTNAME:CAPS"/>
+    <keyword type="macro" name="CAMEL_SERVICE_PORT" link="camel-CamelService.html#CAMEL-SERVICE-PORT:CAPS"/>
+    <keyword type="macro" name="CAMEL_SERVICE_PATH" link="camel-CamelService.html#CAMEL-SERVICE-PATH:CAPS"/>
+    <keyword type="enum" name="enum CamelServiceConnectionStatus" link="camel-CamelService.html#CamelServiceConnectionStatus"/>
+    <keyword type="struct" name="CamelServiceAuthType" link="camel-CamelService.html#CamelServiceAuthType"/>
+    <keyword type="function" name="camel_service_construct ()" link="camel-CamelService.html#camel-service-construct"/>
+    <keyword type="function" name="camel_service_connect ()" link="camel-CamelService.html#camel-service-connect"/>
+    <keyword type="function" name="camel_service_disconnect ()" link="camel-CamelService.html#camel-service-disconnect"/>
+    <keyword type="function" name="camel_service_cancel_connect ()" link="camel-CamelService.html#camel-service-cancel-connect"/>
+    <keyword type="function" name="camel_service_get_url ()" link="camel-CamelService.html#camel-service-get-url"/>
+    <keyword type="function" name="camel_service_get_name ()" link="camel-CamelService.html#camel-service-get-name"/>
+    <keyword type="function" name="camel_service_get_path ()" link="camel-CamelService.html#camel-service-get-path"/>
+    <keyword type="function" name="camel_service_get_session ()" link="camel-CamelService.html#camel-service-get-session"/>
+    <keyword type="function" name="camel_service_get_provider ()" link="camel-CamelService.html#camel-service-get-provider"/>
+    <keyword type="function" name="camel_service_query_auth_types ()" link="camel-CamelService.html#camel-service-query-auth-types"/>
+    <keyword type="struct" name="struct CamelStore" link="camel-CamelStore.html#CamelStore"/>
+    <keyword type="struct" name="CamelFolderInfo" link="camel-CamelStore.html#CamelFolderInfo"/>
+    <keyword type="macro" name="CAMEL_FOLDER_NOSELECT" link="camel-CamelStore.html#CAMEL-FOLDER-NOSELECT:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_NOINFERIORS" link="camel-CamelStore.html#CAMEL-FOLDER-NOINFERIORS:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_CHILDREN" link="camel-CamelStore.html#CAMEL-FOLDER-CHILDREN:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_NOCHILDREN" link="camel-CamelStore.html#CAMEL-FOLDER-NOCHILDREN:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_SUBSCRIBED" link="camel-CamelStore.html#CAMEL-FOLDER-SUBSCRIBED:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_VIRTUAL" link="camel-CamelStore.html#CAMEL-FOLDER-VIRTUAL:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_SYSTEM" link="camel-CamelStore.html#CAMEL-FOLDER-SYSTEM:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_VTRASH" link="camel-CamelStore.html#CAMEL-FOLDER-VTRASH:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_SHARED_TO_ME" link="camel-CamelStore.html#CAMEL-FOLDER-SHARED-TO-ME:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_SHARED_BY_ME" link="camel-CamelStore.html#CAMEL-FOLDER-SHARED-BY-ME:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_TYPE_MASK" link="camel-CamelStore.html#CAMEL-FOLDER-TYPE-MASK:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_TYPE_BIT" link="camel-CamelStore.html#CAMEL-FOLDER-TYPE-BIT:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_TYPE_NORMAL" link="camel-CamelStore.html#CAMEL-FOLDER-TYPE-NORMAL:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_TYPE_INBOX" link="camel-CamelStore.html#CAMEL-FOLDER-TYPE-INBOX:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_TYPE_OUTBOX" link="camel-CamelStore.html#CAMEL-FOLDER-TYPE-OUTBOX:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_TYPE_TRASH" link="camel-CamelStore.html#CAMEL-FOLDER-TYPE-TRASH:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_TYPE_JUNK" link="camel-CamelStore.html#CAMEL-FOLDER-TYPE-JUNK:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_TYPE_SENT" link="camel-CamelStore.html#CAMEL-FOLDER-TYPE-SENT:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_READ" link="camel-CamelStore.html#CAMEL-STORE-READ:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_WRITE" link="camel-CamelStore.html#CAMEL-STORE-WRITE:CAPS"/>
+    <keyword type="struct" name="CamelRenameInfo" link="camel-CamelStore.html#CamelRenameInfo"/>
+    <keyword type="macro" name="CAMEL_STORE_SUBSCRIPTIONS" link="camel-CamelStore.html#CAMEL-STORE-SUBSCRIPTIONS:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_VTRASH" link="camel-CamelStore.html#CAMEL-STORE-VTRASH:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_FILTER_INBOX" link="camel-CamelStore.html#CAMEL-STORE-FILTER-INBOX:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_VJUNK" link="camel-CamelStore.html#CAMEL-STORE-VJUNK:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_PROXY" link="camel-CamelStore.html#CAMEL-STORE-PROXY:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_IS_MIGRATING" link="camel-CamelStore.html#CAMEL-STORE-IS-MIGRATING:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_FOLDER_CREATE" link="camel-CamelStore.html#CAMEL-STORE-FOLDER-CREATE:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_FOLDER_EXCL" link="camel-CamelStore.html#CAMEL-STORE-FOLDER-EXCL:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_FOLDER_BODY_INDEX" link="camel-CamelStore.html#CAMEL-STORE-FOLDER-BODY-INDEX:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_FOLDER_PRIVATE" link="camel-CamelStore.html#CAMEL-STORE-FOLDER-PRIVATE:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_FOLDER_CREATE_EXCL" link="camel-CamelStore.html#CAMEL-STORE-FOLDER-CREATE-EXCL:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_FOLDER_INFO_FAST" link="camel-CamelStore.html#CAMEL-STORE-FOLDER-INFO-FAST:CAPS" deprecated=""/>
+    <keyword type="macro" name="CAMEL_STORE_FOLDER_INFO_RECURSIVE" link="camel-CamelStore.html#CAMEL-STORE-FOLDER-INFO-RECURSIVE:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_FOLDER_INFO_SUBSCRIBED" link="camel-CamelStore.html#CAMEL-STORE-FOLDER-INFO-SUBSCRIBED:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_FOLDER_INFO_NO_VIRTUAL" link="camel-CamelStore.html#CAMEL-STORE-FOLDER-INFO-NO-VIRTUAL:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_FOLDER_INFO_SUBSCRIPTION_LIST" link="camel-CamelStore.html#CAMEL-STORE-FOLDER-INFO-SUBSCRIPTION-LIST:CAPS"/>
+    <keyword type="function" name="camel_store_get_folder ()" link="camel-CamelStore.html#camel-store-get-folder"/>
+    <keyword type="function" name="camel_store_get_inbox ()" link="camel-CamelStore.html#camel-store-get-inbox"/>
+    <keyword type="function" name="camel_store_get_trash ()" link="camel-CamelStore.html#camel-store-get-trash"/>
+    <keyword type="function" name="camel_store_get_junk ()" link="camel-CamelStore.html#camel-store-get-junk"/>
+    <keyword type="function" name="camel_store_create_folder ()" link="camel-CamelStore.html#camel-store-create-folder"/>
+    <keyword type="function" name="camel_store_delete_folder ()" link="camel-CamelStore.html#camel-store-delete-folder"/>
+    <keyword type="function" name="camel_store_rename_folder ()" link="camel-CamelStore.html#camel-store-rename-folder"/>
+    <keyword type="function" name="camel_store_sync ()" link="camel-CamelStore.html#camel-store-sync"/>
+    <keyword type="function" name="camel_store_get_folder_info ()" link="camel-CamelStore.html#camel-store-get-folder-info"/>
+    <keyword type="function" name="camel_store_free_folder_info ()" link="camel-CamelStore.html#camel-store-free-folder-info"/>
+    <keyword type="function" name="camel_store_free_folder_info_full ()" link="camel-CamelStore.html#camel-store-free-folder-info-full"/>
+    <keyword type="function" name="camel_store_free_folder_info_nop ()" link="camel-CamelStore.html#camel-store-free-folder-info-nop"/>
+    <keyword type="function" name="camel_folder_info_new ()" link="camel-CamelStore.html#camel-folder-info-new"/>
+    <keyword type="function" name="camel_folder_info_free ()" link="camel-CamelStore.html#camel-folder-info-free"/>
+    <keyword type="function" name="camel_folder_info_build ()" link="camel-CamelStore.html#camel-folder-info-build" deprecated=""/>
+    <keyword type="function" name="camel_folder_info_clone ()" link="camel-CamelStore.html#camel-folder-info-clone"/>
+    <keyword type="function" name="camel_store_supports_subscriptions ()" link="camel-CamelStore.html#camel-store-supports-subscriptions"/>
+    <keyword type="function" name="camel_store_folder_subscribed ()" link="camel-CamelStore.html#camel-store-folder-subscribed"/>
+    <keyword type="function" name="camel_store_subscribe_folder ()" link="camel-CamelStore.html#camel-store-subscribe-folder"/>
+    <keyword type="function" name="camel_store_unsubscribe_folder ()" link="camel-CamelStore.html#camel-store-unsubscribe-folder"/>
+    <keyword type="function" name="camel_store_noop ()" link="camel-CamelStore.html#camel-store-noop"/>
+    <keyword type="function" name="camel_store_folder_uri_equal ()" link="camel-CamelStore.html#camel-store-folder-uri-equal"/>
+    <keyword type="function" name="camel_store_can_refresh_folder ()" link="camel-CamelStore.html#camel-store-can-refresh-folder"/>
+    <keyword type="struct" name="CamelISubscribe" link="camel-CamelStore.html#CamelISubscribe" deprecated=""/>
+    <keyword type="function" name="camel_isubscribe_subscribed ()" link="camel-CamelStore.html#camel-isubscribe-subscribed" deprecated=""/>
+    <keyword type="function" name="camel_isubscribe_subscribe ()" link="camel-CamelStore.html#camel-isubscribe-subscribe" deprecated=""/>
+    <keyword type="function" name="camel_isubscribe_unsubscribe ()" link="camel-CamelStore.html#camel-isubscribe-unsubscribe" deprecated=""/>
+    <keyword type="struct" name="CamelStoreInfo" link="camel-CamelStoreSummary.html#CamelStoreInfo"/>
+    <keyword type="enum" name="enum CamelStoreInfoFlags" link="camel-CamelStoreSummary.html#CamelStoreInfoFlags"/>
+    <keyword type="struct" name="CamelStoreSummary" link="camel-CamelStoreSummary.html#CamelStoreSummary"/>
+    <keyword type="macro" name="CAMEL_STORE_INFO_FOLDER_UNKNOWN" link="camel-CamelStoreSummary.html#CAMEL-STORE-INFO-FOLDER-UNKNOWN:CAPS"/>
+    <keyword type="enum" name="enum CamelStoreSummaryFlags" link="camel-CamelStoreSummary.html#CamelStoreSummaryFlags"/>
+    <keyword type="function" name="camel_store_summary_new ()" link="camel-CamelStoreSummary.html#camel-store-summary-new"/>
+    <keyword type="function" name="camel_store_summary_set_filename ()" link="camel-CamelStoreSummary.html#camel-store-summary-set-filename"/>
+    <keyword type="function" name="camel_store_summary_set_uri_base ()" link="camel-CamelStoreSummary.html#camel-store-summary-set-uri-base"/>
+    <keyword type="function" name="camel_store_summary_load ()" link="camel-CamelStoreSummary.html#camel-store-summary-load"/>
+    <keyword type="function" name="camel_store_summary_save ()" link="camel-CamelStoreSummary.html#camel-store-summary-save"/>
+    <keyword type="function" name="camel_store_summary_header_load ()" link="camel-CamelStoreSummary.html#camel-store-summary-header-load"/>
+    <keyword type="function" name="camel_store_summary_touch ()" link="camel-CamelStoreSummary.html#camel-store-summary-touch"/>
+    <keyword type="function" name="camel_store_summary_add ()" link="camel-CamelStoreSummary.html#camel-store-summary-add"/>
+    <keyword type="function" name="camel_store_summary_add_from_path ()" link="camel-CamelStoreSummary.html#camel-store-summary-add-from-path"/>
+    <keyword type="function" name="camel_store_summary_info_new ()" link="camel-CamelStoreSummary.html#camel-store-summary-info-new"/>
+    <keyword type="function" name="camel_store_summary_info_new_from_path ()" link="camel-CamelStoreSummary.html#camel-store-summary-info-new-from-path"/>
+    <keyword type="function" name="camel_store_summary_info_ref ()" link="camel-CamelStoreSummary.html#camel-store-summary-info-ref"/>
+    <keyword type="function" name="camel_store_summary_info_free ()" link="camel-CamelStoreSummary.html#camel-store-summary-info-free"/>
+    <keyword type="function" name="camel_store_summary_remove ()" link="camel-CamelStoreSummary.html#camel-store-summary-remove"/>
+    <keyword type="function" name="camel_store_summary_remove_path ()" link="camel-CamelStoreSummary.html#camel-store-summary-remove-path"/>
+    <keyword type="function" name="camel_store_summary_remove_index ()" link="camel-CamelStoreSummary.html#camel-store-summary-remove-index"/>
+    <keyword type="function" name="camel_store_summary_clear ()" link="camel-CamelStoreSummary.html#camel-store-summary-clear"/>
+    <keyword type="function" name="camel_store_summary_count ()" link="camel-CamelStoreSummary.html#camel-store-summary-count"/>
+    <keyword type="function" name="camel_store_summary_index ()" link="camel-CamelStoreSummary.html#camel-store-summary-index"/>
+    <keyword type="function" name="camel_store_summary_path ()" link="camel-CamelStoreSummary.html#camel-store-summary-path"/>
+    <keyword type="function" name="camel_store_summary_array ()" link="camel-CamelStoreSummary.html#camel-store-summary-array"/>
+    <keyword type="function" name="camel_store_summary_array_free ()" link="camel-CamelStoreSummary.html#camel-store-summary-array-free"/>
+    <keyword type="function" name="camel_store_info_string ()" link="camel-CamelStoreSummary.html#camel-store-info-string"/>
+    <keyword type="function" name="camel_store_info_set_string ()" link="camel-CamelStoreSummary.html#camel-store-info-set-string"/>
+    <keyword type="macro" name="camel_store_info_path()" link="camel-CamelStoreSummary.html#camel-store-info-path"/>
+    <keyword type="macro" name="camel_store_info_uri()" link="camel-CamelStoreSummary.html#camel-store-info-uri"/>
+    <keyword type="macro" name="camel_store_info_name()" link="camel-CamelStoreSummary.html#camel-store-info-name"/>
+    <keyword type="struct" name="CamelOfflineStore" link="camel-CamelOfflineStore.html#CamelOfflineStore"/>
+    <keyword type="function" name="camel_offline_store_set_network_state ()" link="camel-CamelOfflineStore.html#camel-offline-store-set-network-state"/>
+    <keyword type="function" name="camel_offline_store_get_network_state ()" link="camel-CamelOfflineStore.html#camel-offline-store-get-network-state"/>
+    <keyword type="function" name="camel_offline_store_prepare_for_offline ()" link="camel-CamelOfflineStore.html#camel-offline-store-prepare-for-offline"/>
+    <keyword type="struct" name="struct CamelTransport" link="camel-CamelTransport.html#CamelTransport"/>
+    <keyword type="function" name="camel_transport_send_to ()" link="camel-CamelTransport.html#camel-transport-send-to"/>
+    <keyword type="struct" name="struct CamelFilterDriver" link="camel-CamelFilterDriver.html#CamelFilterDriver"/>
+    <keyword type="function" name="CamelFilterGetFolderFunc ()" link="camel-CamelFilterDriver.html#CamelFilterGetFolderFunc"/>
+    <keyword type="function" name="camel_filter_driver_new ()" link="camel-CamelFilterDriver.html#camel-filter-driver-new"/>
+    <keyword type="function" name="camel_filter_driver_set_logfile ()" link="camel-CamelFilterDriver.html#camel-filter-driver-set-logfile"/>
+    <keyword type="function" name="camel_filter_driver_set_status_func ()" link="camel-CamelFilterDriver.html#camel-filter-driver-set-status-func"/>
+    <keyword type="function" name="camel_filter_driver_set_shell_func ()" link="camel-CamelFilterDriver.html#camel-filter-driver-set-shell-func"/>
+    <keyword type="function" name="camel_filter_driver_set_play_sound_func ()" link="camel-CamelFilterDriver.html#camel-filter-driver-set-play-sound-func"/>
+    <keyword type="function" name="camel_filter_driver_set_system_beep_func ()" link="camel-CamelFilterDriver.html#camel-filter-driver-set-system-beep-func"/>
+    <keyword type="function" name="camel_filter_driver_set_folder_func ()" link="camel-CamelFilterDriver.html#camel-filter-driver-set-folder-func"/>
+    <keyword type="function" name="camel_filter_driver_set_default_folder ()" link="camel-CamelFilterDriver.html#camel-filter-driver-set-default-folder"/>
+    <keyword type="function" name="camel_filter_driver_add_rule ()" link="camel-CamelFilterDriver.html#camel-filter-driver-add-rule"/>
+    <keyword type="function" name="camel_filter_driver_remove_rule_by_name ()" link="camel-CamelFilterDriver.html#camel-filter-driver-remove-rule-by-name"/>
+    <keyword type="function" name="camel_filter_driver_flush ()" link="camel-CamelFilterDriver.html#camel-filter-driver-flush"/>
+    <keyword type="function" name="camel_filter_driver_filter_message ()" link="camel-CamelFilterDriver.html#camel-filter-driver-filter-message"/>
+    <keyword type="function" name="camel_filter_driver_filter_mbox ()" link="camel-CamelFilterDriver.html#camel-filter-driver-filter-mbox"/>
+    <keyword type="function" name="camel_filter_driver_filter_folder ()" link="camel-CamelFilterDriver.html#camel-filter-driver-filter-folder"/>
+    <keyword type="function" name="camel_filter_driver_expand_option ()" link="camel-CamelFilterDriver.html#camel-filter-driver-expand-option"/>
+    <keyword type="function" name="camel_filter_driver_rule_count ()" link="camel-CamelFilterDriver.html#camel-filter-driver-rule-count"/>
+    <keyword type="function" name="camel_filter_driver_rule_get ()" link="camel-CamelFilterDriver.html#camel-filter-driver-rule-get"/>
+    <keyword type="function" name="CamelFilterSearchGetMessageFunc ()" link="camel-camel-filter-search.html#CamelFilterSearchGetMessageFunc"/>
+    <keyword type="function" name="camel_filter_search_match ()" link="camel-camel-filter-search.html#camel-filter-search-match"/>
+    <keyword type="struct" name="struct CamelFolder" link="camel-CamelFolder.html#CamelFolder"/>
+    <keyword type="struct" name="CamelFolderChangeInfo" link="camel-CamelFolder.html#CamelFolderChangeInfo"/>
+    <keyword type="struct" name="CamelFolderQuotaInfo" link="camel-CamelFolder.html#CamelFolderQuotaInfo"/>
+    <keyword type="macro" name="CAMEL_FOLDER_HAS_SUMMARY_CAPABILITY" link="camel-CamelFolder.html#CAMEL-FOLDER-HAS-SUMMARY-CAPABILITY:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_HAS_SEARCH_CAPABILITY" link="camel-CamelFolder.html#CAMEL-FOLDER-HAS-SEARCH-CAPABILITY:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_FILTER_RECENT" link="camel-CamelFolder.html#CAMEL-FOLDER-FILTER-RECENT:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_HAS_BEEN_DELETED" link="camel-CamelFolder.html#CAMEL-FOLDER-HAS-BEEN-DELETED:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_IS_TRASH" link="camel-CamelFolder.html#CAMEL-FOLDER-IS-TRASH:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_IS_JUNK" link="camel-CamelFolder.html#CAMEL-FOLDER-IS-JUNK:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLDER_FILTER_JUNK" link="camel-CamelFolder.html#CAMEL-FOLDER-FILTER-JUNK:CAPS"/>
+    <keyword type="function" name="camel_folder_construct ()" link="camel-CamelFolder.html#camel-folder-construct"/>
+    <keyword type="function" name="camel_folder_refresh_info ()" link="camel-CamelFolder.html#camel-folder-refresh-info"/>
+    <keyword type="function" name="camel_folder_sync ()" link="camel-CamelFolder.html#camel-folder-sync"/>
+    <keyword type="function" name="camel_folder_get_parent_store ()" link="camel-CamelFolder.html#camel-folder-get-parent-store"/>
+    <keyword type="function" name="camel_folder_expunge ()" link="camel-CamelFolder.html#camel-folder-expunge"/>
+    <keyword type="function" name="camel_folder_get_name ()" link="camel-CamelFolder.html#camel-folder-get-name"/>
+    <keyword type="function" name="camel_folder_get_full_name ()" link="camel-CamelFolder.html#camel-folder-get-full-name"/>
+    <keyword type="function" name="camel_folder_get_permanent_flags ()" link="camel-CamelFolder.html#camel-folder-get-permanent-flags"/>
+    <keyword type="function" name="camel_folder_get_message_flags ()" link="camel-CamelFolder.html#camel-folder-get-message-flags" deprecated="Use #camel_folder_get_message_info instead."/>
+    <keyword type="function" name="camel_folder_set_message_flags ()" link="camel-CamelFolder.html#camel-folder-set-message-flags" deprecated=""/>
+    <keyword type="function" name="camel_folder_get_message_user_flag ()" link="camel-CamelFolder.html#camel-folder-get-message-user-flag" deprecated=""/>
+    <keyword type="function" name="camel_folder_set_message_user_flag ()" link="camel-CamelFolder.html#camel-folder-set-message-user-flag" deprecated=""/>
+    <keyword type="function" name="camel_folder_get_message_user_tag ()" link="camel-CamelFolder.html#camel-folder-get-message-user-tag" deprecated=""/>
+    <keyword type="function" name="camel_folder_set_message_user_tag ()" link="camel-CamelFolder.html#camel-folder-set-message-user-tag" deprecated=""/>
+    <keyword type="function" name="camel_folder_append_message ()" link="camel-CamelFolder.html#camel-folder-append-message"/>
+    <keyword type="function" name="camel_folder_has_summary_capability ()" link="camel-CamelFolder.html#camel-folder-has-summary-capability"/>
+    <keyword type="function" name="camel_folder_get_message_count ()" link="camel-CamelFolder.html#camel-folder-get-message-count"/>
+    <keyword type="function" name="camel_folder_get_unread_message_count ()" link="camel-CamelFolder.html#camel-folder-get-unread-message-count" deprecated="use #camel_object_get instead."/>
+    <keyword type="function" name="camel_folder_get_deleted_message_count ()" link="camel-CamelFolder.html#camel-folder-get-deleted-message-count"/>
+    <keyword type="function" name="camel_folder_get_summary ()" link="camel-CamelFolder.html#camel-folder-get-summary"/>
+    <keyword type="function" name="camel_folder_free_summary ()" link="camel-CamelFolder.html#camel-folder-free-summary"/>
+    <keyword type="function" name="camel_folder_get_message ()" link="camel-CamelFolder.html#camel-folder-get-message"/>
+    <keyword type="function" name="camel_folder_sync_message ()" link="camel-CamelFolder.html#camel-folder-sync-message"/>
+    <keyword type="macro" name="camel_folder_delete_message()" link="camel-CamelFolder.html#camel-folder-delete-message"/>
+    <keyword type="function" name="camel_folder_get_uids ()" link="camel-CamelFolder.html#camel-folder-get-uids"/>
+    <keyword type="function" name="camel_folder_free_uids ()" link="camel-CamelFolder.html#camel-folder-free-uids"/>
+    <keyword type="function" name="camel_folder_get_uncached_uids ()" link="camel-CamelFolder.html#camel-folder-get-uncached-uids"/>
+    <keyword type="function" name="camel_folder_cmp_uids ()" link="camel-CamelFolder.html#camel-folder-cmp-uids"/>
+    <keyword type="function" name="camel_folder_sort_uids ()" link="camel-CamelFolder.html#camel-folder-sort-uids"/>
+    <keyword type="function" name="camel_folder_has_search_capability ()" link="camel-CamelFolder.html#camel-folder-has-search-capability"/>
+    <keyword type="function" name="camel_folder_search_by_expression ()" link="camel-CamelFolder.html#camel-folder-search-by-expression"/>
+    <keyword type="function" name="camel_folder_search_by_uids ()" link="camel-CamelFolder.html#camel-folder-search-by-uids"/>
+    <keyword type="function" name="camel_folder_search_free ()" link="camel-CamelFolder.html#camel-folder-search-free"/>
+    <keyword type="function" name="camel_folder_count_by_expression ()" link="camel-CamelFolder.html#camel-folder-count-by-expression"/>
+    <keyword type="function" name="camel_folder_get_message_info ()" link="camel-CamelFolder.html#camel-folder-get-message-info"/>
+    <keyword type="function" name="camel_folder_free_message_info ()" link="camel-CamelFolder.html#camel-folder-free-message-info"/>
+    <keyword type="function" name="camel_folder_ref_message_info ()" link="camel-CamelFolder.html#camel-folder-ref-message-info" deprecated=""/>
+    <keyword type="function" name="camel_folder_transfer_messages_to ()" link="camel-CamelFolder.html#camel-folder-transfer-messages-to"/>
+    <keyword type="function" name="camel_folder_delete ()" link="camel-CamelFolder.html#camel-folder-delete"/>
+    <keyword type="function" name="camel_folder_rename ()" link="camel-CamelFolder.html#camel-folder-rename"/>
+    <keyword type="function" name="camel_folder_freeze ()" link="camel-CamelFolder.html#camel-folder-freeze"/>
+    <keyword type="function" name="camel_folder_thaw ()" link="camel-CamelFolder.html#camel-folder-thaw"/>
+    <keyword type="function" name="camel_folder_is_frozen ()" link="camel-CamelFolder.html#camel-folder-is-frozen"/>
+    <keyword type="function" name="camel_folder_get_quota_info ()" link="camel-CamelFolder.html#camel-folder-get-quota-info"/>
+    <keyword type="function" name="camel_folder_quota_info_new ()" link="camel-CamelFolder.html#camel-folder-quota-info-new"/>
+    <keyword type="function" name="camel_folder_quota_info_clone ()" link="camel-CamelFolder.html#camel-folder-quota-info-clone"/>
+    <keyword type="function" name="camel_folder_quota_info_free ()" link="camel-CamelFolder.html#camel-folder-quota-info-free"/>
+    <keyword type="function" name="camel_folder_free_nop ()" link="camel-CamelFolder.html#camel-folder-free-nop"/>
+    <keyword type="function" name="camel_folder_free_shallow ()" link="camel-CamelFolder.html#camel-folder-free-shallow"/>
+    <keyword type="function" name="camel_folder_free_deep ()" link="camel-CamelFolder.html#camel-folder-free-deep"/>
+    <keyword type="function" name="camel_folder_get_filename ()" link="camel-CamelFolder.html#camel-folder-get-filename"/>
+    <keyword type="function" name="camel_folder_change_info_new ()" link="camel-CamelFolder.html#camel-folder-change-info-new"/>
+    <keyword type="function" name="camel_folder_change_info_clear ()" link="camel-CamelFolder.html#camel-folder-change-info-clear"/>
+    <keyword type="function" name="camel_folder_change_info_free ()" link="camel-CamelFolder.html#camel-folder-change-info-free"/>
+    <keyword type="function" name="camel_folder_change_info_changed ()" link="camel-CamelFolder.html#camel-folder-change-info-changed"/>
+    <keyword type="function" name="camel_folder_change_info_add_source ()" link="camel-CamelFolder.html#camel-folder-change-info-add-source"/>
+    <keyword type="function" name="camel_folder_change_info_add_source_list ()" link="camel-CamelFolder.html#camel-folder-change-info-add-source-list"/>
+    <keyword type="function" name="camel_folder_change_info_add_update ()" link="camel-CamelFolder.html#camel-folder-change-info-add-update"/>
+    <keyword type="function" name="camel_folder_change_info_add_update_list ()" link="camel-CamelFolder.html#camel-folder-change-info-add-update-list"/>
+    <keyword type="function" name="camel_folder_change_info_build_diff ()" link="camel-CamelFolder.html#camel-folder-change-info-build-diff"/>
+    <keyword type="function" name="camel_folder_change_info_cat ()" link="camel-CamelFolder.html#camel-folder-change-info-cat"/>
+    <keyword type="function" name="camel_folder_change_info_add_uid ()" link="camel-CamelFolder.html#camel-folder-change-info-add-uid"/>
+    <keyword type="function" name="camel_folder_change_info_remove_uid ()" link="camel-CamelFolder.html#camel-folder-change-info-remove-uid"/>
+    <keyword type="function" name="camel_folder_change_info_change_uid ()" link="camel-CamelFolder.html#camel-folder-change-info-change-uid"/>
+    <keyword type="function" name="camel_folder_change_info_recent_uid ()" link="camel-CamelFolder.html#camel-folder-change-info-recent-uid"/>
+    <keyword type="struct" name="struct CamelFolderSearch" link="camel-CamelFolderSearch.html#CamelFolderSearch"/>
+    <keyword type="function" name="camel_folder_search_new ()" link="camel-CamelFolderSearch.html#camel-folder-search-new"/>
+    <keyword type="function" name="camel_folder_search_construct ()" link="camel-CamelFolderSearch.html#camel-folder-search-construct"/>
+    <keyword type="function" name="camel_folder_search_set_folder ()" link="camel-CamelFolderSearch.html#camel-folder-search-set-folder"/>
+    <keyword type="function" name="camel_folder_search_set_summary ()" link="camel-CamelFolderSearch.html#camel-folder-search-set-summary"/>
+    <keyword type="function" name="camel_folder_search_set_body_index ()" link="camel-CamelFolderSearch.html#camel-folder-search-set-body-index"/>
+    <keyword type="function" name="camel_folder_search_execute_expression ()" link="camel-CamelFolderSearch.html#camel-folder-search-execute-expression"/>
+    <keyword type="function" name="camel_folder_search_search ()" link="camel-CamelFolderSearch.html#camel-folder-search-search"/>
+    <keyword type="function" name="camel_folder_search_count ()" link="camel-CamelFolderSearch.html#camel-folder-search-count"/>
+    <keyword type="function" name="camel_folder_search_free_result ()" link="camel-CamelFolderSearch.html#camel-folder-search-free-result"/>
+    <keyword type="struct" name="struct CamelFolderSummary" link="camel-CamelFolderSummary.html#CamelFolderSummary"/>
+    <keyword type="struct" name="CamelMessageInfo" link="camel-CamelFolderSummary.html#CamelMessageInfo"/>
+    <keyword type="struct" name="CamelMessageInfoBase" link="camel-CamelFolderSummary.html#CamelMessageInfoBase"/>
+    <keyword type="struct" name="CamelFolderMetaSummary" link="camel-CamelFolderSummary.html#CamelFolderMetaSummary"/>
+    <keyword type="struct" name="struct CamelMessageContentInfo" link="camel-CamelFolderSummary.html#CamelMessageContentInfo"/>
+    <keyword type="enum" name="enum CamelMessageFlags" link="camel-CamelFolderSummary.html#CamelMessageFlags"/>
+    <keyword type="macro" name="CAMEL_MESSAGE_SYSTEM_MASK" link="camel-CamelFolderSummary.html#CAMEL-MESSAGE-SYSTEM-MASK:CAPS"/>
+    <keyword type="struct" name="CamelFlag" link="camel-CamelFolderSummary.html#CamelFlag"/>
+    <keyword type="struct" name="CamelTag" link="camel-CamelFolderSummary.html#CamelTag"/>
+    <keyword type="struct" name="CamelSummaryMessageID" link="camel-CamelFolderSummary.html#CamelSummaryMessageID"/>
+    <keyword type="struct" name="CamelSummaryReferences" link="camel-CamelFolderSummary.html#CamelSummaryReferences"/>
+    <keyword type="enum" name="enum CamelFolderSummaryFlags" link="camel-CamelFolderSummary.html#CamelFolderSummaryFlags"/>
+    <keyword type="function" name="camel_folder_summary_new ()" link="camel-CamelFolderSummary.html#camel-folder-summary-new"/>
+    <keyword type="function" name="camel_folder_summary_set_filename ()" link="camel-CamelFolderSummary.html#camel-folder-summary-set-filename"/>
+    <keyword type="function" name="camel_folder_summary_set_index ()" link="camel-CamelFolderSummary.html#camel-folder-summary-set-index"/>
+    <keyword type="function" name="camel_folder_summary_set_build_content ()" link="camel-CamelFolderSummary.html#camel-folder-summary-set-build-content"/>
+    <keyword type="function" name="camel_folder_summary_next_uid ()" link="camel-CamelFolderSummary.html#camel-folder-summary-next-uid"/>
+    <keyword type="function" name="camel_folder_summary_next_uid_string ()" link="camel-CamelFolderSummary.html#camel-folder-summary-next-uid-string"/>
+    <keyword type="function" name="camel_folder_summary_set_uid ()" link="camel-CamelFolderSummary.html#camel-folder-summary-set-uid"/>
+    <keyword type="function" name="camel_folder_summary_load ()" link="camel-CamelFolderSummary.html#camel-folder-summary-load"/>
+    <keyword type="function" name="camel_folder_summary_save ()" link="camel-CamelFolderSummary.html#camel-folder-summary-save"/>
+    <keyword type="function" name="camel_folder_summary_save_to_db ()" link="camel-CamelFolderSummary.html#camel-folder-summary-save-to-db"/>
+    <keyword type="function" name="camel_folder_summary_load_from_db ()" link="camel-CamelFolderSummary.html#camel-folder-summary-load-from-db"/>
+    <keyword type="function" name="camel_folder_summary_header_load ()" link="camel-CamelFolderSummary.html#camel-folder-summary-header-load"/>
+    <keyword type="function" name="camel_folder_summary_header_load_from_db ()" link="camel-CamelFolderSummary.html#camel-folder-summary-header-load-from-db"/>
+    <keyword type="function" name="camel_folder_summary_header_save_to_db ()" link="camel-CamelFolderSummary.html#camel-folder-summary-header-save-to-db"/>
+    <keyword type="function" name="camel_folder_summary_touch ()" link="camel-CamelFolderSummary.html#camel-folder-summary-touch"/>
+    <keyword type="function" name="camel_folder_summary_add ()" link="camel-CamelFolderSummary.html#camel-folder-summary-add"/>
+    <keyword type="function" name="camel_folder_summary_peek_info ()" link="camel-CamelFolderSummary.html#camel-folder-summary-peek-info"/>
+    <keyword type="function" name="camel_folder_summary_get_changed ()" link="camel-CamelFolderSummary.html#camel-folder-summary-get-changed"/>
+    <keyword type="function" name="camel_folder_summary_cache_size ()" link="camel-CamelFolderSummary.html#camel-folder-summary-cache-size"/>
+    <keyword type="function" name="camel_folder_summary_reload_from_db ()" link="camel-CamelFolderSummary.html#camel-folder-summary-reload-from-db"/>
+    <keyword type="function" name="camel_folder_summary_ensure_infos_loaded ()" link="camel-CamelFolderSummary.html#camel-folder-summary-ensure-infos-loaded"/>
+    <keyword type="function" name="camel_folder_summary_insert ()" link="camel-CamelFolderSummary.html#camel-folder-summary-insert"/>
+    <keyword type="function" name="camel_folder_summary_remove_index_fast ()" link="camel-CamelFolderSummary.html#camel-folder-summary-remove-index-fast"/>
+    <keyword type="function" name="camel_folder_summary_remove_uid_fast ()" link="camel-CamelFolderSummary.html#camel-folder-summary-remove-uid-fast"/>
+    <keyword type="function" name="camel_folder_summary_add_from_header ()" link="camel-CamelFolderSummary.html#camel-folder-summary-add-from-header"/>
+    <keyword type="function" name="camel_folder_summary_add_from_parser ()" link="camel-CamelFolderSummary.html#camel-folder-summary-add-from-parser"/>
+    <keyword type="function" name="camel_folder_summary_add_from_message ()" link="camel-CamelFolderSummary.html#camel-folder-summary-add-from-message"/>
+    <keyword type="function" name="camel_folder_summary_info_new_from_header ()" link="camel-CamelFolderSummary.html#camel-folder-summary-info-new-from-header"/>
+    <keyword type="function" name="camel_folder_summary_info_new_from_parser ()" link="camel-CamelFolderSummary.html#camel-folder-summary-info-new-from-parser"/>
+    <keyword type="function" name="camel_folder_summary_info_new_from_message ()" link="camel-CamelFolderSummary.html#camel-folder-summary-info-new-from-message"/>
+    <keyword type="function" name="camel_folder_summary_content_info_new ()" link="camel-CamelFolderSummary.html#camel-folder-summary-content-info-new"/>
+    <keyword type="function" name="camel_folder_summary_content_info_free ()" link="camel-CamelFolderSummary.html#camel-folder-summary-content-info-free"/>
+    <keyword type="function" name="camel_folder_summary_remove ()" link="camel-CamelFolderSummary.html#camel-folder-summary-remove"/>
+    <keyword type="function" name="camel_folder_summary_remove_uid ()" link="camel-CamelFolderSummary.html#camel-folder-summary-remove-uid"/>
+    <keyword type="function" name="camel_folder_summary_remove_index ()" link="camel-CamelFolderSummary.html#camel-folder-summary-remove-index"/>
+    <keyword type="function" name="camel_folder_summary_remove_range ()" link="camel-CamelFolderSummary.html#camel-folder-summary-remove-range"/>
+    <keyword type="function" name="camel_folder_summary_clear ()" link="camel-CamelFolderSummary.html#camel-folder-summary-clear"/>
+    <keyword type="function" name="camel_folder_summary_clear_db ()" link="camel-CamelFolderSummary.html#camel-folder-summary-clear-db"/>
+    <keyword type="function" name="camel_folder_summary_count ()" link="camel-CamelFolderSummary.html#camel-folder-summary-count"/>
+    <keyword type="function" name="camel_folder_summary_index ()" link="camel-CamelFolderSummary.html#camel-folder-summary-index"/>
+    <keyword type="function" name="camel_folder_summary_uid ()" link="camel-CamelFolderSummary.html#camel-folder-summary-uid"/>
+    <keyword type="function" name="camel_folder_summary_uid_from_index ()" link="camel-CamelFolderSummary.html#camel-folder-summary-uid-from-index"/>
+    <keyword type="function" name="camel_folder_summary_check_uid ()" link="camel-CamelFolderSummary.html#camel-folder-summary-check-uid"/>
+    <keyword type="function" name="camel_folder_summary_array ()" link="camel-CamelFolderSummary.html#camel-folder-summary-array"/>
+    <keyword type="function" name="camel_folder_summary_get_hashtable ()" link="camel-CamelFolderSummary.html#camel-folder-summary-get-hashtable"/>
+    <keyword type="function" name="camel_folder_summary_free_hashtable ()" link="camel-CamelFolderSummary.html#camel-folder-summary-free-hashtable"/>
+    <keyword type="function" name="camel_folder_summary_get_flag_cache ()" link="camel-CamelFolderSummary.html#camel-folder-summary-get-flag-cache"/>
+    <keyword type="function" name="camel_folder_summary_update_flag_cache ()" link="camel-CamelFolderSummary.html#camel-folder-summary-update-flag-cache"/>
+    <keyword type="function" name="camel_folder_summary_encode_token ()" link="camel-CamelFolderSummary.html#camel-folder-summary-encode-token"/>
+    <keyword type="function" name="camel_folder_summary_decode_token ()" link="camel-CamelFolderSummary.html#camel-folder-summary-decode-token"/>
+    <keyword type="function" name="camel_flag_get ()" link="camel-CamelFolderSummary.html#camel-flag-get"/>
+    <keyword type="function" name="camel_flag_set ()" link="camel-CamelFolderSummary.html#camel-flag-set"/>
+    <keyword type="function" name="camel_flag_list_copy ()" link="camel-CamelFolderSummary.html#camel-flag-list-copy"/>
+    <keyword type="function" name="camel_flag_list_size ()" link="camel-CamelFolderSummary.html#camel-flag-list-size"/>
+    <keyword type="function" name="camel_flag_list_free ()" link="camel-CamelFolderSummary.html#camel-flag-list-free"/>
+    <keyword type="function" name="camel_system_flag ()" link="camel-CamelFolderSummary.html#camel-system-flag"/>
+    <keyword type="function" name="camel_system_flag_get ()" link="camel-CamelFolderSummary.html#camel-system-flag-get"/>
+    <keyword type="function" name="camel_tag_get ()" link="camel-CamelFolderSummary.html#camel-tag-get"/>
+    <keyword type="function" name="camel_tag_set ()" link="camel-CamelFolderSummary.html#camel-tag-set"/>
+    <keyword type="function" name="camel_tag_list_copy ()" link="camel-CamelFolderSummary.html#camel-tag-list-copy"/>
+    <keyword type="function" name="camel_tag_list_size ()" link="camel-CamelFolderSummary.html#camel-tag-list-size"/>
+    <keyword type="function" name="camel_tag_list_free ()" link="camel-CamelFolderSummary.html#camel-tag-list-free"/>
+    <keyword type="function" name="camel_message_info_new ()" link="camel-CamelFolderSummary.html#camel-message-info-new"/>
+    <keyword type="function" name="camel_message_info_ref ()" link="camel-CamelFolderSummary.html#camel-message-info-ref"/>
+    <keyword type="function" name="camel_message_info_new_from_header ()" link="camel-CamelFolderSummary.html#camel-message-info-new-from-header"/>
+    <keyword type="function" name="camel_message_info_free ()" link="camel-CamelFolderSummary.html#camel-message-info-free"/>
+    <keyword type="function" name="camel_message_info_clone ()" link="camel-CamelFolderSummary.html#camel-message-info-clone"/>
+    <keyword type="function" name="camel_message_info_ptr ()" link="camel-CamelFolderSummary.html#camel-message-info-ptr"/>
+    <keyword type="function" name="camel_message_info_uint32 ()" link="camel-CamelFolderSummary.html#camel-message-info-uint32"/>
+    <keyword type="function" name="camel_message_info_time ()" link="camel-CamelFolderSummary.html#camel-message-info-time"/>
+    <keyword type="macro" name="camel_message_info_uid()" link="camel-CamelFolderSummary.html#camel-message-info-uid"/>
+    <keyword type="macro" name="camel_message_info_subject()" link="camel-CamelFolderSummary.html#camel-message-info-subject"/>
+    <keyword type="macro" name="camel_message_info_preview()" link="camel-CamelFolderSummary.html#camel-message-info-preview"/>
+    <keyword type="macro" name="camel_message_info_from()" link="camel-CamelFolderSummary.html#camel-message-info-from"/>
+    <keyword type="macro" name="camel_message_info_to()" link="camel-CamelFolderSummary.html#camel-message-info-to"/>
+    <keyword type="macro" name="camel_message_info_cc()" link="camel-CamelFolderSummary.html#camel-message-info-cc"/>
+    <keyword type="macro" name="camel_message_info_mlist()" link="camel-CamelFolderSummary.html#camel-message-info-mlist"/>
+    <keyword type="macro" name="camel_message_info_flags()" link="camel-CamelFolderSummary.html#camel-message-info-flags"/>
+    <keyword type="macro" name="camel_message_info_size()" link="camel-CamelFolderSummary.html#camel-message-info-size"/>
+    <keyword type="macro" name="camel_message_info_date_sent()" link="camel-CamelFolderSummary.html#camel-message-info-date-sent"/>
+    <keyword type="macro" name="camel_message_info_date_received()" link="camel-CamelFolderSummary.html#camel-message-info-date-received"/>
+    <keyword type="macro" name="camel_message_info_message_id()" link="camel-CamelFolderSummary.html#camel-message-info-message-id"/>
+    <keyword type="macro" name="camel_message_info_references()" link="camel-CamelFolderSummary.html#camel-message-info-references"/>
+    <keyword type="macro" name="camel_message_info_user_flags()" link="camel-CamelFolderSummary.html#camel-message-info-user-flags"/>
+    <keyword type="macro" name="camel_message_info_user_tags()" link="camel-CamelFolderSummary.html#camel-message-info-user-tags"/>
+    <keyword type="macro" name="camel_message_info_headers()" link="camel-CamelFolderSummary.html#camel-message-info-headers"/>
+    <keyword type="function" name="camel_message_info_user_flag ()" link="camel-CamelFolderSummary.html#camel-message-info-user-flag"/>
+    <keyword type="function" name="camel_message_info_user_tag ()" link="camel-CamelFolderSummary.html#camel-message-info-user-tag"/>
+    <keyword type="function" name="camel_message_info_set_flags ()" link="camel-CamelFolderSummary.html#camel-message-info-set-flags"/>
+    <keyword type="function" name="camel_message_info_set_user_flag ()" link="camel-CamelFolderSummary.html#camel-message-info-set-user-flag"/>
+    <keyword type="function" name="camel_message_info_set_user_tag ()" link="camel-CamelFolderSummary.html#camel-message-info-set-user-tag"/>
+    <keyword type="function" name="camel_folder_summary_set_need_preview ()" link="camel-CamelFolderSummary.html#camel-folder-summary-set-need-preview"/>
+    <keyword type="function" name="camel_folder_summary_add_preview ()" link="camel-CamelFolderSummary.html#camel-folder-summary-add-preview"/>
+    <keyword type="function" name="camel_folder_summary_get_need_preview ()" link="camel-CamelFolderSummary.html#camel-folder-summary-get-need-preview"/>
+    <keyword type="function" name="camel_content_info_dump ()" link="camel-CamelFolderSummary.html#camel-content-info-dump"/>
+    <keyword type="function" name="camel_message_info_dump ()" link="camel-CamelFolderSummary.html#camel-message-info-dump"/>
+    <keyword type="function" name="camel_folder_summary_migrate_infos ()" link="camel-CamelFolderSummary.html#camel-folder-summary-migrate-infos"/>
+    <keyword type="struct" name="CamelFolderThreadNode" link="camel-camel-folder-thread.html#CamelFolderThreadNode"/>
+    <keyword type="struct" name="CamelFolderThread" link="camel-camel-folder-thread.html#CamelFolderThread"/>
+    <keyword type="function" name="camel_folder_thread_messages_new ()" link="camel-camel-folder-thread.html#camel-folder-thread-messages-new"/>
+    <keyword type="function" name="camel_folder_thread_messages_apply ()" link="camel-camel-folder-thread.html#camel-folder-thread-messages-apply"/>
+    <keyword type="function" name="camel_folder_thread_messages_new_summary ()" link="camel-camel-folder-thread.html#camel-folder-thread-messages-new-summary"/>
+    <keyword type="function" name="camel_folder_thread_messages_add ()" link="camel-camel-folder-thread.html#camel-folder-thread-messages-add"/>
+    <keyword type="function" name="camel_folder_thread_messages_remove ()" link="camel-camel-folder-thread.html#camel-folder-thread-messages-remove"/>
+    <keyword type="function" name="camel_folder_thread_messages_ref ()" link="camel-camel-folder-thread.html#camel-folder-thread-messages-ref"/>
+    <keyword type="function" name="camel_folder_thread_messages_unref ()" link="camel-camel-folder-thread.html#camel-folder-thread-messages-unref"/>
+    <keyword type="function" name="camel_folder_threaded_messages_dump ()" link="camel-camel-folder-thread.html#camel-folder-threaded-messages-dump"/>
+    <keyword type="struct" name="CamelOfflineFolder" link="camel-CamelOfflineFolder.html#CamelOfflineFolder"/>
+    <keyword type="function" name="camel_offline_folder_downsync ()" link="camel-CamelOfflineFolder.html#camel-offline-folder-downsync"/>
+    <keyword type="struct" name="CamelOfflineJournal" link="camel-CamelOfflineJournal.html#CamelOfflineJournal"/>
+    <keyword type="struct" name="CamelOfflineJournalEntry" link="camel-CamelOfflineJournal.html#CamelOfflineJournalEntry"/>
+    <keyword type="function" name="camel_offline_journal_construct ()" link="camel-CamelOfflineJournal.html#camel-offline-journal-construct"/>
+    <keyword type="function" name="camel_offline_journal_set_filename ()" link="camel-CamelOfflineJournal.html#camel-offline-journal-set-filename"/>
+    <keyword type="function" name="camel_offline_journal_write ()" link="camel-CamelOfflineJournal.html#camel-offline-journal-write"/>
+    <keyword type="function" name="camel_offline_journal_replay ()" link="camel-CamelOfflineJournal.html#camel-offline-journal-replay"/>
+    <keyword type="struct" name="CamelVeeFolder" link="camel-CamelVeeFolder.html#CamelVeeFolder"/>
+    <keyword type="macro" name="CAMEL_UNMATCHED_NAME" link="camel-CamelVeeFolder.html#CAMEL-UNMATCHED-NAME:CAPS"/>
+    <keyword type="function" name="camel_vee_folder_new ()" link="camel-CamelVeeFolder.html#camel-vee-folder-new"/>
+    <keyword type="function" name="camel_vee_folder_construct ()" link="camel-CamelVeeFolder.html#camel-vee-folder-construct"/>
+    <keyword type="function" name="camel_vee_folder_get_location ()" link="camel-CamelVeeFolder.html#camel-vee-folder-get-location"/>
+    <keyword type="function" name="camel_vee_folder_add_folder ()" link="camel-CamelVeeFolder.html#camel-vee-folder-add-folder"/>
+    <keyword type="function" name="camel_vee_folder_remove_folder ()" link="camel-CamelVeeFolder.html#camel-vee-folder-remove-folder"/>
+    <keyword type="function" name="camel_vee_folder_set_folders ()" link="camel-CamelVeeFolder.html#camel-vee-folder-set-folders"/>
+    <keyword type="function" name="camel_vee_folder_rebuild_folder ()" link="camel-CamelVeeFolder.html#camel-vee-folder-rebuild-folder"/>
+    <keyword type="function" name="camel_vee_folder_set_expression ()" link="camel-CamelVeeFolder.html#camel-vee-folder-set-expression"/>
+    <keyword type="function" name="camel_vee_folder_mask_event_folder_changed ()" link="camel-CamelVeeFolder.html#camel-vee-folder-mask-event-folder-changed"/>
+    <keyword type="function" name="camel_vee_folder_unmask_event_folder_changed ()" link="camel-CamelVeeFolder.html#camel-vee-folder-unmask-event-folder-changed"/>
+    <keyword type="function" name="camel_vee_folder_hash_folder ()" link="camel-CamelVeeFolder.html#camel-vee-folder-hash-folder"/>
+    <keyword type="function" name="camel_vee_folder_sync_headers ()" link="camel-CamelVeeFolder.html#camel-vee-folder-sync-headers"/>
+    <keyword type="struct" name="CamelVeeStore" link="camel-CamelVeeStore.html#CamelVeeStore"/>
+    <keyword type="macro" name="CAMEL_STORE_VEE_FOLDER_AUTO" link="camel-CamelVeeStore.html#CAMEL-STORE-VEE-FOLDER-AUTO:CAPS"/>
+    <keyword type="macro" name="CAMEL_STORE_VEE_FOLDER_SPECIAL" link="camel-CamelVeeStore.html#CAMEL-STORE-VEE-FOLDER-SPECIAL:CAPS"/>
+    <keyword type="function" name="camel_vee_store_new ()" link="camel-CamelVeeStore.html#camel-vee-store-new"/>
+    <keyword type="struct" name="CamelVeeSummary" link="camel-CamelVeeSummary.html#CamelVeeSummary"/>
+    <keyword type="struct" name="CamelVeeMessageInfo" link="camel-CamelVeeSummary.html#CamelVeeMessageInfo"/>
+    <keyword type="function" name="camel_vee_summary_new ()" link="camel-CamelVeeSummary.html#camel-vee-summary-new"/>
+    <keyword type="function" name="camel_vee_summary_add ()" link="camel-CamelVeeSummary.html#camel-vee-summary-add"/>
+    <keyword type="function" name="camel_vee_summary_get_ids ()" link="camel-CamelVeeSummary.html#camel-vee-summary-get-ids"/>
+    <keyword type="function" name="camel_vee_summary_load_check_unread_vfolder ()" link="camel-CamelVeeSummary.html#camel-vee-summary-load-check-unread-vfolder"/>
+    <keyword type="macro" name="CAMEL_VTRASH_NAME" link="camel-CamelVTrashFolder.html#CAMEL-VTRASH-NAME:CAPS"/>
+    <keyword type="macro" name="CAMEL_VJUNK_NAME" link="camel-CamelVTrashFolder.html#CAMEL-VJUNK-NAME:CAPS"/>
+    <keyword type="struct" name="CamelVTrashFolder" link="camel-CamelVTrashFolder.html#CamelVTrashFolder"/>
+    <keyword type="enum" name="enum camel_vtrash_folder_t" link="camel-CamelVTrashFolder.html#camel-vtrash-folder-t"/>
+    <keyword type="function" name="camel_vtrash_folder_new ()" link="camel-CamelVTrashFolder.html#camel-vtrash-folder-new"/>
+    <keyword type="struct" name="struct CamelAddress" link="camel-CamelAddress.html#CamelAddress"/>
+    <keyword type="function" name="camel_address_new ()" link="camel-CamelAddress.html#camel-address-new"/>
+    <keyword type="function" name="camel_address_new_clone ()" link="camel-CamelAddress.html#camel-address-new-clone"/>
+    <keyword type="function" name="camel_address_length ()" link="camel-CamelAddress.html#camel-address-length"/>
+    <keyword type="function" name="camel_address_decode ()" link="camel-CamelAddress.html#camel-address-decode"/>
+    <keyword type="function" name="camel_address_encode ()" link="camel-CamelAddress.html#camel-address-encode"/>
+    <keyword type="function" name="camel_address_unformat ()" link="camel-CamelAddress.html#camel-address-unformat"/>
+    <keyword type="function" name="camel_address_format ()" link="camel-CamelAddress.html#camel-address-format"/>
+    <keyword type="function" name="camel_address_cat ()" link="camel-CamelAddress.html#camel-address-cat"/>
+    <keyword type="function" name="camel_address_copy ()" link="camel-CamelAddress.html#camel-address-copy"/>
+    <keyword type="function" name="camel_address_remove ()" link="camel-CamelAddress.html#camel-address-remove"/>
+    <keyword type="struct" name="struct CamelInternetAddress" link="camel-CamelInternetAddress.html#CamelInternetAddress"/>
+    <keyword type="function" name="camel_internet_address_new ()" link="camel-CamelInternetAddress.html#camel-internet-address-new"/>
+    <keyword type="function" name="camel_internet_address_add ()" link="camel-CamelInternetAddress.html#camel-internet-address-add"/>
+    <keyword type="function" name="camel_internet_address_get ()" link="camel-CamelInternetAddress.html#camel-internet-address-get"/>
+    <keyword type="function" name="camel_internet_address_find_name ()" link="camel-CamelInternetAddress.html#camel-internet-address-find-name"/>
+    <keyword type="function" name="camel_internet_address_find_address ()" link="camel-CamelInternetAddress.html#camel-internet-address-find-address"/>
+    <keyword type="function" name="camel_internet_address_encode_address ()" link="camel-CamelInternetAddress.html#camel-internet-address-encode-address"/>
+    <keyword type="function" name="camel_internet_address_format_address ()" link="camel-CamelInternetAddress.html#camel-internet-address-format-address"/>
+    <keyword type="struct" name="CamelNNTPAddress" link="camel-CamelNNTPAddress.html#CamelNNTPAddress"/>
+    <keyword type="function" name="camel_nntp_address_new ()" link="camel-CamelNNTPAddress.html#camel-nntp-address-new"/>
+    <keyword type="function" name="camel_nntp_address_add ()" link="camel-CamelNNTPAddress.html#camel-nntp-address-add"/>
+    <keyword type="function" name="camel_nntp_address_get ()" link="camel-CamelNNTPAddress.html#camel-nntp-address-get"/>
+    <keyword type="struct" name="CamelCipherContext" link="camel-CamelCipherContext.html#CamelCipherContext"/>
+    <keyword type="struct" name="CamelCipherValidity" link="camel-CamelCipherContext.html#CamelCipherValidity"/>
+    <keyword type="struct" name="CamelCipherCertInfo" link="camel-CamelCipherContext.html#CamelCipherCertInfo"/>
+    <keyword type="enum" name="enum CamelCipherHash" link="camel-CamelCipherContext.html#CamelCipherHash"/>
+    <keyword type="enum" name="enum camel_cipher_validity_sign_t" link="camel-CamelCipherContext.html#camel-cipher-validity-sign-t"/>
+    <keyword type="enum" name="enum camel_cipher_validity_encrypt_t" link="camel-CamelCipherContext.html#camel-cipher-validity-encrypt-t"/>
+    <keyword type="enum" name="enum camel_cipher_validity_mode_t" link="camel-CamelCipherContext.html#camel-cipher-validity-mode-t"/>
+    <keyword type="function" name="camel_cipher_context_new ()" link="camel-CamelCipherContext.html#camel-cipher-context-new"/>
+    <keyword type="function" name="camel_cipher_context_construct ()" link="camel-CamelCipherContext.html#camel-cipher-context-construct"/>
+    <keyword type="function" name="camel_cipher_id_to_hash ()" link="camel-CamelCipherContext.html#camel-cipher-id-to-hash"/>
+    <keyword type="function" name="camel_cipher_hash_to_id ()" link="camel-CamelCipherContext.html#camel-cipher-hash-to-id"/>
+    <keyword type="function" name="camel_cipher_sign ()" link="camel-CamelCipherContext.html#camel-cipher-sign"/>
+    <keyword type="function" name="camel_cipher_verify ()" link="camel-CamelCipherContext.html#camel-cipher-verify"/>
+    <keyword type="function" name="camel_cipher_encrypt ()" link="camel-CamelCipherContext.html#camel-cipher-encrypt"/>
+    <keyword type="function" name="camel_cipher_decrypt ()" link="camel-CamelCipherContext.html#camel-cipher-decrypt"/>
+    <keyword type="function" name="camel_cipher_import_keys ()" link="camel-CamelCipherContext.html#camel-cipher-import-keys"/>
+    <keyword type="function" name="camel_cipher_export_keys ()" link="camel-CamelCipherContext.html#camel-cipher-export-keys"/>
+    <keyword type="function" name="camel_cipher_validity_new ()" link="camel-CamelCipherContext.html#camel-cipher-validity-new"/>
+    <keyword type="function" name="camel_cipher_validity_init ()" link="camel-CamelCipherContext.html#camel-cipher-validity-init"/>
+    <keyword type="function" name="camel_cipher_validity_get_valid ()" link="camel-CamelCipherContext.html#camel-cipher-validity-get-valid"/>
+    <keyword type="function" name="camel_cipher_validity_set_valid ()" link="camel-CamelCipherContext.html#camel-cipher-validity-set-valid"/>
+    <keyword type="function" name="camel_cipher_validity_get_description ()" link="camel-CamelCipherContext.html#camel-cipher-validity-get-description"/>
+    <keyword type="function" name="camel_cipher_validity_set_description ()" link="camel-CamelCipherContext.html#camel-cipher-validity-set-description"/>
+    <keyword type="function" name="camel_cipher_validity_clear ()" link="camel-CamelCipherContext.html#camel-cipher-validity-clear"/>
+    <keyword type="function" name="camel_cipher_validity_clone ()" link="camel-CamelCipherContext.html#camel-cipher-validity-clone"/>
+    <keyword type="function" name="camel_cipher_validity_add_certinfo ()" link="camel-CamelCipherContext.html#camel-cipher-validity-add-certinfo"/>
+    <keyword type="function" name="camel_cipher_validity_envelope ()" link="camel-CamelCipherContext.html#camel-cipher-validity-envelope"/>
+    <keyword type="function" name="camel_cipher_validity_free ()" link="camel-CamelCipherContext.html#camel-cipher-validity-free"/>
+    <keyword type="function" name="camel_cipher_canonical_to_stream ()" link="camel-CamelCipherContext.html#camel-cipher-canonical-to-stream"/>
+    <keyword type="struct" name="CamelGpgContext" link="camel-CamelGpgContext.html#CamelGpgContext"/>
+    <keyword type="function" name="camel_gpg_context_new ()" link="camel-CamelGpgContext.html#camel-gpg-context-new"/>
+    <keyword type="function" name="camel_gpg_context_set_always_trust ()" link="camel-CamelGpgContext.html#camel-gpg-context-set-always-trust"/>
+    <keyword type="struct" name="CamelSMIMEContext" link="camel-CamelSMIMEContext.html#CamelSMIMEContext"/>
+    <keyword type="enum" name="enum camel_smime_sign_t" link="camel-CamelSMIMEContext.html#camel-smime-sign-t"/>
+    <keyword type="enum" name="enum camel_smime_describe_t" link="camel-CamelSMIMEContext.html#camel-smime-describe-t"/>
+    <keyword type="function" name="camel_smime_context_new ()" link="camel-CamelSMIMEContext.html#camel-smime-context-new"/>
+    <keyword type="function" name="camel_smime_context_set_encrypt_key ()" link="camel-CamelSMIMEContext.html#camel-smime-context-set-encrypt-key"/>
+    <keyword type="function" name="camel_smime_context_set_sign_mode ()" link="camel-CamelSMIMEContext.html#camel-smime-context-set-sign-mode"/>
+    <keyword type="function" name="camel_smime_context_describe_part ()" link="camel-CamelSMIMEContext.html#camel-smime-context-describe-part"/>
+    <keyword type="struct" name="CamelSasl" link="camel-CamelSasl.html#CamelSasl"/>
+    <keyword type="function" name="camel_sasl_challenge ()" link="camel-CamelSasl.html#camel-sasl-challenge"/>
+    <keyword type="function" name="camel_sasl_challenge_base64 ()" link="camel-CamelSasl.html#camel-sasl-challenge-base64"/>
+    <keyword type="function" name="camel_sasl_authenticated ()" link="camel-CamelSasl.html#camel-sasl-authenticated"/>
+    <keyword type="function" name="camel_sasl_new ()" link="camel-CamelSasl.html#camel-sasl-new"/>
+    <keyword type="function" name="camel_sasl_authtype_list ()" link="camel-CamelSasl.html#camel-sasl-authtype-list"/>
+    <keyword type="function" name="camel_sasl_authtype ()" link="camel-CamelSasl.html#camel-sasl-authtype"/>
+    <keyword type="struct" name="CamelSaslAnonymous" link="camel-CamelSaslAnonymous.html#CamelSaslAnonymous"/>
+    <keyword type="enum" name="enum CamelSaslAnonTraceType" link="camel-CamelSaslAnonymous.html#CamelSaslAnonTraceType"/>
+    <keyword type="function" name="camel_sasl_anonymous_new ()" link="camel-CamelSaslAnonymous.html#camel-sasl-anonymous-new"/>
+    <keyword type="variable" name="camel_sasl_anonymous_authtype" link="camel-CamelSaslAnonymous.html#camel-sasl-anonymous-authtype"/>
+    <keyword type="struct" name="CamelSaslCramMd5" link="camel-CamelSaslCramMd5.html#CamelSaslCramMd5"/>
+    <keyword type="variable" name="camel_sasl_cram_md5_authtype" link="camel-CamelSaslCramMd5.html#camel-sasl-cram-md5-authtype"/>
+    <keyword type="struct" name="CamelSaslDigestMd5" link="camel-CamelSaslDigestMd5.html#CamelSaslDigestMd5"/>
+    <keyword type="variable" name="camel_sasl_digest_md5_authtype" link="camel-CamelSaslDigestMd5.html#camel-sasl-digest-md5-authtype"/>
+    <keyword type="struct" name="CamelSaslGssapi" link="camel-CamelSaslGssapi.html#CamelSaslGssapi"/>
+    <keyword type="variable" name="camel_sasl_gssapi_authtype" link="camel-CamelSaslGssapi.html#camel-sasl-gssapi-authtype"/>
+    <keyword type="struct" name="CamelSaslKerberos4" link="camel-CamelSaslKerberos4.html#CamelSaslKerberos4"/>
+    <keyword type="variable" name="camel_sasl_kerberos4_authtype" link="camel-CamelSaslKerberos4.html#camel-sasl-kerberos4-authtype"/>
+    <keyword type="struct" name="CamelSaslLogin" link="camel-CamelSaslLogin.html#CamelSaslLogin"/>
+    <keyword type="variable" name="camel_sasl_login_authtype" link="camel-CamelSaslLogin.html#camel-sasl-login-authtype"/>
+    <keyword type="struct" name="CamelSaslNTLM" link="camel-CamelSaslNTLM.html#CamelSaslNTLM"/>
+    <keyword type="variable" name="camel_sasl_ntlm_authtype" link="camel-CamelSaslNTLM.html#camel-sasl-ntlm-authtype"/>
+    <keyword type="struct" name="CamelSaslPlain" link="camel-CamelSaslPlain.html#CamelSaslPlain"/>
+    <keyword type="variable" name="camel_sasl_plain_authtype" link="camel-CamelSaslPlain.html#camel-sasl-plain-authtype"/>
+    <keyword type="struct" name="CamelSaslPOPB4SMTP" link="camel-CamelSaslPOPB4SMTP.html#CamelSaslPOPB4SMTP"/>
+    <keyword type="variable" name="camel_sasl_popb4smtp_authtype" link="camel-CamelSaslPOPB4SMTP.html#camel-sasl-popb4smtp-authtype"/>
+    <keyword type="struct" name="struct CamelDataWrapper" link="camel-CamelDataWrapper.html#CamelDataWrapper"/>
+    <keyword type="function" name="camel_data_wrapper_new ()" link="camel-CamelDataWrapper.html#camel-data-wrapper-new"/>
+    <keyword type="function" name="camel_data_wrapper_write_to_stream ()" link="camel-CamelDataWrapper.html#camel-data-wrapper-write-to-stream"/>
+    <keyword type="function" name="camel_data_wrapper_decode_to_stream ()" link="camel-CamelDataWrapper.html#camel-data-wrapper-decode-to-stream"/>
+    <keyword type="function" name="camel_data_wrapper_set_mime_type ()" link="camel-CamelDataWrapper.html#camel-data-wrapper-set-mime-type"/>
+    <keyword type="function" name="camel_data_wrapper_get_mime_type ()" link="camel-CamelDataWrapper.html#camel-data-wrapper-get-mime-type"/>
+    <keyword type="function" name="camel_data_wrapper_get_mime_type_field ()" link="camel-CamelDataWrapper.html#camel-data-wrapper-get-mime-type-field"/>
+    <keyword type="function" name="camel_data_wrapper_set_mime_type_field ()" link="camel-CamelDataWrapper.html#camel-data-wrapper-set-mime-type-field"/>
+    <keyword type="function" name="camel_data_wrapper_construct_from_stream ()" link="camel-CamelDataWrapper.html#camel-data-wrapper-construct-from-stream"/>
+    <keyword type="function" name="camel_data_wrapper_is_offline ()" link="camel-CamelDataWrapper.html#camel-data-wrapper-is-offline"/>
+    <keyword type="struct" name="struct CamelMedium" link="camel-CamelMedium.html#CamelMedium"/>
+    <keyword type="struct" name="CamelMediumHeader" link="camel-CamelMedium.html#CamelMediumHeader"/>
+    <keyword type="function" name="camel_medium_add_header ()" link="camel-CamelMedium.html#camel-medium-add-header"/>
+    <keyword type="function" name="camel_medium_set_header ()" link="camel-CamelMedium.html#camel-medium-set-header"/>
+    <keyword type="function" name="camel_medium_remove_header ()" link="camel-CamelMedium.html#camel-medium-remove-header"/>
+    <keyword type="function" name="camel_medium_get_header ()" link="camel-CamelMedium.html#camel-medium-get-header"/>
+    <keyword type="function" name="camel_medium_get_headers ()" link="camel-CamelMedium.html#camel-medium-get-headers"/>
+    <keyword type="function" name="camel_medium_free_headers ()" link="camel-CamelMedium.html#camel-medium-free-headers"/>
+    <keyword type="function" name="camel_medium_get_content_object ()" link="camel-CamelMedium.html#camel-medium-get-content-object"/>
+    <keyword type="function" name="camel_medium_set_content_object ()" link="camel-CamelMedium.html#camel-medium-set-content-object"/>
+    <keyword type="struct" name="struct CamelMimePart" link="camel-CamelMimePart.html#CamelMimePart"/>
+    <keyword type="function" name="camel_mime_part_new ()" link="camel-CamelMimePart.html#camel-mime-part-new"/>
+    <keyword type="function" name="camel_mime_part_set_description ()" link="camel-CamelMimePart.html#camel-mime-part-set-description"/>
+    <keyword type="function" name="camel_mime_part_get_description ()" link="camel-CamelMimePart.html#camel-mime-part-get-description"/>
+    <keyword type="function" name="camel_mime_part_set_disposition ()" link="camel-CamelMimePart.html#camel-mime-part-set-disposition"/>
+    <keyword type="function" name="camel_mime_part_get_disposition ()" link="camel-CamelMimePart.html#camel-mime-part-get-disposition"/>
+    <keyword type="function" name="camel_mime_part_set_filename ()" link="camel-CamelMimePart.html#camel-mime-part-set-filename"/>
+    <keyword type="function" name="camel_mime_part_get_filename ()" link="camel-CamelMimePart.html#camel-mime-part-get-filename"/>
+    <keyword type="function" name="camel_mime_part_set_content_id ()" link="camel-CamelMimePart.html#camel-mime-part-set-content-id"/>
+    <keyword type="function" name="camel_mime_part_get_content_id ()" link="camel-CamelMimePart.html#camel-mime-part-get-content-id"/>
+    <keyword type="function" name="camel_mime_part_set_content_MD5 ()" link="camel-CamelMimePart.html#camel-mime-part-set-content-MD5"/>
+    <keyword type="function" name="camel_mime_part_get_content_MD5 ()" link="camel-CamelMimePart.html#camel-mime-part-get-content-MD5"/>
+    <keyword type="function" name="camel_mime_part_set_content_location ()" link="camel-CamelMimePart.html#camel-mime-part-set-content-location"/>
+    <keyword type="function" name="camel_mime_part_get_content_location ()" link="camel-CamelMimePart.html#camel-mime-part-get-content-location"/>
+    <keyword type="function" name="camel_mime_part_set_encoding ()" link="camel-CamelMimePart.html#camel-mime-part-set-encoding"/>
+    <keyword type="function" name="camel_mime_part_get_encoding ()" link="camel-CamelMimePart.html#camel-mime-part-get-encoding"/>
+    <keyword type="function" name="camel_mime_part_set_content_languages ()" link="camel-CamelMimePart.html#camel-mime-part-set-content-languages"/>
+    <keyword type="function" name="camel_mime_part_get_content_languages ()" link="camel-CamelMimePart.html#camel-mime-part-get-content-languages"/>
+    <keyword type="function" name="camel_mime_part_set_content_type ()" link="camel-CamelMimePart.html#camel-mime-part-set-content-type"/>
+    <keyword type="function" name="camel_mime_part_get_content_type ()" link="camel-CamelMimePart.html#camel-mime-part-get-content-type"/>
+    <keyword type="function" name="camel_mime_part_construct_from_parser ()" link="camel-CamelMimePart.html#camel-mime-part-construct-from-parser"/>
+    <keyword type="function" name="camel_mime_part_set_content ()" link="camel-CamelMimePart.html#camel-mime-part-set-content"/>
+    <keyword type="function" name="camel_mime_part_get_content_size ()" link="camel-CamelMimePart.html#camel-mime-part-get-content-size"/>
+    <keyword type="function" name="camel_mime_part_construct_content_from_parser ()" link="camel-CamelMimePart.html#camel-mime-part-construct-content-from-parser"/>
+    <keyword type="function" name="camel_mime_message_build_preview ()" link="camel-CamelMimePart.html#camel-mime-message-build-preview"/>
+    <keyword type="struct" name="struct CamelMultipart" link="camel-CamelMultipart.html#CamelMultipart"/>
+    <keyword type="function" name="camel_multipart_new ()" link="camel-CamelMultipart.html#camel-multipart-new"/>
+    <keyword type="function" name="camel_multipart_add_part ()" link="camel-CamelMultipart.html#camel-multipart-add-part"/>
+    <keyword type="function" name="camel_multipart_add_part_at ()" link="camel-CamelMultipart.html#camel-multipart-add-part-at"/>
+    <keyword type="function" name="camel_multipart_remove_part ()" link="camel-CamelMultipart.html#camel-multipart-remove-part"/>
+    <keyword type="function" name="camel_multipart_remove_part_at ()" link="camel-CamelMultipart.html#camel-multipart-remove-part-at"/>
+    <keyword type="function" name="camel_multipart_get_part ()" link="camel-CamelMultipart.html#camel-multipart-get-part"/>
+    <keyword type="function" name="camel_multipart_get_number ()" link="camel-CamelMultipart.html#camel-multipart-get-number"/>
+    <keyword type="function" name="camel_multipart_set_boundary ()" link="camel-CamelMultipart.html#camel-multipart-set-boundary"/>
+    <keyword type="function" name="camel_multipart_get_boundary ()" link="camel-CamelMultipart.html#camel-multipart-get-boundary"/>
+    <keyword type="function" name="camel_multipart_set_preface ()" link="camel-CamelMultipart.html#camel-multipart-set-preface"/>
+    <keyword type="function" name="camel_multipart_set_postface ()" link="camel-CamelMultipart.html#camel-multipart-set-postface"/>
+    <keyword type="function" name="camel_multipart_construct_from_parser ()" link="camel-CamelMultipart.html#camel-multipart-construct-from-parser"/>
+    <keyword type="struct" name="CamelMultipartSigned" link="camel-CamelMultipartSigned.html#CamelMultipartSigned"/>
+    <keyword type="function" name="camel_multipart_signed_new ()" link="camel-CamelMultipartSigned.html#camel-multipart-signed-new"/>
+    <keyword type="function" name="camel_multipart_signed_get_content_stream ()" link="camel-CamelMultipartSigned.html#camel-multipart-signed-get-content-stream"/>
+    <keyword type="struct" name="CamelMultipartEncrypted" link="camel-CamelMultipartEncrypted.html#CamelMultipartEncrypted"/>
+    <keyword type="function" name="camel_multipart_encrypted_new ()" link="camel-CamelMultipartEncrypted.html#camel-multipart-encrypted-new"/>
+    <keyword type="struct" name="struct CamelMimeMessage" link="camel-CamelMimeMessage.html#CamelMimeMessage"/>
+    <keyword type="macro" name="CAMEL_RECIPIENT_TYPE_TO" link="camel-CamelMimeMessage.html#CAMEL-RECIPIENT-TYPE-TO:CAPS"/>
+    <keyword type="macro" name="CAMEL_RECIPIENT_TYPE_CC" link="camel-CamelMimeMessage.html#CAMEL-RECIPIENT-TYPE-CC:CAPS"/>
+    <keyword type="macro" name="CAMEL_RECIPIENT_TYPE_BCC" link="camel-CamelMimeMessage.html#CAMEL-RECIPIENT-TYPE-BCC:CAPS"/>
+    <keyword type="macro" name="CAMEL_RECIPIENT_TYPE_RESENT_TO" link="camel-CamelMimeMessage.html#CAMEL-RECIPIENT-TYPE-RESENT-TO:CAPS"/>
+    <keyword type="macro" name="CAMEL_RECIPIENT_TYPE_RESENT_CC" link="camel-CamelMimeMessage.html#CAMEL-RECIPIENT-TYPE-RESENT-CC:CAPS"/>
+    <keyword type="macro" name="CAMEL_RECIPIENT_TYPE_RESENT_BCC" link="camel-CamelMimeMessage.html#CAMEL-RECIPIENT-TYPE-RESENT-BCC:CAPS"/>
+    <keyword type="macro" name="CAMEL_MESSAGE_DATE_CURRENT" link="camel-CamelMimeMessage.html#CAMEL-MESSAGE-DATE-CURRENT:CAPS"/>
+    <keyword type="function" name="camel_mime_message_new ()" link="camel-CamelMimeMessage.html#camel-mime-message-new"/>
+    <keyword type="function" name="camel_mime_message_set_date ()" link="camel-CamelMimeMessage.html#camel-mime-message-set-date"/>
+    <keyword type="function" name="camel_mime_message_get_date ()" link="camel-CamelMimeMessage.html#camel-mime-message-get-date"/>
+    <keyword type="function" name="camel_mime_message_get_date_received ()" link="camel-CamelMimeMessage.html#camel-mime-message-get-date-received"/>
+    <keyword type="function" name="camel_mime_message_set_message_id ()" link="camel-CamelMimeMessage.html#camel-mime-message-set-message-id"/>
+    <keyword type="function" name="camel_mime_message_get_message_id ()" link="camel-CamelMimeMessage.html#camel-mime-message-get-message-id"/>
+    <keyword type="function" name="camel_mime_message_set_reply_to ()" link="camel-CamelMimeMessage.html#camel-mime-message-set-reply-to"/>
+    <keyword type="function" name="camel_mime_message_get_reply_to ()" link="camel-CamelMimeMessage.html#camel-mime-message-get-reply-to"/>
+    <keyword type="function" name="camel_mime_message_set_subject ()" link="camel-CamelMimeMessage.html#camel-mime-message-set-subject"/>
+    <keyword type="function" name="camel_mime_message_get_subject ()" link="camel-CamelMimeMessage.html#camel-mime-message-get-subject"/>
+    <keyword type="function" name="camel_mime_message_set_from ()" link="camel-CamelMimeMessage.html#camel-mime-message-set-from"/>
+    <keyword type="function" name="camel_mime_message_get_from ()" link="camel-CamelMimeMessage.html#camel-mime-message-get-from"/>
+    <keyword type="function" name="camel_mime_message_get_recipients ()" link="camel-CamelMimeMessage.html#camel-mime-message-get-recipients"/>
+    <keyword type="function" name="camel_mime_message_set_recipients ()" link="camel-CamelMimeMessage.html#camel-mime-message-set-recipients"/>
+    <keyword type="function" name="camel_mime_message_set_source ()" link="camel-CamelMimeMessage.html#camel-mime-message-set-source"/>
+    <keyword type="function" name="camel_mime_message_get_source ()" link="camel-CamelMimeMessage.html#camel-mime-message-get-source"/>
+    <keyword type="function" name="camel_mime_message_has_8bit_parts ()" link="camel-CamelMimeMessage.html#camel-mime-message-has-8bit-parts"/>
+    <keyword type="function" name="camel_mime_message_set_best_encoding ()" link="camel-CamelMimeMessage.html#camel-mime-message-set-best-encoding"/>
+    <keyword type="function" name="camel_mime_message_encode_8bit_parts ()" link="camel-CamelMimeMessage.html#camel-mime-message-encode-8bit-parts"/>
+    <keyword type="function" name="camel_mime_message_get_part_by_content_id ()" link="camel-CamelMimeMessage.html#camel-mime-message-get-part-by-content-id"/>
+    <keyword type="function" name="camel_mime_message_build_mbox_from ()" link="camel-CamelMimeMessage.html#camel-mime-message-build-mbox-from"/>
+    <keyword type="function" name="camel_mime_message_has_attachment ()" link="camel-CamelMimeMessage.html#camel-mime-message-has-attachment"/>
+    <keyword type="function" name="camel_mime_message_dump ()" link="camel-CamelMimeMessage.html#camel-mime-message-dump"/>
+    <keyword type="struct" name="struct CamelMimeParser" link="camel-CamelMimeParser.html#CamelMimeParser"/>
+    <keyword type="enum" name="enum camel_mime_parser_state_t" link="camel-CamelMimeParser.html#camel-mime-parser-state-t"/>
+    <keyword type="function" name="camel_mime_parser_new ()" link="camel-CamelMimeParser.html#camel-mime-parser-new"/>
+    <keyword type="function" name="camel_mime_parser_errno ()" link="camel-CamelMimeParser.html#camel-mime-parser-errno"/>
+    <keyword type="function" name="camel_mime_parser_init_with_fd ()" link="camel-CamelMimeParser.html#camel-mime-parser-init-with-fd"/>
+    <keyword type="function" name="camel_mime_parser_init_with_stream ()" link="camel-CamelMimeParser.html#camel-mime-parser-init-with-stream"/>
+    <keyword type="function" name="camel_mime_parser_stream ()" link="camel-CamelMimeParser.html#camel-mime-parser-stream"/>
+    <keyword type="function" name="camel_mime_parser_fd ()" link="camel-CamelMimeParser.html#camel-mime-parser-fd"/>
+    <keyword type="function" name="camel_mime_parser_scan_from ()" link="camel-CamelMimeParser.html#camel-mime-parser-scan-from"/>
+    <keyword type="function" name="camel_mime_parser_scan_pre_from ()" link="camel-CamelMimeParser.html#camel-mime-parser-scan-pre-from"/>
+    <keyword type="function" name="camel_mime_parser_set_header_regex ()" link="camel-CamelMimeParser.html#camel-mime-parser-set-header-regex"/>
+    <keyword type="function" name="camel_mime_parser_step ()" link="camel-CamelMimeParser.html#camel-mime-parser-step"/>
+    <keyword type="function" name="camel_mime_parser_unstep ()" link="camel-CamelMimeParser.html#camel-mime-parser-unstep"/>
+    <keyword type="function" name="camel_mime_parser_drop_step ()" link="camel-CamelMimeParser.html#camel-mime-parser-drop-step"/>
+    <keyword type="function" name="camel_mime_parser_state ()" link="camel-CamelMimeParser.html#camel-mime-parser-state"/>
+    <keyword type="function" name="camel_mime_parser_push_state ()" link="camel-CamelMimeParser.html#camel-mime-parser-push-state"/>
+    <keyword type="function" name="camel_mime_parser_read ()" link="camel-CamelMimeParser.html#camel-mime-parser-read"/>
+    <keyword type="function" name="camel_mime_parser_content_type ()" link="camel-CamelMimeParser.html#camel-mime-parser-content-type"/>
+    <keyword type="function" name="camel_mime_parser_header ()" link="camel-CamelMimeParser.html#camel-mime-parser-header"/>
+    <keyword type="function" name="camel_mime_parser_headers_raw ()" link="camel-CamelMimeParser.html#camel-mime-parser-headers-raw"/>
+    <keyword type="function" name="camel_mime_parser_preface ()" link="camel-CamelMimeParser.html#camel-mime-parser-preface"/>
+    <keyword type="function" name="camel_mime_parser_postface ()" link="camel-CamelMimeParser.html#camel-mime-parser-postface"/>
+    <keyword type="function" name="camel_mime_parser_from_line ()" link="camel-CamelMimeParser.html#camel-mime-parser-from-line"/>
+    <keyword type="function" name="camel_mime_parser_filter_add ()" link="camel-CamelMimeParser.html#camel-mime-parser-filter-add"/>
+    <keyword type="function" name="camel_mime_parser_filter_remove ()" link="camel-CamelMimeParser.html#camel-mime-parser-filter-remove"/>
+    <keyword type="function" name="camel_mime_parser_tell ()" link="camel-CamelMimeParser.html#camel-mime-parser-tell"/>
+    <keyword type="function" name="camel_mime_parser_seek ()" link="camel-CamelMimeParser.html#camel-mime-parser-seek"/>
+    <keyword type="function" name="camel_mime_parser_tell_start_headers ()" link="camel-CamelMimeParser.html#camel-mime-parser-tell-start-headers"/>
+    <keyword type="function" name="camel_mime_parser_tell_start_from ()" link="camel-CamelMimeParser.html#camel-mime-parser-tell-start-from"/>
+    <keyword type="function" name="camel_mime_parser_tell_start_boundary ()" link="camel-CamelMimeParser.html#camel-mime-parser-tell-start-boundary"/>
+    <keyword type="typedef" name="camel_block_t" link="camel-CamelKeyFile.html#camel-block-t"/>
+    <keyword type="typedef" name="camel_key_t" link="camel-CamelKeyFile.html#camel-key-t"/>
+    <keyword type="struct" name="CamelBlockRoot" link="camel-CamelKeyFile.html#CamelBlockRoot"/>
+    <keyword type="struct" name="CamelBlock" link="camel-CamelKeyFile.html#CamelBlock"/>
+    <keyword type="struct" name="CamelBlockFile" link="camel-CamelKeyFile.html#CamelBlockFile"/>
+    <keyword type="macro" name="CAMEL_BLOCK_FILE_SYNC" link="camel-CamelKeyFile.html#CAMEL-BLOCK-FILE-SYNC:CAPS"/>
+    <keyword type="macro" name="CAMEL_BLOCK_SIZE" link="camel-CamelKeyFile.html#CAMEL-BLOCK-SIZE:CAPS"/>
+    <keyword type="macro" name="CAMEL_BLOCK_SIZE_BITS" link="camel-CamelKeyFile.html#CAMEL-BLOCK-SIZE-BITS:CAPS"/>
+    <keyword type="macro" name="CAMEL_BLOCK_DIRTY" link="camel-CamelKeyFile.html#CAMEL-BLOCK-DIRTY:CAPS"/>
+    <keyword type="macro" name="CAMEL_BLOCK_DETACHED" link="camel-CamelKeyFile.html#CAMEL-BLOCK-DETACHED:CAPS"/>
+    <keyword type="function" name="camel_block_file_new ()" link="camel-CamelKeyFile.html#camel-block-file-new"/>
+    <keyword type="function" name="camel_block_file_rename ()" link="camel-CamelKeyFile.html#camel-block-file-rename"/>
+    <keyword type="function" name="camel_block_file_delete ()" link="camel-CamelKeyFile.html#camel-block-file-delete"/>
+    <keyword type="function" name="camel_block_file_new_block ()" link="camel-CamelKeyFile.html#camel-block-file-new-block"/>
+    <keyword type="function" name="camel_block_file_free_block ()" link="camel-CamelKeyFile.html#camel-block-file-free-block"/>
+    <keyword type="function" name="camel_block_file_get_block ()" link="camel-CamelKeyFile.html#camel-block-file-get-block"/>
+    <keyword type="function" name="camel_block_file_detach_block ()" link="camel-CamelKeyFile.html#camel-block-file-detach-block"/>
+    <keyword type="function" name="camel_block_file_attach_block ()" link="camel-CamelKeyFile.html#camel-block-file-attach-block"/>
+    <keyword type="function" name="camel_block_file_touch_block ()" link="camel-CamelKeyFile.html#camel-block-file-touch-block"/>
+    <keyword type="function" name="camel_block_file_unref_block ()" link="camel-CamelKeyFile.html#camel-block-file-unref-block"/>
+    <keyword type="function" name="camel_block_file_sync_block ()" link="camel-CamelKeyFile.html#camel-block-file-sync-block"/>
+    <keyword type="function" name="camel_block_file_sync ()" link="camel-CamelKeyFile.html#camel-block-file-sync"/>
+    <keyword type="struct" name="CamelKeyFile" link="camel-CamelKeyFile.html#CamelKeyFile"/>
+    <keyword type="function" name="camel_key_file_new ()" link="camel-CamelKeyFile.html#camel-key-file-new"/>
+    <keyword type="function" name="camel_key_file_rename ()" link="camel-CamelKeyFile.html#camel-key-file-rename"/>
+    <keyword type="function" name="camel_key_file_delete ()" link="camel-CamelKeyFile.html#camel-key-file-delete"/>
+    <keyword type="function" name="camel_key_file_write ()" link="camel-CamelKeyFile.html#camel-key-file-write"/>
+    <keyword type="function" name="camel_key_file_read ()" link="camel-CamelKeyFile.html#camel-key-file-read"/>
+    <keyword type="struct" name="CamelCertDB" link="camel-CamelCertDB.html#CamelCertDB"/>
+    <keyword type="enum" name="enum CamelCertTrust" link="camel-CamelCertDB.html#CamelCertTrust"/>
+    <keyword type="struct" name="CamelCert" link="camel-CamelCertDB.html#CamelCert"/>
+    <keyword type="function" name="camel_certdb_new ()" link="camel-CamelCertDB.html#camel-certdb-new"/>
+    <keyword type="function" name="camel_certdb_set_default ()" link="camel-CamelCertDB.html#camel-certdb-set-default"/>
+    <keyword type="function" name="camel_certdb_get_default ()" link="camel-CamelCertDB.html#camel-certdb-get-default"/>
+    <keyword type="function" name="camel_certdb_set_filename ()" link="camel-CamelCertDB.html#camel-certdb-set-filename"/>
+    <keyword type="function" name="camel_certdb_load ()" link="camel-CamelCertDB.html#camel-certdb-load"/>
+    <keyword type="function" name="camel_certdb_save ()" link="camel-CamelCertDB.html#camel-certdb-save"/>
+    <keyword type="function" name="camel_certdb_touch ()" link="camel-CamelCertDB.html#camel-certdb-touch"/>
+    <keyword type="function" name="camel_certdb_get_cert ()" link="camel-CamelCertDB.html#camel-certdb-get-cert"/>
+    <keyword type="function" name="camel_certdb_add ()" link="camel-CamelCertDB.html#camel-certdb-add"/>
+    <keyword type="function" name="camel_certdb_remove ()" link="camel-CamelCertDB.html#camel-certdb-remove"/>
+    <keyword type="function" name="camel_certdb_cert_new ()" link="camel-CamelCertDB.html#camel-certdb-cert-new"/>
+    <keyword type="function" name="camel_certdb_cert_ref ()" link="camel-CamelCertDB.html#camel-certdb-cert-ref"/>
+    <keyword type="function" name="camel_certdb_cert_unref ()" link="camel-CamelCertDB.html#camel-certdb-cert-unref"/>
+    <keyword type="function" name="camel_certdb_clear ()" link="camel-CamelCertDB.html#camel-certdb-clear"/>
+    <keyword type="function" name="camel_cert_get_string ()" link="camel-CamelCertDB.html#camel-cert-get-string"/>
+    <keyword type="function" name="camel_cert_set_string ()" link="camel-CamelCertDB.html#camel-cert-set-string"/>
+    <keyword type="macro" name="camel_cert_get_issuer()" link="camel-CamelCertDB.html#camel-cert-get-issuer"/>
+    <keyword type="macro" name="camel_cert_get_subject()" link="camel-CamelCertDB.html#camel-cert-get-subject"/>
+    <keyword type="macro" name="camel_cert_get_hostname()" link="camel-CamelCertDB.html#camel-cert-get-hostname"/>
+    <keyword type="macro" name="camel_cert_get_fingerprint()" link="camel-CamelCertDB.html#camel-cert-get-fingerprint"/>
+    <keyword type="macro" name="camel_cert_set_issuer()" link="camel-CamelCertDB.html#camel-cert-set-issuer"/>
+    <keyword type="macro" name="camel_cert_set_subject()" link="camel-CamelCertDB.html#camel-cert-set-subject"/>
+    <keyword type="macro" name="camel_cert_set_hostname()" link="camel-CamelCertDB.html#camel-cert-set-hostname"/>
+    <keyword type="macro" name="camel_cert_set_fingerprint()" link="camel-CamelCertDB.html#camel-cert-set-fingerprint"/>
+    <keyword type="function" name="camel_cert_get_trust ()" link="camel-CamelCertDB.html#camel-cert-get-trust"/>
+    <keyword type="function" name="camel_cert_set_trust ()" link="camel-CamelCertDB.html#camel-cert-set-trust"/>
+    <keyword type="struct" name="CamelDataCache" link="camel-CamelDataCache.html#CamelDataCache"/>
+    <keyword type="function" name="camel_data_cache_new ()" link="camel-CamelDataCache.html#camel-data-cache-new"/>
+    <keyword type="function" name="camel_data_cache_set_expire_age ()" link="camel-CamelDataCache.html#camel-data-cache-set-expire-age"/>
+    <keyword type="function" name="camel_data_cache_set_expire_access ()" link="camel-CamelDataCache.html#camel-data-cache-set-expire-access"/>
+    <keyword type="function" name="camel_data_cache_rename ()" link="camel-CamelDataCache.html#camel-data-cache-rename"/>
+    <keyword type="function" name="camel_data_cache_add ()" link="camel-CamelDataCache.html#camel-data-cache-add"/>
+    <keyword type="function" name="camel_data_cache_get ()" link="camel-CamelDataCache.html#camel-data-cache-get"/>
+    <keyword type="function" name="camel_data_cache_remove ()" link="camel-CamelDataCache.html#camel-data-cache-remove"/>
+    <keyword type="function" name="camel_data_cache_clear ()" link="camel-CamelDataCache.html#camel-data-cache-clear"/>
+    <keyword type="function" name="camel_data_cache_get_filename ()" link="camel-CamelDataCache.html#camel-data-cache-get-filename"/>
+    <keyword type="macro" name="CAMEL_DB_FILE" link="camel-CamelDB.html#CAMEL-DB-FILE:CAPS"/>
+    <keyword type="macro" name="CAMEL_DB_IN_MEMORY_TABLE" link="camel-CamelDB.html#CAMEL-DB-IN-MEMORY-TABLE:CAPS"/>
+    <keyword type="macro" name="CAMEL_DB_IN_MEMORY_DB" link="camel-CamelDB.html#CAMEL-DB-IN-MEMORY-DB:CAPS"/>
+    <keyword type="macro" name="CAMEL_DB_IN_MEMORY_TABLE_LIMIT" link="camel-CamelDB.html#CAMEL-DB-IN-MEMORY-TABLE-LIMIT:CAPS"/>
+    <keyword type="macro" name="CAMEL_DB_FREE_CACHE_SIZE" link="camel-CamelDB.html#CAMEL-DB-FREE-CACHE-SIZE:CAPS"/>
+    <keyword type="macro" name="CAMEL_DB_SLEEP_INTERVAL" link="camel-CamelDB.html#CAMEL-DB-SLEEP-INTERVAL:CAPS"/>
+    <keyword type="macro" name="CAMEL_DB_RELEASE_SQLITE_MEMORY" link="camel-CamelDB.html#CAMEL-DB-RELEASE-SQLITE-MEMORY:CAPS"/>
+    <keyword type="macro" name="CAMEL_DB_USE_SHARED_CACHE" link="camel-CamelDB.html#CAMEL-DB-USE-SHARED-CACHE:CAPS"/>
+    <keyword type="function" name="CamelDBCollate ()" link="camel-CamelDB.html#CamelDBCollate"/>
+    <keyword type="struct" name="CamelDB" link="camel-CamelDB.html#CamelDB"/>
+    <keyword type="struct" name="CamelMIRecord" link="camel-CamelDB.html#CamelMIRecord"/>
+    <keyword type="struct" name="CamelFIRecord" link="camel-CamelDB.html#CamelFIRecord"/>
+    <keyword type="function" name="CamelDBSelectCB ()" link="camel-CamelDB.html#CamelDBSelectCB"/>
+    <keyword type="function" name="camel_db_open ()" link="camel-CamelDB.html#camel-db-open"/>
+    <keyword type="function" name="camel_db_clone ()" link="camel-CamelDB.html#camel-db-clone"/>
+    <keyword type="function" name="camel_db_close ()" link="camel-CamelDB.html#camel-db-close"/>
+    <keyword type="function" name="camel_db_command ()" link="camel-CamelDB.html#camel-db-command"/>
+    <keyword type="function" name="camel_db_transaction_command ()" link="camel-CamelDB.html#camel-db-transaction-command"/>
+    <keyword type="function" name="camel_db_begin_transaction ()" link="camel-CamelDB.html#camel-db-begin-transaction"/>
+    <keyword type="function" name="camel_db_add_to_transaction ()" link="camel-CamelDB.html#camel-db-add-to-transaction"/>
+    <keyword type="function" name="camel_db_end_transaction ()" link="camel-CamelDB.html#camel-db-end-transaction"/>
+    <keyword type="function" name="camel_db_abort_transaction ()" link="camel-CamelDB.html#camel-db-abort-transaction"/>
+    <keyword type="function" name="camel_db_clear_folder_summary ()" link="camel-CamelDB.html#camel-db-clear-folder-summary"/>
+    <keyword type="function" name="camel_db_rename_folder ()" link="camel-CamelDB.html#camel-db-rename-folder"/>
+    <keyword type="function" name="camel_db_delete_folder ()" link="camel-CamelDB.html#camel-db-delete-folder"/>
+    <keyword type="function" name="camel_db_delete_uid ()" link="camel-CamelDB.html#camel-db-delete-uid"/>
+    <keyword type="function" name="camel_db_delete_uids ()" link="camel-CamelDB.html#camel-db-delete-uids"/>
+    <keyword type="function" name="camel_db_delete_vuids ()" link="camel-CamelDB.html#camel-db-delete-vuids"/>
+    <keyword type="function" name="camel_db_create_folders_table ()" link="camel-CamelDB.html#camel-db-create-folders-table"/>
+    <keyword type="function" name="camel_db_select ()" link="camel-CamelDB.html#camel-db-select"/>
+    <keyword type="function" name="camel_db_write_folder_info_record ()" link="camel-CamelDB.html#camel-db-write-folder-info-record"/>
+    <keyword type="function" name="camel_db_read_folder_info_record ()" link="camel-CamelDB.html#camel-db-read-folder-info-record"/>
+    <keyword type="function" name="camel_db_prepare_message_info_table ()" link="camel-CamelDB.html#camel-db-prepare-message-info-table"/>
+    <keyword type="function" name="camel_db_write_message_info_record ()" link="camel-CamelDB.html#camel-db-write-message-info-record"/>
+    <keyword type="function" name="camel_db_write_fresh_message_info_record ()" link="camel-CamelDB.html#camel-db-write-fresh-message-info-record"/>
+    <keyword type="function" name="camel_db_read_message_info_records ()" link="camel-CamelDB.html#camel-db-read-message-info-records"/>
+    <keyword type="function" name="camel_db_read_message_info_record_with_uid ()" link="camel-CamelDB.html#camel-db-read-message-info-record-with-uid"/>
+    <keyword type="function" name="camel_db_count_junk_message_info ()" link="camel-CamelDB.html#camel-db-count-junk-message-info"/>
+    <keyword type="function" name="camel_db_count_unread_message_info ()" link="camel-CamelDB.html#camel-db-count-unread-message-info"/>
+    <keyword type="function" name="camel_db_count_deleted_message_info ()" link="camel-CamelDB.html#camel-db-count-deleted-message-info"/>
+    <keyword type="function" name="camel_db_count_total_message_info ()" link="camel-CamelDB.html#camel-db-count-total-message-info"/>
+    <keyword type="function" name="camel_db_count_visible_message_info ()" link="camel-CamelDB.html#camel-db-count-visible-message-info"/>
+    <keyword type="function" name="camel_db_count_visible_unread_message_info ()" link="camel-CamelDB.html#camel-db-count-visible-unread-message-info"/>
+    <keyword type="function" name="camel_db_count_junk_not_deleted_message_info ()" link="camel-CamelDB.html#camel-db-count-junk-not-deleted-message-info"/>
+    <keyword type="function" name="camel_db_count_message_info ()" link="camel-CamelDB.html#camel-db-count-message-info"/>
+    <keyword type="function" name="camel_db_camel_mir_free ()" link="camel-CamelDB.html#camel-db-camel-mir-free"/>
+    <keyword type="function" name="camel_db_create_vfolder ()" link="camel-CamelDB.html#camel-db-create-vfolder"/>
+    <keyword type="function" name="camel_db_recreate_vfolder ()" link="camel-CamelDB.html#camel-db-recreate-vfolder"/>
+    <keyword type="function" name="camel_db_delete_uid_from_vfolder ()" link="camel-CamelDB.html#camel-db-delete-uid-from-vfolder"/>
+    <keyword type="function" name="camel_db_delete_uid_from_vfolder_transaction ()" link="camel-CamelDB.html#camel-db-delete-uid-from-vfolder-transaction"/>
+    <keyword type="function" name="camel_db_get_vuids_from_vfolder ()" link="camel-CamelDB.html#camel-db-get-vuids-from-vfolder"/>
+    <keyword type="function" name="camel_db_add_to_vfolder ()" link="camel-CamelDB.html#camel-db-add-to-vfolder"/>
+    <keyword type="function" name="camel_db_add_to_vfolder_transaction ()" link="camel-CamelDB.html#camel-db-add-to-vfolder-transaction"/>
+    <keyword type="function" name="camel_db_get_folder_uids ()" link="camel-CamelDB.html#camel-db-get-folder-uids"/>
+    <keyword type="function" name="camel_db_get_folder_uids_flags ()" link="camel-CamelDB.html#camel-db-get-folder-uids-flags"/>
+    <keyword type="function" name="camel_db_get_folder_junk_uids ()" link="camel-CamelDB.html#camel-db-get-folder-junk-uids"/>
+    <keyword type="function" name="camel_db_get_folder_deleted_uids ()" link="camel-CamelDB.html#camel-db-get-folder-deleted-uids"/>
+    <keyword type="function" name="camel_db_sqlize_string ()" link="camel-CamelDB.html#camel-db-sqlize-string"/>
+    <keyword type="function" name="camel_db_free_sqlized_string ()" link="camel-CamelDB.html#camel-db-free-sqlized-string"/>
+    <keyword type="function" name="camel_db_get_column_name ()" link="camel-CamelDB.html#camel-db-get-column-name"/>
+    <keyword type="function" name="camel_db_set_collate ()" link="camel-CamelDB.html#camel-db-set-collate"/>
+    <keyword type="function" name="camel_db_migrate_vfolders_to_14 ()" link="camel-CamelDB.html#camel-db-migrate-vfolders-to-14"/>
+    <keyword type="function" name="camel_db_start_in_memory_transactions ()" link="camel-CamelDB.html#camel-db-start-in-memory-transactions"/>
+    <keyword type="function" name="camel_db_flush_in_memory_transactions ()" link="camel-CamelDB.html#camel-db-flush-in-memory-transactions"/>
+    <keyword type="function" name="camel_db_get_folder_preview ()" link="camel-CamelDB.html#camel-db-get-folder-preview"/>
+    <keyword type="function" name="camel_db_write_preview_record ()" link="camel-CamelDB.html#camel-db-write-preview-record"/>
+    <keyword type="function" name="camel_db_reset_folder_version ()" link="camel-CamelDB.html#camel-db-reset-folder-version"/>
+    <keyword type="struct" name="CamelIndex" link="camel-CamelIndex.html#CamelIndex"/>
+    <keyword type="function" name="CamelIndexNorm ()" link="camel-CamelIndex.html#CamelIndexNorm"/>
+    <keyword type="struct" name="CamelIndexCursor" link="camel-CamelIndex.html#CamelIndexCursor"/>
+    <keyword type="function" name="camel_index_cursor_new ()" link="camel-CamelIndex.html#camel-index-cursor-new"/>
+    <keyword type="function" name="camel_index_cursor_next ()" link="camel-CamelIndex.html#camel-index-cursor-next"/>
+    <keyword type="function" name="camel_index_cursor_reset ()" link="camel-CamelIndex.html#camel-index-cursor-reset"/>
+    <keyword type="struct" name="CamelIndexName" link="camel-CamelIndex.html#CamelIndexName"/>
+    <keyword type="function" name="camel_index_name_new ()" link="camel-CamelIndex.html#camel-index-name-new"/>
+    <keyword type="function" name="camel_index_name_add_word ()" link="camel-CamelIndex.html#camel-index-name-add-word"/>
+    <keyword type="function" name="camel_index_name_add_buffer ()" link="camel-CamelIndex.html#camel-index-name-add-buffer"/>
+    <keyword type="macro" name="CAMEL_INDEX_DELETED" link="camel-CamelIndex.html#CAMEL-INDEX-DELETED:CAPS"/>
+    <keyword type="function" name="camel_index_new ()" link="camel-CamelIndex.html#camel-index-new"/>
+    <keyword type="function" name="camel_index_construct ()" link="camel-CamelIndex.html#camel-index-construct"/>
+    <keyword type="function" name="camel_index_rename ()" link="camel-CamelIndex.html#camel-index-rename"/>
+    <keyword type="function" name="camel_index_set_normalise ()" link="camel-CamelIndex.html#camel-index-set-normalise"/>
+    <keyword type="function" name="camel_index_sync ()" link="camel-CamelIndex.html#camel-index-sync"/>
+    <keyword type="function" name="camel_index_compress ()" link="camel-CamelIndex.html#camel-index-compress"/>
+    <keyword type="function" name="camel_index_delete ()" link="camel-CamelIndex.html#camel-index-delete"/>
+    <keyword type="function" name="camel_index_has_name ()" link="camel-CamelIndex.html#camel-index-has-name"/>
+    <keyword type="function" name="camel_index_add_name ()" link="camel-CamelIndex.html#camel-index-add-name"/>
+    <keyword type="function" name="camel_index_write_name ()" link="camel-CamelIndex.html#camel-index-write-name"/>
+    <keyword type="function" name="camel_index_find_name ()" link="camel-CamelIndex.html#camel-index-find-name"/>
+    <keyword type="function" name="camel_index_delete_name ()" link="camel-CamelIndex.html#camel-index-delete-name"/>
+    <keyword type="function" name="camel_index_find ()" link="camel-CamelIndex.html#camel-index-find"/>
+    <keyword type="function" name="camel_index_words ()" link="camel-CamelIndex.html#camel-index-words"/>
+    <keyword type="function" name="camel_index_names ()" link="camel-CamelIndex.html#camel-index-names"/>
+    <keyword type="typedef" name="camel_hash_t" link="camel-CamelKeyTable.html#camel-hash-t"/>
+    <keyword type="struct" name="CamelPartitionKey" link="camel-CamelKeyTable.html#CamelPartitionKey"/>
+    <keyword type="struct" name="CamelPartitionKeyBlock" link="camel-CamelKeyTable.html#CamelPartitionKeyBlock"/>
+    <keyword type="struct" name="CamelPartitionMap" link="camel-CamelKeyTable.html#CamelPartitionMap"/>
+    <keyword type="struct" name="CamelPartitionMapBlock" link="camel-CamelKeyTable.html#CamelPartitionMapBlock"/>
+    <keyword type="struct" name="CamelPartitionTable" link="camel-CamelKeyTable.html#CamelPartitionTable"/>
+    <keyword type="function" name="camel_partition_table_new ()" link="camel-CamelKeyTable.html#camel-partition-table-new"/>
+    <keyword type="function" name="camel_partition_table_sync ()" link="camel-CamelKeyTable.html#camel-partition-table-sync"/>
+    <keyword type="function" name="camel_partition_table_add ()" link="camel-CamelKeyTable.html#camel-partition-table-add"/>
+    <keyword type="function" name="camel_partition_table_lookup ()" link="camel-CamelKeyTable.html#camel-partition-table-lookup"/>
+    <keyword type="function" name="camel_partition_table_remove ()" link="camel-CamelKeyTable.html#camel-partition-table-remove"/>
+    <keyword type="struct" name="CamelKeyBlock" link="camel-CamelKeyTable.html#CamelKeyBlock"/>
+    <keyword type="struct" name="CamelKeyRootBlock" link="camel-CamelKeyTable.html#CamelKeyRootBlock"/>
+    <keyword type="struct" name="struct CamelKeyKey" link="camel-CamelKeyTable.html#CamelKeyKey"/>
+    <keyword type="macro" name="CAMEL_KEY_TABLE_MAX_KEY" link="camel-CamelKeyTable.html#CAMEL-KEY-TABLE-MAX-KEY:CAPS"/>
+    <keyword type="struct" name="CamelKeyTable" link="camel-CamelKeyTable.html#CamelKeyTable"/>
+    <keyword type="function" name="camel_key_table_new ()" link="camel-CamelKeyTable.html#camel-key-table-new"/>
+    <keyword type="function" name="camel_key_table_sync ()" link="camel-CamelKeyTable.html#camel-key-table-sync"/>
+    <keyword type="function" name="camel_key_table_add ()" link="camel-CamelKeyTable.html#camel-key-table-add"/>
+    <keyword type="function" name="camel_key_table_set_data ()" link="camel-CamelKeyTable.html#camel-key-table-set-data"/>
+    <keyword type="function" name="camel_key_table_set_flags ()" link="camel-CamelKeyTable.html#camel-key-table-set-flags"/>
+    <keyword type="function" name="camel_key_table_lookup ()" link="camel-CamelKeyTable.html#camel-key-table-lookup"/>
+    <keyword type="function" name="camel_key_table_next ()" link="camel-CamelKeyTable.html#camel-key-table-next"/>
+    <keyword type="function" name="CamelTextIndexFunc ()" link="camel-CamelTextIndexName.html#CamelTextIndexFunc"/>
+    <keyword type="struct" name="CamelTextIndex" link="camel-CamelTextIndexName.html#CamelTextIndex"/>
+    <keyword type="struct" name="CamelTextIndexCursor" link="camel-CamelTextIndexName.html#CamelTextIndexCursor"/>
+    <keyword type="struct" name="CamelTextIndexKeyCursor" link="camel-CamelTextIndexName.html#CamelTextIndexKeyCursor"/>
+    <keyword type="struct" name="CamelTextIndexName" link="camel-CamelTextIndexName.html#CamelTextIndexName"/>
+    <keyword type="function" name="camel_text_index_new ()" link="camel-CamelTextIndexName.html#camel-text-index-new"/>
+    <keyword type="function" name="camel_text_index_check ()" link="camel-CamelTextIndexName.html#camel-text-index-check"/>
+    <keyword type="function" name="camel_text_index_rename ()" link="camel-CamelTextIndexName.html#camel-text-index-rename"/>
+    <keyword type="function" name="camel_text_index_remove ()" link="camel-CamelTextIndexName.html#camel-text-index-remove"/>
+    <keyword type="function" name="camel_text_index_dump ()" link="camel-CamelTextIndexName.html#camel-text-index-dump"/>
+    <keyword type="function" name="camel_text_index_info ()" link="camel-CamelTextIndexName.html#camel-text-index-info"/>
+    <keyword type="function" name="camel_text_index_validate ()" link="camel-CamelTextIndexName.html#camel-text-index-validate"/>
+    <keyword type="struct" name="CamelCharset" link="camel-camel-charset-map.html#CamelCharset"/>
+    <keyword type="function" name="camel_charset_init ()" link="camel-camel-charset-map.html#camel-charset-init"/>
+    <keyword type="function" name="camel_charset_step ()" link="camel-camel-charset-map.html#camel-charset-step"/>
+    <keyword type="function" name="camel_charset_best_name ()" link="camel-camel-charset-map.html#camel-charset-best-name"/>
+    <keyword type="function" name="camel_charset_best ()" link="camel-camel-charset-map.html#camel-charset-best"/>
+    <keyword type="function" name="camel_charset_iso_to_windows ()" link="camel-camel-charset-map.html#camel-charset-iso-to-windows"/>
+    <keyword type="macro" name="O_BINARY" link="camel-camel-file-utils.html#O-BINARY:CAPS"/>
+    <keyword type="function" name="camel_file_util_encode_fixed_int32 ()" link="camel-camel-file-utils.html#camel-file-util-encode-fixed-int32"/>
+    <keyword type="function" name="camel_file_util_decode_fixed_int32 ()" link="camel-camel-file-utils.html#camel-file-util-decode-fixed-int32"/>
+    <keyword type="function" name="camel_file_util_encode_uint32 ()" link="camel-camel-file-utils.html#camel-file-util-encode-uint32"/>
+    <keyword type="function" name="camel_file_util_decode_uint32 ()" link="camel-camel-file-utils.html#camel-file-util-decode-uint32"/>
+    <keyword type="function" name="camel_file_util_encode_time_t ()" link="camel-camel-file-utils.html#camel-file-util-encode-time-t"/>
+    <keyword type="function" name="camel_file_util_decode_time_t ()" link="camel-camel-file-utils.html#camel-file-util-decode-time-t"/>
+    <keyword type="function" name="camel_file_util_encode_off_t ()" link="camel-camel-file-utils.html#camel-file-util-encode-off-t"/>
+    <keyword type="function" name="camel_file_util_decode_off_t ()" link="camel-camel-file-utils.html#camel-file-util-decode-off-t"/>
+    <keyword type="function" name="camel_file_util_encode_gsize ()" link="camel-camel-file-utils.html#camel-file-util-encode-gsize"/>
+    <keyword type="function" name="camel_file_util_decode_gsize ()" link="camel-camel-file-utils.html#camel-file-util-decode-gsize"/>
+    <keyword type="function" name="camel_file_util_encode_string ()" link="camel-camel-file-utils.html#camel-file-util-encode-string"/>
+    <keyword type="function" name="camel_file_util_decode_string ()" link="camel-camel-file-utils.html#camel-file-util-decode-string"/>
+    <keyword type="function" name="camel_file_util_encode_fixed_string ()" link="camel-camel-file-utils.html#camel-file-util-encode-fixed-string"/>
+    <keyword type="function" name="camel_file_util_decode_fixed_string ()" link="camel-camel-file-utils.html#camel-file-util-decode-fixed-string"/>
+    <keyword type="function" name="camel_file_util_safe_filename ()" link="camel-camel-file-utils.html#camel-file-util-safe-filename"/>
+    <keyword type="function" name="camel_read ()" link="camel-camel-file-utils.html#camel-read"/>
+    <keyword type="function" name="camel_write ()" link="camel-camel-file-utils.html#camel-write"/>
+    <keyword type="function" name="camel_read_socket ()" link="camel-camel-file-utils.html#camel-read-socket"/>
+    <keyword type="function" name="camel_write_socket ()" link="camel-camel-file-utils.html#camel-write-socket"/>
+    <keyword type="function" name="camel_file_util_savename ()" link="camel-camel-file-utils.html#camel-file-util-savename"/>
+    <keyword type="function" name="camel_iconv_locale_charset ()" link="camel-camel-iconv.html#camel-iconv-locale-charset"/>
+    <keyword type="function" name="camel_iconv_locale_language ()" link="camel-camel-iconv.html#camel-iconv-locale-language"/>
+    <keyword type="function" name="camel_iconv_charset_name ()" link="camel-camel-iconv.html#camel-iconv-charset-name"/>
+    <keyword type="function" name="camel_iconv_charset_language ()" link="camel-camel-iconv.html#camel-iconv-charset-language"/>
+    <keyword type="function" name="camel_iconv_open ()" link="camel-camel-iconv.html#camel-iconv-open"/>
+    <keyword type="function" name="camel_iconv ()" link="camel-camel-iconv.html#camel-iconv"/>
+    <keyword type="function" name="camel_iconv_close ()" link="camel-camel-iconv.html#camel-iconv-close"/>
+    <keyword type="macro" name="CAMEL_JUNK_PLUGIN()" link="camel-camel-junk-plugin.html#CAMEL-JUNK-PLUGIN:CAPS"/>
+    <keyword type="struct" name="CamelJunkPlugin" link="camel-camel-junk-plugin.html#CamelJunkPlugin"/>
+    <keyword type="function" name="camel_junk_plugin_get_name ()" link="camel-camel-junk-plugin.html#camel-junk-plugin-get-name"/>
+    <keyword type="function" name="camel_junk_plugin_check_junk ()" link="camel-camel-junk-plugin.html#camel-junk-plugin-check-junk"/>
+    <keyword type="function" name="camel_junk_plugin_report_junk ()" link="camel-camel-junk-plugin.html#camel-junk-plugin-report-junk"/>
+    <keyword type="function" name="camel_junk_plugin_report_notjunk ()" link="camel-camel-junk-plugin.html#camel-junk-plugin-report-notjunk"/>
+    <keyword type="function" name="camel_junk_plugin_commit_reports ()" link="camel-camel-junk-plugin.html#camel-junk-plugin-commit-reports"/>
+    <keyword type="function" name="camel_junk_plugin_init ()" link="camel-camel-junk-plugin.html#camel-junk-plugin-init"/>
+    <keyword type="struct" name="CamelDList" link="camel-camel-list-utils.html#CamelDList"/>
+    <keyword type="struct" name="CamelDListNode" link="camel-camel-list-utils.html#CamelDListNode"/>
+    <keyword type="macro" name="CAMEL_DLIST_INITIALISER()" link="camel-camel-list-utils.html#CAMEL-DLIST-INITIALISER:CAPS"/>
+    <keyword type="function" name="camel_dlist_init ()" link="camel-camel-list-utils.html#camel-dlist-init"/>
+    <keyword type="function" name="camel_dlist_addhead ()" link="camel-camel-list-utils.html#camel-dlist-addhead"/>
+    <keyword type="function" name="camel_dlist_addtail ()" link="camel-camel-list-utils.html#camel-dlist-addtail"/>
+    <keyword type="function" name="camel_dlist_remove ()" link="camel-camel-list-utils.html#camel-dlist-remove"/>
+    <keyword type="function" name="camel_dlist_remhead ()" link="camel-camel-list-utils.html#camel-dlist-remhead"/>
+    <keyword type="function" name="camel_dlist_remtail ()" link="camel-camel-list-utils.html#camel-dlist-remtail"/>
+    <keyword type="function" name="camel_dlist_empty ()" link="camel-camel-list-utils.html#camel-dlist-empty"/>
+    <keyword type="function" name="camel_dlist_length ()" link="camel-camel-list-utils.html#camel-dlist-length"/>
+    <keyword type="struct" name="CamelSListNode" link="camel-camel-list-utils.html#CamelSListNode"/>
+    <keyword type="struct" name="CamelSList" link="camel-camel-list-utils.html#CamelSList"/>
+    <keyword type="macro" name="CAMEL_SLIST_INITIALISER()" link="camel-camel-list-utils.html#CAMEL-SLIST-INITIALISER:CAPS"/>
+    <keyword type="function" name="camel_slist_init ()" link="camel-camel-list-utils.html#camel-slist-init"/>
+    <keyword type="function" name="camel_slist_addhead ()" link="camel-camel-list-utils.html#camel-slist-addhead"/>
+    <keyword type="function" name="camel_slist_addtail ()" link="camel-camel-list-utils.html#camel-slist-addtail"/>
+    <keyword type="function" name="camel_slist_remove ()" link="camel-camel-list-utils.html#camel-slist-remove"/>
+    <keyword type="function" name="camel_slist_remhead ()" link="camel-camel-list-utils.html#camel-slist-remhead"/>
+    <keyword type="function" name="camel_slist_remtail ()" link="camel-camel-list-utils.html#camel-slist-remtail"/>
+    <keyword type="function" name="camel_slist_empty ()" link="camel-camel-list-utils.html#camel-slist-empty"/>
+    <keyword type="function" name="camel_slist_length ()" link="camel-camel-list-utils.html#camel-slist-length"/>
+    <keyword type="macro" name="CAMEL_LOCK_DOT_RETRY" link="camel-camel-lock.html#CAMEL-LOCK-DOT-RETRY:CAPS"/>
+    <keyword type="macro" name="CAMEL_LOCK_DOT_DELAY" link="camel-camel-lock.html#CAMEL-LOCK-DOT-DELAY:CAPS"/>
+    <keyword type="macro" name="CAMEL_LOCK_DOT_STALE" link="camel-camel-lock.html#CAMEL-LOCK-DOT-STALE:CAPS"/>
+    <keyword type="macro" name="CAMEL_LOCK_RETRY" link="camel-camel-lock.html#CAMEL-LOCK-RETRY:CAPS"/>
+    <keyword type="macro" name="CAMEL_LOCK_DELAY" link="camel-camel-lock.html#CAMEL-LOCK-DELAY:CAPS"/>
+    <keyword type="enum" name="enum CamelLockType" link="camel-camel-lock.html#CamelLockType"/>
+    <keyword type="function" name="camel_lock_dot ()" link="camel-camel-lock.html#camel-lock-dot"/>
+    <keyword type="function" name="camel_lock_fcntl ()" link="camel-camel-lock.html#camel-lock-fcntl"/>
+    <keyword type="function" name="camel_lock_flock ()" link="camel-camel-lock.html#camel-lock-flock"/>
+    <keyword type="function" name="camel_unlock_dot ()" link="camel-camel-lock.html#camel-unlock-dot"/>
+    <keyword type="function" name="camel_unlock_fcntl ()" link="camel-camel-lock.html#camel-unlock-fcntl"/>
+    <keyword type="function" name="camel_unlock_flock ()" link="camel-camel-lock.html#camel-unlock-flock"/>
+    <keyword type="function" name="camel_lock_folder ()" link="camel-camel-lock.html#camel-lock-folder"/>
+    <keyword type="function" name="camel_unlock_folder ()" link="camel-camel-lock.html#camel-unlock-folder"/>
+    <keyword type="function" name="camel_lock_helper_lock ()" link="camel-camel-lock-client.html#camel-lock-helper-lock"/>
+    <keyword type="function" name="camel_lock_helper_unlock ()" link="camel-camel-lock-client.html#camel-lock-helper-unlock"/>
+    <keyword type="macro" name="CAMEL_FOLD_SIZE" link="camel-camel-mime-utils.html#CAMEL-FOLD-SIZE:CAPS"/>
+    <keyword type="macro" name="CAMEL_FOLD_MAX_SIZE" link="camel-camel-mime-utils.html#CAMEL-FOLD-MAX-SIZE:CAPS"/>
+    <keyword type="macro" name="CAMEL_UUDECODE_STATE_INIT" link="camel-camel-mime-utils.html#CAMEL-UUDECODE-STATE-INIT:CAPS"/>
+    <keyword type="macro" name="CAMEL_UUDECODE_STATE_BEGIN" link="camel-camel-mime-utils.html#CAMEL-UUDECODE-STATE-BEGIN:CAPS"/>
+    <keyword type="macro" name="CAMEL_UUDECODE_STATE_END" link="camel-camel-mime-utils.html#CAMEL-UUDECODE-STATE-END:CAPS"/>
+    <keyword type="macro" name="CAMEL_UUDECODE_STATE_MASK" link="camel-camel-mime-utils.html#CAMEL-UUDECODE-STATE-MASK:CAPS"/>
+    <keyword type="enum" name="enum CamelTransferEncoding" link="camel-camel-mime-utils.html#CamelTransferEncoding"/>
+    <keyword type="struct" name="struct camel_header_references" link="camel-camel-mime-utils.html#camel-header-references"/>
+    <keyword type="function" name="camel_header_param ()" link="camel-camel-mime-utils.html#camel-header-param"/>
+    <keyword type="struct" name="CamelContentType" link="camel-camel-mime-utils.html#CamelContentType"/>
+    <keyword type="struct" name="struct camel_header_raw" link="camel-camel-mime-utils.html#camel-header-raw"/>
+    <keyword type="struct" name="CamelContentDisposition" link="camel-camel-mime-utils.html#CamelContentDisposition"/>
+    <keyword type="enum" name="enum camel_header_address_t" link="camel-camel-mime-utils.html#camel-header-address-t"/>
+    <keyword type="struct" name="struct camel_header_address" link="camel-camel-mime-utils.html#camel-header-address"/>
+    <keyword type="struct" name="struct camel_header_newsgroup" link="camel-camel-mime-utils.html#camel-header-newsgroup"/>
+    <keyword type="function" name="camel_header_address_new ()" link="camel-camel-mime-utils.html#camel-header-address-new"/>
+    <keyword type="function" name="camel_header_address_new_name ()" link="camel-camel-mime-utils.html#camel-header-address-new-name"/>
+    <keyword type="function" name="camel_header_address_new_group ()" link="camel-camel-mime-utils.html#camel-header-address-new-group"/>
+    <keyword type="function" name="camel_header_address_ref ()" link="camel-camel-mime-utils.html#camel-header-address-ref"/>
+    <keyword type="function" name="camel_header_address_unref ()" link="camel-camel-mime-utils.html#camel-header-address-unref"/>
+    <keyword type="function" name="camel_header_address_set_name ()" link="camel-camel-mime-utils.html#camel-header-address-set-name"/>
+    <keyword type="function" name="camel_header_address_set_addr ()" link="camel-camel-mime-utils.html#camel-header-address-set-addr"/>
+    <keyword type="function" name="camel_header_address_set_members ()" link="camel-camel-mime-utils.html#camel-header-address-set-members"/>
+    <keyword type="function" name="camel_header_address_add_member ()" link="camel-camel-mime-utils.html#camel-header-address-add-member"/>
+    <keyword type="function" name="camel_header_address_list_append_list ()" link="camel-camel-mime-utils.html#camel-header-address-list-append-list"/>
+    <keyword type="function" name="camel_header_address_list_append ()" link="camel-camel-mime-utils.html#camel-header-address-list-append"/>
+    <keyword type="function" name="camel_header_address_list_clear ()" link="camel-camel-mime-utils.html#camel-header-address-list-clear"/>
+    <keyword type="function" name="camel_header_address_decode ()" link="camel-camel-mime-utils.html#camel-header-address-decode"/>
+    <keyword type="function" name="camel_header_mailbox_decode ()" link="camel-camel-mime-utils.html#camel-header-mailbox-decode"/>
+    <keyword type="function" name="camel_header_address_list_encode ()" link="camel-camel-mime-utils.html#camel-header-address-list-encode"/>
+    <keyword type="function" name="camel_header_address_list_format ()" link="camel-camel-mime-utils.html#camel-header-address-list-format"/>
+    <keyword type="function" name="camel_header_param_list_decode ()" link="camel-camel-mime-utils.html#camel-header-param-list-decode"/>
+    <keyword type="function" name="camel_header_set_param ()" link="camel-camel-mime-utils.html#camel-header-set-param"/>
+    <keyword type="function" name="camel_header_param_list_format_append ()" link="camel-camel-mime-utils.html#camel-header-param-list-format-append"/>
+    <keyword type="function" name="camel_header_param_list_format ()" link="camel-camel-mime-utils.html#camel-header-param-list-format"/>
+    <keyword type="function" name="camel_header_param_list_free ()" link="camel-camel-mime-utils.html#camel-header-param-list-free"/>
+    <keyword type="function" name="camel_content_type_new ()" link="camel-camel-mime-utils.html#camel-content-type-new"/>
+    <keyword type="function" name="camel_content_type_decode ()" link="camel-camel-mime-utils.html#camel-content-type-decode"/>
+    <keyword type="function" name="camel_content_type_unref ()" link="camel-camel-mime-utils.html#camel-content-type-unref"/>
+    <keyword type="function" name="camel_content_type_ref ()" link="camel-camel-mime-utils.html#camel-content-type-ref"/>
+    <keyword type="function" name="camel_content_type_param ()" link="camel-camel-mime-utils.html#camel-content-type-param"/>
+    <keyword type="function" name="camel_content_type_set_param ()" link="camel-camel-mime-utils.html#camel-content-type-set-param"/>
+    <keyword type="function" name="camel_content_type_is ()" link="camel-camel-mime-utils.html#camel-content-type-is"/>
+    <keyword type="function" name="camel_content_type_format ()" link="camel-camel-mime-utils.html#camel-content-type-format"/>
+    <keyword type="function" name="camel_content_type_simple ()" link="camel-camel-mime-utils.html#camel-content-type-simple"/>
+    <keyword type="function" name="camel_content_type_dump ()" link="camel-camel-mime-utils.html#camel-content-type-dump"/>
+    <keyword type="function" name="camel_content_disposition_decode ()" link="camel-camel-mime-utils.html#camel-content-disposition-decode"/>
+    <keyword type="function" name="camel_content_disposition_ref ()" link="camel-camel-mime-utils.html#camel-content-disposition-ref"/>
+    <keyword type="function" name="camel_content_disposition_unref ()" link="camel-camel-mime-utils.html#camel-content-disposition-unref"/>
+    <keyword type="function" name="camel_content_disposition_format ()" link="camel-camel-mime-utils.html#camel-content-disposition-format"/>
+    <keyword type="function" name="camel_content_transfer_encoding_decode ()" link="camel-camel-mime-utils.html#camel-content-transfer-encoding-decode"/>
+    <keyword type="function" name="camel_header_raw_append ()" link="camel-camel-mime-utils.html#camel-header-raw-append"/>
+    <keyword type="function" name="camel_header_raw_append_parse ()" link="camel-camel-mime-utils.html#camel-header-raw-append-parse"/>
+    <keyword type="function" name="camel_header_raw_find ()" link="camel-camel-mime-utils.html#camel-header-raw-find"/>
+    <keyword type="function" name="camel_header_raw_find_next ()" link="camel-camel-mime-utils.html#camel-header-raw-find-next"/>
+    <keyword type="function" name="camel_header_raw_replace ()" link="camel-camel-mime-utils.html#camel-header-raw-replace"/>
+    <keyword type="function" name="camel_header_raw_remove ()" link="camel-camel-mime-utils.html#camel-header-raw-remove"/>
+    <keyword type="function" name="camel_header_raw_fold ()" link="camel-camel-mime-utils.html#camel-header-raw-fold"/>
+    <keyword type="function" name="camel_header_raw_clear ()" link="camel-camel-mime-utils.html#camel-header-raw-clear"/>
+    <keyword type="function" name="camel_header_raw_check_mailing_list ()" link="camel-camel-mime-utils.html#camel-header-raw-check-mailing-list"/>
+    <keyword type="function" name="camel_header_address_fold ()" link="camel-camel-mime-utils.html#camel-header-address-fold"/>
+    <keyword type="function" name="camel_header_fold ()" link="camel-camel-mime-utils.html#camel-header-fold"/>
+    <keyword type="function" name="camel_header_unfold ()" link="camel-camel-mime-utils.html#camel-header-unfold"/>
+    <keyword type="function" name="camel_header_token_decode ()" link="camel-camel-mime-utils.html#camel-header-token-decode"/>
+    <keyword type="function" name="camel_header_decode_int ()" link="camel-camel-mime-utils.html#camel-header-decode-int"/>
+    <keyword type="function" name="camel_header_decode_string ()" link="camel-camel-mime-utils.html#camel-header-decode-string"/>
+    <keyword type="function" name="camel_header_encode_string ()" link="camel-camel-mime-utils.html#camel-header-encode-string"/>
+    <keyword type="function" name="camel_header_format_ctext ()" link="camel-camel-mime-utils.html#camel-header-format-ctext"/>
+    <keyword type="function" name="camel_header_encode_phrase ()" link="camel-camel-mime-utils.html#camel-header-encode-phrase"/>
+    <keyword type="function" name="camel_header_decode_date ()" link="camel-camel-mime-utils.html#camel-header-decode-date"/>
+    <keyword type="function" name="camel_header_format_date ()" link="camel-camel-mime-utils.html#camel-header-format-date"/>
+    <keyword type="function" name="camel_header_msgid_decode ()" link="camel-camel-mime-utils.html#camel-header-msgid-decode"/>
+    <keyword type="function" name="camel_header_contentid_decode ()" link="camel-camel-mime-utils.html#camel-header-contentid-decode"/>
+    <keyword type="function" name="camel_header_msgid_generate ()" link="camel-camel-mime-utils.html#camel-header-msgid-generate"/>
+    <keyword type="function" name="camel_header_references_inreplyto_decode ()" link="camel-camel-mime-utils.html#camel-header-references-inreplyto-decode"/>
+    <keyword type="function" name="camel_header_references_decode ()" link="camel-camel-mime-utils.html#camel-header-references-decode"/>
+    <keyword type="function" name="camel_header_references_list_clear ()" link="camel-camel-mime-utils.html#camel-header-references-list-clear"/>
+    <keyword type="function" name="camel_header_references_list_append_asis ()" link="camel-camel-mime-utils.html#camel-header-references-list-append-asis"/>
+    <keyword type="function" name="camel_header_references_list_size ()" link="camel-camel-mime-utils.html#camel-header-references-list-size"/>
+    <keyword type="function" name="camel_header_references_dup ()" link="camel-camel-mime-utils.html#camel-header-references-dup"/>
+    <keyword type="function" name="camel_header_location_decode ()" link="camel-camel-mime-utils.html#camel-header-location-decode"/>
+    <keyword type="function" name="camel_header_newsgroups_decode ()" link="camel-camel-mime-utils.html#camel-header-newsgroups-decode"/>
+    <keyword type="function" name="camel_header_newsgroups_free ()" link="camel-camel-mime-utils.html#camel-header-newsgroups-free"/>
+    <keyword type="function" name="camel_transfer_encoding_to_string ()" link="camel-camel-mime-utils.html#camel-transfer-encoding-to-string"/>
+    <keyword type="function" name="camel_transfer_encoding_from_string ()" link="camel-camel-mime-utils.html#camel-transfer-encoding-from-string"/>
+    <keyword type="function" name="camel_header_mime_decode ()" link="camel-camel-mime-utils.html#camel-header-mime-decode"/>
+    <keyword type="function" name="camel_base64_decode_step ()" link="camel-camel-mime-utils.html#camel-base64-decode-step" deprecated=""/>
+    <keyword type="function" name="camel_base64_encode_step ()" link="camel-camel-mime-utils.html#camel-base64-encode-step" deprecated=""/>
+    <keyword type="function" name="camel_base64_encode_close ()" link="camel-camel-mime-utils.html#camel-base64-encode-close" deprecated=""/>
+    <keyword type="function" name="camel_uudecode_step ()" link="camel-camel-mime-utils.html#camel-uudecode-step"/>
+    <keyword type="function" name="camel_uuencode_step ()" link="camel-camel-mime-utils.html#camel-uuencode-step"/>
+    <keyword type="function" name="camel_uuencode_close ()" link="camel-camel-mime-utils.html#camel-uuencode-close"/>
+    <keyword type="function" name="camel_quoted_decode_step ()" link="camel-camel-mime-utils.html#camel-quoted-decode-step"/>
+    <keyword type="function" name="camel_quoted_encode_step ()" link="camel-camel-mime-utils.html#camel-quoted-encode-step"/>
+    <keyword type="function" name="camel_quoted_encode_close ()" link="camel-camel-mime-utils.html#camel-quoted-encode-close"/>
+    <keyword type="function" name="camel_base64_encode_simple ()" link="camel-camel-mime-utils.html#camel-base64-encode-simple" deprecated=""/>
+    <keyword type="function" name="camel_base64_decode_simple ()" link="camel-camel-mime-utils.html#camel-base64-decode-simple" deprecated=""/>
+    <keyword type="macro" name="camel_mime_is_ctrl()" link="camel-camel-mime-utils.html#camel-mime-is-ctrl"/>
+    <keyword type="macro" name="camel_mime_is_lwsp()" link="camel-camel-mime-utils.html#camel-mime-is-lwsp"/>
+    <keyword type="macro" name="camel_mime_is_tspecial()" link="camel-camel-mime-utils.html#camel-mime-is-tspecial"/>
+    <keyword type="macro" name="camel_mime_is_type()" link="camel-camel-mime-utils.html#camel-mime-is-type"/>
+    <keyword type="macro" name="camel_mime_is_ttoken()" link="camel-camel-mime-utils.html#camel-mime-is-ttoken"/>
+    <keyword type="macro" name="camel_mime_is_atom()" link="camel-camel-mime-utils.html#camel-mime-is-atom"/>
+    <keyword type="macro" name="camel_mime_is_dtext()" link="camel-camel-mime-utils.html#camel-mime-is-dtext"/>
+    <keyword type="macro" name="camel_mime_is_fieldname()" link="camel-camel-mime-utils.html#camel-mime-is-fieldname"/>
+    <keyword type="macro" name="camel_mime_is_qpsafe()" link="camel-camel-mime-utils.html#camel-mime-is-qpsafe"/>
+    <keyword type="macro" name="camel_mime_is_especial()" link="camel-camel-mime-utils.html#camel-mime-is-especial"/>
+    <keyword type="macro" name="camel_mime_is_psafe()" link="camel-camel-mime-utils.html#camel-mime-is-psafe"/>
+    <keyword type="macro" name="camel_mime_is_attrchar()" link="camel-camel-mime-utils.html#camel-mime-is-attrchar"/>
+    <keyword type="function" name="camel_movemail ()" link="camel-camel-movemail.html#camel-movemail"/>
+    <keyword type="struct" name="CamelMsg" link="camel-CamelMsgPort.html#CamelMsg"/>
+    <keyword type="struct" name="CamelMsgPort" link="camel-CamelMsgPort.html#CamelMsgPort"/>
+    <keyword type="function" name="camel_msgport_new ()" link="camel-CamelMsgPort.html#camel-msgport-new"/>
+    <keyword type="function" name="camel_msgport_destroy ()" link="camel-CamelMsgPort.html#camel-msgport-destroy"/>
+    <keyword type="function" name="camel_msgport_fd ()" link="camel-CamelMsgPort.html#camel-msgport-fd"/>
+    <keyword type="function" name="camel_msgport_push ()" link="camel-CamelMsgPort.html#camel-msgport-push"/>
+    <keyword type="function" name="camel_msgport_pop ()" link="camel-CamelMsgPort.html#camel-msgport-pop"/>
+    <keyword type="function" name="camel_msgport_try_pop ()" link="camel-CamelMsgPort.html#camel-msgport-try-pop"/>
+    <keyword type="function" name="camel_msgport_reply ()" link="camel-CamelMsgPort.html#camel-msgport-reply"/>
+    <keyword type="function" name="camel_msgport_prfd ()" link="camel-CamelMsgPort.html#camel-msgport-prfd"/>
+    <keyword type="macro" name="AI_CANONNAME" link="camel-camel-net-utils.html#AI-CANONNAME:CAPS"/>
+    <keyword type="macro" name="AI_NUMERICHOST" link="camel-camel-net-utils.html#AI-NUMERICHOST:CAPS"/>
+    <keyword type="macro" name="EAI_BADFLAGS" link="camel-camel-net-utils.html#EAI-BADFLAGS:CAPS"/>
+    <keyword type="macro" name="EAI_NONAME" link="camel-camel-net-utils.html#EAI-NONAME:CAPS"/>
+    <keyword type="macro" name="EAI_AGAIN" link="camel-camel-net-utils.html#EAI-AGAIN:CAPS"/>
+    <keyword type="macro" name="EAI_FAIL" link="camel-camel-net-utils.html#EAI-FAIL:CAPS"/>
+    <keyword type="macro" name="EAI_NODATA" link="camel-camel-net-utils.html#EAI-NODATA:CAPS"/>
+    <keyword type="macro" name="EAI_FAMILY" link="camel-camel-net-utils.html#EAI-FAMILY:CAPS"/>
+    <keyword type="macro" name="EAI_SOCKTYPE" link="camel-camel-net-utils.html#EAI-SOCKTYPE:CAPS"/>
+    <keyword type="macro" name="EAI_SERVICE" link="camel-camel-net-utils.html#EAI-SERVICE:CAPS"/>
+    <keyword type="macro" name="EAI_ADDRFAMILY" link="camel-camel-net-utils.html#EAI-ADDRFAMILY:CAPS"/>
+    <keyword type="macro" name="EAI_MEMORY" link="camel-camel-net-utils.html#EAI-MEMORY:CAPS"/>
+    <keyword type="macro" name="EAI_SYSTEM" link="camel-camel-net-utils.html#EAI-SYSTEM:CAPS"/>
+    <keyword type="macro" name="EAI_OVERFLOW" link="camel-camel-net-utils.html#EAI-OVERFLOW:CAPS"/>
+    <keyword type="macro" name="NI_NUMERICHOST" link="camel-camel-net-utils.html#NI-NUMERICHOST:CAPS"/>
+    <keyword type="macro" name="NI_NUMERICSERV" link="camel-camel-net-utils.html#NI-NUMERICSERV:CAPS"/>
+    <keyword type="macro" name="NI_NOFQDN" link="camel-camel-net-utils.html#NI-NOFQDN:CAPS"/>
+    <keyword type="macro" name="NI_NAMEREQD" link="camel-camel-net-utils.html#NI-NAMEREQD:CAPS"/>
+    <keyword type="macro" name="NI_DGRAM" link="camel-camel-net-utils.html#NI-DGRAM:CAPS"/>
+    <keyword type="function" name="camel_getaddrinfo ()" link="camel-camel-net-utils.html#camel-getaddrinfo"/>
+    <keyword type="function" name="camel_freeaddrinfo ()" link="camel-camel-net-utils.html#camel-freeaddrinfo"/>
+    <keyword type="function" name="camel_getnameinfo ()" link="camel-camel-net-utils.html#camel-getnameinfo"/>
+    <keyword type="function" name="camel_sexp_to_sql ()" link="camel-camel-search-sql.html#camel-sexp-to-sql"/>
+    <keyword type="function" name="camel_sexp_to_sql_sexp ()" link="camel-camel-search-sql-sexp.html#camel-sexp-to-sql-sexp"/>
+    <keyword type="function" name="camel_strcase_equal ()" link="camel-camel-string-utils.html#camel-strcase-equal"/>
+    <keyword type="function" name="camel_strcase_hash ()" link="camel-camel-string-utils.html#camel-strcase-hash"/>
+    <keyword type="function" name="camel_string_list_free ()" link="camel-camel-string-utils.html#camel-string-list-free"/>
+    <keyword type="function" name="camel_strstrcase ()" link="camel-camel-string-utils.html#camel-strstrcase"/>
+    <keyword type="function" name="camel_strdown ()" link="camel-camel-string-utils.html#camel-strdown"/>
+    <keyword type="function" name="camel_tolower ()" link="camel-camel-string-utils.html#camel-tolower"/>
+    <keyword type="function" name="camel_toupper ()" link="camel-camel-string-utils.html#camel-toupper"/>
+    <keyword type="function" name="camel_pstring_add ()" link="camel-camel-string-utils.html#camel-pstring-add"/>
+    <keyword type="function" name="camel_pstring_strdup ()" link="camel-camel-string-utils.html#camel-pstring-strdup"/>
+    <keyword type="function" name="camel_pstring_free ()" link="camel-camel-string-utils.html#camel-pstring-free"/>
+    <keyword type="function" name="camel_pstring_peek ()" link="camel-camel-string-utils.html#camel-pstring-peek"/>
+    <keyword type="struct" name="CamelTrie" link="camel-camel-trie.html#CamelTrie"/>
+    <keyword type="function" name="camel_trie_new ()" link="camel-camel-trie.html#camel-trie-new"/>
+    <keyword type="function" name="camel_trie_free ()" link="camel-camel-trie.html#camel-trie-free"/>
+    <keyword type="function" name="camel_trie_add ()" link="camel-camel-trie.html#camel-trie-add"/>
+    <keyword type="function" name="camel_trie_search ()" link="camel-camel-trie.html#camel-trie-search"/>
+    <keyword type="struct" name="CamelUIDCache" link="camel-camel-uid-cache.html#CamelUIDCache"/>
+    <keyword type="function" name="camel_uid_cache_new ()" link="camel-camel-uid-cache.html#camel-uid-cache-new"/>
+    <keyword type="function" name="camel_uid_cache_save ()" link="camel-camel-uid-cache.html#camel-uid-cache-save"/>
+    <keyword type="function" name="camel_uid_cache_destroy ()" link="camel-camel-uid-cache.html#camel-uid-cache-destroy"/>
+    <keyword type="function" name="camel_uid_cache_get_new_uids ()" link="camel-camel-uid-cache.html#camel-uid-cache-get-new-uids"/>
+    <keyword type="function" name="camel_uid_cache_save_uid ()" link="camel-camel-uid-cache.html#camel-uid-cache-save-uid"/>
+    <keyword type="function" name="camel_uid_cache_free_uids ()" link="camel-camel-uid-cache.html#camel-uid-cache-free-uids"/>
+    <keyword type="struct" name="urlmatch_t" link="camel-camel-url-scanner.html#urlmatch-t"/>
+    <keyword type="function" name="CamelUrlScanFunc ()" link="camel-camel-url-scanner.html#CamelUrlScanFunc"/>
+    <keyword type="function" name="camel_url_file_start ()" link="camel-camel-url-scanner.html#camel-url-file-start"/>
+    <keyword type="function" name="camel_url_file_end ()" link="camel-camel-url-scanner.html#camel-url-file-end"/>
+    <keyword type="function" name="camel_url_web_start ()" link="camel-camel-url-scanner.html#camel-url-web-start"/>
+    <keyword type="function" name="camel_url_web_end ()" link="camel-camel-url-scanner.html#camel-url-web-end"/>
+    <keyword type="function" name="camel_url_addrspec_start ()" link="camel-camel-url-scanner.html#camel-url-addrspec-start"/>
+    <keyword type="function" name="camel_url_addrspec_end ()" link="camel-camel-url-scanner.html#camel-url-addrspec-end"/>
+    <keyword type="struct" name="urlpattern_t" link="camel-camel-url-scanner.html#urlpattern-t"/>
+    <keyword type="struct" name="CamelUrlScanner" link="camel-camel-url-scanner.html#CamelUrlScanner"/>
+    <keyword type="function" name="camel_url_scanner_new ()" link="camel-camel-url-scanner.html#camel-url-scanner-new"/>
+    <keyword type="function" name="camel_url_scanner_free ()" link="camel-camel-url-scanner.html#camel-url-scanner-free"/>
+    <keyword type="function" name="camel_url_scanner_add ()" link="camel-camel-url-scanner.html#camel-url-scanner-add"/>
+    <keyword type="function" name="camel_url_scanner_scan ()" link="camel-camel-url-scanner.html#camel-url-scanner-scan"/>
+    <keyword type="function" name="camel_utf8_putc ()" link="camel-camel-utf8.html#camel-utf8-putc"/>
+    <keyword type="function" name="camel_utf8_getc ()" link="camel-camel-utf8.html#camel-utf8-getc"/>
+    <keyword type="function" name="camel_utf8_getc_limit ()" link="camel-camel-utf8.html#camel-utf8-getc-limit"/>
+    <keyword type="function" name="g_string_append_u ()" link="camel-camel-utf8.html#g-string-append-u"/>
+    <keyword type="function" name="camel_utf7_utf8 ()" link="camel-camel-utf8.html#camel-utf7-utf8"/>
+    <keyword type="function" name="camel_utf8_utf7 ()" link="camel-camel-utf8.html#camel-utf8-utf7"/>
+    <keyword type="function" name="camel_utf8_ucs2 ()" link="camel-camel-utf8.html#camel-utf8-ucs2"/>
+    <keyword type="function" name="camel_ucs2_utf8 ()" link="camel-camel-utf8.html#camel-ucs2-utf8"/>
+    <keyword type="function" name="camel_utf8_make_valid ()" link="camel-camel-utf8.html#camel-utf8-make-valid"/>
+    <keyword type="macro" name="_()" link="camel-camel-i18n.html#gettext-macro" deprecated=""/>
+    <keyword type="macro" name="N_()" link="camel-camel-i18n.html#N-:CAPS" deprecated=""/>
+    <keyword type="macro" name="textdomain()" link="camel-camel-i18n.html#textdomain" deprecated=""/>
+    <keyword type="macro" name="gettext()" link="camel-camel-i18n.html#gettext" deprecated=""/>
+    <keyword type="macro" name="dgettext()" link="camel-camel-i18n.html#dgettext" deprecated=""/>
+    <keyword type="macro" name="dcgettext()" link="camel-camel-i18n.html#dcgettext" deprecated=""/>
+    <keyword type="macro" name="bindtextdomain()" link="camel-camel-i18n.html#bindtextdomain" deprecated=""/>
+    <keyword type="struct" name="struct CamelNewsAddress" link="camel-CamelNewsAddress.html#CamelNewsAddress" deprecated=""/>
+    <keyword type="function" name="camel_news_address_new ()" link="camel-CamelNewsAddress.html#camel-news-address-new" deprecated=""/>
+    <keyword type="function" name="camel_process_fork ()" link="camel-camel-process.html#camel-process-fork" deprecated=""/>
+    <keyword type="function" name="camel_process_wait ()" link="camel-camel-process.html#camel-process-wait" deprecated=""/>
+  </functions>
+</book>

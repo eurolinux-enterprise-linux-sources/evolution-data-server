@@ -1,0 +1,25 @@
+Index: evolution-data-server-2.28.3/addressbook/backends/google/e-book-backend-google.c
+===================================================================
+--- evolution-data-server-2.28.3/addressbook/backends/google/e-book-backend-google.c	(revision 1)
++++ evolution-data-server-2.28.3/addressbook/backends/google/e-book-backend-google.c	(working copy)
+@@ -332,8 +332,10 @@ e_book_backend_google_stop_book_view (EB
+     __debug__ (G_STRFUNC);
+     priv = GET_PRIVATE (backend);
+ 
+-    priv->bookviews = g_list_remove (priv->bookviews, bookview);
+-    e_data_book_view_unref (bookview);
++    if (g_list_find (priv->bookviews, bookview)) {
++	priv->bookviews = g_list_remove (priv->bookviews, bookview);
++	e_data_book_view_unref (bookview);
++    }
+ 
+     if (NULL == priv->bookviews) {
+ 	google_book_set_live_mode (priv->book, FALSE);
+@@ -521,6 +524,7 @@ e_book_backend_google_load_source (EBook
+     use_ssl_str = e_source_get_property (source, "ssl");
+     use_cache_str = e_source_get_property (source, "offline_sync");
+ 
++    refresh_interval = 3600;
+     if (refresh_interval_str) {
+ 	if (1 != sscanf (refresh_interval_str, "%u", &refresh_interval)) {
+ 	    g_warning ("Could not parse refresh-interval!");

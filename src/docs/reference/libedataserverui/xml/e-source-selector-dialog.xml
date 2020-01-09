@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ESourceSelectorDialog">
+<refmeta>
+<refentrytitle role="top_of_page" id="ESourceSelectorDialog.top_of_page">ESourceSelectorDialog</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVERUI Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>ESourceSelectorDialog</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ESourceSelectorDialog.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="ESourceSelectorDialog-struct">ESourceSelectorDialog</link>;
+<link linkend="GtkWidget"><returnvalue>GtkWidget</returnvalue></link> *         <link linkend="e-source-selector-dialog-new">e_source_selector_dialog_new</link>        (<parameter><link linkend="GtkWindow"><type>GtkWindow</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="ESourceList"><type>ESourceList</type></link> *source_list</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-selector-dialog-select-default-source">e_source_selector_dialog_select_default_source</link>
+                                                        (<parameter><link linkend="ESourceSelectorDialog"><type>ESourceSelectorDialog</type></link> *dialog</parameter>);
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-source-selector-dialog-peek-primary-selection">e_source_selector_dialog_peek_primary_selection</link>
+                                                        (<parameter><link linkend="ESourceSelectorDialog"><type>ESourceSelectorDialog</type></link> *dialog</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="ESourceSelectorDialog.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="GtkObject">GtkObject</link>
+               +----<link linkend="GtkWidget">GtkWidget</link>
+                     +----<link linkend="GtkContainer">GtkContainer</link>
+                           +----<link linkend="GtkBin">GtkBin</link>
+                                 +----<link linkend="GtkWindow">GtkWindow</link>
+                                       +----<link linkend="GtkDialog">GtkDialog</link>
+                                             +----ESourceSelectorDialog
+</synopsis>
+</refsect1>
+<refsect1 id="ESourceSelectorDialog.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+ESourceSelectorDialog implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link> and  <link linkend="GtkBuildable">GtkBuildable</link>.</para>
+</refsect1>
+
+<refsect1 id="ESourceSelectorDialog.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="ESourceSelectorDialog.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ESourceSelectorDialog-struct" role="struct">
+<title>ESourceSelectorDialog</title>
+<indexterm zone="ESourceSelectorDialog-struct"><primary>ESourceSelectorDialog</primary></indexterm>
+<programlisting>typedef struct _ESourceSelectorDialog ESourceSelectorDialog;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-source-selector-dialog-new" role="function">
+<title>e_source_selector_dialog_new ()</title>
+<indexterm zone="e-source-selector-dialog-new"><primary>e_source_selector_dialog_new</primary></indexterm>
+<programlisting><link linkend="GtkWidget"><returnvalue>GtkWidget</returnvalue></link> *         e_source_selector_dialog_new        (<parameter><link linkend="GtkWindow"><type>GtkWindow</type></link> *parent</parameter>,
+                                                         <parameter><link linkend="ESourceList"><type>ESourceList</type></link> *source_list</parameter>);</programlisting>
+<para>
+Create a new source selector dialog for the given <parameter>list</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&#160;:</term>
+<listitem><simpara>Parent window.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source_list</parameter>&#160;:</term>
+<listitem><simpara>A source list.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The newly created widget.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-dialog-select-default-source" role="function">
+<title>e_source_selector_dialog_select_default_source ()</title>
+<indexterm zone="e-source-selector-dialog-select-default-source"><primary>e_source_selector_dialog_select_default_source</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_selector_dialog_select_default_source
+                                                        (<parameter><link linkend="ESourceSelectorDialog"><type>ESourceSelectorDialog</type></link> *dialog</parameter>);</programlisting>
+<para>
+Selects default source in the dialog.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dialog</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESourceSelectorDialog"><type>ESourceSelectorDialog</type></link> widget.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Whether found any default source.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-selector-dialog-peek-primary-selection" role="function">
+<title>e_source_selector_dialog_peek_primary_selection ()</title>
+<indexterm zone="e-source-selector-dialog-peek-primary-selection"><primary>e_source_selector_dialog_peek_primary_selection</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_source_selector_dialog_peek_primary_selection
+                                                        (<parameter><link linkend="ESourceSelectorDialog"><type>ESourceSelectorDialog</type></link> *dialog</parameter>);</programlisting>
+<para>
+Peek the currently selected source in the given <parameter>dialog</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dialog</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESourceSelectorDialog"><type>ESourceSelectorDialog</type></link> widget.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the selected ESource.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

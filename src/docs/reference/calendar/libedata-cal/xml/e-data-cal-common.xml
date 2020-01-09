@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libedata-cal-e-data-cal-common">
+<refmeta>
+<refentrytitle role="top_of_page" id="libedata-cal-e-data-cal-common.top_of_page">e-data-cal-common</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATA-CAL Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-data-cal-common</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libedata-cal-e-data-cal-common.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+<anchor id="ECalBackend"/><anchor id="EDataCal"/><anchor id="EDataCalView"/><anchor id="ECalBackendSExp"/>
+<synopsis>                    <link linkend="ECalBackend-struct">ECalBackend</link>;
+                    <link linkend="ECalBackendClass">ECalBackendClass</link>;
+                    <link linkend="EDataCal-struct">EDataCal</link>;
+                    <link linkend="EDataCalClass">EDataCalClass</link>;
+                    <link linkend="EDataCalView-struct">EDataCalView</link>;
+                    <link linkend="EDataCalViewClass">EDataCalViewClass</link>;
+                    <link linkend="ECalBackendSExp-struct">ECalBackendSExp</link>;
+                    <link linkend="ECalBackendSExpClass">ECalBackendSExpClass</link>;
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="libedata-cal-e-data-cal-common.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----ECalBackend
+         +----<link linkend="ECalBackendSync">ECalBackendSync</link>
+</synopsis>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="BonoboObject">BonoboObject</link>
+         +----EDataCal
+</synopsis>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="BonoboObject">BonoboObject</link>
+         +----EDataCalView
+</synopsis>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----ECalBackendSExp
+</synopsis>
+</refsect1>
+<refsect1 id="libedata-cal-e-data-cal-common.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ECalBackend--kind">kind</link>&quot;                     <link linkend="gulong"><type>gulong</type></link>                : Read / Write / Construct Only
+  &quot;<link linkend="ECalBackend--source">source</link>&quot;                   <link linkend="ESource"><type>ESource</type></link>*              : Read / Write / Construct Only
+  &quot;<link linkend="ECalBackend--uri">uri</link>&quot;                      <link linkend="gchar"><type>gchar</type></link>*                : Read / Write / Construct Only
+  &quot;<link linkend="EDataCalView--backend">backend</link>&quot;                  <link linkend="ECalBackend"><type>ECalBackend</type></link>*          : Read / Write / Construct Only
+  &quot;<link linkend="EDataCalView--listener">listener</link>&quot;                 <link linkend="gpointer"><type>gpointer</type></link>              : Read / Write / Construct Only
+  &quot;<link linkend="EDataCalView--sexp">sexp</link>&quot;                     <link linkend="ECalBackendSExp"><type>ECalBackendSExp</type></link>*      : Read / Write / Construct Only
+</synopsis>
+</refsect1>
+<refsect1 id="libedata-cal-e-data-cal-common.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="ECalBackend-last-client-gone">last-client-gone</link>&quot;                               : Run First
+  &quot;<link linkend="ECalBackend-opened">opened</link>&quot;                                         : Run First
+  &quot;<link linkend="ECalBackend-removed">removed</link>&quot;                                        : Run First
+  &quot;<link linkend="EDataCalView-last-listener-gone">last-listener-gone</link>&quot;                             : Run First
+</synopsis>
+</refsect1>
+
+<refsect1 id="libedata-cal-e-data-cal-common.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libedata-cal-e-data-cal-common.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ECalBackend-struct" role="struct">
+<title>ECalBackend</title>
+<indexterm zone="ECalBackend-struct"><primary>ECalBackend</primary></indexterm>
+<programlisting>typedef struct _ECalBackend ECalBackend;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="ECalBackendClass" role="struct">
+<title>ECalBackendClass</title>
+<indexterm zone="ECalBackendClass"><primary>ECalBackendClass</primary></indexterm>
+<programlisting>typedef struct {
+	GObjectClass parent_class;
+
+	/* Notification signals */
+	void (* last_client_gone) (ECalBackend *backend);
+	void (* cal_added) (ECalBackend *backend, EDataCal *cal);
+
+	gboolean (* is_loaded) (ECalBackend *backend);
+
+	/* FIXME What to pass back here */
+	void (* opened) (ECalBackend *backend, gint status);
+	void (* removed) (ECalBackend *backend, gint status);
+	void (* obj_updated) (ECalBackend *backend, const gchar *uid);
+
+	/* Virtual methods */
+	void (* is_read_only) (ECalBackend *backend, EDataCal *cal);
+	void (* get_cal_address) (ECalBackend *backend, EDataCal *cal);
+	void (* get_alarm_email_address) (ECalBackend *backend, EDataCal *cal);
+	void (* get_ldap_attribute) (ECalBackend *backend, EDataCal *cal);
+	void (* get_static_capabilities) (ECalBackend *backend, EDataCal *cal);
+
+	void (* open) (ECalBackend *backend, EDataCal *cal, gboolean only_if_exists, const gchar *username, const gchar *password);
+	void (* remove) (ECalBackend *backend, EDataCal *cal);
+
+	/* Object related virtual methods */
+	void (* create_object) (ECalBackend *backend, EDataCal *cal, const gchar *calobj);
+	void (* modify_object) (ECalBackend *backend, EDataCal *cal, const gchar *calobj, CalObjModType mod);
+	void (* remove_object) (ECalBackend *backend, EDataCal *cal, const gchar *uid, const gchar *rid, CalObjModType mod);
+
+	void (* discard_alarm) (ECalBackend *backend, EDataCal *cal, const gchar *uid, const gchar *auid);
+
+	void (* receive_objects) (ECalBackend *backend, EDataCal *cal, const gchar *calobj);
+	void (* send_objects) (ECalBackend *backend, EDataCal *cal, const gchar *calobj);
+
+	void (* get_default_object) (ECalBackend *backend, EDataCal *cal);
+	void (* get_object) (ECalBackend *backend, EDataCal *cal, const gchar *uid, const gchar *rid);
+	void (* get_object_list) (ECalBackend *backend, EDataCal *cal, const gchar *sexp);
+
+	void (* get_attachment_list) (ECalBackend *backend, EDataCal *cal, const gchar *uid, const gchar *rid);
+
+	/* Timezone related virtual methods */
+	void (* get_timezone) (ECalBackend *backend, EDataCal *cal, const gchar *tzid);
+	void (* add_timezone) (ECalBackend *backend, EDataCal *cal, const gchar *object);
+	void (* set_default_zone) (ECalBackend *backend, EDataCal *cal, const gchar *tzobj);
+	void (* set_default_timezone) (ECalBackend *backend, EDataCal *cal, const gchar *tzid);
+
+	void (* start_query) (ECalBackend *backend, EDataCalView *query);
+
+	/* Mode relate virtual methods */
+	CalMode (* get_mode) (ECalBackend *backend);
+	void    (* set_mode) (ECalBackend *backend, CalMode mode);
+
+	void (* get_free_busy) (ECalBackend *backend, EDataCal *cal, GList *users, time_t start, time_t end);
+	void (* get_changes) (ECalBackend *backend, EDataCal *cal, const gchar *change_id);
+
+	/* Internal methods for use only in the pcs */
+	icaltimezone *(* internal_get_default_timezone) (ECalBackend *backend);
+	icaltimezone *(* internal_get_timezone) (ECalBackend *backend, const gchar *tzid);
+} ECalBackendClass;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EDataCal-struct" role="struct">
+<title>EDataCal</title>
+<indexterm zone="EDataCal-struct"><primary>EDataCal</primary></indexterm>
+<programlisting>typedef struct _EDataCal EDataCal;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EDataCalClass" role="struct">
+<title>EDataCalClass</title>
+<indexterm zone="EDataCalClass"><primary>EDataCalClass</primary></indexterm>
+<programlisting>typedef struct {
+	BonoboObjectClass parent_class;
+
+	POA_GNOME_Evolution_Calendar_Cal__epv epv;
+} EDataCalClass;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EDataCalView-struct" role="struct">
+<title>EDataCalView</title>
+<indexterm zone="EDataCalView-struct"><primary>EDataCalView</primary></indexterm>
+<programlisting>typedef struct _EDataCalView EDataCalView;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EDataCalViewClass" role="struct">
+<title>EDataCalViewClass</title>
+<indexterm zone="EDataCalViewClass"><primary>EDataCalViewClass</primary></indexterm>
+<programlisting>typedef struct {
+	BonoboObjectClass parent_class;
+
+	POA_GNOME_Evolution_Calendar_CalView__epv epv;
+
+	/* Notification signals */
+	void (* last_listener_gone) (EDataCalView *query);
+} EDataCalViewClass;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="ECalBackendSExp-struct" role="struct">
+<title>ECalBackendSExp</title>
+<indexterm zone="ECalBackendSExp-struct"><primary>ECalBackendSExp</primary></indexterm>
+<programlisting>typedef struct _ECalBackendSExp ECalBackendSExp;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="ECalBackendSExpClass" role="struct">
+<title>ECalBackendSExpClass</title>
+<indexterm zone="ECalBackendSExpClass"><primary>ECalBackendSExpClass</primary></indexterm>
+<programlisting>typedef struct {
+	GObjectClass parent_class;
+} ECalBackendSExpClass;
+</programlisting>
+<para>
+</para></refsect2>
+
+</refsect1>
+<refsect1 id="libedata-cal-e-data-cal-common.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ECalBackend--kind" role="property"><title>The <literal>&quot;kind&quot;</literal> property</title>
+<indexterm zone="ECalBackend--kind"><primary>ECalBackend:kind</primary></indexterm>
+<programlisting>  &quot;kind&quot;                     <link linkend="gulong"><type>gulong</type></link>                : Read / Write / Construct Only</programlisting>
+<para></para><para>Allowed values: &lt;= 25</para>
+</refsect2>
+<refsect2 id="ECalBackend--source" role="property"><title>The <literal>&quot;source&quot;</literal> property</title>
+<indexterm zone="ECalBackend--source"><primary>ECalBackend:source</primary></indexterm>
+<programlisting>  &quot;source&quot;                   <link linkend="ESource"><type>ESource</type></link>*              : Read / Write / Construct Only</programlisting>
+<para></para></refsect2>
+<refsect2 id="ECalBackend--uri" role="property"><title>The <literal>&quot;uri&quot;</literal> property</title>
+<indexterm zone="ECalBackend--uri"><primary>ECalBackend:uri</primary></indexterm>
+<programlisting>  &quot;uri&quot;                      <link linkend="gchar"><type>gchar</type></link>*                : Read / Write / Construct Only</programlisting>
+<para></para><para>Default value: ""</para>
+</refsect2>
+<refsect2 id="EDataCalView--backend" role="property"><title>The <literal>&quot;backend&quot;</literal> property</title>
+<indexterm zone="EDataCalView--backend"><primary>EDataCalView:backend</primary></indexterm>
+<programlisting>  &quot;backend&quot;                  <link linkend="ECalBackend"><type>ECalBackend</type></link>*          : Read / Write / Construct Only</programlisting>
+<para></para></refsect2>
+<refsect2 id="EDataCalView--listener" role="property"><title>The <literal>&quot;listener&quot;</literal> property</title>
+<indexterm zone="EDataCalView--listener"><primary>EDataCalView:listener</primary></indexterm>
+<programlisting>  &quot;listener&quot;                 <link linkend="gpointer"><type>gpointer</type></link>              : Read / Write / Construct Only</programlisting>
+<para></para></refsect2>
+<refsect2 id="EDataCalView--sexp" role="property"><title>The <literal>&quot;sexp&quot;</literal> property</title>
+<indexterm zone="EDataCalView--sexp"><primary>EDataCalView:sexp</primary></indexterm>
+<programlisting>  &quot;sexp&quot;                     <link linkend="ECalBackendSExp"><type>ECalBackendSExp</type></link>*      : Read / Write / Construct Only</programlisting>
+<para></para></refsect2>
+</refsect1>
+<refsect1 id="libedata-cal-e-data-cal-common.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="ECalBackend-last-client-gone" role="signal"><title>The <literal>&quot;last-client-gone&quot;</literal> signal</title>
+<indexterm zone="ECalBackend-last-client-gone"><primary>ECalBackend::last-client-gone</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="ECalBackend"><type>ECalBackend</type></link> *ecalbackend,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>     user_data)        : Run First</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>ecalbackend</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="ECalBackend-opened" role="signal"><title>The <literal>&quot;opened&quot;</literal> signal</title>
+<indexterm zone="ECalBackend-opened"><primary>ECalBackend::opened</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="ECalBackend"><type>ECalBackend</type></link> *ecalbackend,
+                                                        <link linkend="gint"><type>gint</type></link>         arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>     user_data)        : Run First</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>ecalbackend</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="ECalBackend-removed" role="signal"><title>The <literal>&quot;removed&quot;</literal> signal</title>
+<indexterm zone="ECalBackend-removed"><primary>ECalBackend::removed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="ECalBackend"><type>ECalBackend</type></link> *ecalbackend,
+                                                        <link linkend="gint"><type>gint</type></link>         arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>     user_data)        : Run First</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>ecalbackend</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="EDataCalView-last-listener-gone" role="signal"><title>The <literal>&quot;last-listener-gone&quot;</literal> signal</title>
+<indexterm zone="EDataCalView-last-listener-gone"><primary>EDataCalView::last-listener-gone</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EDataCalView"><type>EDataCalView</type></link> *edatacalview,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>      user_data)         : Run First</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>edatacalview</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+</refentry>

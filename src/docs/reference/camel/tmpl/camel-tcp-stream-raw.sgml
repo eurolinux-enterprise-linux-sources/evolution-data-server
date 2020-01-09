@@ -1,0 +1,40 @@
+<!-- ##### SECTION Title ##### -->
+CamelTcpStreamRaw
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT CamelTcpStreamRaw ##### -->
+<para>
+
+</para>
+
+@parent_object: 
+@sockfd: 
+@is_nonblocking: 
+
+<!-- ##### FUNCTION camel_tcp_stream_raw_new ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+

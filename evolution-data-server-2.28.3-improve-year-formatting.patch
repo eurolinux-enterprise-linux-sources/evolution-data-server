@@ -1,0 +1,23 @@
+commit c87ce4ff086c55fb2e618b1c1d844d19f28826f5
+Author: Matthew Barnes <mbarnes@redhat.com>
+Date:   Mon Jan 10 09:29:13 2011 -0500
+
+    evolution-data-server-2.28.3-improve-year-formatting.patch
+
+diff --git a/libedataserver/e-time-utils.c b/libedataserver/e-time-utils.c
+index dc9d06a..bcd9f41 100644
+--- a/libedataserver/e-time-utils.c
++++ b/libedataserver/e-time-utils.c
+@@ -2060,8 +2060,10 @@ e_time_get_d_fmt_with_4digit_year (void)
+ 	res = g_strdup ("%x");
+ #endif
+ 
+-	while (p = strchr (res, 'y'), p)
+-		*p = 'Y';
++	/* Don't alter year codes with modifiers.
++	 * POSIX does not define %OY, for example. */
++	while (p = strstr (res, "%y"), p)
++		p[1] = 'Y';
+ 
+ 	return res;
+ }

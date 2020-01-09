@@ -1,0 +1,364 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EDataCalView">
+<refmeta>
+<refentrytitle role="top_of_page" id="EDataCalView.top_of_page">EDataCalView</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATA-CAL Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EDataCalView</refname>
+<refpurpose>Implementation of the calendar CORBA search interface.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EDataCalView.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="QUERY:CAPS">QUERY</link>                               (obj)
+#define             <link linkend="IS-QUERY:CAPS">IS_QUERY</link>                            (obj)
+<link linkend="EDataCalView"><returnvalue>EDataCalView</returnvalue></link> *      <link linkend="e-data-cal-view-new">e_data_cal_view_new</link>                 (<parameter><link linkend="ECalBackend"><type>ECalBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalViewListener"><type>GNOME_Evolution_Calendar_CalViewListener</type></link> ql</parameter>,
+                                                         <parameter><link linkend="ECalBackendSExp"><type>ECalBackendSExp</type></link> *sexp</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-view-add-listener">e_data_cal_view_add_listener</link>        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalViewListener"><type>GNOME_Evolution_Calendar_CalViewListener</type></link> ql</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-data-cal-view-get-text">e_data_cal_view_get_text</link>            (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);
+<link linkend="ECalBackendSExp"><returnvalue>ECalBackendSExp</returnvalue></link> *   <link linkend="e-data-cal-view-get-object-sexp">e_data_cal_view_get_object_sexp</link>     (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-data-cal-view-object-matches">e_data_cal_view_object_matches</link>      (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);
+<link linkend="GList"><returnvalue>GList</returnvalue></link> *             <link linkend="e-data-cal-view-get-matched-objects">e_data_cal_view_get_matched_objects</link> (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-data-cal-view-is-started">e_data_cal_view_is_started</link>          (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-data-cal-view-is-done">e_data_cal_view_is_done</link>             (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);
+<link linkend="GNOME-Evolution-Calendar-CallStatus"><returnvalue>GNOME_Evolution_Calendar_CallStatus</returnvalue></link>  <link linkend="e-data-cal-view-get-done-status">e_data_cal_view_get_done_status</link>
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-view-notify-objects-added">e_data_cal_view_notify_objects_added</link>
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="GList"><type>GList</type></link> *objects</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-view-notify-objects-added-1">e_data_cal_view_notify_objects_added_1</link>
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-view-notify-objects-modified">e_data_cal_view_notify_objects_modified</link>
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="GList"><type>GList</type></link> *objects</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-view-notify-objects-modified-1">e_data_cal_view_notify_objects_modified_1</link>
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-view-notify-objects-removed">e_data_cal_view_notify_objects_removed</link>
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="GList"><type>GList</type></link> *ids</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-view-notify-objects-removed-1">e_data_cal_view_notify_objects_removed_1</link>
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="ECalComponentId"><type>ECalComponentId</type></link> *id</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-view-notify-progress">e_data_cal_view_notify_progress</link>     (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *message</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> percent</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-view-notify-done">e_data_cal_view_notify_done</link>         (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="EDataCalView.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="EDataCalView.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="QUERY:CAPS" role="macro">
+<title>QUERY()</title>
+<indexterm zone="QUERY:CAPS"><primary>QUERY</primary></indexterm>
+<programlisting>#define QUERY(obj)            (G_TYPE_CHECK_INSTANCE_CAST ((obj), E_DATA_CAL_VIEW_TYPE, EDataCalView))
+</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="IS-QUERY:CAPS" role="macro">
+<title>IS_QUERY()</title>
+<indexterm zone="IS-QUERY:CAPS"><primary>IS_QUERY</primary></indexterm>
+<programlisting>#define IS_QUERY(obj)         (G_TYPE_CHECK_INSTANCE_TYPE ((obj), E_DATA_CAL_VIEW_TYPE))
+</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-new" role="function">
+<title>e_data_cal_view_new ()</title>
+<indexterm zone="e-data-cal-view-new"><primary>e_data_cal_view_new</primary></indexterm>
+<programlisting><link linkend="EDataCalView"><returnvalue>EDataCalView</returnvalue></link> *      e_data_cal_view_new                 (<parameter><link linkend="ECalBackend"><type>ECalBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalViewListener"><type>GNOME_Evolution_Calendar_CalViewListener</type></link> ql</parameter>,
+                                                         <parameter><link linkend="ECalBackendSExp"><type>ECalBackendSExp</type></link> *sexp</parameter>);</programlisting>
+<para>
+Creates a new query engine object that monitors a calendar backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>Calendar backend that the query object will monitor.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ql</parameter>&#160;:</term>
+<listitem><simpara>Listener for query results.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sexp</parameter>&#160;:</term>
+<listitem><simpara>Sexp that defines the query.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A newly-created query object, or NULL on failure.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-add-listener" role="function">
+<title>e_data_cal_view_add_listener ()</title>
+<indexterm zone="e-data-cal-view-add-listener"><primary>e_data_cal_view_add_listener</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_view_add_listener        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalViewListener"><type>GNOME_Evolution_Calendar_CalViewListener</type></link> ql</parameter>);</programlisting>
+<para>
+Adds the given CORBA listener to a <link linkend="EDataCalView"><type>EDataCalView</type></link> object. This makes the view
+object notify that listener when notifying the other listeners already attached
+to the view.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="EDataCalView"><type>EDataCalView</type></link> object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ql</parameter>&#160;:</term>
+<listitem><simpara>A CORBA query listener to add to the list of listeners.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-get-text" role="function">
+<title>e_data_cal_view_get_text ()</title>
+<indexterm zone="e-data-cal-view-get-text"><primary>e_data_cal_view_get_text</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_data_cal_view_get_text            (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);</programlisting>
+<para>
+Get the expression used for the given query.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="EDataCalView"><type>EDataCalView</type></link> object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> the query expression used to search.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-get-object-sexp" role="function">
+<title>e_data_cal_view_get_object_sexp ()</title>
+<indexterm zone="e-data-cal-view-get-object-sexp"><primary>e_data_cal_view_get_object_sexp</primary></indexterm>
+<programlisting><link linkend="ECalBackendSExp"><returnvalue>ECalBackendSExp</returnvalue></link> *   e_data_cal_view_get_object_sexp     (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);</programlisting>
+<para>
+Get the <link linkend="ECalBackendSExp"><type>ECalBackendSExp</type></link> object used for the given query.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The expression object used to search.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-object-matches" role="function">
+<title>e_data_cal_view_object_matches ()</title>
+<indexterm zone="e-data-cal-view-object-matches"><primary>e_data_cal_view_object_matches</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_data_cal_view_object_matches      (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);</programlisting>
+<para>
+Compares the given <parameter>object</parameter> to the regular expression used for the
+given query.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>Object to match.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if the object matches the expression, FALSE if not.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-get-matched-objects" role="function">
+<title>e_data_cal_view_get_matched_objects ()</title>
+<indexterm zone="e-data-cal-view-get-matched-objects"><primary>e_data_cal_view_get_matched_objects</primary></indexterm>
+<programlisting><link linkend="GList"><returnvalue>GList</returnvalue></link> *             e_data_cal_view_get_matched_objects (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);</programlisting>
+<para>
+Gets the list of objects already matched for the given query.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A list of matched objects.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-is-started" role="function">
+<title>e_data_cal_view_is_started ()</title>
+<indexterm zone="e-data-cal-view-is-started"><primary>e_data_cal_view_is_started</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_data_cal_view_is_started          (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);</programlisting>
+<para>
+Checks whether the given query has already been started.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if the query has already been started, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-is-done" role="function">
+<title>e_data_cal_view_is_done ()</title>
+<indexterm zone="e-data-cal-view-is-done"><primary>e_data_cal_view_is_done</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_data_cal_view_is_done             (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);</programlisting>
+<para>
+Checks whether the given query is already done. Being done means the initial
+matching of objects have been finished, not that no more notifications about
+changes will be sent. In fact, even after done, notifications will still be sent
+if there are changes in the objects matching the query search expression.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if the query is done, FALSE if still in progress.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-get-done-status" role="function">
+<title>e_data_cal_view_get_done_status ()</title>
+<indexterm zone="e-data-cal-view-get-done-status"><primary>e_data_cal_view_get_done_status</primary></indexterm>
+<programlisting><link linkend="GNOME-Evolution-Calendar-CallStatus"><returnvalue>GNOME_Evolution_Calendar_CallStatus</returnvalue></link>  e_data_cal_view_get_done_status
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);</programlisting>
+<para>
+Gets the status code obtained when the initial matching of objects was done
+for the given query.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The query status.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-notify-objects-added" role="function">
+<title>e_data_cal_view_notify_objects_added ()</title>
+<indexterm zone="e-data-cal-view-notify-objects-added"><primary>e_data_cal_view_notify_objects_added</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_view_notify_objects_added
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="GList"><type>GList</type></link> *objects</parameter>);</programlisting>
+<para>
+Notifies all query listeners of the addition of a list of objects.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>objects</parameter>&#160;:</term>
+<listitem><simpara>List of objects that have been added.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-notify-objects-added-1" role="function">
+<title>e_data_cal_view_notify_objects_added_1 ()</title>
+<indexterm zone="e-data-cal-view-notify-objects-added-1"><primary>e_data_cal_view_notify_objects_added_1</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_view_notify_objects_added_1
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);</programlisting>
+<para>
+Notifies all the query listeners of the addition of a single object.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>The object that has been added.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-notify-objects-modified" role="function">
+<title>e_data_cal_view_notify_objects_modified ()</title>
+<indexterm zone="e-data-cal-view-notify-objects-modified"><primary>e_data_cal_view_notify_objects_modified</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_view_notify_objects_modified
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="GList"><type>GList</type></link> *objects</parameter>);</programlisting>
+<para>
+Notifies all query listeners of the modification of a list of objects.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>objects</parameter>&#160;:</term>
+<listitem><simpara>List of modified objects.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-notify-objects-modified-1" role="function">
+<title>e_data_cal_view_notify_objects_modified_1 ()</title>
+<indexterm zone="e-data-cal-view-notify-objects-modified-1"><primary>e_data_cal_view_notify_objects_modified_1</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_view_notify_objects_modified_1
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);</programlisting>
+<para>
+Notifies all query listeners of the modification of a single object.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>The modified object.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-notify-objects-removed" role="function">
+<title>e_data_cal_view_notify_objects_removed ()</title>
+<indexterm zone="e-data-cal-view-notify-objects-removed"><primary>e_data_cal_view_notify_objects_removed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_view_notify_objects_removed
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="GList"><type>GList</type></link> *ids</parameter>);</programlisting>
+<para>
+Notifies all query listener of the removal of a list of objects.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ids</parameter>&#160;:</term>
+<listitem><simpara>List of IDs for the objects that have been removed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-notify-objects-removed-1" role="function">
+<title>e_data_cal_view_notify_objects_removed_1 ()</title>
+<indexterm zone="e-data-cal-view-notify-objects-removed-1"><primary>e_data_cal_view_notify_objects_removed_1</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_view_notify_objects_removed_1
+                                                        (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="ECalComponentId"><type>ECalComponentId</type></link> *id</parameter>);</programlisting>
+<para>
+Notifies all query listener of the removal of a single object.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>ID of the removed object.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-notify-progress" role="function">
+<title>e_data_cal_view_notify_progress ()</title>
+<indexterm zone="e-data-cal-view-notify-progress"><primary>e_data_cal_view_notify_progress</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_view_notify_progress     (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *message</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> percent</parameter>);</programlisting>
+<para>
+Notifies all query listeners of progress messages.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>Progress message to send to listeners.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>percent</parameter>&#160;:</term>
+<listitem><simpara>Percentage completed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-view-notify-done" role="function">
+<title>e_data_cal_view_notify_done ()</title>
+<indexterm zone="e-data-cal-view-notify-done"><primary>e_data_cal_view_notify_done</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_view_notify_done         (<parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);</programlisting>
+<para>
+Notifies all query listeners of the completion of the query, including a
+status code.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>A query object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Query completion status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

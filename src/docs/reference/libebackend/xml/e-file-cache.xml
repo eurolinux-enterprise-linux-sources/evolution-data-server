@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libebackend-e-file-cache">
+<refmeta>
+<refentrytitle role="top_of_page" id="libebackend-e-file-cache.top_of_page">EFileCache</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEBACKEND Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EFileCache</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libebackend-e-file-cache.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+<anchor id="EFileCache"/>
+<synopsis>                    <link linkend="EFileCachePrivate">EFileCachePrivate</link>;
+                    <link linkend="EFileCache-struct">EFileCache</link>;
+<link linkend="EFileCache"><returnvalue>EFileCache</returnvalue></link> *        <link linkend="e-file-cache-new">e_file_cache_new</link>                    (<parameter>const <link linkend="gchar"><type>gchar</type></link> *filename</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-file-cache-remove">e_file_cache_remove</link>                 (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-file-cache-clean">e_file_cache_clean</link>                  (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-file-cache-get-object">e_file_cache_get_object</link>             (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>);
+<link linkend="GSList"><returnvalue>GSList</returnvalue></link> *            <link linkend="e-file-cache-get-objects">e_file_cache_get_objects</link>            (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);
+<link linkend="GSList"><returnvalue>GSList</returnvalue></link> *            <link linkend="e-file-cache-get-keys">e_file_cache_get_keys</link>               (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-file-cache-add-object">e_file_cache_add_object</link>             (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *value</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-file-cache-replace-object">e_file_cache_replace_object</link>         (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *new_value</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-file-cache-remove-object">e_file_cache_remove_object</link>          (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-file-cache-freeze-changes">e_file_cache_freeze_changes</link>         (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-file-cache-thaw-changes">e_file_cache_thaw_changes</link>           (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-file-cache-get-filename">e_file_cache_get_filename</link>           (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="libebackend-e-file-cache.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----EFileCache
+</synopsis>
+</refsect1>
+<refsect1 id="libebackend-e-file-cache.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="EFileCache--filename">filename</link>&quot;                 <link linkend="gchar"><type>gchar</type></link>*                : Read / Write / Construct Only
+</synopsis>
+</refsect1>
+
+<refsect1 id="libebackend-e-file-cache.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libebackend-e-file-cache.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EFileCachePrivate" role="struct">
+<title>EFileCachePrivate</title>
+<indexterm zone="EFileCachePrivate"><primary>EFileCachePrivate</primary></indexterm>
+<programlisting>typedef struct _EFileCachePrivate EFileCachePrivate;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EFileCache-struct" role="struct">
+<title>EFileCache</title>
+<indexterm zone="EFileCache-struct"><primary>EFileCache</primary></indexterm>
+<programlisting>typedef struct _EFileCache EFileCache;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-file-cache-new" role="function">
+<title>e_file_cache_new ()</title>
+<indexterm zone="e-file-cache-new"><primary>e_file_cache_new</primary></indexterm>
+<programlisting><link linkend="EFileCache"><returnvalue>EFileCache</returnvalue></link> *        e_file_cache_new                    (<parameter>const <link linkend="gchar"><type>gchar</type></link> *filename</parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EFileCache"><type>EFileCache</type></link> object, which implements a cache of
+objects, very useful for remote backends.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&#160;:</term>
+<listitem><simpara>filename where the cache is kept.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The newly created object.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-remove" role="function">
+<title>e_file_cache_remove ()</title>
+<indexterm zone="e-file-cache-remove"><primary>e_file_cache_remove</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_file_cache_remove                 (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);</programlisting>
+<para>
+Remove the cache from disk.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="EFileCache"><type>EFileCache</type></link> object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if successful, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-clean" role="function">
+<title>e_file_cache_clean ()</title>
+<indexterm zone="e-file-cache-clean"><primary>e_file_cache_clean</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_file_cache_clean                  (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);</programlisting>
+<para>
+Clean up the cache's contents.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="EFileCache"><type>EFileCache</type></link> object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE if successful, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-get-object" role="function">
+<title>e_file_cache_get_object ()</title>
+<indexterm zone="e-file-cache-get-object"><primary>e_file_cache_get_object</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_file_cache_get_object             (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-get-objects" role="function">
+<title>e_file_cache_get_objects ()</title>
+<indexterm zone="e-file-cache-get-objects"><primary>e_file_cache_get_objects</primary></indexterm>
+<programlisting><link linkend="GSList"><returnvalue>GSList</returnvalue></link> *            e_file_cache_get_objects            (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-get-keys" role="function">
+<title>e_file_cache_get_keys ()</title>
+<indexterm zone="e-file-cache-get-keys"><primary>e_file_cache_get_keys</primary></indexterm>
+<programlisting><link linkend="GSList"><returnvalue>GSList</returnvalue></link> *            e_file_cache_get_keys               (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-add-object" role="function">
+<title>e_file_cache_add_object ()</title>
+<indexterm zone="e-file-cache-add-object"><primary>e_file_cache_add_object</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_file_cache_add_object             (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *value</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-replace-object" role="function">
+<title>e_file_cache_replace_object ()</title>
+<indexterm zone="e-file-cache-replace-object"><primary>e_file_cache_replace_object</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_file_cache_replace_object         (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *new_value</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>new_value</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-remove-object" role="function">
+<title>e_file_cache_remove_object ()</title>
+<indexterm zone="e-file-cache-remove-object"><primary>e_file_cache_remove_object</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_file_cache_remove_object          (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>key</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-freeze-changes" role="function">
+<title>e_file_cache_freeze_changes ()</title>
+<indexterm zone="e-file-cache-freeze-changes"><primary>e_file_cache_freeze_changes</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_file_cache_freeze_changes         (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);</programlisting>
+<para>
+Disables temporarily all writes to disk for the given cache object.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="EFileCache"><type>EFileCache</type></link> object.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-thaw-changes" role="function">
+<title>e_file_cache_thaw_changes ()</title>
+<indexterm zone="e-file-cache-thaw-changes"><primary>e_file_cache_thaw_changes</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_file_cache_thaw_changes           (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);</programlisting>
+<para>
+Enables again writes to disk on every change.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="EFileCache"><type>EFileCache</type></link> object.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-file-cache-get-filename" role="function">
+<title>e_file_cache_get_filename ()</title>
+<indexterm zone="e-file-cache-get-filename"><primary>e_file_cache_get_filename</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_file_cache_get_filename           (<parameter><link linkend="EFileCache"><type>EFileCache</type></link> *cache</parameter>);</programlisting>
+<para>
+Gets the name of the file where the cache is being stored.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cache</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="EFileCache"><literal>EFileCache</literal></link> object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The name of the cache.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="libebackend-e-file-cache.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="EFileCache--filename" role="property"><title>The <literal>&quot;filename&quot;</literal> property</title>
+<indexterm zone="EFileCache--filename"><primary>EFileCache:filename</primary></indexterm>
+<programlisting>  &quot;filename&quot;                 <link linkend="gchar"><type>gchar</type></link>*                : Read / Write / Construct Only</programlisting>
+<para></para><para>Default value: ""</para>
+</refsect2>
+</refsect1>
+
+</refentry>

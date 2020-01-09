@@ -1,0 +1,786 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ECalBackendSync">
+<refmeta>
+<refentrytitle role="top_of_page" id="ECalBackendSync.top_of_page">ECalBackendSync</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATA-CAL Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>ECalBackendSync</refname>
+<refpurpose>Base class for synchronous backends.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ECalBackendSync.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="ECalBackendSync-struct">ECalBackendSync</link>;
+typedef             <link linkend="ECalBackendSyncStatus">ECalBackendSyncStatus</link>;
+<link linkend="ECalBackendSync"><returnvalue>ECalBackendSync</returnvalue></link> *   (<link linkend="ECalBackendSyncFactoryFn">*ECalBackendSyncFactoryFn</link>)         (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-cal-backend-sync-set-lock">e_cal_backend_sync_set_lock</link>         (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> lock</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-is-read-only">e_cal_backend_sync_is_read_only</link>  (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> *read_only</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-cal-address">e_cal_backend_sync_get_cal_address</link>
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **address</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-alarm-email-address">e_cal_backend_sync_get_alarm_email_address</link>
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **address</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-ldap-attribute">e_cal_backend_sync_get_ldap_attribute</link>
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **attribute</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-static-capabilities">e_cal_backend_sync_get_static_capabilities</link>
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **capabiliites</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-open">e_cal_backend_sync_open</link>          (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> only_if_exists</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *username</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *password</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-remove">e_cal_backend_sync_remove</link>        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-create-object">e_cal_backend_sync_create_object</link> (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **calobj</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **uid</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-modify-object">e_cal_backend_sync_modify_object</link> (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *calobj</parameter>,
+                                                         <parameter><link linkend="CalObjModType"><type>CalObjModType</type></link> mod</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **old_object</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **new_object</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-remove-object">e_cal_backend_sync_remove_object</link> (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *rid</parameter>,
+                                                         <parameter><link linkend="CalObjModType"><type>CalObjModType</type></link> mod</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **old_object</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **object</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-attachment-list">e_cal_backend_sync_get_attachment_list</link>
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *rid</parameter>,
+                                                         <parameter><link linkend="GSList"><type>GSList</type></link> **attachments</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-discard-alarm">e_cal_backend_sync_discard_alarm</link> (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *auid</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-receive-objects">e_cal_backend_sync_receive_objects</link>
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *calobj</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-send-objects">e_cal_backend_sync_send_objects</link>  (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *calobj</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **users</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **modified_calobj</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-default-object">e_cal_backend_sync_get_default_object</link>
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **object</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-object">e_cal_backend_sync_get_object</link>    (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *rid</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **object</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-object-list">e_cal_backend_sync_get_object_list</link>
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *sexp</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **objects</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-timezone">e_cal_backend_sync_get_timezone</link>  (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *tzid</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **object</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-add-timezone">e_cal_backend_sync_add_timezone</link>  (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *tzobj</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-set-default-timezone">e_cal_backend_sync_set_default_timezone</link>
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *tzid</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-set-default-zone">e_cal_backend_sync_set_default_zone</link>
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *tzobj</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-changes">e_cal_backend_sync_get_changes</link>   (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *change_id</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **adds</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **modifies</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **deletes</parameter>);
+<link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  <link linkend="e-cal-backend-sync-get-free-busy">e_cal_backend_sync_get_free_busy</link> (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *users</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> start</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> end</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **freebusy</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="ECalBackendSync.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="ECalBackend">ECalBackend</link>
+         +----ECalBackendSync
+</synopsis>
+</refsect1>
+
+<refsect1 id="ECalBackendSync.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="ECalBackendSync.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ECalBackendSync-struct" role="struct">
+<title>ECalBackendSync</title>
+<indexterm zone="ECalBackendSync-struct"><primary>ECalBackendSync</primary></indexterm>
+<programlisting>typedef struct _ECalBackendSync ECalBackendSync;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="ECalBackendSyncStatus" role="typedef">
+<title>ECalBackendSyncStatus</title>
+<indexterm zone="ECalBackendSyncStatus"><primary>ECalBackendSyncStatus</primary></indexterm>
+<programlisting>typedef GNOME_Evolution_Calendar_CallStatus ECalBackendSyncStatus;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="ECalBackendSyncFactoryFn" role="function">
+<title>ECalBackendSyncFactoryFn ()</title>
+<indexterm zone="ECalBackendSyncFactoryFn"><primary>ECalBackendSyncFactoryFn</primary></indexterm>
+<programlisting><link linkend="ECalBackendSync"><returnvalue>ECalBackendSync</returnvalue></link> *   (*ECalBackendSyncFactoryFn)         (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-set-lock" role="function">
+<title>e_cal_backend_sync_set_lock ()</title>
+<indexterm zone="e-cal-backend-sync-set-lock"><primary>e_cal_backend_sync_set_lock</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_cal_backend_sync_set_lock         (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> lock</parameter>);</programlisting>
+<para>
+Sets the lock mode on the ECalBackendSync object. If TRUE, the backend
+will create a locking mutex for every operation, so that only one can
+happen at a time. If FALSE, no lock would be done and many operations
+can happen at the same time.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lock</parameter>&#160;:</term>
+<listitem><simpara>Lock mode.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-is-read-only" role="function">
+<title>e_cal_backend_sync_is_read_only ()</title>
+<indexterm zone="e-cal-backend-sync-is-read-only"><primary>e_cal_backend_sync_is_read_only</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_is_read_only  (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> *read_only</parameter>);</programlisting>
+<para>
+Calls the is_read_only method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>read_only</parameter>&#160;:</term>
+<listitem><simpara>Return value for read-only status.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-cal-address" role="function">
+<title>e_cal_backend_sync_get_cal_address ()</title>
+<indexterm zone="e-cal-backend-sync-get-cal-address"><primary>e_cal_backend_sync_get_cal_address</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_cal_address
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **address</parameter>);</programlisting>
+<para>
+Calls the get_cal_address method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>address</parameter>&#160;:</term>
+<listitem><simpara>Return value for the address.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-alarm-email-address" role="function">
+<title>e_cal_backend_sync_get_alarm_email_address ()</title>
+<indexterm zone="e-cal-backend-sync-get-alarm-email-address"><primary>e_cal_backend_sync_get_alarm_email_address</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_alarm_email_address
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **address</parameter>);</programlisting>
+<para>
+Calls the get_alarm_email_address method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>address</parameter>&#160;:</term>
+<listitem><simpara>Return value for the address.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-ldap-attribute" role="function">
+<title>e_cal_backend_sync_get_ldap_attribute ()</title>
+<indexterm zone="e-cal-backend-sync-get-ldap-attribute"><primary>e_cal_backend_sync_get_ldap_attribute</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_ldap_attribute
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **attribute</parameter>);</programlisting>
+<para>
+Calls the get_ldap_attribute method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attribute</parameter>&#160;:</term>
+<listitem><simpara>Return value for LDAP attribute.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-static-capabilities" role="function">
+<title>e_cal_backend_sync_get_static_capabilities ()</title>
+<indexterm zone="e-cal-backend-sync-get-static-capabilities"><primary>e_cal_backend_sync_get_static_capabilities</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_static_capabilities
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **capabiliites</parameter>);</programlisting>
+<para>
+Calls the get_capabilities method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>capabiliites</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-open" role="function">
+<title>e_cal_backend_sync_open ()</title>
+<indexterm zone="e-cal-backend-sync-open"><primary>e_cal_backend_sync_open</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_open          (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> only_if_exists</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *username</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *password</parameter>);</programlisting>
+<para>
+Calls the open method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>only_if_exists</parameter>&#160;:</term>
+<listitem><simpara>Whether to open the calendar if and only if it already exists
+or just create it when it does not exist.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>username</parameter>&#160;:</term>
+<listitem><simpara>User name to use for authentication.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>password</parameter>&#160;:</term>
+<listitem><simpara>Password to use for authentication.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-remove" role="function">
+<title>e_cal_backend_sync_remove ()</title>
+<indexterm zone="e-cal-backend-sync-remove"><primary>e_cal_backend_sync_remove</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_remove        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>);</programlisting>
+<para>
+Calls the remove method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-create-object" role="function">
+<title>e_cal_backend_sync_create_object ()</title>
+<indexterm zone="e-cal-backend-sync-create-object"><primary>e_cal_backend_sync_create_object</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_create_object (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **calobj</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **uid</parameter>);</programlisting>
+<para>
+Calls the create_object method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>calobj</parameter>&#160;:</term>
+<listitem><simpara>The object to be added.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uid</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for server-generated UID.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-modify-object" role="function">
+<title>e_cal_backend_sync_modify_object ()</title>
+<indexterm zone="e-cal-backend-sync-modify-object"><primary>e_cal_backend_sync_modify_object</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_modify_object (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *calobj</parameter>,
+                                                         <parameter><link linkend="CalObjModType"><type>CalObjModType</type></link> mod</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **old_object</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **new_object</parameter>);</programlisting>
+<para>
+Calls the modify_object method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>calobj</parameter>&#160;:</term>
+<listitem><simpara>Object to be modified.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mod</parameter>&#160;:</term>
+<listitem><simpara>Type of modification to be done.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>old_object</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for returning the old object as it was stored on the
+backend.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>new_object</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for returning the new object as it has been stored
+on the backend.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-remove-object" role="function">
+<title>e_cal_backend_sync_remove_object ()</title>
+<indexterm zone="e-cal-backend-sync-remove-object"><primary>e_cal_backend_sync_remove_object</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_remove_object (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *rid</parameter>,
+                                                         <parameter><link linkend="CalObjModType"><type>CalObjModType</type></link> mod</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **old_object</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **object</parameter>);</programlisting>
+<para>
+Calls the remove_object method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uid</parameter>&#160;:</term>
+<listitem><simpara>UID of the object to remove.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rid</parameter>&#160;:</term>
+<listitem><simpara>Recurrence ID of the instance to remove, or NULL if removing the
+whole object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mod</parameter>&#160;:</term>
+<listitem><simpara>Type of removal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>old_object</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for returning the old object as it was stored on the
+backend.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for returning the object after it has been modified (when
+removing individual instances). If removing the whole object, this will be
+NULL.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-attachment-list" role="function">
+<title>e_cal_backend_sync_get_attachment_list ()</title>
+<indexterm zone="e-cal-backend-sync-get-attachment-list"><primary>e_cal_backend_sync_get_attachment_list</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_attachment_list
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *rid</parameter>,
+                                                         <parameter><link linkend="GSList"><type>GSList</type></link> **attachments</parameter>);</programlisting>
+<para>
+Calls the get_attachment_list method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uid</parameter>&#160;:</term>
+<listitem><simpara>Unique id of the calendar object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rid</parameter>&#160;:</term>
+<listitem><simpara>Recurrence id of the calendar object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attachments</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for list of returned attachment uris.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-discard-alarm" role="function">
+<title>e_cal_backend_sync_discard_alarm ()</title>
+<indexterm zone="e-cal-backend-sync-discard-alarm"><primary>e_cal_backend_sync_discard_alarm</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_discard_alarm (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *auid</parameter>);</programlisting>
+<para>
+Calls the discard_alarm method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uid</parameter>&#160;:</term>
+<listitem><simpara>UID of the object to discard the alarm from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>auid</parameter>&#160;:</term>
+<listitem><simpara>UID of the alarm to be discarded.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-receive-objects" role="function">
+<title>e_cal_backend_sync_receive_objects ()</title>
+<indexterm zone="e-cal-backend-sync-receive-objects"><primary>e_cal_backend_sync_receive_objects</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_receive_objects
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *calobj</parameter>);</programlisting>
+<para>
+Calls the receive_objects method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>calobj</parameter>&#160;:</term>
+<listitem><simpara>iCalendar object to receive.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-send-objects" role="function">
+<title>e_cal_backend_sync_send_objects ()</title>
+<indexterm zone="e-cal-backend-sync-send-objects"><primary>e_cal_backend_sync_send_objects</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_send_objects  (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *calobj</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **users</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **modified_calobj</parameter>);</programlisting>
+<para>
+Calls the send_objects method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>calobj</parameter>&#160;:</term>
+<listitem><simpara>The iCalendar object to send.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>users</parameter>&#160;:</term>
+<listitem><simpara>List of users to send notifications to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modified_calobj</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for the iCalendar object after being modified.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-default-object" role="function">
+<title>e_cal_backend_sync_get_default_object ()</title>
+<indexterm zone="e-cal-backend-sync-get-default-object"><primary>e_cal_backend_sync_get_default_object</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_default_object
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **object</parameter>);</programlisting>
+<para>
+Calls the get_default_object method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for returned object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-object" role="function">
+<title>e_cal_backend_sync_get_object ()</title>
+<indexterm zone="e-cal-backend-sync-get-object"><primary>e_cal_backend_sync_get_object</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_object    (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *rid</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **object</parameter>);</programlisting>
+<para>
+Calls the get_object method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uid</parameter>&#160;:</term>
+<listitem><simpara>UID of the object to get.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rid</parameter>&#160;:</term>
+<listitem><simpara>Recurrence ID of the specific instance to get, or NULL if getting the
+master object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for returned object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-object-list" role="function">
+<title>e_cal_backend_sync_get_object_list ()</title>
+<indexterm zone="e-cal-backend-sync-get-object-list"><primary>e_cal_backend_sync_get_object_list</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_object_list
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *sexp</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **objects</parameter>);</programlisting>
+<para>
+Calls the get_object_list method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sexp</parameter>&#160;:</term>
+<listitem><simpara>Search query.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>objects</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for list of returned objects.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-timezone" role="function">
+<title>e_cal_backend_sync_get_timezone ()</title>
+<indexterm zone="e-cal-backend-sync-get-timezone"><primary>e_cal_backend_sync_get_timezone</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_timezone  (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *tzid</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **object</parameter>);</programlisting>
+<para>
+Calls the get_timezone method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tzid</parameter>&#160;:</term>
+<listitem><simpara>ID of the timezone to retrieve.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for the returned timezone.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-add-timezone" role="function">
+<title>e_cal_backend_sync_add_timezone ()</title>
+<indexterm zone="e-cal-backend-sync-add-timezone"><primary>e_cal_backend_sync_add_timezone</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_add_timezone  (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *tzobj</parameter>);</programlisting>
+<para>
+Calls the add_timezone method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tzobj</parameter>&#160;:</term>
+<listitem><simpara>VTIMEZONE object to be added.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-set-default-timezone" role="function">
+<title>e_cal_backend_sync_set_default_timezone ()</title>
+<indexterm zone="e-cal-backend-sync-set-default-timezone"><primary>e_cal_backend_sync_set_default_timezone</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_set_default_timezone
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *tzid</parameter>);</programlisting>
+<para>
+Calls the set_default_timezone method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tzid</parameter>&#160;:</term>
+<listitem><simpara>ID of the timezone to be set as default.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-set-default-zone" role="function">
+<title>e_cal_backend_sync_set_default_zone ()</title>
+<indexterm zone="e-cal-backend-sync-set-default-zone"><primary>e_cal_backend_sync_set_default_zone</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_set_default_zone
+                                                        (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *tzobj</parameter>);</programlisting>
+<para>
+Calls the set_default_timezone method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tzobj</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-changes" role="function">
+<title>e_cal_backend_sync_get_changes ()</title>
+<indexterm zone="e-cal-backend-sync-get-changes"><primary>e_cal_backend_sync_get_changes</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_changes   (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *change_id</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **adds</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **modifies</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **deletes</parameter>);</programlisting>
+<para>
+Calls the get_changes method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>change_id</parameter>&#160;:</term>
+<listitem><simpara>ID of the change to use as base.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>adds</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for list of additions.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modifies</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for list of modifications.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>deletes</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for list of deletions.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-cal-backend-sync-get-free-busy" role="function">
+<title>e_cal_backend_sync_get_free_busy ()</title>
+<indexterm zone="e-cal-backend-sync-get-free-busy"><primary>e_cal_backend_sync_get_free_busy</primary></indexterm>
+<programlisting><link linkend="ECalBackendSyncStatus"><returnvalue>ECalBackendSyncStatus</returnvalue></link>  e_cal_backend_sync_get_free_busy (<parameter><link linkend="ECalBackendSync"><type>ECalBackendSync</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *users</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> start</parameter>,
+                                                         <parameter><link linkend="time-t"><type>time_t</type></link> end</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **freebusy</parameter>);</programlisting>
+<para>
+Calls the get_free_busy method on the given backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An ECalBackendSync object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>An EDataCal object.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>users</parameter>&#160;:</term>
+<listitem><simpara>List of users to get F/B info from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start</parameter>&#160;:</term>
+<listitem><simpara>Time range start.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end</parameter>&#160;:</term>
+<listitem><simpara>Time range end.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>freebusy</parameter>&#160;:</term>
+<listitem><simpara>Placeholder for F/B information.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

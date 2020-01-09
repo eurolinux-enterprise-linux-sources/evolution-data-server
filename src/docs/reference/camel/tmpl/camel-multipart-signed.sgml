@@ -1,0 +1,57 @@
+<!-- ##### SECTION Title ##### -->
+CamelMultipartSigned
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT CamelMultipartSigned ##### -->
+<para>
+
+</para>
+
+@parent_object: 
+@content: 
+@signature: 
+@contentraw: 
+@protocol: 
+@micalg: 
+@start1: 
+@end1: 
+@start2: 
+@end2: 
+
+<!-- ##### FUNCTION camel_multipart_signed_new ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+
+<!-- ##### FUNCTION camel_multipart_signed_get_content_stream ##### -->
+<para>
+
+</para>
+
+@mps: 
+@ex: 
+@Returns: 
+
+

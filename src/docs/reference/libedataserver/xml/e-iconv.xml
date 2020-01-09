@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libedataserver-e-iconv">
+<refmeta>
+<refentrytitle role="top_of_page" id="libedataserver-e-iconv.top_of_page">e-iconv</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVER Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-iconv</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libedataserver-e-iconv.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-iconv-charset-name">e_iconv_charset_name</link>                (<parameter>const <link linkend="gchar"><type>gchar</type></link> *charset</parameter>);
+<link linkend="iconv-t"><returnvalue>iconv_t</returnvalue></link>             <link linkend="e-iconv-open">e_iconv_open</link>                        (<parameter>const <link linkend="gchar"><type>gchar</type></link> *oto</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *ofrom</parameter>);
+<link linkend="gsize"><returnvalue>gsize</returnvalue></link>               <link linkend="e-iconv">e_iconv</link>                             (<parameter><link linkend="iconv-t"><type>iconv_t</type></link> cd</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> **inbuf</parameter>,
+                                                         <parameter><link linkend="gsize"><type>gsize</type></link> *inbytesleft</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **outbuf</parameter>,
+                                                         <parameter><link linkend="gsize"><type>gsize</type></link> *outbytesleft</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-iconv-close">e_iconv_close</link>                       (<parameter><link linkend="iconv-t"><type>iconv_t</type></link> ip</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-iconv-locale-charset">e_iconv_locale_charset</link>              (<parameter><type>void</type></parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-iconv-locale-language">e_iconv_locale_language</link>             (<parameter><type>void</type></parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-iconv-charset-language">e_iconv_charset_language</link>            (<parameter>const <link linkend="gchar"><type>gchar</type></link> *charset</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libedataserver-e-iconv.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libedataserver-e-iconv.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="e-iconv-charset-name" role="function" condition="deprecated:">
+<title>e_iconv_charset_name ()</title>
+<indexterm zone="e-iconv-charset-name" role="deprecated"><primary>e_iconv_charset_name</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_iconv_charset_name                (<parameter>const <link linkend="gchar"><type>gchar</type></link> *charset</parameter>);</programlisting>
+<warning><para><literal>e_iconv_charset_name</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>charset</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-iconv-open" role="function" condition="deprecated:">
+<title>e_iconv_open ()</title>
+<indexterm zone="e-iconv-open" role="deprecated"><primary>e_iconv_open</primary></indexterm>
+<programlisting><link linkend="iconv-t"><returnvalue>iconv_t</returnvalue></link>             e_iconv_open                        (<parameter>const <link linkend="gchar"><type>gchar</type></link> *oto</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *ofrom</parameter>);</programlisting>
+<warning><para><literal>e_iconv_open</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>oto</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ofrom</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-iconv" role="function" condition="deprecated:">
+<title>e_iconv ()</title>
+<indexterm zone="e-iconv" role="deprecated"><primary>e_iconv</primary></indexterm>
+<programlisting><link linkend="gsize"><returnvalue>gsize</returnvalue></link>               e_iconv                             (<parameter><link linkend="iconv-t"><type>iconv_t</type></link> cd</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> **inbuf</parameter>,
+                                                         <parameter><link linkend="gsize"><type>gsize</type></link> *inbytesleft</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> **outbuf</parameter>,
+                                                         <parameter><link linkend="gsize"><type>gsize</type></link> *outbytesleft</parameter>);</programlisting>
+<warning><para><literal>e_iconv</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>cd</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>inbuf</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>inbytesleft</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>outbuf</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>outbytesleft</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-iconv-close" role="function" condition="deprecated:">
+<title>e_iconv_close ()</title>
+<indexterm zone="e-iconv-close" role="deprecated"><primary>e_iconv_close</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_iconv_close                       (<parameter><link linkend="iconv-t"><type>iconv_t</type></link> ip</parameter>);</programlisting>
+<warning><para><literal>e_iconv_close</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>ip</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-iconv-locale-charset" role="function" condition="deprecated:">
+<title>e_iconv_locale_charset ()</title>
+<indexterm zone="e-iconv-locale-charset" role="deprecated"><primary>e_iconv_locale_charset</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_iconv_locale_charset              (<parameter><type>void</type></parameter>);</programlisting>
+<warning><para><literal>e_iconv_locale_charset</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-iconv-locale-language" role="function" condition="deprecated:">
+<title>e_iconv_locale_language ()</title>
+<indexterm zone="e-iconv-locale-language" role="deprecated"><primary>e_iconv_locale_language</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_iconv_locale_language             (<parameter><type>void</type></parameter>);</programlisting>
+<warning><para><literal>e_iconv_locale_language</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-iconv-charset-language" role="function" condition="deprecated:">
+<title>e_iconv_charset_language ()</title>
+<indexterm zone="e-iconv-charset-language" role="deprecated"><primary>e_iconv_charset_language</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_iconv_charset_language            (<parameter>const <link linkend="gchar"><type>gchar</type></link> *charset</parameter>);</programlisting>
+<warning><para><literal>e_iconv_charset_language</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>charset</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

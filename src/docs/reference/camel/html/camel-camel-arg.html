@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>camel-arg</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Camel Reference Manual">
+<link rel="up" href="Fundamentals.html" title="Fundamentals">
+<link rel="prev" href="Fundamentals.html" title="Fundamentals">
+<link rel="next" href="camel-camel-debug.html" title="camel-debug">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="Fundamentals.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="Fundamentals.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Camel Reference Manual</th>
+<td><a accesskey="n" href="camel-camel-debug.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#camel-camel-arg.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#camel-camel-arg.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="camel-camel-arg"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="camel-camel-arg.top_of_page"></a>camel-arg</span></h2>
+<p>camel-arg</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="camel-camel-arg.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="camel-camel-arg.html#CamelArg" title="CamelArg">CamelArg</a>;
+                    <a class="link" href="camel-camel-arg.html#CamelArgV" title="CamelArgV">CamelArgV</a>;
+                    <a class="link" href="camel-camel-arg.html#CamelArgGet" title="CamelArgGet">CamelArgGet</a>;
+                    <a class="link" href="camel-camel-arg.html#CamelArgGetV" title="CamelArgGetV">CamelArgGetV</a>;
+#define             <a class="link" href="camel-camel-arg.html#ca-object" title="ca_object">ca_object</a>
+#define             <a class="link" href="camel-camel-arg.html#ca-int" title="ca_int">ca_int</a>
+#define             <a class="link" href="camel-camel-arg.html#ca-double" title="ca_double">ca_double</a>
+#define             <a class="link" href="camel-camel-arg.html#ca-str" title="ca_str">ca_str</a>
+#define             <a class="link" href="camel-camel-arg.html#ca-ptr" title="ca_ptr">ca_ptr</a>
+#define             <a class="link" href="camel-camel-arg.html#CAMEL-ARGV-MAX:CAPS" title="CAMEL_ARGV_MAX">CAMEL_ARGV_MAX</a>
+#define             <a class="link" href="camel-camel-arg.html#camel-argv-start" title="camel_argv_start()">camel_argv_start</a>                    (tv,
+                                                         last)
+#define             <a class="link" href="camel-camel-arg.html#camel-argv-end" title="camel_argv_end()">camel_argv_end</a>                      (tv)
+<span class="returnvalue">gint</span>                <a class="link" href="camel-camel-arg.html#camel-argv-build" title="camel_argv_build ()">camel_argv_build</a>                    (<em class="parameter"><code><a class="link" href="camel-camel-arg.html#CamelArgV" title="CamelArgV"><span class="type">CamelArgV</span></a> *tv</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-camel-arg.html#camel-arggetv-build" title="camel_arggetv_build ()">camel_arggetv_build</a>                 (<em class="parameter"><code><a class="link" href="camel-camel-arg.html#CamelArgGetV" title="CamelArgGetV"><span class="type">CamelArgGetV</span></a> *tv</code></em>);
+#define             <a class="link" href="camel-camel-arg.html#camel-argv-ignore" title="camel_argv_ignore()">camel_argv_ignore</a>                   (tv,
+                                                         i)
+                    <a class="link" href="camel-camel-arg.html#CamelProperty" title="CamelProperty">CamelProperty</a>;
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="camel-camel-arg.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="camel-camel-arg.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="CamelArg"></a><h3>CamelArg</h3>
+<pre class="programlisting">typedef struct {
+	guint32 tag;
+	union {
+		gpointer ca_object;
+		gint ca_int;
+		gdouble ca_double;
+		gchar *ca_str;
+		gpointer ca_ptr;
+	} u;
+} CamelArg;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelArgV"></a><h3>CamelArgV</h3>
+<pre class="programlisting">typedef struct {
+	va_list ap;
+	gint argc;
+	CamelArg argv[CAMEL_ARGV_MAX];
+} CamelArgV;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelArgGet"></a><h3>CamelArgGet</h3>
+<pre class="programlisting">typedef struct {
+	guint32 tag;
+	union {
+		gpointer *ca_object;
+		gint *ca_int;
+		gdouble *ca_double;
+		gchar **ca_str;
+		gpointer *ca_ptr;
+	} u;
+} CamelArgGet;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelArgGetV"></a><h3>CamelArgGetV</h3>
+<pre class="programlisting">typedef struct {
+	va_list ap;
+	gint argc;
+	CamelArgGet argv[CAMEL_ARGV_MAX];
+} CamelArgGetV;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ca-object"></a><h3>ca_object</h3>
+<pre class="programlisting">#define ca_object u.ca_object
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ca-int"></a><h3>ca_int</h3>
+<pre class="programlisting">#define ca_int u.ca_int
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ca-double"></a><h3>ca_double</h3>
+<pre class="programlisting">#define ca_double u.ca_double
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ca-str"></a><h3>ca_str</h3>
+<pre class="programlisting">#define ca_str u.ca_str
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ca-ptr"></a><h3>ca_ptr</h3>
+<pre class="programlisting">#define ca_ptr u.ca_ptr
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CAMEL-ARGV-MAX:CAPS"></a><h3>CAMEL_ARGV_MAX</h3>
+<pre class="programlisting">#define CAMEL_ARGV_MAX (20)
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-argv-start"></a><h3>camel_argv_start()</h3>
+<pre class="programlisting">#define camel_argv_start(tv, last) va_start((tv)-&gt;ap, last)
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tv</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>last</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-argv-end"></a><h3>camel_argv_end()</h3>
+<pre class="programlisting">#define camel_argv_end(tv) va_end((tv)-&gt;ap)
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>tv</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-argv-build"></a><h3>camel_argv_build ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_argv_build                    (<em class="parameter"><code><a class="link" href="camel-camel-arg.html#CamelArgV" title="CamelArgV"><span class="type">CamelArgV</span></a> *tv</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tv</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-arggetv-build"></a><h3>camel_arggetv_build ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_arggetv_build                 (<em class="parameter"><code><a class="link" href="camel-camel-arg.html#CamelArgGetV" title="CamelArgGetV"><span class="type">CamelArgGetV</span></a> *tv</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tv</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-argv-ignore"></a><h3>camel_argv_ignore()</h3>
+<pre class="programlisting">#define camel_argv_ignore(tv, i) ((tv)-&gt;argv[i].tag = ((tv)-&gt;argv[i].tag &amp; CAMEL_ARG_TYPE) | CAMEL_ARG_IGNORE)
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>tv</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>i</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelProperty"></a><h3>CamelProperty</h3>
+<pre class="programlisting">typedef struct {
+	guint32 tag;
+	const gchar *name;
+	const gchar *description;
+} CamelProperty;
+</pre>
+<p>
+</p>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

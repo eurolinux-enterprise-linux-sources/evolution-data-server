@@ -1,0 +1,419 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Camel Reference Manual</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<meta name="description" content="This manual documents the interfaces of the Camel library.">
+<link rel="home" href="index.html" title="Camel Reference Manual">
+<link rel="next" href="classes.html" title="Part I. Camel Classes">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<div class="book" lang="en">
+<div class="titlepage">
+<div>
+<div><table class="navigation" id="top" width="100%" cellpadding="2" cellspacing="0"><tr><th valign="middle"><p class="title">Camel Reference Manual</p></th></tr></table></div>
+<div><p class="copyright">Copyright © 2000-2008 Novell, Inc.</p></div>
+<div><div class="legalnotice">
+<a name="id310171"></a><p>Permission is granted to make and distribute verbatim
+      copies of this manual provided the copyright notice and this
+      permission notice are preserved on all copies.</p>
+<p>Permission is granted to copy and distribute modified
+      versions of this manual under the conditions for verbatim
+      copying, provided also that the entire resulting derived work is
+      distributed under the terms of a permission notice identical to
+      this one.</p>
+<p>Permission is granted to copy and distribute translations
+      of this manual into another language, under the above conditions
+      for modified versions.</p>
+</div></div>
+<div><div class="abstract">
+<p class="title"><b>Abstract</b></p>
+<p>This manual documents the interfaces of the Camel
+      library.</p>
+</div></div>
+</div>
+<hr>
+</div>
+<div class="toc"><dl>
+<dt><span class="part"><a href="classes.html">I. Camel Classes</a></span></dt>
+<dd><dl>
+<dt><span class="chapter"><a href="ClassTree.html">Class Hierarchy</a></span></dt>
+<dt><span class="chapter"><a href="Fundamentals.html">Fundamentals</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-arg.html">camel-arg</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-debug.html">camel-debug</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-exception.html">camel-exception</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelObject.html">CamelObject</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-operation.html">camel-operation</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-url.html">camel-url</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Streams.html">Streams</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelStream.html">CamelStream</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSeekableStream.html">CamelSeekableStream</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSeekableSubstream.html">CamelSeekableSubstream</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelStreamBuffer.html">CamelStreamBuffer</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelStreamFilter.html">CamelStreamFilter</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelStreamFs.html">CamelStreamFs</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelStreamMem.html">CamelStreamMem</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelStreamNull.html">CamelStreamNull</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelStreamProcess.html">CamelStreamProcess</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelStreamVFS.html">CamelStreamVFS</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelHttpStream.html">CamelHttpStream</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelTcpStream.html">CamelTcpStream</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelTcpStreamRaw.html">CamelTcpStreamRaw</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelTcpStreamSSL.html">CamelTcpStreamSSL</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="StreamFilters.html">Stream Filters</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilter.html">CamelMimeFilter</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterBasic.html">CamelMimeFilterBasic</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterBestenc.html">CamelMimeFilterBestenc</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterCanon.html">CamelMimeFilterCanon</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterCharset.html">CamelMimeFilterCharset</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterCRLF.html">CamelMimeFilterCRLF</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterEnriched.html">CamelMimeFilterEnriched</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterFrom.html">CamelMimeFilterFrom</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterGZip.html">CamelMimeFilterGZip</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterHTML.html">CamelMimeFilterHTML</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterIndex.html">CamelMimeFilterIndex</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterLinewrap.html">CamelMimeFilterLinewrap</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterPgp.html">CamelMimeFilterPgp</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterProgress.html">CamelMimeFilterProgress</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterSave.html">CamelMimeFilterSave</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterToHTML.html">CamelMimeFilterToHTML</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterWindows.html">CamelMimeFilterWindows</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeFilterYenc.html">CamelMimeFilterYenc</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Services.html">Services</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSession.html">CamelSession</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-provider.html">camel-provider</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelService.html">CamelService</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelStore.html">CamelStore</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelStoreSummary.html">CamelStoreSummary</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelOfflineStore.html">CamelOfflineStore</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelTransport.html">CamelTransport</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Filters.html">Filters</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelFilterDriver.html">CamelFilterDriver</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-filter-search.html">camel-filter-search</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Folders.html">Folders</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelFolder.html">CamelFolder</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelFolderSearch.html">CamelFolderSearch</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelFolderSummary.html">CamelFolderSummary</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-folder-thread.html">camel-folder-thread</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelOfflineFolder.html">CamelOfflineFolder</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelOfflineJournal.html">CamelOfflineJournal</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="SearchFolders.html">Search Folders</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelVeeFolder.html">CamelVeeFolder</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelVeeStore.html">CamelVeeStore</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelVeeSummary.html">CamelVeeSummary</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelVTrashFolder.html">CamelVTrashFolder</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Addresses.html">Addresses</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelAddress.html">CamelAddress</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelInternetAddress.html">CamelInternetAddress</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelNNTPAddress.html">CamelNNTPAddress</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Crypto.html">Crypto Contexts</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelCipherContext.html">CamelCipherContext</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelGpgContext.html">CamelGpgContext</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSMIMEContext.html">CamelSMIMEContext</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSasl.html">CamelSasl</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSaslAnonymous.html">CamelSaslAnonymous</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSaslCramMd5.html">CamelSaslCramMd5</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSaslDigestMd5.html">CamelSaslDigestMd5</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSaslGssapi.html">CamelSaslGssapi</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSaslKerberos4.html">CamelSaslKerberos4</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSaslLogin.html">CamelSaslLogin</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSaslNTLM.html">CamelSaslNTLM</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSaslPlain.html">CamelSaslPlain</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelSaslPOPB4SMTP.html">CamelSaslPOPB4SMTP</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="MIME.html">MIME Objects</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelDataWrapper.html">CamelDataWrapper</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMedium.html">CamelMedium</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimePart.html">CamelMimePart</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMultipart.html">CamelMultipart</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMultipartSigned.html">CamelMultipartSigned</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMultipartEncrypted.html">CamelMultipartEncrypted</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeMessage.html">CamelMimeMessage</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMimeParser.html">CamelMimeParser</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Storage.html">Metadata Storage</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelKeyFile.html">CamelKeyFile</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelCertDB.html">CamelCertDB</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelDataCache.html">CamelDataCache</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelDB.html">CamelDB</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelIndex.html">CamelIndex</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelKeyTable.html">CamelKeyTable</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelTextIndexName.html">CamelTextIndex</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Utilities.html">Utilities</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-charset-map.html">camel-charset-map</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-file-utils.html">camel-file-utils</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-iconv.html">camel-iconv</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-junk-plugin.html">camel-junk-plugin</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-list-utils.html">camel-list-utils</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-lock.html">camel-lock</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-lock-client.html">camel-lock-client</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-mime-utils.html">camel-mime-utils</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-movemail.html">camel-movemail</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelMsgPort.html">CamelMsgPort</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-net-utils.html">camel-net-utils</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-search-sql.html">camel-search-sql</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-search-sql-sexp.html">camel-search-sql-sexp</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-string-utils.html">camel-string-utils</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-trie.html">camel-trie</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-uid-cache.html">camel-uid-cache</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-url-scanner.html">camel-url-scanner</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-utf8.html">camel-utf8</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="chapter"><a href="Deprecated.html">Deprecated Objects</a></span></dt>
+<dd><dl>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-i18n.html">camel-i18n</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-CamelNewsAddress.html">CamelNewsAddress</a></span><span class="refpurpose"></span>
+</dt>
+<dt>
+<span class="refentrytitle"><a href="camel-camel-process.html">camel-process</a></span><span class="refpurpose"></span>
+</dt>
+</dl></dd>
+<dt><span class="index"><a href="ix01.html">Index</a></span></dt>
+<dt><span class="index"><a href="ix02.html">Index of deprecated symbols</a></span></dt>
+</dl></dd>
+</dl></div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EDataCalFactory</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Calendar Backend (libedata-cal)">
+<link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Calendar Backend (libedata-cal)">
+<link rel="prev" href="EDataCal.html" title="EDataCal">
+<link rel="next" href="EDataCalView.html" title="EDataCalView">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="EDataCal.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Calendar Backend (libedata-cal)</th>
+<td><a accesskey="n" href="EDataCalView.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#EDataCalFactory.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#EDataCalFactory.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#EDataCalFactory.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#EDataCalFactory.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="EDataCalFactory"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EDataCalFactory.top_of_page"></a>EDataCalFactory</span></h2>
+<p>EDataCalFactory — Implementation of the calendar CORBA factory.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="EDataCalFactory.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="EDataCalFactory.html#EDataCalFactory-struct" title="EDataCalFactory">EDataCalFactory</a>;
+<a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="returnvalue">EDataCalFactory</span></a> *   <a class="link" href="EDataCalFactory.html#e-data-cal-factory-new" title="e_data_cal_factory_new ()">e_data_cal_factory_new</a>              (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="EDataCalFactory.html#e-data-cal-factory-register-storage" title="e_data_cal_factory_register_storage ()">e_data_cal_factory_register_storage</a> (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *iid</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EDataCalFactory.html#e-data-cal-factory-register-backend" title="e_data_cal_factory_register_backend ()">e_data_cal_factory_register_backend</a> (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ECalBackendFactory.html" title="ECalBackendFactory"><span class="type">ECalBackendFactory</span></a> *backend_factory</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EDataCalFactory.html#e-data-cal-factory-register-backends" title="e_data_cal_factory_register_backends ()">e_data_cal_factory_register_backends</a>
+                                                        (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="EDataCalFactory.html#e-data-cal-factory-get-n-backends" title="e_data_cal_factory_get_n_backends ()">e_data_cal_factory_get_n_backends</a>   (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EDataCalFactory.html#e-data-cal-factory-dump-active-backends" title="e_data_cal_factory_dump_active_backends ()">e_data_cal_factory_dump_active_backends</a>
+                                                        (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EDataCalFactory.html#e-data-cal-factory-set-backend-mode" title="e_data_cal_factory_set_backend_mode ()">e_data_cal_factory_set_backend_mode</a> (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> mode</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="EDataCalFactory.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----BonoboObject
+         +----EDataCalFactory
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="EDataCalFactory.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="EDataCalFactory.html#EDataCalFactory-last-calendar-gone" title='The "last-calendar-gone" signal'>last-calendar-gone</a>"                             : Run First
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="EDataCalFactory.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="EDataCalFactory.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="EDataCalFactory-struct"></a><h3>EDataCalFactory</h3>
+<pre class="programlisting">typedef struct _EDataCalFactory EDataCalFactory;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-data-cal-factory-new"></a><h3>e_data_cal_factory_new ()</h3>
+<pre class="programlisting"><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="returnvalue">EDataCalFactory</span></a> *   e_data_cal_factory_new              (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates a new <a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> object.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A newly-created <a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a>, or NULL if its corresponding CORBA
+object could not be created.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-data-cal-factory-register-storage"></a><h3>e_data_cal_factory_register_storage ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_data_cal_factory_register_storage (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *iid</code></em>);</pre>
+<p>
+Registers a calendar factory with the OAF object activation daemon.  This
+function must be called before any clients can activate the factory.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>A calendar factory.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>iid</code></em> :</span></p></td>
+<td>OAFIID for the factory to be registered.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> TRUE on success, FALSE otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-data-cal-factory-register-backend"></a><h3>e_data_cal_factory_register_backend ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_data_cal_factory_register_backend (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="ECalBackendFactory.html" title="ECalBackendFactory"><span class="type">ECalBackendFactory</span></a> *backend_factory</code></em>);</pre>
+<p>
+Registers an <a class="link" href="ECalBackend.html" title="ECalBackend"><span class="type">ECalBackend</span></a> subclass that will be used to handle URIs
+with a particular method.  When the factory is asked to open a
+particular URI, it will look in its list of registered methods and
+create a backend of the appropriate type.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>A calendar factory.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>backend_factory</code></em> :</span></p></td>
+<td>The object responsible for creating backends.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-data-cal-factory-register-backends"></a><h3>e_data_cal_factory_register_backends ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_data_cal_factory_register_backends
+                                                        (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>);</pre>
+<p>
+Register all backends for the given factory.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-data-cal-factory-get-n-backends"></a><h3>e_data_cal_factory_get_n_backends ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                e_data_cal_factory_get_n_backends   (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>);</pre>
+<p>
+Get the number of backends currently active in the given factory.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>A calendar factory.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the number of backends.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-data-cal-factory-dump-active-backends"></a><h3>e_data_cal_factory_dump_active_backends ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_data_cal_factory_dump_active_backends
+                                                        (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>);</pre>
+<p>
+Dumps to standard output a list of all active backends for the given
+factory.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>A calendar factory.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-data-cal-factory-set-backend-mode"></a><h3>e_data_cal_factory_set_backend_mode ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_data_cal_factory_set_backend_mode (<em class="parameter"><code><a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *factory</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> mode</code></em>);</pre>
+<p>
+Sets the online mode for all backends created by the given factory.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>factory</code></em> :</span></p></td>
+<td>A calendar factory.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mode</code></em> :</span></p></td>
+<td>Online mode to set.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="EDataCalFactory.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" lang="en">
+<a name="EDataCalFactory-last-calendar-gone"></a><h3>The <code class="literal">"last-calendar-gone"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="EDataCalFactory.html" title="EDataCalFactory"><span class="type">EDataCalFactory</span></a> *edatacalfactory,
+                                                        <span class="type">gpointer</span>         user_data)            : Run First</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>edatacalfactory</code></em> :</span></p></td>
+<td>the object which received the signal.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

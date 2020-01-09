@@ -1,0 +1,360 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EDataBookView">
+<refmeta>
+<refentrytitle role="top_of_page" id="EDataBookView.top_of_page">EDataBookView</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATA-BOOK Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EDataBookView</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EDataBookView.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>struct              <link linkend="EDataBookView-struct">EDataBookView</link>;
+<link linkend="EDataBookView"><returnvalue>EDataBookView</returnvalue></link> *     <link linkend="e-data-book-view-new">e_data_book_view_new</link>                (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Addressbook-BookViewListener"><type>GNOME_Evolution_Addressbook_BookViewListener</type></link> listener</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *card_query</parameter>,
+                                                         <parameter><link linkend="EBookBackendSExp"><type>EBookBackendSExp</type></link> *card_sexp</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> max_results</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-book-view-set-thresholds">e_data_book_view_set_thresholds</link>     (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> minimum_grouping_threshold</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> maximum_grouping_threshold</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-data-book-view-get-card-query">e_data_book_view_get_card_query</link>     (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);
+<link linkend="EBookBackendSExp"><returnvalue>EBookBackendSExp</returnvalue></link>*   <link linkend="e-data-book-view-get-card-sexp">e_data_book_view_get_card_sexp</link>      (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-data-book-view-get-max-results">e_data_book_view_get_max_results</link>    (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);
+<link linkend="EBookBackend"><returnvalue>EBookBackend</returnvalue></link>*       <link linkend="e-data-book-view-get-backend">e_data_book_view_get_backend</link>        (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);
+<link linkend="GNOME-Evolution-Addressbook-BookViewListener"><returnvalue>GNOME_Evolution_Addressbook_BookViewListener</returnvalue></link>  <link linkend="e-data-book-view-get-listener">e_data_book_view_get_listener</link>
+                                                        (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);
+<link linkend="GMutex"><returnvalue>GMutex</returnvalue></link>*             <link linkend="e-data-book-view-get-mutex">e_data_book_view_get_mutex</link>          (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-book-view-notify-update">e_data_book_view_notify_update</link>      (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-book-view-notify-update-vcard">e_data_book_view_notify_update_vcard</link>
+                                                        (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-book-view-notify-update-prefiltered-vcard">e_data_book_view_notify_update_prefiltered_vcard</link>
+                                                        (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-book-view-notify-remove">e_data_book_view_notify_remove</link>      (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-book-view-notify-complete">e_data_book_view_notify_complete</link>    (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Addressbook-CallStatus"><type>GNOME_Evolution_Addressbook_CallStatus</type></link> Param2</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-book-view-notify-status-message">e_data_book_view_notify_status_message</link>
+                                                        (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *message</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-book-view-ref">e_data_book_view_ref</link>                (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-book-view-unref">e_data_book_view_unref</link>              (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="EDataBookView.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="BonoboObject">BonoboObject</link>
+         +----EDataBookView
+</synopsis>
+</refsect1>
+
+<refsect1 id="EDataBookView.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="EDataBookView.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EDataBookView-struct" role="struct">
+<title>struct EDataBookView</title>
+<indexterm zone="EDataBookView-struct"><primary>EDataBookView</primary></indexterm>
+<programlisting>struct EDataBookView;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-data-book-view-new" role="function">
+<title>e_data_book_view_new ()</title>
+<indexterm zone="e-data-book-view-new"><primary>e_data_book_view_new</primary></indexterm>
+<programlisting><link linkend="EDataBookView"><returnvalue>EDataBookView</returnvalue></link> *     e_data_book_view_new                (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Addressbook-BookViewListener"><type>GNOME_Evolution_Addressbook_BookViewListener</type></link> listener</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *card_query</parameter>,
+                                                         <parameter><link linkend="EBookBackendSExp"><type>EBookBackendSExp</type></link> *card_sexp</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> max_results</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link> to view
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>listener</parameter>&#160;:</term>
+<listitem><simpara>a CORBA listener to reveive notifications
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>card_query</parameter>&#160;:</term>
+<listitem><simpara>an s-expression representing the query
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>max_results</parameter>&#160;:</term>
+<listitem><simpara>the maximum number of results for the query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="EDataBookView"><type>EDataBookView</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-set-thresholds" role="function">
+<title>e_data_book_view_set_thresholds ()</title>
+<indexterm zone="e-data-book-view-set-thresholds"><primary>e_data_book_view_set_thresholds</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_book_view_set_thresholds     (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> minimum_grouping_threshold</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> maximum_grouping_threshold</parameter>);</programlisting>
+<para>
+Sets the thresholds for grouping add events together
+for efficiency reasons. The minimum threshold specifies
+how many adds must be grouped (as long as there are
+pending adds), and the maximum threshold specifies
+the maximum number of adds that can be grouped.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>minimum_grouping_threshold</parameter>&#160;:</term>
+<listitem><simpara>the minimum threshold
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>maximum_grouping_threshold</parameter>&#160;:</term>
+<listitem><simpara>the maximum threshold
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-get-card-query" role="function">
+<title>e_data_book_view_get_card_query ()</title>
+<indexterm zone="e-data-book-view-get-card-query"><primary>e_data_book_view_get_card_query</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_data_book_view_get_card_query     (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Gets the text representation of the s-expression used
+for matching contacts to <parameter>book_view</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The textual s-expression used.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-get-card-sexp" role="function">
+<title>e_data_book_view_get_card_sexp ()</title>
+<indexterm zone="e-data-book-view-get-card-sexp"><primary>e_data_book_view_get_card_sexp</primary></indexterm>
+<programlisting><link linkend="EBookBackendSExp"><returnvalue>EBookBackendSExp</returnvalue></link>*   e_data_book_view_get_card_sexp      (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Gets the s-expression used for matching contacts to
+<parameter>book_view</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The <link linkend="EBookBackendSExp"><type>EBookBackendSExp</type></link> used.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-get-max-results" role="function">
+<title>e_data_book_view_get_max_results ()</title>
+<indexterm zone="e-data-book-view-get-max-results"><primary>e_data_book_view_get_max_results</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_data_book_view_get_max_results    (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Gets the maximum number of results returned by
+<parameter>book_view</parameter>'s query.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The maximum number of results returned.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-get-backend" role="function">
+<title>e_data_book_view_get_backend ()</title>
+<indexterm zone="e-data-book-view-get-backend"><primary>e_data_book_view_get_backend</primary></indexterm>
+<programlisting><link linkend="EBookBackend"><returnvalue>EBookBackend</returnvalue></link>*       e_data_book_view_get_backend        (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Gets the backend that <parameter>book_view</parameter> is querying.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The associated <link linkend="EBookBackend"><type>EBookBackend</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-get-listener" role="function">
+<title>e_data_book_view_get_listener ()</title>
+<indexterm zone="e-data-book-view-get-listener"><primary>e_data_book_view_get_listener</primary></indexterm>
+<programlisting><link linkend="GNOME-Evolution-Addressbook-BookViewListener"><returnvalue>GNOME_Evolution_Addressbook_BookViewListener</returnvalue></link>  e_data_book_view_get_listener
+                                                        (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Gets the CORBA listener that <parameter>book_view</parameter> is dispatching
+events to.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The CORBA book view listener.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-get-mutex" role="function">
+<title>e_data_book_view_get_mutex ()</title>
+<indexterm zone="e-data-book-view-get-mutex"><primary>e_data_book_view_get_mutex</primary></indexterm>
+<programlisting><link linkend="GMutex"><returnvalue>GMutex</returnvalue></link>*             e_data_book_view_get_mutex          (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Gets the internal mutex of <parameter>book_view</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The <link linkend="GMutex"><type>GMutex</type></link> for <parameter>book_view</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-notify-update" role="function">
+<title>e_data_book_view_notify_update ()</title>
+<indexterm zone="e-data-book-view-notify-update"><primary>e_data_book_view_notify_update</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_book_view_notify_update      (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>);</programlisting>
+<para>
+Notify listeners that <parameter>contact</parameter> has changed. This can
+trigger an add, change or removal event depending on
+whether the change causes the contact to start matching,
+no longer match, or stay matching the query specified
+by <parameter>book_view</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-notify-update-vcard" role="function">
+<title>e_data_book_view_notify_update_vcard ()</title>
+<indexterm zone="e-data-book-view-notify-update-vcard"><primary>e_data_book_view_notify_update_vcard</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_book_view_notify_update_vcard
+                                                        (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);</programlisting>
+<para>
+Notify listeners that <parameter>vcard</parameter> has changed. This can
+trigger an add, change or removal event depending on
+whether the change causes the contact to start matching,
+no longer match, or stay matching the query specified
+by <parameter>book_view</parameter>.  This method should be preferred over
+<link linkend="e-data-book-view-notify-update"><type>e_data_book_view_notify_update</type></link> when the native
+representation of a contact is a vCard.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>vcard</parameter>&#160;:</term>
+<listitem><simpara>a plain vCard
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-notify-update-prefiltered-vcard" role="function">
+<title>e_data_book_view_notify_update_prefiltered_vcard ()</title>
+<indexterm zone="e-data-book-view-notify-update-prefiltered-vcard"><primary>e_data_book_view_notify_update_prefiltered_vcard</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_book_view_notify_update_prefiltered_vcard
+                                                        (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);</programlisting>
+<para>
+Notify listeners that <parameter>vcard</parameter> has changed. This can
+trigger an add, change or removal event depending on
+whether the change causes the contact to start matching,
+no longer match, or stay matching the query specified
+by <parameter>book_view</parameter>.  This method should be preferred over
+<link linkend="e-data-book-view-notify-update"><type>e_data_book_view_notify_update</type></link> when the native
+representation of a contact is a vCard.
+</para>
+<para>
+The important difference between this method and
+<link linkend="e-data-book-view-notify-update"><type>e_data_book_view_notify_update</type></link> and <link linkend="e-data-book-view-notify-update-vcard"><type>e_data_book_view_notify_update_vcard</type></link> is
+that it doesn't match the contact against the book view query to see if it
+should be included, it assumes that this has been done and the contact is
+known to exist in the view.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>the UID of this contact
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>vcard</parameter>&#160;:</term>
+<listitem><simpara>a plain vCard
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-notify-remove" role="function">
+<title>e_data_book_view_notify_remove ()</title>
+<indexterm zone="e-data-book-view-notify-remove"><primary>e_data_book_view_notify_remove</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_book_view_notify_remove      (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>);</programlisting>
+<para>
+Notify listeners that a contact specified by <parameter>id</parameter>
+was removed from <parameter>book_view</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>a unique contact ID
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-notify-complete" role="function">
+<title>e_data_book_view_notify_complete ()</title>
+<indexterm zone="e-data-book-view-notify-complete"><primary>e_data_book_view_notify_complete</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_book_view_notify_complete    (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Addressbook-CallStatus"><type>GNOME_Evolution_Addressbook_CallStatus</type></link> Param2</parameter>);</programlisting>
+<para>
+Notifies listeners that all pending updates on <parameter>book_view</parameter>
+have been sent. The listener's information should now be
+in sync with the backend's.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>Param2</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-notify-status-message" role="function">
+<title>e_data_book_view_notify_status_message ()</title>
+<indexterm zone="e-data-book-view-notify-status-message"><primary>e_data_book_view_notify_status_message</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_book_view_notify_status_message
+                                                        (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *message</parameter>);</programlisting>
+<para>
+Provides listeners with a human-readable text describing the
+current backend operation. This can be used for progress
+reporting.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>a text message
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-ref" role="function">
+<title>e_data_book_view_ref ()</title>
+<indexterm zone="e-data-book-view-ref"><primary>e_data_book_view_ref</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_book_view_ref                (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Increase the reference count of the book view. This is a function to aid
+the transition from Bonobo to DBUS.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookView"><type>EBookView</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-book-view-unref" role="function">
+<title>e_data_book_view_unref ()</title>
+<indexterm zone="e-data-book-view-unref"><primary>e_data_book_view_unref</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_book_view_unref              (<parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Decrease the reference count of the book view. This is a function to aid
+the transition from Bonobo to DBUS.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookView"><type>EBookView</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

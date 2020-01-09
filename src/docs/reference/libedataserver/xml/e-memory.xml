@@ -1,0 +1,496 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libedataserver-e-memory">
+<refmeta>
+<refentrytitle role="top_of_page" id="libedataserver-e-memory.top_of_page">e-memory</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVER Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-memory</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libedataserver-e-memory.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="EMemChunk">EMemChunk</link>;
+<link linkend="EMemChunk"><returnvalue>EMemChunk</returnvalue></link> *         <link linkend="e-memchunk-new">e_memchunk_new</link>                      (<parameter><link linkend="gint"><type>gint</type></link> atomcount</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> atomsize</parameter>);
+<link linkend="gpointer"><returnvalue>gpointer</returnvalue></link>            <link linkend="e-memchunk-alloc">e_memchunk_alloc</link>                    (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>);
+<link linkend="gpointer"><returnvalue>gpointer</returnvalue></link>            <link linkend="e-memchunk-alloc0">e_memchunk_alloc0</link>                   (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-memchunk-free">e_memchunk_free</link>                     (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> mem</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-memchunk-empty">e_memchunk_empty</link>                    (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-memchunk-clean">e_memchunk_clean</link>                    (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-memchunk-destroy">e_memchunk_destroy</link>                  (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>);
+                    <link linkend="EMemPool">EMemPool</link>;
+enum                <link linkend="EMemPoolFlags">EMemPoolFlags</link>;
+<link linkend="EMemPool"><returnvalue>EMemPool</returnvalue></link> *          <link linkend="e-mempool-new">e_mempool_new</link>                       (<parameter><link linkend="gint"><type>gint</type></link> blocksize</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> threshold</parameter>,
+                                                         <parameter><link linkend="EMemPoolFlags"><type>EMemPoolFlags</type></link> flags</parameter>);
+<link linkend="gpointer"><returnvalue>gpointer</returnvalue></link>            <link linkend="e-mempool-alloc">e_mempool_alloc</link>                     (<parameter><link linkend="EMemPool"><type>EMemPool</type></link> *pool</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> size</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-mempool-strdup">e_mempool_strdup</link>                    (<parameter><link linkend="EMemPool"><type>EMemPool</type></link> *pool</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *str</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-mempool-flush">e_mempool_flush</link>                     (<parameter><link linkend="EMemPool"><type>EMemPool</type></link> *pool</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> freeall</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-mempool-destroy">e_mempool_destroy</link>                   (<parameter><link linkend="EMemPool"><type>EMemPool</type></link> *pool</parameter>);
+                    <link linkend="EStrv">EStrv</link>;
+<link linkend="EStrv"><returnvalue>EStrv</returnvalue></link> *             <link linkend="e-strv-new">e_strv_new</link>                          (<parameter><link linkend="gint"><type>gint</type></link> size</parameter>);
+<link linkend="EStrv"><returnvalue>EStrv</returnvalue></link> *             <link linkend="e-strv-set-ref">e_strv_set_ref</link>                      (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> *str</parameter>);
+<link linkend="EStrv"><returnvalue>EStrv</returnvalue></link> *             <link linkend="e-strv-set-ref-free">e_strv_set_ref_free</link>                 (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> *str</parameter>);
+<link linkend="EStrv"><returnvalue>EStrv</returnvalue></link> *             <link linkend="e-strv-set">e_strv_set</link>                          (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *str</parameter>);
+<link linkend="EStrv"><returnvalue>EStrv</returnvalue></link> *             <link linkend="e-strv-pack">e_strv_pack</link>                         (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-strv-get">e_strv_get</link>                          (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-strv-destroy">e_strv_destroy</link>                      (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>);
+                    <link linkend="EPoolv">EPoolv</link>;
+<link linkend="EPoolv"><returnvalue>EPoolv</returnvalue></link> *            <link linkend="e-poolv-new">e_poolv_new</link>                         (<parameter><link linkend="guint"><type>guint</type></link> size</parameter>);
+<link linkend="EPoolv"><returnvalue>EPoolv</returnvalue></link> *            <link linkend="e-poolv-cpy">e_poolv_cpy</link>                         (<parameter><link linkend="EPoolv"><type>EPoolv</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="EPoolv"><type>EPoolv</type></link> *src</parameter>);
+<link linkend="EPoolv"><returnvalue>EPoolv</returnvalue></link> *            <link linkend="e-poolv-set">e_poolv_set</link>                         (<parameter><link linkend="EPoolv"><type>EPoolv</type></link> *poolv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> *str</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> freeit</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-poolv-get">e_poolv_get</link>                         (<parameter><link linkend="EPoolv"><type>EPoolv</type></link> *poolv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-poolv-destroy">e_poolv_destroy</link>                     (<parameter><link linkend="EPoolv"><type>EPoolv</type></link> *poolv</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libedataserver-e-memory.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libedataserver-e-memory.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EMemChunk" role="struct">
+<title>EMemChunk</title>
+<indexterm zone="EMemChunk"><primary>EMemChunk</primary></indexterm>
+<programlisting>typedef struct _EMemChunk EMemChunk;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-memchunk-new" role="function">
+<title>e_memchunk_new ()</title>
+<indexterm zone="e-memchunk-new"><primary>e_memchunk_new</primary></indexterm>
+<programlisting><link linkend="EMemChunk"><returnvalue>EMemChunk</returnvalue></link> *         e_memchunk_new                      (<parameter><link linkend="gint"><type>gint</type></link> atomcount</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> atomsize</parameter>);</programlisting>
+<para>
+Create a new memchunk header.  Memchunks are an efficient way to allocate
+and deallocate identical sized blocks of memory quickly, and space efficiently.
+</para>
+<para>
+e_memchunks are effectively the same as gmemchunks, only faster (much), and
+they use less memory overhead for housekeeping.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>atomcount</parameter>&#160;:</term>
+<listitem><simpara>The number of atoms stored in a single malloc'd block of memory.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>atomsize</parameter>&#160;:</term>
+<listitem><simpara>The size of each allocation.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The new header.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-memchunk-alloc" role="function">
+<title>e_memchunk_alloc ()</title>
+<indexterm zone="e-memchunk-alloc"><primary>e_memchunk_alloc</primary></indexterm>
+<programlisting><link linkend="gpointer"><returnvalue>gpointer</returnvalue></link>            e_memchunk_alloc                    (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>m</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-memchunk-alloc0" role="function">
+<title>e_memchunk_alloc0 ()</title>
+<indexterm zone="e-memchunk-alloc0"><primary>e_memchunk_alloc0</primary></indexterm>
+<programlisting><link linkend="gpointer"><returnvalue>gpointer</returnvalue></link>            e_memchunk_alloc0                   (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>m</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-memchunk-free" role="function">
+<title>e_memchunk_free ()</title>
+<indexterm zone="e-memchunk-free"><primary>e_memchunk_free</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_memchunk_free                     (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> mem</parameter>);</programlisting>
+<para>
+Free a single atom back to the free pool of atoms in the given
+memchunk.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>mem</parameter>&#160;:</term>
+<listitem><simpara>Address of atom to free.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-memchunk-empty" role="function">
+<title>e_memchunk_empty ()</title>
+<indexterm zone="e-memchunk-empty"><primary>e_memchunk_empty</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_memchunk_empty                    (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>);</programlisting>
+<para>
+Clean out the memchunk buffers.  Marks all allocated memory as free blocks,
+but does not give it back to the system.  Can be used if the memchunk
+is to be used repeatedly.</para>
+</refsect2>
+<refsect2 id="e-memchunk-clean" role="function">
+<title>e_memchunk_clean ()</title>
+<indexterm zone="e-memchunk-clean"><primary>e_memchunk_clean</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_memchunk_clean                    (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>);</programlisting>
+<para>
+Scan all empty blocks and check for blocks which can be free'd
+back to the system.
+</para>
+<para>
+This routine may take a while to run if there are many allocated
+memory blocks (if the total number of allocations is many times
+greater than atomcount).</para>
+</refsect2>
+<refsect2 id="e-memchunk-destroy" role="function">
+<title>e_memchunk_destroy ()</title>
+<indexterm zone="e-memchunk-destroy"><primary>e_memchunk_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_memchunk_destroy                  (<parameter><link linkend="EMemChunk"><type>EMemChunk</type></link> *m</parameter>);</programlisting>
+<para>
+Free the memchunk header, and all associated memory.</para>
+</refsect2>
+<refsect2 id="EMemPool" role="struct">
+<title>EMemPool</title>
+<indexterm zone="EMemPool"><primary>EMemPool</primary></indexterm>
+<programlisting>typedef struct _EMemPool EMemPool;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EMemPoolFlags" role="enum">
+<title>enum EMemPoolFlags</title>
+<indexterm zone="EMemPoolFlags"><primary>EMemPoolFlags</primary></indexterm>
+<programlisting>typedef enum {
+	E_MEMPOOL_ALIGN_STRUCT = 0,&#160;/* allocate to native structure alignment */
+	E_MEMPOOL_ALIGN_WORD = 1,&#160;/* allocate to words - 16 bit alignment */
+	E_MEMPOOL_ALIGN_BYTE = 2,&#160;/* allocate to bytes - 8 bit alignment */
+	E_MEMPOOL_ALIGN_MASK = 3&#160;/* which bits determine the alignment information */
+} EMemPoolFlags;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-mempool-new" role="function">
+<title>e_mempool_new ()</title>
+<indexterm zone="e-mempool-new"><primary>e_mempool_new</primary></indexterm>
+<programlisting><link linkend="EMemPool"><returnvalue>EMemPool</returnvalue></link> *          e_mempool_new                       (<parameter><link linkend="gint"><type>gint</type></link> blocksize</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> threshold</parameter>,
+                                                         <parameter><link linkend="EMemPoolFlags"><type>EMemPoolFlags</type></link> flags</parameter>);</programlisting>
+<para>
+Create a new mempool header.  Mempools can be used to efficiently
+allocate data which can then be freed as a whole.
+</para>
+<para>
+Mempools can also be used to efficiently allocate arbitrarily
+aligned data (such as strings) without incurring the space overhead
+of aligning each allocation (which is not required for strings).
+</para>
+<para>
+However, each allocation cannot be freed individually, only all
+or nothing.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>blocksize</parameter>&#160;:</term>
+<listitem><simpara>The base blocksize to use for all system alocations.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>threshold</parameter>&#160;:</term>
+<listitem><simpara>If the allocation exceeds the threshold, then it is
+allocated separately and stored in a separate list.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&#160;:</term>
+<listitem><simpara>Alignment options: E_MEMPOOL_ALIGN_STRUCT uses native
+struct alignment, E_MEMPOOL_ALIGN_WORD aligns to 16 bits (2 bytes),
+and E_MEMPOOL_ALIGN_BYTE aligns to the nearest byte.  The default
+is to align to native structures.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-mempool-alloc" role="function">
+<title>e_mempool_alloc ()</title>
+<indexterm zone="e-mempool-alloc"><primary>e_mempool_alloc</primary></indexterm>
+<programlisting><link linkend="gpointer"><returnvalue>gpointer</returnvalue></link>            e_mempool_alloc                     (<parameter><link linkend="EMemPool"><type>EMemPool</type></link> *pool</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> size</parameter>);</programlisting>
+<para>
+Allocate a new data block in the mempool.  Size will
+be rounded up to the mempool's alignment restrictions
+before being used.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-mempool-strdup" role="function">
+<title>e_mempool_strdup ()</title>
+<indexterm zone="e-mempool-strdup"><primary>e_mempool_strdup</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_mempool_strdup                    (<parameter><link linkend="EMemPool"><type>EMemPool</type></link> *pool</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *str</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>pool</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-mempool-flush" role="function">
+<title>e_mempool_flush ()</title>
+<indexterm zone="e-mempool-flush"><primary>e_mempool_flush</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_mempool_flush                     (<parameter><link linkend="EMemPool"><type>EMemPool</type></link> *pool</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> freeall</parameter>);</programlisting>
+<para>
+Flush used memory and mark allocated blocks as free.
+</para>
+<para>
+If <parameter>freeall</parameter> is <link linkend="TRUE:CAPS"><type>TRUE</type></link>, then all allocated blocks are free'd
+as well.  Otherwise only blocks above the threshold are
+actually freed, and the others are simply marked as empty.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>freeall</parameter>&#160;:</term>
+<listitem><simpara>Free all system allocated blocks as well.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-mempool-destroy" role="function">
+<title>e_mempool_destroy ()</title>
+<indexterm zone="e-mempool-destroy"><primary>e_mempool_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_mempool_destroy                   (<parameter><link linkend="EMemPool"><type>EMemPool</type></link> *pool</parameter>);</programlisting>
+<para>
+Free all memory associated with a mempool.</para>
+</refsect2>
+<refsect2 id="EStrv" role="struct">
+<title>EStrv</title>
+<indexterm zone="EStrv"><primary>EStrv</primary></indexterm>
+<programlisting>typedef struct _EStrv EStrv;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-strv-new" role="function">
+<title>e_strv_new ()</title>
+<indexterm zone="e-strv-new"><primary>e_strv_new</primary></indexterm>
+<programlisting><link linkend="EStrv"><returnvalue>EStrv</returnvalue></link> *             e_strv_new                          (<parameter><link linkend="gint"><type>gint</type></link> size</parameter>);</programlisting>
+<para>
+Create a new strv (string array) header.  strv's can be used to
+create and work with arrays of strings that can then be compressed
+into a space-efficient static structure.  This is useful
+where a number of strings are to be stored for lookup, and not
+generally edited afterwards.
+</para>
+<para>
+The size limit is currently 254 elements.  This will probably not
+change as arrays of this size suffer significant performance
+penalties when looking up strings with high indices.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>size</parameter>&#160;:</term>
+<listitem><simpara>The number of elements in the strv.  Currently this is limited
+to 254 elements.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-strv-set-ref" role="function">
+<title>e_strv_set_ref ()</title>
+<indexterm zone="e-strv-set-ref"><primary>e_strv_set_ref</primary></indexterm>
+<programlisting><link linkend="EStrv"><returnvalue>EStrv</returnvalue></link> *             e_strv_set_ref                      (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> *str</parameter>);</programlisting>
+<para>
+Set a string array element by reference.  The string
+is not copied until the array is packed.
+</para>
+<para>
+If <parameter>strv</parameter> has been packed, then it is unpacked ready
+for more inserts, and should be packed again once finished with.
+The memory used by the original <parameter>strv</parameter> is not freed until
+the new strv is packed, or freed itself.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new EStrv if the strv has already
+been packed, otherwise <parameter>strv</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-strv-set-ref-free" role="function">
+<title>e_strv_set_ref_free ()</title>
+<indexterm zone="e-strv-set-ref-free"><primary>e_strv_set_ref_free</primary></indexterm>
+<programlisting><link linkend="EStrv"><returnvalue>EStrv</returnvalue></link> *             e_strv_set_ref_free                 (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> *str</parameter>);</programlisting>
+<para>
+Set a string by reference, similar to set_ref, but also
+free the string when finished with it.  The string
+is not copied until the strv is packed, and not at
+all if the index is overwritten.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <parameter>strv</parameter> if already unpacked, otherwise an packed
+EStrv.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-strv-set" role="function">
+<title>e_strv_set ()</title>
+<indexterm zone="e-strv-set"><primary>e_strv_set</primary></indexterm>
+<programlisting><link linkend="EStrv"><returnvalue>EStrv</returnvalue></link> *             e_strv_set                          (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *str</parameter>);</programlisting>
+<para>
+Set a string array reference.  The string <parameter>str</parameter> is copied
+into the string array at location <parameter>index</parameter>.
+</para>
+<para>
+If <parameter>strv</parameter> has been packed, then it is unpacked ready
+for more inserts, and should be packed again once finished with.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new EStrv if the strv has already
+been packed, otherwise <parameter>strv</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-strv-pack" role="function">
+<title>e_strv_pack ()</title>
+<indexterm zone="e-strv-pack"><primary>e_strv_pack</primary></indexterm>
+<programlisting><link linkend="EStrv"><returnvalue>EStrv</returnvalue></link> *             e_strv_pack                         (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>);</programlisting>
+<para>
+Pack the <parameter>strv</parameter> into a space efficient structure for later lookup.
+</para>
+<para>
+All strings are packed into a single allocated block, separated
+by single \0 characters, together with a count byte.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-strv-get" role="function">
+<title>e_strv_get ()</title>
+<indexterm zone="e-strv-get"><primary>e_strv_get</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_strv_get                          (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>);</programlisting>
+<para>
+Retrieve a string by index.  This function works
+identically on both packed and unpacked strv's, although
+may be much slower on a packed strv.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-strv-destroy" role="function">
+<title>e_strv_destroy ()</title>
+<indexterm zone="e-strv-destroy"><primary>e_strv_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_strv_destroy                      (<parameter><link linkend="EStrv"><type>EStrv</type></link> *strv</parameter>);</programlisting>
+<para>
+Free a strv and all associated memory.  Works on packed
+or unpacked strv's.</para>
+</refsect2>
+<refsect2 id="EPoolv" role="struct">
+<title>EPoolv</title>
+<indexterm zone="EPoolv"><primary>EPoolv</primary></indexterm>
+<programlisting>typedef struct _EPoolv EPoolv;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-poolv-new" role="function">
+<title>e_poolv_new ()</title>
+<indexterm zone="e-poolv-new"><primary>e_poolv_new</primary></indexterm>
+<programlisting><link linkend="EPoolv"><returnvalue>EPoolv</returnvalue></link> *            e_poolv_new                         (<parameter><link linkend="guint"><type>guint</type></link> size</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>size</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-poolv-cpy" role="function">
+<title>e_poolv_cpy ()</title>
+<indexterm zone="e-poolv-cpy"><primary>e_poolv_cpy</primary></indexterm>
+<programlisting><link linkend="EPoolv"><returnvalue>EPoolv</returnvalue></link> *            e_poolv_cpy                         (<parameter><link linkend="EPoolv"><type>EPoolv</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="EPoolv"><type>EPoolv</type></link> *src</parameter>);</programlisting>
+<para>
+Copy the contents of a pooled string vector</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>destination pooled string vector
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&#160;:</term>
+<listitem><simpara>source pooled string vector
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <parameter>dest</parameter>, which may be re-allocated if the strings
+are different lengths.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-poolv-set" role="function">
+<title>e_poolv_set ()</title>
+<indexterm zone="e-poolv-set"><primary>e_poolv_set</primary></indexterm>
+<programlisting><link linkend="EPoolv"><returnvalue>EPoolv</returnvalue></link> *            e_poolv_set                         (<parameter><link linkend="EPoolv"><type>EPoolv</type></link> *poolv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>,
+                                                         <parameter><link linkend="gchar"><type>gchar</type></link> *str</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> freeit</parameter>);</programlisting>
+<para>
+Set a string vector reference.  If the caller will no longer be
+referencing the string, freeit should be TRUE.  Otherwise, this
+will duplicate the string if it is not found in the pool.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>poolv</parameter>&#160;:</term>
+<listitem><simpara>pooled string vector
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&#160;:</term>
+<listitem><simpara>index in vector of string
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>string to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>freeit</parameter>&#160;:</term>
+<listitem><simpara>whether the caller is releasing its reference to the
+string
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <parameter>poolv</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-poolv-get" role="function">
+<title>e_poolv_get ()</title>
+<indexterm zone="e-poolv-get"><primary>e_poolv_get</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_poolv_get                         (<parameter><link linkend="EPoolv"><type>EPoolv</type></link> *poolv</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>);</programlisting>
+<para>
+Retrieve a string by index.  This could possibly just be a macro.
+</para>
+<para>
+Since the pool is never freed, this string does not need to be
+duplicated, but should not be modified.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>poolv</parameter>&#160;:</term>
+<listitem><simpara>pooled string vector
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&#160;:</term>
+<listitem><simpara>index in vector of string
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> string at that index.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-poolv-destroy" role="function">
+<title>e_poolv_destroy ()</title>
+<indexterm zone="e-poolv-destroy"><primary>e_poolv_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_poolv_destroy                     (<parameter><link linkend="EPoolv"><type>EPoolv</type></link> *poolv</parameter>);</programlisting>
+<para>
+Free a pooled string vector.  This doesn't free the strings from
+the vector, however.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>poolv</parameter>&#160;:</term>
+<listitem><simpara>pooled string vector to free
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
+<book xmlns="http://www.devhelp.net/book" title="Evolution-Data-Server Manual: Calendar Backend (libedata-cal)" link="index.html" author="" name="libedata-cal">
+  <chapters>
+    <sub name="Evolution-Data-Server Manual: Calendar Backend (libedata-cal)" link="ch01.html">
+      <sub name="ECalBackend" link="ECalBackend.html"/>
+      <sub name="ECalBackendCache" link="ECalBackendCache.html"/>
+      <sub name="ECalBackendFactory" link="ECalBackendFactory.html"/>
+      <sub name="ECalBackendSExp" link="ECalBackendSExp.html"/>
+      <sub name="ECalBackendSync" link="ECalBackendSync.html"/>
+      <sub name="e-cal-backend-util" link="libedata-cal-e-cal-backend-util.html"/>
+      <sub name="EDataCal" link="EDataCal.html"/>
+      <sub name="EDataCalFactory" link="EDataCalFactory.html"/>
+      <sub name="EDataCalView" link="EDataCalView.html"/>
+    </sub>
+    <sub name="Index" link="ix01.html"/>
+  </chapters>
+  <functions>
+    <function name="e_cal_backend_get_source ()" link="ECalBackend.html#e-cal-backend-get-source"/>
+    <function name="e_cal_backend_get_uri ()" link="ECalBackend.html#e-cal-backend-get-uri"/>
+    <function name="e_cal_backend_get_kind ()" link="ECalBackend.html#e-cal-backend-get-kind"/>
+    <function name="e_cal_backend_add_client ()" link="ECalBackend.html#e-cal-backend-add-client"/>
+    <function name="e_cal_backend_remove_client ()" link="ECalBackend.html#e-cal-backend-remove-client"/>
+    <function name="e_cal_backend_add_query ()" link="ECalBackend.html#e-cal-backend-add-query"/>
+    <function name="e_cal_backend_get_queries ()" link="ECalBackend.html#e-cal-backend-get-queries"/>
+    <function name="e_cal_backend_remove_query ()" link="ECalBackend.html#e-cal-backend-remove-query"/>
+    <function name="e_cal_backend_is_read_only ()" link="ECalBackend.html#e-cal-backend-is-read-only"/>
+    <function name="e_cal_backend_get_cal_address ()" link="ECalBackend.html#e-cal-backend-get-cal-address"/>
+    <function name="e_cal_backend_get_alarm_email_address ()" link="ECalBackend.html#e-cal-backend-get-alarm-email-address"/>
+    <function name="e_cal_backend_get_ldap_attribute ()" link="ECalBackend.html#e-cal-backend-get-ldap-attribute"/>
+    <function name="e_cal_backend_get_static_capabilities ()" link="ECalBackend.html#e-cal-backend-get-static-capabilities"/>
+    <function name="e_cal_backend_open ()" link="ECalBackend.html#e-cal-backend-open"/>
+    <function name="e_cal_backend_remove ()" link="ECalBackend.html#e-cal-backend-remove"/>
+    <function name="e_cal_backend_create_object ()" link="ECalBackend.html#e-cal-backend-create-object"/>
+    <function name="e_cal_backend_modify_object ()" link="ECalBackend.html#e-cal-backend-modify-object"/>
+    <function name="e_cal_backend_remove_object ()" link="ECalBackend.html#e-cal-backend-remove-object"/>
+    <function name="e_cal_backend_discard_alarm ()" link="ECalBackend.html#e-cal-backend-discard-alarm"/>
+    <function name="e_cal_backend_receive_objects ()" link="ECalBackend.html#e-cal-backend-receive-objects"/>
+    <function name="e_cal_backend_send_objects ()" link="ECalBackend.html#e-cal-backend-send-objects"/>
+    <function name="e_cal_backend_get_default_object ()" link="ECalBackend.html#e-cal-backend-get-default-object"/>
+    <function name="e_cal_backend_get_object ()" link="ECalBackend.html#e-cal-backend-get-object"/>
+    <function name="e_cal_backend_get_object_list ()" link="ECalBackend.html#e-cal-backend-get-object-list"/>
+    <function name="e_cal_backend_get_attachment_list ()" link="ECalBackend.html#e-cal-backend-get-attachment-list"/>
+    <function name="e_cal_backend_is_loaded ()" link="ECalBackend.html#e-cal-backend-is-loaded"/>
+    <function name="e_cal_backend_start_query ()" link="ECalBackend.html#e-cal-backend-start-query"/>
+    <function name="e_cal_backend_get_mode ()" link="ECalBackend.html#e-cal-backend-get-mode"/>
+    <function name="e_cal_backend_set_mode ()" link="ECalBackend.html#e-cal-backend-set-mode"/>
+    <function name="e_cal_backend_get_timezone ()" link="ECalBackend.html#e-cal-backend-get-timezone"/>
+    <function name="e_cal_backend_add_timezone ()" link="ECalBackend.html#e-cal-backend-add-timezone"/>
+    <function name="e_cal_backend_set_default_timezone ()" link="ECalBackend.html#e-cal-backend-set-default-timezone"/>
+    <function name="e_cal_backend_set_default_zone ()" link="ECalBackend.html#e-cal-backend-set-default-zone"/>
+    <function name="e_cal_backend_get_changes ()" link="ECalBackend.html#e-cal-backend-get-changes"/>
+    <function name="e_cal_backend_get_free_busy ()" link="ECalBackend.html#e-cal-backend-get-free-busy"/>
+    <function name="e_cal_backend_internal_get_default_timezone ()" link="ECalBackend.html#e-cal-backend-internal-get-default-timezone"/>
+    <function name="e_cal_backend_internal_get_timezone ()" link="ECalBackend.html#e-cal-backend-internal-get-timezone"/>
+    <function name="e_cal_backend_set_notification_proxy ()" link="ECalBackend.html#e-cal-backend-set-notification-proxy"/>
+    <function name="e_cal_backend_notify_object_created ()" link="ECalBackend.html#e-cal-backend-notify-object-created"/>
+    <function name="e_cal_backend_notify_object_modified ()" link="ECalBackend.html#e-cal-backend-notify-object-modified"/>
+    <function name="e_cal_backend_notify_object_removed ()" link="ECalBackend.html#e-cal-backend-notify-object-removed"/>
+    <function name="e_cal_backend_notify_mode ()" link="ECalBackend.html#e-cal-backend-notify-mode"/>
+    <function name="e_cal_backend_notify_auth_required ()" link="ECalBackend.html#e-cal-backend-notify-auth-required"/>
+    <function name="e_cal_backend_notify_error ()" link="ECalBackend.html#e-cal-backend-notify-error"/>
+    <function name="e_cal_backend_notify_view_done ()" link="ECalBackend.html#e-cal-backend-notify-view-done"/>
+    <function name="e_cal_backend_notify_view_progress_start ()" link="ECalBackend.html#e-cal-backend-notify-view-progress-start"/>
+    <function name="e_cal_backend_notify_view_progress ()" link="ECalBackend.html#e-cal-backend-notify-view-progress"/>
+    <function name="e_cal_backend_notify_readonly ()" link="ECalBackend.html#e-cal-backend-notify-readonly"/>
+    <function name="e_cal_backend_notify_cal_address ()" link="ECalBackend.html#e-cal-backend-notify-cal-address"/>
+    <function name="e_cal_backend_notify_objects_added ()" link="ECalBackend.html#e-cal-backend-notify-objects-added"/>
+    <function name="e_cal_backend_notify_objects_removed ()" link="ECalBackend.html#e-cal-backend-notify-objects-removed"/>
+    <function name="e_cal_backend_notify_objects_modified ()" link="ECalBackend.html#e-cal-backend-notify-objects-modified"/>
+    <function name="e_cal_backend_empty_cache ()" link="ECalBackend.html#e-cal-backend-empty-cache"/>
+    <function name="ECalBackendCache" link="ECalBackendCache.html#ECalBackendCache-struct"/>
+    <function name="e_cal_backend_cache_new ()" link="ECalBackendCache.html#e-cal-backend-cache-new"/>
+    <function name="e_cal_backend_cache_get_component ()" link="ECalBackendCache.html#e-cal-backend-cache-get-component"/>
+    <function name="e_cal_backend_cache_put_component ()" link="ECalBackendCache.html#e-cal-backend-cache-put-component"/>
+    <function name="e_cal_backend_cache_remove_component ()" link="ECalBackendCache.html#e-cal-backend-cache-remove-component"/>
+    <function name="e_cal_backend_cache_get_components ()" link="ECalBackendCache.html#e-cal-backend-cache-get-components"/>
+    <function name="e_cal_backend_cache_get_components_by_uid ()" link="ECalBackendCache.html#e-cal-backend-cache-get-components-by-uid"/>
+    <function name="e_cal_backend_cache_get_timezone ()" link="ECalBackendCache.html#e-cal-backend-cache-get-timezone"/>
+    <function name="e_cal_backend_cache_put_timezone ()" link="ECalBackendCache.html#e-cal-backend-cache-put-timezone"/>
+    <function name="e_cal_backend_cache_remove_timezone ()" link="ECalBackendCache.html#e-cal-backend-cache-remove-timezone"/>
+    <function name="e_cal_backend_cache_put_default_timezone ()" link="ECalBackendCache.html#e-cal-backend-cache-put-default-timezone"/>
+    <function name="e_cal_backend_cache_get_default_timezone ()" link="ECalBackendCache.html#e-cal-backend-cache-get-default-timezone"/>
+    <function name="e_cal_backend_cache_get_keys ()" link="ECalBackendCache.html#e-cal-backend-cache-get-keys"/>
+    <function name="e_cal_backend_cache_get_marker ()" link="ECalBackendCache.html#e-cal-backend-cache-get-marker"/>
+    <function name="e_cal_backend_cache_set_marker ()" link="ECalBackendCache.html#e-cal-backend-cache-set-marker"/>
+    <function name="e_cal_backend_cache_put_server_utc_time ()" link="ECalBackendCache.html#e-cal-backend-cache-put-server-utc-time"/>
+    <function name="e_cal_backend_cache_get_server_utc_time ()" link="ECalBackendCache.html#e-cal-backend-cache-get-server-utc-time"/>
+    <function name="e_cal_backend_cache_put_key_value ()" link="ECalBackendCache.html#e-cal-backend-cache-put-key-value"/>
+    <function name="e_cal_backend_cache_get_key_value ()" link="ECalBackendCache.html#e-cal-backend-cache-get-key-value"/>
+    <function name="e_cal_backend_cache_remove ()" link="ECalBackendCache.html#e-cal-backend-cache-remove"/>
+    <function name="The &quot;source-type&quot; property" link="ECalBackendCache.html#ECalBackendCache--source-type"/>
+    <function name="The &quot;uri&quot; property" link="ECalBackendCache.html#ECalBackendCache--uri"/>
+    <function name="ECalBackendFactory" link="ECalBackendFactory.html#ECalBackendFactory-struct"/>
+    <function name="e_cal_backend_factory_get_kind ()" link="ECalBackendFactory.html#e-cal-backend-factory-get-kind"/>
+    <function name="e_cal_backend_factory_get_protocol ()" link="ECalBackendFactory.html#e-cal-backend-factory-get-protocol"/>
+    <function name="e_cal_backend_factory_new_backend ()" link="ECalBackendFactory.html#e-cal-backend-factory-new-backend"/>
+    <function name="e_cal_backend_sexp_new ()" link="ECalBackendSExp.html#e-cal-backend-sexp-new"/>
+    <function name="e_cal_backend_sexp_text ()" link="ECalBackendSExp.html#e-cal-backend-sexp-text"/>
+    <function name="e_cal_backend_sexp_match_object ()" link="ECalBackendSExp.html#e-cal-backend-sexp-match-object"/>
+    <function name="e_cal_backend_sexp_match_comp ()" link="ECalBackendSExp.html#e-cal-backend-sexp-match-comp"/>
+    <function name="e_cal_backend_sexp_func_time_now ()" link="ECalBackendSExp.html#e-cal-backend-sexp-func-time-now"/>
+    <function name="e_cal_backend_sexp_func_make_time ()" link="ECalBackendSExp.html#e-cal-backend-sexp-func-make-time"/>
+    <function name="e_cal_backend_sexp_func_time_add_day ()" link="ECalBackendSExp.html#e-cal-backend-sexp-func-time-add-day"/>
+    <function name="e_cal_backend_sexp_func_time_day_begin ()" link="ECalBackendSExp.html#e-cal-backend-sexp-func-time-day-begin"/>
+    <function name="e_cal_backend_sexp_func_time_day_end ()" link="ECalBackendSExp.html#e-cal-backend-sexp-func-time-day-end"/>
+    <function name="ECalBackendSync" link="ECalBackendSync.html#ECalBackendSync-struct"/>
+    <function name="ECalBackendSyncStatus" link="ECalBackendSync.html#ECalBackendSyncStatus"/>
+    <function name="ECalBackendSyncFactoryFn ()" link="ECalBackendSync.html#ECalBackendSyncFactoryFn"/>
+    <function name="e_cal_backend_sync_set_lock ()" link="ECalBackendSync.html#e-cal-backend-sync-set-lock"/>
+    <function name="e_cal_backend_sync_is_read_only ()" link="ECalBackendSync.html#e-cal-backend-sync-is-read-only"/>
+    <function name="e_cal_backend_sync_get_cal_address ()" link="ECalBackendSync.html#e-cal-backend-sync-get-cal-address"/>
+    <function name="e_cal_backend_sync_get_alarm_email_address ()" link="ECalBackendSync.html#e-cal-backend-sync-get-alarm-email-address"/>
+    <function name="e_cal_backend_sync_get_ldap_attribute ()" link="ECalBackendSync.html#e-cal-backend-sync-get-ldap-attribute"/>
+    <function name="e_cal_backend_sync_get_static_capabilities ()" link="ECalBackendSync.html#e-cal-backend-sync-get-static-capabilities"/>
+    <function name="e_cal_backend_sync_open ()" link="ECalBackendSync.html#e-cal-backend-sync-open"/>
+    <function name="e_cal_backend_sync_remove ()" link="ECalBackendSync.html#e-cal-backend-sync-remove"/>
+    <function name="e_cal_backend_sync_create_object ()" link="ECalBackendSync.html#e-cal-backend-sync-create-object"/>
+    <function name="e_cal_backend_sync_modify_object ()" link="ECalBackendSync.html#e-cal-backend-sync-modify-object"/>
+    <function name="e_cal_backend_sync_remove_object ()" link="ECalBackendSync.html#e-cal-backend-sync-remove-object"/>
+    <function name="e_cal_backend_sync_get_attachment_list ()" link="ECalBackendSync.html#e-cal-backend-sync-get-attachment-list"/>
+    <function name="e_cal_backend_sync_discard_alarm ()" link="ECalBackendSync.html#e-cal-backend-sync-discard-alarm"/>
+    <function name="e_cal_backend_sync_receive_objects ()" link="ECalBackendSync.html#e-cal-backend-sync-receive-objects"/>
+    <function name="e_cal_backend_sync_send_objects ()" link="ECalBackendSync.html#e-cal-backend-sync-send-objects"/>
+    <function name="e_cal_backend_sync_get_default_object ()" link="ECalBackendSync.html#e-cal-backend-sync-get-default-object"/>
+    <function name="e_cal_backend_sync_get_object ()" link="ECalBackendSync.html#e-cal-backend-sync-get-object"/>
+    <function name="e_cal_backend_sync_get_object_list ()" link="ECalBackendSync.html#e-cal-backend-sync-get-object-list"/>
+    <function name="e_cal_backend_sync_get_timezone ()" link="ECalBackendSync.html#e-cal-backend-sync-get-timezone"/>
+    <function name="e_cal_backend_sync_add_timezone ()" link="ECalBackendSync.html#e-cal-backend-sync-add-timezone"/>
+    <function name="e_cal_backend_sync_set_default_timezone ()" link="ECalBackendSync.html#e-cal-backend-sync-set-default-timezone"/>
+    <function name="e_cal_backend_sync_set_default_zone ()" link="ECalBackendSync.html#e-cal-backend-sync-set-default-zone"/>
+    <function name="e_cal_backend_sync_get_changes ()" link="ECalBackendSync.html#e-cal-backend-sync-get-changes"/>
+    <function name="e_cal_backend_sync_get_free_busy ()" link="ECalBackendSync.html#e-cal-backend-sync-get-free-busy"/>
+    <function name="e_cal_backend_mail_account_get_default ()" link="libedata-cal-e-cal-backend-util.html#e-cal-backend-mail-account-get-default"/>
+    <function name="e_cal_backend_mail_account_is_valid ()" link="libedata-cal-e-cal-backend-util.html#e-cal-backend-mail-account-is-valid"/>
+    <function name="e_cal_backend_status_to_string ()" link="libedata-cal-e-cal-backend-util.html#e-cal-backend-status-to-string"/>
+    <function name="e_cal_backend_user_declined ()" link="libedata-cal-e-cal-backend-util.html#e-cal-backend-user-declined"/>
+    <function name="e_data_cal_construct ()" link="EDataCal.html#e-data-cal-construct"/>
+    <function name="e_data_cal_new ()" link="EDataCal.html#e-data-cal-new"/>
+    <function name="e_data_cal_get_backend ()" link="EDataCal.html#e-data-cal-get-backend"/>
+    <function name="e_data_cal_get_listener ()" link="EDataCal.html#e-data-cal-get-listener"/>
+    <function name="e_data_cal_notify_read_only ()" link="EDataCal.html#e-data-cal-notify-read-only"/>
+    <function name="e_data_cal_notify_cal_address ()" link="EDataCal.html#e-data-cal-notify-cal-address"/>
+    <function name="e_data_cal_notify_alarm_email_address ()" link="EDataCal.html#e-data-cal-notify-alarm-email-address"/>
+    <function name="e_data_cal_notify_ldap_attribute ()" link="EDataCal.html#e-data-cal-notify-ldap-attribute"/>
+    <function name="e_data_cal_notify_static_capabilities ()" link="EDataCal.html#e-data-cal-notify-static-capabilities"/>
+    <function name="e_data_cal_notify_open ()" link="EDataCal.html#e-data-cal-notify-open"/>
+    <function name="e_data_cal_notify_remove ()" link="EDataCal.html#e-data-cal-notify-remove"/>
+    <function name="e_data_cal_notify_object_created ()" link="EDataCal.html#e-data-cal-notify-object-created"/>
+    <function name="e_data_cal_notify_object_modified ()" link="EDataCal.html#e-data-cal-notify-object-modified"/>
+    <function name="e_data_cal_notify_object_removed ()" link="EDataCal.html#e-data-cal-notify-object-removed"/>
+    <function name="e_data_cal_notify_alarm_discarded ()" link="EDataCal.html#e-data-cal-notify-alarm-discarded"/>
+    <function name="e_data_cal_notify_objects_received ()" link="EDataCal.html#e-data-cal-notify-objects-received"/>
+    <function name="e_data_cal_notify_objects_sent ()" link="EDataCal.html#e-data-cal-notify-objects-sent"/>
+    <function name="e_data_cal_notify_default_object ()" link="EDataCal.html#e-data-cal-notify-default-object"/>
+    <function name="e_data_cal_notify_object ()" link="EDataCal.html#e-data-cal-notify-object"/>
+    <function name="e_data_cal_notify_object_list ()" link="EDataCal.html#e-data-cal-notify-object-list"/>
+    <function name="e_data_cal_notify_query ()" link="EDataCal.html#e-data-cal-notify-query"/>
+    <function name="e_data_cal_notify_timezone_requested ()" link="EDataCal.html#e-data-cal-notify-timezone-requested"/>
+    <function name="e_data_cal_notify_timezone_added ()" link="EDataCal.html#e-data-cal-notify-timezone-added"/>
+    <function name="e_data_cal_notify_default_timezone_set ()" link="EDataCal.html#e-data-cal-notify-default-timezone-set"/>
+    <function name="e_data_cal_notify_changes ()" link="EDataCal.html#e-data-cal-notify-changes"/>
+    <function name="e_data_cal_notify_free_busy ()" link="EDataCal.html#e-data-cal-notify-free-busy"/>
+    <function name="e_data_cal_notify_mode ()" link="EDataCal.html#e-data-cal-notify-mode"/>
+    <function name="e_data_cal_notify_auth_required ()" link="EDataCal.html#e-data-cal-notify-auth-required"/>
+    <function name="e_data_cal_notify_error ()" link="EDataCal.html#e-data-cal-notify-error"/>
+    <function name="e_data_cal_notify_attachment_list ()" link="EDataCal.html#e-data-cal-notify-attachment-list"/>
+    <function name="EDataCalFactory" link="EDataCalFactory.html#EDataCalFactory-struct"/>
+    <function name="e_data_cal_factory_new ()" link="EDataCalFactory.html#e-data-cal-factory-new"/>
+    <function name="e_data_cal_factory_register_storage ()" link="EDataCalFactory.html#e-data-cal-factory-register-storage"/>
+    <function name="e_data_cal_factory_register_backend ()" link="EDataCalFactory.html#e-data-cal-factory-register-backend"/>
+    <function name="e_data_cal_factory_register_backends ()" link="EDataCalFactory.html#e-data-cal-factory-register-backends"/>
+    <function name="e_data_cal_factory_get_n_backends ()" link="EDataCalFactory.html#e-data-cal-factory-get-n-backends"/>
+    <function name="e_data_cal_factory_dump_active_backends ()" link="EDataCalFactory.html#e-data-cal-factory-dump-active-backends"/>
+    <function name="e_data_cal_factory_set_backend_mode ()" link="EDataCalFactory.html#e-data-cal-factory-set-backend-mode"/>
+    <function name="The &quot;last-calendar-gone&quot; signal" link="EDataCalFactory.html#EDataCalFactory-last-calendar-gone"/>
+    <function name="QUERY()" link="EDataCalView.html#QUERY:CAPS"/>
+    <function name="IS_QUERY()" link="EDataCalView.html#IS-QUERY:CAPS"/>
+    <function name="e_data_cal_view_new ()" link="EDataCalView.html#e-data-cal-view-new"/>
+    <function name="e_data_cal_view_add_listener ()" link="EDataCalView.html#e-data-cal-view-add-listener"/>
+    <function name="e_data_cal_view_get_text ()" link="EDataCalView.html#e-data-cal-view-get-text"/>
+    <function name="e_data_cal_view_get_object_sexp ()" link="EDataCalView.html#e-data-cal-view-get-object-sexp"/>
+    <function name="e_data_cal_view_object_matches ()" link="EDataCalView.html#e-data-cal-view-object-matches"/>
+    <function name="e_data_cal_view_get_matched_objects ()" link="EDataCalView.html#e-data-cal-view-get-matched-objects"/>
+    <function name="e_data_cal_view_is_started ()" link="EDataCalView.html#e-data-cal-view-is-started"/>
+    <function name="e_data_cal_view_is_done ()" link="EDataCalView.html#e-data-cal-view-is-done"/>
+    <function name="e_data_cal_view_get_done_status ()" link="EDataCalView.html#e-data-cal-view-get-done-status"/>
+    <function name="e_data_cal_view_notify_objects_added ()" link="EDataCalView.html#e-data-cal-view-notify-objects-added"/>
+    <function name="e_data_cal_view_notify_objects_added_1 ()" link="EDataCalView.html#e-data-cal-view-notify-objects-added-1"/>
+    <function name="e_data_cal_view_notify_objects_modified ()" link="EDataCalView.html#e-data-cal-view-notify-objects-modified"/>
+    <function name="e_data_cal_view_notify_objects_modified_1 ()" link="EDataCalView.html#e-data-cal-view-notify-objects-modified-1"/>
+    <function name="e_data_cal_view_notify_objects_removed ()" link="EDataCalView.html#e-data-cal-view-notify-objects-removed"/>
+    <function name="e_data_cal_view_notify_objects_removed_1 ()" link="EDataCalView.html#e-data-cal-view-notify-objects-removed-1"/>
+    <function name="e_data_cal_view_notify_progress ()" link="EDataCalView.html#e-data-cal-view-notify-progress"/>
+    <function name="e_data_cal_view_notify_done ()" link="EDataCalView.html#e-data-cal-view-notify-done"/>
+  </functions>
+</book>

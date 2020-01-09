@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libebackend-e-data-server-module">
+<refmeta>
+<refentrytitle role="top_of_page" id="libebackend-e-data-server-module.top_of_page">e-data-server-module</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEBACKEND Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-data-server-module</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libebackend-e-data-server-module.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-server-module-init">e_data_server_module_init</link>           (<parameter><type>void</type></parameter>);
+<link linkend="GList"><returnvalue>GList</returnvalue></link> *             <link linkend="e-data-server-get-extensions-for-type">e_data_server_get_extensions_for_type</link>
+                                                        (<parameter><link linkend="GType"><type>GType</type></link> type</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-server-extension-list-free">e_data_server_extension_list_free</link>   (<parameter><link linkend="GList"><type>GList</type></link> *list</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-server-module-remove-unused">e_data_server_module_remove_unused</link>  (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-server-module-add-type">e_data_server_module_add_type</link>       (<parameter><link linkend="GType"><type>GType</type></link> type</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="eds-module-initialize">eds_module_initialize</link>               (<parameter><link linkend="GTypeModule"><type>GTypeModule</type></link> *module</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="eds-module-shutdown">eds_module_shutdown</link>                 (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="eds-module-list-types">eds_module_list_types</link>               (<parameter>const <link linkend="GType"><type>GType</type></link> **types</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> *num_types</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libebackend-e-data-server-module.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libebackend-e-data-server-module.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="e-data-server-module-init" role="function">
+<title>e_data_server_module_init ()</title>
+<indexterm zone="e-data-server-module-init"><primary>e_data_server_module_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_server_module_init           (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-data-server-get-extensions-for-type" role="function">
+<title>e_data_server_get_extensions_for_type ()</title>
+<indexterm zone="e-data-server-get-extensions-for-type"><primary>e_data_server_get_extensions_for_type</primary></indexterm>
+<programlisting><link linkend="GList"><returnvalue>GList</returnvalue></link> *             e_data_server_get_extensions_for_type
+                                                        (<parameter><link linkend="GType"><type>GType</type></link> type</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-server-extension-list-free" role="function">
+<title>e_data_server_extension_list_free ()</title>
+<indexterm zone="e-data-server-extension-list-free"><primary>e_data_server_extension_list_free</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_server_extension_list_free   (<parameter><link linkend="GList"><type>GList</type></link> *list</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-server-module-remove-unused" role="function">
+<title>e_data_server_module_remove_unused ()</title>
+<indexterm zone="e-data-server-module-remove-unused"><primary>e_data_server_module_remove_unused</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_server_module_remove_unused  (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-data-server-module-add-type" role="function">
+<title>e_data_server_module_add_type ()</title>
+<indexterm zone="e-data-server-module-add-type"><primary>e_data_server_module_add_type</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_server_module_add_type       (<parameter><link linkend="GType"><type>GType</type></link> type</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="eds-module-initialize" role="function">
+<title>eds_module_initialize ()</title>
+<indexterm zone="eds-module-initialize"><primary>eds_module_initialize</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                eds_module_initialize               (<parameter><link linkend="GTypeModule"><type>GTypeModule</type></link> *module</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>module</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="eds-module-shutdown" role="function">
+<title>eds_module_shutdown ()</title>
+<indexterm zone="eds-module-shutdown"><primary>eds_module_shutdown</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                eds_module_shutdown                 (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="eds-module-list-types" role="function">
+<title>eds_module_list_types ()</title>
+<indexterm zone="eds-module-list-types"><primary>eds_module_list_types</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                eds_module_list_types               (<parameter>const <link linkend="GType"><type>GType</type></link> **types</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> *num_types</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>types</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num_types</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

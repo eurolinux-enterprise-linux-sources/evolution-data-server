@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CamelStream</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Camel Reference Manual">
+<link rel="up" href="Streams.html" title="Streams">
+<link rel="prev" href="Streams.html" title="Streams">
+<link rel="next" href="camel-CamelSeekableStream.html" title="CamelSeekableStream">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="Streams.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="Streams.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Camel Reference Manual</th>
+<td><a accesskey="n" href="camel-CamelSeekableStream.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#camel-CamelStream.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#camel-CamelStream.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="camel-CamelStream"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="camel-CamelStream.top_of_page"></a>CamelStream</span></h2>
+<p>CamelStream</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="camel-CamelStream.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream">CamelStream</a>;
+<span class="returnvalue">gssize</span>              <a class="link" href="camel-CamelStream.html#camel-stream-read" title="camel_stream_read ()">camel_stream_read</a>                   (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> n</code></em>);
+<span class="returnvalue">gssize</span>              <a class="link" href="camel-CamelStream.html#camel-stream-write" title="camel_stream_write ()">camel_stream_write</a>                  (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> n</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelStream.html#camel-stream-flush" title="camel_stream_flush ()">camel_stream_flush</a>                  (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelStream.html#camel-stream-close" title="camel_stream_close ()">camel_stream_close</a>                  (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelStream.html#camel-stream-eos" title="camel_stream_eos ()">camel_stream_eos</a>                    (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelStream.html#camel-stream-reset" title="camel_stream_reset ()">camel_stream_reset</a>                  (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>);
+<span class="returnvalue">gssize</span>              <a class="link" href="camel-CamelStream.html#camel-stream-write-string" title="camel_stream_write_string ()">camel_stream_write_string</a>           (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>);
+<span class="returnvalue">gssize</span>              <a class="link" href="camel-CamelStream.html#camel-stream-printf" title="camel_stream_printf ()">camel_stream_printf</a>                 (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);
+<span class="returnvalue">gssize</span>              <a class="link" href="camel-CamelStream.html#camel-stream-vprintf" title="camel_stream_vprintf ()">camel_stream_vprintf</a>                (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);
+<span class="returnvalue">gssize</span>              <a class="link" href="camel-CamelStream.html#camel-stream-write-to-stream" title="camel_stream_write_to_stream ()">camel_stream_write_to_stream</a>        (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *output_stream</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="camel-CamelStream.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="camel-CamelStream.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="CamelStream"></a><h3>struct CamelStream</h3>
+<pre class="programlisting">struct CamelStream {
+	CamelObject parent_object;
+
+	gboolean eos;
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-stream-read"></a><h3>camel_stream_read ()</h3>
+<pre class="programlisting"><span class="returnvalue">gssize</span>              camel_stream_read                   (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> n</code></em>);</pre>
+<p>
+Attempts to read up to <em class="parameter"><code>len</code></em> bytes from <em class="parameter"><code>stream</code></em> into <em class="parameter"><code>buf</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> object.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>output buffer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>max number of bytes to read.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the number of bytes actually read, or <code class="literal">-1</code> on error and set
+errno.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-stream-write"></a><h3>camel_stream_write ()</h3>
+<pre class="programlisting"><span class="returnvalue">gssize</span>              camel_stream_write                  (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> n</code></em>);</pre>
+<p>
+Attempts to write up to <em class="parameter"><code>n</code></em> bytes of <em class="parameter"><code>buffer</code></em> into <em class="parameter"><code>stream</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>buffer to write.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>n</code></em> :</span></p></td>
+<td>number of bytes to write
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the number of bytes written to the stream, or <code class="literal">-1</code> on error
+along with setting errno.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-stream-flush"></a><h3>camel_stream_flush ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_stream_flush                  (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>);</pre>
+<p>
+Flushes any buffered data to the stream's backing store.  Only
+meaningful for writable streams.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">0</code> on success or <code class="literal">-1</code> on fail along with setting errno.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-stream-close"></a><h3>camel_stream_close ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_stream_close                  (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>);</pre>
+<p>
+Closes the stream.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">0</code> on success or <code class="literal">-1</code> on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-stream-eos"></a><h3>camel_stream_eos ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_stream_eos                    (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>);</pre>
+<p>
+Tests if there are bytes left to read on the <em class="parameter"><code>stream</code></em> object.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> on EOS or <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-stream-reset"></a><h3>camel_stream_reset ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_stream_reset                  (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>);</pre>
+<p>
+Resets the stream. That is, put it in a state where it can be read
+from the beginning again. Not all streams in Camel are seekable,
+but they must all be resettable.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">0</code> on success or <code class="literal">-1</code> on error along with setting errno.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-stream-write-string"></a><h3>camel_stream_write_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">gssize</span>              camel_stream_write_string           (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *string</code></em>);</pre>
+<p>
+Writes the string to the stream.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>string</code></em> :</span></p></td>
+<td>a string
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the number of characters written or <code class="literal">-1</code> on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-stream-printf"></a><h3>camel_stream_printf ()</h3>
+<pre class="programlisting"><span class="returnvalue">gssize</span>              camel_stream_printf                 (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *fmt</code></em>,
+                                                         <em class="parameter"><code>...</code></em>);</pre>
+<p>
+Write formatted output to a stream.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>a printf-style format string
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>...</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the number of characters written or <code class="literal">-1</code> on error.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-stream-vprintf"></a><h3>camel_stream_vprintf ()</h3>
+<pre class="programlisting"><span class="returnvalue">gssize</span>              camel_stream_vprintf                (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *fmt</code></em>,
+                                                         <em class="parameter"><code><span class="type">va_list</span> ap</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>fmt</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ap</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-stream-write-to-stream"></a><h3>camel_stream_write_to_stream ()</h3>
+<pre class="programlisting"><span class="returnvalue">gssize</span>              camel_stream_write_to_stream        (<em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *stream</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> *output_stream</code></em>);</pre>
+<p>
+Write all of a stream (until eos) into another stream, in a
+blocking fashion.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>stream</code></em> :</span></p></td>
+<td>source <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>output_stream</code></em> :</span></p></td>
+<td>destination <a class="link" href="camel-CamelStream.html#CamelStream" title="struct CamelStream"><span class="type">CamelStream</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">-1</code> on error, or the number of bytes succesfully
+copied across streams.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

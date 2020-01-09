@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libebook-e-book-types">
+<refmeta>
+<refentrytitle role="top_of_page" id="libebook-e-book-types.top_of_page">e-book-types</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEBOOK Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-book-types</refname>
+<refpurpose>Client-side GOBject which exposes the
+Evolution:BookListener interface.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libebook-e-book-types.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="E-BOOK-ERROR:CAPS">E_BOOK_ERROR</link>
+<link linkend="GQuark"><returnvalue>GQuark</returnvalue></link>              <link linkend="e-book-error-quark">e_book_error_quark</link>                  (<parameter><type>void</type></parameter>);
+enum                <link linkend="EBookStatus">EBookStatus</link>;
+enum                <link linkend="EBookViewStatus">EBookViewStatus</link>;
+enum                <link linkend="EBookChangeType">EBookChangeType</link>;
+                    <link linkend="EBookChange">EBookChange</link>;
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libebook-e-book-types.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libebook-e-book-types.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="E-BOOK-ERROR:CAPS" role="macro">
+<title>E_BOOK_ERROR</title>
+<indexterm zone="E-BOOK-ERROR:CAPS"><primary>E_BOOK_ERROR</primary></indexterm>
+<programlisting>#define E_BOOK_ERROR e_book_error_quark()
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-book-error-quark" role="function">
+<title>e_book_error_quark ()</title>
+<indexterm zone="e-book-error-quark"><primary>e_book_error_quark</primary></indexterm>
+<programlisting><link linkend="GQuark"><returnvalue>GQuark</returnvalue></link>              e_book_error_quark                  (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EBookStatus" role="enum">
+<title>enum EBookStatus</title>
+<indexterm zone="EBookStatus"><primary>EBookStatus</primary></indexterm>
+<programlisting>typedef enum {
+	E_BOOK_ERROR_OK,
+	E_BOOK_ERROR_INVALID_ARG,
+	E_BOOK_ERROR_BUSY,
+	E_BOOK_ERROR_REPOSITORY_OFFLINE,
+	E_BOOK_ERROR_NO_SUCH_BOOK,
+	E_BOOK_ERROR_NO_SELF_CONTACT,
+	E_BOOK_ERROR_SOURCE_NOT_LOADED,
+	E_BOOK_ERROR_SOURCE_ALREADY_LOADED,
+	E_BOOK_ERROR_PERMISSION_DENIED,
+	E_BOOK_ERROR_CONTACT_NOT_FOUND,
+	E_BOOK_ERROR_CONTACT_ID_ALREADY_EXISTS,
+	E_BOOK_ERROR_PROTOCOL_NOT_SUPPORTED,
+	E_BOOK_ERROR_CANCELLED,
+	E_BOOK_ERROR_COULD_NOT_CANCEL,
+	E_BOOK_ERROR_AUTHENTICATION_FAILED,
+	E_BOOK_ERROR_AUTHENTICATION_REQUIRED,
+	E_BOOK_ERROR_TLS_NOT_AVAILABLE,
+	E_BOOK_ERROR_CORBA_EXCEPTION,
+	E_BOOK_ERROR_NO_SUCH_SOURCE,
+	E_BOOK_ERROR_OFFLINE_UNAVAILABLE,
+	E_BOOK_ERROR_OTHER_ERROR,
+	E_BOOK_ERROR_INVALID_SERVER_VERSION,
+	E_BOOK_ERROR_UNSUPPORTED_AUTHENTICATION_METHOD,
+	E_BOOK_ERROR_NO_SPACE
+} EBookStatus;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EBookViewStatus" role="enum">
+<title>enum EBookViewStatus</title>
+<indexterm zone="EBookViewStatus"><primary>EBookViewStatus</primary></indexterm>
+<programlisting>typedef enum {
+	E_BOOK_VIEW_STATUS_OK,
+	E_BOOK_VIEW_STATUS_TIME_LIMIT_EXCEEDED,
+	E_BOOK_VIEW_STATUS_SIZE_LIMIT_EXCEEDED,
+	E_BOOK_VIEW_ERROR_INVALID_QUERY,
+	E_BOOK_VIEW_ERROR_QUERY_REFUSED,
+	E_BOOK_VIEW_ERROR_OTHER_ERROR
+} EBookViewStatus;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EBookChangeType" role="enum">
+<title>enum EBookChangeType</title>
+<indexterm zone="EBookChangeType"><primary>EBookChangeType</primary></indexterm>
+<programlisting>typedef enum {
+	E_BOOK_CHANGE_CARD_ADDED,
+	E_BOOK_CHANGE_CARD_DELETED,
+	E_BOOK_CHANGE_CARD_MODIFIED
+} EBookChangeType;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EBookChange" role="struct">
+<title>EBookChange</title>
+<indexterm zone="EBookChange"><primary>EBookChange</primary></indexterm>
+<programlisting>typedef struct {
+	EBookChangeType  change_type;
+	EContact        *contact;
+} EBookChange;
+</programlisting>
+<para>
+</para></refsect2>
+
+</refsect1>
+
+</refentry>

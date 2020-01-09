@@ -1,0 +1,59 @@
+<!-- ##### SECTION Title ##### -->
+CamelStreamFilter
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT CamelStreamFilter ##### -->
+<para>
+
+</para>
+
+@parent: 
+@source: 
+@priv: 
+
+<!-- ##### FUNCTION camel_stream_filter_new_with_stream ##### -->
+<para>
+
+</para>
+
+@stream: 
+@Returns: 
+
+
+<!-- ##### FUNCTION camel_stream_filter_add ##### -->
+<para>
+
+</para>
+
+@stream: 
+@filter: 
+@Returns: 
+
+
+<!-- ##### FUNCTION camel_stream_filter_remove ##### -->
+<para>
+
+</para>
+
+@stream: 
+@id: 
+
+

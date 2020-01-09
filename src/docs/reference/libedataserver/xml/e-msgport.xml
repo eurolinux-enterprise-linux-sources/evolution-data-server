@@ -1,0 +1,721 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libedataserver-e-msgport">
+<refmeta>
+<refentrytitle role="top_of_page" id="libedataserver-e-msgport.top_of_page">e-msgport</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVER Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-msgport</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libedataserver-e-msgport.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="EDListNode">EDListNode</link>;
+                    <link linkend="EDList">EDList</link>;
+#define             <link linkend="E-DLIST-INITIALISER:CAPS">E_DLIST_INITIALISER</link>                 (l)
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-dlist-init">e_dlist_init</link>                        (<parameter><link linkend="EDList"><type>EDList</type></link> *v</parameter>);
+<link linkend="EDListNode"><returnvalue>EDListNode</returnvalue></link> *        <link linkend="e-dlist-addhead">e_dlist_addhead</link>                     (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>,
+                                                         <parameter><link linkend="EDListNode"><type>EDListNode</type></link> *n</parameter>);
+<link linkend="EDListNode"><returnvalue>EDListNode</returnvalue></link> *        <link linkend="e-dlist-addtail">e_dlist_addtail</link>                     (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>,
+                                                         <parameter><link linkend="EDListNode"><type>EDListNode</type></link> *n</parameter>);
+<link linkend="EDListNode"><returnvalue>EDListNode</returnvalue></link> *        <link linkend="e-dlist-remove">e_dlist_remove</link>                      (<parameter><link linkend="EDListNode"><type>EDListNode</type></link> *n</parameter>);
+<link linkend="EDListNode"><returnvalue>EDListNode</returnvalue></link> *        <link linkend="e-dlist-remhead">e_dlist_remhead</link>                     (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>);
+<link linkend="EDListNode"><returnvalue>EDListNode</returnvalue></link> *        <link linkend="e-dlist-remtail">e_dlist_remtail</link>                     (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-dlist-empty">e_dlist_empty</link>                       (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-dlist-length">e_dlist_length</link>                      (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>);
+                    <link linkend="EMCache">EMCache</link>;
+                    <link linkend="EMCacheNode">EMCacheNode</link>;
+<link linkend="EMCache"><returnvalue>EMCache</returnvalue></link> *           <link linkend="em-cache-new">em_cache_new</link>                        (<parameter><link linkend="time-t"><type>time_t</type></link> timeout</parameter>,
+                                                         <parameter><link linkend="gsize"><type>gsize</type></link> nodesize</parameter>,
+                                                         <parameter><link linkend="GFreeFunc"><type>GFreeFunc</type></link> nodefree</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="em-cache-destroy">em_cache_destroy</link>                    (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>);
+<link linkend="EMCacheNode"><returnvalue>EMCacheNode</returnvalue></link> *       <link linkend="em-cache-lookup">em_cache_lookup</link>                     (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>);
+<link linkend="EMCacheNode"><returnvalue>EMCacheNode</returnvalue></link> *       <link linkend="em-cache-node-new">em_cache_node_new</link>                   (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="em-cache-node-unref">em_cache_node_unref</link>                 (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>,
+                                                         <parameter><link linkend="EMCacheNode"><type>EMCacheNode</type></link> *n</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="em-cache-add">em_cache_add</link>                        (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>,
+                                                         <parameter><link linkend="EMCacheNode"><type>EMCacheNode</type></link> *n</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="em-cache-clear">em_cache_clear</link>                      (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>);
+                    <link linkend="EMsgPort">EMsgPort</link>;
+                    <link linkend="EMsg">EMsg</link>;
+<link linkend="EMsgPort"><returnvalue>EMsgPort</returnvalue></link> *          <link linkend="e-msgport-new">e_msgport_new</link>                       (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-msgport-destroy">e_msgport_destroy</link>                   (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-msgport-fd">e_msgport_fd</link>                        (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>);
+struct <link linkend="PRFileDesc"><returnvalue>PRFileDesc</returnvalue></link> * <link linkend="e-msgport-prfd">e_msgport_prfd</link>                      (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-msgport-put">e_msgport_put</link>                       (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>,
+                                                         <parameter><link linkend="EMsg"><type>EMsg</type></link> *msg</parameter>);
+<link linkend="EMsg"><returnvalue>EMsg</returnvalue></link> *              <link linkend="e-msgport-wait">e_msgport_wait</link>                      (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>);
+<link linkend="EMsg"><returnvalue>EMsg</returnvalue></link> *              <link linkend="e-msgport-get">e_msgport_get</link>                       (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-msgport-reply">e_msgport_reply</link>                     (<parameter><link linkend="EMsg"><type>EMsg</type></link> *msg</parameter>);
+                    <link linkend="EThread">EThread</link>;
+enum                <link linkend="e-thread-t">e_thread_t</link>;
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="EThreadFunc">*EThreadFunc</link>)                      (<parameter><link linkend="EThread"><type>EThread</type></link> *Param1</parameter>,
+                                                         <parameter><link linkend="EMsg"><type>EMsg</type></link> *Param2</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);
+<link linkend="EThread"><returnvalue>EThread</returnvalue></link> *           <link linkend="e-thread-new">e_thread_new</link>                        (<parameter><link linkend="e-thread-t"><type>e_thread_t</type></link> type</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-thread-destroy">e_thread_destroy</link>                    (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-thread-set-queue-limit">e_thread_set_queue_limit</link>            (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> limit</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-thread-set-msg-lost">e_thread_set_msg_lost</link>               (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="EThreadFunc"><type>EThreadFunc</type></link> destroy</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-thread-set-msg-destroy">e_thread_set_msg_destroy</link>            (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="EThreadFunc"><type>EThreadFunc</type></link> destroy</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-thread-set-reply-port">e_thread_set_reply_port</link>             (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *reply_port</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-thread-set-msg-received">e_thread_set_msg_received</link>           (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="EThreadFunc"><type>EThreadFunc</type></link> received</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-thread-put">e_thread_put</link>                        (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="EMsg"><type>EMsg</type></link> *msg</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-thread-busy">e_thread_busy</link>                       (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>);
+                    <link linkend="EMutex">EMutex</link>;
+enum                <link linkend="e-mutex-t">e_mutex_t</link>;
+<link linkend="EMutex"><returnvalue>EMutex</returnvalue></link> *            <link linkend="e-mutex-new">e_mutex_new</link>                         (<parameter><link linkend="e-mutex-t"><type>e_mutex_t</type></link> type</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-mutex-destroy">e_mutex_destroy</link>                     (<parameter><link linkend="EMutex"><type>EMutex</type></link> *m</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-mutex-lock">e_mutex_lock</link>                        (<parameter><link linkend="EMutex"><type>EMutex</type></link> *m</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-mutex-unlock">e_mutex_unlock</link>                      (<parameter><link linkend="EMutex"><type>EMutex</type></link> *m</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-mutex-assert-locked">e_mutex_assert_locked</link>               (<parameter><link linkend="EMutex"><type>EMutex</type></link> *m</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-mutex-cond-wait">e_mutex_cond_wait</link>                   (<parameter><link linkend="gpointer"><type>gpointer</type></link> cond</parameter>,
+                                                         <parameter><link linkend="EMutex"><type>EMutex</type></link> *m</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libedataserver-e-msgport.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libedataserver-e-msgport.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EDListNode" role="struct">
+<title>EDListNode</title>
+<indexterm zone="EDListNode"><primary>EDListNode</primary></indexterm>
+<programlisting>typedef struct {
+	struct _EDListNode *next;
+	struct _EDListNode *prev;
+} EDListNode;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EDList" role="struct">
+<title>EDList</title>
+<indexterm zone="EDList"><primary>EDList</primary></indexterm>
+<programlisting>typedef struct {
+	struct _EDListNode *head;
+	struct _EDListNode *tail;
+	struct _EDListNode *tailpred;
+} EDList;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="E-DLIST-INITIALISER:CAPS" role="macro">
+<title>E_DLIST_INITIALISER()</title>
+<indexterm zone="E-DLIST-INITIALISER:CAPS"><primary>E_DLIST_INITIALISER</primary></indexterm>
+<programlisting>#define E_DLIST_INITIALISER(l) { (EDListNode *)&amp;l.tail, NULL, (EDListNode *)&amp;l.head }
+</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>l</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-dlist-init" role="function">
+<title>e_dlist_init ()</title>
+<indexterm zone="e-dlist-init"><primary>e_dlist_init</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_dlist_init                        (<parameter><link linkend="EDList"><type>EDList</type></link> *v</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>v</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-dlist-addhead" role="function">
+<title>e_dlist_addhead ()</title>
+<indexterm zone="e-dlist-addhead"><primary>e_dlist_addhead</primary></indexterm>
+<programlisting><link linkend="EDListNode"><returnvalue>EDListNode</returnvalue></link> *        e_dlist_addhead                     (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>,
+                                                         <parameter><link linkend="EDListNode"><type>EDListNode</type></link> *n</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>l</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-dlist-addtail" role="function">
+<title>e_dlist_addtail ()</title>
+<indexterm zone="e-dlist-addtail"><primary>e_dlist_addtail</primary></indexterm>
+<programlisting><link linkend="EDListNode"><returnvalue>EDListNode</returnvalue></link> *        e_dlist_addtail                     (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>,
+                                                         <parameter><link linkend="EDListNode"><type>EDListNode</type></link> *n</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>l</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-dlist-remove" role="function">
+<title>e_dlist_remove ()</title>
+<indexterm zone="e-dlist-remove"><primary>e_dlist_remove</primary></indexterm>
+<programlisting><link linkend="EDListNode"><returnvalue>EDListNode</returnvalue></link> *        e_dlist_remove                      (<parameter><link linkend="EDListNode"><type>EDListNode</type></link> *n</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>n</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-dlist-remhead" role="function">
+<title>e_dlist_remhead ()</title>
+<indexterm zone="e-dlist-remhead"><primary>e_dlist_remhead</primary></indexterm>
+<programlisting><link linkend="EDListNode"><returnvalue>EDListNode</returnvalue></link> *        e_dlist_remhead                     (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>l</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-dlist-remtail" role="function">
+<title>e_dlist_remtail ()</title>
+<indexterm zone="e-dlist-remtail"><primary>e_dlist_remtail</primary></indexterm>
+<programlisting><link linkend="EDListNode"><returnvalue>EDListNode</returnvalue></link> *        e_dlist_remtail                     (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>l</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-dlist-empty" role="function">
+<title>e_dlist_empty ()</title>
+<indexterm zone="e-dlist-empty"><primary>e_dlist_empty</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_dlist_empty                       (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>l</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-dlist-length" role="function">
+<title>e_dlist_length ()</title>
+<indexterm zone="e-dlist-length"><primary>e_dlist_length</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_dlist_length                      (<parameter><link linkend="EDList"><type>EDList</type></link> *l</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>l</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EMCache" role="struct">
+<title>EMCache</title>
+<indexterm zone="EMCache"><primary>EMCache</primary></indexterm>
+<programlisting>typedef struct _EMCache EMCache;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EMCacheNode" role="struct">
+<title>EMCacheNode</title>
+<indexterm zone="EMCacheNode"><primary>EMCacheNode</primary></indexterm>
+<programlisting>typedef struct {
+	struct _EMCacheNode *next, *prev;
+	gchar *key;
+	gint ref_count;
+	time_t stamp;
+} EMCacheNode;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="em-cache-new" role="function">
+<title>em_cache_new ()</title>
+<indexterm zone="em-cache-new"><primary>em_cache_new</primary></indexterm>
+<programlisting><link linkend="EMCache"><returnvalue>EMCache</returnvalue></link> *           em_cache_new                        (<parameter><link linkend="time-t"><type>time_t</type></link> timeout</parameter>,
+                                                         <parameter><link linkend="gsize"><type>gsize</type></link> nodesize</parameter>,
+                                                         <parameter><link linkend="GFreeFunc"><type>GFreeFunc</type></link> nodefree</parameter>);</programlisting>
+<para>
+Setup a new timeout cache.  <parameter>nodesize</parameter> is the size of nodes in the
+cache, and <parameter>nodefree</parameter> will be called to free YOUR content.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="em-cache-destroy" role="function">
+<title>em_cache_destroy ()</title>
+<indexterm zone="em-cache-destroy"><primary>em_cache_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                em_cache_destroy                    (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>);</programlisting>
+<para>
+destroy the cache, duh.</para>
+</refsect2>
+<refsect2 id="em-cache-lookup" role="function">
+<title>em_cache_lookup ()</title>
+<indexterm zone="em-cache-lookup"><primary>em_cache_lookup</primary></indexterm>
+<programlisting><link linkend="EMCacheNode"><returnvalue>EMCacheNode</returnvalue></link> *       em_cache_lookup                     (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>);</programlisting>
+<para>
+Lookup a cache node.  once you're finished with it, you need to
+unref it.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="em-cache-node-new" role="function">
+<title>em_cache_node_new ()</title>
+<indexterm zone="em-cache-node-new"><primary>em_cache_node_new</primary></indexterm>
+<programlisting><link linkend="EMCacheNode"><returnvalue>EMCacheNode</returnvalue></link> *       em_cache_node_new                   (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *key</parameter>);</programlisting>
+<para>
+Create a new key'd cache node.  The node will not be added to the
+cache until you insert it.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="em-cache-node-unref" role="function">
+<title>em_cache_node_unref ()</title>
+<indexterm zone="em-cache-node-unref"><primary>em_cache_node_unref</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                em_cache_node_unref                 (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>,
+                                                         <parameter><link linkend="EMCacheNode"><type>EMCacheNode</type></link> *n</parameter>);</programlisting>
+<para>
+unref a cache node, you can only unref nodes which have been looked
+up.</para>
+</refsect2>
+<refsect2 id="em-cache-add" role="function">
+<title>em_cache_add ()</title>
+<indexterm zone="em-cache-add"><primary>em_cache_add</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                em_cache_add                        (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>,
+                                                         <parameter><link linkend="EMCacheNode"><type>EMCacheNode</type></link> *n</parameter>);</programlisting>
+<para>
+Add a cache node to the cache, once added the memory is owned by
+the cache.  If there are conflicts and the old node is still in
+use, then the new node is not added, otherwise it is added and any
+nodes older than the expire time are flushed.</para>
+</refsect2>
+<refsect2 id="em-cache-clear" role="function">
+<title>em_cache_clear ()</title>
+<indexterm zone="em-cache-clear"><primary>em_cache_clear</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                em_cache_clear                      (<parameter><link linkend="EMCache"><type>EMCache</type></link> *emc</parameter>);</programlisting>
+<para>
+clear the cache.  just for api completeness.</para>
+</refsect2>
+<refsect2 id="EMsgPort" role="struct" condition="deprecated:">
+<title>EMsgPort</title>
+<indexterm zone="EMsgPort" role="deprecated"><primary>EMsgPort</primary></indexterm>
+<programlisting>typedef struct _EMsgPort EMsgPort;</programlisting>
+<warning><para><literal>EMsgPort</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para></refsect2>
+<refsect2 id="EMsg" role="struct" condition="deprecated:">
+<title>EMsg</title>
+<indexterm zone="EMsg" role="deprecated"><primary>EMsg</primary></indexterm>
+<programlisting>typedef struct {
+	EDListNode ln;
+	EMsgPort *reply_port;
+	gint flags;
+} EMsg;
+</programlisting>
+<warning><para><literal>EMsg</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para></refsect2>
+<refsect2 id="e-msgport-new" role="function" condition="deprecated:">
+<title>e_msgport_new ()</title>
+<indexterm zone="e-msgport-new" role="deprecated"><primary>e_msgport_new</primary></indexterm>
+<programlisting><link linkend="EMsgPort"><returnvalue>EMsgPort</returnvalue></link> *          e_msgport_new                       (<parameter><type>void</type></parameter>);</programlisting>
+<warning><para><literal>e_msgport_new</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-msgport-destroy" role="function" condition="deprecated:">
+<title>e_msgport_destroy ()</title>
+<indexterm zone="e-msgport-destroy" role="deprecated"><primary>e_msgport_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_msgport_destroy                   (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>);</programlisting>
+<warning><para><literal>e_msgport_destroy</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>mp</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-msgport-fd" role="function" condition="deprecated:">
+<title>e_msgport_fd ()</title>
+<indexterm zone="e-msgport-fd" role="deprecated"><primary>e_msgport_fd</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_msgport_fd                        (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>);</programlisting>
+<warning><para><literal>e_msgport_fd</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>mp</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-msgport-prfd" role="function" condition="deprecated:">
+<title>e_msgport_prfd ()</title>
+<indexterm zone="e-msgport-prfd" role="deprecated"><primary>e_msgport_prfd</primary></indexterm>
+<programlisting>struct <link linkend="PRFileDesc"><returnvalue>PRFileDesc</returnvalue></link> * e_msgport_prfd                      (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>);</programlisting>
+<warning><para><literal>e_msgport_prfd</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>mp</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-msgport-put" role="function" condition="deprecated:">
+<title>e_msgport_put ()</title>
+<indexterm zone="e-msgport-put" role="deprecated"><primary>e_msgport_put</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_msgport_put                       (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>,
+                                                         <parameter><link linkend="EMsg"><type>EMsg</type></link> *msg</parameter>);</programlisting>
+<warning><para><literal>e_msgport_put</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>mp</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>msg</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-msgport-wait" role="function" condition="deprecated:">
+<title>e_msgport_wait ()</title>
+<indexterm zone="e-msgport-wait" role="deprecated"><primary>e_msgport_wait</primary></indexterm>
+<programlisting><link linkend="EMsg"><returnvalue>EMsg</returnvalue></link> *              e_msgport_wait                      (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>);</programlisting>
+<warning><para><literal>e_msgport_wait</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>mp</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-msgport-get" role="function" condition="deprecated:">
+<title>e_msgport_get ()</title>
+<indexterm zone="e-msgport-get" role="deprecated"><primary>e_msgport_get</primary></indexterm>
+<programlisting><link linkend="EMsg"><returnvalue>EMsg</returnvalue></link> *              e_msgport_get                       (<parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *mp</parameter>);</programlisting>
+<warning><para><literal>e_msgport_get</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>mp</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-msgport-reply" role="function" condition="deprecated:">
+<title>e_msgport_reply ()</title>
+<indexterm zone="e-msgport-reply" role="deprecated"><primary>e_msgport_reply</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_msgport_reply                     (<parameter><link linkend="EMsg"><type>EMsg</type></link> *msg</parameter>);</programlisting>
+<warning><para><literal>e_msgport_reply</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>msg</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EThread" role="struct" condition="deprecated:">
+<title>EThread</title>
+<indexterm zone="EThread" role="deprecated"><primary>EThread</primary></indexterm>
+<programlisting>typedef struct _EThread EThread;</programlisting>
+<warning><para><literal>EThread</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para></refsect2>
+<refsect2 id="e-thread-t" role="enum" condition="deprecated:">
+<title>enum e_thread_t</title>
+<indexterm zone="e-thread-t" role="deprecated"><primary>e_thread_t</primary></indexterm>
+<programlisting>typedef enum {
+	E_THREAD_QUEUE = 0,&#160;/* run one by one, until done, if the queue_limit is reached, discard new request */
+	E_THREAD_DROP,		/* run one by one, until done, if the queue_limit is reached, discard oldest requests */
+	E_THREAD_NEW		/* always run in a new thread, if the queue limit is reached, new requests are
+				   stored in the queue until a thread becomes available for it, creating a thread pool */
+} e_thread_t;
+</programlisting>
+<warning><para><literal>e_thread_t</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para></refsect2>
+<refsect2 id="EThreadFunc" role="function" condition="deprecated:">
+<title>EThreadFunc ()</title>
+<indexterm zone="EThreadFunc" role="deprecated"><primary>EThreadFunc</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*EThreadFunc)                      (<parameter><link linkend="EThread"><type>EThread</type></link> *Param1</parameter>,
+                                                         <parameter><link linkend="EMsg"><type>EMsg</type></link> *Param2</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);</programlisting>
+<warning><para><literal>EThreadFunc</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>Param1</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>Param2</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-thread-new" role="function" condition="deprecated:">
+<title>e_thread_new ()</title>
+<indexterm zone="e-thread-new" role="deprecated"><primary>e_thread_new</primary></indexterm>
+<programlisting><link linkend="EThread"><returnvalue>EThread</returnvalue></link> *           e_thread_new                        (<parameter><link linkend="e-thread-t"><type>e_thread_t</type></link> type</parameter>);</programlisting>
+<warning><para><literal>e_thread_new</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-thread-destroy" role="function" condition="deprecated:">
+<title>e_thread_destroy ()</title>
+<indexterm zone="e-thread-destroy" role="deprecated"><primary>e_thread_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_thread_destroy                    (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>);</programlisting>
+<warning><para><literal>e_thread_destroy</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>e</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-thread-set-queue-limit" role="function" condition="deprecated:">
+<title>e_thread_set_queue_limit ()</title>
+<indexterm zone="e-thread-set-queue-limit" role="deprecated"><primary>e_thread_set_queue_limit</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_thread_set_queue_limit            (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> limit</parameter>);</programlisting>
+<warning><para><literal>e_thread_set_queue_limit</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>e</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>limit</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-thread-set-msg-lost" role="function" condition="deprecated:">
+<title>e_thread_set_msg_lost ()</title>
+<indexterm zone="e-thread-set-msg-lost" role="deprecated"><primary>e_thread_set_msg_lost</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_thread_set_msg_lost               (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="EThreadFunc"><type>EThreadFunc</type></link> destroy</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);</programlisting>
+<warning><para><literal>e_thread_set_msg_lost</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>e</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destroy</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-thread-set-msg-destroy" role="function" condition="deprecated:">
+<title>e_thread_set_msg_destroy ()</title>
+<indexterm zone="e-thread-set-msg-destroy" role="deprecated"><primary>e_thread_set_msg_destroy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_thread_set_msg_destroy            (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="EThreadFunc"><type>EThreadFunc</type></link> destroy</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);</programlisting>
+<warning><para><literal>e_thread_set_msg_destroy</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>e</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destroy</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-thread-set-reply-port" role="function" condition="deprecated:">
+<title>e_thread_set_reply_port ()</title>
+<indexterm zone="e-thread-set-reply-port" role="deprecated"><primary>e_thread_set_reply_port</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_thread_set_reply_port             (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="EMsgPort"><type>EMsgPort</type></link> *reply_port</parameter>);</programlisting>
+<warning><para><literal>e_thread_set_reply_port</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>e</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>reply_port</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-thread-set-msg-received" role="function" condition="deprecated:">
+<title>e_thread_set_msg_received ()</title>
+<indexterm zone="e-thread-set-msg-received" role="deprecated"><primary>e_thread_set_msg_received</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_thread_set_msg_received           (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="EThreadFunc"><type>EThreadFunc</type></link> received</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);</programlisting>
+<warning><para><literal>e_thread_set_msg_received</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>e</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>received</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-thread-put" role="function" condition="deprecated:">
+<title>e_thread_put ()</title>
+<indexterm zone="e-thread-put" role="deprecated"><primary>e_thread_put</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_thread_put                        (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>,
+                                                         <parameter><link linkend="EMsg"><type>EMsg</type></link> *msg</parameter>);</programlisting>
+<warning><para><literal>e_thread_put</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>e</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>msg</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-thread-busy" role="function" condition="deprecated:">
+<title>e_thread_busy ()</title>
+<indexterm zone="e-thread-busy" role="deprecated"><primary>e_thread_busy</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_thread_busy                       (<parameter><link linkend="EThread"><type>EThread</type></link> *e</parameter>);</programlisting>
+<warning><para><literal>e_thread_busy</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>e</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EMutex" role="struct" condition="deprecated:">
+<title>EMutex</title>
+<indexterm zone="EMutex" role="deprecated"><primary>EMutex</primary></indexterm>
+<programlisting>typedef struct _EMutex EMutex;</programlisting>
+<warning><para><literal>EMutex</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para></refsect2>
+<refsect2 id="e-mutex-t" role="enum" condition="deprecated:">
+<title>enum e_mutex_t</title>
+<indexterm zone="e-mutex-t" role="deprecated"><primary>e_mutex_t</primary></indexterm>
+<programlisting>typedef enum _e_mutex_t {
+	E_MUTEX_SIMPLE,		/* == pthread_mutex */
+	E_MUTEX_REC		/* recursive mutex */
+} e_mutex_t;
+</programlisting>
+<warning><para><literal>e_mutex_t</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para></refsect2>
+<refsect2 id="e-mutex-new" role="function" condition="deprecated:">
+<title>e_mutex_new ()</title>
+<indexterm zone="e-mutex-new" role="deprecated"><primary>e_mutex_new</primary></indexterm>
+<programlisting><link linkend="EMutex"><returnvalue>EMutex</returnvalue></link> *            e_mutex_new                         (<parameter><link linkend="e-mutex-t"><type>e_mutex_t</type></link> type</parameter>);</programlisting>
+<warning><para><literal>e_mutex_new</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-mutex-destroy" role="function" condition="deprecated:">
+<title>e_mutex_destroy ()</title>
+<indexterm zone="e-mutex-destroy" role="deprecated"><primary>e_mutex_destroy</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_mutex_destroy                     (<parameter><link linkend="EMutex"><type>EMutex</type></link> *m</parameter>);</programlisting>
+<warning><para><literal>e_mutex_destroy</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>m</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-mutex-lock" role="function" condition="deprecated:">
+<title>e_mutex_lock ()</title>
+<indexterm zone="e-mutex-lock" role="deprecated"><primary>e_mutex_lock</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_mutex_lock                        (<parameter><link linkend="EMutex"><type>EMutex</type></link> *m</parameter>);</programlisting>
+<warning><para><literal>e_mutex_lock</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>m</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-mutex-unlock" role="function" condition="deprecated:">
+<title>e_mutex_unlock ()</title>
+<indexterm zone="e-mutex-unlock" role="deprecated"><primary>e_mutex_unlock</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_mutex_unlock                      (<parameter><link linkend="EMutex"><type>EMutex</type></link> *m</parameter>);</programlisting>
+<warning><para><literal>e_mutex_unlock</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>m</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-mutex-assert-locked" role="function" condition="deprecated:">
+<title>e_mutex_assert_locked ()</title>
+<indexterm zone="e-mutex-assert-locked" role="deprecated"><primary>e_mutex_assert_locked</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_mutex_assert_locked               (<parameter><link linkend="EMutex"><type>EMutex</type></link> *m</parameter>);</programlisting>
+<warning><para><literal>e_mutex_assert_locked</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>m</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-mutex-cond-wait" role="function" condition="deprecated:">
+<title>e_mutex_cond_wait ()</title>
+<indexterm zone="e-mutex-cond-wait" role="deprecated"><primary>e_mutex_cond_wait</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_mutex_cond_wait                   (<parameter><link linkend="gpointer"><type>gpointer</type></link> cond</parameter>,
+                                                         <parameter><link linkend="EMutex"><type>EMutex</type></link> *m</parameter>);</programlisting>
+<warning><para><literal>e_mutex_cond_wait</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>cond</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>m</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

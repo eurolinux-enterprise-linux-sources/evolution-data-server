@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ENameSelectorEntry">
+<refmeta>
+<refentrytitle role="top_of_page" id="ENameSelectorEntry.top_of_page">ENameSelectorEntry</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVERUI Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>ENameSelectorEntry</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ENameSelectorEntry.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>#define             <link linkend="MINIMUM-QUERY-LENGTH:CAPS">MINIMUM_QUERY_LENGTH</link>
+#define             <link linkend="FORCE-SHOW-ADDRESS:CAPS">FORCE_SHOW_ADDRESS</link>
+#define             <link linkend="USER-QUERY-FIELDS:CAPS">USER_QUERY_FIELDS</link>
+                    <link linkend="ENameSelectorEntry-struct">ENameSelectorEntry</link>;
+<link linkend="ENameSelectorEntry"><returnvalue>ENameSelectorEntry</returnvalue></link> * <link linkend="e-name-selector-entry-new">e_name_selector_entry_new</link>          (<parameter><type>void</type></parameter>);
+<link linkend="EContactStore"><returnvalue>EContactStore</returnvalue></link> *     <link linkend="e-name-selector-entry-peek-contact-store">e_name_selector_entry_peek_contact_store</link>
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-name-selector-entry-set-contact-store">e_name_selector_entry_set_contact_store</link>
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>,
+                                                         <parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>);
+<link linkend="EDestinationStore"><returnvalue>EDestinationStore</returnvalue></link> * <link linkend="e-name-selector-entry-peek-destination-store">e_name_selector_entry_peek_destination_store</link>
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-name-selector-entry-set-destination-store">e_name_selector_entry_set_destination_store</link>
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>,
+                                                         <parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-name-selector-entry-set-contact-editor-func">e_name_selector_entry_set_contact_editor_func</link>
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> func</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-name-selector-entry-set-contact-list-editor-func">e_name_selector_entry_set_contact_list_editor_func</link>
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> func</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="ens-util-populate-user-query-fields">ens_util_populate_user_query_fields</link> (<parameter><link linkend="GSList"><type>GSList</type></link> *user_query_fields</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *cue_str</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *encoded_cue_str</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="ENameSelectorEntry.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="GtkObject">GtkObject</link>
+               +----<link linkend="GtkWidget">GtkWidget</link>
+                     +----<link linkend="GtkEntry">GtkEntry</link>
+                           +----ENameSelectorEntry
+                                 +----<link linkend="ENameSelectorList">ENameSelectorList</link>
+</synopsis>
+</refsect1>
+<refsect1 id="ENameSelectorEntry.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+ENameSelectorEntry implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link>,  <link linkend="GtkBuildable">GtkBuildable</link>,  <link linkend="GtkEditable">GtkEditable</link> and  <link linkend="GtkCellEditable">GtkCellEditable</link>.</para>
+</refsect1>
+<refsect1 id="ENameSelectorEntry.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="ENameSelectorEntry-updated">updated</link>&quot;                                        : Run First
+</synopsis>
+</refsect1>
+
+<refsect1 id="ENameSelectorEntry.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="ENameSelectorEntry.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="MINIMUM-QUERY-LENGTH:CAPS" role="macro">
+<title>MINIMUM_QUERY_LENGTH</title>
+<indexterm zone="MINIMUM-QUERY-LENGTH:CAPS"><primary>MINIMUM_QUERY_LENGTH</primary></indexterm>
+<programlisting>#define MINIMUM_QUERY_LENGTH "/apps/evolution/addressbook/completion/minimum_query_length"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="FORCE-SHOW-ADDRESS:CAPS" role="macro">
+<title>FORCE_SHOW_ADDRESS</title>
+<indexterm zone="FORCE-SHOW-ADDRESS:CAPS"><primary>FORCE_SHOW_ADDRESS</primary></indexterm>
+<programlisting>#define FORCE_SHOW_ADDRESS   "/apps/evolution/addressbook/completion/show_address"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="USER-QUERY-FIELDS:CAPS" role="macro">
+<title>USER_QUERY_FIELDS</title>
+<indexterm zone="USER-QUERY-FIELDS:CAPS"><primary>USER_QUERY_FIELDS</primary></indexterm>
+<programlisting>#define USER_QUERY_FIELDS "/apps/evolution/addressbook/completion/user_query_fields"
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="ENameSelectorEntry-struct" role="struct">
+<title>ENameSelectorEntry</title>
+<indexterm zone="ENameSelectorEntry-struct"><primary>ENameSelectorEntry</primary></indexterm>
+<programlisting>typedef struct _ENameSelectorEntry ENameSelectorEntry;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-name-selector-entry-new" role="function">
+<title>e_name_selector_entry_new ()</title>
+<indexterm zone="e-name-selector-entry-new"><primary>e_name_selector_entry_new</primary></indexterm>
+<programlisting><link linkend="ENameSelectorEntry"><returnvalue>ENameSelectorEntry</returnvalue></link> * e_name_selector_entry_new          (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Creates a new <link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link>.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-name-selector-entry-peek-contact-store" role="function">
+<title>e_name_selector_entry_peek_contact_store ()</title>
+<indexterm zone="e-name-selector-entry-peek-contact-store"><primary>e_name_selector_entry_peek_contact_store</primary></indexterm>
+<programlisting><link linkend="EContactStore"><returnvalue>EContactStore</returnvalue></link> *     e_name_selector_entry_peek_contact_store
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>);</programlisting>
+<para>
+Gets the <link linkend="EContactStore"><type>EContactStore</type></link> being used by <parameter>name_selector_entry</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>name_selector_entry</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An <link linkend="EContactStore"><type>EContactStore</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-name-selector-entry-set-contact-store" role="function">
+<title>e_name_selector_entry_set_contact_store ()</title>
+<indexterm zone="e-name-selector-entry-set-contact-store"><primary>e_name_selector_entry_set_contact_store</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_name_selector_entry_set_contact_store
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>,
+                                                         <parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>);</programlisting>
+<para>
+Sets the <link linkend="EContactStore"><type>EContactStore</type></link> being used by <parameter>name_selector_entry</parameter> to <parameter>contact_store</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>name_selector_entry</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContactStore"><type>EContactStore</type></link> to use
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-name-selector-entry-peek-destination-store" role="function">
+<title>e_name_selector_entry_peek_destination_store ()</title>
+<indexterm zone="e-name-selector-entry-peek-destination-store"><primary>e_name_selector_entry_peek_destination_store</primary></indexterm>
+<programlisting><link linkend="EDestinationStore"><returnvalue>EDestinationStore</returnvalue></link> * e_name_selector_entry_peek_destination_store
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>);</programlisting>
+<para>
+Gets the <link linkend="EDestinationStore"><type>EDestinationStore</type></link> being used to store <parameter>name_selector_entry</parameter>'s destinations.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>name_selector_entry</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An <link linkend="EDestinationStore"><type>EDestinationStore</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-name-selector-entry-set-destination-store" role="function">
+<title>e_name_selector_entry_set_destination_store ()</title>
+<indexterm zone="e-name-selector-entry-set-destination-store"><primary>e_name_selector_entry_set_destination_store</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_name_selector_entry_set_destination_store
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>,
+                                                         <parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>);</programlisting>
+<para>
+Sets <parameter>destination_store</parameter> as the <link linkend="EDestinationStore"><type>EDestinationStore</type></link> to be used to store
+destinations for <parameter>name_selector_entry</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>name_selector_entry</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destination_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestinationStore"><type>EDestinationStore</type></link> to use
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-name-selector-entry-set-contact-editor-func" role="function">
+<title>e_name_selector_entry_set_contact_editor_func ()</title>
+<indexterm zone="e-name-selector-entry-set-contact-editor-func"><primary>e_name_selector_entry_set_contact_editor_func</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_name_selector_entry_set_contact_editor_func
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> func</parameter>);</programlisting>
+<para>
+DO NOT USE.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>name_selector_entry</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-name-selector-entry-set-contact-list-editor-func" role="function">
+<title>e_name_selector_entry_set_contact_list_editor_func ()</title>
+<indexterm zone="e-name-selector-entry-set-contact-list-editor-func"><primary>e_name_selector_entry_set_contact_list_editor_func</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_name_selector_entry_set_contact_list_editor_func
+                                                        (<parameter><link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *name_selector_entry</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> func</parameter>);</programlisting>
+<para>
+DO NOT USE.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>name_selector_entry</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="ens-util-populate-user-query-fields" role="function">
+<title>ens_util_populate_user_query_fields ()</title>
+<indexterm zone="ens-util-populate-user-query-fields"><primary>ens_util_populate_user_query_fields</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             ens_util_populate_user_query_fields (<parameter><link linkend="GSList"><type>GSList</type></link> *user_query_fields</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *cue_str</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *encoded_cue_str</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>user_query_fields</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cue_str</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>encoded_cue_str</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="ENameSelectorEntry.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="ENameSelectorEntry-updated" role="signal"><title>The <literal>&quot;updated&quot;</literal> signal</title>
+<indexterm zone="ENameSelectorEntry-updated"><primary>ENameSelectorEntry::updated</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="ENameSelectorEntry"><type>ENameSelectorEntry</type></link> *enameselectorentry,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>            arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>            user_data)               : Run First</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>enameselectorentry</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+</refentry>

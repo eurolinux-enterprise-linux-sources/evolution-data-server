@@ -1,0 +1,2843 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CamelFolderSummary</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Camel Reference Manual">
+<link rel="up" href="Folders.html" title="Folders">
+<link rel="prev" href="camel-CamelFolderSearch.html" title="CamelFolderSearch">
+<link rel="next" href="camel-camel-folder-thread.html" title="camel-folder-thread">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="camel-CamelFolderSearch.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="Folders.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Camel Reference Manual</th>
+<td><a accesskey="n" href="camel-camel-folder-thread.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#camel-CamelFolderSummary.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#camel-CamelFolderSummary.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="camel-CamelFolderSummary"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="camel-CamelFolderSummary.top_of_page"></a>CamelFolderSummary</span></h2>
+<p>CamelFolderSummary</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="camel-CamelFolderSummary.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary">CamelFolderSummary</a>;
+                    <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo">CamelMessageInfo</a>;
+                    <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfoBase" title="CamelMessageInfoBase">CamelMessageInfoBase</a>;
+                    <a class="link" href="camel-CamelFolderSummary.html#CamelFolderMetaSummary" title="CamelFolderMetaSummary">CamelFolderMetaSummary</a>;
+struct              <a class="link" href="camel-CamelFolderSummary.html#CamelMessageContentInfo" title="struct CamelMessageContentInfo">CamelMessageContentInfo</a>;
+enum                <a class="link" href="camel-CamelFolderSummary.html#CamelMessageFlags" title="enum CamelMessageFlags">CamelMessageFlags</a>;
+#define             <a class="link" href="camel-CamelFolderSummary.html#CAMEL-MESSAGE-SYSTEM-MASK:CAPS" title="CAMEL_MESSAGE_SYSTEM_MASK">CAMEL_MESSAGE_SYSTEM_MASK</a>
+                    <a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag">CamelFlag</a>;
+                    <a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag">CamelTag</a>;
+                    <a class="link" href="camel-CamelFolderSummary.html#CamelSummaryMessageID" title="CamelSummaryMessageID">CamelSummaryMessageID</a>;
+                    <a class="link" href="camel-CamelFolderSummary.html#CamelSummaryReferences" title="CamelSummaryReferences">CamelSummaryReferences</a>;
+enum                <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummaryFlags" title="enum CamelFolderSummaryFlags">CamelFolderSummaryFlags</a>;
+<a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="returnvalue">CamelFolderSummary</span></a> * <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-new" title="camel_folder_summary_new ()">camel_folder_summary_new</a>           (<em class="parameter"><code><span class="type">struct _CamelFolder</span> *folder</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-set-filename" title="camel_folder_summary_set_filename ()">camel_folder_summary_set_filename</a>   (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *filename</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-set-index" title="camel_folder_summary_set_index ()">camel_folder_summary_set_index</a>      (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelIndex.html#CamelIndex" title="CamelIndex"><span class="type">CamelIndex</span></a> *index</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-set-build-content" title="camel_folder_summary_set_build_content ()">camel_folder_summary_set_build_content</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> state</code></em>);
+<span class="returnvalue">guint32</span>             <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-next-uid" title="camel_folder_summary_next_uid ()">camel_folder_summary_next_uid</a>       (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">gchar</span> *             <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-next-uid-string" title="camel_folder_summary_next_uid_string ()">camel_folder_summary_next_uid_string</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-set-uid" title="camel_folder_summary_set_uid ()">camel_folder_summary_set_uid</a>        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> uid</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-load" title="camel_folder_summary_load ()">camel_folder_summary_load</a>           (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-save" title="camel_folder_summary_save ()">camel_folder_summary_save</a>           (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-save-to-db" title="camel_folder_summary_save_to_db ()">camel_folder_summary_save_to_db</a>     (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-load-from-db" title="camel_folder_summary_load_from_db ()">camel_folder_summary_load_from_db</a>   (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-header-load" title="camel_folder_summary_header_load ()">camel_folder_summary_header_load</a>    (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-header-load-from-db" title="camel_folder_summary_header_load_from_db ()">camel_folder_summary_header_load_from_db</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelStore.html#CamelStore" title="struct CamelStore"><span class="type">CamelStore</span></a> *store</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *folder_name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-header-save-to-db" title="camel_folder_summary_header_save_to_db ()">camel_folder_summary_header_save_to_db</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-touch" title="camel_folder_summary_touch ()">camel_folder_summary_touch</a>          (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-add" title="camel_folder_summary_add ()">camel_folder_summary_add</a>            (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *info</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-peek-info" title="camel_folder_summary_peek_info ()">camel_folder_summary_peek_info</a>      (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
+<span class="returnvalue">GPtrArray</span> *         <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-get-changed" title="camel_folder_summary_get_changed ()">camel_folder_summary_get_changed</a>    (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-cache-size" title="camel_folder_summary_cache_size ()">camel_folder_summary_cache_size</a>     (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-reload-from-db" title="camel_folder_summary_reload_from_db ()">camel_folder_summary_reload_from_db</a> (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-ensure-infos-loaded" title="camel_folder_summary_ensure_infos_loaded ()">camel_folder_summary_ensure_infos_loaded</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> at_least</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-insert" title="camel_folder_summary_insert ()">camel_folder_summary_insert</a>         (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> load</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-remove-index-fast" title="camel_folder_summary_remove_index_fast ()">camel_folder_summary_remove_index_fast</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-remove-uid-fast" title="camel_folder_summary_remove_uid_fast ()">camel_folder_summary_remove_uid_fast</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-add-from-header" title="camel_folder_summary_add_from_header ()">camel_folder_summary_add_from_header</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct _camel_header_raw</span> *headers</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-add-from-parser" title="camel_folder_summary_add_from_parser ()">camel_folder_summary_add_from_parser</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelMimeParser.html#CamelMimeParser" title="struct CamelMimeParser"><span class="type">CamelMimeParser</span></a> *parser</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-add-from-message" title="camel_folder_summary_add_from_message ()">camel_folder_summary_add_from_message</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelMimeMessage.html#CamelMimeMessage" title="struct CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> *message</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-info-new-from-header" title="camel_folder_summary_info_new_from_header ()">camel_folder_summary_info_new_from_header</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct _camel_header_raw</span> *headers</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-info-new-from-parser" title="camel_folder_summary_info_new_from_parser ()">camel_folder_summary_info_new_from_parser</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelMimeParser.html#CamelMimeParser" title="struct CamelMimeParser"><span class="type">CamelMimeParser</span></a> *parser</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-info-new-from-message" title="camel_folder_summary_info_new_from_message ()">camel_folder_summary_info_new_from_message</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelMimeMessage.html#CamelMimeMessage" title="struct CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> *message</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageContentInfo" title="struct CamelMessageContentInfo"><span class="returnvalue">CamelMessageContentInfo</span></a> * <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-content-info-new" title="camel_folder_summary_content_info_new ()">camel_folder_summary_content_info_new</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-content-info-free" title="camel_folder_summary_content_info_free ()">camel_folder_summary_content_info_free</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageContentInfo" title="struct CamelMessageContentInfo"><span class="type">CamelMessageContentInfo</span></a> *ci</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-remove" title="camel_folder_summary_remove ()">camel_folder_summary_remove</a>         (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *info</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-remove-uid" title="camel_folder_summary_remove_uid ()">camel_folder_summary_remove_uid</a>     (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-remove-index" title="camel_folder_summary_remove_index ()">camel_folder_summary_remove_index</a>   (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-remove-range" title="camel_folder_summary_remove_range ()">camel_folder_summary_remove_range</a>   (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> start</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> end</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-clear" title="camel_folder_summary_clear ()">camel_folder_summary_clear</a>          (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-clear-db" title="camel_folder_summary_clear_db ()">camel_folder_summary_clear_db</a>       (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>);
+<span class="returnvalue">guint</span>               <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-count" title="camel_folder_summary_count ()">camel_folder_summary_count</a>          (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-index" title="camel_folder_summary_index ()">camel_folder_summary_index</a>          (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-uid" title="camel_folder_summary_uid ()">camel_folder_summary_uid</a>            (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
+<span class="returnvalue">gchar</span> *             <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-uid-from-index" title="camel_folder_summary_uid_from_index ()">camel_folder_summary_uid_from_index</a> (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> i</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-check-uid" title="camel_folder_summary_check_uid ()">camel_folder_summary_check_uid</a>      (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);
+<span class="returnvalue">GPtrArray</span> *         <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-array" title="camel_folder_summary_array ()">camel_folder_summary_array</a>          (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">GHashTable</span> *        <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-get-hashtable" title="camel_folder_summary_get_hashtable ()">camel_folder_summary_get_hashtable</a>  (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-free-hashtable" title="camel_folder_summary_free_hashtable ()">camel_folder_summary_free_hashtable</a> (<em class="parameter"><code><span class="type">GHashTable</span> *ht</code></em>);
+<span class="returnvalue">GHashTable</span> *        <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-get-flag-cache" title="camel_folder_summary_get_flag_cache ()">camel_folder_summary_get_flag_cache</a> (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-update-flag-cache" title="camel_folder_summary_update_flag_cache ()">camel_folder_summary_update_flag_cache</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> flag</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-encode-token" title="camel_folder_summary_encode_token ()">camel_folder_summary_encode_token</a>   (<em class="parameter"><code><span class="type">FILE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-decode-token" title="camel_folder_summary_decode_token ()">camel_folder_summary_decode_token</a>   (<em class="parameter"><code><span class="type">FILE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> **str</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-flag-get" title="camel_flag_get ()">camel_flag_get</a>                      (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **list</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-flag-set" title="camel_flag_set ()">camel_flag_set</a>                      (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **list</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> value</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-flag-list-copy" title="camel_flag_list_copy ()">camel_flag_list_copy</a>                (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **to</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **from</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-flag-list-size" title="camel_flag_list_size ()">camel_flag_list_size</a>                (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **list</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-flag-list-free" title="camel_flag_list_free ()">camel_flag_list_free</a>                (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **list</code></em>);
+<span class="returnvalue">guint32</span>             <a class="link" href="camel-CamelFolderSummary.html#camel-system-flag" title="camel_system_flag ()">camel_system_flag</a>                   (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-system-flag-get" title="camel_system_flag_get ()">camel_system_flag_get</a>               (<em class="parameter"><code><span class="type">guint32</span> flags</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="camel-CamelFolderSummary.html#camel-tag-get" title="camel_tag_get ()">camel_tag_get</a>                       (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **list</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-tag-set" title="camel_tag_set ()">camel_tag_set</a>                       (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **list</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-tag-list-copy" title="camel_tag_list_copy ()">camel_tag_list_copy</a>                 (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **to</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **from</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-tag-list-size" title="camel_tag_list_size ()">camel_tag_list_size</a>                 (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **list</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-tag-list-free" title="camel_tag_list_free ()">camel_tag_list_free</a>                 (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **list</code></em>);
+<span class="returnvalue">gpointer</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-new" title="camel_message_info_new ()">camel_message_info_new</a>              (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-ref" title="camel_message_info_ref ()">camel_message_info_ref</a>              (<em class="parameter"><code><span class="type">gpointer</span> info</code></em>);
+<a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-new-from-header" title="camel_message_info_new_from_header ()">camel_message_info_new_from_header</a>  (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct _camel_header_raw</span> *header</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-free" title="camel_message_info_free ()">camel_message_info_free</a>             (<em class="parameter"><code><span class="type">gpointer</span> info</code></em>);
+<span class="returnvalue">gpointer</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-clone" title="camel_message_info_clone ()">camel_message_info_clone</a>            (<em class="parameter"><code><span class="type">gconstpointer</span> info</code></em>);
+<span class="returnvalue">gconstpointer</span>       <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-ptr" title="camel_message_info_ptr ()">camel_message_info_ptr</a>              (<em class="parameter"><code>const <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> id</code></em>);
+<span class="returnvalue">guint32</span>             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-uint32" title="camel_message_info_uint32 ()">camel_message_info_uint32</a>           (<em class="parameter"><code>const <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> id</code></em>);
+<span class="returnvalue">time_t</span>              <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-time" title="camel_message_info_time ()">camel_message_info_time</a>             (<em class="parameter"><code>const <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> id</code></em>);
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-uid" title="camel_message_info_uid()">camel_message_info_uid</a>              (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-subject" title="camel_message_info_subject()">camel_message_info_subject</a>          (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-preview" title="camel_message_info_preview()">camel_message_info_preview</a>          (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-from" title="camel_message_info_from()">camel_message_info_from</a>             (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-to" title="camel_message_info_to()">camel_message_info_to</a>               (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-cc" title="camel_message_info_cc()">camel_message_info_cc</a>               (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-mlist" title="camel_message_info_mlist()">camel_message_info_mlist</a>            (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-flags" title="camel_message_info_flags()">camel_message_info_flags</a>            (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-size" title="camel_message_info_size()">camel_message_info_size</a>             (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-date-sent" title="camel_message_info_date_sent()">camel_message_info_date_sent</a>        (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-date-received" title="camel_message_info_date_received()">camel_message_info_date_received</a>    (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-message-id" title="camel_message_info_message_id()">camel_message_info_message_id</a>       (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-references" title="camel_message_info_references()">camel_message_info_references</a>       (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-user-flags" title="camel_message_info_user_flags()">camel_message_info_user_flags</a>       (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-user-tags" title="camel_message_info_user_tags()">camel_message_info_user_tags</a>        (mi)
+#define             <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-headers" title="camel_message_info_headers()">camel_message_info_headers</a>          (mi)
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-user-flag" title="camel_message_info_user_flag ()">camel_message_info_user_flag</a>        (<em class="parameter"><code>const <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-user-tag" title="camel_message_info_user_tag ()">camel_message_info_user_tag</a>         (<em class="parameter"><code>const <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-set-flags" title="camel_message_info_set_flags ()">camel_message_info_set_flags</a>        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> flags</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> set</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-set-user-flag" title="camel_message_info_set_user_flag ()">camel_message_info_set_user_flag</a>    (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> state</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-set-user-tag" title="camel_message_info_set_user_tag ()">camel_message_info_set_user_tag</a>     (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *val</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-set-need-preview" title="camel_folder_summary_set_need_preview ()">camel_folder_summary_set_need_preview</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> preview</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-add-preview" title="camel_folder_summary_add_preview ()">camel_folder_summary_add_preview</a>    (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *info</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-get-need-preview" title="camel_folder_summary_get_need_preview ()">camel_folder_summary_get_need_preview</a>
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-content-info-dump" title="camel_content_info_dump ()">camel_content_info_dump</a>             (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageContentInfo" title="struct CamelMessageContentInfo"><span class="type">CamelMessageContentInfo</span></a> *ci</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> depth</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-message-info-dump" title="camel_message_info_dump ()">camel_message_info_dump</a>             (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>);
+<span class="returnvalue">gint</span>                <a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-migrate-infos" title="camel_folder_summary_migrate_infos ()">camel_folder_summary_migrate_infos</a>  (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="camel-CamelFolderSummary.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="camel-CamelFolderSummary.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="CamelFolderSummary"></a><h3>struct CamelFolderSummary</h3>
+<pre class="programlisting">struct CamelFolderSummary {
+	CamelObject parent;
+
+	struct _CamelFolderSummaryPrivate *priv;
+
+	/* header info */
+	guint32 version; /* version of file loaded/loading */
+	guint32 flags;		/* flags */
+	guint32 nextuid; /* next uid? */
+	time_t time;		/* timestamp for this summary (for implementors to use) */
+	guint32 saved_count; /* how many were saved/loaded */
+	guint32 unread_count; /* handy totals */
+	guint32 deleted_count;
+	guint32 junk_count;
+	guint32 junk_not_deleted_count;
+	guint32 visible_count;
+
+	/* sizes of memory objects */
+	guint32 message_info_size;
+	guint32 content_info_size;
+
+	/* memory allocators (setup automatically) */
+	struct _EMemChunk *message_info_chunks;
+	struct _EMemChunk *content_info_chunks;
+
+	gchar *summary_path;
+	gboolean build_content; /* do we try and parse/index the content, or not? */
+
+#if 0  /* Deprecated */
+	GPtrArray *messages; /* CamelMessageInfo's */
+	GHashTable *messages_uid; /* CamelMessageInfo's by uid */
+#endif
+
+	/* New members to replace the above depreacted members */
+	GPtrArray *uids;
+	GHashTable *loaded_infos;
+
+	struct _CamelFolder *folder; /* parent folder, for events */
+	struct _CamelFolderMetaSummary *meta_summary; /* Meta summary */
+	time_t cache_load_time;
+	guint timeout_handle;
+
+	const gchar *collate;
+	const gchar *sort_by;
+
+	/* Future ABI expansion */
+	gpointer later[4];
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelMessageInfo"></a><h3>CamelMessageInfo</h3>
+<pre class="programlisting">typedef struct {
+	CamelFolderSummary *summary;
+
+	guint32 refcount; /* ??? */
+	const gchar *uid;
+	/*FIXME: Make it work with the CAMEL_MESSADE_DB_DIRTY flag instead of another 4 bytes*/
+	gint dirty:1;
+} CamelMessageInfo;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelMessageInfoBase"></a><h3>CamelMessageInfoBase</h3>
+<pre class="programlisting">typedef struct {
+	CamelFolderSummary *summary;
+
+	guint32 refcount; /* ??? */
+	const gchar *uid;
+	/*FIXME: Make it work with the CAMEL_MESSADE_DB_DIRTY flag instead of another 4 bytes*/
+	gint dirty:1;
+
+	const gchar *subject;
+	const gchar *from;
+	const gchar *to;
+	const gchar *cc;
+	const gchar *mlist;
+
+	guint32 flags;
+	guint32 size;
+
+	time_t date_sent;
+	time_t date_received;
+
+	CamelSummaryMessageID message_id;
+	CamelSummaryReferences *references;/* from parent to root */
+
+	struct _CamelFlag *user_flags;
+	struct _CamelTag *user_tags;
+
+	/* tree of content description - NULL if it is not available */
+	CamelMessageContentInfo *content;
+	struct _camel_header_param *headers;
+	gchar *preview;
+} CamelMessageInfoBase;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelFolderMetaSummary"></a><h3>CamelFolderMetaSummary</h3>
+<pre class="programlisting">typedef struct {
+	guint32 major;		/* Major version of meta-summary */
+	guint32 minor;		/* Minor version of meta-summary */
+	guint32 uid_len; /* Length of UID (for implementors to use) */
+	gboolean msg_expunged; /* Whether any message is expunged or not */
+	gchar *path;		/* Path to meta-summary-file */
+} CamelFolderMetaSummary;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelMessageContentInfo"></a><h3>struct CamelMessageContentInfo</h3>
+<pre class="programlisting">struct CamelMessageContentInfo {
+	struct _CamelMessageContentInfo *next;
+
+	struct _CamelMessageContentInfo *childs;
+	struct _CamelMessageContentInfo *parent;
+
+	CamelContentType *type;
+	gchar *id;
+	gchar *description;
+	gchar *encoding;		/* this should be an enum?? */
+	guint32 size;
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelMessageFlags"></a><h3>enum CamelMessageFlags</h3>
+<pre class="programlisting">typedef enum _CamelMessageFlags {
+	CAMEL_MESSAGE_ANSWERED = 1&lt;&lt;0,
+	CAMEL_MESSAGE_DELETED = 1&lt;&lt;1,
+	CAMEL_MESSAGE_DRAFT = 1&lt;&lt;2,
+	CAMEL_MESSAGE_FLAGGED = 1&lt;&lt;3,
+	CAMEL_MESSAGE_SEEN = 1&lt;&lt;4,
+
+	/* these aren't really system flag bits, but are convenience flags */
+	CAMEL_MESSAGE_ATTACHMENTS = 1&lt;&lt;5,
+	CAMEL_MESSAGE_ANSWERED_ALL = 1&lt;&lt;6,
+	CAMEL_MESSAGE_JUNK = 1&lt;&lt;7,
+	CAMEL_MESSAGE_SECURE = 1&lt;&lt;8,
+	CAMEL_MESSAGE_USER_NOT_DELETABLE = 1&lt;&lt;9,
+	CAMEL_MESSAGE_HIDDEN = 1&lt;&lt;10,
+	CAMEL_MESSAGE_NOTJUNK = 1&lt;&lt;11,
+	CAMEL_MESSAGE_FORWARDED = 1&lt;&lt;12,
+
+	/* following flags are for the folder, and are not really permanent flags */
+	CAMEL_MESSAGE_FOLDER_FLAGGED = 1&lt;&lt;16, /* for use by the folder implementation */
+	/* flags after 1&lt;&lt;16 are used by camel providers,
+           if adding non permanent flags, add them to the end  */
+
+	CAMEL_MESSAGE_JUNK_LEARN = 1&lt;&lt;30, /* used when setting CAMEL_MESSAGE_JUNK flag
+					     to say that we request junk plugin
+					     to learn that message as junk/non junk */
+	CAMEL_MESSAGE_USER = 1&lt;&lt;31 /* supports user flags */
+} CamelMessageFlags;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CAMEL-MESSAGE-SYSTEM-MASK:CAPS"></a><h3>CAMEL_MESSAGE_SYSTEM_MASK</h3>
+<pre class="programlisting">#define CAMEL_MESSAGE_SYSTEM_MASK (0xffff &lt;&lt; 16)
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelFlag"></a><h3>CamelFlag</h3>
+<pre class="programlisting">typedef struct {
+	struct _CamelFlag *next;
+	gchar name[1];		/* name allocated as part of the structure */
+} CamelFlag;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelTag"></a><h3>CamelTag</h3>
+<pre class="programlisting">typedef struct {
+	struct _CamelTag *next;
+	gchar *value;
+	gchar name[1];		/* name allocated as part of the structure */
+} CamelTag;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelSummaryMessageID"></a><h3>CamelSummaryMessageID</h3>
+<pre class="programlisting">typedef struct {
+	union {
+		guint64 id;
+		guchar hash[8];
+		struct {
+			guint32 hi;
+			guint32 lo;
+		} part;
+	} id;
+} CamelSummaryMessageID;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelSummaryReferences"></a><h3>CamelSummaryReferences</h3>
+<pre class="programlisting">typedef struct {
+	gint size;
+	CamelSummaryMessageID references[1];
+} CamelSummaryReferences;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="CamelFolderSummaryFlags"></a><h3>enum CamelFolderSummaryFlags</h3>
+<pre class="programlisting">typedef enum _CamelFolderSummaryFlags {
+	CAMEL_SUMMARY_DIRTY = 1&lt;&lt;0
+} CamelFolderSummaryFlags;
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-new"></a><h3>camel_folder_summary_new ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="returnvalue">CamelFolderSummary</span></a> * camel_folder_summary_new           (<em class="parameter"><code><span class="type">struct _CamelFolder</span> *folder</code></em>);</pre>
+<p>
+Create a new <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder</code></em> :</span></p></td>
+<td>parent <a class="link" href="camel-CamelFolder.html#CamelFolder" title="struct CamelFolder"><span class="type">CamelFolder</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-set-filename"></a><h3>camel_folder_summary_set_filename ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_set_filename   (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *filename</code></em>);</pre>
+<p>
+Set the filename where the summary will be loaded to/saved from.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>a filename
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-set-index"></a><h3>camel_folder_summary_set_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_set_index      (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelIndex.html#CamelIndex" title="CamelIndex"><span class="type">CamelIndex</span></a> *index</code></em>);</pre>
+<p>
+Set the index used to index body content.  If the index is <code class="literal">NULL</code>, or
+not set (the default), no indexing of body content will take place.
+</p>
+<p>
+Unlike earlier behaviour, build_content need not be set to perform indexing.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelIndex.html#CamelIndex" title="CamelIndex"><span class="type">CamelIndex</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-set-build-content"></a><h3>camel_folder_summary_set_build_content ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_set_build_content
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> state</code></em>);</pre>
+<p>
+Set a flag to tell the summary to build the content info summary
+(<span class="type">CamelMessageInfo.content</span>).  The default is not to build content
+info summaries.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>to build or not to build the content
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-next-uid"></a><h3>camel_folder_summary_next_uid ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>             camel_folder_summary_next_uid       (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Generate a new unique uid value as an integer.  This
+may be used to create a unique sequence of numbers.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the next unique uid value
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-next-uid-string"></a><h3>camel_folder_summary_next_uid_string ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *             camel_folder_summary_next_uid_string
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Retrieve the next uid, but as a formatted string.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the next uid as an unsigned integer string.
+This string must be freed by the caller.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-set-uid"></a><h3>camel_folder_summary_set_uid ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_set_uid        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> uid</code></em>);</pre>
+<p>
+Set the next minimum uid available.  This can be used to
+ensure new uid's do not clash with existing uid's.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>The next minimum uid to assign.  To avoid clashing
+uid's, set this to the uid of a given messages + 1.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-load"></a><h3>camel_folder_summary_load ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_load           (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Load the summary from disk.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">0</code> on success or <code class="literal">-1</code> on fail
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-save"></a><h3>camel_folder_summary_save ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_save           (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Writes the summary to disk.  The summary is only written if changes
+have occured.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">0</code> on success or <code class="literal">-1</code> on fail
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-save-to-db"></a><h3>camel_folder_summary_save_to_db ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_save_to_db     (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ex</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-load-from-db"></a><h3>camel_folder_summary_load_from_db ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_load_from_db   (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ex</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-header-load"></a><h3>camel_folder_summary_header_load ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_header_load    (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Only load the header information from the summary,
+keep the rest on disk.  This should only be done on
+a fresh summary object.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">0</code> on success or <code class="literal">-1</code> on fail
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-header-load-from-db"></a><h3>camel_folder_summary_header_load_from_db ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_header_load_from_db
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelStore.html#CamelStore" title="struct CamelStore"><span class="type">CamelStore</span></a> *store</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *folder_name</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>store</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>folder_name</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ex</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-header-save-to-db"></a><h3>camel_folder_summary_header_save_to_db ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_header_save_to_db
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ex</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-touch"></a><h3>camel_folder_summary_touch ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_touch          (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Mark the summary as changed, so that a save will force it to be
+written back to disk.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-add"></a><h3>camel_folder_summary_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_add            (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *info</code></em>);</pre>
+<p>
+Adds a new <em class="parameter"><code>info</code></em> record to the summary.  If <em class="parameter"><code>info-&gt;uid</code></em> is <code class="literal">NULL</code>,
+then a new uid is automatically re-assigned by calling
+<a class="link" href="camel-CamelFolderSummary.html#camel-folder-summary-next-uid-string" title="camel_folder_summary_next_uid_string ()"><span class="type">camel_folder_summary_next_uid_string</span></a>.
+</p>
+<p>
+The <em class="parameter"><code>info</code></em> record should have been generated by calling one of the
+info_new_*() functions, as it will be free'd based on the summary
+class.  And MUST NOT be allocated directly using malloc.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-peek-info"></a><h3>camel_folder_summary_peek_info ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  camel_folder_summary_peek_info      (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-get-changed"></a><h3>camel_folder_summary_get_changed ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *         camel_folder_summary_get_changed    (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-cache-size"></a><h3>camel_folder_summary_cache_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_cache_size     (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-reload-from-db"></a><h3>camel_folder_summary_reload_from_db ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_reload_from_db (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ex</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-ensure-infos-loaded"></a><h3>camel_folder_summary_ensure_infos_loaded ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_ensure_infos_loaded
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> at_least</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> *ex</code></em>);</pre>
+<p>
+Loads all infos into memory, if they are not yet.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+<a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>at_least</code></em> :</span></p></td>
+<td>How many infos already loaded are considered fine to not reload all of them.
+   Use -1 to force reload of all of them if not in memory yet.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ex</code></em> :</span></p></td>
+<td>
+<a class="link" href="camel-camel-exception.html#CamelException" title="struct CamelException"><span class="type">CamelException</span></a> object.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-insert"></a><h3>camel_folder_summary_insert ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_insert         (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *info</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> load</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>load</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-remove-index-fast"></a><h3>camel_folder_summary_remove_index_fast ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_remove_index_fast
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-remove-uid-fast"></a><h3>camel_folder_summary_remove_uid_fast ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_remove_uid_fast
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-add-from-header"></a><h3>camel_folder_summary_add_from_header ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  camel_folder_summary_add_from_header
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct _camel_header_raw</span> *headers</code></em>);</pre>
+<p>
+Build a new info record based on a set of headers, and add it to
+the summary.
+</p>
+<p>
+Note that this function should not be used if build_content_info
+has been specified for this summary.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>headers</code></em> :</span></p></td>
+<td>rfc822 headers
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly added record
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-add-from-parser"></a><h3>camel_folder_summary_add_from_parser ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  camel_folder_summary_add_from_parser
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelMimeParser.html#CamelMimeParser" title="struct CamelMimeParser"><span class="type">CamelMimeParser</span></a> *parser</code></em>);</pre>
+<p>
+Build a new info record based on the current position of a <a class="link" href="camel-CamelMimeParser.html#CamelMimeParser" title="struct CamelMimeParser"><span class="type">CamelMimeParser</span></a>.
+</p>
+<p>
+The parser should be positioned before the start of the message to summarise.
+This function may be used if build_contnet_info or an index has been
+specified for the summary.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parser</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelMimeParser.html#CamelMimeParser" title="struct CamelMimeParser"><span class="type">CamelMimeParser</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly added record
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-add-from-message"></a><h3>camel_folder_summary_add_from_message ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  camel_folder_summary_add_from_message
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelMimeMessage.html#CamelMimeMessage" title="struct CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> *message</code></em>);</pre>
+<p>
+Add a summary item from an existing message.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelMimeMessage.html#CamelMimeMessage" title="struct CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly added record
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-info-new-from-header"></a><h3>camel_folder_summary_info_new_from_header ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  camel_folder_summary_info_new_from_header
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct _camel_header_raw</span> *headers</code></em>);</pre>
+<p>
+Create a new info record from a header.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>headers</code></em> :</span></p></td>
+<td>rfc822 headers
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly allocated record which must be freed with
+<a class="link" href="camel-CamelFolderSummary.html#camel-message-info-free" title="camel_message_info_free ()"><span class="type">camel_message_info_free</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-info-new-from-parser"></a><h3>camel_folder_summary_info_new_from_parser ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  camel_folder_summary_info_new_from_parser
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelMimeParser.html#CamelMimeParser" title="struct CamelMimeParser"><span class="type">CamelMimeParser</span></a> *parser</code></em>);</pre>
+<p>
+Create a new info record from a parser.  If the parser cannot
+determine a uid, then none will be assigned.
+</p>
+<p>
+If indexing is enabled, and the parser cannot determine a new uid, then
+one is automatically assigned.
+</p>
+<p>
+If indexing is enabled, then the content will be indexed based
+on this new uid.  In this case, the message info MUST be
+added using :<code class="function">add()</code>.
+</p>
+<p>
+Once complete, the parser will be positioned at the end of
+the message.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>parser</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelMimeParser.html#CamelMimeParser" title="struct CamelMimeParser"><span class="type">CamelMimeParser</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly allocated record which must be freed with
+<a class="link" href="camel-CamelFolderSummary.html#camel-message-info-free" title="camel_message_info_free ()"><span class="type">camel_message_info_free</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-info-new-from-message"></a><h3>camel_folder_summary_info_new_from_message ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  camel_folder_summary_info_new_from_message
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelMimeMessage.html#CamelMimeMessage" title="struct CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> *message</code></em>);</pre>
+<p>
+Create a summary item from a message.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <span class="type">CamelFodlerSummary</span> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>message</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelMimeMessage.html#CamelMimeMessage" title="struct CamelMimeMessage"><span class="type">CamelMimeMessage</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the newly allocated record which must be freed using
+<a class="link" href="camel-CamelFolderSummary.html#camel-message-info-free" title="camel_message_info_free ()"><span class="type">camel_message_info_free</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-content-info-new"></a><h3>camel_folder_summary_content_info_new ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageContentInfo" title="struct CamelMessageContentInfo"><span class="returnvalue">CamelMessageContentInfo</span></a> * camel_folder_summary_content_info_new
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Allocate a new <a class="link" href="camel-CamelFolderSummary.html#CamelMessageContentInfo" title="struct CamelMessageContentInfo"><span class="type">CamelMessageContentInfo</span></a>, suitable for adding
+to this summary.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a newly allocated <a class="link" href="camel-CamelFolderSummary.html#CamelMessageContentInfo" title="struct CamelMessageContentInfo"><span class="type">CamelMessageContentInfo</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-content-info-free"></a><h3>camel_folder_summary_content_info_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_content_info_free
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageContentInfo" title="struct CamelMessageContentInfo"><span class="type">CamelMessageContentInfo</span></a> *ci</code></em>);</pre>
+<p>
+Free the content info <em class="parameter"><code>ci</code></em>, and all associated memory.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ci</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageContentInfo" title="struct CamelMessageContentInfo"><span class="type">CamelMessageContentInfo</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-remove"></a><h3>camel_folder_summary_remove ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_remove         (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *info</code></em>);</pre>
+<p>
+Remove a specific <em class="parameter"><code>info</code></em> record from the summary.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-remove-uid"></a><h3>camel_folder_summary_remove_uid ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_remove_uid     (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+<p>
+Remove a specific info record from the summary, by <em class="parameter"><code>uid</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>a uid
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-remove-index"></a><h3>camel_folder_summary_remove_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_remove_index   (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>);</pre>
+<p>
+Remove a specific info record from the summary, by index.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
+<td>record index
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-remove-range"></a><h3>camel_folder_summary_remove_range ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_remove_range   (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> start</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> end</code></em>);</pre>
+<p>
+Removes an indexed range of info records.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>start</code></em> :</span></p></td>
+<td>initial index
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>end</code></em> :</span></p></td>
+<td>last index to remove
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-clear"></a><h3>camel_folder_summary_clear ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_clear          (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Empty the summary contents.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-clear-db"></a><h3>camel_folder_summary_clear_db ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_clear_db       (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-count"></a><h3>camel_folder_summary_count ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint</span>               camel_folder_summary_count          (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Get the number of summary items stored in this summary.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the number of items in the summary
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-index"></a><h3>camel_folder_summary_index ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  camel_folder_summary_index          (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> index</code></em>);</pre>
+<p>
+Retrieve a summary item by index number.
+</p>
+<p>
+A referenced to the summary item is returned, which may be
+ref'd or free'd as appropriate.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>index</code></em> :</span></p></td>
+<td>item index
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the summary item, or <code class="literal">NULL</code> if <em class="parameter"><code>index</code></em> is out of range
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-uid"></a><h3>camel_folder_summary_uid ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  camel_folder_summary_uid            (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+<p>
+Retrieve a summary item by uid.
+</p>
+<p>
+A referenced to the summary item is returned, which may be
+ref'd or free'd as appropriate.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>a uid
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the summary item, or <code class="literal">NULL</code> if the uid <em class="parameter"><code>uid</code></em> is not available
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-uid-from-index"></a><h3>camel_folder_summary_uid_from_index ()</h3>
+<pre class="programlisting"><span class="returnvalue">gchar</span> *             camel_folder_summary_uid_from_index (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> i</code></em>);</pre>
+<p>
+Retrieve a summary item's uid  by index number.
+</p>
+<p>
+A newly allocated uid is returned, which must be
+free'd as appropriate.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>i</code></em> :</span></p></td>
+<td>item index
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the summary item's uid , or <code class="literal">NULL</code> if <em class="parameter"><code>index</code></em> is out of range
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-check-uid"></a><h3>camel_folder_summary_check_uid ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_folder_summary_check_uid      (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>);</pre>
+<p>
+Check if the uid is valid. This isn't very efficient, so it shouldn't be called iteratively.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>a uid
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> if the uid is present in the summary or not  (<code class="literal">TRUE</code> or <code class="literal">FALSE</code>)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-array"></a><h3>camel_folder_summary_array ()</h3>
+<pre class="programlisting"><span class="returnvalue">GPtrArray</span> *         camel_folder_summary_array          (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Obtain a copy of the summary array.  This is done atomically,
+so cannot contain empty entries.
+</p>
+<p>
+It must be freed using g_ptr_array_free</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <span class="type">GPtrArray</span> of uids
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-get-hashtable"></a><h3>camel_folder_summary_get_hashtable ()</h3>
+<pre class="programlisting"><span class="returnvalue">GHashTable</span> *        camel_folder_summary_get_hashtable  (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>);</pre>
+<p>
+Obtain a copy of the summary array in the hashtable.  This is done atomically,
+so cannot contain empty entries.
+</p>
+<p>
+It must be freed using camel_folder_summary_free_hashtable</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a <span class="type">GHashTable</span> of uids
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-free-hashtable"></a><h3>camel_folder_summary_free_hashtable ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_free_hashtable (<em class="parameter"><code><span class="type">GHashTable</span> *ht</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>ht</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-get-flag-cache"></a><h3>camel_folder_summary_get_flag_cache ()</h3>
+<pre class="programlisting"><span class="returnvalue">GHashTable</span> *        camel_folder_summary_get_flag_cache (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-update-flag-cache"></a><h3>camel_folder_summary_update_flag_cache ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_update_flag_cache
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *uid</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> flag</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>uid</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flag</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-encode-token"></a><h3>camel_folder_summary_encode_token ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_encode_token   (<em class="parameter"><code><span class="type">FILE</span> *out</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *str</code></em>);</pre>
+<p>
+Encode a string value, but use tokenisation and compression
+to reduce the size taken for common mailer words.  This
+can still be used to encode normal strings as well.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>out</code></em> :</span></p></td>
+<td>output FILE pointer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>string token to encode
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">0</code> on success or <code class="literal">-1</code> on fail
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-decode-token"></a><h3>camel_folder_summary_decode_token ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_decode_token   (<em class="parameter"><code><span class="type">FILE</span> *in</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> **str</code></em>);</pre>
+<p>
+Decode a token value.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>in</code></em> :</span></p></td>
+<td>input FILE pointer
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>str</code></em> :</span></p></td>
+<td>string pointer to hold the decoded result
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">0</code> on success or <code class="literal">-1</code> on fail
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-flag-get"></a><h3>camel_flag_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_flag_get                      (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **list</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Find the state of the flag <em class="parameter"><code>name</code></em> in <em class="parameter"><code>list</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>the address of a <a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> list
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of the flag to get
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the state of the flag (<code class="literal">TRUE</code> or <code class="literal">FALSE</code>)
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-flag-set"></a><h3>camel_flag_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_flag_set                      (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **list</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> value</code></em>);</pre>
+<p>
+Set the state of a flag <em class="parameter"><code>name</code></em> in the list <em class="parameter"><code>list</code></em> to <em class="parameter"><code>value</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>the address of a <a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> list
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of the flag to set or change
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>the value to set on the flag
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the value of the flag has been changed or <code class="literal">FALSE</code>
+otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-flag-list-copy"></a><h3>camel_flag_list_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_flag_list_copy                (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **to</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **from</code></em>);</pre>
+<p>
+Copy a flag list.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>to</code></em> :</span></p></td>
+<td>the address of the <a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> list to copy to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>from</code></em> :</span></p></td>
+<td>the address of the <a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> list to copy from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>to</code></em> is changed or <code class="literal">FALSE</code> otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-flag-list-size"></a><h3>camel_flag_list_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_flag_list_size                (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **list</code></em>);</pre>
+<p>
+Get the length of the flag list.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>the address of a <a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> list
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the number of flags in the list
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-flag-list-free"></a><h3>camel_flag_list_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_flag_list_free                (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> **list</code></em>);</pre>
+<p>
+Free the memory associated with the flag list <em class="parameter"><code>list</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>the address of a <a class="link" href="camel-CamelFolderSummary.html#CamelFlag" title="CamelFlag"><span class="type">CamelFlag</span></a> list
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-system-flag"></a><h3>camel_system_flag ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>             camel_system_flag                   (<em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of a system flag
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the integer value of the system flag string
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-system-flag-get"></a><h3>camel_system_flag_get ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_system_flag_get               (<em class="parameter"><code><span class="type">guint32</span> flags</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Find the state of the flag <em class="parameter"><code>name</code></em> in <em class="parameter"><code>flags</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>bitwise system flags
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of the flag to check for
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the named flag is set or <code class="literal">FALSE</code> otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-tag-get"></a><h3>camel_tag_get ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       camel_tag_get                       (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **list</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>);</pre>
+<p>
+Find the flag <em class="parameter"><code>name</code></em> in <em class="parameter"><code>list</code></em> and get the value.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>the address of a <a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> list
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of the tag to get
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the value of the flag  or <code class="literal">NULL</code> if unset
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-tag-set"></a><h3>camel_tag_set ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_tag_set                       (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **list</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *name</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *value</code></em>);</pre>
+<p>
+Set the tag <em class="parameter"><code>name</code></em> in the tag list <em class="parameter"><code>list</code></em> to <em class="parameter"><code>value</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>the address of a <a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> list
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>name</code></em> :</span></p></td>
+<td>name of the tag to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>value</code></em> :</span></p></td>
+<td>value to set on the tag
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the value on the tag changed or <code class="literal">FALSE</code> otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-tag-list-copy"></a><h3>camel_tag_list_copy ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_tag_list_copy                 (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **to</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **from</code></em>);</pre>
+<p>
+Copy a tag list.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>to</code></em> :</span></p></td>
+<td>the address of the <a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> list to copy to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>from</code></em> :</span></p></td>
+<td>the address of the <a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> list to copy from
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>to</code></em> is changed or <code class="literal">FALSE</code> otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-tag-list-size"></a><h3>camel_tag_list_size ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_tag_list_size                 (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **list</code></em>);</pre>
+<p>
+Get the number of tags present in the tag list <em class="parameter"><code>list</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>the address of a <a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> list
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the number of tags
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-tag-list-free"></a><h3>camel_tag_list_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_tag_list_free                 (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> **list</code></em>);</pre>
+<p>
+Free the tag list <em class="parameter"><code>list</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>the address of a <a class="link" href="camel-CamelFolderSummary.html#CamelTag" title="CamelTag"><span class="type">CamelTag</span></a> list
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-new"></a><h3>camel_message_info_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">gpointer</span>            camel_message_info_new              (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+Create a new <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-ref"></a><h3>camel_message_info_ref ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_message_info_ref              (<em class="parameter"><code><span class="type">gpointer</span> info</code></em>);</pre>
+<p>
+Reference an info.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-new-from-header"></a><h3>camel_message_info_new_from_header ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="returnvalue">CamelMessageInfo</span></a> *  camel_message_info_new_from_header  (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">struct _camel_header_raw</span> *header</code></em>);</pre>
+<p>
+Create a new <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> pre-populated with info from
+<em class="parameter"><code>header</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> object or <code class="literal">NULL</code>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>header</code></em> :</span></p></td>
+<td>raw header
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-free"></a><h3>camel_message_info_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_message_info_free             (<em class="parameter"><code><span class="type">gpointer</span> info</code></em>);</pre>
+<p>
+Unref's and potentially frees a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> and its contents.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-clone"></a><h3>camel_message_info_clone ()</h3>
+<pre class="programlisting"><span class="returnvalue">gpointer</span>            camel_message_info_clone            (<em class="parameter"><code><span class="type">gconstpointer</span> info</code></em>);</pre>
+<p>
+Duplicate a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the duplicated <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-ptr"></a><h3>camel_message_info_ptr ()</h3>
+<pre class="programlisting"><span class="returnvalue">gconstpointer</span>       camel_message_info_ptr              (<em class="parameter"><code>const <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> id</code></em>);</pre>
+<p>
+Generic accessor method for getting pointer data.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>info to get
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the pointer data
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-uint32"></a><h3>camel_message_info_uint32 ()</h3>
+<pre class="programlisting"><span class="returnvalue">guint32</span>             camel_message_info_uint32           (<em class="parameter"><code>const <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> id</code></em>);</pre>
+<p>
+Generic accessor method for getting 32bit gint data.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>info to get
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the gint data
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-time"></a><h3>camel_message_info_time ()</h3>
+<pre class="programlisting"><span class="returnvalue">time_t</span>              camel_message_info_time             (<em class="parameter"><code>const <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> id</code></em>);</pre>
+<p>
+Generic accessor method for getting time_t data.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>info to get
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the time_t data
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-uid"></a><h3>camel_message_info_uid()</h3>
+<pre class="programlisting">#define camel_message_info_uid(mi) ((const gchar *)((const CamelMessageInfo *)mi)-&gt;uid)
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-subject"></a><h3>camel_message_info_subject()</h3>
+<pre class="programlisting">#define camel_message_info_subject(mi) ((const gchar *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_SUBJECT))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-preview"></a><h3>camel_message_info_preview()</h3>
+<pre class="programlisting">#define camel_message_info_preview(mi) ((const gchar *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_PREVIEW))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-from"></a><h3>camel_message_info_from()</h3>
+<pre class="programlisting">#define camel_message_info_from(mi) ((const gchar *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_FROM))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-to"></a><h3>camel_message_info_to()</h3>
+<pre class="programlisting">#define camel_message_info_to(mi) ((const gchar *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_TO))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-cc"></a><h3>camel_message_info_cc()</h3>
+<pre class="programlisting">#define camel_message_info_cc(mi) ((const gchar *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_CC))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-mlist"></a><h3>camel_message_info_mlist()</h3>
+<pre class="programlisting">#define camel_message_info_mlist(mi) ((const gchar *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_MLIST))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-flags"></a><h3>camel_message_info_flags()</h3>
+<pre class="programlisting">#define camel_message_info_flags(mi) camel_message_info_uint32((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_FLAGS)
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-size"></a><h3>camel_message_info_size()</h3>
+<pre class="programlisting">#define camel_message_info_size(mi) camel_message_info_uint32((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_SIZE)
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-date-sent"></a><h3>camel_message_info_date_sent()</h3>
+<pre class="programlisting">#define camel_message_info_date_sent(mi) camel_message_info_time((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_DATE_SENT)
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-date-received"></a><h3>camel_message_info_date_received()</h3>
+<pre class="programlisting">#define camel_message_info_date_received(mi) camel_message_info_time((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_DATE_RECEIVED)
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-message-id"></a><h3>camel_message_info_message_id()</h3>
+<pre class="programlisting">#define camel_message_info_message_id(mi) ((const CamelSummaryMessageID *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_MESSAGE_ID))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-references"></a><h3>camel_message_info_references()</h3>
+<pre class="programlisting">#define camel_message_info_references(mi) ((const CamelSummaryReferences *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_REFERENCES))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-user-flags"></a><h3>camel_message_info_user_flags()</h3>
+<pre class="programlisting">#define camel_message_info_user_flags(mi) ((const CamelFlag *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_USER_FLAGS))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-user-tags"></a><h3>camel_message_info_user_tags()</h3>
+<pre class="programlisting">#define camel_message_info_user_tags(mi) ((const CamelTag *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_USER_TAGS))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-headers"></a><h3>camel_message_info_headers()</h3>
+<pre class="programlisting">#define camel_message_info_headers(mi) ((const struct _camel_header_param *)camel_message_info_ptr((const CamelMessageInfo *)mi, CAMEL_MESSAGE_INFO_HEADERS))
+</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-user-flag"></a><h3>camel_message_info_user_flag ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_message_info_user_flag        (<em class="parameter"><code>const <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);</pre>
+<p>
+Get the state of a user flag named <em class="parameter"><code>id</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>user flag to get
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the state of the user flag
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-user-tag"></a><h3>camel_message_info_user_tag ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       camel_message_info_user_tag         (<em class="parameter"><code>const <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>);</pre>
+<p>
+Get the value of a user tag named <em class="parameter"><code>id</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>user tag to get
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> the value of the user tag
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-set-flags"></a><h3>camel_message_info_set_flags ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_message_info_set_flags        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> flags</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> set</code></em>);</pre>
+<p>
+Change the state of the system flags on the <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a></p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>flags</code></em> :</span></p></td>
+<td>mask of flags to change
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>set</code></em> :</span></p></td>
+<td>state the flags should be changed to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if any of the flags changed or <code class="literal">FALSE</code> otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-set-user-flag"></a><h3>camel_message_info_set_user_flag ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_message_info_set_user_flag    (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> state</code></em>);</pre>
+<p>
+Set the state of a user flag on a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>name of the user flag to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>state to set the flag to
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the state changed or <code class="literal">FALSE</code> otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-set-user-tag"></a><h3>camel_message_info_set_user_tag ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_message_info_set_user_tag     (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *id</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *val</code></em>);</pre>
+<p>
+Set the value of a user tag on a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>a <a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>id</code></em> :</span></p></td>
+<td>name of the user tag to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>val</code></em> :</span></p></td>
+<td>value to set
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the value changed or <code class="literal">FALSE</code> otherwise
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-set-need-preview"></a><h3>camel_folder_summary_set_need_preview ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_set_need_preview
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> preview</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>preview</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-add-preview"></a><h3>camel_folder_summary_add_preview ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_folder_summary_add_preview    (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>,
+                                                         <em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *info</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>info</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-get-need-preview"></a><h3>camel_folder_summary_get_need_preview ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            camel_folder_summary_get_need_preview
+                                                        (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *summary</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>summary</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-content-info-dump"></a><h3>camel_content_info_dump ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_content_info_dump             (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageContentInfo" title="struct CamelMessageContentInfo"><span class="type">CamelMessageContentInfo</span></a> *ci</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> depth</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ci</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>depth</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-message-info-dump"></a><h3>camel_message_info_dump ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                camel_message_info_dump             (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelMessageInfo" title="CamelMessageInfo"><span class="type">CamelMessageInfo</span></a> *mi</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>mi</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-folder-summary-migrate-infos"></a><h3>camel_folder_summary_migrate_infos ()</h3>
+<pre class="programlisting"><span class="returnvalue">gint</span>                camel_folder_summary_migrate_infos  (<em class="parameter"><code><a class="link" href="camel-CamelFolderSummary.html#CamelFolderSummary" title="struct CamelFolderSummary"><span class="type">CamelFolderSummary</span></a> *s</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>s</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

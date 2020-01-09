@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ENameSelectorDialog">
+<refmeta>
+<refentrytitle role="top_of_page" id="ENameSelectorDialog.top_of_page">ENameSelectorDialog</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVERUI Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>ENameSelectorDialog</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ENameSelectorDialog.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="ENameSelectorDialog-struct">ENameSelectorDialog</link>;
+<link linkend="ENameSelectorDialog"><returnvalue>ENameSelectorDialog</returnvalue></link> * <link linkend="e-name-selector-dialog-new">e_name_selector_dialog_new</link>        (<parameter><type>void</type></parameter>);
+<link linkend="ENameSelectorModel"><returnvalue>ENameSelectorModel</returnvalue></link> * <link linkend="e-name-selector-dialog-peek-model">e_name_selector_dialog_peek_model</link>  (<parameter><link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link> *name_selector_dialog</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-name-selector-dialog-set-model">e_name_selector_dialog_set_model</link>    (<parameter><link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link> *name_selector_dialog</parameter>,
+                                                         <parameter><link linkend="ENameSelectorModel"><type>ENameSelectorModel</type></link> *model</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-name-selector-dialog-set-destination-index">e_name_selector_dialog_set_destination_index</link>
+                                                        (<parameter><link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link> *name_selector_dialog</parameter>,
+                                                         <parameter><link linkend="guint"><type>guint</type></link> index</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="ENameSelectorDialog.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="GtkObject">GtkObject</link>
+               +----<link linkend="GtkWidget">GtkWidget</link>
+                     +----<link linkend="GtkContainer">GtkContainer</link>
+                           +----<link linkend="GtkBin">GtkBin</link>
+                                 +----<link linkend="GtkWindow">GtkWindow</link>
+                                       +----<link linkend="GtkDialog">GtkDialog</link>
+                                             +----ENameSelectorDialog
+</synopsis>
+</refsect1>
+<refsect1 id="ENameSelectorDialog.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+ENameSelectorDialog implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link> and  <link linkend="GtkBuildable">GtkBuildable</link>.</para>
+</refsect1>
+
+<refsect1 id="ENameSelectorDialog.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="ENameSelectorDialog.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ENameSelectorDialog-struct" role="struct">
+<title>ENameSelectorDialog</title>
+<indexterm zone="ENameSelectorDialog-struct"><primary>ENameSelectorDialog</primary></indexterm>
+<programlisting>typedef struct _ENameSelectorDialog ENameSelectorDialog;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-name-selector-dialog-new" role="function">
+<title>e_name_selector_dialog_new ()</title>
+<indexterm zone="e-name-selector-dialog-new"><primary>e_name_selector_dialog_new</primary></indexterm>
+<programlisting><link linkend="ENameSelectorDialog"><returnvalue>ENameSelectorDialog</returnvalue></link> * e_name_selector_dialog_new        (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Creates a new <link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link>.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-name-selector-dialog-peek-model" role="function">
+<title>e_name_selector_dialog_peek_model ()</title>
+<indexterm zone="e-name-selector-dialog-peek-model"><primary>e_name_selector_dialog_peek_model</primary></indexterm>
+<programlisting><link linkend="ENameSelectorModel"><returnvalue>ENameSelectorModel</returnvalue></link> * e_name_selector_dialog_peek_model  (<parameter><link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link> *name_selector_dialog</parameter>);</programlisting>
+<para>
+Gets the <link linkend="ENameSelectorModel"><type>ENameSelectorModel</type></link> used by <parameter>name_selector_model</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>name_selector_dialog</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The <link linkend="ENameSelectorModel"><type>ENameSelectorModel</type></link> being used.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-name-selector-dialog-set-model" role="function">
+<title>e_name_selector_dialog_set_model ()</title>
+<indexterm zone="e-name-selector-dialog-set-model"><primary>e_name_selector_dialog_set_model</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_name_selector_dialog_set_model    (<parameter><link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link> *name_selector_dialog</parameter>,
+                                                         <parameter><link linkend="ENameSelectorModel"><type>ENameSelectorModel</type></link> *model</parameter>);</programlisting>
+<para>
+Sets the model being used by <parameter>name_selector_dialog</parameter> to <parameter>model</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>name_selector_dialog</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>model</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ENameSelectorModel"><type>ENameSelectorModel</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-name-selector-dialog-set-destination-index" role="function">
+<title>e_name_selector_dialog_set_destination_index ()</title>
+<indexterm zone="e-name-selector-dialog-set-destination-index"><primary>e_name_selector_dialog_set_destination_index</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_name_selector_dialog_set_destination_index
+                                                        (<parameter><link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link> *name_selector_dialog</parameter>,
+                                                         <parameter><link linkend="guint"><type>guint</type></link> index</parameter>);</programlisting>
+<para>
+Sets the index number of the destination section.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>name_selector_dialog</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ENameSelectorDialog"><type>ENameSelectorDialog</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&#160;:</term>
+<listitem><simpara>index of the destination section, starting from 0.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EDestinationStore">
+<refmeta>
+<refentrytitle role="top_of_page" id="EDestinationStore.top_of_page">EDestinationStore</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVERUI Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EDestinationStore</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EDestinationStore.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="EDestinationStore-struct">EDestinationStore</link>;
+enum                <link linkend="EDestinationStoreColumnType">EDestinationStoreColumnType</link>;
+<link linkend="EDestinationStore"><returnvalue>EDestinationStore</returnvalue></link> * <link linkend="e-destination-store-new">e_destination_store_new</link>             (<parameter><type>void</type></parameter>);
+<link linkend="EDestination"><returnvalue>EDestination</returnvalue></link> *      <link linkend="e-destination-store-get-destination">e_destination_store_get_destination</link> (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *iter</parameter>);
+<link linkend="GList"><returnvalue>GList</returnvalue></link> *             <link linkend="e-destination-store-list-destinations">e_destination_store_list_destinations</link>
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-store-insert-destination">e_destination_store_insert_destination</link>
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>,
+                                                         <parameter><link linkend="EDestination"><type>EDestination</type></link> *destination</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-store-append-destination">e_destination_store_append_destination</link>
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>,
+                                                         <parameter><link linkend="EDestination"><type>EDestination</type></link> *destination</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-store-remove-destination">e_destination_store_remove_destination</link>
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>,
+                                                         <parameter><link linkend="EDestination"><type>EDestination</type></link> *destination</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-store-remove-destination-nth">e_destination_store_remove_destination_nth</link>
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> n</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-destination-store-get-destination-count">e_destination_store_get_destination_count</link>
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>);
+<link linkend="GtkTreePath"><returnvalue>GtkTreePath</returnvalue></link> *       <link linkend="e-destination-store-get-path">e_destination_store_get_path</link>        (<parameter><link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> *tree_model</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *iter</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="EDestinationStore.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----EDestinationStore
+</synopsis>
+</refsect1>
+<refsect1 id="EDestinationStore.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+EDestinationStore implements
+ <link linkend="GtkTreeModel">GtkTreeModel</link>.</para>
+</refsect1>
+
+<refsect1 id="EDestinationStore.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="EDestinationStore.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EDestinationStore-struct" role="struct">
+<title>EDestinationStore</title>
+<indexterm zone="EDestinationStore-struct"><primary>EDestinationStore</primary></indexterm>
+<programlisting>typedef struct _EDestinationStore EDestinationStore;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="EDestinationStoreColumnType" role="enum">
+<title>enum EDestinationStoreColumnType</title>
+<indexterm zone="EDestinationStoreColumnType"><primary>EDestinationStoreColumnType</primary></indexterm>
+<programlisting>typedef enum
+{
+	E_DESTINATION_STORE_COLUMN_NAME,
+	E_DESTINATION_STORE_COLUMN_EMAIL,
+	E_DESTINATION_STORE_COLUMN_ADDRESS,
+
+	E_DESTINATION_STORE_NUM_COLUMNS
+}
+EDestinationStoreColumnType;
+</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-destination-store-new" role="function">
+<title>e_destination_store_new ()</title>
+<indexterm zone="e-destination-store-new"><primary>e_destination_store_new</primary></indexterm>
+<programlisting><link linkend="EDestinationStore"><returnvalue>EDestinationStore</returnvalue></link> * e_destination_store_new             (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EDestinationStore"><type>EDestinationStore</type></link>.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="EDestinationStore"><type>EDestinationStore</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-store-get-destination" role="function">
+<title>e_destination_store_get_destination ()</title>
+<indexterm zone="e-destination-store-get-destination"><primary>e_destination_store_get_destination</primary></indexterm>
+<programlisting><link linkend="EDestination"><returnvalue>EDestination</returnvalue></link> *      e_destination_store_get_destination (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *iter</parameter>);</programlisting>
+<para>
+Gets the <link linkend="EDestination"><type>EDestination</type></link> from <parameter>destination_store</parameter> at <parameter>iter</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>destination_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestinationStore"><type>EDestinationStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An <link linkend="EDestination"><type>EDestination</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-store-list-destinations" role="function">
+<title>e_destination_store_list_destinations ()</title>
+<indexterm zone="e-destination-store-list-destinations"><primary>e_destination_store_list_destinations</primary></indexterm>
+<programlisting><link linkend="GList"><returnvalue>GList</returnvalue></link> *             e_destination_store_list_destinations
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>);</programlisting>
+<para>
+Gets a list of all the <link linkend="EDestinations"><type>EDestinations</type></link> in <parameter>destination_store</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>destination_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestinationStore"><type>EDestinationStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A <link linkend="GList"><type>GList</type></link> of pointers to <link linkend="EDestination"><type>EDestination</type></link>. The list is owned
+by the caller, but the <link linkend="EDestination"><type>EDestination</type></link> elements aren't.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-store-insert-destination" role="function">
+<title>e_destination_store_insert_destination ()</title>
+<indexterm zone="e-destination-store-insert-destination"><primary>e_destination_store_insert_destination</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_store_insert_destination
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> index</parameter>,
+                                                         <parameter><link linkend="EDestination"><type>EDestination</type></link> *destination</parameter>);</programlisting>
+<para>
+Inserts <parameter>destination</parameter> into <parameter>destination_store</parameter> at the position
+indicated by <parameter>index</parameter>. <parameter>destination_store</parameter> will ref <parameter>destination</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>destination_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestinationStore"><type>EDestinationStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&#160;:</term>
+<listitem><simpara>the index at which to insert
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destination</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link> to insert
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-store-append-destination" role="function">
+<title>e_destination_store_append_destination ()</title>
+<indexterm zone="e-destination-store-append-destination"><primary>e_destination_store_append_destination</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_store_append_destination
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>,
+                                                         <parameter><link linkend="EDestination"><type>EDestination</type></link> *destination</parameter>);</programlisting>
+<para>
+Appends <parameter>destination</parameter> to the list of destinations in <parameter>destination_store</parameter>.
+<parameter>destination_store</parameter> will ref <parameter>destination</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>destination_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestinationStore"><type>EDestinationStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destination</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-store-remove-destination" role="function">
+<title>e_destination_store_remove_destination ()</title>
+<indexterm zone="e-destination-store-remove-destination"><primary>e_destination_store_remove_destination</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_store_remove_destination
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>,
+                                                         <parameter><link linkend="EDestination"><type>EDestination</type></link> *destination</parameter>);</programlisting>
+<para>
+Removes <parameter>destination</parameter> from <parameter>destination_store</parameter>. <parameter>destination_store</parameter> will
+unref <parameter>destination</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>destination_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestinationStore"><type>EDestinationStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destination</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link> to remove
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-store-remove-destination-nth" role="function">
+<title>e_destination_store_remove_destination_nth ()</title>
+<indexterm zone="e-destination-store-remove-destination-nth"><primary>e_destination_store_remove_destination_nth</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_store_remove_destination_nth
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> n</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>destination_store</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-store-get-destination-count" role="function">
+<title>e_destination_store_get_destination_count ()</title>
+<indexterm zone="e-destination-store-get-destination-count"><primary>e_destination_store_get_destination_count</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_destination_store_get_destination_count
+                                                        (<parameter><link linkend="EDestinationStore"><type>EDestinationStore</type></link> *destination_store</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>destination_store</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-store-get-path" role="function">
+<title>e_destination_store_get_path ()</title>
+<indexterm zone="e-destination-store-get-path"><primary>e_destination_store_get_path</primary></indexterm>
+<programlisting><link linkend="GtkTreePath"><returnvalue>GtkTreePath</returnvalue></link> *       e_destination_store_get_path        (<parameter><link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> *tree_model</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *iter</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>tree_model</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

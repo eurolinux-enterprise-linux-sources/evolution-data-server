@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EBookView">
+<refmeta>
+<refentrytitle role="top_of_page" id="EBookView.top_of_page">EBookView</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEBOOK Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EBookView</refname>
+<refpurpose>Represents a search against an <link linkend="EBook"><type>EBook</type></link>.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EBookView.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="EBookView-struct">EBookView</link>;
+<link linkend="EBookView"><returnvalue>EBookView</returnvalue></link> *         <link linkend="e-book-view-new">e_book_view_new</link>                     (<parameter><link linkend="GNOME-Evolution-Addressbook-BookView"><type>GNOME_Evolution_Addressbook_BookView</type></link> corba_book_view</parameter>,
+                                                         <parameter><link linkend="EBookViewListener"><type>EBookViewListener</type></link> *listener</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-view-start">e_book_view_start</link>                   (<parameter><link linkend="EBookView"><type>EBookView</type></link> *book_view</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-view-stop">e_book_view_stop</link>                    (<parameter><link linkend="EBookView"><type>EBookView</type></link> *book_view</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-view-set-book">e_book_view_set_book</link>                (<parameter><link linkend="EBookView"><type>EBookView</type></link> *book_view</parameter>,
+                                                         <parameter><type>struct _EBook</type> *book</parameter>);
+struct <link linkend="EBook"><returnvalue>_EBook</returnvalue></link> *     <link linkend="e-book-view-get-book">e_book_view_get_book</link>                (<parameter><link linkend="EBookView"><type>EBookView</type></link> *book_view</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="EBookView.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----EBookView
+</synopsis>
+</refsect1>
+<refsect1 id="EBookView.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="EBookView-contacts-added">contacts-added</link>&quot;                                 : Run Last
+  &quot;<link linkend="EBookView-contacts-changed">contacts-changed</link>&quot;                               : Run Last
+  &quot;<link linkend="EBookView-contacts-removed">contacts-removed</link>&quot;                               : Run Last
+  &quot;<link linkend="EBookView-sequence-complete">sequence-complete</link>&quot;                              : Run Last
+  &quot;<link linkend="EBookView-status-message">status-message</link>&quot;                                 : Run Last
+</synopsis>
+</refsect1>
+
+<refsect1 id="EBookView.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Event notifications and callbacks from <link linkend="EBookView"><type>EBookView</type></link> go to the
+<link linkend="EBookViewListener"><type>EBookViewListener</type></link>. Contrast <link linkend="EBookView"><type>EBookView</type></link> with <link linkend="EBook"><type>EBook</type></link>, which represents the
+addressbook itself.
+</para>
+</refsect1>
+<refsect1 id="EBookView.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EBookView-struct" role="struct">
+<title>EBookView</title>
+<indexterm zone="EBookView-struct"><primary>EBookView</primary></indexterm>
+<programlisting>typedef struct _EBookView EBookView;</programlisting>
+<para>
+<link linkend="EBookView"><type>EBookView</type></link> has no publicly available members.
+</para></refsect2>
+<refsect2 id="e-book-view-new" role="function">
+<title>e_book_view_new ()</title>
+<indexterm zone="e-book-view-new"><primary>e_book_view_new</primary></indexterm>
+<programlisting><link linkend="EBookView"><returnvalue>EBookView</returnvalue></link> *         e_book_view_new                     (<parameter><link linkend="GNOME-Evolution-Addressbook-BookView"><type>GNOME_Evolution_Addressbook_BookView</type></link> corba_book_view</parameter>,
+                                                         <parameter><link linkend="EBookViewListener"><type>EBookViewListener</type></link> *listener</parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EBookView"><type>EBookView</type></link> based on <parameter>corba_book_view</parameter> and listening to
+<parameter>listener</parameter>.  This is a private function, applications should call
+<link linkend="e-book-get-book-view"><type>e_book_get_book_view</type></link> or <link linkend="e-book-async-get-book-view"><type>e_book_async_get_book_view</type></link>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>corba_book_view</parameter>&#160;:</term>
+<listitem><simpara>a CORBA BookView object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>listener</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookViewListener"><type>EBookViewListener</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="EBookView"><type>EBookView</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-view-start" role="function">
+<title>e_book_view_start ()</title>
+<indexterm zone="e-book-view-start"><primary>e_book_view_start</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_view_start                   (<parameter><link linkend="EBookView"><type>EBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Tells <parameter>book_view</parameter> to start processing events.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookView"><type>EBookView</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-view-stop" role="function">
+<title>e_book_view_stop ()</title>
+<indexterm zone="e-book-view-stop"><primary>e_book_view_stop</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_view_stop                    (<parameter><link linkend="EBookView"><type>EBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Tells <parameter>book_view</parameter> to stop processing events.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookView"><type>EBookView</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-view-set-book" role="function">
+<title>e_book_view_set_book ()</title>
+<indexterm zone="e-book-view-set-book"><primary>e_book_view_set_book</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_view_set_book                (<parameter><link linkend="EBookView"><type>EBookView</type></link> *book_view</parameter>,
+                                                         <parameter><type>struct _EBook</type> *book</parameter>);</programlisting>
+<para>
+Makes <parameter>book_view</parameter> listen to changes in <parameter>book</parameter>. This function apparently
+has no effect for the time being.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookView"><type>EBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-view-get-book" role="function">
+<title>e_book_view_get_book ()</title>
+<indexterm zone="e-book-view-get-book"><primary>e_book_view_get_book</primary></indexterm>
+<programlisting>struct <link linkend="EBook"><returnvalue>_EBook</returnvalue></link> *     e_book_view_get_book                (<parameter><link linkend="EBookView"><type>EBookView</type></link> *book_view</parameter>);</programlisting>
+<para>
+Returns the <link linkend="EBook"><type>EBook</type></link> that this book view is monitoring.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookView"><type>EBookView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> an <link linkend="EBook"><type>EBook</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="EBookView.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="EBookView-contacts-added" role="signal"><title>The <literal>&quot;contacts-added&quot;</literal> signal</title>
+<indexterm zone="EBookView-contacts-added"><primary>EBookView::contacts-added</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EBookView"><type>EBookView</type></link> *ebookview,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>   arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>   user_data)      : Run Last</programlisting>
+<para>
+Fired when more contacts are found.  Each contact in the list will be unref'd
+when done, and the list freed, so simply reference any contacts you want to
+keep.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ebookview</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> of <link linkend="EContact"><type>EContact</type></link> objects that were added to the view
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="EBookView-contacts-changed" role="signal"><title>The <literal>&quot;contacts-changed&quot;</literal> signal</title>
+<indexterm zone="EBookView-contacts-changed"><primary>EBookView::contacts-changed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EBookView"><type>EBookView</type></link> *ebookview,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>   arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>   user_data)      : Run Last</programlisting>
+<para>
+Fired when contacts are changed.  Each contact in the list will be unref'd
+when done, and the list freed, so simply reference any contacts you want to
+keep.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ebookview</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> of <link linkend="EContact"><type>EContact</type></link> objects that were modified
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="EBookView-contacts-removed" role="signal"><title>The <literal>&quot;contacts-removed&quot;</literal> signal</title>
+<indexterm zone="EBookView-contacts-removed"><primary>EBookView::contacts-removed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EBookView"><type>EBookView</type></link> *ebookview,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>   arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>   user_data)      : Run Last</programlisting>
+<para>
+Fired when contacts are removed from the view.  The IDs and the list will be
+freed, so copy any IDs you want to keep.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ebookview</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> of contact IDs (char*) that were removed from the view
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="EBookView-sequence-complete" role="signal"><title>The <literal>&quot;sequence-complete&quot;</literal> signal</title>
+<indexterm zone="EBookView-sequence-complete"><primary>EBookView::sequence-complete</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EBookView"><type>EBookView</type></link> *ebookview,
+                                                        <link linkend="gint"><type>gint</type></link>       arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>   user_data)      : Run Last</programlisting>
+<para>
+Fired when there are currently no more contacts to send.  This is fired once
+after the initial set of <link linkend="contacts-added"><type>contacts-added</type></link> signals, and after every future change.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ebookview</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookViewStatus"><type>EBookViewStatus</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="EBookView-status-message" role="signal"><title>The <literal>&quot;status-message&quot;</literal> signal</title>
+<indexterm zone="EBookView-status-message"><primary>EBookView::status-message</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EBookView"><type>EBookView</type></link> *ebookview,
+                                                        <link linkend="gchar"><type>gchar</type></link>     *arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>   user_data)      : Run Last</programlisting>
+<para>
+Fired with a status message reporting the progress of the view.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ebookview</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>a const char* message
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+<refsect1 id="EBookView.see-also">
+<title>See Also</title>
+<para>
+<link linkend="EBookViewListener"><type>EBookViewListener</type></link>, <link linkend="EBook"><type>EBook</type></link>.
+</para>
+</refsect1>
+
+</refentry>

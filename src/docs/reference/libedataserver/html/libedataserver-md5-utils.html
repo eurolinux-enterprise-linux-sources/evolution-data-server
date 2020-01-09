@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>MD5 Utility Functions</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="prev" href="libedataserver-Version-Information.html" title="Version Information">
+<link rel="next" href="ix01.html" title="Index">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libedataserver-Version-Information.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="ix01.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libedataserver-md5-utils.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libedataserver-md5-utils.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="libedataserver-md5-utils"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libedataserver-md5-utils.top_of_page"></a>MD5 Utility Functions</span></h2>
+<p>MD5 Utility Functions — Functions for manipulating MD5 checksums.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="libedataserver-md5-utils.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="libedataserver-md5-utils.html#MD5Context" title="MD5Context">MD5Context</a>;
+<span class="returnvalue">void</span>                <a class="link" href="libedataserver-md5-utils.html#md5-get-digest" title="md5_get_digest ()">md5_get_digest</a>                      (<em class="parameter"><code>const <span class="type">gchar</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> buffer_size</code></em>,
+                                                         <em class="parameter"><code><span class="type">guchar</span> digest[16]</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libedataserver-md5-utils.html#md5-get-digest-from-file" title="md5_get_digest_from_file ()">md5_get_digest_from_file</a>            (<em class="parameter"><code>const <span class="type">gchar</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">guchar</span> digest[16]</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libedataserver-md5-utils.html#md5-init" title="md5_init ()">md5_init</a>                            (<em class="parameter"><code><a class="link" href="libedataserver-md5-utils.html#MD5Context" title="MD5Context"><span class="type">MD5Context</span></a> *ctx</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libedataserver-md5-utils.html#md5-update" title="md5_update ()">md5_update</a>                          (<em class="parameter"><code><a class="link" href="libedataserver-md5-utils.html#MD5Context" title="MD5Context"><span class="type">MD5Context</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">guchar</span> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> len</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libedataserver-md5-utils.html#md5-final" title="md5_final ()">md5_final</a>                           (<em class="parameter"><code><a class="link" href="libedataserver-md5-utils.html#MD5Context" title="MD5Context"><span class="type">MD5Context</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><span class="type">guchar</span> digest[16]</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="libedataserver-md5-utils.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="libedataserver-md5-utils.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="MD5Context"></a><h3>MD5Context</h3>
+<pre class="programlisting">typedef struct {
+} MD5Context;
+</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">MD5Context</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+A buffer structure used for md5 calculation.</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="md5-get-digest"></a><h3>md5_get_digest ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                md5_get_digest                      (<em class="parameter"><code>const <span class="type">gchar</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> buffer_size</code></em>,
+                                                         <em class="parameter"><code><span class="type">guchar</span> digest[16]</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">md5_get_digest</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer_size</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>digest</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="md5-get-digest-from-file"></a><h3>md5_get_digest_from_file ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                md5_get_digest_from_file            (<em class="parameter"><code>const <span class="type">gchar</span> *filename</code></em>,
+                                                         <em class="parameter"><code><span class="type">guchar</span> digest[16]</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">md5_get_digest_from_file</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>filename</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>digest</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="md5-init"></a><h3>md5_init ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                md5_init                            (<em class="parameter"><code><a class="link" href="libedataserver-md5-utils.html#MD5Context" title="MD5Context"><span class="type">MD5Context</span></a> *ctx</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">md5_init</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="md5-update"></a><h3>md5_update ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                md5_update                          (<em class="parameter"><code><a class="link" href="libedataserver-md5-utils.html#MD5Context" title="MD5Context"><span class="type">MD5Context</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">guchar</span> *buf</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint32</span> len</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">md5_update</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buf</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>len</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="md5-final"></a><h3>md5_final ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                md5_final                           (<em class="parameter"><code><a class="link" href="libedataserver-md5-utils.html#MD5Context" title="MD5Context"><span class="type">MD5Context</span></a> *ctx</code></em>,
+                                                         <em class="parameter"><code><span class="type">guchar</span> digest[16]</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">md5_final</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ctx</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>digest</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

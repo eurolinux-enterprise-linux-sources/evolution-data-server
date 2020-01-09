@@ -1,0 +1,687 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EDataCal">
+<refmeta>
+<refentrytitle role="top_of_page" id="EDataCal.top_of_page">EDataCal</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATA-CAL Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EDataCal</refname>
+<refpurpose>Implementation of the calendar CORBA client interface.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EDataCal.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="EDataCal"><returnvalue>EDataCal</returnvalue></link> *          <link linkend="e-data-cal-construct">e_data_cal_construct</link>                (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="ECalBackend"><type>ECalBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalListener"><type>GNOME_Evolution_Calendar_CalListener</type></link> listener</parameter>);
+<link linkend="EDataCal"><returnvalue>EDataCal</returnvalue></link> *          <link linkend="e-data-cal-new">e_data_cal_new</link>                      (<parameter><link linkend="ECalBackend"><type>ECalBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalListener"><type>GNOME_Evolution_Calendar_CalListener</type></link> listener</parameter>);
+<link linkend="ECalBackend"><returnvalue>ECalBackend</returnvalue></link> *       <link linkend="e-data-cal-get-backend">e_data_cal_get_backend</link>              (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>);
+<link linkend="GNOME-Evolution-Calendar-CalListener"><returnvalue>GNOME_Evolution_Calendar_CalListener</returnvalue></link>  <link linkend="e-data-cal-get-listener">e_data_cal_get_listener</link>
+                                                        (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-read-only">e_data_cal_notify_read_only</link>         (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> read_only</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-cal-address">e_data_cal_notify_cal_address</link>       (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *address</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-alarm-email-address">e_data_cal_notify_alarm_email_address</link>
+                                                        (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *address</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-ldap-attribute">e_data_cal_notify_ldap_attribute</link>    (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *attribute</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-static-capabilities">e_data_cal_notify_static_capabilities</link>
+                                                        (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *capabilities</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-open">e_data_cal_notify_open</link>              (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-remove">e_data_cal_notify_remove</link>            (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-object-created">e_data_cal_notify_object_created</link>    (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-object-modified">e_data_cal_notify_object_modified</link>   (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *old_object</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-object-removed">e_data_cal_notify_object_removed</link>    (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="ECalComponentId"><type>ECalComponentId</type></link> *id</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *old_object</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-alarm-discarded">e_data_cal_notify_alarm_discarded</link>   (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-objects-received">e_data_cal_notify_objects_received</link>  (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-objects-sent">e_data_cal_notify_objects_sent</link>      (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *users</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *calobj</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-default-object">e_data_cal_notify_default_object</link>    (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-object">e_data_cal_notify_object</link>            (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-object-list">e_data_cal_notify_object_list</link>       (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *objects</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-query">e_data_cal_notify_query</link>             (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-timezone-requested">e_data_cal_notify_timezone_requested</link>
+                                                        (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-timezone-added">e_data_cal_notify_timezone_added</link>    (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *tzid</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-default-timezone-set">e_data_cal_notify_default_timezone_set</link>
+                                                        (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-changes">e_data_cal_notify_changes</link>           (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *adds</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *modifies</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *deletes</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-free-busy">e_data_cal_notify_free_busy</link>         (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *freebusy</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-mode">e_data_cal_notify_mode</link>              (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalListener-SetModeStatus"><type>GNOME_Evolution_Calendar_CalListener_SetModeStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalMode"><type>GNOME_Evolution_Calendar_CalMode</type></link> mode</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-auth-required">e_data_cal_notify_auth_required</link>     (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-error">e_data_cal_notify_error</link>             (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *message</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-data-cal-notify-attachment-list">e_data_cal_notify_attachment_list</link>   (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GSList"><type>GSList</type></link> *objects</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="EDataCal.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="EDataCal.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="e-data-cal-construct" role="function">
+<title>e_data_cal_construct ()</title>
+<indexterm zone="e-data-cal-construct"><primary>e_data_cal_construct</primary></indexterm>
+<programlisting><link linkend="EDataCal"><returnvalue>EDataCal</returnvalue></link> *          e_data_cal_construct                (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="ECalBackend"><type>ECalBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalListener"><type>GNOME_Evolution_Calendar_CalListener</type></link> listener</parameter>);</programlisting>
+<para>
+Constructs a calendar client interface object by binding the corresponding
+CORBA object to it.  The calendar interface is bound to the specified
+<parameter>backend</parameter>, and will notify the <parameter>listener</parameter> about changes to the calendar.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>Calendar backend that this <parameter>cal</parameter> presents an interface to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>listener</parameter>&#160;:</term>
+<listitem><simpara>Calendar listener for notification.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The same object as the <parameter>cal</parameter> argument.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-new" role="function">
+<title>e_data_cal_new ()</title>
+<indexterm zone="e-data-cal-new"><primary>e_data_cal_new</primary></indexterm>
+<programlisting><link linkend="EDataCal"><returnvalue>EDataCal</returnvalue></link> *          e_data_cal_new                      (<parameter><link linkend="ECalBackend"><type>ECalBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalListener"><type>GNOME_Evolution_Calendar_CalListener</type></link> listener</parameter>);</programlisting>
+<para>
+Creates a new calendar client interface object and binds it to the
+specified <parameter>backend</parameter> and <parameter>listener</parameter> objects.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>A calendar backend.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>listener</parameter>&#160;:</term>
+<listitem><simpara>A calendar listener.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A newly-created <link linkend="EDataCal"><type>EDataCal</type></link> calendar client interface
+object, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if its corresponding CORBA object could not be
+created.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-get-backend" role="function">
+<title>e_data_cal_get_backend ()</title>
+<indexterm zone="e-data-cal-get-backend"><primary>e_data_cal_get_backend</primary></indexterm>
+<programlisting><link linkend="ECalBackend"><returnvalue>ECalBackend</returnvalue></link> *       e_data_cal_get_backend              (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>);</programlisting>
+<para>
+Gets the associated backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An <link linkend="ECalBackend"><type>ECalBackend</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-get-listener" role="function">
+<title>e_data_cal_get_listener ()</title>
+<indexterm zone="e-data-cal-get-listener"><primary>e_data_cal_get_listener</primary></indexterm>
+<programlisting><link linkend="GNOME-Evolution-Calendar-CalListener"><returnvalue>GNOME_Evolution_Calendar_CalListener</returnvalue></link>  e_data_cal_get_listener
+                                                        (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>);</programlisting>
+<para>
+Gets the listener associated with a calendar client interface.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The listener.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-read-only" role="function">
+<title>e_data_cal_notify_read_only ()</title>
+<indexterm zone="e-data-cal-notify-read-only"><primary>e_data_cal_notify_read_only</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_read_only         (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> read_only</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the is_read_only method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>read_only</parameter>&#160;:</term>
+<listitem><simpara>Read only value.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-cal-address" role="function">
+<title>e_data_cal_notify_cal_address ()</title>
+<indexterm zone="e-data-cal-notify-cal-address"><primary>e_data_cal_notify_cal_address</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_cal_address       (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *address</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_cal_address method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>address</parameter>&#160;:</term>
+<listitem><simpara>Calendar address.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-alarm-email-address" role="function">
+<title>e_data_cal_notify_alarm_email_address ()</title>
+<indexterm zone="e-data-cal-notify-alarm-email-address"><primary>e_data_cal_notify_alarm_email_address</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_alarm_email_address
+                                                        (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *address</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_alarm_email_address method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>address</parameter>&#160;:</term>
+<listitem><simpara>Alarm email address.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-ldap-attribute" role="function">
+<title>e_data_cal_notify_ldap_attribute ()</title>
+<indexterm zone="e-data-cal-notify-ldap-attribute"><primary>e_data_cal_notify_ldap_attribute</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_ldap_attribute    (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *attribute</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_ldap_attribute method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attribute</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-static-capabilities" role="function">
+<title>e_data_cal_notify_static_capabilities ()</title>
+<indexterm zone="e-data-cal-notify-static-capabilities"><primary>e_data_cal_notify_static_capabilities</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_static_capabilities
+                                                        (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *capabilities</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_static_capabilities method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>capabilities</parameter>&#160;:</term>
+<listitem><simpara>Static capabilities from the backend.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-open" role="function">
+<title>e_data_cal_notify_open ()</title>
+<indexterm zone="e-data-cal-notify-open"><primary>e_data_cal_notify_open</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_open              (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the open method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-remove" role="function">
+<title>e_data_cal_notify_remove ()</title>
+<indexterm zone="e-data-cal-notify-remove"><primary>e_data_cal_notify_remove</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_remove            (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the remove method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-object-created" role="function">
+<title>e_data_cal_notify_object_created ()</title>
+<indexterm zone="e-data-cal-notify-object-created"><primary>e_data_cal_notify_object_created</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_object_created    (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the create_object method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uid</parameter>&#160;:</term>
+<listitem><simpara>UID of the object created.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>The object created as an iCalendar string.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-object-modified" role="function">
+<title>e_data_cal_notify_object_modified ()</title>
+<indexterm zone="e-data-cal-notify-object-modified"><primary>e_data_cal_notify_object_modified</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_object_modified   (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *old_object</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the modify_object method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>old_object</parameter>&#160;:</term>
+<listitem><simpara>The old object as an iCalendar string.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>The modified object as an iCalendar string.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-object-removed" role="function">
+<title>e_data_cal_notify_object_removed ()</title>
+<indexterm zone="e-data-cal-notify-object-removed"><primary>e_data_cal_notify_object_removed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_object_removed    (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="ECalComponentId"><type>ECalComponentId</type></link> *id</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *old_object</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the remove_object method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>old_object</parameter>&#160;:</term>
+<listitem><simpara>The old object as an iCalendar string.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>The new object as an iCalendar string. This will not be NULL only
+when removing instances of a recurring appointment.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-alarm-discarded" role="function">
+<title>e_data_cal_notify_alarm_discarded ()</title>
+<indexterm zone="e-data-cal-notify-alarm-discarded"><primary>e_data_cal_notify_alarm_discarded</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_alarm_discarded   (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the discard_alarm method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-objects-received" role="function">
+<title>e_data_cal_notify_objects_received ()</title>
+<indexterm zone="e-data-cal-notify-objects-received"><primary>e_data_cal_notify_objects_received</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_objects_received  (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the receive_objects method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-objects-sent" role="function">
+<title>e_data_cal_notify_objects_sent ()</title>
+<indexterm zone="e-data-cal-notify-objects-sent"><primary>e_data_cal_notify_objects_sent</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_objects_sent      (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *users</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *calobj</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the send_objects method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>users</parameter>&#160;:</term>
+<listitem><simpara>List of users.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>calobj</parameter>&#160;:</term>
+<listitem><simpara>An iCalendar string representing the object sent.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-default-object" role="function">
+<title>e_data_cal_notify_default_object ()</title>
+<indexterm zone="e-data-cal-notify-default-object"><primary>e_data_cal_notify_default_object</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_default_object    (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_default_object method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>The default object as an iCalendar string.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-object" role="function">
+<title>e_data_cal_notify_object ()</title>
+<indexterm zone="e-data-cal-notify-object"><primary>e_data_cal_notify_object</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_object            (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_object method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>The object retrieved as an iCalendar string.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-object-list" role="function">
+<title>e_data_cal_notify_object_list ()</title>
+<indexterm zone="e-data-cal-notify-object-list"><primary>e_data_cal_notify_object_list</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_object_list       (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *objects</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_object_list method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>objects</parameter>&#160;:</term>
+<listitem><simpara>List of retrieved objects.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-query" role="function">
+<title>e_data_cal_notify_query ()</title>
+<indexterm zone="e-data-cal-notify-query"><primary>e_data_cal_notify_query</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_query             (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="EDataCalView"><type>EDataCalView</type></link> *query</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_query method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>The new live query.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-timezone-requested" role="function">
+<title>e_data_cal_notify_timezone_requested ()</title>
+<indexterm zone="e-data-cal-notify-timezone-requested"><primary>e_data_cal_notify_timezone_requested</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_timezone_requested
+                                                        (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *object</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_timezone method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&#160;:</term>
+<listitem><simpara>The requested timezone as an iCalendar string.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-timezone-added" role="function">
+<title>e_data_cal_notify_timezone_added ()</title>
+<indexterm zone="e-data-cal-notify-timezone-added"><primary>e_data_cal_notify_timezone_added</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_timezone_added    (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *tzid</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the add_timezone method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tzid</parameter>&#160;:</term>
+<listitem><simpara>ID of the added timezone.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-default-timezone-set" role="function">
+<title>e_data_cal_notify_default_timezone_set ()</title>
+<indexterm zone="e-data-cal-notify-default-timezone-set"><primary>e_data_cal_notify_default_timezone_set</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_default_timezone_set
+                                                        (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the set_default_timezone method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-changes" role="function">
+<title>e_data_cal_notify_changes ()</title>
+<indexterm zone="e-data-cal-notify-changes"><primary>e_data_cal_notify_changes</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_changes           (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *adds</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *modifies</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *deletes</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_changes method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>adds</parameter>&#160;:</term>
+<listitem><simpara>List of additions.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>modifies</parameter>&#160;:</term>
+<listitem><simpara>List of modifications.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>deletes</parameter>&#160;:</term>
+<listitem><simpara>List of removals.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-free-busy" role="function">
+<title>e_data_cal_notify_free_busy ()</title>
+<indexterm zone="e-data-cal-notify-free-busy"><primary>e_data_cal_notify_free_busy</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_free_busy         (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *freebusy</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_free_busy method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>freebusy</parameter>&#160;:</term>
+<listitem><simpara>List of free/busy objects.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-mode" role="function">
+<title>e_data_cal_notify_mode ()</title>
+<indexterm zone="e-data-cal-notify-mode"><primary>e_data_cal_notify_mode</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_mode              (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalListener-SetModeStatus"><type>GNOME_Evolution_Calendar_CalListener_SetModeStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CalMode"><type>GNOME_Evolution_Calendar_CalMode</type></link> mode</parameter>);</programlisting>
+<para>
+Notifies the listener of the results of a set_mode call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status of the mode set.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara>The current mode.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-auth-required" role="function">
+<title>e_data_cal_notify_auth_required ()</title>
+<indexterm zone="e-data-cal-notify-auth-required"><primary>e_data_cal_notify_auth_required</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_auth_required     (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>);</programlisting>
+<para>
+Notifies listeners that authorization is required to open the calendar.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-error" role="function">
+<title>e_data_cal_notify_error ()</title>
+<indexterm zone="e-data-cal-notify-error"><primary>e_data_cal_notify_error</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_error             (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *message</parameter>);</programlisting>
+<para>
+Notify a calendar client of an error occurred in the backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&#160;:</term>
+<listitem><simpara>Error message.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-data-cal-notify-attachment-list" role="function">
+<title>e_data_cal_notify_attachment_list ()</title>
+<indexterm zone="e-data-cal-notify-attachment-list"><primary>e_data_cal_notify_attachment_list</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_data_cal_notify_attachment_list   (<parameter><link linkend="EDataCal"><type>EDataCal</type></link> *cal</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Calendar-CallStatus"><type>GNOME_Evolution_Calendar_CallStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GSList"><type>GSList</type></link> *objects</parameter>);</programlisting>
+<para>
+Notifies listeners of the completion of the get_attachment_list method call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>cal</parameter>&#160;:</term>
+<listitem><simpara>A calendar client interface.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>Status code.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>objects</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

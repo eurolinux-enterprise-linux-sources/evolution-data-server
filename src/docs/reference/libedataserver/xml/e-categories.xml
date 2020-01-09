@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libedataserver-e-categories">
+<refmeta>
+<refentrytitle role="top_of_page" id="libedataserver-e-categories.top_of_page">e-categories</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVER Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>e-categories</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libedataserver-e-categories.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="GList"><returnvalue>GList</returnvalue></link> *             <link linkend="e-categories-get-list">e_categories_get_list</link>               (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-categories-add">e_categories_add</link>                    (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *unused</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *icon_file</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> searchable</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-categories-remove">e_categories_remove</link>                 (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-categories-exist">e_categories_exist</link>                  (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-categories-get-color-for">e_categories_get_color_for</link>          (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-categories-set-color-for">e_categories_set_color_for</link>          (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *color</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-categories-get-icon-file-for">e_categories_get_icon_file_for</link>      (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-categories-set-icon-file-for">e_categories_set_icon_file_for</link>      (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *icon_file</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-categories-is-searchable">e_categories_is_searchable</link>          (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-categories-register-change-listener">e_categories_register_change_listener</link>
+                                                        (<parameter><link linkend="GCallback"><type>GCallback</type></link> listener</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-categories-unregister-change-listener">e_categories_unregister_change_listener</link>
+                                                        (<parameter><link linkend="GCallback"><type>GCallback</type></link> listener</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libedataserver-e-categories.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libedataserver-e-categories.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="e-categories-get-list" role="function">
+<title>e_categories_get_list ()</title>
+<indexterm zone="e-categories-get-list"><primary>e_categories_get_list</primary></indexterm>
+<programlisting><link linkend="GList"><returnvalue>GList</returnvalue></link> *             e_categories_get_list               (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Returns a sorted list of all the category names currently configured.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a sorted GList containing the names of the categories. The
+list should be freed using g_list_free, but the names of the categories
+should not be touched at all, they are internal strings.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-categories-add" role="function">
+<title>e_categories_add ()</title>
+<indexterm zone="e-categories-add"><primary>e_categories_add</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_categories_add                    (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *unused</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *icon_file</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> searchable</parameter>);</programlisting>
+<para>
+Adds a new category, with its corresponding icon, to the
+configuration database.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&#160;:</term>
+<listitem><simpara>name of category to add.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>unused</parameter>&#160;:</term>
+<listitem><simpara>DEPRECATED! associated color. DEPRECATED!
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>icon_file</parameter>&#160;:</term>
+<listitem><simpara>full path of the icon associated to the category.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>searchable</parameter>&#160;:</term>
+<listitem><simpara>whether the category can be used for searching in the GUI.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-categories-remove" role="function">
+<title>e_categories_remove ()</title>
+<indexterm zone="e-categories-remove"><primary>e_categories_remove</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_categories_remove                 (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>);</programlisting>
+<para>
+Removes the given category from the configuration.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&#160;:</term>
+<listitem><simpara>category to be removed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-categories-exist" role="function">
+<title>e_categories_exist ()</title>
+<indexterm zone="e-categories-exist"><primary>e_categories_exist</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_categories_exist                  (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>);</programlisting>
+<para>
+Checks whether the given category is available in the configuration.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&#160;:</term>
+<listitem><simpara>category to be searched.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the category is available, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-categories-get-color-for" role="function" condition="deprecated:">
+<title>e_categories_get_color_for ()</title>
+<indexterm zone="e-categories-get-color-for" role="deprecated"><primary>e_categories_get_color_for</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_categories_get_color_for          (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>);</programlisting>
+<warning><para><literal>e_categories_get_color_for</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&#160;:</term>
+<listitem><simpara>category to retrieve the color for.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="NULL:CAPS"><literal>NULL</literal></link>, always
+
+DEPRECATED!
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-categories-set-color-for" role="function" condition="deprecated:">
+<title>e_categories_set_color_for ()</title>
+<indexterm zone="e-categories-set-color-for" role="deprecated"><primary>e_categories_set_color_for</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_categories_set_color_for          (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *color</parameter>);</programlisting>
+<warning><para><literal>e_categories_set_color_for</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+This function does nothing.
+</para>
+<para>
+DEPRECATED!</para>
+<variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&#160;:</term>
+<listitem><simpara>category to set the color for.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara>X color.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-categories-get-icon-file-for" role="function">
+<title>e_categories_get_icon_file_for ()</title>
+<indexterm zone="e-categories-get-icon-file-for"><primary>e_categories_get_icon_file_for</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_categories_get_icon_file_for      (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>);</programlisting>
+<para>
+Gets the icon file associated with the given category.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&#160;:</term>
+<listitem><simpara>category to retrieve the icon file for.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> icon file name.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-categories-set-icon-file-for" role="function">
+<title>e_categories_set_icon_file_for ()</title>
+<indexterm zone="e-categories-set-icon-file-for"><primary>e_categories_set_icon_file_for</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_categories_set_icon_file_for      (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *icon_file</parameter>);</programlisting>
+<para>
+Sets the icon file associated with the given category.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&#160;:</term>
+<listitem><simpara>category to set the icon file for.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>icon_file</parameter>&#160;:</term>
+<listitem><simpara>icon file.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-categories-is-searchable" role="function">
+<title>e_categories_is_searchable ()</title>
+<indexterm zone="e-categories-is-searchable"><primary>e_categories_is_searchable</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_categories_is_searchable          (<parameter>const <link linkend="gchar"><type>gchar</type></link> *category</parameter>);</programlisting>
+<para>
+Gets whether the given calendar is to be used for searches in the GUI.
+</para>
+<para>
+Return value; <link linkend="TRUE:CAPS"><literal>TRUE</literal></link>% if the category is searchable, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link>% if not.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&#160;:</term>
+<listitem><simpara>category name.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-categories-register-change-listener" role="function">
+<title>e_categories_register_change_listener ()</title>
+<indexterm zone="e-categories-register-change-listener"><primary>e_categories_register_change_listener</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_categories_register_change_listener
+                                                        (<parameter><link linkend="GCallback"><type>GCallback</type></link> listener</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);</programlisting>
+<para>
+Registers callback to be called on change of any category.
+Pair listener and user_data is used to distinguish between listeners.
+Listeners can be unregistered with <parameter>e_categories_unregister_change_listener</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>listener</parameter>&#160;:</term>
+<listitem><simpara>the callback to be called on any category change.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>used data passed to the <parameter>listener</parameter> when called.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-categories-unregister-change-listener" role="function">
+<title>e_categories_unregister_change_listener ()</title>
+<indexterm zone="e-categories-unregister-change-listener"><primary>e_categories_unregister_change_listener</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_categories_unregister_change_listener
+                                                        (<parameter><link linkend="GCallback"><type>GCallback</type></link> listener</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> user_data</parameter>);</programlisting>
+<para>
+Removes previously registered callback from the list of listeners on changes.
+If it was not registered, then does nothing.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>listener</parameter>&#160;:</term>
+<listitem><simpara>Callback to be removed.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>User data as passed with call to <parameter>e_categories_register_change_listener</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

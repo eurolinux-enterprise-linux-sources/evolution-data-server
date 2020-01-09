@@ -1,0 +1,439 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<indexdiv>
+<indexdiv><title>A</title>
+<indexentry><primaryie linkends="EAddressWestern"><link linkend="EAddressWestern">EAddressWestern</link>, struct in <link linkend="libebook-EAddressWestern">EAddressWestern</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-address-western-free"><link linkend="e-address-western-free">e_address_western_free</link>, function in <link linkend="libebook-EAddressWestern">EAddressWestern</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-address-western-parse"><link linkend="e-address-western-parse">e_address_western_parse</link>, function in <link linkend="libebook-EAddressWestern">EAddressWestern</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>B</title>
+<indexentry><primaryie linkends="EBook-struct"><link linkend="EBook-struct">EBook</link>, struct in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBook-auth-required"><link linkend="EBook-auth-required">EBook::auth-required</link>, object signal in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBook-backend-died"><link linkend="EBook-backend-died">EBook::backend-died</link>, object signal in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBook-connection-status"><link linkend="EBook-connection-status">EBook::connection-status</link>, object signal in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBook-writable-status"><link linkend="EBook-writable-status">EBook::writable-status</link>, object signal in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookBookViewCallback"><link linkend="EBookBookViewCallback">EBookBookViewCallback</link>, user_function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookCallback"><link linkend="EBookCallback">EBookCallback</link>, user_function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookChange"><link linkend="EBookChange">EBookChange</link>, struct in <link linkend="libebook-e-book-types">e-book-types</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookChangeType"><link linkend="EBookChangeType">EBookChangeType</link>, enum in <link linkend="libebook-e-book-types">e-book-types</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookContactCallback"><link linkend="EBookContactCallback">EBookContactCallback</link>, user_function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookEListCallback"><link linkend="EBookEListCallback">EBookEListCallback</link>, user_function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookIdCallback"><link linkend="EBookIdCallback">EBookIdCallback</link>, user_function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookListCallback"><link linkend="EBookListCallback">EBookListCallback</link>, user_function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookListener-struct"><link linkend="EBookListener-struct">EBookListener</link>, struct in <link linkend="EBookListener">EBookListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookListener-response"><link linkend="EBookListener-response">EBookListener::response</link>, object signal in <link linkend="EBookListener">EBookListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookListenerOperation"><link linkend="EBookListenerOperation">EBookListenerOperation</link>, enum in <link linkend="EBookListener">EBookListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookListenerResponse"><link linkend="EBookListenerResponse">EBookListenerResponse</link>, struct in <link linkend="EBookListener">EBookListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookOpenProgressCallback"><link linkend="EBookOpenProgressCallback">EBookOpenProgressCallback</link>, user_function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookQuery"><link linkend="EBookQuery">EBookQuery</link>, typedef in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookQueryTest"><link linkend="EBookQueryTest">EBookQueryTest</link>, enum in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookStatus"><link linkend="EBookStatus">EBookStatus</link>, enum in <link linkend="libebook-e-book-types">e-book-types</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookView-struct"><link linkend="EBookView-struct">EBookView</link>, struct in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookView-contacts-added"><link linkend="EBookView-contacts-added">EBookView::contacts-added</link>, object signal in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookView-contacts-changed"><link linkend="EBookView-contacts-changed">EBookView::contacts-changed</link>, object signal in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookView-contacts-removed"><link linkend="EBookView-contacts-removed">EBookView::contacts-removed</link>, object signal in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookView-sequence-complete"><link linkend="EBookView-sequence-complete">EBookView::sequence-complete</link>, object signal in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookView-status-message"><link linkend="EBookView-status-message">EBookView::status-message</link>, object signal in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookViewListener-struct"><link linkend="EBookViewListener-struct">EBookViewListener</link>, struct in <link linkend="EBookViewListener">EBookViewListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookViewListener-response"><link linkend="EBookViewListener-response">EBookViewListener::response</link>, object signal in <link linkend="EBookViewListener">EBookViewListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookViewListenerOperation"><link linkend="EBookViewListenerOperation">EBookViewListenerOperation</link>, enum in <link linkend="EBookViewListener">EBookViewListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookViewListenerResponse"><link linkend="EBookViewListenerResponse">EBookViewListenerResponse</link>, struct in <link linkend="EBookViewListener">EBookViewListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EBookViewStatus"><link linkend="EBookViewStatus">EBookViewStatus</link>, enum in <link linkend="libebook-e-book-types">e-book-types</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-add-contact"><link linkend="e-book-add-contact">e_book_add_contact</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-add-contact"><link linkend="e-book-async-add-contact">e_book_async_add_contact</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-authenticate-user"><link linkend="e-book-async-authenticate-user">e_book_async_authenticate_user</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-commit-contact"><link linkend="e-book-async-commit-contact">e_book_async_commit_contact</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-get-book-view"><link linkend="e-book-async-get-book-view">e_book_async_get_book_view</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-get-changes"><link linkend="e-book-async-get-changes">e_book_async_get_changes</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-get-contact"><link linkend="e-book-async-get-contact">e_book_async_get_contact</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-get-contacts"><link linkend="e-book-async-get-contacts">e_book_async_get_contacts</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-get-required-fields"><link linkend="e-book-async-get-required-fields">e_book_async_get_required_fields</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-get-supported-auth-methods"><link linkend="e-book-async-get-supported-auth-methods">e_book_async_get_supported_auth_methods</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-get-supported-fields"><link linkend="e-book-async-get-supported-fields">e_book_async_get_supported_fields</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-open"><link linkend="e-book-async-open">e_book_async_open</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-remove"><link linkend="e-book-async-remove">e_book_async_remove</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-remove-contact"><link linkend="e-book-async-remove-contact">e_book_async_remove_contact</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-remove-contacts"><link linkend="e-book-async-remove-contacts">e_book_async_remove_contacts</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-async-remove-contact-by-id"><link linkend="e-book-async-remove-contact-by-id">e_book_async_remove_contact_by_id</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-authenticate-user"><link linkend="e-book-authenticate-user">e_book_authenticate_user</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-cancel"><link linkend="e-book-cancel">e_book_cancel</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-cancel-async-op"><link linkend="e-book-cancel-async-op">e_book_cancel_async_op</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-check-static-capability"><link linkend="e-book-check-static-capability">e_book_check_static_capability</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-commit-contact"><link linkend="e-book-commit-contact">e_book_commit_contact</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="E-BOOK-ERROR:CAPS"><link linkend="E-BOOK-ERROR:CAPS">E_BOOK_ERROR</link>, macro in <link linkend="libebook-e-book-types">e-book-types</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-error-quark"><link linkend="e-book-error-quark">e_book_error_quark</link>, function in <link linkend="libebook-e-book-types">e-book-types</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-free-change-list"><link linkend="e-book-free-change-list">e_book_free_change_list</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-addressbooks"><link linkend="e-book-get-addressbooks">e_book_get_addressbooks</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-book-view"><link linkend="e-book-get-book-view">e_book_get_book_view</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-changes"><link linkend="e-book-get-changes">e_book_get_changes</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-contact"><link linkend="e-book-get-contact">e_book_get_contact</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-contacts"><link linkend="e-book-get-contacts">e_book_get_contacts</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-required-fields"><link linkend="e-book-get-required-fields">e_book_get_required_fields</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-self"><link linkend="e-book-get-self">e_book_get_self</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-source"><link linkend="e-book-get-source">e_book_get_source</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-static-capabilities"><link linkend="e-book-get-static-capabilities">e_book_get_static_capabilities</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-supported-auth-methods"><link linkend="e-book-get-supported-auth-methods">e_book_get_supported_auth_methods</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-supported-fields"><link linkend="e-book-get-supported-fields">e_book_get_supported_fields</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-get-uri"><link linkend="e-book-get-uri">e_book_get_uri</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-is-online"><link linkend="e-book-is-online">e_book_is_online</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-is-opened"><link linkend="e-book-is-opened">e_book_is_opened</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-is-self"><link linkend="e-book-is-self">e_book_is_self</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-is-writable"><link linkend="e-book-is-writable">e_book_is_writable</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-listener-new"><link linkend="e-book-listener-new">e_book_listener_new</link>, function in <link linkend="EBookListener">EBookListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-listener-stop"><link linkend="e-book-listener-stop">e_book_listener_stop</link>, function in <link linkend="EBookListener">EBookListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-new"><link linkend="e-book-new">e_book_new</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-new-default-addressbook"><link linkend="e-book-new-default-addressbook">e_book_new_default_addressbook</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-new-from-uri"><link linkend="e-book-new-from-uri">e_book_new_from_uri</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-new-system-addressbook"><link linkend="e-book-new-system-addressbook">e_book_new_system_addressbook</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-open"><link linkend="e-book-open">e_book_open</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-and"><link linkend="e-book-query-and">e_book_query_and</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-andv"><link linkend="e-book-query-andv">e_book_query_andv</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-any-field-contains"><link linkend="e-book-query-any-field-contains">e_book_query_any_field_contains</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-copy"><link linkend="e-book-query-copy">e_book_query_copy</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-field-exists"><link linkend="e-book-query-field-exists">e_book_query_field_exists</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-field-test"><link linkend="e-book-query-field-test">e_book_query_field_test</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-from-string"><link linkend="e-book-query-from-string">e_book_query_from_string</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-not"><link linkend="e-book-query-not">e_book_query_not</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-or"><link linkend="e-book-query-or">e_book_query_or</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-orv"><link linkend="e-book-query-orv">e_book_query_orv</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-ref"><link linkend="e-book-query-ref">e_book_query_ref</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-to-string"><link linkend="e-book-query-to-string">e_book_query_to_string</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-unref"><link linkend="e-book-query-unref">e_book_query_unref</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-vcard-field-exists"><link linkend="e-book-query-vcard-field-exists">e_book_query_vcard_field_exists</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-query-vcard-field-test"><link linkend="e-book-query-vcard-field-test">e_book_query_vcard_field_test</link>, function in <link linkend="libebook-e-book-query">e-book-query</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-remove"><link linkend="e-book-remove">e_book_remove</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-remove-contact"><link linkend="e-book-remove-contact">e_book_remove_contact</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-remove-contacts"><link linkend="e-book-remove-contacts">e_book_remove_contacts</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-set-default-addressbook"><link linkend="e-book-set-default-addressbook">e_book_set_default_addressbook</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-set-default-source"><link linkend="e-book-set-default-source">e_book_set_default_source</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-set-self"><link linkend="e-book-set-self">e_book_set_self</link>, function in <link linkend="EBook">EBook</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-view-get-book"><link linkend="e-book-view-get-book">e_book_view_get_book</link>, function in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-view-listener-new"><link linkend="e-book-view-listener-new">e_book_view_listener_new</link>, function in <link linkend="EBookViewListener">EBookViewListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-view-listener-start"><link linkend="e-book-view-listener-start">e_book_view_listener_start</link>, function in <link linkend="EBookViewListener">EBookViewListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-view-listener-stop"><link linkend="e-book-view-listener-stop">e_book_view_listener_stop</link>, function in <link linkend="EBookViewListener">EBookViewListener</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-view-new"><link linkend="e-book-view-new">e_book_view_new</link>, function in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-view-set-book"><link linkend="e-book-view-set-book">e_book_view_set_book</link>, function in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-view-start"><link linkend="e-book-view-start">e_book_view_start</link>, function in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-book-view-stop"><link linkend="e-book-view-stop">e_book_view_stop</link>, function in <link linkend="EBookView">EBookView</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>C</title>
+<indexentry><primaryie linkends="EContact-struct"><link linkend="EContact-struct">EContact</link>, struct in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--address"><link linkend="EContact--address">EContact:address</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--address-home"><link linkend="EContact--address-home">EContact:address-home</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--address-label-home"><link linkend="EContact--address-label-home">EContact:address-label-home</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--address-label-other"><link linkend="EContact--address-label-other">EContact:address-label-other</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--address-label-work"><link linkend="EContact--address-label-work">EContact:address-label-work</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--address-other"><link linkend="EContact--address-other">EContact:address-other</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--address-work"><link linkend="EContact--address-work">EContact:address-work</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--anniversary"><link linkend="EContact--anniversary">EContact:anniversary</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--assistant"><link linkend="EContact--assistant">EContact:assistant</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--assistant-phone"><link linkend="EContact--assistant-phone">EContact:assistant-phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--birth-date"><link linkend="EContact--birth-date">EContact:birth-date</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--blog-url"><link linkend="EContact--blog-url">EContact:blog-url</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--book-uri"><link linkend="EContact--book-uri">EContact:book-uri</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--business-fax"><link linkend="EContact--business-fax">EContact:business-fax</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--business-phone"><link linkend="EContact--business-phone">EContact:business-phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--business-phone-2"><link linkend="EContact--business-phone-2">EContact:business-phone-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--callback-phone"><link linkend="EContact--callback-phone">EContact:callback-phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--caluri"><link linkend="EContact--caluri">EContact:caluri</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--car-phone"><link linkend="EContact--car-phone">EContact:car-phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--categories"><link linkend="EContact--categories">EContact:categories</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--category-list"><link linkend="EContact--category-list">EContact:category-list</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--company-phone"><link linkend="EContact--company-phone">EContact:company-phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--email"><link linkend="EContact--email">EContact:email</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--email-1"><link linkend="EContact--email-1">EContact:email-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--email-2"><link linkend="EContact--email-2">EContact:email-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--email-3"><link linkend="EContact--email-3">EContact:email-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--email-4"><link linkend="EContact--email-4">EContact:email-4</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--family-name"><link linkend="EContact--family-name">EContact:family-name</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--fburl"><link linkend="EContact--fburl">EContact:fburl</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--file-as"><link linkend="EContact--file-as">EContact:file-as</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--full-name"><link linkend="EContact--full-name">EContact:full-name</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--geo"><link linkend="EContact--geo">EContact:geo</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--given-name"><link linkend="EContact--given-name">EContact:given-name</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--home-fax"><link linkend="EContact--home-fax">EContact:home-fax</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--home-phone"><link linkend="EContact--home-phone">EContact:home-phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--home-phone-2"><link linkend="EContact--home-phone-2">EContact:home-phone-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--homepage-url"><link linkend="EContact--homepage-url">EContact:homepage-url</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--icscalendar"><link linkend="EContact--icscalendar">EContact:icscalendar</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--id"><link linkend="EContact--id">EContact:id</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-aim"><link linkend="EContact--im-aim">EContact:im-aim</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-aim-home-1"><link linkend="EContact--im-aim-home-1">EContact:im-aim-home-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-aim-home-2"><link linkend="EContact--im-aim-home-2">EContact:im-aim-home-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-aim-home-3"><link linkend="EContact--im-aim-home-3">EContact:im-aim-home-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-aim-work-1"><link linkend="EContact--im-aim-work-1">EContact:im-aim-work-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-aim-work-2"><link linkend="EContact--im-aim-work-2">EContact:im-aim-work-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-aim-work-3"><link linkend="EContact--im-aim-work-3">EContact:im-aim-work-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-gadugadu"><link linkend="EContact--im-gadugadu">EContact:im-gadugadu</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-gadugadu-home-1"><link linkend="EContact--im-gadugadu-home-1">EContact:im-gadugadu-home-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-gadugadu-home-2"><link linkend="EContact--im-gadugadu-home-2">EContact:im-gadugadu-home-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-gadugadu-home-3"><link linkend="EContact--im-gadugadu-home-3">EContact:im-gadugadu-home-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-gadugadu-work-1"><link linkend="EContact--im-gadugadu-work-1">EContact:im-gadugadu-work-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-gadugadu-work-2"><link linkend="EContact--im-gadugadu-work-2">EContact:im-gadugadu-work-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-gadugadu-work-3"><link linkend="EContact--im-gadugadu-work-3">EContact:im-gadugadu-work-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-groupwise"><link linkend="EContact--im-groupwise">EContact:im-groupwise</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-groupwise-home-1"><link linkend="EContact--im-groupwise-home-1">EContact:im-groupwise-home-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-groupwise-home-2"><link linkend="EContact--im-groupwise-home-2">EContact:im-groupwise-home-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-groupwise-home-3"><link linkend="EContact--im-groupwise-home-3">EContact:im-groupwise-home-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-groupwise-work-1"><link linkend="EContact--im-groupwise-work-1">EContact:im-groupwise-work-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-groupwise-work-2"><link linkend="EContact--im-groupwise-work-2">EContact:im-groupwise-work-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-groupwise-work-3"><link linkend="EContact--im-groupwise-work-3">EContact:im-groupwise-work-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-icq"><link linkend="EContact--im-icq">EContact:im-icq</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-icq-home-1"><link linkend="EContact--im-icq-home-1">EContact:im-icq-home-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-icq-home-2"><link linkend="EContact--im-icq-home-2">EContact:im-icq-home-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-icq-home-3"><link linkend="EContact--im-icq-home-3">EContact:im-icq-home-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-icq-work-1"><link linkend="EContact--im-icq-work-1">EContact:im-icq-work-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-icq-work-2"><link linkend="EContact--im-icq-work-2">EContact:im-icq-work-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-icq-work-3"><link linkend="EContact--im-icq-work-3">EContact:im-icq-work-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-jabber"><link linkend="EContact--im-jabber">EContact:im-jabber</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-jabber-home-1"><link linkend="EContact--im-jabber-home-1">EContact:im-jabber-home-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-jabber-home-2"><link linkend="EContact--im-jabber-home-2">EContact:im-jabber-home-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-jabber-home-3"><link linkend="EContact--im-jabber-home-3">EContact:im-jabber-home-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-jabber-work-1"><link linkend="EContact--im-jabber-work-1">EContact:im-jabber-work-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-jabber-work-2"><link linkend="EContact--im-jabber-work-2">EContact:im-jabber-work-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-jabber-work-3"><link linkend="EContact--im-jabber-work-3">EContact:im-jabber-work-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-msn"><link linkend="EContact--im-msn">EContact:im-msn</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-msn-home-1"><link linkend="EContact--im-msn-home-1">EContact:im-msn-home-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-msn-home-2"><link linkend="EContact--im-msn-home-2">EContact:im-msn-home-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-msn-home-3"><link linkend="EContact--im-msn-home-3">EContact:im-msn-home-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-msn-work-1"><link linkend="EContact--im-msn-work-1">EContact:im-msn-work-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-msn-work-2"><link linkend="EContact--im-msn-work-2">EContact:im-msn-work-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-msn-work-3"><link linkend="EContact--im-msn-work-3">EContact:im-msn-work-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-skype"><link linkend="EContact--im-skype">EContact:im-skype</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-skype-home-1"><link linkend="EContact--im-skype-home-1">EContact:im-skype-home-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-skype-home-2"><link linkend="EContact--im-skype-home-2">EContact:im-skype-home-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-skype-home-3"><link linkend="EContact--im-skype-home-3">EContact:im-skype-home-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-skype-work-1"><link linkend="EContact--im-skype-work-1">EContact:im-skype-work-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-skype-work-2"><link linkend="EContact--im-skype-work-2">EContact:im-skype-work-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-skype-work-3"><link linkend="EContact--im-skype-work-3">EContact:im-skype-work-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-yahoo"><link linkend="EContact--im-yahoo">EContact:im-yahoo</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-yahoo-home-1"><link linkend="EContact--im-yahoo-home-1">EContact:im-yahoo-home-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-yahoo-home-2"><link linkend="EContact--im-yahoo-home-2">EContact:im-yahoo-home-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-yahoo-home-3"><link linkend="EContact--im-yahoo-home-3">EContact:im-yahoo-home-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-yahoo-work-1"><link linkend="EContact--im-yahoo-work-1">EContact:im-yahoo-work-1</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-yahoo-work-2"><link linkend="EContact--im-yahoo-work-2">EContact:im-yahoo-work-2</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--im-yahoo-work-3"><link linkend="EContact--im-yahoo-work-3">EContact:im-yahoo-work-3</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--isdn-phone"><link linkend="EContact--isdn-phone">EContact:isdn-phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--list"><link linkend="EContact--list">EContact:list</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--list-show-addresses"><link linkend="EContact--list-show-addresses">EContact:list-show-addresses</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--logo"><link linkend="EContact--logo">EContact:logo</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--mailer"><link linkend="EContact--mailer">EContact:mailer</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--manager"><link linkend="EContact--manager">EContact:manager</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--mobile-phone"><link linkend="EContact--mobile-phone">EContact:mobile-phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--name"><link linkend="EContact--name">EContact:name</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--name-or-org"><link linkend="EContact--name-or-org">EContact:name-or-org</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--nickname"><link linkend="EContact--nickname">EContact:nickname</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--note"><link linkend="EContact--note">EContact:note</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--office"><link linkend="EContact--office">EContact:office</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--org"><link linkend="EContact--org">EContact:org</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--org-unit"><link linkend="EContact--org-unit">EContact:org-unit</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--other-fax"><link linkend="EContact--other-fax">EContact:other-fax</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--other-phone"><link linkend="EContact--other-phone">EContact:other-phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--pager"><link linkend="EContact--pager">EContact:pager</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--phone"><link linkend="EContact--phone">EContact:phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--photo"><link linkend="EContact--photo">EContact:photo</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--primary-phone"><link linkend="EContact--primary-phone">EContact:primary-phone</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--radio"><link linkend="EContact--radio">EContact:radio</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--Rev"><link linkend="EContact--Rev">EContact:Rev</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--role"><link linkend="EContact--role">EContact:role</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--sip"><link linkend="EContact--sip">EContact:sip</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--spouse"><link linkend="EContact--spouse">EContact:spouse</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--telex"><link linkend="EContact--telex">EContact:telex</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--title"><link linkend="EContact--title">EContact:title</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--tty"><link linkend="EContact--tty">EContact:tty</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--video-url"><link linkend="EContact--video-url">EContact:video-url</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--wants-html"><link linkend="EContact--wants-html">EContact:wants-html</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContact--x509Cert"><link linkend="EContact--x509Cert">EContact:x509Cert</link>, object property in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContactAddress"><link linkend="EContactAddress">EContactAddress</link>, struct in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContactCert"><link linkend="EContactCert">EContactCert</link>, struct in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContactDate"><link linkend="EContactDate">EContactDate</link>, struct in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContactField"><link linkend="EContactField">EContactField</link>, enum in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContactGeo"><link linkend="EContactGeo">EContactGeo</link>, struct in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContactName"><link linkend="EContactName">EContactName</link>, struct in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EContactPhoto"><link linkend="EContactPhoto">EContactPhoto</link>, struct in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-address-free"><link linkend="e-contact-address-free">e_contact_address_free</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-cert-free"><link linkend="e-contact-cert-free">e_contact_cert_free</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-date-equal"><link linkend="e-contact-date-equal">e_contact_date_equal</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-date-free"><link linkend="e-contact-date-free">e_contact_date_free</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-date-from-string"><link linkend="e-contact-date-from-string">e_contact_date_from_string</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-date-new"><link linkend="e-contact-date-new">e_contact_date_new</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-date-to-string"><link linkend="e-contact-date-to-string">e_contact_date_to_string</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-duplicate"><link linkend="e-contact-duplicate">e_contact_duplicate</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-field-id"><link linkend="e-contact-field-id">e_contact_field_id</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-field-id-from-vcard"><link linkend="e-contact-field-id-from-vcard">e_contact_field_id_from_vcard</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-field-name"><link linkend="e-contact-field-name">e_contact_field_name</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-geo-free"><link linkend="e-contact-geo-free">e_contact_geo_free</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-get"><link linkend="e-contact-get">e_contact_get</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-get-attributes"><link linkend="e-contact-get-attributes">e_contact_get_attributes</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-get-const"><link linkend="e-contact-get-const">e_contact_get_const</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-name-copy"><link linkend="e-contact-name-copy">e_contact_name_copy</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-name-free"><link linkend="e-contact-name-free">e_contact_name_free</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-name-from-string"><link linkend="e-contact-name-from-string">e_contact_name_from_string</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-name-new"><link linkend="e-contact-name-new">e_contact_name_new</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-name-to-string"><link linkend="e-contact-name-to-string">e_contact_name_to_string</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-new"><link linkend="e-contact-new">e_contact_new</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-new-from-vcard"><link linkend="e-contact-new-from-vcard">e_contact_new_from_vcard</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-photo-free"><link linkend="e-contact-photo-free">e_contact_photo_free</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-pretty-name"><link linkend="e-contact-pretty-name">e_contact_pretty_name</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-set"><link linkend="e-contact-set">e_contact_set</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-set-attributes"><link linkend="e-contact-set-attributes">e_contact_set_attributes</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-contact-vcard-attribute"><link linkend="e-contact-vcard-attribute">e_contact_vcard_attribute</link>, function in <link linkend="EContact">EContact</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>D</title>
+<indexentry><primaryie linkends="EDestination-struct"><link linkend="EDestination-struct">EDestination</link>, struct in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EDestination-changed"><link linkend="EDestination-changed">EDestination::changed</link>, object signal in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-copy"><link linkend="e-destination-copy">e_destination_copy</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-empty"><link linkend="e-destination-empty">e_destination_empty</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-equal"><link linkend="e-destination-equal">e_destination_equal</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-export"><link linkend="e-destination-export">e_destination_export</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-exportv"><link linkend="e-destination-exportv">e_destination_exportv</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-export-to-vcard-attribute"><link linkend="e-destination-export-to-vcard-attribute">e_destination_export_to_vcard_attribute</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-freev"><link linkend="e-destination-freev">e_destination_freev</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-get-address"><link linkend="e-destination-get-address">e_destination_get_address</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-get-contact"><link linkend="e-destination-get-contact">e_destination_get_contact</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-get-contact-uid"><link linkend="e-destination-get-contact-uid">e_destination_get_contact_uid</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-get-email"><link linkend="e-destination-get-email">e_destination_get_email</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-get-email-num"><link linkend="e-destination-get-email-num">e_destination_get_email_num</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-get-html-mail-pref"><link linkend="e-destination-get-html-mail-pref">e_destination_get_html_mail_pref</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-get-name"><link linkend="e-destination-get-name">e_destination_get_name</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-get-source-uid"><link linkend="e-destination-get-source-uid">e_destination_get_source_uid</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-get-textrep"><link linkend="e-destination-get-textrep">e_destination_get_textrep</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-get-textrepv"><link linkend="e-destination-get-textrepv">e_destination_get_textrepv</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-import"><link linkend="e-destination-import">e_destination_import</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-importv"><link linkend="e-destination-importv">e_destination_importv</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-is-auto-recipient"><link linkend="e-destination-is-auto-recipient">e_destination_is_auto_recipient</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-is-evolution-list"><link linkend="e-destination-is-evolution-list">e_destination_is_evolution_list</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-is-ignored"><link linkend="e-destination-is-ignored">e_destination_is_ignored</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-list-get-dests"><link linkend="e-destination-list-get-dests">e_destination_list_get_dests</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-list-show-addresses"><link linkend="e-destination-list-show-addresses">e_destination_list_show_addresses</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-new"><link linkend="e-destination-new">e_destination_new</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-set-auto-recipient"><link linkend="e-destination-set-auto-recipient">e_destination_set_auto_recipient</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-set-book"><link linkend="e-destination-set-book">e_destination_set_book</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-set-contact"><link linkend="e-destination-set-contact">e_destination_set_contact</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-set-contact-uid"><link linkend="e-destination-set-contact-uid">e_destination_set_contact_uid</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-set-email"><link linkend="e-destination-set-email">e_destination_set_email</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-set-html-mail-pref"><link linkend="e-destination-set-html-mail-pref">e_destination_set_html_mail_pref</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-set-ignored"><link linkend="e-destination-set-ignored">e_destination_set_ignored</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-set-name"><link linkend="e-destination-set-name">e_destination_set_name</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-destination-set-raw"><link linkend="e-destination-set-raw">e_destination_set_raw</link>, function in <link linkend="EDestination">EDestination</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>N</title>
+<indexentry><primaryie linkends="ENameWestern"><link linkend="ENameWestern">ENameWestern</link>, struct in <link linkend="libebook-ENameWestern">ENameWestern</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-name-western-free"><link linkend="e-name-western-free">e_name_western_free</link>, function in <link linkend="libebook-ENameWestern">ENameWestern</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-name-western-parse"><link linkend="e-name-western-parse">e_name_western_parse</link>, function in <link linkend="libebook-ENameWestern">ENameWestern</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>V</title>
+<indexentry><primaryie linkends="EVCard-struct"><link linkend="EVCard-struct">EVCard</link>, struct in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVCardAttribute"><link linkend="EVCardAttribute">EVCardAttribute</link>, struct in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVCardAttributeParam"><link linkend="EVCardAttributeParam">EVCardAttributeParam</link>, struct in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVCardFormat"><link linkend="EVCardFormat">EVCardFormat</link>, enum in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-add-attribute"><link linkend="e-vcard-add-attribute">e_vcard_add_attribute</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-add-attribute-with-value"><link linkend="e-vcard-add-attribute-with-value">e_vcard_add_attribute_with_value</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-add-attribute-with-values"><link linkend="e-vcard-add-attribute-with-values">e_vcard_add_attribute_with_values</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-add-param"><link linkend="e-vcard-attribute-add-param">e_vcard_attribute_add_param</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-add-param-with-value"><link linkend="e-vcard-attribute-add-param-with-value">e_vcard_attribute_add_param_with_value</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-add-param-with-values"><link linkend="e-vcard-attribute-add-param-with-values">e_vcard_attribute_add_param_with_values</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-add-value"><link linkend="e-vcard-attribute-add-value">e_vcard_attribute_add_value</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-add-values"><link linkend="e-vcard-attribute-add-values">e_vcard_attribute_add_values</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-add-value-decoded"><link linkend="e-vcard-attribute-add-value-decoded">e_vcard_attribute_add_value_decoded</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-copy"><link linkend="e-vcard-attribute-copy">e_vcard_attribute_copy</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-free"><link linkend="e-vcard-attribute-free">e_vcard_attribute_free</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-get-group"><link linkend="e-vcard-attribute-get-group">e_vcard_attribute_get_group</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-get-name"><link linkend="e-vcard-attribute-get-name">e_vcard_attribute_get_name</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-get-param"><link linkend="e-vcard-attribute-get-param">e_vcard_attribute_get_param</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-get-params"><link linkend="e-vcard-attribute-get-params">e_vcard_attribute_get_params</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-get-value"><link linkend="e-vcard-attribute-get-value">e_vcard_attribute_get_value</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-get-values"><link linkend="e-vcard-attribute-get-values">e_vcard_attribute_get_values</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-get-values-decoded"><link linkend="e-vcard-attribute-get-values-decoded">e_vcard_attribute_get_values_decoded</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-get-value-decoded"><link linkend="e-vcard-attribute-get-value-decoded">e_vcard_attribute_get_value_decoded</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-has-type"><link linkend="e-vcard-attribute-has-type">e_vcard_attribute_has_type</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-is-single-valued"><link linkend="e-vcard-attribute-is-single-valued">e_vcard_attribute_is_single_valued</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-new"><link linkend="e-vcard-attribute-new">e_vcard_attribute_new</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-param-add-value"><link linkend="e-vcard-attribute-param-add-value">e_vcard_attribute_param_add_value</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-param-add-values"><link linkend="e-vcard-attribute-param-add-values">e_vcard_attribute_param_add_values</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-param-copy"><link linkend="e-vcard-attribute-param-copy">e_vcard_attribute_param_copy</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-param-free"><link linkend="e-vcard-attribute-param-free">e_vcard_attribute_param_free</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-param-get-name"><link linkend="e-vcard-attribute-param-get-name">e_vcard_attribute_param_get_name</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-param-get-values"><link linkend="e-vcard-attribute-param-get-values">e_vcard_attribute_param_get_values</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-param-new"><link linkend="e-vcard-attribute-param-new">e_vcard_attribute_param_new</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-param-remove-values"><link linkend="e-vcard-attribute-param-remove-values">e_vcard_attribute_param_remove_values</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-remove-param"><link linkend="e-vcard-attribute-remove-param">e_vcard_attribute_remove_param</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-remove-params"><link linkend="e-vcard-attribute-remove-params">e_vcard_attribute_remove_params</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-remove-param-value"><link linkend="e-vcard-attribute-remove-param-value">e_vcard_attribute_remove_param_value</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-remove-value"><link linkend="e-vcard-attribute-remove-value">e_vcard_attribute_remove_value</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-attribute-remove-values"><link linkend="e-vcard-attribute-remove-values">e_vcard_attribute_remove_values</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-dump-structure"><link linkend="e-vcard-dump-structure">e_vcard_dump_structure</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-escape-string"><link linkend="e-vcard-escape-string">e_vcard_escape_string</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-get-attribute"><link linkend="e-vcard-get-attribute">e_vcard_get_attribute</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-get-attributes"><link linkend="e-vcard-get-attributes">e_vcard_get_attributes</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-new"><link linkend="e-vcard-new">e_vcard_new</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-new-from-string"><link linkend="e-vcard-new-from-string">e_vcard_new_from_string</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-remove-attribute"><link linkend="e-vcard-remove-attribute">e_vcard_remove_attribute</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-remove-attributes"><link linkend="e-vcard-remove-attributes">e_vcard_remove_attributes</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-to-string"><link linkend="e-vcard-to-string">e_vcard_to_string</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-vcard-unescape-string"><link linkend="e-vcard-unescape-string">e_vcard_unescape_string</link>, function in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-ADR:CAPS"><link linkend="EVC-ADR:CAPS">EVC_ADR</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-BDAY:CAPS"><link linkend="EVC-BDAY:CAPS">EVC_BDAY</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-CALURI:CAPS"><link linkend="EVC-CALURI:CAPS">EVC_CALURI</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-CATEGORIES:CAPS"><link linkend="EVC-CATEGORIES:CAPS">EVC_CATEGORIES</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-EMAIL:CAPS"><link linkend="EVC-EMAIL:CAPS">EVC_EMAIL</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-ENCODING:CAPS"><link linkend="EVC-ENCODING:CAPS">EVC_ENCODING</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-FBURL:CAPS"><link linkend="EVC-FBURL:CAPS">EVC_FBURL</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-FN:CAPS"><link linkend="EVC-FN:CAPS">EVC_FN</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-GEO:CAPS"><link linkend="EVC-GEO:CAPS">EVC_GEO</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-ICSCALENDAR:CAPS"><link linkend="EVC-ICSCALENDAR:CAPS">EVC_ICSCALENDAR</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-KEY:CAPS"><link linkend="EVC-KEY:CAPS">EVC_KEY</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-LABEL:CAPS"><link linkend="EVC-LABEL:CAPS">EVC_LABEL</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-LOGO:CAPS"><link linkend="EVC-LOGO:CAPS">EVC_LOGO</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-MAILER:CAPS"><link linkend="EVC-MAILER:CAPS">EVC_MAILER</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-N:CAPS"><link linkend="EVC-N:CAPS">EVC_N</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-NICKNAME:CAPS"><link linkend="EVC-NICKNAME:CAPS">EVC_NICKNAME</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-NOTE:CAPS"><link linkend="EVC-NOTE:CAPS">EVC_NOTE</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-ORG:CAPS"><link linkend="EVC-ORG:CAPS">EVC_ORG</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-PHOTO:CAPS"><link linkend="EVC-PHOTO:CAPS">EVC_PHOTO</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-PRODID:CAPS"><link linkend="EVC-PRODID:CAPS">EVC_PRODID</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-QUOTEDPRINTABLE:CAPS"><link linkend="EVC-QUOTEDPRINTABLE:CAPS">EVC_QUOTEDPRINTABLE</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-REV:CAPS"><link linkend="EVC-REV:CAPS">EVC_REV</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-ROLE:CAPS"><link linkend="EVC-ROLE:CAPS">EVC_ROLE</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-TEL:CAPS"><link linkend="EVC-TEL:CAPS">EVC_TEL</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-TITLE:CAPS"><link linkend="EVC-TITLE:CAPS">EVC_TITLE</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-TYPE:CAPS"><link linkend="EVC-TYPE:CAPS">EVC_TYPE</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-UID:CAPS"><link linkend="EVC-UID:CAPS">EVC_UID</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-URL:CAPS"><link linkend="EVC-URL:CAPS">EVC_URL</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-VALUE:CAPS"><link linkend="EVC-VALUE:CAPS">EVC_VALUE</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-VERSION:CAPS"><link linkend="EVC-VERSION:CAPS">EVC_VERSION</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-AIM:CAPS"><link linkend="EVC-X-AIM:CAPS">EVC_X_AIM</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-ANNIVERSARY:CAPS"><link linkend="EVC-X-ANNIVERSARY:CAPS">EVC_X_ANNIVERSARY</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-ASSISTANT:CAPS"><link linkend="EVC-X-ASSISTANT:CAPS">EVC_X_ASSISTANT</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-BIRTHDAY:CAPS"><link linkend="EVC-X-BIRTHDAY:CAPS">EVC_X_BIRTHDAY</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-BLOG-URL:CAPS"><link linkend="EVC-X-BLOG-URL:CAPS">EVC_X_BLOG_URL</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-BOOK-URI:CAPS"><link linkend="EVC-X-BOOK-URI:CAPS">EVC_X_BOOK_URI</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-CALLBACK:CAPS"><link linkend="EVC-X-CALLBACK:CAPS">EVC_X_CALLBACK</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-COMPANY:CAPS"><link linkend="EVC-X-COMPANY:CAPS">EVC_X_COMPANY</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-DEST-CONTACT-UID:CAPS"><link linkend="EVC-X-DEST-CONTACT-UID:CAPS">EVC_X_DEST_CONTACT_UID</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-DEST-EMAIL:CAPS"><link linkend="EVC-X-DEST-EMAIL:CAPS">EVC_X_DEST_EMAIL</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-DEST-EMAIL-NUM:CAPS"><link linkend="EVC-X-DEST-EMAIL-NUM:CAPS">EVC_X_DEST_EMAIL_NUM</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-DEST-HTML-MAIL:CAPS"><link linkend="EVC-X-DEST-HTML-MAIL:CAPS">EVC_X_DEST_HTML_MAIL</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-DEST-NAME:CAPS"><link linkend="EVC-X-DEST-NAME:CAPS">EVC_X_DEST_NAME</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-DEST-SOURCE-UID:CAPS"><link linkend="EVC-X-DEST-SOURCE-UID:CAPS">EVC_X_DEST_SOURCE_UID</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-FILE-AS:CAPS"><link linkend="EVC-X-FILE-AS:CAPS">EVC_X_FILE_AS</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-GADUGADU:CAPS"><link linkend="EVC-X-GADUGADU:CAPS">EVC_X_GADUGADU</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-GROUPWISE:CAPS"><link linkend="EVC-X-GROUPWISE:CAPS">EVC_X_GROUPWISE</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-ICQ:CAPS"><link linkend="EVC-X-ICQ:CAPS">EVC_X_ICQ</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-JABBER:CAPS"><link linkend="EVC-X-JABBER:CAPS">EVC_X_JABBER</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-LIST:CAPS"><link linkend="EVC-X-LIST:CAPS">EVC_X_LIST</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-LIST-SHOW-ADDRESSES:CAPS"><link linkend="EVC-X-LIST-SHOW-ADDRESSES:CAPS">EVC_X_LIST_SHOW_ADDRESSES</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-MANAGER:CAPS"><link linkend="EVC-X-MANAGER:CAPS">EVC_X_MANAGER</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-MSN:CAPS"><link linkend="EVC-X-MSN:CAPS">EVC_X_MSN</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-RADIO:CAPS"><link linkend="EVC-X-RADIO:CAPS">EVC_X_RADIO</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-SIP:CAPS"><link linkend="EVC-X-SIP:CAPS">EVC_X_SIP</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-SKYPE:CAPS"><link linkend="EVC-X-SKYPE:CAPS">EVC_X_SKYPE</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-SPOUSE:CAPS"><link linkend="EVC-X-SPOUSE:CAPS">EVC_X_SPOUSE</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-TELEX:CAPS"><link linkend="EVC-X-TELEX:CAPS">EVC_X_TELEX</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-TTYTDD:CAPS"><link linkend="EVC-X-TTYTDD:CAPS">EVC_X_TTYTDD</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-VIDEO-URL:CAPS"><link linkend="EVC-X-VIDEO-URL:CAPS">EVC_X_VIDEO_URL</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-WANTS-HTML:CAPS"><link linkend="EVC-X-WANTS-HTML:CAPS">EVC_X_WANTS_HTML</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EVC-X-YAHOO:CAPS"><link linkend="EVC-X-YAHOO:CAPS">EVC_X_YAHOO</link>, macro in <link linkend="EVCard">EVCard</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

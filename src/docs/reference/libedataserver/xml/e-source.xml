@@ -1,0 +1,598 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ESource">
+<refmeta>
+<refentrytitle role="top_of_page" id="ESource.top_of_page">ESource</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVER Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>ESource</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ESource.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="ESource-struct">ESource</link>;
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-source-new">e_source_new</link>                        (<parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *relative_uri</parameter>);
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-source-new-with-absolute-uri">e_source_new_with_absolute_uri</link>      (<parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *absolute_uri</parameter>);
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-source-new-from-xml-node">e_source_new_from_xml_node</link>          (<parameter><link linkend="xmlNodePtr"><type>xmlNodePtr</type></link> node</parameter>);
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-source-new-from-standalone-xml">e_source_new_from_standalone_xml</link>    (<parameter>const <link linkend="gchar"><type>gchar</type></link> *xml</parameter>);
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-source-copy">e_source_copy</link>                       (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-update-from-xml-node">e_source_update_from_xml_node</link>       (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="xmlNodePtr"><type>xmlNodePtr</type></link> node</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> *changed_return</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-source-uid-from-xml-node">e_source_uid_from_xml_node</link>          (<parameter><link linkend="xmlNodePtr"><type>xmlNodePtr</type></link> node</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-set-group">e_source_set_group</link>                  (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-set-name">e_source_set_name</link>                   (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-set-relative-uri">e_source_set_relative_uri</link>           (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *relative_uri</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-set-absolute-uri">e_source_set_absolute_uri</link>           (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *absolute_uri</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-set-color-spec">e_source_set_color_spec</link>             (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *color_spec</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-set-readonly">e_source_set_readonly</link>               (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> readonly</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-set-color">e_source_set_color</link>                  (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> color</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-unset-color">e_source_unset_color</link>                (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="ESourceGroup"><returnvalue>ESourceGroup</returnvalue></link> *      <link linkend="e-source-peek-group">e_source_peek_group</link>                 (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-source-peek-uid">e_source_peek_uid</link>                   (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-source-peek-name">e_source_peek_name</link>                  (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-source-peek-relative-uri">e_source_peek_relative_uri</link>          (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-source-peek-absolute-uri">e_source_peek_absolute_uri</link>          (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-source-peek-color-spec">e_source_peek_color_spec</link>            (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-get-readonly">e_source_get_readonly</link>               (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-get-color">e_source_get_color</link>                  (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> *color_return</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-source-get-uri">e_source_get_uri</link>                    (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-dump-to-xml-node">e_source_dump_to_xml_node</link>           (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="xmlNodePtr"><type>xmlNodePtr</type></link> parent_node</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-source-to-standalone-xml">e_source_to_standalone_xml</link>          (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-source-get-property">e_source_get_property</link>               (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *property</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-set-property">e_source_set_property</link>               (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *property</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *value</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-foreach-property">e_source_foreach_property</link>           (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="GHFunc"><type>GHFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-source-get-duped-property">e_source_get_duped_property</link>         (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *property</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-source-build-absolute-uri">e_source_build_absolute_uri</link>         (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-equal">e_source_equal</link>                      (<parameter><link linkend="ESource"><type>ESource</type></link> *a</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *b</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-xmlstr-equal">e_source_xmlstr_equal</link>               (<parameter>const <link linkend="gchar"><type>gchar</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *b</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="ESource.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----ESource
+</synopsis>
+</refsect1>
+<refsect1 id="ESource.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="ESource-changed">changed</link>&quot;                                        : Run Last
+</synopsis>
+</refsect1>
+
+<refsect1 id="ESource.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="ESource.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ESource-struct" role="struct">
+<title>ESource</title>
+<indexterm zone="ESource-struct"><primary>ESource</primary></indexterm>
+<programlisting>typedef struct _ESource ESource;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-source-new" role="function">
+<title>e_source_new ()</title>
+<indexterm zone="e-source-new"><primary>e_source_new</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_source_new                        (<parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *relative_uri</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>relative_uri</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-new-with-absolute-uri" role="function">
+<title>e_source_new_with_absolute_uri ()</title>
+<indexterm zone="e-source-new-with-absolute-uri"><primary>e_source_new_with_absolute_uri</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_source_new_with_absolute_uri      (<parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *absolute_uri</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>absolute_uri</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-new-from-xml-node" role="function">
+<title>e_source_new_from_xml_node ()</title>
+<indexterm zone="e-source-new-from-xml-node"><primary>e_source_new_from_xml_node</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_source_new_from_xml_node          (<parameter><link linkend="xmlNodePtr"><type>xmlNodePtr</type></link> node</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-new-from-standalone-xml" role="function">
+<title>e_source_new_from_standalone_xml ()</title>
+<indexterm zone="e-source-new-from-standalone-xml"><primary>e_source_new_from_standalone_xml</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_source_new_from_standalone_xml    (<parameter>const <link linkend="gchar"><type>gchar</type></link> *xml</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>xml</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-copy" role="function">
+<title>e_source_copy ()</title>
+<indexterm zone="e-source-copy"><primary>e_source_copy</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_source_copy                       (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-update-from-xml-node" role="function">
+<title>e_source_update_from_xml_node ()</title>
+<indexterm zone="e-source-update-from-xml-node"><primary>e_source_update_from_xml_node</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_update_from_xml_node       (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="xmlNodePtr"><type>xmlNodePtr</type></link> node</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> *changed_return</parameter>);</programlisting>
+<para>
+Update the ESource properties from <parameter>node</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>An ESource.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>A pointer to the node to parse.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>changed_return</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the data in <parameter>node</parameter> was recognized and parsed into
+acceptable values for <parameter>source</parameter>, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-uid-from-xml-node" role="function">
+<title>e_source_uid_from_xml_node ()</title>
+<indexterm zone="e-source-uid-from-xml-node"><primary>e_source_uid_from_xml_node</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_source_uid_from_xml_node          (<parameter><link linkend="xmlNodePtr"><type>xmlNodePtr</type></link> node</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>node</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-set-group" role="function">
+<title>e_source_set_group ()</title>
+<indexterm zone="e-source-set-group"><primary>e_source_set_group</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_set_group                  (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-set-name" role="function">
+<title>e_source_set_name ()</title>
+<indexterm zone="e-source-set-name"><primary>e_source_set_name</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_set_name                   (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-set-relative-uri" role="function">
+<title>e_source_set_relative_uri ()</title>
+<indexterm zone="e-source-set-relative-uri"><primary>e_source_set_relative_uri</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_set_relative_uri           (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *relative_uri</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>relative_uri</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-set-absolute-uri" role="function">
+<title>e_source_set_absolute_uri ()</title>
+<indexterm zone="e-source-set-absolute-uri"><primary>e_source_set_absolute_uri</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_set_absolute_uri           (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *absolute_uri</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>absolute_uri</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-set-color-spec" role="function" condition="since:1.10">
+<title>e_source_set_color_spec ()</title>
+<indexterm zone="e-source-set-color-spec" role="1.10"><primary>e_source_set_color_spec</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_set_color_spec             (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *color_spec</parameter>);</programlisting>
+<para>
+Store a textual representation of a color in <parameter>source</parameter>.  The <parameter>color_spec</parameter>
+string should be parsable by #<link linkend="gdk-color-parse"><function>gdk_color_parse()</function></link>, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> to unset the
+color in <parameter>source</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>an ESource
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color_spec</parameter>&#160;:</term>
+<listitem><simpara>a string specifying the color
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="e-source-set-readonly" role="function">
+<title>e_source_set_readonly ()</title>
+<indexterm zone="e-source-set-readonly"><primary>e_source_set_readonly</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_set_readonly               (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> readonly</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>readonly</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-set-color" role="function" condition="deprecated:">
+<title>e_source_set_color ()</title>
+<indexterm zone="e-source-set-color" role="deprecated"><primary>e_source_set_color</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_set_color                  (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> color</parameter>);</programlisting>
+<warning><para><literal>e_source_set_color</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-unset-color" role="function" condition="deprecated:">
+<title>e_source_unset_color ()</title>
+<indexterm zone="e-source-unset-color" role="deprecated"><primary>e_source_unset_color</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_unset_color                (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<warning><para><literal>e_source_unset_color</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-peek-group" role="function">
+<title>e_source_peek_group ()</title>
+<indexterm zone="e-source-peek-group"><primary>e_source_peek_group</primary></indexterm>
+<programlisting><link linkend="ESourceGroup"><returnvalue>ESourceGroup</returnvalue></link> *      e_source_peek_group                 (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-peek-uid" role="function">
+<title>e_source_peek_uid ()</title>
+<indexterm zone="e-source-peek-uid"><primary>e_source_peek_uid</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_source_peek_uid                   (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-peek-name" role="function">
+<title>e_source_peek_name ()</title>
+<indexterm zone="e-source-peek-name"><primary>e_source_peek_name</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_source_peek_name                  (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-peek-relative-uri" role="function">
+<title>e_source_peek_relative_uri ()</title>
+<indexterm zone="e-source-peek-relative-uri"><primary>e_source_peek_relative_uri</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_source_peek_relative_uri          (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-peek-absolute-uri" role="function">
+<title>e_source_peek_absolute_uri ()</title>
+<indexterm zone="e-source-peek-absolute-uri"><primary>e_source_peek_absolute_uri</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_source_peek_absolute_uri          (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-peek-color-spec" role="function" condition="since:1.10">
+<title>e_source_peek_color_spec ()</title>
+<indexterm zone="e-source-peek-color-spec" role="1.10"><primary>e_source_peek_color_spec</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_source_peek_color_spec            (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+Return the textual representation of the color for <parameter>source</parameter>, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if it
+has none.  The returned string should be parsable by #<link linkend="gdk-color-parse"><function>gdk_color_parse()</function></link>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>an ESource
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a string specifying the color
+
+</simpara></listitem></varlistentry>
+</variablelist><para role="since">Since 1.10</para></refsect2>
+<refsect2 id="e-source-get-readonly" role="function">
+<title>e_source_get_readonly ()</title>
+<indexterm zone="e-source-get-readonly"><primary>e_source_get_readonly</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_get_readonly               (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-get-color" role="function" condition="deprecated:">
+<title>e_source_get_color ()</title>
+<indexterm zone="e-source-get-color" role="deprecated"><primary>e_source_get_color</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_get_color                  (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> *color_return</parameter>);</programlisting>
+<warning><para><literal>e_source_get_color</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+If <parameter>source</parameter> has an associated color, return it in *<parameter>color_return</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>An ESource
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color_return</parameter>&#160;:</term>
+<listitem><simpara>Pointer to a variable where the returned color will be
+stored.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the <parameter>source</parameter> has a defined color (and hence
+*<parameter>color_return</parameter> was set), <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-get-uri" role="function">
+<title>e_source_get_uri ()</title>
+<indexterm zone="e-source-get-uri"><primary>e_source_get_uri</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_source_get_uri                    (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-dump-to-xml-node" role="function">
+<title>e_source_dump_to_xml_node ()</title>
+<indexterm zone="e-source-dump-to-xml-node"><primary>e_source_dump_to_xml_node</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_dump_to_xml_node           (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="xmlNodePtr"><type>xmlNodePtr</type></link> parent_node</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent_node</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-to-standalone-xml" role="function">
+<title>e_source_to_standalone_xml ()</title>
+<indexterm zone="e-source-to-standalone-xml"><primary>e_source_to_standalone_xml</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_source_to_standalone_xml          (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-get-property" role="function">
+<title>e_source_get_property ()</title>
+<indexterm zone="e-source-get-property"><primary>e_source_get_property</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_source_get_property               (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *property</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-set-property" role="function">
+<title>e_source_set_property ()</title>
+<indexterm zone="e-source-set-property"><primary>e_source_set_property</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_set_property               (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *property</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *value</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-foreach-property" role="function">
+<title>e_source_foreach_property ()</title>
+<indexterm zone="e-source-foreach-property"><primary>e_source_foreach_property</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_foreach_property           (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="GHFunc"><type>GHFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-get-duped-property" role="function">
+<title>e_source_get_duped_property ()</title>
+<indexterm zone="e-source-get-duped-property"><primary>e_source_get_duped_property</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_source_get_duped_property         (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *property</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-build-absolute-uri" role="function">
+<title>e_source_build_absolute_uri ()</title>
+<indexterm zone="e-source-build-absolute-uri"><primary>e_source_build_absolute_uri</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_source_build_absolute_uri         (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-equal" role="function">
+<title>e_source_equal ()</title>
+<indexterm zone="e-source-equal"><primary>e_source_equal</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_equal                      (<parameter><link linkend="ESource"><type>ESource</type></link> *a</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *b</parameter>);</programlisting>
+<para>
+Compares if <parameter>a</parameter> is equivalent to <parameter>b</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara>An ESource
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara>Another ESource
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if <parameter>a</parameter> is equivalent to <parameter>b</parameter>,
+<link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-xmlstr-equal" role="function">
+<title>e_source_xmlstr_equal ()</title>
+<indexterm zone="e-source-xmlstr-equal"><primary>e_source_xmlstr_equal</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_xmlstr_equal               (<parameter>const <link linkend="gchar"><type>gchar</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *b</parameter>);</programlisting>
+<para>
+Compares if <parameter>a</parameter> is equivalent to <parameter>b</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara>XML representation of an ESource
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara>XML representation of another ESource
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if <parameter>a</parameter> is equivalent to <parameter>b</parameter>,
+<link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="ESource.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="ESource-changed" role="signal"><title>The <literal>&quot;changed&quot;</literal> signal</title>
+<indexterm zone="ESource-changed"><primary>ESource::changed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="ESource"><type>ESource</type></link> *esource,
+                                                        <link linkend="gpointer"><type>gpointer</type></link> user_data)      : Run Last</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>esource</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+</refentry>

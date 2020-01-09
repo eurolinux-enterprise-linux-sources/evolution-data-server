@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EContactStore">
+<refmeta>
+<refentrytitle role="top_of_page" id="EContactStore.top_of_page">EContactStore</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVERUI Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EContactStore</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EContactStore.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="EContactStore-struct">EContactStore</link>;
+<link linkend="EContactStore"><returnvalue>EContactStore</returnvalue></link> *     <link linkend="e-contact-store-new">e_contact_store_new</link>                 (<parameter><type>void</type></parameter>);
+<link linkend="EBook"><returnvalue>EBook</returnvalue></link> *             <link linkend="e-contact-store-get-book">e_contact_store_get_book</link>            (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *iter</parameter>);
+<link linkend="EContact"><returnvalue>EContact</returnvalue></link> *          <link linkend="e-contact-store-get-contact">e_contact_store_get_contact</link>         (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *iter</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-contact-store-find-contact">e_contact_store_find_contact</link>        (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *iter</parameter>);
+<link linkend="GList"><returnvalue>GList</returnvalue></link> *             <link linkend="e-contact-store-get-books">e_contact_store_get_books</link>           (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-contact-store-add-book">e_contact_store_add_book</link>            (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-contact-store-remove-book">e_contact_store_remove_book</link>         (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-contact-store-set-query">e_contact_store_set_query</link>           (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="EBookQuery"><type>EBookQuery</type></link> *book_query</parameter>);
+<link linkend="EBookQuery"><returnvalue>EBookQuery</returnvalue></link> *        <link linkend="e-contact-store-peek-query">e_contact_store_peek_query</link>          (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>);
+<link linkend="EBookView"><returnvalue>EBookView</returnvalue></link> *         <link linkend="find-contact-source-by-book-return-view">find_contact_source_by_book_return_view</link>
+                                                        (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="EContactStore.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----EContactStore
+</synopsis>
+</refsect1>
+<refsect1 id="EContactStore.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+EContactStore implements
+ <link linkend="GtkTreeModel">GtkTreeModel</link>.</para>
+</refsect1>
+
+<refsect1 id="EContactStore.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="EContactStore.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EContactStore-struct" role="struct">
+<title>EContactStore</title>
+<indexterm zone="EContactStore-struct"><primary>EContactStore</primary></indexterm>
+<programlisting>typedef struct _EContactStore EContactStore;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-contact-store-new" role="function">
+<title>e_contact_store_new ()</title>
+<indexterm zone="e-contact-store-new"><primary>e_contact_store_new</primary></indexterm>
+<programlisting><link linkend="EContactStore"><returnvalue>EContactStore</returnvalue></link> *     e_contact_store_new                 (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EContactStore"><type>EContactStore</type></link>.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="EContactStore"><type>EContactStore</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-contact-store-get-book" role="function">
+<title>e_contact_store_get_book ()</title>
+<indexterm zone="e-contact-store-get-book"><primary>e_contact_store_get_book</primary></indexterm>
+<programlisting><link linkend="EBook"><returnvalue>EBook</returnvalue></link> *             e_contact_store_get_book            (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *iter</parameter>);</programlisting>
+<para>
+Gets the <link linkend="EBook"><type>EBook</type></link> that provided the contact at <parameter>iter</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>contact_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContactStore"><type>EContactStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> from <parameter>contact_store</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An <link linkend="EBook"><type>EBook</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-contact-store-get-contact" role="function">
+<title>e_contact_store_get_contact ()</title>
+<indexterm zone="e-contact-store-get-contact"><primary>e_contact_store_get_contact</primary></indexterm>
+<programlisting><link linkend="EContact"><returnvalue>EContact</returnvalue></link> *          e_contact_store_get_contact         (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *iter</parameter>);</programlisting>
+<para>
+Gets the <link linkend="EContact"><type>EContact</type></link> at <parameter>iter</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>contact_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContactStore"><type>EContactStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> from <parameter>contact_store</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An <link linkend="EContact"><type>EContact</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-contact-store-find-contact" role="function">
+<title>e_contact_store_find_contact ()</title>
+<indexterm zone="e-contact-store-find-contact"><primary>e_contact_store_find_contact</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_contact_store_find_contact        (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *iter</parameter>);</programlisting>
+<para>
+Sets <parameter>iter</parameter> to point to the contact row matching <parameter>uid</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>contact_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContactStore"><type>EContactStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uid</parameter>&#160;:</term>
+<listitem><simpara>a unique contact identifier
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&#160;:</term>
+<listitem><simpara>a destination <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the contact was found, and <parameter>iter</parameter> was set. <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-contact-store-get-books" role="function">
+<title>e_contact_store_get_books ()</title>
+<indexterm zone="e-contact-store-get-books"><primary>e_contact_store_get_books</primary></indexterm>
+<programlisting><link linkend="GList"><returnvalue>GList</returnvalue></link> *             e_contact_store_get_books           (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>);</programlisting>
+<para>
+Gets the list of books that provide contacts for <parameter>contact_store</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>contact_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContactStore"><type>EContactStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A <link linkend="GList"><type>GList</type></link> of pointers to <link linkend="EBook"><type>EBook</type></link>. The caller owns the list,
+but not the books.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-contact-store-add-book" role="function">
+<title>e_contact_store_add_book ()</title>
+<indexterm zone="e-contact-store-add-book"><primary>e_contact_store_add_book</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_contact_store_add_book            (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);</programlisting>
+<para>
+Adds <parameter>book</parameter> to the list of books that provide contacts for <parameter>contact_store</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>contact_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContactStore"><type>EContactStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-contact-store-remove-book" role="function">
+<title>e_contact_store_remove_book ()</title>
+<indexterm zone="e-contact-store-remove-book"><primary>e_contact_store_remove_book</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_contact_store_remove_book         (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);</programlisting>
+<para>
+Removes <parameter>book</parameter> from the list of books that provide contacts for <parameter>contact_store</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>contact_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContactStore"><type>EContactStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-contact-store-set-query" role="function">
+<title>e_contact_store_set_query ()</title>
+<indexterm zone="e-contact-store-set-query"><primary>e_contact_store_set_query</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_contact_store_set_query           (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="EBookQuery"><type>EBookQuery</type></link> *book_query</parameter>);</programlisting>
+<para>
+Sets <parameter>book_query</parameter> to be the query used to fetch contacts from the books
+assigned to <parameter>contact_store</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>contact_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContactStore"><type>EContactStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book_query</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookQuery"><type>EBookQuery</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-contact-store-peek-query" role="function">
+<title>e_contact_store_peek_query ()</title>
+<indexterm zone="e-contact-store-peek-query"><primary>e_contact_store_peek_query</primary></indexterm>
+<programlisting><link linkend="EBookQuery"><returnvalue>EBookQuery</returnvalue></link> *        e_contact_store_peek_query          (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>);</programlisting>
+<para>
+Gets the query that's being used to fetch contacts from the books
+assigned to <parameter>contact_store</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>contact_store</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContactStore"><type>EContactStore</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The <link linkend="EBookQuery"><type>EBookQuery</type></link> being used.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="find-contact-source-by-book-return-view" role="function">
+<title>find_contact_source_by_book_return_view ()</title>
+<indexterm zone="find-contact-source-by-book-return-view"><primary>find_contact_source_by_book_return_view</primary></indexterm>
+<programlisting><link linkend="EBookView"><returnvalue>EBookView</returnvalue></link> *         find_contact_source_by_book_return_view
+                                                        (<parameter><link linkend="EContactStore"><type>EContactStore</type></link> *contact_store</parameter>,
+                                                         <parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>contact_store</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

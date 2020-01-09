@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceSelector</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Graphical Utilities (libedataserverui)">
+<link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Graphical Utilities (libedataserverui)">
+<link rel="prev" href="ESourceOptionMenu.html" title="ESourceOptionMenu">
+<link rel="next" href="ESourceSelectorDialog.html" title="ESourceSelectorDialog">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ESourceOptionMenu.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Graphical Utilities (libedataserverui)</th>
+<td><a accesskey="n" href="ESourceSelectorDialog.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceSelector.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceSelector.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceSelector.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceSelector.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#ESourceSelector.properties" class="shortcut">Properties</a>
+                   | 
+                  <a href="#ESourceSelector.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="ESourceSelector"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceSelector.top_of_page"></a>ESourceSelector</span></h2>
+<p>ESourceSelector</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceSelector.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="ESourceSelector.html#ESourceSelector-struct" title="ESourceSelector">ESourceSelector</a>;
+<span class="returnvalue">GtkWidget</span> *         <a class="link" href="ESourceSelector.html#e-source-selector-new" title="e_source_selector_new ()">e_source_selector_new</a>               (<em class="parameter"><code><a href="../libedataserver/ESourceList.html"><span class="type">ESourceList</span></a> *list</code></em>);
+<a href="../libedataserver/ESourceList.html"><span class="returnvalue">ESourceList</span></a> *       <a class="link" href="ESourceSelector.html#e-source-selector-get-source-list" title="e_source_selector_get_source_list ()">e_source_selector_get_source_list</a>   (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSelector.html#e-source-selector-select-source" title="e_source_selector_select_source ()">e_source_selector_select_source</a>     (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSelector.html#e-source-selector-unselect-source" title="e_source_selector_unselect_source ()">e_source_selector_unselect_source</a>   (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="ESourceSelector.html#e-source-selector-source-is-selected" title="e_source_selector_source_is_selected ()">e_source_selector_source_is_selected</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);
+<span class="returnvalue">GSList</span> *            <a class="link" href="ESourceSelector.html#e-source-selector-get-selection" title="e_source_selector_get_selection ()">e_source_selector_get_selection</a>     (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSelector.html#e-source-selector-free-selection" title="e_source_selector_free_selection ()">e_source_selector_free_selection</a>    (<em class="parameter"><code><span class="type">GSList</span> *list</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSelector.html#e-source-selector-show-selection" title="e_source_selector_show_selection ()">e_source_selector_show_selection</a>    (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> show</code></em>);
+<span class="returnvalue">gboolean</span>            <a class="link" href="ESourceSelector.html#e-source-selector-selection-shown" title="e_source_selector_selection_shown ()">e_source_selector_selection_shown</a>   (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSelector.html#e-source-selector-set-select-new" title="e_source_selector_set_select_new ()">e_source_selector_set_select_new</a>    (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> state</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSelector.html#e-source-selector-edit-primary-selection" title="e_source_selector_edit_primary_selection ()">e_source_selector_edit_primary_selection</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);
+<a href="../libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceSelector.html#e-source-selector-peek-primary-selection" title="e_source_selector_peek_primary_selection ()">e_source_selector_peek_primary_selection</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceSelector.html#e-source-selector-set-primary-selection" title="e_source_selector_set_primary_selection ()">e_source_selector_set_primary_selection</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);
+<a href="../libedataserver/ESourceGroup.html"><span class="returnvalue">ESourceGroup</span></a> *      <a class="link" href="ESourceSelector.html#e-source-selector-get-primary-source-group" title="e_source_selector_get_primary_source_group ()">e_source_selector_get_primary_source_group</a>
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceSelector.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkTreeView
+                                 +----ESourceSelector
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceSelector.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+ESourceSelector implements
+ AtkImplementorIface and  GtkBuildable.</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceSelector.properties"></a><h2>Properties</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceSelector.html#ESourceSelector--source-list" title='The "source-list" property'>source-list</a>"              <a href="../libedataserver/ESourceList.html"><span class="type">ESourceList</span></a>*          : Read / Write / Construct Only
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceSelector.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceSelector.html#ESourceSelector-data-dropped" title='The "data-dropped" signal'>data-dropped</a>"                                   : Run Last
+  "<a class="link" href="ESourceSelector.html#ESourceSelector-popup-event" title='The "popup-event" signal'>popup-event</a>"                                    : Run Last
+  "<a class="link" href="ESourceSelector.html#ESourceSelector-primary-selection-changed" title='The "primary-selection-changed" signal'>primary-selection-changed</a>"                      : Run Last
+  "<a class="link" href="ESourceSelector.html#ESourceSelector-selection-changed" title='The "selection-changed" signal'>selection-changed</a>"                              : Run Last
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceSelector.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceSelector.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="ESourceSelector-struct"></a><h3>ESourceSelector</h3>
+<pre class="programlisting">typedef struct _ESourceSelector ESourceSelector;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-new"></a><h3>e_source_selector_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *         e_source_selector_new               (<em class="parameter"><code><a href="../libedataserver/ESourceList.html"><span class="type">ESourceList</span></a> *list</code></em>);</pre>
+<p>
+Create a new view for <em class="parameter"><code>list</code></em>.  The view will update automatically when <em class="parameter"><code>list</code></em>
+changes.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>A source list.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The newly created widget.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-get-source-list"></a><h3>e_source_selector_get_source_list ()</h3>
+<pre class="programlisting"><a href="../libedataserver/ESourceList.html"><span class="returnvalue">ESourceList</span></a> *       e_source_selector_get_source_list   (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);</pre>
+<p>
+Returns the <a href="../libedataserver/ESourceList.html"><span class="type">ESourceList</span></a> that <em class="parameter"><code>selector</code></em> is rendering.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> an <a href="../libedataserver/ESourceList.html"><span class="type">ESourceList</span></a>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-select-source"></a><h3>e_source_selector_select_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_selector_select_source     (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<p>
+Select <em class="parameter"><code>source</code></em> in <em class="parameter"><code>selector</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>An <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> widget
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>An <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-unselect-source"></a><h3>e_source_selector_unselect_source ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_selector_unselect_source   (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<p>
+Unselect <em class="parameter"><code>source</code></em> in <em class="parameter"><code>selector</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>An <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> widget
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>An <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-source-is-selected"></a><h3>e_source_selector_source_is_selected ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_selector_source_is_selected
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<p>
+Check whether <em class="parameter"><code>source</code></em> is selected in <em class="parameter"><code>selector</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>An <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> widget
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>An <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if <em class="parameter"><code>source</code></em> is currently selected, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-get-selection"></a><h3>e_source_selector_get_selection ()</h3>
+<pre class="programlisting"><span class="returnvalue">GSList</span> *            e_source_selector_get_selection     (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);</pre>
+<p>
+Get the list of selected sources, i.e. those that were enabled through the
+corresponding checkboxes in the tree.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A list of the ESources currently selected.  The sources will
+be in the same order as they appear on the screen, and the list should be
+freed using <a class="link" href="ESourceSelector.html#e-source-selector-free-selection" title="e_source_selector_free_selection ()"><code class="function">e_source_selector_free_selection()</code></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-free-selection"></a><h3>e_source_selector_free_selection ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_selector_free_selection    (<em class="parameter"><code><span class="type">GSList</span> *list</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-show-selection"></a><h3>e_source_selector_show_selection ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_selector_show_selection    (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> show</code></em>);</pre>
+<p>
+Specify whether the checkboxes in the ESourceSelector should be shown or
+not.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>An ESourceSelector widget
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>show</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-selection-shown"></a><h3>e_source_selector_selection_shown ()</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            e_source_selector_selection_shown   (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);</pre>
+<p>
+Check whether the checkboxes in the ESourceSelector are being shown or not.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> <code class="literal">TRUE</code> if the checkboxes are shown, <code class="literal">FALSE</code> otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-set-select-new"></a><h3>e_source_selector_set_select_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_selector_set_select_new    (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><span class="type">gboolean</span> state</code></em>);</pre>
+<p>
+Set whether or not to select new sources added to <em class="parameter"><code>selector</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>An <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> widget
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>state</code></em> :</span></p></td>
+<td>A gboolean
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-edit-primary-selection"></a><h3>e_source_selector_edit_primary_selection ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_selector_edit_primary_selection
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);</pre>
+<p>
+Allows the user to rename the primary selected source by opening an
+entry box directly in <em class="parameter"><code>selector</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>An <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> widget
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-peek-primary-selection"></a><h3>e_source_selector_peek_primary_selection ()</h3>
+<pre class="programlisting"><a href="../libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_source_selector_peek_primary_selection
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);</pre>
+<p>
+Get the primary selected source.  The primary selection is the one that is
+highlighted through the normal <span class="type">GtkTreeView</span> selection mechanism (as opposed
+to the "normal" selection, which is the set of source whose checkboxes are
+checked).</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>An <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> widget
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The selected source.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-set-primary-selection"></a><h3>e_source_selector_set_primary_selection ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_selector_set_primary_selection
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>,
+                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<p>
+Set the primary selected source.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> widget
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> to select
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-selector-get-primary-source-group"></a><h3>e_source_selector_get_primary_source_group ()</h3>
+<pre class="programlisting"><a href="../libedataserver/ESourceGroup.html"><span class="returnvalue">ESourceGroup</span></a> *      e_source_selector_get_primary_source_group
+                                                        (<em class="parameter"><code><a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *selector</code></em>);</pre>
+<p>
+Gets the primary source group associated with the selector.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>selector</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> primary_source_group if selector is valid, NULL otherwise.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceSelector.property-details"></a><h2>Property Details</h2>
+<div class="refsect2" lang="en">
+<a name="ESourceSelector--source-list"></a><h3>The <code class="literal">"source-list"</code> property</h3>
+<pre class="programlisting">  "source-list"              <a href="../libedataserver/ESourceList.html"><span class="type">ESourceList</span></a>*          : Read / Write / Construct Only</pre>
+<p></p>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceSelector.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" lang="en">
+<a name="ESourceSelector-data-dropped"></a><h3>The <code class="literal">"data-dropped"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            user_function                      (<a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a>  *esourceselector,
+                                                        <span class="type">GtkSelectionData</span> *arg1,
+                                                        <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a>          *arg2,
+                                                        <span class="type">GdkDragAction</span>     arg3,
+                                                        <span class="type">guint</span>             arg4,
+                                                        <span class="type">gpointer</span>          user_data)            : Run Last</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>esourceselector</code></em> :</span></p></td>
+<td>the object which received the signal.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg1</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg2</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg3</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg4</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ESourceSelector-popup-event"></a><h3>The <code class="literal">"popup-event"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">gboolean</span>            user_function                      (<a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *esourceselector,
+                                                        <span class="type">GObject</span>         *arg1,
+                                                        <span class="type">GdkEvent</span>        *event,
+                                                        <span class="type">gpointer</span>         user_data)            : Run Last</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>esourceselector</code></em> :</span></p></td>
+<td>the object which received the signal.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg1</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>event</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ESourceSelector-primary-selection-changed"></a><h3>The <code class="literal">"primary-selection-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *esourceselector,
+                                                        <span class="type">gpointer</span>         user_data)            : Run Last</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>esourceselector</code></em> :</span></p></td>
+<td>the object which received the signal.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="ESourceSelector-selection-changed"></a><h3>The <code class="literal">"selection-changed"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceSelector.html" title="ESourceSelector"><span class="type">ESourceSelector</span></a> *esourceselector,
+                                                        <span class="type">gpointer</span>         user_data)            : Run Last</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>esourceselector</code></em> :</span></p></td>
+<td>the object which received the signal.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

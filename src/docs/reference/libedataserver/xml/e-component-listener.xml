@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EComponentListener">
+<refmeta>
+<refentrytitle role="top_of_page" id="EComponentListener.top_of_page">EComponentListener</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVER Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EComponentListener</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EComponentListener.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="EComponentListener-struct">EComponentListener</link>;
+<link linkend="EComponentListener"><returnvalue>EComponentListener</returnvalue></link> * <link linkend="e-component-listener-new">e_component_listener_new</link>           (<parameter><link linkend="Bonobo-Unknown"><type>Bonobo_Unknown</type></link> comp</parameter>);
+<link linkend="Bonobo-Unknown"><returnvalue>Bonobo_Unknown</returnvalue></link>      <link linkend="e-component-listener-get-component">e_component_listener_get_component</link>  (<parameter><link linkend="EComponentListener"><type>EComponentListener</type></link> *cl</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-component-listener-set-component">e_component_listener_set_component</link>  (<parameter><link linkend="EComponentListener"><type>EComponentListener</type></link> *cl</parameter>,
+                                                         <parameter><link linkend="Bonobo-Unknown"><type>Bonobo_Unknown</type></link> comp</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="EComponentListener.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----EComponentListener
+</synopsis>
+</refsect1>
+<refsect1 id="EComponentListener.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="EComponentListener-component-died">component-died</link>&quot;                                 : Run First
+</synopsis>
+</refsect1>
+
+<refsect1 id="EComponentListener.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="EComponentListener.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EComponentListener-struct" role="struct">
+<title>EComponentListener</title>
+<indexterm zone="EComponentListener-struct"><primary>EComponentListener</primary></indexterm>
+<programlisting>typedef struct _EComponentListener EComponentListener;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-component-listener-new" role="function">
+<title>e_component_listener_new ()</title>
+<indexterm zone="e-component-listener-new"><primary>e_component_listener_new</primary></indexterm>
+<programlisting><link linkend="EComponentListener"><returnvalue>EComponentListener</returnvalue></link> * e_component_listener_new           (<parameter><link linkend="Bonobo-Unknown"><type>Bonobo_Unknown</type></link> comp</parameter>);</programlisting>
+<para>
+Create a new <link linkend="EComponentListener"><type>EComponentListener</type></link> object, which allows to listen
+for a given component and get notified when that component dies.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>comp</parameter>&#160;:</term>
+<listitem><simpara>Component to listen for.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a component listener object.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-component-listener-get-component" role="function">
+<title>e_component_listener_get_component ()</title>
+<indexterm zone="e-component-listener-get-component"><primary>e_component_listener_get_component</primary></indexterm>
+<programlisting><link linkend="Bonobo-Unknown"><returnvalue>Bonobo_Unknown</returnvalue></link>      e_component_listener_get_component  (<parameter><link linkend="EComponentListener"><type>EComponentListener</type></link> *cl</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>cl</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-component-listener-set-component" role="function">
+<title>e_component_listener_set_component ()</title>
+<indexterm zone="e-component-listener-set-component"><primary>e_component_listener_set_component</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_component_listener_set_component  (<parameter><link linkend="EComponentListener"><type>EComponentListener</type></link> *cl</parameter>,
+                                                         <parameter><link linkend="Bonobo-Unknown"><type>Bonobo_Unknown</type></link> comp</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>cl</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>comp</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="EComponentListener.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="EComponentListener-component-died" role="signal"><title>The <literal>&quot;component-died&quot;</literal> signal</title>
+<indexterm zone="EComponentListener-component-died"><primary>EComponentListener::component-died</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EComponentListener"><type>EComponentListener</type></link> *ecomponentlistener,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>            user_data)               : Run First</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>ecomponentlistener</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+</refentry>

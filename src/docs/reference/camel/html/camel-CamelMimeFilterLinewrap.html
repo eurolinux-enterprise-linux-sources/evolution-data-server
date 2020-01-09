@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CamelMimeFilterLinewrap</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Camel Reference Manual">
+<link rel="up" href="StreamFilters.html" title="Stream Filters">
+<link rel="prev" href="camel-CamelMimeFilterIndex.html" title="CamelMimeFilterIndex">
+<link rel="next" href="camel-CamelMimeFilterPgp.html" title="CamelMimeFilterPgp">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="camel-CamelMimeFilterIndex.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="StreamFilters.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Camel Reference Manual</th>
+<td><a accesskey="n" href="camel-CamelMimeFilterPgp.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#camel-CamelMimeFilterLinewrap.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#camel-CamelMimeFilterLinewrap.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="camel-CamelMimeFilterLinewrap"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="camel-CamelMimeFilterLinewrap.top_of_page"></a>CamelMimeFilterLinewrap</span></h2>
+<p>CamelMimeFilterLinewrap</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="camel-CamelMimeFilterLinewrap.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">struct              <a class="link" href="camel-CamelMimeFilterLinewrap.html#CamelMimeFilterLinewrap" title="struct CamelMimeFilterLinewrap">CamelMimeFilterLinewrap</a>;
+<a class="link" href="camel-CamelMimeFilter.html#CamelMimeFilter" title="struct CamelMimeFilter"><span class="returnvalue">CamelMimeFilter</span></a> *   <a class="link" href="camel-CamelMimeFilterLinewrap.html#camel-mime-filter-linewrap-new" title="camel_mime_filter_linewrap_new ()">camel_mime_filter_linewrap_new</a>      (<em class="parameter"><code><span class="type">guint</span> preferred_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> max_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> indent_char</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="camel-CamelMimeFilterLinewrap.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="camel-CamelMimeFilterLinewrap.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="CamelMimeFilterLinewrap"></a><h3>struct CamelMimeFilterLinewrap</h3>
+<pre class="programlisting">struct CamelMimeFilterLinewrap {
+	CamelMimeFilter parent;
+
+	guint wrap_len;
+	guint max_len;
+	gchar indent;
+	gint nchars;
+};
+</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="camel-mime-filter-linewrap-new"></a><h3>camel_mime_filter_linewrap_new ()</h3>
+<pre class="programlisting"><a class="link" href="camel-CamelMimeFilter.html#CamelMimeFilter" title="struct CamelMimeFilter"><span class="returnvalue">CamelMimeFilter</span></a> *   camel_mime_filter_linewrap_new      (<em class="parameter"><code><span class="type">guint</span> preferred_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">guint</span> max_len</code></em>,
+                                                         <em class="parameter"><code><span class="type">gchar</span> indent_char</code></em>);</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>preferred_len</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>max_len</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>indent_char</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td>
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,524 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ESourceGroup">
+<refmeta>
+<refentrytitle role="top_of_page" id="ESourceGroup.top_of_page">ESourceGroup</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVER Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>ESourceGroup</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ESourceGroup.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="ESourceGroup-struct">ESourceGroup</link>;
+<link linkend="ESourceGroup"><returnvalue>ESourceGroup</returnvalue></link> *      <link linkend="e-source-group-new">e_source_group_new</link>                  (<parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *base_uri</parameter>);
+<link linkend="ESourceGroup"><returnvalue>ESourceGroup</returnvalue></link> *      <link linkend="e-source-group-new-from-xml">e_source_group_new_from_xml</link>         (<parameter>const <link linkend="gchar"><type>gchar</type></link> *xml</parameter>);
+<link linkend="ESourceGroup"><returnvalue>ESourceGroup</returnvalue></link> *      <link linkend="e-source-group-new-from-xmldoc">e_source_group_new_from_xmldoc</link>      (<parameter><link linkend="xmlDocPtr"><type>xmlDocPtr</type></link> doc</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-group-update-from-xml">e_source_group_update_from_xml</link>      (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *xml</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> *changed_return</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-group-update-from-xmldoc">e_source_group_update_from_xmldoc</link>   (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter><link linkend="xmlDocPtr"><type>xmlDocPtr</type></link> doc</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> *changed_return</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-source-group-uid-from-xmldoc">e_source_group_uid_from_xmldoc</link>      (<parameter><link linkend="xmlDocPtr"><type>xmlDocPtr</type></link> doc</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-group-set-name">e_source_group_set_name</link>             (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-group-set-base-uri">e_source_group_set_base_uri</link>         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *base_uri</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-group-set-readonly">e_source_group_set_readonly</link>         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> readonly</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-source-group-peek-uid">e_source_group_peek_uid</link>             (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-source-group-peek-name">e_source_group_peek_name</link>            (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-source-group-peek-base-uri">e_source_group_peek_base_uri</link>        (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-group-get-readonly">e_source_group_get_readonly</link>         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);
+<link linkend="GSList"><returnvalue>GSList</returnvalue></link> *            <link linkend="e-source-group-peek-sources">e_source_group_peek_sources</link>         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-source-group-peek-source-by-uid">e_source_group_peek_source_by_uid</link>   (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *source_uid</parameter>);
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-source-group-peek-source-by-name">e_source_group_peek_source_by_name</link>  (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *source_name</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-group-add-source">e_source_group_add_source</link>           (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> position</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-group-remove-source">e_source_group_remove_source</link>        (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-group-remove-source-by-uid">e_source_group_remove_source_by_uid</link> (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-source-group-get-property">e_source_group_get_property</link>         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *property</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-group-set-property">e_source_group_set_property</link>         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *property</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *value</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-source-group-foreach-property">e_source_group_foreach_property</link>     (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *source</parameter>,
+                                                         <parameter><link linkend="GHFunc"><type>GHFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-source-group-to-xml">e_source_group_to_xml</link>               (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-group-equal">e_source_group_equal</link>                (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *a</parameter>,
+                                                         <parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *b</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-source-group-xmlstr-equal">e_source_group_xmlstr_equal</link>         (<parameter>const <link linkend="gchar"><type>gchar</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *b</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="ESourceGroup.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----ESourceGroup
+</synopsis>
+</refsect1>
+<refsect1 id="ESourceGroup.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="ESourceGroup-changed">changed</link>&quot;                                        : Run Last
+  &quot;<link linkend="ESourceGroup-source-added">source-added</link>&quot;                                   : Run Last
+  &quot;<link linkend="ESourceGroup-source-removed">source-removed</link>&quot;                                 : Run Last
+</synopsis>
+</refsect1>
+
+<refsect1 id="ESourceGroup.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="ESourceGroup.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ESourceGroup-struct" role="struct">
+<title>ESourceGroup</title>
+<indexterm zone="ESourceGroup-struct"><primary>ESourceGroup</primary></indexterm>
+<programlisting>typedef struct _ESourceGroup ESourceGroup;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-source-group-new" role="function">
+<title>e_source_group_new ()</title>
+<indexterm zone="e-source-group-new"><primary>e_source_group_new</primary></indexterm>
+<programlisting><link linkend="ESourceGroup"><returnvalue>ESourceGroup</returnvalue></link> *      e_source_group_new                  (<parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *base_uri</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>base_uri</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-new-from-xml" role="function">
+<title>e_source_group_new_from_xml ()</title>
+<indexterm zone="e-source-group-new-from-xml"><primary>e_source_group_new_from_xml</primary></indexterm>
+<programlisting><link linkend="ESourceGroup"><returnvalue>ESourceGroup</returnvalue></link> *      e_source_group_new_from_xml         (<parameter>const <link linkend="gchar"><type>gchar</type></link> *xml</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>xml</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-new-from-xmldoc" role="function">
+<title>e_source_group_new_from_xmldoc ()</title>
+<indexterm zone="e-source-group-new-from-xmldoc"><primary>e_source_group_new_from_xmldoc</primary></indexterm>
+<programlisting><link linkend="ESourceGroup"><returnvalue>ESourceGroup</returnvalue></link> *      e_source_group_new_from_xmldoc      (<parameter><link linkend="xmlDocPtr"><type>xmlDocPtr</type></link> doc</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>doc</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-update-from-xml" role="function">
+<title>e_source_group_update_from_xml ()</title>
+<indexterm zone="e-source-group-update-from-xml"><primary>e_source_group_update_from_xml</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_group_update_from_xml      (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *xml</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> *changed_return</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>xml</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>changed_return</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-update-from-xmldoc" role="function">
+<title>e_source_group_update_from_xmldoc ()</title>
+<indexterm zone="e-source-group-update-from-xmldoc"><primary>e_source_group_update_from_xmldoc</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_group_update_from_xmldoc   (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter><link linkend="xmlDocPtr"><type>xmlDocPtr</type></link> doc</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> *changed_return</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>doc</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>changed_return</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-uid-from-xmldoc" role="function">
+<title>e_source_group_uid_from_xmldoc ()</title>
+<indexterm zone="e-source-group-uid-from-xmldoc"><primary>e_source_group_uid_from_xmldoc</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_source_group_uid_from_xmldoc      (<parameter><link linkend="xmlDocPtr"><type>xmlDocPtr</type></link> doc</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>doc</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-set-name" role="function">
+<title>e_source_group_set_name ()</title>
+<indexterm zone="e-source-group-set-name"><primary>e_source_group_set_name</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_group_set_name             (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-set-base-uri" role="function">
+<title>e_source_group_set_base_uri ()</title>
+<indexterm zone="e-source-group-set-base-uri"><primary>e_source_group_set_base_uri</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_group_set_base_uri         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *base_uri</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>base_uri</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-set-readonly" role="function">
+<title>e_source_group_set_readonly ()</title>
+<indexterm zone="e-source-group-set-readonly"><primary>e_source_group_set_readonly</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_group_set_readonly         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> readonly</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>readonly</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-peek-uid" role="function">
+<title>e_source_group_peek_uid ()</title>
+<indexterm zone="e-source-group-peek-uid"><primary>e_source_group_peek_uid</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_source_group_peek_uid             (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-peek-name" role="function">
+<title>e_source_group_peek_name ()</title>
+<indexterm zone="e-source-group-peek-name"><primary>e_source_group_peek_name</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_source_group_peek_name            (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-peek-base-uri" role="function">
+<title>e_source_group_peek_base_uri ()</title>
+<indexterm zone="e-source-group-peek-base-uri"><primary>e_source_group_peek_base_uri</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_source_group_peek_base_uri        (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-get-readonly" role="function">
+<title>e_source_group_get_readonly ()</title>
+<indexterm zone="e-source-group-get-readonly"><primary>e_source_group_get_readonly</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_group_get_readonly         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-peek-sources" role="function">
+<title>e_source_group_peek_sources ()</title>
+<indexterm zone="e-source-group-peek-sources"><primary>e_source_group_peek_sources</primary></indexterm>
+<programlisting><link linkend="GSList"><returnvalue>GSList</returnvalue></link> *            e_source_group_peek_sources         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-peek-source-by-uid" role="function">
+<title>e_source_group_peek_source_by_uid ()</title>
+<indexterm zone="e-source-group-peek-source-by-uid"><primary>e_source_group_peek_source_by_uid</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_source_group_peek_source_by_uid   (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *source_uid</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source_uid</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-peek-source-by-name" role="function">
+<title>e_source_group_peek_source_by_name ()</title>
+<indexterm zone="e-source-group-peek-source-by-name"><primary>e_source_group_peek_source_by_name</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_source_group_peek_source_by_name  (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *source_name</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source_name</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-add-source" role="function">
+<title>e_source_group_add_source ()</title>
+<indexterm zone="e-source-group-add-source"><primary>e_source_group_add_source</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_group_add_source           (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> position</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>position</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-remove-source" role="function">
+<title>e_source_group_remove_source ()</title>
+<indexterm zone="e-source-group-remove-source"><primary>e_source_group_remove_source</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_group_remove_source        (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-remove-source-by-uid" role="function">
+<title>e_source_group_remove_source_by_uid ()</title>
+<indexterm zone="e-source-group-remove-source-by-uid"><primary>e_source_group_remove_source_by_uid</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_group_remove_source_by_uid (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uid</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-get-property" role="function">
+<title>e_source_group_get_property ()</title>
+<indexterm zone="e-source-group-get-property"><primary>e_source_group_get_property</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_source_group_get_property         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *property</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-set-property" role="function">
+<title>e_source_group_set_property ()</title>
+<indexterm zone="e-source-group-set-property"><primary>e_source_group_set_property</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_group_set_property         (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *source</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *property</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *value</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-foreach-property" role="function">
+<title>e_source_group_foreach_property ()</title>
+<indexterm zone="e-source-group-foreach-property"><primary>e_source_group_foreach_property</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_source_group_foreach_property     (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *source</parameter>,
+                                                         <parameter><link linkend="GHFunc"><type>GHFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-to-xml" role="function">
+<title>e_source_group_to_xml ()</title>
+<indexterm zone="e-source-group-to-xml"><primary>e_source_group_to_xml</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_source_group_to_xml               (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *group</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-equal" role="function">
+<title>e_source_group_equal ()</title>
+<indexterm zone="e-source-group-equal"><primary>e_source_group_equal</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_group_equal                (<parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *a</parameter>,
+                                                         <parameter><link linkend="ESourceGroup"><type>ESourceGroup</type></link> *b</parameter>);</programlisting>
+<para>
+Compares if <parameter>a</parameter> is equivalent to <parameter>b</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara>An ESourceGroup
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara>Another ESourceGroup
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if <parameter>a</parameter> is equivalent to <parameter>b</parameter>,
+<link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-source-group-xmlstr-equal" role="function">
+<title>e_source_group_xmlstr_equal ()</title>
+<indexterm zone="e-source-group-xmlstr-equal"><primary>e_source_group_xmlstr_equal</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_source_group_xmlstr_equal         (<parameter>const <link linkend="gchar"><type>gchar</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *b</parameter>);</programlisting>
+<para>
+Compares if <parameter>a</parameter> is equivalent to <parameter>b</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara>XML representation of an ESourceGroup
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara>XML representation of another ESourceGroup
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if <parameter>a</parameter> is equivalent to <parameter>b</parameter>,
+<link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="ESourceGroup.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="ESourceGroup-changed" role="signal"><title>The <literal>&quot;changed&quot;</literal> signal</title>
+<indexterm zone="ESourceGroup-changed"><primary>ESourceGroup::changed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="ESourceGroup"><type>ESourceGroup</type></link> *esourcegroup,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>      user_data)         : Run Last</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>esourcegroup</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="ESourceGroup-source-added" role="signal"><title>The <literal>&quot;source-added&quot;</literal> signal</title>
+<indexterm zone="ESourceGroup-source-added"><primary>ESourceGroup::source-added</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="ESourceGroup"><type>ESourceGroup</type></link> *esourcegroup,
+                                                        <link linkend="GObject"><type>GObject</type></link>      *arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>      user_data)         : Run Last</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>esourcegroup</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="ESourceGroup-source-removed" role="signal"><title>The <literal>&quot;source-removed&quot;</literal> signal</title>
+<indexterm zone="ESourceGroup-source-removed"><primary>ESourceGroup::source-removed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="ESourceGroup"><type>ESourceGroup</type></link> *esourcegroup,
+                                                        <link linkend="GObject"><type>GObject</type></link>      *arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>      user_data)         : Run Last</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>esourcegroup</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+</refentry>

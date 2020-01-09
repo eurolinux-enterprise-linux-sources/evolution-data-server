@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ESourceOptionMenu</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Graphical Utilities (libedataserverui)">
+<link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Graphical Utilities (libedataserverui)">
+<link rel="prev" href="ESourceComboBox.html" title="ESourceComboBox">
+<link rel="next" href="ESourceSelector.html" title="ESourceSelector">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="ESourceComboBox.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Graphical Utilities (libedataserverui)</th>
+<td><a accesskey="n" href="ESourceSelector.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#ESourceOptionMenu.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#ESourceOptionMenu.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#ESourceOptionMenu.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#ESourceOptionMenu.implemented-interfaces" class="shortcut">Implemented Interfaces</a>
+                   | 
+                  <a href="#ESourceOptionMenu.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="ESourceOptionMenu"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="ESourceOptionMenu.top_of_page"></a>ESourceOptionMenu</span></h2>
+<p>ESourceOptionMenu</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="ESourceOptionMenu.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="ESourceOptionMenu.html#ESourceOptionMenu-struct" title="ESourceOptionMenu">ESourceOptionMenu</a>;
+<span class="returnvalue">GtkWidget</span> *         <a class="link" href="ESourceOptionMenu.html#e-source-option-menu-new" title="e_source_option_menu_new ()">e_source_option_menu_new</a>            (<em class="parameter"><code><a href="../libedataserver/ESourceList.html"><span class="type">ESourceList</span></a> *list</code></em>);
+<a href="../libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           <a class="link" href="ESourceOptionMenu.html#e-source-option-menu-peek-selected" title="e_source_option_menu_peek_selected ()">e_source_option_menu_peek_selected</a>  (<em class="parameter"><code><a class="link" href="ESourceOptionMenu.html" title="ESourceOptionMenu"><span class="type">ESourceOptionMenu</span></a> *menu</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="ESourceOptionMenu.html#e-source-option-menu-select" title="e_source_option_menu_select ()">e_source_option_menu_select</a>         (<em class="parameter"><code><a class="link" href="ESourceOptionMenu.html" title="ESourceOptionMenu"><span class="type">ESourceOptionMenu</span></a> *menu</code></em>,
+                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceOptionMenu.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----GInitiallyUnowned
+         +----GtkObject
+               +----GtkWidget
+                     +----GtkContainer
+                           +----GtkBin
+                                 +----GtkButton
+                                       +----GtkOptionMenu
+                                             +----ESourceOptionMenu
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceOptionMenu.implemented-interfaces"></a><h2>Implemented Interfaces</h2>
+<p>
+ESourceOptionMenu implements
+ AtkImplementorIface,  GtkBuildable and  GtkActivatable.</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceOptionMenu.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="ESourceOptionMenu.html#ESourceOptionMenu-source-selected" title='The "source-selected" signal'>source-selected</a>"                                : Run Last
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceOptionMenu.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceOptionMenu.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="ESourceOptionMenu-struct"></a><h3>ESourceOptionMenu</h3>
+<pre class="programlisting">typedef struct _ESourceOptionMenu ESourceOptionMenu;</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">ESourceOptionMenu</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-option-menu-new"></a><h3>e_source_option_menu_new ()</h3>
+<pre class="programlisting"><span class="returnvalue">GtkWidget</span> *         e_source_option_menu_new            (<em class="parameter"><code><a href="../libedataserver/ESourceList.html"><span class="type">ESourceList</span></a> *list</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">e_source_option_menu_new</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Creates a new <a class="link" href="ESourceOptionMenu.html" title="ESourceOptionMenu"><span class="type">ESourceOptionMenu</span></a> widget that lets the user pick
+an <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> from the provided <a href="../libedataserver/ESourceList.html"><span class="type">ESourceList</span></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>list</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> A new <a class="link" href="ESourceOptionMenu.html" title="ESourceOptionMenu"><span class="type">ESourceOptionMenu</span></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-option-menu-peek-selected"></a><h3>e_source_option_menu_peek_selected ()</h3>
+<pre class="programlisting"><a href="../libedataserver/ESource.html"><span class="returnvalue">ESource</span></a> *           e_source_option_menu_peek_selected  (<em class="parameter"><code><a class="link" href="ESourceOptionMenu.html" title="ESourceOptionMenu"><span class="type">ESourceOptionMenu</span></a> *menu</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">e_source_option_menu_peek_selected</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOptionMenu.html" title="ESourceOptionMenu"><span class="type">ESourceOptionMenu</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The selected <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a>, or <code class="literal">NULL</code> if none was selected.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-source-option-menu-select"></a><h3>e_source_option_menu_select ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_source_option_menu_select         (<em class="parameter"><code><a class="link" href="ESourceOptionMenu.html" title="ESourceOptionMenu"><span class="type">ESourceOptionMenu</span></a> *menu</code></em>,
+                                                         <em class="parameter"><code><a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> *source</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">e_source_option_menu_select</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Programmatically selects a source in <em class="parameter"><code>menu</code></em>. <em class="parameter"><code>source</code></em> must be present
+in <em class="parameter"><code>menu</code></em>'s <a href="../libedataserver/ESourceList.html"><span class="type">ESourceList</span></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>menu</code></em> :</span></p></td>
+<td>an <a class="link" href="ESourceOptionMenu.html" title="ESourceOptionMenu"><span class="type">ESourceOptionMenu</span></a>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>source</code></em> :</span></p></td>
+<td>an <a href="../libedataserver/ESource.html"><span class="type">ESource</span></a> to select
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="ESourceOptionMenu.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" lang="en">
+<a name="ESourceOptionMenu-source-selected"></a><h3>The <code class="literal">"source-selected"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="ESourceOptionMenu.html" title="ESourceOptionMenu"><span class="type">ESourceOptionMenu</span></a> *esourceoptionmenu,
+                                                        <span class="type">gpointer</span>           arg1,
+                                                        <span class="type">gpointer</span>           user_data)              : Run Last</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>esourceoptionmenu</code></em> :</span></p></td>
+<td>the object which received the signal.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg1</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

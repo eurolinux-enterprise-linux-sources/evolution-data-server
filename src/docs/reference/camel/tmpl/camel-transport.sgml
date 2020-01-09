@@ -1,0 +1,43 @@
+<!-- ##### SECTION Title ##### -->
+CamelTransport
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT CamelTransport ##### -->
+<para>
+
+</para>
+
+@parent_object: 
+@priv: 
+
+<!-- ##### FUNCTION camel_transport_send_to ##### -->
+<para>
+
+</para>
+
+@transport: 
+@message: 
+@from: 
+@recipients: 
+@ex: 
+@Returns: 
+
+

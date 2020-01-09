@@ -1,0 +1,42 @@
+<!-- ##### SECTION Title ##### -->
+CamelMultipartEncrypted
+
+<!-- ##### SECTION Short_Description ##### -->
+
+
+<!-- ##### SECTION Long_Description ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION See_Also ##### -->
+<para>
+
+</para>
+
+<!-- ##### SECTION Stability_Level ##### -->
+
+
+<!-- ##### SECTION Image ##### -->
+
+
+<!-- ##### STRUCT CamelMultipartEncrypted ##### -->
+<para>
+
+</para>
+
+@parent_object: 
+@version: 
+@content: 
+@decrypted: 
+@protocol: 
+
+<!-- ##### FUNCTION camel_multipart_encrypted_new ##### -->
+<para>
+
+</para>
+
+@void: 
+@Returns: 
+
+

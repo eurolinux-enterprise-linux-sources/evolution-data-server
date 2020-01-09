@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EListIterator">
+<refmeta>
+<refentrytitle role="top_of_page" id="EListIterator.top_of_page">EListIterator</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVER Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EListIterator</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EListIterator.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="EListIterator-struct">EListIterator</link>;
+<link linkend="EIterator"><returnvalue>EIterator</returnvalue></link> *         <link linkend="e-list-iterator-new">e_list_iterator_new</link>                 (<parameter><link linkend="EList"><type>EList</type></link> *list</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="EListIterator.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="EIterator">EIterator</link>
+         +----EListIterator
+</synopsis>
+</refsect1>
+
+<refsect1 id="EListIterator.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="EListIterator.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EListIterator-struct" role="struct">
+<title>EListIterator</title>
+<indexterm zone="EListIterator-struct"><primary>EListIterator</primary></indexterm>
+<programlisting>typedef struct _EListIterator EListIterator;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-list-iterator-new" role="function">
+<title>e_list_iterator_new ()</title>
+<indexterm zone="e-list-iterator-new"><primary>e_list_iterator_new</primary></indexterm>
+<programlisting><link linkend="EIterator"><returnvalue>EIterator</returnvalue></link> *         e_list_iterator_new                 (<parameter><link linkend="EList"><type>EList</type></link> *list</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

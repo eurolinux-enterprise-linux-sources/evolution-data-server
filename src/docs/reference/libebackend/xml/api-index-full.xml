@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<indexdiv>
+<indexdiv><title>D</title>
+<indexentry><primaryie linkends="e-data-server-extension-list-free"><link linkend="e-data-server-extension-list-free">e_data_server_extension_list_free</link>, function in <link linkend="libebackend-e-data-server-module">e-data-server-module</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-data-server-get-extensions-for-type"><link linkend="e-data-server-get-extensions-for-type">e_data_server_get_extensions_for_type</link>, function in <link linkend="libebackend-e-data-server-module">e-data-server-module</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-data-server-module-add-type"><link linkend="e-data-server-module-add-type">e_data_server_module_add_type</link>, function in <link linkend="libebackend-e-data-server-module">e-data-server-module</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-data-server-module-init"><link linkend="e-data-server-module-init">e_data_server_module_init</link>, function in <link linkend="libebackend-e-data-server-module">e-data-server-module</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-data-server-module-remove-unused"><link linkend="e-data-server-module-remove-unused">e_data_server_module_remove_unused</link>, function in <link linkend="libebackend-e-data-server-module">e-data-server-module</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-db3-utils-maybe-recover"><link linkend="e-db3-utils-maybe-recover">e_db3_utils_maybe_recover</link>, function in <link linkend="libebackend-e-db3-utils">e-db3-utils</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-db3-utils-upgrade-format"><link linkend="e-db3-utils-upgrade-format">e_db3_utils_upgrade_format</link>, function in <link linkend="libebackend-e-db3-utils">e-db3-utils</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EDbHash"><link linkend="EDbHash">EDbHash</link>, struct in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EDbHashFunc"><link linkend="EDbHashFunc">EDbHashFunc</link>, user_function in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EDbHashPrivate"><link linkend="EDbHashPrivate">EDbHashPrivate</link>, struct in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EDbHashStatus"><link linkend="EDbHashStatus">EDbHashStatus</link>, enum in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-dbhash-add"><link linkend="e-dbhash-add">e_dbhash_add</link>, function in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-dbhash-compare"><link linkend="e-dbhash-compare">e_dbhash_compare</link>, function in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-dbhash-destroy"><link linkend="e-dbhash-destroy">e_dbhash_destroy</link>, function in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-dbhash-foreach-key"><link linkend="e-dbhash-foreach-key">e_dbhash_foreach_key</link>, function in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-dbhash-new"><link linkend="e-dbhash-new">e_dbhash_new</link>, function in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-dbhash-remove"><link linkend="e-dbhash-remove">e_dbhash_remove</link>, function in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-dbhash-write"><link linkend="e-dbhash-write">e_dbhash_write</link>, function in <link linkend="libebackend-e-dbhash">e-dbhash</link></primaryie></indexentry>
+<indexentry><primaryie linkends="eds-module-initialize"><link linkend="eds-module-initialize">eds_module_initialize</link>, function in <link linkend="libebackend-e-data-server-module">e-data-server-module</link></primaryie></indexentry>
+<indexentry><primaryie linkends="eds-module-list-types"><link linkend="eds-module-list-types">eds_module_list_types</link>, function in <link linkend="libebackend-e-data-server-module">e-data-server-module</link></primaryie></indexentry>
+<indexentry><primaryie linkends="eds-module-shutdown"><link linkend="eds-module-shutdown">eds_module_shutdown</link>, function in <link linkend="libebackend-e-data-server-module">e-data-server-module</link></primaryie></indexentry>
+</indexdiv>
+<indexdiv><title>F</title>
+<indexentry><primaryie linkends="EFileCache-struct"><link linkend="EFileCache-struct">EFileCache</link>, struct in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EFileCache--filename"><link linkend="EFileCache--filename">EFileCache:filename</link>, object property in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="EFileCachePrivate"><link linkend="EFileCachePrivate">EFileCachePrivate</link>, struct in <link linkend="libebackend-e-file-cache">e-file-cache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-add-object"><link linkend="e-file-cache-add-object">e_file_cache_add_object</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-clean"><link linkend="e-file-cache-clean">e_file_cache_clean</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-freeze-changes"><link linkend="e-file-cache-freeze-changes">e_file_cache_freeze_changes</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-get-filename"><link linkend="e-file-cache-get-filename">e_file_cache_get_filename</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-get-keys"><link linkend="e-file-cache-get-keys">e_file_cache_get_keys</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-get-object"><link linkend="e-file-cache-get-object">e_file_cache_get_object</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-get-objects"><link linkend="e-file-cache-get-objects">e_file_cache_get_objects</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-new"><link linkend="e-file-cache-new">e_file_cache_new</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-remove"><link linkend="e-file-cache-remove">e_file_cache_remove</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-remove-object"><link linkend="e-file-cache-remove-object">e_file_cache_remove_object</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-replace-object"><link linkend="e-file-cache-replace-object">e_file_cache_replace_object</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+<indexentry><primaryie linkends="e-file-cache-thaw-changes"><link linkend="e-file-cache-thaw-changes">e_file_cache_thaw_changes</link>, function in <link linkend="libebackend-e-file-cache">EFileCache</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

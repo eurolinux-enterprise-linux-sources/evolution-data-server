@@ -1,0 +1,313 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="ETreeModelGenerator">
+<refmeta>
+<refentrytitle role="top_of_page" id="ETreeModelGenerator.top_of_page">ETreeModelGenerator</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVERUI Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>ETreeModelGenerator</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="ETreeModelGenerator.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="gint"><returnvalue>gint</returnvalue></link>                (<link linkend="ETreeModelGeneratorGenerateFunc">*ETreeModelGeneratorGenerateFunc</link>)  (<parameter><link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> *model</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *child_iter</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="ETreeModelGeneratorModifyFunc">*ETreeModelGeneratorModifyFunc</link>)    (<parameter><link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> *model</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *child_iter</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> permutation_n</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> column</parameter>,
+                                                         <parameter><link linkend="GValue"><type>GValue</type></link> *value</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);
+                    <link linkend="ETreeModelGenerator-struct">ETreeModelGenerator</link>;
+<link linkend="ETreeModelGenerator"><returnvalue>ETreeModelGenerator</returnvalue></link> * <link linkend="e-tree-model-generator-new">e_tree_model_generator_new</link>        (<parameter><link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> *child_model</parameter>);
+<link linkend="GtkTreeModel"><returnvalue>GtkTreeModel</returnvalue></link> *      <link linkend="e-tree-model-generator-get-model">e_tree_model_generator_get_model</link>    (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-tree-model-generator-set-generate-func">e_tree_model_generator_set_generate_func</link>
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="ETreeModelGeneratorGenerateFunc"><type>ETreeModelGeneratorGenerateFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>,
+                                                         <parameter><link linkend="GDestroyNotify"><type>GDestroyNotify</type></link> destroy</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-tree-model-generator-set-modify-func">e_tree_model_generator_set_modify_func</link>
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="ETreeModelGeneratorModifyFunc"><type>ETreeModelGeneratorModifyFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>,
+                                                         <parameter><link linkend="GDestroyNotify"><type>GDestroyNotify</type></link> destroy</parameter>);
+<link linkend="GtkTreePath"><returnvalue>GtkTreePath</returnvalue></link> *       <link linkend="e-tree-model-generator-convert-child-path-to-path">e_tree_model_generator_convert_child_path_to_path</link>
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="GtkTreePath"><type>GtkTreePath</type></link> *child_path</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-tree-model-generator-convert-child-iter-to-iter">e_tree_model_generator_convert_child_iter_to_iter</link>
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *generator_iter</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *child_iter</parameter>);
+<link linkend="GtkTreePath"><returnvalue>GtkTreePath</returnvalue></link> *       <link linkend="e-tree-model-generator-convert-path-to-child-path">e_tree_model_generator_convert_path_to_child_path</link>
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="GtkTreePath"><type>GtkTreePath</type></link> *generator_path</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-tree-model-generator-convert-iter-to-child-iter">e_tree_model_generator_convert_iter_to_child_iter</link>
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *child_iter</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> *permutation_n</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *generator_iter</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="ETreeModelGenerator.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----ETreeModelGenerator
+</synopsis>
+</refsect1>
+<refsect1 id="ETreeModelGenerator.implemented-interfaces" role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+ETreeModelGenerator implements
+ <link linkend="GtkTreeModel">GtkTreeModel</link>.</para>
+</refsect1>
+<refsect1 id="ETreeModelGenerator.properties" role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+  &quot;<link linkend="ETreeModelGenerator--child-model">child-model</link>&quot;              <link linkend="GObject"><type>GObject</type></link>*              : Read / Write / Construct Only
+</synopsis>
+</refsect1>
+
+<refsect1 id="ETreeModelGenerator.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="ETreeModelGenerator.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="ETreeModelGeneratorGenerateFunc" role="function">
+<title>ETreeModelGeneratorGenerateFunc ()</title>
+<indexterm zone="ETreeModelGeneratorGenerateFunc"><primary>ETreeModelGeneratorGenerateFunc</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                (*ETreeModelGeneratorGenerateFunc)  (<parameter><link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> *model</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *child_iter</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>child_iter</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="ETreeModelGeneratorModifyFunc" role="function">
+<title>ETreeModelGeneratorModifyFunc ()</title>
+<indexterm zone="ETreeModelGeneratorModifyFunc"><primary>ETreeModelGeneratorModifyFunc</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*ETreeModelGeneratorModifyFunc)    (<parameter><link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> *model</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *child_iter</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> permutation_n</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> column</parameter>,
+                                                         <parameter><link linkend="GValue"><type>GValue</type></link> *value</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>child_iter</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>permutation_n</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>column</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="ETreeModelGenerator-struct" role="struct">
+<title>ETreeModelGenerator</title>
+<indexterm zone="ETreeModelGenerator-struct"><primary>ETreeModelGenerator</primary></indexterm>
+<programlisting>typedef struct _ETreeModelGenerator ETreeModelGenerator;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-tree-model-generator-new" role="function">
+<title>e_tree_model_generator_new ()</title>
+<indexterm zone="e-tree-model-generator-new"><primary>e_tree_model_generator_new</primary></indexterm>
+<programlisting><link linkend="ETreeModelGenerator"><returnvalue>ETreeModelGenerator</returnvalue></link> * e_tree_model_generator_new        (<parameter><link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> *child_model</parameter>);</programlisting>
+<para>
+Creates a new <link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> wrapping <parameter>child_model</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>child_model</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GtkTreeModel"><type>GtkTreeModel</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-tree-model-generator-get-model" role="function">
+<title>e_tree_model_generator_get_model ()</title>
+<indexterm zone="e-tree-model-generator-get-model"><primary>e_tree_model_generator_get_model</primary></indexterm>
+<programlisting><link linkend="GtkTreeModel"><returnvalue>GtkTreeModel</returnvalue></link> *      e_tree_model_generator_get_model    (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>);</programlisting>
+<para>
+Gets the child model being wrapped by <parameter>tree_model_generator</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>tree_model_generator</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A <link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> being wrapped.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-tree-model-generator-set-generate-func" role="function">
+<title>e_tree_model_generator_set_generate_func ()</title>
+<indexterm zone="e-tree-model-generator-set-generate-func"><primary>e_tree_model_generator_set_generate_func</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_tree_model_generator_set_generate_func
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="ETreeModelGeneratorGenerateFunc"><type>ETreeModelGeneratorGenerateFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>,
+                                                         <parameter><link linkend="GDestroyNotify"><type>GDestroyNotify</type></link> destroy</parameter>);</programlisting>
+<para>
+Sets the callback function used to filter or generate additional rows
+based on the child model's data. This function is called for each child
+row, and returns a value indicating the number of rows that will be
+used to represent the child row - 0 or more.
+</para>
+<para>
+If <parameter>func</parameter> is <link linkend="NULL:CAPS"><literal>NULL</literal></link>, a filtering/generating function will not be applied.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>tree_model_generator</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ETreeModelGeneratorGenerateFunc"><type>ETreeModelGeneratorGenerateFunc</type></link>, or <link linkend="NULL:CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>user data to pass to <parameter>func</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-tree-model-generator-set-modify-func" role="function">
+<title>e_tree_model_generator_set_modify_func ()</title>
+<indexterm zone="e-tree-model-generator-set-modify-func"><primary>e_tree_model_generator_set_modify_func</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_tree_model_generator_set_modify_func
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="ETreeModelGeneratorModifyFunc"><type>ETreeModelGeneratorModifyFunc</type></link> func</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> data</parameter>,
+                                                         <parameter><link linkend="GDestroyNotify"><type>GDestroyNotify</type></link> destroy</parameter>);</programlisting>
+<para>
+Sets the callback function used to override values for the child row's
+columns and specify values for generated rows' columns.
+</para>
+<para>
+If <parameter>func</parameter> is <link linkend="NULL:CAPS"><literal>NULL</literal></link>, the child model's values will always be used.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>tree_model_generator</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&#160;:</term>
+<listitem><simpara>an <parameter>ETreeModelGeneratorModifyFunc</parameter>, or <link linkend="NULL:CAPS"><literal>NULL</literal></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&#160;:</term>
+<listitem><simpara>user data to pass to <parameter>func</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-tree-model-generator-convert-child-path-to-path" role="function">
+<title>e_tree_model_generator_convert_child_path_to_path ()</title>
+<indexterm zone="e-tree-model-generator-convert-child-path-to-path"><primary>e_tree_model_generator_convert_child_path_to_path</primary></indexterm>
+<programlisting><link linkend="GtkTreePath"><returnvalue>GtkTreePath</returnvalue></link> *       e_tree_model_generator_convert_child_path_to_path
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="GtkTreePath"><type>GtkTreePath</type></link> *child_path</parameter>);</programlisting>
+<para>
+Convert a path to a child row to a path to a <parameter>tree_model_generator</parameter> row.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>tree_model_generator</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>child_path</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GtkTreePath"><type>GtkTreePath</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new GtkTreePath, owned by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-tree-model-generator-convert-child-iter-to-iter" role="function">
+<title>e_tree_model_generator_convert_child_iter_to_iter ()</title>
+<indexterm zone="e-tree-model-generator-convert-child-iter-to-iter"><primary>e_tree_model_generator_convert_child_iter_to_iter</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_tree_model_generator_convert_child_iter_to_iter
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *generator_iter</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *child_iter</parameter>);</programlisting>
+<para>
+Convert <parameter>child_iter</parameter> to a corresponding <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> for <parameter>tree_model_generator</parameter>,
+storing the result in <parameter>generator_iter</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>tree_model_generator</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>generator_iter</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>child_iter</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> to convert
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-tree-model-generator-convert-path-to-child-path" role="function">
+<title>e_tree_model_generator_convert_path_to_child_path ()</title>
+<indexterm zone="e-tree-model-generator-convert-path-to-child-path"><primary>e_tree_model_generator_convert_path_to_child_path</primary></indexterm>
+<programlisting><link linkend="GtkTreePath"><returnvalue>GtkTreePath</returnvalue></link> *       e_tree_model_generator_convert_path_to_child_path
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="GtkTreePath"><type>GtkTreePath</type></link> *generator_path</parameter>);</programlisting>
+<para>
+Converts <parameter>generator_path</parameter> to a corresponding <link linkend="GtkTreePath"><type>GtkTreePath</type></link> in the child model.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>tree_model_generator</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>generator_path</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GtkTreePath"><type>GtkTreePath</type></link> to a <parameter>tree_model_generator</parameter> row
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="GtkTreePath"><type>GtkTreePath</type></link>, owned by the caller.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-tree-model-generator-convert-iter-to-child-iter" role="function">
+<title>e_tree_model_generator_convert_iter_to_child_iter ()</title>
+<indexterm zone="e-tree-model-generator-convert-iter-to-child-iter"><primary>e_tree_model_generator_convert_iter_to_child_iter</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_tree_model_generator_convert_iter_to_child_iter
+                                                        (<parameter><link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link> *tree_model_generator</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *child_iter</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> *permutation_n</parameter>,
+                                                         <parameter><link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> *generator_iter</parameter>);</programlisting>
+<para>
+Converts a <parameter>tree_model_generator</parameter> row into a child row and permutation index.
+The permutation index is the index of the generated row based on this
+child row, with the first generated row based on this child row being 0.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>tree_model_generator</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ETreeModelGenerator"><type>ETreeModelGenerator</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>child_iter</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>permutation_n</parameter>&#160;:</term>
+<listitem><simpara>a permutation index to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>generator_iter</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link> indicating the row to convert
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="ETreeModelGenerator.property-details" role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2 id="ETreeModelGenerator--child-model" role="property"><title>The <literal>&quot;child-model&quot;</literal> property</title>
+<indexterm zone="ETreeModelGenerator--child-model"><primary>ETreeModelGenerator:child-model</primary></indexterm>
+<programlisting>  &quot;child-model&quot;              <link linkend="GObject"><type>GObject</type></link>*              : Read / Write / Construct Only</programlisting>
+<para>The child model to extend.</para></refsect2>
+</refsect1>
+
+</refentry>

@@ -1,0 +1,1509 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EBook">
+<refmeta>
+<refentrytitle role="top_of_page" id="EBook.top_of_page">EBook</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEBOOK Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EBook</refname>
+<refpurpose>The primary Evolution addressbook client object.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EBook.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="EBook-struct">EBook</link>;
+<link linkend="EBook"><returnvalue>EBook</returnvalue></link> *             <link linkend="e-book-new">e_book_new</link>                          (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="EBook"><returnvalue>EBook</returnvalue></link> *             <link linkend="e-book-new-default-addressbook">e_book_new_default_addressbook</link>      (<parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="EBook"><returnvalue>EBook</returnvalue></link> *             <link linkend="e-book-new-from-uri">e_book_new_from_uri</link>                 (<parameter>const <link linkend="gchar"><type>gchar</type></link> *uri</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="EBook"><returnvalue>EBook</returnvalue></link> *             <link linkend="e-book-new-system-addressbook">e_book_new_system_addressbook</link>       (<parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-set-default-addressbook">e_book_set_default_addressbook</link>      (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-set-default-source">e_book_set_default_source</link>           (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-remove">e_book_remove</link>                       (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-open">e_book_open</link>                         (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> only_if_exists</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-get-supported-fields">e_book_get_supported_fields</link>         (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **fields</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-get-supported-auth-methods">e_book_get_supported_auth_methods</link>   (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **auth_methods</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-get-required-fields">e_book_get_required_fields</link>          (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **fields</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-book-get-source">e_book_get_source</link>                   (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-is-online">e_book_is_online</link>                    (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-is-opened">e_book_is_opened</link>                    (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-authenticate-user">e_book_authenticate_user</link>            (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *user</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *passwd</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *auth_method</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-get-contact">e_book_get_contact</link>                  (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> **contact</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-remove-contact">e_book_remove_contact</link>               (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-remove-contacts">e_book_remove_contacts</link>              (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *ids</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-add-contact">e_book_add_contact</link>                  (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-commit-contact">e_book_commit_contact</link>               (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-get-book-view">e_book_get_book_view</link>                (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookQuery"><type>EBookQuery</type></link> *query</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *requested_fields</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> max_results</parameter>,
+                                                         <parameter><link linkend="EBookView"><type>EBookView</type></link> **book_view</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-get-contacts">e_book_get_contacts</link>                 (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookQuery"><type>EBookQuery</type></link> *query</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **contacts</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-get-changes">e_book_get_changes</link>                  (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *changeid</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **changes</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-free-change-list">e_book_free_change_list</link>             (<parameter><link linkend="GList"><type>GList</type></link> *change_list</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-book-get-uri">e_book_get_uri</link>                      (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-book-get-static-capabilities">e_book_get_static_capabilities</link>      (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-check-static-capability">e_book_check_static_capability</link>      (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *cap</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-is-writable">e_book_is_writable</link>                  (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-cancel">e_book_cancel</link>                       (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-cancel-async-op">e_book_cancel_async_op</link>              (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-get-self">e_book_get_self</link>                     (<parameter><link linkend="EContact"><type>EContact</type></link> **contact</parameter>,
+                                                         <parameter><link linkend="EBook"><type>EBook</type></link> **book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-set-self">e_book_set_self</link>                     (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-is-self">e_book_is_self</link>                      (<parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-get-addressbooks">e_book_get_addressbooks</link>             (<parameter><link linkend="ESourceList"><type>ESourceList</type></link> **addressbook_sources</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="EBookCallback">*EBookCallback</link>)                    (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="EBookOpenProgressCallback">*EBookOpenProgressCallback</link>)        (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *status_message</parameter>,
+                                                         <parameter>short <link linkend="percent"><type>percent</type></link> Param3</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="EBookIdCallback">*EBookIdCallback</link>)                  (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="EBookEListCallback">*EBookEListCallback</link>)               (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="EList"><type>EList</type></link> *list</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="EBookListCallback">*EBookListCallback</link>)                (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *list</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="EBookContactCallback">*EBookContactCallback</link>)             (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                (<link linkend="EBookBookViewCallback">*EBookBookViewCallback</link>)            (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="EBookView"><type>EBookView</type></link> *book_view</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-open">e_book_async_open</link>                   (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> only_if_exists</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> open_response</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-remove">e_book_async_remove</link>                 (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-get-supported-fields">e_book_async_get_supported_fields</link>   (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookEListCallback"><type>EBookEListCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-get-supported-auth-methods">e_book_async_get_supported_auth_methods</link>
+                                                        (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookEListCallback"><type>EBookEListCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-authenticate-user">e_book_async_authenticate_user</link>      (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *user</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *passwd</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *auth_method</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-get-contact">e_book_async_get_contact</link>            (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="EBookContactCallback"><type>EBookContactCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-get-contacts">e_book_async_get_contacts</link>           (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookQuery"><type>EBookQuery</type></link> *query</parameter>,
+                                                         <parameter><link linkend="EBookListCallback"><type>EBookListCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-remove-contact">e_book_async_remove_contact</link>         (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-remove-contact-by-id">e_book_async_remove_contact_by_id</link>   (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-remove-contacts">e_book_async_remove_contacts</link>        (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *ids</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-async-add-contact">e_book_async_add_contact</link>            (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="EBookIdCallback"><type>EBookIdCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-commit-contact">e_book_async_commit_contact</link>         (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-get-book-view">e_book_async_get_book_view</link>          (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookQuery"><type>EBookQuery</type></link> *query</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *requested_fields</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> max_results</parameter>,
+                                                         <parameter><link linkend="EBookBookViewCallback"><type>EBookBookViewCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-get-changes">e_book_async_get_changes</link>            (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *changeid</parameter>,
+                                                         <parameter><link linkend="EBookListCallback"><type>EBookListCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+<link linkend="guint"><returnvalue>guint</returnvalue></link>               <link linkend="e-book-async-get-required-fields">e_book_async_get_required_fields</link>    (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookEListCallback"><type>EBookEListCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="EBook.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----EBook
+</synopsis>
+</refsect1>
+<refsect1 id="EBook.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="EBook-auth-required">auth-required</link>&quot;                                  : Run Last
+  &quot;<link linkend="EBook-backend-died">backend-died</link>&quot;                                   : Run Last
+  &quot;<link linkend="EBook-connection-status">connection-status</link>&quot;                              : Run Last
+  &quot;<link linkend="EBook-writable-status">writable-status</link>&quot;                                : Run Last
+</synopsis>
+</refsect1>
+
+<refsect1 id="EBook.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+Represents a complete addressbook. Event notifications and callbacks go to the
+<link linkend="EBookListener"><type>EBookListener</type></link>. Contrast with <link linkend="EBookView"><type>EBookView</type></link>, which represents a search of the addressbook.
+</para>
+</refsect1>
+<refsect1 id="EBook.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EBook-struct" role="struct">
+<title>EBook</title>
+<indexterm zone="EBook-struct"><primary>EBook</primary></indexterm>
+<programlisting>typedef struct _EBook EBook;</programlisting>
+<para>
+<link linkend="EBook"><type>EBook</type></link> has no publicly available members.
+</para></refsect2>
+<refsect2 id="e-book-new" role="function">
+<title>e_book_new ()</title>
+<indexterm zone="e-book-new"><primary>e_book_new</primary></indexterm>
+<programlisting><link linkend="EBook"><returnvalue>EBook</returnvalue></link> *             e_book_new                          (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EBook"><type>EBook</type></link> corresponding to the given source.  There are
+only two operations that are valid on this book at this point:
+<link linkend="e-book-open"><function>e_book_open()</function></link>, and <link linkend="e-book-remove"><function>e_book_remove()</function></link>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESource"><type>ESource</type></link> pointer
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="GError"><type>GError</type></link> pointer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a new but unopened <link linkend="EBook"><type>EBook</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-new-default-addressbook" role="function">
+<title>e_book_new_default_addressbook ()</title>
+<indexterm zone="e-book-new-default-addressbook"><primary>e_book_new_default_addressbook</primary></indexterm>
+<programlisting><link linkend="EBook"><returnvalue>EBook</returnvalue></link> *             e_book_new_default_addressbook      (<parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EBook"><type>EBook</type></link> corresponding to the user's default
+addressbook.  See the documentation for e_book_new for further
+information.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="GError"><type>GError</type></link> pointer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a new but unopened <link linkend="EBook"><type>EBook</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-new-from-uri" role="function">
+<title>e_book_new_from_uri ()</title>
+<indexterm zone="e-book-new-from-uri"><primary>e_book_new_from_uri</primary></indexterm>
+<programlisting><link linkend="EBook"><returnvalue>EBook</returnvalue></link> *             e_book_new_from_uri                 (<parameter>const <link linkend="gchar"><type>gchar</type></link> *uri</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EBook"><type>EBook</type></link> corresponding to the given uri.  See the
+documentation for e_book_new for further information.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>uri</parameter>&#160;:</term>
+<listitem><simpara>the URI to load
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="GError"><type>GError</type></link> pointer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a new but unopened <link linkend="EBook"><type>EBook</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-new-system-addressbook" role="function">
+<title>e_book_new_system_addressbook ()</title>
+<indexterm zone="e-book-new-system-addressbook"><primary>e_book_new_system_addressbook</primary></indexterm>
+<programlisting><link linkend="EBook"><returnvalue>EBook</returnvalue></link> *             e_book_new_system_addressbook       (<parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EBook"><type>EBook</type></link> corresponding to the user's system
+addressbook.  See the documentation for e_book_new for further
+information.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="GError"><type>GError</type></link> pointer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> a new but unopened <link linkend="EBook"><type>EBook</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-set-default-addressbook" role="function">
+<title>e_book_set_default_addressbook ()</title>
+<indexterm zone="e-book-set-default-addressbook"><primary>e_book_set_default_addressbook</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_set_default_addressbook      (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+sets the <link linkend="ESource"><type>ESource</type></link> of the <link linkend="EBook"><type>EBook</type></link> as the "default" addressbook.  This is the source
+that will be loaded in the e_book_get_default_addressbook call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="EBook"><type>EBook</type></link> pointer
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="GError"><type>GError</type></link> pointer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the setting was stored in libebook's ESourceList, otherwise <link linkend="FALSE:CAPS"><literal>FALSE</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-set-default-source" role="function">
+<title>e_book_set_default_source ()</title>
+<indexterm zone="e-book-set-default-source"><primary>e_book_set_default_source</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_set_default_source           (<parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+sets <parameter>source</parameter> as the "default" addressbook.  This is the source that
+will be loaded in the e_book_get_default_addressbook call.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>An <link linkend="ESource"><type>ESource</type></link> pointer
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="GError"><type>GError</type></link> pointer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the setting was stored in libebook's ESourceList, otherwise <link linkend="FALSE:CAPS"><literal>FALSE</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-remove" role="function">
+<title>e_book_remove ()</title>
+<indexterm zone="e-book-remove"><primary>e_book_remove</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_remove                       (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Removes the backing data for this <link linkend="EBook"><type>EBook</type></link>. For example, with the file backend this
+deletes the database file. You cannot get it back!</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> on success, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> on failure.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-open" role="function">
+<title>e_book_open ()</title>
+<indexterm zone="e-book-open"><primary>e_book_open</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_open                         (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> only_if_exists</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Opens the addressbook, making it ready for queries and other operations.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>only_if_exists</parameter>&#160;:</term>
+<listitem><simpara>if <link linkend="TRUE:CAPS"><literal>TRUE</literal></link>, fail if this book doesn't already exist, otherwise create it first
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the book was successfully opened, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-supported-fields" role="function">
+<title>e_book_get_supported_fields ()</title>
+<indexterm zone="e-book-get-supported-fields"><primary>e_book_get_supported_fields</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_get_supported_fields         (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **fields</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Gets a list of fields that can be stored for contacts
+in this <parameter>book</parameter>. Other fields may be discarded. The list
+will contain pointers to allocated strings, and both the
+<link linkend="GList"><type>GList</type></link> and the strings must be freed by the caller.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fields</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> of fields to set on success
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-supported-auth-methods" role="function">
+<title>e_book_get_supported_auth_methods ()</title>
+<indexterm zone="e-book-get-supported-auth-methods"><primary>e_book_get_supported_auth_methods</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_get_supported_auth_methods   (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **auth_methods</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Queries <parameter>book</parameter> for the list of authentication methods it supports.
+The list will contain pointers to allocated strings, and both the
+<link linkend="GList"><type>GList</type></link> and the strings must be freed by the caller.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>auth_methods</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> of auth methods to set on success
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-required-fields" role="function">
+<title>e_book_get_required_fields ()</title>
+<indexterm zone="e-book-get-required-fields"><primary>e_book_get_required_fields</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_get_required_fields          (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **fields</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Gets a list of fields that are required to be filled in for
+all contacts in this <parameter>book</parameter>. The list will contain pointers
+to allocated strings, and both the <link linkend="GList"><type>GList</type></link> and the strings
+must be freed by the caller.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fields</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> of fields to set on success
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-source" role="function">
+<title>e_book_get_source ()</title>
+<indexterm zone="e-book-get-source"><primary>e_book_get_source</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_book_get_source                   (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);</programlisting>
+<para>
+Get the <link linkend="ESource"><type>ESource</type></link> that this book has loaded.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The source.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-is-online" role="function">
+<title>e_book_is_online ()</title>
+<indexterm zone="e-book-is-online"><primary>e_book_is_online</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_is_online                    (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);</programlisting>
+<para>
+Check if this book is connected.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if this book is connected, otherwise <link linkend="FALSE:CAPS"><literal>FALSE</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-is-opened" role="function">
+<title>e_book_is_opened ()</title>
+<indexterm zone="e-book-is-opened"><primary>e_book_is_opened</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_is_opened                    (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);</programlisting>
+<para>
+Check if this book has been opened.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>and <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if this book has been opened, otherwise <link linkend="FALSE:CAPS"><literal>FALSE</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-authenticate-user" role="function">
+<title>e_book_authenticate_user ()</title>
+<indexterm zone="e-book-authenticate-user"><primary>e_book_authenticate_user</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_authenticate_user            (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *user</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *passwd</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *auth_method</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Authenticates <parameter>user</parameter> with <parameter>passwd</parameter>, using the auth method
+<parameter>auth_method</parameter>.  <parameter>auth_method</parameter> must be one of the authentication
+methods returned using e_book_get_supported_auth_methods.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user</parameter>&#160;:</term>
+<listitem><simpara>a string
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>passwd</parameter>&#160;:</term>
+<listitem><simpara>a string
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>auth_method</parameter>&#160;:</term>
+<listitem><simpara>a string
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-contact" role="function">
+<title>e_book_get_contact ()</title>
+<indexterm zone="e-book-get-contact"><primary>e_book_get_contact</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_get_contact                  (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> **contact</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Fills in <parameter>contact</parameter> with the contents of the vcard in <parameter>book</parameter>
+corresponding to <parameter>id</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>a unique string ID specifying the contact
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-remove-contact" role="function">
+<title>e_book_remove_contact ()</title>
+<indexterm zone="e-book-remove-contact"><primary>e_book_remove_contact</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_remove_contact               (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Removes the contact with id <parameter>id</parameter> from <parameter>book</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>a string
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-remove-contacts" role="function">
+<title>e_book_remove_contacts ()</title>
+<indexterm zone="e-book-remove-contacts"><primary>e_book_remove_contacts</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_remove_contacts              (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *ids</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Removes the contacts with ids from the list <parameter>ids</parameter> from <parameter>book</parameter>.  This is
+always more efficient than calling e_book_remove_contact_by_id if you
+have more than one id to remove, as some backends can implement it
+as a batch request.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ids</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="GList"><type>GList</type></link> of const gchar *id's
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-add-contact" role="function">
+<title>e_book_add_contact ()</title>
+<indexterm zone="e-book-add-contact"><primary>e_book_add_contact</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_add_contact                  (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Adds <parameter>contact</parameter> to <parameter>book</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-commit-contact" role="function">
+<title>e_book_commit_contact ()</title>
+<indexterm zone="e-book-commit-contact"><primary>e_book_commit_contact</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_commit_contact               (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Applies the changes made to <parameter>contact</parameter> to the stored version in
+<parameter>book</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-book-view" role="function">
+<title>e_book_get_book_view ()</title>
+<indexterm zone="e-book-get-book-view"><primary>e_book_get_book_view</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_get_book_view                (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookQuery"><type>EBookQuery</type></link> *query</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *requested_fields</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> max_results</parameter>,
+                                                         <parameter><link linkend="EBookView"><type>EBookView</type></link> **book_view</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Query <parameter>book</parameter> with <parameter>query</parameter>, creating a <link linkend="EBookView"><type>EBookView</type></link> in <parameter>book_view</parameter> with the fields
+specified by <parameter>requested_fields</parameter> and limited at <parameter>max_results</parameter> records. On an
+error, <parameter>error</parameter> is set and <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> returned.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookQuery"><type>EBookQuery</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>requested_fields</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> containing the names of fields to return, or NULL for all
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>max_results</parameter>&#160;:</term>
+<listitem><simpara>the maximum number of contacts to show (or 0 for all)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>A <link linkend="EBookView"><type>EBookView</type></link> pointer, will be set to the view
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-contacts" role="function">
+<title>e_book_get_contacts ()</title>
+<indexterm zone="e-book-get-contacts"><primary>e_book_get_contacts</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_get_contacts                 (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookQuery"><type>EBookQuery</type></link> *query</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **contacts</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Query <parameter>book</parameter> with <parameter>query</parameter>, setting <parameter>contacts</parameter> to the list of contacts which
+matched. On failed, <parameter>error</parameter> will be set and <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> returned.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookQuery"><type>EBookQuery</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contacts</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> pointer, will be set to the list of contacts
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> on success, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-changes" role="function">
+<title>e_book_get_changes ()</title>
+<indexterm zone="e-book-get-changes"><primary>e_book_get_changes</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_get_changes                  (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *changeid</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> **changes</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Get the set of changes since the previous call to <link linkend="e-book-get-changes"><type>e_book_get_changes</type></link> for a
+given change ID.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>changeid</parameter>&#160;:</term>
+<listitem><simpara>the change ID
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>changes</parameter>&#160;:</term>
+<listitem><simpara>return location for a <link linkend="GList"><type>GList</type></link> of <link linkend="EBookChange"><type>EBookChange</type></link> items
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE on success, FALSE otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-free-change-list" role="function">
+<title>e_book_free_change_list ()</title>
+<indexterm zone="e-book-free-change-list"><primary>e_book_free_change_list</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_free_change_list             (<parameter><link linkend="GList"><type>GList</type></link> *change_list</parameter>);</programlisting>
+<para>
+Free the contents of <link linkend="change-list"><type>change_list</type></link>, and the list itself.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>change_list</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> of <link linkend="EBookChange"><type>EBookChange</type></link> items
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-uri" role="function">
+<title>e_book_get_uri ()</title>
+<indexterm zone="e-book-get-uri"><primary>e_book_get_uri</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_book_get_uri                      (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);</programlisting>
+<para>
+Get the URI that this book has loaded. This string should not be freed.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The URI.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-static-capabilities" role="function">
+<title>e_book_get_static_capabilities ()</title>
+<indexterm zone="e-book-get-static-capabilities"><primary>e_book_get_static_capabilities</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_book_get_static_capabilities      (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Get the list of capabilities which the backend for this address book
+supports. This string should not be freed.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The capabilities list
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-check-static-capability" role="function">
+<title>e_book_check_static_capability ()</title>
+<indexterm zone="e-book-check-static-capability"><primary>e_book_check_static_capability</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_check_static_capability      (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *cap</parameter>);</programlisting>
+<para>
+Check to see if the backend for this address book supports the capability
+<parameter>cap</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cap</parameter>&#160;:</term>
+<listitem><simpara>A capability string
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the backend supports <parameter>cap</parameter>, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-is-writable" role="function">
+<title>e_book_is_writable ()</title>
+<indexterm zone="e-book-is-writable"><primary>e_book_is_writable</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_is_writable                  (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);</programlisting>
+<para>
+Check if this book is writable.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if this book is writable, otherwise <link linkend="FALSE:CAPS"><literal>FALSE</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-cancel" role="function">
+<title>e_book_cancel ()</title>
+<indexterm zone="e-book-cancel"><primary>e_book_cancel</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_cancel                       (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Used to cancel an already running operation on <parameter>book</parameter>.  This
+function makes a synchronous CORBA to the backend telling it to
+cancel the operation.  If the operation wasn't cancellable (either
+transiently or permanently) or had already comopleted on the server
+side, this function will return E_BOOK_STATUS_COULD_NOT_CANCEL, and
+the operation will continue uncancelled.  If the operation could be
+cancelled, this function will return E_BOOK_ERROR_OK, and the
+blocked e_book function corresponding to current operation will
+return with a status of E_BOOK_STATUS_CANCELLED.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> on success, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-cancel-async-op" role="function">
+<title>e_book_cancel_async_op ()</title>
+<indexterm zone="e-book-cancel-async-op"><primary>e_book_cancel_async_op</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_cancel_async_op              (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-self" role="function">
+<title>e_book_get_self ()</title>
+<indexterm zone="e-book-get-self"><primary>e_book_get_self</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_get_self                     (<parameter><link linkend="EContact"><type>EContact</type></link> **contact</parameter>,
+                                                         <parameter><link linkend="EBook"><type>EBook</type></link> **book</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Get the <link linkend="EContact"><type>EContact</type></link> referring to the user of the address book
+and set it in <parameter>contact</parameter> and <parameter>book</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link> pointer to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link> pointer to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, otherwise <link linkend="FALSE:CAPS"><literal>FALSE</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-set-self" role="function">
+<title>e_book_set_self ()</title>
+<indexterm zone="e-book-set-self"><primary>e_book_set_self</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_set_self                     (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Specify that <parameter>contact</parameter> residing in <parameter>book</parameter> is the <link linkend="EContact"><type>EContact</type></link> that
+refers to the user of the address book.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GError"><type>GError</type></link> to set on failure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-is-self" role="function">
+<title>e_book_is_self ()</title>
+<indexterm zone="e-book-is-self"><primary>e_book_is_self</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_is_self                      (<parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>);</programlisting>
+<para>
+Check if <parameter>contact</parameter> is the user of the address book.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if <parameter>contact</parameter> is the user, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-get-addressbooks" role="function">
+<title>e_book_get_addressbooks ()</title>
+<indexterm zone="e-book-get-addressbooks"><primary>e_book_get_addressbooks</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_get_addressbooks             (<parameter><link linkend="ESourceList"><type>ESourceList</type></link> **addressbook_sources</parameter>,
+                                                         <parameter><link linkend="GError"><type>GError</type></link> **error</parameter>);</programlisting>
+<para>
+Populate *addressbook_sources with the list of all sources which have been
+added to Evolution.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>addressbook_sources</parameter>&#160;:</term>
+<listitem><simpara>A pointer to a ESourceList* to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&#160;:</term>
+<listitem><simpara>A pointer to a GError* to set on error
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if <parameter>addressbook_sources</parameter> was set, otherwise <link linkend="FALSE:CAPS"><literal>FALSE</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EBookCallback" role="function">
+<title>EBookCallback ()</title>
+<indexterm zone="EBookCallback"><primary>EBookCallback</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*EBookCallback)                    (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EBookOpenProgressCallback" role="function">
+<title>EBookOpenProgressCallback ()</title>
+<indexterm zone="EBookOpenProgressCallback"><primary>EBookOpenProgressCallback</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*EBookOpenProgressCallback)        (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *status_message</parameter>,
+                                                         <parameter>short <link linkend="percent"><type>percent</type></link> Param3</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status_message</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>Param3</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EBookIdCallback" role="function">
+<title>EBookIdCallback ()</title>
+<indexterm zone="EBookIdCallback"><primary>EBookIdCallback</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*EBookIdCallback)                  (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EBookEListCallback" role="function">
+<title>EBookEListCallback ()</title>
+<indexterm zone="EBookEListCallback"><primary>EBookEListCallback</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*EBookEListCallback)               (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="EList"><type>EList</type></link> *list</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EBookListCallback" role="function">
+<title>EBookListCallback ()</title>
+<indexterm zone="EBookListCallback"><primary>EBookListCallback</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*EBookListCallback)                (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *list</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>list</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EBookContactCallback" role="function">
+<title>EBookContactCallback ()</title>
+<indexterm zone="EBookContactCallback"><primary>EBookContactCallback</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*EBookContactCallback)             (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EBookBookViewCallback" role="function">
+<title>EBookBookViewCallback ()</title>
+<indexterm zone="EBookBookViewCallback"><primary>EBookBookViewCallback</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                (*EBookBookViewCallback)            (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookStatus"><type>EBookStatus</type></link> status</parameter>,
+                                                         <parameter><link linkend="EBookView"><type>EBookView</type></link> *book_view</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>status</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book_view</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-open" role="function">
+<title>e_book_async_open ()</title>
+<indexterm zone="e-book-async-open"><primary>e_book_async_open</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_open                   (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> only_if_exists</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> open_response</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Opens the addressbook, making it ready for queries and other operations.
+This function does not block.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>only_if_exists</parameter>&#160;:</term>
+<listitem><simpara>if <link linkend="TRUE:CAPS"><literal>TRUE</literal></link>, fail if this book doesn't already exist, otherwise create it first
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>open_response</parameter>&#160;:</term>
+<listitem><simpara>a function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if successful, <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-remove" role="function">
+<title>e_book_async_remove ()</title>
+<indexterm zone="e-book-async-remove"><primary>e_book_async_remove</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_remove                 (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Remove the backing data for this <link linkend="EBook"><type>EBook</type></link>. For example, with the file backend this
+deletes the database file. You cannot get it back!</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>a function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if successful, <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-get-supported-fields" role="function">
+<title>e_book_async_get_supported_fields ()</title>
+<indexterm zone="e-book-async-get-supported-fields"><primary>e_book_async_get_supported_fields</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_get_supported_fields   (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookEListCallback"><type>EBookEListCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Gets a list of fields that can be stored for contacts
+in this <parameter>book</parameter>. Other fields may be discarded. This
+function does not block.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-get-supported-auth-methods" role="function">
+<title>e_book_async_get_supported_auth_methods ()</title>
+<indexterm zone="e-book-async-get-supported-auth-methods"><primary>e_book_async_get_supported_auth_methods</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_get_supported_auth_methods
+                                                        (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookEListCallback"><type>EBookEListCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Queries <parameter>book</parameter> for the list of authentication methods it supports.
+This function does not block.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-authenticate-user" role="function">
+<title>e_book_async_authenticate_user ()</title>
+<indexterm zone="e-book-async-authenticate-user"><primary>e_book_async_authenticate_user</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_authenticate_user      (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *user</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *passwd</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *auth_method</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Authenticate <parameter>user</parameter> with <parameter>passwd</parameter>, using the auth method
+<parameter>auth_method</parameter>. <parameter>auth_method</parameter> must be one of the authentication
+methods returned using e_book_get_supported_auth_methods.
+This function does not block.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user</parameter>&#160;:</term>
+<listitem><simpara>user name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>passwd</parameter>&#160;:</term>
+<listitem><simpara>password
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>auth_method</parameter>&#160;:</term>
+<listitem><simpara>string indicating authentication method
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if successful, <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-get-contact" role="function">
+<title>e_book_async_get_contact ()</title>
+<indexterm zone="e-book-async-get-contact"><primary>e_book_async_get_contact</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_get_contact            (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="EBookContactCallback"><type>EBookContactCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Retrieves a contact specified by <parameter>id</parameter> from <parameter>book</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>a unique string ID specifying the contact
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>function to call when operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if successful, <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-get-contacts" role="function">
+<title>e_book_async_get_contacts ()</title>
+<indexterm zone="e-book-async-get-contacts"><primary>e_book_async_get_contacts</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_get_contacts           (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookQuery"><type>EBookQuery</type></link> *query</parameter>,
+                                                         <parameter><link linkend="EBookListCallback"><type>EBookListCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Query <parameter>book</parameter> with <parameter>query</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookQuery"><type>EBookQuery</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>a function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> on success, <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-remove-contact" role="function">
+<title>e_book_async_remove_contact ()</title>
+<indexterm zone="e-book-async-remove-contact"><primary>e_book_async_remove_contact</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_remove_contact         (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Removes <parameter>contact</parameter> from <parameter>book</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>a function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-remove-contact-by-id" role="function">
+<title>e_book_async_remove_contact_by_id ()</title>
+<indexterm zone="e-book-async-remove-contact-by-id"><primary>e_book_async_remove_contact_by_id</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_remove_contact_by_id   (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Removes the contact with id <parameter>id</parameter> from <parameter>book</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>a unique ID string specifying the contact
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>a function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-remove-contacts" role="function">
+<title>e_book_async_remove_contacts ()</title>
+<indexterm zone="e-book-async-remove-contacts"><primary>e_book_async_remove_contacts</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_remove_contacts        (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *ids</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Removes the contacts with ids from the list <parameter>ids</parameter> from <parameter>book</parameter>.  This is
+always more efficient than calling <link linkend="e-book-remove-contact-by-id"><function>e_book_remove_contact_by_id()</function></link> if you
+have more than one id to remove, as some backends can implement it
+as a batch request.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ids</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> of const gchar *id's
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>a function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if successful, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-add-contact" role="function">
+<title>e_book_async_add_contact ()</title>
+<indexterm zone="e-book-async-add-contact"><primary>e_book_async_add_contact</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_async_add_contact            (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="EBookIdCallback"><type>EBookIdCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Adds <parameter>contact</parameter> to <parameter>book</parameter> without blocking.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the operation was started, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-commit-contact" role="function">
+<title>e_book_async_commit_contact ()</title>
+<indexterm zone="e-book-async-commit-contact"><primary>e_book_async_commit_contact</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_commit_contact         (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="EBookCallback"><type>EBookCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Applies the changes made to <parameter>contact</parameter> to the stored version in
+<parameter>book</parameter> without blocking.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the operation was started, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-get-book-view" role="function">
+<title>e_book_async_get_book_view ()</title>
+<indexterm zone="e-book-async-get-book-view"><primary>e_book_async_get_book_view</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_get_book_view          (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookQuery"><type>EBookQuery</type></link> *query</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *requested_fields</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> max_results</parameter>,
+                                                         <parameter><link linkend="EBookBookViewCallback"><type>EBookBookViewCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Query <parameter>book</parameter> with <parameter>query</parameter>, creating a <link linkend="EBookView"><type>EBookView</type></link> with the fields
+specified by <parameter>requested_fields</parameter> and limited at <parameter>max_results</parameter> records.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookQuery"><type>EBookQuery</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>requested_fields</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="GList"><type>GList</type></link> containing the names of fields to return, or NULL for all
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>max_results</parameter>&#160;:</term>
+<listitem><simpara>the maximum number of contacts to show (or 0 for all)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>a function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if successful, <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-get-changes" role="function">
+<title>e_book_async_get_changes ()</title>
+<indexterm zone="e-book-async-get-changes"><primary>e_book_async_get_changes</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_get_changes            (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *changeid</parameter>,
+                                                         <parameter><link linkend="EBookListCallback"><type>EBookListCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Get the set of changes since the previous call to <link linkend="e-book-async-get-changes"><type>e_book_async_get_changes</type></link>
+for a given change ID.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>changeid</parameter>&#160;:</term>
+<listitem><simpara>the change ID
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>function to call when operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE on success, FALSE otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-async-get-required-fields" role="function">
+<title>e_book_async_get_required_fields ()</title>
+<indexterm zone="e-book-async-get-required-fields"><primary>e_book_async_get_required_fields</primary></indexterm>
+<programlisting><link linkend="guint"><returnvalue>guint</returnvalue></link>               e_book_async_get_required_fields    (<parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="EBookEListCallback"><type>EBookEListCallback</type></link> cb</parameter>,
+                                                         <parameter><link linkend="gpointer"><type>gpointer</type></link> closure</parameter>);</programlisting>
+<para>
+Gets a list of fields that are required to be filled in for
+all contacts in this <parameter>book</parameter>. This function does not block.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cb</parameter>&#160;:</term>
+<listitem><simpara>function to call when the operation finishes
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>closure</parameter>&#160;:</term>
+<listitem><simpara>data to pass to callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the operation was started, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="EBook.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="EBook-auth-required" role="signal"><title>The <literal>&quot;auth-required&quot;</literal> signal</title>
+<indexterm zone="EBook-auth-required"><primary>EBook::auth-required</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EBook"><type>EBook</type></link>   *ebook,
+                                                        <link linkend="gpointer"><type>gpointer</type></link> user_data)      : Run Last</programlisting>
+<para>
+Authentication is required to access this source.  You should call
+<link linkend="e-book-authenticate-user"><type>e_book_authenticate_user</type></link> or <link linkend="e-book-async-authenticate-user"><type>e_book_async_authenticate_user</type></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ebook</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="EBook-backend-died" role="signal"><title>The <literal>&quot;backend-died&quot;</literal> signal</title>
+<indexterm zone="EBook-backend-died"><primary>EBook::backend-died</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EBook"><type>EBook</type></link>   *ebook,
+                                                        <link linkend="gpointer"><type>gpointer</type></link> user_data)      : Run Last</programlisting>
+<para>
+The backend for this address book has died.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ebook</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="EBook-connection-status" role="signal"><title>The <literal>&quot;connection-status&quot;</literal> signal</title>
+<indexterm zone="EBook-connection-status"><primary>EBook::connection-status</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EBook"><type>EBook</type></link>   *ebook,
+                                                        <link linkend="gboolean"><type>gboolean</type></link> arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link> user_data)      : Run Last</programlisting>
+<para>
+The connection status for this book is being reported.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ebook</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara><link linkend="TRUE:CAPS"><type>TRUE</type></link> if the connection is online, <link linkend="FALSE:CAPS"><type>FALSE</type></link> otherwise.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2 id="EBook-writable-status" role="signal"><title>The <literal>&quot;writable-status&quot;</literal> signal</title>
+<indexterm zone="EBook-writable-status"><primary>EBook::writable-status</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EBook"><type>EBook</type></link>   *ebook,
+                                                        <link linkend="gboolean"><type>gboolean</type></link> arg1,
+                                                        <link linkend="gpointer"><type>gpointer</type></link> user_data)      : Run Last</programlisting>
+<para>
+The writable status for this book is being reported.
+</para><variablelist role="params">
+<varlistentry><term><parameter>ebook</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&#160;:</term>
+<listitem><simpara><link linkend="TRUE:CAPS"><type>TRUE</type></link> if the book is writable, <link linkend="FALSE:CAPS"><type>FALSE</type></link> otherwise.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+<refsect1 id="EBook.see-also">
+<title>See Also</title>
+<para>
+<link linkend="EBookView"><type>EBookView</type></link>
+</para>
+</refsect1>
+
+</refentry>

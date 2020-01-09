@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!DOCTYPE indexdiv PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<indexdiv>
+<indexdiv><title>D</title>
+<indexentry><primaryie linkends="eds-check-version"><link linkend="eds-check-version">eds_check_version</link>, function in <link linkend="libedataserver-Version-Information">Version Information</link></primaryie></indexentry>
+</indexdiv>
+</indexdiv>

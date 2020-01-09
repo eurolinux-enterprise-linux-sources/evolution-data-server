@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ETrie</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Utilities (libedataserver)">
+<link rel="prev" href="libedataserver-e-time-utils.html" title="Time-Related Utility Functions">
+<link rel="next" href="libedataserver-e-uid.html" title="User ID Generation">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="libedataserver-e-time-utils.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Utilities (libedataserver)</th>
+<td><a accesskey="n" href="libedataserver-e-uid.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#libedataserver-e-trie.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#libedataserver-e-trie.description" class="shortcut">Description</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="libedataserver-e-trie"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="libedataserver-e-trie.top_of_page"></a>ETrie</span></h2>
+<p>ETrie — A trie data structure.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="libedataserver-e-trie.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie">ETrie</a>;
+<a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="returnvalue">ETrie</span></a> *             <a class="link" href="libedataserver-e-trie.html#e-trie-new" title="e_trie_new ()">e_trie_new</a>                          (<em class="parameter"><code><span class="type">gboolean</span> icase</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-trie.html#e-trie-free" title="e_trie_free ()">e_trie_free</a>                         (<em class="parameter"><code><a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> *trie</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="libedataserver-e-trie.html#e-trie-add" title="e_trie_add ()">e_trie_add</a>                          (<em class="parameter"><code><a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> *trie</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> pattern_id</code></em>);
+const <span class="returnvalue">gchar</span> *       <a class="link" href="libedataserver-e-trie.html#e-trie-search" title="e_trie_search ()">e_trie_search</a>                       (<em class="parameter"><code><a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> *trie</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> buflen</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> *matched_id</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="libedataserver-e-trie.description"></a><h2>Description</h2>
+<p>
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="libedataserver-e-trie.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="ETrie"></a><h3>ETrie</h3>
+<pre class="programlisting">typedef struct _ETrie ETrie;</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">ETrie</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+A trie data structure.</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-trie-new"></a><h3>e_trie_new ()</h3>
+<pre class="programlisting"><a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="returnvalue">ETrie</span></a> *             e_trie_new                          (<em class="parameter"><code><span class="type">gboolean</span> icase</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">e_trie_new</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Creates a new <a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a>. If <em class="parameter"><code>icase</code></em> is <code class="literal">TRUE</code>, then pattern matching
+done by the ETrie will be case insensitive.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>icase</code></em> :</span></p></td>
+<td>Case sensitivity for the <a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The newly-created <a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a>.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-trie-free"></a><h3>e_trie_free ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_trie_free                         (<em class="parameter"><code><a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> *trie</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">e_trie_free</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Frees the memory associated with the <a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> <em class="parameter"><code>trie</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>trie</code></em> :</span></p></td>
+<td>The <a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> to free.
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-trie-add"></a><h3>e_trie_add ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_trie_add                          (<em class="parameter"><code><a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> *trie</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *pattern</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> pattern_id</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">e_trie_add</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Add a new pattern to the <a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> <em class="parameter"><code>trie</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>trie</code></em> :</span></p></td>
+<td>The <a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> to add a pattern to.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pattern</code></em> :</span></p></td>
+<td>The pattern to add.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>pattern_id</code></em> :</span></p></td>
+<td>The id to use for the pattern.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-trie-search"></a><h3>e_trie_search ()</h3>
+<pre class="programlisting">const <span class="returnvalue">gchar</span> *       e_trie_search                       (<em class="parameter"><code><a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> *trie</code></em>,
+                                                         <em class="parameter"><code>const <span class="type">gchar</span> *buffer</code></em>,
+                                                         <em class="parameter"><code><span class="type">gsize</span> buflen</code></em>,
+                                                         <em class="parameter"><code><span class="type">gint</span> *matched_id</code></em>);</pre>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3>
+<p><code class="literal">e_trie_search</code> is deprecated and should not be used in newly-written code.</p>
+</div>
+<p>
+Try to match the string <em class="parameter"><code>buffer</code></em> with a pattern in <em class="parameter"><code>trie</code></em>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>trie</code></em> :</span></p></td>
+<td>The <a class="link" href="libedataserver-e-trie.html#ETrie" title="ETrie"><span class="type">ETrie</span></a> to search in.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buffer</code></em> :</span></p></td>
+<td>The string to match against a pattern in <em class="parameter"><code>trie</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>buflen</code></em> :</span></p></td>
+<td>The length of <em class="parameter"><code>buffer</code></em>.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>matched_id</code></em> :</span></p></td>
+<td>An integer address to store the matched pattern id in.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> The matched pattern, or <code class="literal">NULL</code> if no pattern is matched.
+</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

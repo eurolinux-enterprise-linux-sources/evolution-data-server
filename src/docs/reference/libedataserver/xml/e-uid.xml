@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="libedataserver-e-uid">
+<refmeta>
+<refentrytitle role="top_of_page" id="libedataserver-e-uid.top_of_page">User ID Generation</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATASERVER Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>User ID Generation</refname>
+<refpurpose>Generate unique UIDs.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="libedataserver-e-uid.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-uid-new">e_uid_new</link>                           (<parameter><type>void</type></parameter>);
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 id="libedataserver-e-uid.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="libedataserver-e-uid.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="e-uid-new" role="function">
+<title>e_uid_new ()</title>
+<indexterm zone="e-uid-new"><primary>e_uid_new</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_uid_new                           (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Generate a new unique string for use e.g. in account lists.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The newly generated UID.  The caller should free the string
+when it's done with it.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+</refentry>

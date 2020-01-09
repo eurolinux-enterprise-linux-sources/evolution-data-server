@@ -1,0 +1,3177 @@
+Evolution-Data-Server 2.28.3 2010-03-01
+---------------------------------------
+
+Bug Fixes:
+        #602723 - Contact list name doesn't get displayed in 'To' dialog 
+	          (Milan Crha) 
+	#600322 - assertion failed: (reply == msg) in cs_waitinfo() 
+	          (Milan Crha)		  
+	#564727 - Few memory leaks (Milan Crha)
+	#574940 - Always ref returned info from message_info_from_uid 
+		  (Milan Crha)
+	#429317 - Use the relative URI returned if the server re-directs 
+		  a request (Petr Tomasek)
+	#602820 - Test validity of a book_view before using it in LDAP 
+	          (Milan Crha)
+	#590762 - Recurring google calendar items are not changeable
+	          (Milan Crha)
+	#604236 - Slow GPG processing (Milan Crha)
+	#597816 - Do not crash on incorrect parameters used in sexp to SQL 
+	          (Milan Crha)
+	#604544 - Try Exchange fallback authentication only once (Milan Crha)
+	#600778 - Fix --enable-e2k-debug configure option resolution (Milan Crha)
+	#260407 - 'endswith' address book search doesn't work (Milan Crha)
+	#549221 - (bnc) delete, sync flags immediately (Chenthill Palanisamy)
+
+Other Changes:
+	Level the differencies with the alternative runtime/header set 
+	(Fridrich Strba)
+	Get the prototype for strptime() when it's available
+	(Emilio Pozuelo Monfort)
+
+Translations:
+	Jiri Eischmann (cs)
+	Petr Kovar (cs) 
+	Stéphane Raimbault (fr)    
+
+Evolution-Data-Server 2.28.2 2009-12-14
+---------------------------------------
+
+Bug Fixes:
+	#394567 - Use correct FBTYPE values in GroupWise calendar backend
+	          (Jari Urpalainen)
+	#574940 - Crash in message_info_to_db() (Milan Crha)
+	#593023 - Deleting an imported recurrent event will remain (Milan Crha)
+	#594502 - Some google calendar meetings don't show up (Milan Crha)
+	#598971 - Preserve selection in ENameSelectorEntry if possible
+	          (Milan Crha)
+	#599671 - gtk_tree_view_column_get_cell_renderers() is deprecated
+	          (Matthew Barnes)
+	#600449 - segfault in camel_msgport_destroy (Milan Crha)
+	#600573 - e-addressbook-factory aborts on ldap lookup (Milan Crha)
+	#602719 - Crash in ep_set_proxy with no proxy user or password
+	          (Milan Crha)
+	#603437 - Fix few memory leaks (Milan Crha)
+	#603689 - Improper escaping of folder name (Lucian Langa)
+
+Other Changes:
+	Use EAGAIN instead of ETIMEDOUT on Windows (Tor Lillqvist)
+	Don't use commas on the Requires line (Tor Lillqvist)
+	Fix a memory leak. (Wang Xin)
+	Fix a crash due to un initialized variable. (Srinivasa Ragavan)
+	Use SQLite's default cache size of 2000 pages in folders.db
+	(C de-Avillez)
+
+Translations:
+	Ivar Smolin (et)
+	Lucian Grijincu (ro)
+	Leonid Kanter (ru)
+
+
+Evolution-Data-Server 2.28.1 2009-10-19
+---------------------------------------
+
+Bug Fixes:
+	#270893 - Support client certificates for IMAP (Craig Ringer)
+	#593019 - Importing event with pseudo "Etc/UTC" timezone crashed
+                  (Patrick Ohly)
+	#593023 - Deleting an imported recurrent event will remain
+	          (Milan Crha)
+	#594502 - Some google calendar meetings don't show up (Milan Crha)
+	#595082 - Contacts displayed twice in new email contact list
+	          (Milan Crha)
+	#596157 - Use "Message-ID" instead of "Message-Id" (Jeremy Visser)
+
+Evolution-Data-Server 2.28.0 2009-09-21
+----------------------------------------
+
+Notable changes in 2.28.0,
+	Better Calendar cache
+	Improved Caldav support
+	Conversation threading support for GroupWise
+
+Bug Fixes:
+
+Calendar:
+	#494394 - Check backends with their uri too for backward compat. (Milan Crha)
+Mailer:
+	#592310 - Adds an environment variable to skip summary check. (Chenthill Palanisamy)
+
+Translations:
+	Žygimantas Beručka (lt)
+	Sweta Kothari (gu)
+	Piotr Drąg (pl)
+	krishnababu k (te)
+	Mario Blättermann (de)
+	Matej Urbančič (sl)
+	Philip Withnall (en_GB)
+	Ask H. Larsen (da)
+	A S Alam (pa)
+	Ani (ml)
+	Adi Roiban (ro)
+	David Planela (ca)
+	Takayuki KUSANO (ja)
+	Rajesh Ranjan (hi)
+	Astur (ast)	
+
+Evolution-Data-Server 2.27.92 2009-09-07
+----------------------------------------
+
+Bug Fixes:
+
+Mailer:
+	#350007 - evolution busy-waits on GPG signing operations (Milan Crha)
+	#578910 - Fixes problem of missing migration for left out folders
+	          (Srinivasa Ragavan)
+
+Other Fixes:
+	Show filename in password file load/save warnings (Matthew Barnes)
+	Paste of e-mail always goes to the left most position (Bharath Acharya)
+	Expand <group> inline adds control codes (Bharath Acharya)
+	vee_rebuild_folder() code cleanup and adding comments (Yan Li)
+
+Translations:
+	Runa Bhattacharjee (bn_IN)
+	Jiri Eischmann (cs)
+	Inaki Larranaga (eu)
+	Claude Paroz (fr)
+	Gabor Kelemen (hu)
+	Luca Ferretti (it)
+	Manoj Kumar Giri (or)
+	Duarte Loreto (pt)
+	Miloš Popović (sr)
+	ifelix (ta)
+
+Evolution-Data-Server 2.27.91 2009-08-24
+----------------------------------------
+
+Bug Fixes:
+
+Mailer:
+	#350007 - evolution busy-waits on GPG signing operations (Milan Crha)
+	#571206 - Index files on Maildir accounts are not updated on move
+	          (Milan Crha)
+	#590044 - Drop index on all columns of sqlite database (Romuald Brunet)
+	#592310 - Deadlock in maildir provider after doing expunge (Milan Crha)
+
+Miscellaneous:
+	#591324 - Cosmetic changes and fixes in configure.ac (H.Habighorst)
+	#591326 - Keep m4 macros in their own folder (H.Habighorst)
+	#591377 - Fails to detect krb5 in configure with -as-needed
+	          (H.Habighorst)
+
+Other Fixes:
+	Updated the macros from latest gtk-doc.m4 (Chenthill Palanisamy)
+
+Translations:
+	Alexander Shopov (bg)
+	Carles Ferrando (ca@valencia)
+	Ivar Smolin (et)
+	Seán de Búrca (ga)
+	Antón Méixome (gl)
+	Rajesh Ranjan (hi)
+	Changwoo Ryu (ko)
+	Sandeep Shedmake (mr)
+
+Evolution-Data-Server 2.27.90 2009-08-10
+----------------------------------------
+
+Bug Fixes:
+
+Calendar:
+	#579965 - calendar file backend, update 'LAST-MODIFIED' when removing a recurring event 
+		  instance (Chen Congwu)
+	#589984 - eds crash trying to create an event. (Chenthill Palanisamy)
+
+Mail:
+	#511283 - Some Images Do not Display in Evolution Mail Reader (Milan Crha)
+
+Miscellaneous:
+	#590697 – Build regression detecting com_err.h (Matthew Barnes)
+	#589388 – Build fixes / enhancements for EDS (H.Habighorst)
+
+Other Fixes:
+	Enforce including only top-level GLib and GTK+ headers. (Matthew Barnes)
+
+Translations:
+	Seán de Búrca (ga)
+	Djavan Fagundes (pt_BR)
+	Kjartan Maraas (nb)
+	Jamil Ahmed (bn)
+	Chao-Hsiung Liao (zh_HK)
+
+Evolution-Data-Server 2.27.5 2009-07-27
+---------------------------------------
+
+Bug Fixes:
+
+Address Book:
+	#587558 - Removing a picture of a contact in an LDAP addressbook
+	crashes evolution (Milan Crha)
+	#589325 - Evolution Contacts reports ambiguous error on Google
+	Contacts authentication failure with bad password (Milan Crha)
+
+Calendar:
+	#572176 - Allow local iCal files to be selected as calendar source
+	(Milan Crha)
+	#586342 - CalDAV backend does not support attachments (Wang Xin)
+	#588857 - CalDAV for Google calendars should allow email notifications
+	(Milan Crha)
+
+Mail:
+	#524219 (bnc) - Unable to read forward groupwise mails in other
+	clients. (Chenthill Palanisamy)
+	#588220 - Evolution crashed when starting with local account
+	configured (Jeff Cai)
+	#588573 - NULL string comparison in camel-search-sql-sexp.c
+	(Matthew Barnes)
+
+Miscellaneous:
+	#583374 - The broken Google calendar import should be replaced by
+	the working CalDAV support (Milan Crha)
+	#588277 - Unnecessary special-purpose configure flag (Matthew Barnes)
+
+Other Fixes:
+	Handle quota error messages. (Chenthill Palanisamy)
+	Return the proper timezone to get the counts right in all timezones.
+	(Chenthill Palanisamy)
+	CamelVeeFolder - pass exceptions to functions instead of NULL
+	(Milan Crha)
+	Migrate caldav, groupwise, http, weather backends to ECalBackendStore.
+	(Chenthill Palanisamy)
+
+Translations:
+	Ilkka Tuohela (fi)
+	Daniel Nylander (sv)
+
+Evolution-Data-Server 2.27.4 2009-07-13
+---------------------------------------
+
+Bug Fixes:
+
+Addressbook:
+	#540779 - Do not call e_book_new in the main thread (Milan Crha)
+	#563668 - Do not pop-down an empty completion list (Milan Crha)
+	#586225 - Parse numeric name suffixes (Marco Barisione)
+
+Calendar:
+	#548702 - google calendar source does not show all events (Milan Crha)
+	
+Mail:
+	#575701 - Message disappear from unread vfolder, when reply. (Srinivasa Ragavan)	
+	#568302 - create camel summary table if not exists on load (Milan Crha)
+	#586602 – folder messages are lost on folder rename (Lucian Langa)
+	#327285 - Word "Success" in error message for failed action (Milan Crha)
+	#587699 - IMAP - Localize only Inbox folder name, no other (Milan Crha)
+	#579065 - IMAP - Synchronize remote mail locally is not working (Milan Crha)
+	#564388 - UI blocks for a long time when downloading mails with nntp (Srinivasa Ragavan)
+	
+Misc:
+	#586442 – Various build cleanups (H.Habighorst)
+	#586477 – Fix quoting in configure.ac (H.Habighorst)
+	#586811 – Require automake 1.9 and fix whitespace (H.Habighorst)
+	#586813 – Fix iconv cflags/libs in configure.ac (H.Habighorst)
+	#586809 – Enable "silent rules" automake 1.11 option (H.Habighorst)
+	#587165 – Double free in initialize_categories (Matthew Barnes)
+	#587374 - iconv test broken on some gcc (Matthew Barnes)
+	
+Other Fixes:
+
+Misc:
+	Use G_BEGIN_DECLS / G_END_DECLS macros. (Matthew Barnes)
+	Work around deprecation of g_mapped_file_free() (Matthew Barnes)
+	Silence some compiler warnings (Ross Burton)
+	Fixes for windows build (Fridrich Strba)
+
+Calendar:
+	CalDav Fixes/improvements (Milan Crha)
+
+Translations:
+	Ivar Smolin (et)
+	Maxim Dubovoy (uk)
+
+Evolution-Data-Server 2.27.3 2009-06-15
+---------------------------------------
+
+Bug Fixes:
+	
+	#583507 - Fix for evolution hang while updating search folder.
+		  (Srinivasa Ragavan)
+	#585327 - Attaching a message via drag and drop doesn't work for
+		  GW provider. (Bharath Acharya)
+	#266678 - Renaming LDAP contacts CN breaks DN. (Sven Anders)
+	#580198 - IMAP offline mode improvement. (Milan Crha)
+	#584797 - Do not set internal SQLite3 structures on error. (Milan Crha)
+	#580212 - Report errors in CamelException when verifying signature (Milan Crha)
+	#559345 - Support CalDAV free/busy extension (Milan Crha)
+	#337082 - Do not return folders with empty names (Milan Crha)
+	#584101 - Configure fails with kerberos and LDFLAGS="-Wl,--as-needed" (Tiziano Muller)
+	#584030 - New API function for ESourceSelectorDialog (Milan Crha)
+	#583344 - do not leak pipe handles (Milan Crha)
+	#562015 - CalDAV - Store CTag in a cache (Milan Crha)
+	#506265 - (bnc) do not reset the meeting date to delivered date. (Milan Crha)
+	#583528 - Hints of missing mails in Gw (Chenthill Palanisamy)
+	#582643 - Deleted mails are not immediately synced (Chenthill Palanisamy)
+	#543069 - Support detached instances in CalDAV (Milan Crha)
+	#559980 - Harden WebDAV contact backend by checking for etag being NULL (Tobias Muller)
+
+Translations:
+	Manoj Kumar (or)
+	Kjartan Maraas (nb)
+
+Other Fixes:
+	Support for header based threading in GroupWise provider. (Chenthill Palanisamy)
+	Compiler warnings and white space cleanup (Matthew Barnes)
+	Correctly dispose of the source in EBookBackend. Code cleanup. (Ross Burton)
+	Instead of duplicating libgnome function, use corresponding glib functions (Fridrich Strba)
+	Make the backend factory type const (Rob Bradford)
+
+Evolution-Data-Server 2.27.2 2009-05-25
+---------------------------------------
+
+Bug Fixes:
+
+	#549094 – provider_table might not be initialized in
+                  camel_provider_list (Tobia Mueller)
+	#576413 – Cannot delete multiple categories at once (Matthew Barnes)
+	#579176 – crashes when accepting meeting invitation (Milan Crha)
+	#579360 – Problem with vfolders in latest svn trunk version
+                  (Srinivasa Ragavan)
+	#580154 – Use e_data_book_view_{ref,_unref} transition functions
+                  (Rob Bradford)
+	#580419 – Remove deprecated libgnome dependency (Milan Crha)
+	#581420 – Cannot retrieve html images on Solaris (Jeff Cai)
+	#581424 – Personal folder tree appears besides Public folder when
+                  you go to Folder > Subscription (Johnny Jacob)
+	#582110 – build: dolt has some link issues with library dependency
+                  (Marc-André Lureau)
+	#184554 – (bnc) multiple groupwise open notices (Chenthill Palanisamy)
+	#494490 – (bnc) Fixes a crash while moving messages twice
+                  (Chenthill Palanisamy)
+	#498712 – (bnc) meetings are not deleted properly sometimes
+                  (Chenthill Palanisamy)
+	#498745 – (bnc) Read/Unread count is not syncronized properly
+                  (Chenthill Palanisamy)
+	#499105 – (bnc) do not update the server utc time when the
+                  calendar opens (Chenthill Palanisamy)
+	#500133 – (bnc) show mails with same subject in a single thread
+                  (Chenthill Palanisamy)
+
+Updated Translations:
+
+	Jorge Gonzalez (es)
+	Ivar Smolin (et)
+	drtvasudevan (ta)
+
+Evolution-Data-Server 2.27.1 2009-05-04
+----------------------------------------
+
+Bug fixes:
+	#480091 (bnc) - Crash From Filters Moving To Sub-Folders 
+	#477697 (bnc) - Evolution GroupWise Sender column is blank
+	#576424 - Do not unref object twice and treat icalcomponent as it, not as icaltimezone.
+	#573187 - Do not leak unchanged components.
+	#569700 - Disconnect properly on a failure
+	#564465 - Pass correct body for signature verification
+	#573880 - Properly encode given uri before using it
+	#571677 - Do not duplicate timezones in a file on open
+	#575084 - Check for actual SQLite3 version in runtime
+	#577002 - Do not leak ".ev-journal" file handles
+	#574522 - Free list's members of e-proxy properly
+	#241604 (bnc) - Fixes monthly recurring appointments to be created on correct dates
+	#471083 (bnc) - Do not allow deletion of system folders
+	#488632 (bnc) - Fixes the number of instances created on server
+	#561312 - Need not merge master event dates as evo handles it now
+	#573205 - Use the util function to load the system timezone if its not
+	#556116 - support for unmatched search folder
+	#578823 - fixed a wrong condition
+	#578210 - fix the code to handle re-entrant problem
+	#578817 - fixed potential invalid dereference
+	#578822 - fixed potential invalid dereference
+	#578818 - only do closedir() if directory is not NULL
+	#343505 - Make Search ignore accents for address book summary searches
+	#381132 - Allow getting system timezone information in libecal
+	#552583 - Compare URLs only on protocol, user, host and port for smtp and pop3
+	#569652 - Deprecate e_source_list_peek_group_by_name
+	#571206 - Index files on Maildir accounts are not updated
+	#563954 - Define camel_folder_cmp_uids to compare UIDs properly
+	#478239 - Unset attachment icon if no attachment found
+	#575773 - Set new object properly on object modify in a file calendar backend
+	#553932 - Ask calendar on a readonly state after changing its mode
+	#567731 – Redundant declarations in camel-folder-summary.h
+	#577485 – CRL strings suck: explain the abbrevation
+	#572977 – Use g_strerror() instead of strerror()
+	#577491 – "mailbox:%s (%s)" typo
+	#573170 - Add back support for vfolder of vfolders
+
+Updated translation:
+
+	Kjartan Maraas (nb)
+	Anas Afif Emad (ar)
+	Manoj Kumar (or)
+	Jorge Gonzalez (es)
+	Baris Cicek (tr)
+	Gabor Kelemen (hu)
+	Milo Casagrande (it)
+	Philip Withnall (ne)
+	
+
+Evolution-Data-Server 2.26.0 2009-03-16	
+----------------------------------------
+
+What is in 2.26.0?
+
+	Support CalDAV for VTODO and VJOURNAL (Milan Crha)
+	Improved Camel/Sqlite support
+	Dropped libical fork and uses upstream libical
+	Exchange MAPI support for Exchange 2007 connectivity.
+	Mail summary database restructured for use by Tracker/Beagle
+	Loads of bug fixes
+
+Evolution-Data-Server 2.25.92 2009-03-02
+----------------------------------------
+
+Updated Translations:
+	Alexander Shopov (bg)
+	Andre Gondim (pt)
+	Arangel Angov (mk)
+	Changwoo Ryu (ko)
+	Chao-Hsiung Liao (zh)
+	Claude Paroz (fr)
+	Clytie Siddall (vi)
+	Daniel Nylander (sv)
+	David Planella (ca)
+	Duarte Loreto (pt)
+	Gabor Kelemen (hu)
+	Ilkka Tuohela (fi)
+	Inaki Larranaga Murgoitio (eu)
+	Ivar Smolin echo
+	Jani Monoses (ro)
+	Jiri Eischmann (cs)
+	Jorge Gonzalez (es)
+	Kenneth Nielsen (da)
+	Kjartan Maraas (nb)
+	Luca Ferretti (it)
+	Philip Withnall (en)
+	Robert Sedak (hr)
+	Sweta Kothari (gu)
+	Takeshi AIHANA (ja)
+	Theppitak Karoonboonyanan (th)
+	Vladimir Melo (pt)
+	Wadim Dziedzic (pl)
+	Wouter Bolsterlee (nl)
+
+Bug Fixes:
+	#266147 : Verify signature of the encrypted text, if any (Milan Crha)
+	#273233 : Show to user also reason why the operation failed (Milan Crha)
+	#477535 : Randomly mail status changes were not getting stored in server (Sankar P)
+	#534938 : Remember which IDs we added to the folder and ignore these in report of recent messages (Milan Crha)
+	#555888 : Use proxy configurable within Evolution (Milan Crha)
+	#563212 : Track state of the operation, three states WAITING, PROCESSING, CANCELLING and cancel or process only those WAITING (Milan Crha)
+	#567008 : Avoiding the clearing of the uids in the spool summary if forceindex is true (Jeff Cai)
+	#567861 : Two sources also differ when one has set color_spec and the other not (Milan Crha)
+	#569459 : Revert back to including <libical/ical*.h> (Suman Manjunath)
+	#570653 : Kill n_std_folders and use G_N_ELEMENTS (std_folders) instead (Matthew Barnes)
+	#570696 : Define GDATA_CFLAGS and GDATA_LIBS and explicitly require libsoup-2.4 and libxml-2.0 (Matthew Barnes)
+	#570765 : Do not store UTC to the component (Milan Crha)
+	#571046 : Always strip trailing white-spaces added during message transmission, before verifying message signature (Milan Crha)
+	#571726 : Fix a translatable string typo (Matthew Barnes)
+	#571761 : Stop using deprecated GtkType macros (Matthew Barnes)
+	#572268 : Do not create duplicate folder infos (Milan Crha)
+	#572566 : Do not set/access NULL pointers (Milan Crha)
+	#572950 : Fix ordering of -I compiler directives (Daniel Macks)
+	#573175 : Use a proper format string to call g_set_error with (Tobias Mueller)
+	#573240 : Do not disconnect on user canceled (Milan Crha)
+	#573497 : Use "%s" as format-string to g_set_error (Tobias Mueller)
+	#566984 : (Tom Parker)
+	#570696 : Remove unnecessary dependencies from libgdata (Daniel Macks)
+	#573183 : Use a gint64 for a format string with the macro PRId64 (Tobias Mueller)
+	#573494 : Use a const char[] instead of a const char* for a fixed sized format-string to increase auditability (Tobias Mueller)
+	#549838 : Entity-encode the text and target URL of links when formatting plain text mail to HTML for display (Matt McCutchen)
+
+Other contributions:
+	AC_HELP_STRING instead of AS_HELP_STRING (Tor Lillqvist)
+	Add a "no space" error (Ross Burton)
+	Add e_contact_field_id_from_vcard() (Ross Burton)
+	Add EVC_X_SIP and E_CONTACT_SIP (Ross Burton)
+	Comment too recent error codes (Milan Crha)
+	Fix -Wold-style-definition warnings (Andre Klapper)
+	Handle EContactName structures containing NULLs (Ross Burton)
+	Move e_book_view_set_book to -private (Ross Burton)
+	Recompute digests from the signed message content (Nalin Dahyabhai)
+	Some help comments for the future maintainers (Sankar P)
+	Include <libical/ical*.h> (Suman Manjunath)
+	Use correct server parameter for getting folder information (Sankar P)
+
+Evolution-Data-Server 2.25.90 2009-02-02
+----------------------------------------
+
+Updated Translations:
+	Andre Klapper (de)
+	Changwoo Ryu (ko)
+	David Planella (ca)
+	Gabor Kelemen (hu)
+	Laurent Coudeur and Claude Paroz (fr)
+	Matthew Barnes (PO)
+	Yair Hershkovitz (he)
+
+Bug Fixes:
+	#390198 : Free the exception object which was leaking. (Sankar P)
+	#464758 : Evolution crashes while moving mails to Junk in Groupwise (Sankar P)
+	#464878 (BNC) : When an HTML attachment contains an image tag with a source that returns a "HTTP/302 Moved Temporarily", that image is not displayed (Simon Brys)
+	#467075 (BNC) : Incorrect url is displayed in Evolution plain text mails when the url is surrounded by brackets (Simon Brys)
+	#467638 (BNC) : Fix the broken current_folder handling code. Lots of issues are fixed. some may remain yet. (Sankar P)
+	#470143	: GroupWise Container Crash (Sankar P)
+	#557348 : Search folders with "Include threads" do not update reliably (Srinivasa Ragavan)
+	#568332 : Sqlite vfs for async disk wrigte (Milan Crha)
+	#568561 : crash in summary_reloaded (Srinivasa Ragavan)
+	#569405 : Negated header criterion fails to match messages without the header (Matt McCutchen 2)
+	#569742 : Do not crash when open of the file failed. Also be thread safe with respect of filling global variables. (Milan Crha)
+	#569874 : Crash while deleting messages  (Srinivasa Ragavan)
+	#347287 : MVC for calendar. Store the current operation going on. (Chenthill Palanisamy)
+	#550414 : Corruption of mbox and failure to expunge (Hiroyuki Ikezoe)
+
+
+Other contributions:
+	Add libical to the calendar and server deps to ensure that it is available everywhere it is needed, and not checked if we're not building the calendar. (Ross Burton)
+	Fix compiler warning (Srinivasa Ragavan)
+	"GUI" executable on Windows to avoid console windows that annoy end-users. (Tor Lillqvist)
+	Include appropriate headers which otherwise cause build failures with strict compiler settings. (Suman Manjunath)
+	Remove some trailing whitespace. (Ross Burton)
+	Allow cross-compiling e-d-s for windows fix some win32 hickups. (Fridrich Strba)
+	Use G_DEFINE_TYPE. (Ross Burton)
+	Use GObject private data instead of g_new(). (Ross Burton)
+
+
+Evolution-Data-Server 2.25.5 2009-01-19
+---------------------------------------
+
+Updated Translations:
+	Andre Klapper (de)
+	Kjartan Maraas (nb)
+	Luca Ferretti (it)
+	Wadim Dziedzic (pl)
+
+Bug Fixes:
+	#303738 : Return AuthFailed when need auth, to ask for a password again, or return AuthRequired to indicate we require authentication. (Milan Crha)
+	#360813 : RFC 2445 - CREATED/DTSTAMP/LAST-MODIFIED always in UTC.  (Milan Crha)
+	#435599 : Don't do to displaying and creation of organization's contact in evolution.  (Ashish Shrivastava)
+	#439986 (bugzilla.novell.com) : Set the transparency on the cached object. (Chenthill Palanisamy)
+	#443296 (bugzilla.novell.com) : Free memory only after it is duped.  (Suman Manjunath)
+	#443544 (bugzilla.novell.com) : Send a 'Free' block to the frontend if there are no 'Busy' blocks. Also set the start/end of the Free/Busy range. (Suman Manjunath)
+	#463095 : Fix cinfo parsing logic (Simon Brys)
+	#501298 : Make _open function quick as much as possible, to not block the sync_backend lock for long, thus other threads can work with it too. Do not search a book when it wasn't opened correctly. Do not ref/unref backend in a structure which backend holds itself. (Milan Crha)
+	#518920 : Handle relative URIs in value of action attribute of form in form-based authentication. (Chow Loong Jin)
+	#554182 : Don't use 'authmech' for URL comparision. (Milan Crha)
+	#557348 : Re-did bits of threaded vfolder (Matt McCutchen)
+	#562200 : Define subclass of a GtkCellRendererToggle, which toggles itself only when user clicks over the toggle cell and not in any other case. of a GtkCellRendererToggle to prevent unnecessary toggling in a source selector when source itself doesn't have defined its color. (Milan Crha)
+	#564339 : Reduce the IO done during sync by not reading into memory locally cached files. (Robert Collins)
+	#564543 : Bump gtk_minimum_version to 2.14.0. (Matthew Barnes)
+	#564543 : Call soup_form_encode_hash() instead of soup_form_encode_urlencoded(). Call soup_session_add_feature() instead of soup_logger_attach(). Fix what we can with GSEAL_ENABLE defined. (Matthew Barnes)
+	#564954 : Fix SQL-ization of booleans and immediate-function confusion. (Matt McCutchen)
+	#566279 : Introduces a new API in Camel needed for implementing EPlugin of Bug #565091 (Philip Van Hoof  )
+	#565376 : Support more search options (Milan Crha)
+	#567384 : Remove unused variables. Comment out variables that are used by commented out code to silence compiler warnings. (Matthew Barnes)
+
+Other contributions:
+	DB Logging and DB Optimizations  (Srinivasa Ragavan  )
+	Manage GroupWise counts better. fix bugs in read-cursor elimination. A brand new flags handling code for GroupWise provider. (Sankar P)
+	Always send XEV headers with messages. (Srinivasa Ragavan)
+	Allowing devleoper to add migration code for in case the schema of Camel's summary SQLite data format changes. Also adds two columns, modified and created, to the summary data being stored and renames the column msg_security to dirty as requested by Srinivasa Ragavan and Sankar P.  (Philip Van Hoof)
+	Hack and debug log to get one hard to get imap crash. (Srinivasa Ragavan)
+	Fix for better vfolder flag syncing and count (Srinivasa Ragavan)
+	Sync using counting manually than the old approach (Srinivasa Ragavan)
+
+Evolution-Data-Server 2.25.4 2009-01-05
+---------------------------------------
+
+Bug Fixes:
+	#209514: (Novell Bugzilla) Addresses some missing mails issues. Optimization fixed (Sankar P)
+	#446290: Parallel clients support and (un)read count handling (Sankar P)
+	#448079: (Novell Bugzilla) Avoid invalid reads by validating optional fields (Sankar P, Simon Brys)
+	#449916: (Novell Bugzilla) Display multiple lines of an assinged asks or shared memo. (Bharath Acharya)
+	#462575: (Novell Bugzilla) Extend function to honor "Check in all folders" setting (Simon Brys)
+	#559153: Migration improvements (Sankar P)
+	#564652: Convert time from UTC properly. Leak a bit less (Milan Crha)
+
+Updated Translations:
+	Jorge Gonzalez (es)
+
+Evolution-Data-Server 2.25.3 2008-12-15
+---------------------------------------
+
+Bug Fixes:
+	#270376: Skype name field added to the  list of IM information (Sasa Ostrouska)
+	#348299: New files implement category completion (Matthew Barnes)
+	#352287: Share locations and forecast rertieving with libgweather (Milan Crha)
+	#357948: Show preview of the selected image file when choosing new icon (Milan Crha)
+	#435632: (Novell Bugzilla) Don't unref when things aren't reffed (Srinivasa Ragavan)
+	#440265, #447121: (Novell Bugzilla) Fix some stupidity (Srinivasa Ragavan)
+	#451734: Correctly set Blythe, CA URL (Ian Weisser)
+	#503662: Use last '@' in the address part to be the delimiter between user name and server address, not the first one (Milan Crha)
+	#545834: Update mailing list information after full retrieval if necessary (Milan Crha)
+	#552986: Ensure error description is valid UTF-8 text before using it (Milan Crha)
+	#558883: Don't do DB sort from IMAP (Srinivasa Ragavan)
+	#561081: Delete mails for XGWMOVE when mails are moved (Srinivasa Ragavan)
+	#561561: Use a sufficiently large buffer for  strings used as an operand in strftime() (Federic van Starbann)
+	#562228: Always store correct owa_path when validating, without trailing slash and without mailbox name (Milan Crha)
+	#562567: Remember local/remote mode correctly. Also done various cleanups, less debug output and waits for the slave thread only if exists (Milan Crha)
+
+Updated Translations:
+	Kjartan Maraas (nb)
+	Luca Ferretti (it)
+	Gabor Kelemen (hu)
+
+Evolution-Data-Server 2.25.2 2008-12-01
+---------------------------------------
+
+New in 2.25.2
+	Support CalDAV for VTODO and VJOURNAL (Milan Crha)
+
+Bug Fixes:
+       #359745: Support CalDAV for VTODO and VJOURNAL (Milan Crha)
+       #524377: Attachments with localised letters are unrecognised by Outlook (Milan Crha)
+       #527692: CalDAV does not work with Apple CalDAV  (Milan Crha)
+       #531090: Deprecate dead API in camel-object.h (Matthew Barnes)
+       #546637: Mail opened from the "Unread mails" displays empty list (Srinivasa Ragavan)
+       #555979: Evolution does not empty trash on exit (Milan Crha)
+       #556119: Evolution takes a very long time to index newsgroup (Srinivasa Ragavan)
+       #557348: Search folders with "Include threads" do not update reliably (Srinivasa Ragavan)
+       #557818: Centralize ESourceSelector drag-n-drop handling (Matthew Barnes)
+       #558322: Pressing "F2" on a highlighted Task List / Memo List / Address Book / Calendar 
+                should bring up the properties dialog box (Matthew Barnes)
+       #558737: Evolution freezes on trying to store folder (Milan Crha)
+       #558883: Evolution 2.24 is terribly slow with large IMAP folders (Milan Crha) (Srinivasa Ragavan)
+       #559272: Evolution freeze while using a CalDAV calendar (Milan Crha)
+       #560076: Follow-Ups doesn't work in 2.24 (Srinivasa Ragavan)
+       #560185: Support 'getctag' in CalDAV, if available (Milan Crha)
+       #560681: Parsing QUOTED-PRINTABLE vcards probably ignores CHARSET info (Milan Crha)
+       #560981: Result of xpath query is not freed in CalDAV synch loop (Andrew McMillan)
+       #561069: Evolution crashed expunging 48k deleted junk messages (Srinivasa Ragavan)
+       #561466: Changes needed in E-D-S for evolution-mapi (Suman Manjunath)
+       #435964 (bugzilla.novell.com): Crash after switching from offline to online in GW addressbook (Ashish Shrivastava)
+
+Evolution-Data-Server 2.25.1 2008-11-03
+---------------------------------------
+
+Bug Fixes:
+	#209514, #372382, #434958, #434946, #435725, #434950, #435727, #440502: (Novell Bugzilla) GroupWise improvements (Sankar P)
+	#313225: Fix misunderstanding of the parameter in code causing crash in this part (Milan Crha)
+	#315919: Show contact's photo in the completion list if available locally. (Milan Crha)
+	#337479: Do not use uninitialized variables (Milan Crha)
+	#364542: Be able to cancel async op too (at least any) (Milan Crha)
+	#497928: Check for NULL pointers before accessing members of the structure (Milan Crha)
+	#511947: Do not parse response when status indicates failure. (Milan Crha)
+	#514670: Check for errors properly. Also do not use uninitialized variables (Milan Crha)
+	#537718: Be able to cooperate with servers which use redirections. Support for (default) timezone information on the backend. Store component's timezone(s) in cache to have them available. (Milan Crha)
+	#544141: Do not store invalid values in 'standard_uris', it leads to crash later (Milan Crha)
+	#546406: Don't lookup password from old keyring. (Srinivasa Ragavan)
+	#546637: Redo for unread vfolder (Srinivasa Ragavan)
+	#547243: Check for correct values to prevent invalid reads. (Milan Crha)
+	#550466: Ignore 'no such table' errors (Milan Crha)
+	#550980: Fix the offline mode string to be more helpful. (Philip Withnall)
+	#550998: Refresh, when everything local is deleted on the server (Srinivasa Ragavan)
+	#552261: Don't expose sqlite3 header outside. (Srinivasa Ragavan)
+	#552491: Check for NULL output from xmlParseDoc before continuing (Philip Withnall)
+	#552631: Do not forget password on 'resource temporarily unavailable' exception (Milan Crha)
+	#553148: Standardise "GroupWise" usage in translatable strings (Philip Withnall)
+	#553266: Do not free memory owned by someone else (Milan Crha)
+	#553298: Unset all known server flags on the message when the resulting flag list is empty (Milan Crha)
+	#553301: Do not forget password when server not available at the moment or user cancelled (Milan Crha)
+	#553944: Do not unsubscribe from the server when destroying context and make copy of the uri, because it comes from the structure we are going to free (Milan Crha)
+	#554455: Allow thread based searches by falling back on the old in-memory search model (Srinivasa Ragavan)
+	#554540: Don't compare XML data of ESource* literally. Instead, compare them semantically. (Suman Manjunath)
+	#556372: Update counts to summary on sync (Srinivasa Ragavan)
+	#556495: When things don't match, remove them from db and force a count (Srinivasa Ragavan)
+	#556688: Sync before emitting the signal (Srinivasa Ragavan)
+	#558727: Fix some potential string format crashes (Frederic van Starbmann)
+
+Updated Translations:
+	Jorge Gonzalez (es)
+	Vladimir Melo (pt_BR)
+	Ignacio Casal Quinteiro (gl)
+	Ivar Smolin (et)
+	Kjartan Maraas (nb)
+	Yair Hershkovitz (he)
+
+Evolution-Data-Server 2.24.0 2008-09-22
+---------------------------------------
+
+New in 2.24.0
+	* Google Contacts Backend
+	* WebDAV Contacts Backend
+	* Sqlite based on-disk summary for Camel
+	* Quota support for IMAP
+
+Bug Fixes:
+	#418080: (Novell Bugzilla) Match contains using %like% (Srinivasa Ragavan)
+	#551805: Honour return data type (Milan Crha)
+	#552724: Remove a while space following trailing backslash. (Hiroyuki Ikezoe)
+	#552729: Adds support for x-camel-mlist & Answered flag to search/vfolders. (Srinivasa Ragavan)
+
+Updated Translations:
+	Wadim Dziedzic (pl)
+	Kenneth Nielsen (da)
+	Takeshi AIHANA (ja)
+	Igor Nestorović (sr, sr@latin)
+	Žygimantas Beručka (lt)
+	Djihed Afifi (ar)
+	Tirumurthi Vasudevan (ta)
+	Tino Meinen (nl)
+	David Planella (ca)
+	Jiri Eischmann (cs)
+	Duarte Loreto (pt)
+	Sandeep Shedmake (mr)
+	Luca Ferretti (it)
+	Daniel Nylander (sv)
+	Gabor Kelemen (hu)
+
+Evolution-Data-Server 2.23.92 2008-09-08
+----------------------------------------
+
+Bug Fixes:
+	#418080: (Novell Bugzilla) Make thing better, with new sexp/sql parser. (Srinivasa Ragavan)
+	#547884: Do not crash on unexpected response, rather skip it (Milan Crha)
+	#548343: Do not read summary information for the folder from DB when we have it fresh in memory already (Milan Crha)
+	#550412: Make sure that a NULL CamelFolderInfo is always gracefully handled. Document that. (Paul Bolle)
+
+Updated Translations:
+	Philip Withnall (en_GB)
+	Funda Wang (zh_CN)
+	Andre Klapper (de)
+	Changwoo Ryu (ko)
+
+Evolution-Data-Server 2.23.91 2008-09-01
+----------------------------------------
+
+Bug Fixes:
+	#213072: Sort mbox/spool summary uids by from_pos (Srinivasa Ragavan)
+	#391936: (Novell Bugzilla) To solve hang issue after e-d-s crash (Ashish Shrivastava)
+	#418080: (Novell Bugzilla) Support 'not' operator in search (Srinivasa Ragavan)
+	#466754: Sort the model itself by category name, so that new categories appear in the appropriate place in the list (Vingnesh Prabhu)
+	#518728: Fix subtle link error: system libs before Evolution libs (Patrick Ohly)
+	#546926: Explicitly call camel_shutdown() instead of g_atexit() or atexit() (Matthew Barnes)
+	#548331: Put back the summary mismatch. It is more serious now (Srinivasa Ragavan)
+	#548565: Add 'void' to make it built on Solaris. (Shuai Liu)
+	#548865: Dont crash, if the folder isn't there (Srinivasa Ragavan)
+	#550072: Allow evolution-rss content type on body-search (Lucian Langa)
+
+Updated Translations:
+	Shankar Prasad (kn)
+	Daniel Nylander (sv)
+	Kjartan Maraas (nb)
+	Ilkka Tuohela (fi)
+	Runa Bhattacharjee (bn_IN)
+	Leonardo Ferreira Fontenelle (pt_BR)
+	Takeshi AIHANA (ja)
+	Inaki Larranaga Murgoitio (eu)
+	Robert-AndrÃ© Mauchin (fr)
+	Ignacio Casal Quinteiro (gl)
+	Theppitak Karoonboonyanan (th)
+
+Evolution-Data-Server 2.23.90 2008-08-18
+----------------------------------------
+
+Bug Fixes:
+	#207728: Always cut/copy whole address from the selector entry, when selected whole, thus paste will be with correct address, not the text only (Milan Crha)
+	#324203: Check for source option "can-browse" in LDAP address books and if present, then search until reaches limits for empty searches. (Milan Crha)
+	#327851: Skip detached instances which doesn't belong to requested time range (Milan Crha)
+	#337503: Fixed a crash when renaming a folder twice (Milan Crha)
+	#510949: Memory leak fix (Milan Crha)
+	#510949: Memory leak fix and compiler warnings fix (Milan Crha)
+	#523103: Fix a leak (Sankar P)
+	#531930: Improve loading of appointment items (Stanislav Slusny)
+	#535745: Put public include files to google/libgdata-google. Include also path to libgdata in CFLAGS (Milan Crha)
+	#538074: Add gthread-2.0 in CAMEL checking (Jeff Cai)
+	#545021: Check for NULL and other code cleanups (Tobias Mueller)
+	#545877: Use CamelDList instead of EDList (Matthew Barnes)
+	#546397: Do not leak objects from loaded_infos array. (Milan Crha)
+	#546444: Don't loop infinitely when the network connection is lost while fetching a message. (Sergio Villar Senín)
+	#546544: Don't try print folder name, when folder is NULL. Print the summary path for such debugging purposes (Srinivasa Ragavan)
+	#546613: Return NULL, if unmatched folder is requested. (Srinivasa Ragavan)
+	#547256: Handle plain match-all (Srinivasa Ragavan)
+	#547308: Do not reauthenticate to the GAL server more than twice (Milan Crha)
+	#547389: Fix crash on account search. Unhook the signals on finalize (Srinivasa Ragavan)
+	#547469: Count only when you have results (Srinivasa Ragavan)
+	#547786 : Test events against search expression when required. (Milan Crha)
+	#547952 : Don't display empty source groups. (Mathew Barnes)
+	#548059 : NULL check message-id before accessing its elements. (Priit Laes)
+
+Updated Translations:
+	Kjartan Maraas (nb)
+	Shankar Prasad (kn)
+	Chao-Hsiung Liao (zh_HK)
+	Chao-Hsiung Liao (zh_TW)
+	Duarte Loreto (pt)
+	Ilkka Tuohela (fi)
+	Ivar Smolin (et)
+	Takeshi AIHANA (ja)
+	Djihed Afifi (ar)
+
+Evolution-Data-Server 2.23.6 2008-08-04
+---------------------------------------
+
+New in 2.23.6:
+	Rewrite camel search by converting sexp to sql (Srinivasa Ragavan)
+	WebDAV Contacts backend (Matthias Braun)
+	
+Bug Fixes:
+	#336074: New option "check_lsub", when set, then checking for new messages in subscribed folders (Milan Crha)
+	#349870: Do not hide errors, rather report them to the caller as expected (Milan Crha)
+	#388966: (Novell Bugzilla) Use right data type (Chenthill Palanisamy)
+	#468671: Read timezone name of the calendar and let it be available for others (Milan Crha)
+	#500389: New ability to set different authentication type to Global Address List (GAL) and OWA (Milan Crha)
+	#538620: Improve wording of "cannot get message" error message (Matthew Barnes)
+	#540295: Previous POSIX logic didn't work for VFAT filesystems (Sergio)
+	#543569: Recreate cache, if it was blown (Srinivasa Ragavan)
+	#543943: Fix memory leak (Milan Crha) 
+	#544031: Compiler warnings cleanup (Milan Crha)
+	#544049: Initialize global variables, just to be sure (Milan Crha)
+	#544114: Do a sync before we reload things (Srinivasa Ragavan)
+	#544284: Use (void) 0 insead of '0' in the conditional statement (Jeff Cai)
+	#544491: Lock while 2 thread try to access same folder's table using same handle (Srinivasa Ragavan)
+	#544501: Handle single node search queries (Srinivasa Ragavan)
+	#544528: Ignore match-threads. It wont be supported with new disk summary. Handle cases where it crashes (Srinivasa Ragavan)
+	#544651: Interpret and update given list pointer properly (Milan Crha)
+	#544825: Never hold the summary lock and do a disk operation. It leads to dead lock (Srinivasa Ragavan)
+	#544963: Include camel-search-sql.h in headers. (Frederic Peters)
+	#545022: ea_setting_setup calls g_conf_free with NULL argument (Tobias Mueller)
+	#545081: Add a new simple delete cache function (Srinivasa Ragavan)
+	#545082: Folder rename requires restart to show mails (Srinivasa Ragavan)
+	#545099: Improve flag sync. When new mails added, update the summary. (Srinivasa Ragavan)
+	#545103: We test only against changes, thus detect ranges properly to not touch other messages than we are actually changed (Milan Crha)
+	#545558: Disable the Hula provider unless --enable-hula was given at configure-time. (Matthew Barnes)
+
+Other Contributors:
+	Search goodness. Make use of the new sexp parser (Sankar P)
+	Camel Reference Manual improvements: Add more sections to the Table of Contents (Matthew Barnes)
+
+Updated Translations:
+	Jorge Gonzalez (es)
+	Kjartan Maraas (nb)
+	Ivar Smolin (et)
+	Djihed Afifi (ar)
+	Ignacio Casal Quinteiro (gl)
+	Jonh Wendell (pt_BR)
+	Fabrício Godoy (pt_BR)
+	Bruno Brouard (fr)
+
+Evolution-Data-Server 2.23.5 2008-07-21
+----------------------------------------
+
+New in 2.23.5:
+	Camel DB Summary support. (Srinivasa Ragavan & Sankar P)
+	Google Contacts support (Jörgen Scheibengruber)
+
+Bug Fixes:
+	#236010: Anonymously modify LDAP entries (Milan Crha)
+	#543066: Updated documentation of two libecal functions (Paul Bolle)
+	#200147: Stores the templates folder uri (Bharath Acharya)
+	#213072: Lock while rebuilding summaries. (Srinivasa Ragavan)
+	#253509: Added translators comment (Milan Crha)
+	#329571: Preserve detached instances when modifying master object (Milan Crha)
+	#330838: Notify application about server folder changes as soon as we know about them (Milan Crha)
+	#334160: Changed the way when test the expiration of the cache (Milan Crha)
+	#340838: Use the whole URL even when not the proxy set, because the URL can contain parameters, which are not part of the path (Milan Crha)
+	#476640: Deleting a meeting after someone accepted invitation now works (Milan Crha)
+	#503922: Fix typo in mapping flag name "draft". (Matt McCutchen)
+	#515998: On any error in remove calendar just print the message on the console and return success (Milan Crha)
+	#528902: Use current system time zone definitions instead of possibly out-dated custom definitions (Patrick Ohly)
+	#531712: Do not reset flags on no-flag situation (Milan Crha)
+	#532472: Force a password reprompt if the SMTP server rejects our password with a 535 response (Matthew Barnes)
+	#534080: Return correct bytes_written on success and -1 on error (Priit Laes)
+	#537415: Break a busy loop between Evolution and Gnome-Keyring by only reauthenticating (Matthew Barnes)
+	#539758: Report success when looking for an empty string in a value (Milan Crha)
+	#540127: Evolution can now connect to LDAP server on port 636 using SSL (Wang Xin)
+	#540152: Fixed leaks (Julien Puydt)
+	#541347: Include header files in proper order (Matthew Barnes)
+	#543656: Add sqlite3 to to EVO_SET_COMPILE_FLAGS(CAMEL) to fix the build (Luca Ferretti)
+
+Other Contributors:
+	New method to sort an array of uids (Jeffrey Stedfast)
+	Don't crash if the str argument is NULL (Jeffrey Stedfast)
+	Copy/pasted GMime's decode_date() code to replace really nasty code (Jeffrey Stedfast)
+	Setup progress reporting for message sending (Jeffrey Stedfast)
+	[Win32] Use -D when using -r to not add pointless entries for directories in the zip files (Tor Lillqvist)
+
+Updated Translations:
+	Ignacio Casal Quinteiro (gl)
+	Andre Klapper (de)
+	Yair Hershkovitz (he)
+	Yannig Marchegay (oc)
+	Kjartan Maraas (nb)
+	Jorge Gonzalez (es)
+
+Evolution-Data-Server 2.23.4 2008-06-16
+----------------------------------------
+
+Bug Fixes:
+	#394654: (Novell Bugzilla) Fix for Groupwise crasher (Chenthill Palanisamy)
+	#304029: Improve LDAP addressbook search filter (Milan Crha)
+	#509721: Do not delete original message if exception occurred (Milan Crha)
+	#521921: Handle redirects in a way that works with Google API. Fixes some cases of entries not being created or deleted (Sebastian Keller)
+	#527544: Added support for proxy (Wang Xin)
+	#530241: Recognize no-flag situation properly and in that case use two commands (Milan Crha)
+	#534080: Use g_output_stream_write_all instead of g_output_stream_write (Milan Crha)
+	#534111: Copying past the end of the buffer can cause core dumps (Paul Smith)
+	#536154: Camel sends bracketed hostname in SMTP HELO (Tor Lillqvist)
+	#536636: Allow e-d-s to build with G_DISABLE_SINGLE_INCLUDES and GTK_DISABLE_SINGLE_INCLUDES defined. (Matthew Barnes)
+
+Other Contributors:
+	Multiple fixes to build evolution on Windows (Tor Lillqvist)
+
+Updated Translations:
+	Djihed Afifi (ar)
+	Hedayat Vatankhah (fa)
+
+Evolution-Data-Server 2.23.3 2008-06-02
+----------------------------------------
+
+New in 2.23.3:
+	Implement support for getting and setting IMAP4 cache's expire settings (Jeffrey Stedfast)
+
+Bug Fixes:
+	#318803: Do not show ".#evolution" directory in the UI (Ilkka Tuohela)
+	#326149: Set inbox flag only on real inboxes (Milan Crha)
+	#354923: Store passwords in the keyring by server, username and protocol (Matthew Barnes)
+	#374616: Return proper IMAP error (Milan Crha)
+	#388579: (Novell Bugzilla) Fix for Exchange crasher (Chenthill Palanisamy)
+	#473658: Fix a crash when starting evolution (Milan Crha)
+	#518312: Work around the broken "Jive Forums" NNTP gateway (Jeffrey Stedfast)
+	#530514: Added a necessary condition to handle a specific server response and to prevent a crash (Sankar P)
+	#530543: Large memory leak while syncing mails for offline usage (Sankar P)
+	#530763: Return NULL if the value of dest_folder is disturbed to prevent the crash (Bharath Acharya)
+	#531009: Use the right iterator to prevent a crash in offline mail movement (Sankar P)
+	#531439: Prevent GPG passphrases from destroying other passwords (Matthew Barnes)
+	#531591: Don't use TeX-style quotes in user-visible messages (Matthew Barnes)
+	#531713: Split the evolution-data-server version into major/minor/micro macros (Matthew Barnes)
+	#532286: Fix some whitespace issues, and make the Caps Lock label smaller (Matthew Barnes)
+	#533058: Enable GROUPWISE_DEBUG logs (Sankar P)
+	#533780: Link against libebackend (Ed Catmur)
+	#534077: Don't use freed memory (Paul Smith)
+	#534294: Fix a crash when checking for junk in a virtual folder (Hiroyuki Ikezoe)
+	#534312: Support to save Forwarded flag (Milan Crha)
+
+Updated Translations:
+	Philip Withnall (en_GB)
+	Clytie Siddall (vi)
+	Ivar Smolin (et)
+	Tino Meinen (nl)
+	Gil Forcada (ca)
+	Jorge Gonzalez (es)
+	Kjartan Maraas (nb)
+	Djihed Afifi (ar)
+	Yair Hershkovitz (he)
+	Theppitak Karoonboonyanan (th)
+
+Evolution-Data-Server 2.23.2 2008-05-12
+----------------------------------------
+
+Bug Fixes:
+	#182380: (Novell Bugzilla) Message classification and security cannot be viewed (Sankar P)
+	#274316: Moving a message does not retain the follow-up flag or label (Milan Crha)
+	#301980: Warn user when Caps Lock is on (Milan Crha)
+	#316390: New API to support listening for changes in categories (Milan Crha)
+	#325882: If a parent window was given, make the password dialog transient for the parent and center it over the parent (Matthew Barnes)
+	#330990: Allow remove only one instance of the recurring event (Milan Crha)
+	#338330: (Novell Bugzilla) Internet based calendar events are declined by Evolution/GroupWise (Chenthill Palanisamy)
+	#347061: Don't limit references while loading the summary, etc to 500 entries - especially since we don't force the limit when outputting the summary (Jeffrey Stedfast)
+	#350143: (Novell Bugzilla) Plugged severe memory leak in evolution-data-server (Chenthill Palanisamy)
+	#358584: (Novell Bugzilla) Display of web calendars ignores timezones (Chenthill Palanisamy)
+	#358644: (Novell Bugzilla) Retracted groupwise appointments should disappear as soon as they are retracted. (Chenthill Palanisamy)
+	#358650: (Novell Bugzilla) International clock applet is crashing (Chenthill Palanisamy)
+	#381307: (Novell Bugzilla) Run a single delta-thread to fetch changes from the server (Ashish Shrivastava)
+	#382736: (Novell Bugzilla) Exchange crashed everytime at start up. (Chenthill Palanisamy)
+	#424744: Remove Camel's dependency on libedataserver (Matthew Barnes)
+	#502899: Guard private folder's hash tables with a lock to prevent access to them from different threads at same time (Milan Crha)
+	#517244: Configure doesn't set HAVE_CODESET (Matthew Barnes)
+	#520532: Support migration from password file to keyring (Matthew Barnes)
+	#530139: Do not ship .svn files (Matthew Barnes)
+	#530323: Don't free the same variable twice (Sebastien Bacher)
+	#530688: evolution-data-server trunk build failes on solaris because of using s_addr as a variable (Wang Xin)
+	#532284: Fixes a double free (Sankar P)
+
+Other Contributors:
+	A lot of IMAP4 fixes (Jeffrey Stedfast)
+	Use new paths for header files that have been moved to libebackend (Rob Bradford)
+	Use "dialog-password" icon instead of "dialog-question" in the password dialog (HIG compliance) (Matthew Barnes)
+
+Updated Translations:
+	Yair Hershkovitz (he)
+	Jorge Gonzalez (es)
+	Kjartan Maraas (nb)
+	Ignacio Casal Quinteiro (gl)
+
+Evolution-Data-Server 2.23.1 2008-04-21
+----------------------------------------
+
+New in 2.23.1:
+	Configurable Proxy settings for Evolution. (Veerapuram Varadhan)
+	Quota Support for IMAP (Milan Crha)
+	Google contact API support in libgdata-google (Jörgen Scheibengruber)
+
+Bug Fixes:
+	#235681: First step in fixing header folding and prerving headers (Jeffrey Stedfast, Craig Shelly)
+	#257361: Ask for folder status on the server and rescan it in case different number of total or unseen messages than in the summary. (Milan Crha)
+	#270406: Added quota support to IMAP/POP accounts (Milan Crha)
+	#271863: Count junk messages which are not marked as deleted separately (Milan Crha)
+	#274316: Also copy user tags when copying messages between folders. (Milan Crha)
+	#303067: Random crash looking up addresses in new email (Milan Crha)
+	#341004: Hide the auth mech when CAMEL_URL_HIDE_AUTH is specified (Christian Kellner)
+	#369512: Store to folder's and store's summary actual numbers of unread/total/deleted/junked mails, not the old one. (Milan Crha)
+	#372383: (Novell Bugzilla) Mail size is not shown for some mails and not all related recurring appointments are deleted as well (Sankar P)
+	#417000: Fixed problem with display of subject containing accented characters in Microsoft Outlook (Jeffrey Stedfast)
+	#453109: Fixed a crash after entering password and clicking ok (Matthew Barnes)
+	#473880: Fixed a few compiler warnings (Suman Manjunath)
+	#475616: Use rather recursive mutex here. (Milan Crha)
+	#494311: Backend connection often dies on dual core processor (Ondrej Jirman)
+	#500389: Fall back to simple binds if the global catalog server does not support NTLM binds (Matthew Barnes)
+	#514300: Make sure we do the Inbox -> INBOX translation at the right place (Christian Kellner)
+	#514827: POP3 folder doesn't have a summary, it has its own cache, so read message time from it. (Milan Crha)
+	#516608: Use an EFlag in EBookOp instead of a GMutex/GCond pair. Makes the code simpler. (Matthew Barnes)
+	#518710: Use GLib's new MD5 Checksum API. (Matthew Barnes)
+	#518886: More code cleanups (Matthew Barnes)
+	#520526: Stop work as soon as we know application is going to exit. (Milan Crha)
+	#521015: Also check for changes in custom flags and store them, if any. (Milan Crha)
+	#522389: Use correct base64 decoding to fix stack corruption on x86_64 (Stanislav Brabec)
+	#522433: Open files with O_LARGEFILE flag. (Milan Crha)
+	#523023: Fix a severe reference count leak. (Matthew Barnes)
+	#523126: Initialize variable to NULL, so do not free random memory. (Milan Crha)
+	#523528: Some mails with attachments does not have an attachment icon in the mail list. (Sankar P)
+	#523533: Always return NULL or new allocated string. (Milan Crha)
+	#523541: Fix memory leaks (Milan Crha)
+	#523630,518656: Updated google service API's for error handling (Jörgen Scheibengruber)
+	#524324: Fix a critical runtime warning (Milan Crha)
+	#524704: Better parsing of non rfc2047 subject line (Milan Crha)
+	#525242: Enforce the minimum GLib version (Matthew Barnes)
+	#525485: Fetching Groupwise mails with attachments gets Evolution into an infinite loop (Sankar P)
+	#526138: Return NULL if the input string is NULL (Matthew Barnes)
+	#526741: Do not depend on gnomve-vfs, but use gio/gvfsinstead. (Milan Crha)
+
+Updated Translations:
+	Jorge Gonzalez (es)
+	Kjartan Maraas (nb)
+	Yuriy Penkin (ru)
+	Philip Withnall (en_GB)
+	Krishna Babu K (te)
+	Yavor Doganov (bg)
+	Ivar Smolin (et)
+
+Evolution-Data-Server 2.21.93 2008-03-10
+----------------------------------------
+
+Bug Fixes:
+	#327851: Try find timezone if entered only as a location name (Milan Crha)
+	#518728: Fix linking order of libecal-1.2 and libedata-cal-1.2. (Patrick Ohly)
+	#520362: Put all declarations at the beginnings of code blocks to make older compilers happy (Jens Granseuer)
+
+Other Contributors:
+	Minor API documentation updates (Matthew Barnes)
+
+Updated Translations:
+	Maxim Dziumanenko (uk)
+	Ankit Patel (gu)
+	Sandeep Shedmake (mr)
+	David Planella (ca)
+	Gabor Kelemen (hu)
+	Kenneth Nielsen (da)
+	Laurent Dhima (sq)
+
+Evolution-Data-Server 2.21.92 2008-02-25
+----------------------------------------
+
+Bug Fixes:
+	#163982: (Novell Bugzilla) Do not keep popping up error dialogs in case of failure (Chenthill Palanisamy)
+	#164140: (Novell Bugzilla) Fixes a crash (Chenthill Palanisamy)
+	#167638: Dont try downloading while exitting (Jeffrey Stedfast, Sankar P)
+	#183819: (Novell Bugzilla) Fixes a crashwhile closing evolution in offline mode (Chenthill Palanisamy)
+	#445489: Handle emails without '<>' in DLs.
+	#459468: Return proper error codes from e_gw_* if no items aren't return (Milan Crha)
+	#469119: Check also for correct date values if parse is OK (Milan Crha)
+	#489043: Do not store quotes in param values when quoting, it is not allowed (Milan Crha)
+	#489810: Remember Google calendar passwords in keyring (Srinivasa Ragavan)
+	#510949: Memory leak fixes. (Milan Crha)
+	#514836: Memory leak fixes (Milan Crha)
+	#516074: Don't assume NI_MAXHOST and NI_MAXSERV are defined in <netdb.h> since these are GNU extensions (Matthew Barnes)
+	#516408: Memory leak fixes (Chenthill Palanisamy)
+	#516474: Query on EContact should work for custom fields too (Milan Crha)
+	#517190: Fix a crash when refreshing mail folders (Jeff Cai)
+	#517885: Do not compare value/parameter names case sensitively (Milan Crha)
+
+Other Contributors:
+	Fix for some warnings (Chenthill Palanisamy)
+
+Updated Translations:
+	Jiri Eischmann (cs)
+	Washington Lins (pt_BR)
+	Changwoo Ryu (ko)
+	Jorge Gonzalez (es)
+	Ilkka Tuohela (fi)
+	Baris Cicek (tr)
+	Wadim Dziedzic (pl)
+	Shankar Prasad (kn)
+	Robert-André Mauchin, Stéphane Raimbault (fr)
+	Ignacio Casal Quinteiro (gl)
+	Pawan Chitrakar (ne)
+
+Evolution-Data-Server 2.21.91 2008-02-11
+----------------------------------------
+
+Bug Fixes:
+	
+	#211353 - Make labels work during filtering. (Milan Crha)
+	#324804 - Report all mails that Evolution receives first as new mails and apply filters (Milan Crha)
+	#395939 - Memory leak fix (Milan Crha)
+	#505806 - Check for permenant flags before storing on the IMAP server (Milan Crha)
+	#509776 - Fix broken alarm failure (Milan Crha)
+	#510949 - Fix memory leaks in EDS (Milan Crha, Chenthill)
+	#511208 - e-d-s free-memory read/write ... (Chenthill)
+	#513389 - Crash in camel-url (Milan Crha)
+	#513646 - Fixes libsoup infinite authentication (Dan Winship)
+	#514407 - e-d-s crash while syncing palm with Groupwise calendars (Hein-Pieter van Braam)
+	#514487 - CalDAV backend doesn't accept mime types "text/calendar" with charset information (Peteris Krisjanis)
+	#514555 - Evolution mail tree uses "Trash" but menu item uses "Wastebasket" (Bastien Nocera)
+	#514682 - Build Fixes (Paul Smith)
+	#515054 - Do better spam filtering - Upsync SPAM flags (Milan Crha)
+
+Other Contributors:
+	Windows build fixes (Tor Lillqvist)
+
+Updated Translations:
+	
+	Djihed Afifi (ar)
+	Yannig Marchegay (oc)
+	Andre Klapper (de)
+	Takeshi AIHANA (ja)
+	Duarte Loreto (pt)
+	Chao-Hsiung Liao (zh_HK)
+	Chao-Hsiung Liao (zh_TW)
+	Theppitak Karoonboonyanan (th)
+	Inaki Larranaga Murgoitio (eu)
+	Arangel Angov (mk)
+
+Evolution-Data-Server 2.21.90 2008-01-28
+----------------------------------------
+
+New in 2.21.90
+	Speed up spam filtering and spam whitelist implementation (Srinivasa Ragavan)
+
+Bug Fixes:
+	#213072: Avoids the infinite loop that might be caused in case of broken mbox files or null From addresses. (Sankar P)
+	#213072: Remove the error condition that inits and persists the infamous "folder summary mismatch" bug (Sankar P)
+	#300098: Set proper dependencies for stand-alone programs linking against camel. (Øystein Gisnås)
+	#324168: Crash while disabling/Deleting accounts (Milan Crha)
+	#335217: Memory leak fixes + Invalid memory read (Chenthill)
+	#386157: crash in Evolution (Milan Crha)
+	#445309: Save certificates before cleaning up (Matthew Barnes)
+	#450840: Do not crash if a message is not there in the summary (Srinivasa Ragavan)
+	#456019: Use 'pop' as service name, instead of 'pop3', in the digest-uri (hggdh2)
+	#475781: Fix memory leaks (Milan Crha)
+	#481699: Don't crash if the server returns you bad COPYUID (Srinivasa Ragavan)
+	#482940: Make the maildir summary check thread safe. May be needed for other functions too. (Srinivasa Ragavan)
+	#496081: Can't find string in phone field, but can in all fields (Milan Crha)
+	#498977: Prevent encoding to base64 of no data in the content buffer. (Milan Crha)
+	#506250: Improvements in password prompt (Matthew Barnes)
+	#509124: Check pointer for NULL (Matthew Barnes)
+	#509644: Use the correct response codes for the dialog buttons. (Matthew Barnes)
+	#509985: Refactor the keyring logic and emit more informative warning messages when a keyring operation fails (Matthew Barnes)
+	#510168: Ensure slave gone in dispose function of the backend (Milan Crha)
+	#510303: Escape the authentication error message so the markup parser will parse it verbatim (Matthew Barnes)
+	#510409: Fix memory leaks (Milan Crha)
+	#511235: Changed prototype to reflect actual libsoup (Milan Crha/Dan Winship)
+	#511301: Crash on Exchange startup (Dan Winship)
+	#511717: Add gettext imap folders (Takao Fujiwara)
+
+Other Contributors:
+	Camel mime fixes (Jeffrey Stedfast)
+	Implement byte order for win32 (Tor Lillqvist)
+	Changed error message to a better string (Sankar P)
+	Remove unused libsoup includes and update for libsoup 2.4 (Dan Winship)
+	Adapt to newer libsoup (Kjartan Maraas)
+
+Updated Translations:
+	Daniel Nylander (sv)
+	Ivar Smolin (et)
+	Kjartan Maraas (nb)
+	Inaki Larranaga Murgoitio (eu)
+	Jorge Gonzalez (es)
+
+Evolution-Data-Server 2.21.5 2008-01-14
+---------------------------------------
+
+New in 2.21.5
+	- Improved Mime header decoding (Jeffrey Stedfast)
+Bug Fixes:
+	#224026: Do not send headers in UTF-8 (Jeffrey Stedfast)
+	#327965: Fixed multiple password prompts in an exchange account (Sushma Rai)
+	#329692: Get the decoded content size of a MIME part (Jean-Christophe BEGUE)
+	#339813: Always store birthday of contact with 4-digit year and modify it according to locale setting upon display (Milan Crha)
+	#341579: Improve SMTP error reporting (Milan Crha)
+	#348149: Convert a g_assert to g_warning. (Sankar P)
+	#361972: Fix a crash if the action is not recognised by soup. So if the message is null return (Srinivasa Ragavan)
+	#379896: Check the value for NULL before comparing. (Srinivasa Ragavan)
+	#405497: Don't pass events if the object is being destroyed. (Srinivasa Ragavan)
+	#474118: Downsyncs all the messages from folders marked for offline use (Bharath Acharya)
+	#500233: Handle empty strings (Srinivasa Ragavan)
+	#503400: Remove excessive whitespace on password dialogs (Ted Percival)
+	#504837: Do not ignore HELO failed message (Milan Crha)
+	#506457: Fixed a crash in calendar (Ondrej Jirman)
+	#508438: Extract error only if it is there (Srinivasa Ragavan)
+
+Updated Translations:
+	Inaki Larranaga Murgoitio (eu)
+	Washington Lins (pt_BR)
+	Clytie Siddall (vi)
+	Yannig Marchegay (oc)
+	Wadim Dziedzic (pl)
+	Daniel Nylander (sv)
+	Ivar Smolin (et)
+	Seán de Búrca (ga)
+	Andre Klapper (de)
+
+Evolution-Data-Server 2.21.4 2007-12-17
+---------------------------------------
+
+Bug Fixes:
+	#322917: Change mnemonics for Contacts, Address Book labels. Add mnemonic for Category label (Alex Kloss)
+	#336074: Check for mail only in active folders (Milan Crha)
+	#339510: Accept time inputs with 4 figures (e.g. '1830' would be converted to '18:30') (James "Doc" Livingston)
+	#462593: Prevent from crash on invalid uri (Milan Crha)
+	#466499: Added mnemonics to configuration options (David Turner)
+	#486126: Fixed an incorrect format string usage that can lead to crashes (Evil Ninja Squirrel)
+	#487687: Do not dereference NULL when a geo parsing error occurs. (Christian Krause)
+	#501548: Fix leaks (Milan Crha)
+	#501622: Fixes broken Digest-MD5 authentication (Matthew Barnes)
+	#501969: Passwords should not be forgotten on all errors (Sankar P)
+	#502866: Allow get the VJOURNAL component at once same as other components (Milan Crha)
+
+Updated Translations:
+	Kjartan Maraas (nb)
+	Jorge Gonzalez (es)
+	Matej Urbanči (sl)
+	Andre Klapper (de)
+
+Evolution-Data-Server 2.21.3 2007-12-03
+---------------------------------------
+
+Bug Fixes:
+	#308815: Colors for categories can now be changed (Milan Crha)
+	#376425: Use proxy if user uses it. Do not crash if have proxy without name and password (Milan Crha)
+	#415817: Update start/end time for recurrence instances even when only end time has been changed (Milan Crha)
+	#461979: Fixed a repeatable crash when entering an IMAP folder (Milan Crha)
+	#492426: Do not iterate beyond bounds of the array (Robert Noland)
+	#494314: Don't leak Cal object reference (Ondrej Jirman)
+
+Updated Translations:
+	Matej Urbanči (sl)
+	Ivar Smolin (et)
+	Yannig Marchegay (oc)
+	Changwoo Ryu (ko)
+
+Evolution-Data-Server 2.21.2 2007-11-12
+---------------------------------------
+
+Bug Fixes:
+	#318842: Task lists should be sorted (Milan Crha)
+	#345135: Disable SSLv2 compatible HELLO on SSL stream when SSLv2 is disabled (Niels Vorgaard Christensen)
+	#359267: Not all memos are showed in calendar view (Milan Crha)
+	#430420: Returned size <= 0 is an error (Milan Crha)
+	#460649: Meeting UI Needs To Show Color Of Selected Calendar Source (Matthew Barnes, Milan Crha)
+	#487229: Use GKeyFile instead of gnome-config to access stored passwords (Matthew Barnes)
+	#488156: Minimize use of the WITH_GNOME_KEYRING macro (Matthew Barnes)
+	#492130: ESourceSelector uses pointers to ESource (Milan Crha)
+	#494304: Fix leak (Ondrej Jirman)
+
+Updated Translations:
+	Ignacio Casal Quinteiro (gl)
+	Priit Laes (et)
+
+Evolution-Data-Server 2.21.1 2007-10-29
+---------------------------------------
+
+New in 2.21.1:
+	Support for Google Calendar (Ebby Wiselyn)
+
+Bug Fixes:
+	#203480: (Novell Bugzilla) Compiler warning fix for usage ofunintialized variable (Srinivasa Ragavan)
+	#231178: New symbol 'set-label' defined and added corresponding callback (Milan Crha)
+	#271777: Keep character's case as user types (Milan Crha)
+	#417999: Don't use deprecated GTK+ symbols (Matthew Barnes)
+	#420167: e-d-s now exits with gnome-session (Milan Crha)
+	#469657: Better use of GHashTable (Matthew Barnes)
+	#474000: Use GLib's Base64 API instead of Camel's (Matthew Barnes)
+	#475487: When creating the default contact, print errors to the console (Ross Burton)
+	#475493: Use G_DEFINE_TYPE (Ross Burton)
+	#475494: Use G_LOCK instead of a static mutex for clearer code (Ross Burton)
+	#478404: Reset the id to zero (Srinivasa Ragavan)
+	#483301: Remove an unused variable (Matthew Barnes)
+	#487270: Fix typo in documentation (Tollef Fog Heen)
+	#488173: Remove __FUNCTION__, which is a gcc-ism (Jeff Cai)
+	#488351: Fix an addressbook error on a fresh install (Matthew Barnes)
+
+Other Contributors:
+	Protect against a NULL subject string. (Jeffrey Stedfast)
+
+Updated Translations:
+	Anas Husseini (ar_
+	Matej Urbanči (sl)
+	Yavor Doganov (bg)
+	Theppitak Karoonboonyanan (th)
+	Ignacio Casal Quinteiro (gl)
+
+Evolution-Data-Server 1.12.0 2007-09-17
+---------------------------------------
+
+Bug Fixes:
+	#275990: (Novell Bugzilla) Handle errors from ldap for duplicate fields. (Rashmi C)
+	#348149: Convert a g_assert to g_warning (Sankar P)
+	#402506: Remembers idle and timeout calls and removes them when finalizing (Milan Crha)
+	#426421: Fixed a crash when deleting two addressbooks (Chenthill Palanisamy)
+	#469007: Skip white spaces at the beginning of header value when running filters (Milan Crha)
+	#473880: Fixed serious compiler warnings (Milan Crha)
+
+Other Contributors:
+	Updated the timezones. (Chenthill Palanisamy)
+
+Updated Translations:
+	Nickolay V. Shmyrev (ru)
+	David Planella (ca)
+	Amitakhya Phukan (as)
+	Inaki Larranaga Murgoitio (eu)
+	Mugurel Tudor (ro)
+	Gabor Kelemen (hu)
+	Laurent Dhima (sq)
+	Danishka Navin (si)
+	Jamil Ahmed (bn)
+	Igor Nestorovi (sr)
+	Maxim Dziumanenko (uk)
+	Kenneth Nielsen (da)
+	Washington Lins (pt_BR)
+	Clytie Siddall (vi)
+	Jovan Naumovski (mk)
+	Luca Ferretti (it)
+
+Evolution-Data-Server 1.11.92 2007-09-03
+----------------------------------------
+
+Bug Fixes:
+	#271841: Fix AIX compile errors (Ross Burton)
+	#290330: (Novell Bugzilla) Fetch FOLDER_CLASS and PERMANENT_URL properties for public folders as well. (Varadhan)
+	#298095: (Novell Bugzilla) Added a function to fetch the system folder flag (Chenthill Palanisamy)
+	#298788: (Novell Bugzilla) Fixes crash in 64 bit architectures. (Chenthill Palanisamy)
+	#301263: (Novell Bugzilla) Subscribed calendar requires restart (Chenthill Palanisamy)
+	#302038: (Novell Bugzilla) remove warnings and make them debug statements (Sankar)
+	#330185: Searching Evolution addressbooks only works for some fields (Ross Burton)
+	#378759: Fixed a crash when entering S/MIME password (Milan Crha)
+	#470445: Fix FSF address (Tobias Mueller)
+
+Updated Translations:
+	Kjartan Maraas (nb)
+	Takeshi AIHANA (ja)
+	Ivar Smolin (et)
+	Ilkka Tuohela (fi)
+	Ankit Patel (gu)
+	Tirumurthi Vasudevan (ta)
+	Wadim Dziedzic (pl)
+	Jorge Gonzalez (es)
+	Daniel Nylander (sv)
+	Theppitak Karoonboonyanan (th)
+	Clytie Siddall (vi)
+	Duarte Loreto (pt)
+	Stéphane Raimbault (fr)
+
+Evolution-Data-Server 1.11.91 2007-08-27
+----------------------------------------
+
+Bug Fixes:
+	#261084: Translator comments for "match-all" and "match-threads"(Jared Moore)
+	#256878: Set the correct message for valid signatures (Vincent Untz)
+	#332979: Fixes a thread synchronization issue while doing autocompletion (Srinivasa Ragavan)
+	#337454: Fixed a crash when modifying a calendar entry (Milan Crha)
+	#350539: Check for NULL MIME part (Milan Crha)
+	#351756: Fixed a crash when modifying a datefield/date_entry (Milan Crha)
+	#354855: CalDAV: Support response with relative URLs (Christian Kellner)
+	#355659: CalDAV: New appointments disappear for 1 minute, and then reappear (Christian Kellner)
+	#356176: Importing .vcf replaces line breaks with literal \n in NOTE (Patrick Ohly)
+	#365213: Evolution can't show attachments in an attachment. (Wang Xin)
+	#367760: Fix multiple issues with Save / Save All attachment button (Milan Crha)
+	#381548: Fixed a crash in exchange (John D. Ramsdell)
+	#394571: Fixed a caldav request bug (Jari Urpalainen)
+	#437331: Read NSS certificate files more reliably (Matthew Barnes)
+	#458715: Fixed a crash in GW proxy setting (Johnny Jacob)
+	#464569: Plug memory leak and incorrect creation of gnome keyring attributes lists (Kevin Piche)
+	#464636: In groupwise account sender field does not display anything (Ashish)
+	#466309: Fix build with gcc 2.x (Jens Granseuer)
+	#466987: Fix compilation errors caused by glibc's new "open" macro (Matthew Barnes)
+	#467883: Add argument checks to several public functions (Matthew Barnes)
+	#469870: Simply return from _get_ functions and don't show error warning (Milan Crha)
+
+Other Contributons:
+	Add new debugging framework which can be controlled during
+	 runtime with the CALDAV_DEBUG debug enviroment variable
+	 (Christian Kellner)
+
+Updated Translations:
+	Adam Weinberger (en_CA)
+	Duarte Loreto (pt)
+	Washington Lins (pt_BR)
+	Daniel Nylander (sv)
+	Hendrik Richter (de)
+	Ivar Smolin (et)
+	Ankit Patel (gu)
+	Takeshi AIHANA (ja)
+	Claude Paroz and Stéphane Raimbault (fr)
+	Kjartan Maraas (nb)
+	Tirumurthi Vasudevan (ta)
+	Theppitak Karoonboonyanan (th)
+	Gabor Kelemen (hu)
+
+Evolution-Data-Server 1.11.90 2007-08-13
+-----------------------------------------
+
+Bug Fixes:
+	#261084 - "match-all" and "match-threads" in evolution camel needs translator comments (Jared Moore)
+	#313221 - Import of vcards misses type information (Milan Crha)
+	#314709 - Add GEO field to EVCard and EContact (Cosimo Cecchi)
+	#327977 - Crash in e_account_set_string at e-account.c:929 (Milan Crha)
+	#352346 - Cannot create Maildir account (Milan Crha)
+	#355640 - crash on invalid response to the IMAP command "XX FETCH 1 BODY" (Sankar)
+	#387806 - camel_text_index_new() faults instead of handling allocation failure (Rob Bradford)
+	#415891 - Use EFlag for synchronization (Matthew Barnes)
+	#420462 - Crash while clicking refresh in folder subscription (Srini)
+	#427469 - Incorrect importing of VCard (Milan Crha)
+	#439147 - Don't print pages of debug information (Jeff Cai)
+	#451003 - Build fails because SOUP_SESSION_TIMEOUT is undefined (Ross Burton)
+	#455799 - Remove all .cvsignore and update svn:ignore porperty in whole directories (Hiroyuki Ikezoe)
+	#458670 - Crash while autocompleting in composer (Srini)
+	#460999 - Crashing while looking up passwords (Srini)
+	#461989 - Memory leaks fixes on e-categories* (Hiroyuki Ikezoe)
+	#464252 - Use /usr/share/lib/zoneinfo/tab/zone_sun.tab on Solaris (Jeff Cai)
+	#465419 - crash in e_gw_item_append_to_soap_message (Suman)
+
+Updated Translations:
+	Jorge Gonzalez (es)
+	Daniel Nylander (sv)
+	Ankit Patel (gu)
+	Kjartan Maraas (nb)
+	Ilkka Tuohela (fi)
+	Takeshi AIHANA (ja)
+	Runa Bhattacharjee (bn_IN)
+	Danishka Navin (si)
+	Daniel Nylander (sv)
+	Kjartan Maraas (nb)
+	Priit Laes (et)
+	
+Evolution-Data-Server 1.11.6.1 2007-07-31
+-----------------------------------------
+
+Bug fixes:
+    #327851: Partially fixes a critical warning crasher allowing
+    the events to appear properly in the view.
+
+Updated Translations:
+	 Jorge Gonzalez (es)	
+
+Other Contributors:
+      Fixed a warning (Matthew Barnes)
+      Look for the libedataserver header files from the source rather
+      than install area (Chenthill Palanisamy)
+      Only send remove notifications if the contact was in the view
+      originally. (Ross Burton)
+      Fixes annoying "Is a Directory" error,All (un)read count fixes should 
+      have been ported, Moved items from sent-items are lost is fixed (Sankar P)
+      Install the timezone files only on win32 systems. (Chenthill Palanisamy)
+
+Evolution-Data-Server 1.11.6 2007-07-30
+---------------------------------------
+
+New in 1.11.6
+	Add username & password entries to webcal dialog (Milan Crha)
+
+Bug fixes:
+	#268162: Add username & password entries to webcal dialog (Milan
+	 Crha)
+	#342164: Harmonize error strings (Lakke Wankhede and Jared Moore)
+	#380534: Collect all the required package versions in one place and
+	 explicitly require GTK+ 2.10 or higher (Matthew Barnes)
+	#402925: Use strong SSL/TLS encryption (hggdh)
+	#455796: Fixed a crash when starting evolution (Srinivasa Ragavan)
+	#456565: Added support for Memos to webcal protocol, which is used
+	 for memos 'On The Web' (Milan Crha)
+	#457523: Fixed parse error in quick search bar (Johnny Jacob)
+	#460649: Used image menu item and using sources colors when
+	 possible. Didn't work for collapsed state (Milan Crha)
+	#460681: Always report connection status when connecting (Karl
+	 Relton)
+	#460861: Add some sanity checks in camel (Ross Burton)
+	#460867: Fixed a crash in calendar (Srinivasa Ragavan)
+
+Updated Translations:
+	Inaki Larranaga Murgoitio (eu)
+	Andre Klapper (de)
+	Priit Laes (et)
+	Pramod (te)
+	Wouter Bolsterlee (nl)
+	Daniel Nylander (sv)
+	Ilkka Tuohela (fi)
+	Theppitak Karoonboonyanan (th)
+
+Other Contributors:
+	Plugged memory leak (Hiroyuki Ikezoe)
+
+Evolution-Data-Server 1.11.5 2007-07-09
+---------------------------------------
+
+New in 1.11.5
+
+	Exchange delegation support (Bharath and Suman)
+
+Bug fixes:
+	#307410: Fix prompting for IMAP password a second time after
+	 canceling first request (Milan Crha)
+	#311098: Changes to appointment is visible across restarts (Milan
+	 Crha)
+	#352284: Do not fetch the message from server - instead use the
+	 header information to calculate the expiry period. (Veerapuram
+	 Varadhan)
+	#364731: Fix error dialog when creating searches with negative score
+	 (Milan Crha)
+	#394572: Include a missing forward http proxy in caldav module (Jari
+	 Urpalainen)
+	#410823: Fixed a crash when clicking on an URL and then closing the
+	 browser (Srinivasa Ragavan)
+	#412735: Fix a typo avoiding open_brace to be initialized (Pascal
+	 Terjan)
+	#434356: Fix USENET crash when retrieving gmane.linux.kernel
+	 (Jindrich Makovicka)
+	#448947: Fixed a cyclic configure option (Karsten Bräckelmann)
+	#449531: Fix partial email display when GPG verification fails
+	 (Milan Crha)
+	#452996: Fix a typo and wording (Christian Kirbach)
+	#454570: Fix build with gcc 2.x (Jens Granseuer)
+
+Updated Translations:
+	Ankit Patel (gu)
+	Jorge Gonzalez (es)
+	Nguyễn Thái Ngọc Duy (vi)
+	Clytie Siddall (vi)
+	Daniel Nylander (sv)
+	Funda Wang (zh_CN)
+	I. Felix (ta)
+
+Evolution-Data-Server 1.11.4 2007-06-18
+---------------------------------------
+
+Bug fixes:
+	#312854: Fix a hang while renaming folders twice for exchange
+	 (Matthew Barnes)
+	#331099: Fix calculation of array index to avoid negative values
+	 (Matthew Barnes)
+	#344728: Add headers for Sun Kerberos v5 (Irene Huang)
+	#352284: Do not fetch the message from server - instead use the
+	 header information to calculate the expiry period. (Veerapuram
+	 Varadhan)
+	#437751: Fix time display in Windows (Andreas Köhler)
+	#443705: Fixed build break due to incorrect macro (Loïc Minier)
+	#443958: Add support for help string. (Sebastien Tandel)
+	#447414: Security bugfix - negative index of an array (Philip Van
+	 Hoof)
+	#447753, #447749: Fix a memory leak (Matthew Barnes)
+	#448589: Add support for automake 1.6 (Tobias Mueller)
+
+Other Contributors:
+	Check entire IMAP4 summary to remove non-existent messages (Jeffrey
+	 Stedfast)
+	Fetches "Sent Items" in all folders. Also, fixed some bugs in moving
+	 mails across folders. (Sankar P)
+
+Updated Translations:
+	Priit Laes (et)
+	Pema Geyleg (dz)
+	Jorge Gonzalez (es)
+
+Evolution-Data-Server 1.11.3 2007-06-04
+---------------------------------------
+
+New in 1.11.3:
+	Addressbook optimizations (Ross Burton)
+	Introduced search capabilities in calendar (Keshav Upadhyaya,
+	 Abhishek Parwal)
+
+Bug fixes:
+	#360114: Use g_list_prepend/reverse rather than append (Paolo
+	 Borelli)
+	#409542: Fix various linking issues in e-d-s (Loic Minier)
+	#425129: Added timezone for Asia/Jerusalem, Australia/Perth and 
+	 fixed the crash when there is no tzname. (Pascal Terjan)
+	#438577: Fix some distcheck errors (Matthew Barnes)
+	#438577: Don't install implementation detail headers (Ross Burton)
+	#438727: Hide implementation details from public headers (Ross 
+	 Burton)
+	#438928: Add --disable-calendar to build without any calendar
+	 support (Ross Burton)
+	#440524: Memory leak fixes (Srinivasa Ragavan)
+	#442187: Fix to open default memo component (John Stowers)
+	#438928: Ability to build EDS with just addressbook only.
+
+Evolution-Data-Server 1.11.2 2007-05-14
+---------------------------------------
+
+New in this release:
+	* EContact optimization from (Oystein Gisnas and Milan Crha)
+
+Bug fixes:
+	#420496: Add support to cut/copy contacts in composer (Ebby Wiselyn)
+	#339160: Implement the sync method for Addressbook backends (Ross Burton)
+	#414191: Type fixes for EContact ints (Loïc Minier)
+	#433782 and #336574: Optimise vCard folding (Oystein Gisnas and
+	 Milan Crha)
+	#431135: Fix a crash when modifying a calendar event (Rob
+	 Bradford)
+	#274035: Importing a Vcard with attached photo data is now possible
+	 (Jonty Wareing)
+	#361138: Fix a crash when double clicking text widget in calendar
+	 in indic locales (Matthew Barnes)
+
+Other Contributors:
+	Jules Colding
+
+Updated Translations:
+	Jorge Gonzalez (es)
+
+
+Evolution-Data-Server 1.11.1 2007-04-23
+---------------------------------------
+
+Bug fixes:
+
+	#383686: Use g_mkdir_with_parents (Ross Burton)
+	#322105: Fix for non-junk messages to learn ham. (Srinivasa Ragavan)
+	#418971: E-D-S requires GLib 2.10 now; remove dead
+	 backward-compatibility code for GLib < 2.8 (Matthew Barnes)
+	#360240: Remove unused variable. (Matthew Barnes)
+	#360619: Fix "incompatible pointer type" warnings (Matthew Barnes)
+	#405495: Don't mix declarations and code (Jens Granseuer)
+	#360807: Fix a couple of memory leaks (Chris Heath)
+	#400970: Remove marshallers that are in GLib already (Ross Burton)
+	#413173: Fix up the documentation (Ross Burton & Matthew Barnes)
+	#420933: Copy the recurrence ID string so it doesn't disappear on us.
+	 (Patrick Ohly)
+	#426893: Added support from address fields in LDAP addressbook. (Caolan
+	 McNamara)
+	#422883: Build fix for SUN LDAP (Wang Xin)
+	#424837: Allow contact creation to fail, and propagate the error back
+	 (Ross Burton)
+	#422932: Make EContact extendable (Ross Burton)
+	#428183: BDBB backend cleanups (Ross Burton)
+	#425512: Fix issue with creating a new addressbook (Xiurong Simon Zheng)
+	#426564: Misc cleanups (Ross Burton)
+	#385078: Don't go via GObject properties when calling e_contact_get (Ross
+	 Burton)
+	#425464: e-vcard optimizations (Ross Burton)
+	#422652: Return decent error codes, and convert errors to human readable
+	 strings for the console. (Ross Burton)
+	#421445: Fix build logic for e-name-western-tables.h (Ross Burton)
+	#421683: Fix broken dispose/finalise in e-book-backend-file.c (Ross
+	 Burton)
+	#359806: Non-ascii characters generate trash in address lists (Matthew
+	 Barnes and Makuchaku)
+	#373117: Use the new ESource color API. (Matthew Barnes)
+	#425535: Dont submit path of EDS for segv_handler. (Frederic Crozat)
+	#423382: Convert messages from gnupg to UTF-8 (Pascal Terjan)
+	#415891: Introduce EFlag in libedataserver (Matthew Barnes)
+	#388789: Make the libiconv test program returns a value (Matthew Barnes)
+	#388788: Fix autotools checks for iconv (Elijah Newren)
+
+Other Contributors:
+	Debug statements should be conditional (Sankar P)
+	Fix compiler warnings and other code cleanups (Kjartan Maraas)
+	Many IMAP fixes. (Jeffrey Stedfast)
+	Improved GroupWise mailer component (Sankar P)
+
+Updated Translations:
+	Funda Wang (zh_CN)
+	Djihed Afifi (ar)
+	Duarte Loreto (pt)
+	Laurent Dhima (sq)
+	David Lodge (en_GB)
+
+Evolution-Data-Server 1.10.0 2007-03-12
+---------------------------------------
+
+Changes since Evolution-Data-Server 1.9.92 :
+
+	Harish Krishnaswamy
+	Matthew Barnes
+	Ross Burton
+
+Updated Translations:
+	
+	Igor Nestorivić (sr)
+	Mugurel Tudor (ro)
+	Tino Meinen (nl)
+	Alexander Shopov (bg)
+	Jovan Naumovski (mk)
+	Takeshi AIHANA (ja)
+	Maxim Dziumanenko (uk)
+	Gintautas Miliauskas (lt)
+	Chao-Hsiung Liao (zh_HK, zh_TW)
+	Ankit Patel (gu)
+	Leonid Kanter (ru)
+
+Evolution-Data-Server 1.9.92 2007-02-26
+---------------------------------------
+
+Updated Translations:
+	Gabor Kelemen  (hu)
+	Luca Ferretti (it)
+	Artur Flinta (pl)
+	Priit Laes (et)
+	 
+Contributors:
+	Gilles Dartiguelongue
+	Matthew Barnes
+
+Evolution-Data-Server 1.9.91 2007-02-12
+---------------------------------------
+
+Updated Translations:
+	Duarte Loreto (pt)
+	Pema Geyleg (dz)
+	Djihed Afifi  (ar)
+	Changwoo Ryu (ko)
+	Daniel Nylander (sv)
+	Raphael Higino (pt_BR)
+	Hendrik Richter (de)
+	Priit Laes and Ivar Smolin (et)
+	 
+Contributors:
+	Sankar P
+	Harish Krishnaswamy
+	Kjartan Maraas
+	Priit Laes 
+	Patrick Ohly
+	Ross Burton
+	Trond Myklebust
+
+Evolution-Data-Server 1.9.6 2007-01-22
+--------------------------------------
+
+Updated Translations:
+Stéphane Raimbault (fr), Priit Laes (et),
+Daniel Nylander (sv)
+
+Contributors:
+Nickolay V. Shmyrev : #353060
+Sankar P : IMAP Configurable Headers
+Srinivasa Ragavan: Fallback code for Gnome Keyring
+Harish Krishnaswamy: Fixes calling glib methods
+
+
+Evolution-Data-Server 1.9.5 2007-01-08
+--------------------------------------
+
+Updated Translations:
+Francisco Javier F. Serrador (es), Djihed Afifi (ar), Kjartan Maraas (nb), 
+Theppitak Karoonboonyanan (th), David Lodge (en_GB),  
+Christophe Fergeau (fr), Clytie Siddall (vi)
+
+Bug Fixes: 362638, 387397, 387638 and other downstream fixes
+
+Contributors:
+Mathew Barnes, Veerapuram Varadhan, Chenthill Palaniswamy, Jeff Cai
+
+Evolution-Data-Server 1.9.4 2006-12-18
+--------------------------------------
+
+Updated Translations:
+Djihed Afifi (ar), Ilkka Tuohela (fi).
+
+Bug fixes : 349445, 346728, 268412, 363445, 
+208395, 222605 (bugzilla.novell.com), memory leak and 
+other cleanup fixes.
+
+Contributors: 
+Veerapuram Varadhan, Harish Krishnaswamy, Srinivasa Ragavan,
+Ross Burton, Tor Lillqvist, Bastien Nocera
+
+
+Evolution-Data-Server 1.9.3 2006-12-04
+--------------------------------------
+
+Updated Translations:
+Alexander Shopov (bg), Josep Puigdemont i Casamajó (ca),
+Ivar Smolin (et).
+
+Bug fixes : 330157, 350880, 328836, 348123, 365000, 353924. 
+174655, 222605, 219729, 208318, 207960. (bugzilla.novell.com)
+plus miscellaneous code clean-ups and memory leak fixes.
+
+Contributors :
+Harish Krishnaswamy, Sankar, Srinivasa Ragavan, Chenthill, 
+Claudio Saavedra, Ross Burton, Matthew Barnes, Andrew Ruthven.
+
+Evolution-Data-Server 1.9.2 2006-11-07
+--------------------------------------
+
+Updated Translations:
+
+Ivar Smolin (et), Francisco Javier F. Serrador (es).
+
+Bug fixes : 
+330157, 369368, 312348, 365000.
+
+Contributors :
+Srinivasa Ragavan, Hans Petter Jansson, Harish Krishnaswamy,
+Claudio Saavedra.
+
+
+Evolution-Data-Server 1.9.1 2006-10-16
+--------------------------------------
+
+Updated Translations:
+Ilkka Tuohela (fi), Priit Laes (et),
+Ignacio Casal Quinteiro (gl),
+Ivar Smolin (et)
+
+Contributors:
+Steffen Eschenbacher, Tor Lillqvist,
+Srinivasa Ragavan, Matthew Barnes, Harish Krishnaswamy
+
+Evolution-Data-Server 1.8.1 2006-10-02
+--------------------------------------
+
+Updated Translations:
+
+Ivar Smolin (et), Marco Ciampa (it), Luca Ferretti (it),
+Åsmund Skjæveland (nn), David Lodge (en_GB).
+
+Bug fixes :
+
+350907, 350617, 347811, 357666, 351330, 352596, 352872, 356051. 
+
+Contributors:
+Li Yuan, Veerapuram Varadhan, Sankar, Chenthill Palanisamy, 
+Matthew Barnes, Mikael Nilsson, Devashish Sharma, Ross Burton,
+Harish Krishnaswamy.
+
+Evolution-Data-Server 1.8.0 2006-09-04
+--------------------------------------
+Evolution -Data-Server 1.8 Stable Release for GNOME 2.16.0.
+
+Evolution-Data-Server 1.7.92, 2006-08-21
+------------------------------------------
+
+Updated Translations
+
+Hendrik Richter (de), Alexander Shopov (bg), Rahul Bhalerao (mr),
+Satoru SATOH (ja), Kjartan Maraas (nb), Artur Flinta (pl),
+Žygimantas Beručka (lt), Daniel Nylander (sv), Runa Bhattacharjee (bn_IN),
+Gabor Kelemen (hu), Leonid Kanter (ru), Matic Žgur (sl), 
+Clytie Siddall (vi), Funda Wang (zh_CN), Changwoo Ryu (ko),
+Vladimer Sichinava (ka), Xavier Conde Rueda (ca), Maxim Dziumanenko (uk),
+Guntupalli Karunakar (dz), Theppitak Karoonboonyanan (th), 
+Priit Laes (et).
+
+Bug Fixes:
+
+Ricardo Markiewicz, Chenthill, Harish, Kjartan Maraas,
+j@bitron.ch
+
+Evolution-Data-Server 1.7.91, 2006-08-07
+------------------------------------------
+
+Updated Translations
+
+Francisco Javier F. Serrador (es), Inaki Larranaga (eu), Ilkka Tuohela (fi),
+Christophe Merlet (fr), Ahmad Riza H Nst (id), Kjartan Maraas	 (nb), 
+Vincent van Adrighem (nl), Jovan Naumovski (mk), Theppitak Karoonboonyanan (th)
+
+New in EDS 1.7.91:
+- Add filters to Groupwise SOAP calls so that each component fetches items of
+  its own type and none other. (Harish)
+- Memory fixes in Addressbook (Hans Peters Jansson)  
+
+Bug Fixes:
+Matthew Barnes, Chenthill Palanisamy, Devashish Sharma, Srinivasa Ragavan, 
+Tor Lillqvist, Harish Krishnaswamy, Ed Catmur, Ross Burton, 
+Wouter Bolsterlee
+
+Evolution-Data-Server 1.7.90.1, 2006-07-25
+------------------------------------------
+Fix a dist bug in tarball.
+
+Evolution-Data-Server 1.7.90, 2006-07-24
+----------------------------------------
+Updated Translations contributed by:
+
+Funda Wangi (zh_CN), Christophe Merlet (fr),
+Jonathan Ernst (fr), Changwoo Ryu (ko),
+Kostas Papadimas (el), Dzongkhalinux team, DIT (dz),
+Ilkka Tuohela (fi), Ankit Patel (gu), Daniel Nylander (sv),
+Priit Laes (et), Francisco Javier F. Serrador (es),
+Raivis Dejus (lv).
+
+New in EDS 1.7.90 : 
+Support for GW Reminder Notes (Chenthill)
+Split cache for less memory, better performance (Harish)
+Support for security-classifications in GW send options (Sankar)
+Support for default alarms in GW (Harish)
+Support for Gadu Gadu IM in Contact Entries 
+(Artur Flinta, Fryderyk Dziarmagowski) 
+Memory reduction and Performance improvements in Contacts (Ross Burton)
+
+Bug fixes :
+Andre Klapper, Shreyas Srinivasan, Sushma Rai, Vandana Shenoy,
+Harish Krishnaswamy, Devashish Sharma, Hiroyuki Ikezoe, Srinivasa Ragavan.
+Luca Ferretti
+
+Evolution-Data-Server 1.7.4, 2006-07-10
+---------------------------------------
+Updated Translations contributed by:
+
+Inaki Larranaga, Ilkka Tuohela, 
+Vincent van Adrighem, Runa Bhattacharjee,
+Changwoo Ryu, I.Felix, Rajesh Ranjan,
+Dzongkhalinux, Yair Hershkovitz, Kjartan Maraas,
+Chao-Hsiung Liao, Ignacio Casal Quienteiro,
+Theppitak Karoonboonyan, Francisco Javier F. Serrador,
+Ankit Patel, Hendrik Richter.
+
+Bug fixes: 
+Harish Krishnaswamy, Jeffrey Stedfast, Sankar P,
+Tor Lillqvist, Andre Klapper, ,Parthasarathi,
+Srinivasa Ragavan, Chenthill, Wang Xin, Ross Burton,
+Devashish Sharma, Boby Wang, Simon Zheng, Hiroyuki
+Ikezoe, Frederic Peters.
+
+
+Evolution-Data-Server 1.7.3, 2006-06-12
+---------------------------------------
+Updated Translations contributed by:
+
+Kjartan Maraas, Francisco Javier F. Serrador,
+Gabor Kelemen, Ignacio Casal Quinteiro,
+Ankit Patel, Pema Geyleg, Inaki Larranaga, 
+Clytie Siddall, Emil Hessman.  
+
+Bug fixes and other changes :
+Chris Heath , Tor Lillqvist, Srinivasa Ragavan,
+Jeffrey Stedfast, Parthasarathi Susarla,
+Sankar P, Harish Krishnaswamy, Ross Burton, Wang Xin
+Simon Zheng, Devashish Sharma, Hiroyuki Ikezoe, 
+Frederic Peters. 
+
+Evolution-Data-Server 1.7.1, 2006-04-24
+----------------------------------------
+
+First release of 1.7 development series.
+
+What is new ?
+-------------
+
+* Capability to link dynamically to libdb.
+* Integration with gnome-keyring.
+
+Evolution-Data-Server 1.5.92, 2006-02-27
+----------------------------------------
+Bug fixes since last release :
+http://go-evolution.org/Evo2.5.92#Evolution-Data-Server
+
+Updated Translations:
+
+	- ca (Josep Puigdemont i Casamajó)
+	- el (Kostas Papadimas)
+	- et (Priit Laes)
+	- eu (Inaki Larranag)
+	- lt (Žygimantas Beručka)
+	- pl (Artur Flinta)
+	- th (Theppitak Karoonboonyanan)
+
+Evolution-Data-Server 1.5.91, 2006-02-13
+----------------------------------------
+Bug fixes since last release :
+http://go-evolution.org/Evo2.5.91#Evolution-Data-Server
+
+Updated Translations:
+
+	- cs (Lukas Novotny)
+	- cs (Miloslav Trmac)
+	- cy (Rhys Jones)
+	- et (Ivar Smolin)
+	- fi (Ilkka Tuohela)
+	- ja (Takeshi AIHANA)
+	- pt (Duarte Loreto)
+	- ru (Leonid Kanter)
+	- sq (Laurent Dhima)
+	- sr, sr@Latn (Slobodan D. Sredojevic)
+	- th (Supranee Thirawatthanasuk)
+	- th (Theppitak Karoonboonyanan)
+
+Evolution-Data-Server 1.5.90, 2006-01-30
+----------------------------------------
+
+What's new:
+
+Bug fixes sinces 1.5.5 :
+http://bugzilla.gnome.org/buglist.cgi?query_format=advanced&short_desc_type=allwordssubstr&short_desc=&classification=Desktop&product=Evolution-Data-Server&long_desc_type=substring&long_desc=&status_whiteboard_type=allwordssubstr&status_whiteboard=&keywords_type=allwords&keywords=&bug_status=RESOLVED&resolution=FIXED&resolution=WONTFIX&resolution=DUPLICATE&resolution=NOTABUG&resolution=NOTGNOME&resolution=INCOMPLETE&resolution=INVALID&resolution=GNOME1.x&resolution=MOVED&resolution=OBSOLETE&resolution=NOTXIMIAN&emailassigned_to1=1&emailtype1=substring&email1=&emailassigned_to2=1&emailreporter2=1&emailqa_contact2=1&emailcc2=1&emailtype2=substring&email2=&bugidtype=include&bug_id=&chfieldfrom=2006-01-17&chfieldto=Now&chfield=bug_status&chfieldvalue=RESOLVED&cmdtype=doit&order=Reuse+same+sort+as+last+time&field0-0-0=noop&type0-0-0=noop&value0-0-0=
+
+Updated Translations:
+
+	- en_CA (Adam Weinberger)
+	- es (Francisco Javier F. Serrador)
+        - et (Ivar Smolin)
+        - fi (Ilkka Tuohela)
+        - gl (Ignacio Casal Quinteiro)
+        - gu (Ankit Patel)
+        - gu (Ankit Patel)
+        - ko (Changwoo Ryu)
+        - nb, no (Kjartan Maraas)
+        - nl (Tino Meinen)
+        - vi (Clytie Siddall)
+        - zh_CN (Funda Wang)
+	- zh_TW, zh_HK (Chao-Hsiung Liao)
+
+Evolution-Data-Server 1.5.5, 2006-01-16
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+	#321812 – crash during Draft saving in offline mode (Shreyas)
+	#314841 – gw: Don't Mark Trash As New Messages (Parthasarathi)
+	#323570 – gw: Forward Of Multiple Messages At Once Loses Formatting (Parthasarathi)
+	#320898 – gw: Inserted Images Appears As Broken Link Image (Parthasarathi)
+	#303998 – In 'Exchange Connector' GAL should be selected for 'Autocompletion by default (Sushma)
+	#323115 – --force-shutdown does not shutdown e-d-s (Harish)
+	#326060 – Exchange password expiry handling is broken (Sushma)
+	#267402 – can not specify https URL for a remote calendar location (Tony Tsui)
+	#324518 – Webcal Entries Duplicated In Calendar (Chenthill)
+	#324741 – Critical Warning on Command Line (Chenthill)
+	#214977 – Contact lists on LDAP server are broken (Sushma)
+	#320065 – Fix GList leaks (Ross Burton)
+	#325959 – Subscribe to other user's folder not working (Sushma)
+	#242966 – Focus Problem, Screen Entry on "Select Contacts From Address Book" screen (Johnny Jacob)
+	
+
+Other Fixes :
+	
+	- Merge Calendar backend bits from evolution-caldav module into EDS (Harish)
+	- Code cleanup (Simon Zheng, Kjartan Maraas, Parthasarathi)
+	- Win32 fixes (Tor Lillqvist)
+	
+	
+Updated Translations:
+
+	- bg (Alexander Shopov)
+	- ca (Josep Puigdemont i Casamajó)
+	- gl (Ignacio Casal Quinteiro)
+	- ja (Takeshi AIHANA)
+	- lt (Žygimantas Beručka)
+	- nl (Vincent van Adrighem)
+
+
+Evolution-Data-Server 1.5.4, 2006-01-02
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+	#323106 - IMAP drawers with non-ASCII UTF-8 names do not work (Tor Lillqvist)
+	#317794 - Groupwise mail folder not visible (Parthasarathi)
+	#324483 - Memory leak in Exchange connector (Sushma)
+	#305006 - Fixed vCalendar file import without UID (Chenthill)
+	#267330 - Fixed a crash/hang while accepting exchange meeting invititation (Chenthill)
+	#324009 - Hang in Evolution Calendar (Chenthill)
+	#317411 - Fixed Evolution crash while synchronizing with palm device. (Varadhan)
+	#238979 - Added Support to expand contact lists inline in name selector entry
+	
+Other Fixes :
+
+	- Added option to select emails in contacts/lists in name selector
+	  entry (Srinivasa Ragavan)
+	- Modifications to use gstdio wrappers (Tor Lillqvist)
+	- Exchange fixes (Sushma)
+	- Network Manager Support (Shreyas)
+	- Win32 fixes (Tor Lillqvist)
+	
+Updated Translations:
+
+	- en_CA (Adam Weinberger)
+	- es (Francisco Javier F. Serrador)
+	- fi (Ilkka Tuohela)
+	- gl (Ignacio Casal Quinteiro)
+	- gu (Ankit Patel)
+	- ja (Takeshi AIHANA)
+	- nb, no (Kjartan Maraas)
+	- nn (Åsmund Skjæveland)
+	- vi (Clytie Siddall)
+
+
+Evolution-Data-Server 1.5.3, 2005-12-12
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+	#323433 - Evolution crashes when folding vfolder subfolders while in one,
+		  wont restart (Jeff Cai)
+	#321139 - evolution will crash on solaris when print error message (Shi Pu)
+	#321515 - Lazy-bind loaded modules in camel (Ross Burton)
+	#322408 - creating new folder causes evolution to hang on the uw-imapd
+		  server (Jeff Cai) 
+	#317322 - crash when delete a imported recurrent event (Chenthill)
+	#318777 - recurrence editing ... (Chenthill)
+	#323349 - Evolution data server, Configuration failed on Solaris (Irene Huang)
+	#319592 - Use GLib for determining host endian (Ross Burton)
+	#319591 - Use G_DEFINE_TYPE in libedataserver (Ross Burton)
+	#321830 - GW - Not All Email In Sent Items Appearing In Evolution (Parthasarathi)
+
+Other Fixes :
+	- Numerous fixes in Camel/Libebook/libedataserver for Win32 support (Tor Lillqvist) 
+	- Hula provider fixes (Harish)
+	- Exchange : Use remembered password for authentication (Irene Huang)
+	- Exchange : fix compiler warnings (Sushma)
+	- Build fixes (Dave Malcolm)
+
+Updated Translations:
+
+	- be (Vital Khilko)
+	- bg (Alexander Shopov)
+	- cs (Miloslav Trmac)
+	- en_CA (Adam Weinberger)
+	- es (Francisco Javier F. Serrador)
+	- fa (Meelad Zakaria)
+	- fr (Christophe Merlet)
+	- gl (Ignacio Casal Quinteiro)
+	- gu (Ankit Patel)
+	- ja (Takeshi AIHANA)
+	- nb, no (Kjartan Maraas)
+	- zh_CN (Funda Wang)
+
+
+Evolution-Data-Server 1.5.2, 2005-11-14
+---------------------------------------
+
+New Features:
+	- Camel Hula Provider (Harish)
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+	#320095 - Empty Trash Deletes From GW POA, But Doesn't Delete Headers 
+		  In Trash Folders (Parthasarathi)
+	#314476 - Fixes to inform the Over quota issue in groupwise to
+		  user (Sankar)
+	#320736 - Fixed a possible crash due to a invalid buffer
+		  (Parthasarathi)
+	#317804 - Fix Macao timezone issue (Harish)
+	#318130 - Fix to include e-cal-time-util.h for
+		  e-cal-backend-http.c to solve a build issue. (Matthew Daniel)
+	#319612 - Stop warnings from e-destination about xmlChar when
+		  compiling using gcc4 (Ross Burton)
+	#319848 - Multiple Select for To/CC/BCC in Name selector dialog.
+		  (Sushma)
+
+Other Fixes:
+
+	- Changed the string so as to be consistent with Win32 client error 
+	  messages. (Sankar)
+
+Update Translations:
+
+	- ca (Adam Weinberger)
+	- cs (Miloslav Trmac)	
+	- es (Francisco Javier F. Serrador)	
+	- fi (Ilkka Tuohela)
+	- ja (Takeshi AIHANA)
+	- ku (Erdal Ronahi)
+
+Evolution-Data-Server 1.5.1, 2005-10-25
+---------------------------------------
+
+New Features : Support for Memos component (Nathan Owens)
+
+
+Other fixes :
+
+	- Win32 related bits and code clean-up (Tor Lillqvist) 
+	- Remove Bonobo/GnomeProgram dependencies in 
+	  contact store/name selector (Ross Burton)
+	- Fix for API/Base Version mismatches causing issues in
+	  Solaris where libdir==libexecdir (Irene Huang)
+
+Updated Translations:
+
+	- en_CA (Adam Weinberger)
+	- es (Francisco Javier F. Serrador)
+	- gl (Ignacio Casal Quinteiro)
+
+Evolution-Data-Server 1.3.8, 2005-08-22
+---------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+	#242032 - color labels stored to imap message store (Michael Zucchi)  
+	#247706 - Automatically add comma after autocompleting an address (Devashish)
+	#271894 - PGP-encrypted attached messages not displayed (Michael Zucchi)
+	#271969 - Synchronize doesn't work for Tasks and Calendar (Armin Bauer, Varadhan, Mubeen)
+	#300115 - RFC2047 encoding always separates the last non-ASCII UTF-8 character. (Changwoo)
+	#300891 - Now camel should specify the translation domain explicitly to use gettext (Changwoo)
+	#302835 - Mailbox does not appear on top in offline mode (Parthasarathi)
+	#302963 - Status tracking does not work for some items (Vivek)
+	#309499 - Additional mail is sent to delegate(s) in Groupwise. (Chakravarthi)
+	#310325 - Meeting request mail cannot be sent for Meeting created in 'Personal' calendar (Vivek)
+	#310496 - 'make check' fails on gpg test (Michael Zucchi) 
+	#310956 - gw: trying to copy the mailbox folder when online copies the folder below the mailbox folder (Parthasarathi)
+	#311078 - Calendar loading progress information goes beyond 100% (Chakravarthi)
+	#311639 - mh: Renaming parent folder loses subfolders (Michael Zucchi)
+	#311831 - sometimes clicking on a meeting request mail or any mail related to assigned task crashes evolution (Chenthill)
+	#312184 - Signature shown as attachment (Parthasarathi)
+	#312578 - In GW calendar user should be able to delegate all instances together (Chenthill)
+	#312668 - Unable to go back to Online mode after clicking offline button (Michael Zucchi)
+	#312715 - Evolution crashes moving IMAP folder to local folder (Michael Zucchi)
+	#312831 - crash in camel-folder-thread.c:sort_node when generating message list (Michael Zucchi)
+	#312857 - gw: Evolution crashes while starting up (Parthasarathi)
+	#312988 - Regressing 274308 - EDS crashed (Sushma)
+	#313058 - gw: Unable to create a new folder(subfolder) with names like Mailbox, Sent Items, etc (Vivek)
+	#313091 - Useless assignment in e-vcard (Ross Burton)
+	#313284 - camel indexing valgrind hits (Michael Zucchi)
+	#313381 - gw: evo crashes while trying to refresh the folder (Vivek)
+	#313574 - crash viewing IMAP mail (Michael Zucchi)
+	#313593 - imap4: sub folders not working (Michael Zucchi)
+	#313657 - IOP: Implement Outlook-like handling of recurrence corner-cases (Carsten Guenther)
+	#313806 - cannot decrypt an encrypted message (Parthasarathi)
+
+Updated Translations:
+
+	- bg (Rostislav Raykov)
+	- ca (Xavier Conde)
+	- de (Frank Arnold)
+	- de (Kostas Papadimas)
+	- el (Kostas Papadimas)
+	- et (Ivar Smolin)
+	- hu (Gabor Kelemen)
+	- lt (Justina Klingaitė)
+	- sr, sr@Latn (Igor Nestorivić)
+	- sq (Laurent Dhima)
+
+Evolution-Data-Server 1.3.7, 2005-08-08
+---------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+	 #274382 - Multiple CC headers are not processed properly (Michael Zucchi)
+	 #310198 - Grammar errors failing Sun's compiler 'Vulcan / Forte' (Mengjie Yu)
+	 #309237 - broken imap server workaround (Michael Zucchi)
+	 #311658 - 1.3.6 lists a pile of old folders (Michael Zucchi)
+	 #300048 - configure script fails to detect getaddrinfo (Harish)
+	 #312535 - GW: Fwded message headers are not displayed (Parthasarathi)
+	 #305304 - Description does not appear completely when using the ITIP FORMATTER plugin (Dinesh Layek)
+	 #312190 - problems with junk test in filters (Vivek Jain)
+	 #312185 - Configuring same account for IMAP and GroupWise troubles Proxy Login (Sankar)
+	 #302968 - GW: Some mails do not get delivered (Sankar)
+	 #305590 - GW: don't see schedules from people in other post offices. (Chenthill)
+	 #310328 - Cannot create recurring 'All Day event' in groupwise calendar (Chenthill)
+	 #311684 - evolution-data-server crashes trying to reply all (Wolfgang Ocker)
+	 #303111 - GW long delays & no status (Sushma Rai)
+	 #308512 - Key /apps/evolution/lock/mail/accounts/save_password does not work correctly
+
+Updated Translations:
+
+	- cs (Miloslav Trmac)
+	- es (Francisco Javier F. Serrador)
+	- et (Ivar Smolin)
+	- fi (Ilkka Tuohela)
+	- gu (Ankit Patel)
+	- id (Imam Musthaqim)
+	- it (Marco Ciampa)
+	- ja (Takeshi AIHANA)
+	- nb,no (Terance Sola)
+	- nl (Reinout van Schouwen)
+	- pl (GNOME PL Team)
+	- pt_BR (Raphael Higino)
+	- vi (Clytie Siddall)
+	- zh_CN (Funda Wang)
+	- zh_TW (Chao-Hsiung Liao)
+
+Evolution-Data-Server 1.3.6, 2005-07-26
+---------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+Addressbook :
+	 #260851 - "Edit Contact" option in Contact name popup menu (Sushma)
+	 #301922 - Composer Section (To: CC: BCC:) Fields Flip Order Of Names (Antony)
+
+Calendar :
+	 #303548 - Missing Calendar Items in GW (Chenthill)
+	 #310752 - Multiple mails and multiple appointments created for a non recurring 
+	           appointment (Chenthill)
+	 #310767 - Cannot Accept GW Appointments Without Error (Chenthill)
+
+Mailer:
+	 #301871 - uninitialized variable in evo-data-server pop3 and imap backend
+	 (meissner@suse.de)
+	 #272505 - GroupWise" spelled inconsistently in evolution-data-server (Parthasarathi)
+	 #310953 - reproducible crash trying to "add signature" in preferences (Parthasarathi)
+	 #310716 - trying to delete a subfolder crashed evolution (Parthasarathi)
+
+Exchange :
+	 #310483 - Check Remember password option, and enter wrong password - Evolution unusable
+	 (Arunprakash)
+
+Others :
+	 #271837 - handle _PRETTY_FUNCTION_ for Sun compilers
+	 (The Written Word)
+	- Copy folder contents locally by default. (Shreyas)
+	- camel store/folder refactoring (Michael)
+	- camel docs breakage fix (Shreyas) 
+	- camel imap store - if the folder is on disk, just get it 
+	  offline, only go to the server if we need to. (Michael)
+	- align ESource uri handling in Exchange addressbook to the
+	  calendar uris (Praveen)
+	- remove esource removal to exchange plugins code (Sarfraaz)
+	- support for timed refresh of GW system addressbook (Sushma)
+	- freezing the cache while updating and writing to disk at once
+	  (Sushma)
+	- make Name selector dialog more intuitive (Vivek)
+	- send a cancel reply to kill a e-password dialog (Jedy Wang) 
+
+
+Updated Translations:
+
+	- cs (Miloslav Trmac)
+	- de (Frank Arnold)
+	- en_CA (Adam Weinberger)
+	- es (Francisco Javier F. Serrador)
+	- et (Ivar Smolin)
+	- et (Priit Laes)
+	- fi (Ilkka Tuohela)
+	- gu (Ankit Patel)
+	- hu (Gabor Kelemen)
+	- id (Imam Musthaqim)
+	- ja (Takeshi AIHANA)
+	- nb, no (Kjartan Maraas)
+	- nl (Vincent van Adrighem)
+	- POTFILES (Adam Weinberger)
+	- POTFILES (Sarfraaz Ahmed)
+	- pt_BR (Raphael Higino)
+	- sr, sr@Latn (Igor Nestorivia)
+	- vi (Clytie Siddall)
+	- zh_CN (Funda Wang)
+
+Evolution-Data-Server 1.3.5, 2005-07-12
+---------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+	#309175 - Error compiling e-d-s based applications with GCC4 (Sushma)
+	#309276 - "is" sexp queries not working with E_CONTACT_UID (Sushma)
+	#308209 - SASL LOGIN mechanism protocol violation (Greg Hudson)
+	#309684 - Contact text entry leaks threads (Ross Burton)
+	#242165 - "search in any field" produces wrong results (Sushma)
+	#302965 - Names begin with a comma in GW Sent Items folder (Partha)
+
+New features :
+	GroupWise Proxy support (Sankar, Shreyas)
+
+Other fixes and changes :
+
+	- Support for getting e-mail ids from a contact list for GW
+	  addressbooks (Sushma)
+	- Addressbook memory leak fixes (Kjartan Maraas, Ross Burton) 
+	- Update GW address book only if marked for offline usage (Sushma)
+	- Optimize e_cal_is_read_only calls (Viren)
+	- Handle GW recurrences in Evolution (This and All) as in GW clients
+	  (Harish)
+	- Optimize calendar attachment retrievals (Chenthill) 
+	- Fix miscellaneous compiler versions (Harish)
+	- Use read cursors request instead of getQM calls in GW backend (Chen)
+	- Improve Junk Mail Handling support (Vivek)
+	- Background folder refresh in GW store (Partha)
+	- Make name selector dialog modal (Sushma)
+	- Remove e-mail addresses more easily in name-selector (Philip Van Hoof)
+	- Fetch folder size in Exchange store (Sarfraaz)
+	- Exchange Foreign hierarchy support (Shakti Sen)
+	- Improved error handling in Exchange store (Arun Prakash)
+
+Updated Translations:
+
+	- bg (Rostislav Raykov)
+	- cs (Miloslav Trmac)
+	- de (Jens Seidel)
+	- en_CA (Adam Weinberger)
+	- es (Francisco Javier F. Serrador)
+	- et (Ivar Smolin)
+	- nb, no (Terance Sola)
+	- vi (Clytie Siddall)
+	- zh_TW (Chao Hsiung Liao) 
+
+Evolution-Data-Server 1.3.4, 2005-07-02
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+Camel
+	#303225 - Left pane is not updated with maildir (Michael Zucchi)
+
+Addressbook
+	#302006 - Autocompletion does not work properly (Hans Petter Jansson)
+
+Calendar
+	#309079 Memory leaks when syncing PDA on FC4 (Harish)
+
+
+Other fixes and changes:
+
+	- Inline PGP signature support (Matt Brown)	
+	- Add exchange as a supported backend to e-d-s
+	- remove checks for unused fields in camel local provider (Michael
+	  Zucchi)
+	- Display GW events based on date of appointment not on the received
+	  time. (Parthasarathi)
+	- Remove redundant linking of http backend to the file (Chen) 
+	- Define static capability for delegation to multiple recipients (Chen)
+	- Support --no-undefined option on windows while building evolution 
+	  and drop superfluous inclusion of pthread.h in Addressbook (Tor Lillqvist)
+	- Switch to GThread API instead of pthreads for the main loop in Addressbook
+	  (Tor Lillqvist)
+	- Ignore 'any field contains' query in LDAP address book refresh
+	  (Sushma)
+	- Build system addressbook cache if marked for offline usage (Sushma)
+	- Update addressbook cache with changes in GW System Address book
+	  (Srinivasa Ragavan)
+	- Use GtkFileChooserButton instead of GnomeFileEntry (Ross Burton)
+	- store the change type of a  Groupwise item while getting the changes
+	  (Chenthill)
+	- Miscellaneous compiler warning fixes (Harish)
+
+Updated Translations:
+	
+	- bg (Vladimir Petkov)
+	- cs (Miloslav Trmac)
+	- da (Martin Willemoes Hansen)
+	- en_CA (Adam Weinberger)
+	- et (Ivar Smolin)
+	- et (Priit Laes)
+	- et (Priit Laes)
+	- nb, no (Kjartan Maraas)
+	- zh_CN (Funda Wang)
+	- zh_TW (Abel Cheung)
+	- zh_TW (Chao-Hsiung Liao)
+	- POTFILES.in (Sarfraaz Ahmed)
+
+Evolution-Data-Server 1.3.3, 2005-06-07
+----------------------------------------
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+IMAP
+	#274407 IMAP4rev1: moved message pops up as new (Jeffrey Stedfast)
+
+Groupwise 
+
+	#300599 Mail folders not getting refreshed for GW account (Partha)
+	
+Addressbook
+	#271901 GroupWise naming consistency (Daniel van Eeden)
+	#300290 GALview does not show Complete name.(Sushma)
+
+
+Other Features and Fixes:
+	- Added support for delegating meetings in Groupwise (Chenthill)
+	- Memory leak in Addressbook File backend (Ross Burton)
+	- updates to camel session fixes for Groupwise backend (Parthasarathi)
+	- fix incorrect naming of camel function (Jeffrey Stedfast)
+
+Updated Translations:
+
+        - es (Francisco Javier F. Serrador)
+	- en_CA (Adam Weinberger)
+	- nb (Terance Sola)
+	- vi (Clytie Siddall)
+	- cs (Miloslav Trmac)
+	- zh_CN (Funda Wang)
+	- cy (Dafydd Harries)
+	- ja (Takeshi AIHANA)
+ 
+Evolution-Data-Server 1.3.2, 2005-05-18
+----------------------------------------
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+Groupwise 
+
+	#274194 Filters do not filter all messages  (Partha)
+	#273246 email is visible with mime.822 file attached (Partha)
+	#273243 external HTML mail is an attachment not viewed inline (Partha)
+
+	#256874 Anniversaries in B&A calendar have the Birthday category (Shreyas)
+	#301116 libedataserverui needs to specify the translation domain explicitly
+		(Changwoo Ryu) 
+
+	#303540 F10 + Shift Key' doesn't work in evolution contacts (Mengjie Yu)  
+	#272504 spell GW rightly (Chenthill)
+	#272503 Typo fix (Thierry Moisan)
+
+
+Other Features and Fixes:
+
+	API docs  (Hans Petter Jansson, Rodrigo Moya) 
+
+	Misc pc file, configure fixes   (Harish)
+	GW Backend Memory leaks (Ulrich Neumann)
+	const keyword additions to camel files (Ross Burton)  
+	Added a new flag CAMEL_PROVIDER_DISABLE_SENT_FOLDER   (Sankar)  
+	Memory leak fixes  (Sushma) 
+	Checks for Win32 (mingw) (Tor Lillqvist)  
+	Copy the flags field when converting from CamelStoreInfo to CamelFolderInfo.
+	 (Alessandro Decina)   
+	VJOURNAL backend (Rodrigo Moya) 
+
+
+Updated Translations:
+
+	- bg (Rostislav Raykov) 
+        - el (Kostas Papadimas) 
+        - da (Martin Willemoes Hansen) 
+  
+
+Evolution Data Server 1.3.1, 2005-04-26
+---------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.gnome.org/show_bug.cgi):
+
+* Camel
+
+  #301037 - Handle case where the path doesn't exist in the url (Jeff)
+  #273945 - If camel_charset_best() returns NULL, default to UTF-8 (Jeff)
+ 
+* Groupwise Provider
+
+ #274257  - Automatically synchronize account locally option does not work (Jeff)
+ #74369   - enable viewing shared folder notifications (Sankar)
+ #72032   - update summary with items that have been deleted from the server (Partha)
+ #72310   - deleted mail is not visible in Trash Folder (Partha)
+ #74183   - Expunge does not expunge all (Sankar)
+ #274409  - hang while reading Email (Chenthill)
+
+* Calendar
+ 
+ #270035 - incompatible calendar.ics created with mozilla (Rodrigo)
+	
+* Addressbook
+
+ #268533 - evolution-alarm-notify appears to cause a leak in e-d-s  (JP)
+ #273330 - Crash  adding attendee under gw calendar - (Siva) 
+ 
+
+Other Bugs 
+
+* Camel 
+	- Fix for systems where read is a macro (David Malcolm)
+	- don't set exceptions for failed date commands in NNTP (Michael)
+	- abort if we fail to get the date in NNTP (Alessandro Decina) 
+	- Don't try to EXPUNGE in READ-ONLY mode (Jeff)
+	
+* Groupwise Provider
+
+	- Remove redundant getQuickMessageRequest (Partha)
+
+* Address Book 
+	- multiple authentication prompts for addressbook (Hans)
+
+
+Updated Translations:
+	* et (Ivar Smolin)
+ 	* fa (Meelad Zakaria)
+	* it (Marco Ciampa) 
+	* cs (Miloslav Trmac)
+	* en_CA (Adam Weinberger)
+
+Evolution Data Server 1.2.0, 2005-03-07
+---------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Addressbook
+    #73226 - Missing symbol in e-destination (JP)
+
+  * Addressbook
+    #72454 - Crash for webcals with gnome proxy setting (Rodrigo)
+
+  * All
+    #73010 - Cannot cancel/close 'Category icon' popup (Harry Lu)
+	
+Updated Translations:
+	- pt_BR (Raphael Higino)
+	- hu (Laszlo Dvornik)
+	- sr (Igor Nestorovic)
+	- sr@Latn (Igor Nestorovic)
+	- ca (Xavier Conde Rueda)
+
+Evolution Data Server 1.1.6, 2005-02-28
+---------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Addressbook
+    #72806 - EDS is crashing while trying to add a contact to Groupwise book (Siva)
+    #70908 - Can't remove e-mail addresses assigned to types evolution doesn't know about (Siva)
+    #67541 - LDAP password not remembered (Siva)
+
+  * Calendar
+    #71490 - Events shows up multiple times (Chen)
+    #71545 - Crash At Startup of Evolution 2.1 (Rodrigo)
+    #72107 - Evolution is hanging if you go offline and then come online (Chen)
+    #73008 - Recipients in CC and BCC field gets added into the TO field and not in their intended place (Sankar)
+    #72965 - Unable to rename a groupwise folder (Partha)
+    #72285 - groupwise backend crashes on a GWPOA generated email (Sankar)
+    #72907 - Few mails are not available for offline in groupwise (Siva)
+
+  * Camel
+    #68459 - Answering to Usenet article doesn't consider the "Followup-To:" field (Michael)
+    #71747 - IMAP host lookup on 'hostname;noselect=yes' (Jeff)
+    #71752 - Make sure auth_domain is 'Groupwise' (Vivek)
+    #72106 - New mails are in "READ" state (Partha)
+    #61468 - From and Subject information is missing from Inbox mailbox (Michael)
+    #57185 - MH file mode changes and broken links (Michael)
+    #59507 - tries to write junk cmeta in local spool (Michael)
+    #71812 - folders are stored way too often (Michael)
+    #70590 - Filters mark mail as read when it really isn't (Michael)
+    #72609 - Crash everytime when read the article (Michael)
+
+  * All
+    #9605  - Let "Delete" remove selected contact from the name selector (Harry Lu)
+    #73011 - Evolution crashed when clicked on new category (Rodrigo)
+
+Other bugs
+
+  * Addressbook
+    - Make sure editors are always read-only in offline mode (Siva)
+    - Destroy groupwise connection hash tables correctly (Chen)
+    - Migration issue with non-ASCII quoted printable chars in contact notes (Siva)
+
+  * Calendar
+    - Return the weather calendar capabilities properly (Rodrigo)
+    - Fix getQM issues in groupwise backend so we don't miss events (Harish, Chen)
+    - Locking fixes to prevent races in backend (JP, Rodrigo)
+    - Download groupwise calendar attachments only if not already in cache (Harish)
+    - Destroy groupwise connection hash tables correctly (Chen)
+    - Make sure groupwise item creation date exists before using (Chen)
+    - Fix crash during migration if e-d-s is not available (Rodrigo)
+    - Set detached instance recurid and start/end properly (Rodrigo)
+
+  * Camel
+    - Make junk code use camel debug (Rodo)
+    - Use groupwise getQM call with correct timestamp to prevent missing messages (Harish)
+    - Fix deletion of groupwise mail (Chen)
+    - Fix server version display in warning (Vivek)
+    - Show correct time for mails (Partha)
+    - Rename inbox/INBOX to Inbox, so it is translatable (Björn Torkelsson)
+    - Use XGMOVE if possible in IMAP4 (Jeff)
+    - Flag IMAP4 inbox properly (Björn Torkelsson)
+    - Just search the cache if IMAP4 is in offline mode (Jeff)
+
+  * All
+    - PPC fixes (Hans)
+    - Allow name selector to auth books properly (Hans)
+    - Leak fix (Kjartan Maraas)
+	
+Updated Translations:
+	- el (Kostas Papadimas, Nikos Charonitakis)
+	- nl (Vincent van Adrighem)
+	- hu (Laszlo Dvornik)
+	- da (Martin Willemoes Hansen)
+	- gu (Ankit Patel) <ankit644@yahoo.com>
+	- pl (Artur Flinta)
+	- uk (Maxim Dziumanenko)
+	- fr (Thierry Moisan)
+	- pt (Duarte Loreto)
+	- it (Marco Ciampa)
+	- nb (Kjartan Maraas)
+	- no (Kjartan Maraas)
+	- bg (Vladimir Petkov)
+	- fi (Ilkka Tuohela)
+	- ru (Leonid Kanter)
+	- sq (Laurent Dhima)
+	- bg (Vladimir Petkov)
+	- lt (Zygimantas Berucka)
+	- en_GB (David Lodge)
+	- ja (Takeshi AIHANA)
+	- ko (Changwoo Ryu)
+	- sv (Christian Rose)
+	- en_CA (Adam Weinberger)
+	- es (Francisco Javier F. Serrador)
+	- de (Frank Arnold)
+	- cs (Miloslav Trmac)
+
+Evolution Data Server 1.1.5, 2005-02-07
+---------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Addressbook
+    #1069  - Support REV field in VCard (Siva)
+    #67267 - Auto-complete misses contacts with 'Title' set (Siva)
+    #68172 - Don't include function names in e-d-s messages (Siva)
+    #70918 - Importing kontact vcard causes inifinite loop (Siva)
+    #71116 - Wrong gettext initialization breaks translation (Christophe)
+    #71827 - Search after a contact with Name begins with, only searches
+               for first name (Siva)
+
+  * Calendar
+    #68541 - Invalid Response From Server Message (Chenthill)
+    #64682 - Moving a appts from one calendar to another sends update (Chenthill)
+    #72004 - Invalid connection error message (popup) - Suddenly (Chenthill)
+    #72117 - EDS crashed - Trying to create meeting appointments (Chenthill)
+
+  * Camel
+    #36142 - Don't use acronyms as verbs in messages (Michael)
+    #38671 - filtering on specific-headers needs to check each matching header
+             (Michael)
+    #38791 - GPG can make evo hang if keyserver unreachable (Michael)
+    #65329 - Regression in default folder name localisation (Michael)
+    #68741 - Evolution 2 hides Junk folder created in 1.4 (Michael)
+    #70303 - PGP signature invalid with very short emails (Michael)
+    #71847 - IMAP is broken (Jeff)
+    #72020 - Error parsing filter: Unknown identifier: adjust-score (Michael)
+
+  * All
+    #69909 - EDS logger doesn't restore logging when it shuts down (JP)
+    #72172 - Cannot delete a GW Shared folder (Partha)
+
+Other bugs
+
+  * Addressbook
+    - Changed default Groupwise port to 7191 (Siva)
+    - Online/offline fixes in LDAP backend (Siva)
+    - Build backends as modules (Hans Petter)
+    - Check Groupwise server version and notify user (Vivek)
+
+  * Calendar
+    - Changed default Groupwise port to 7191 (Siva)
+    - Fixed idle saving in file backend (Rodrigo)
+    - Fixed leak in e_cal_send_objects (JP)
+    - Removed categories-related methods in backends (Rodrigo)
+    - Improvements in communication with GW servers for tasks (Harish)
+    - Build backends as modules (Hans Petter)
+    - Fixed conflicts in IDL file (Hans Petter)
+    - Check Groupwise server version and notify user (Vivek)
+    - getQuickMessages support in GW backend (Chenthill)
+
+  * Camel
+    - Added old imap code back to build (Jeff)
+    - Improve moving between folders in GW provider (Partha)
+    - IMAP/IMAP4 compatibility work (Jeff)
+    - Updated tests to use IMAP4 (Jeff)
+    - getQuickMessages support in GW provider (Partha)
+    - Use GW SOAP mailer code to be the default (Siva)
+    - Changed default Groupwise port to 7191 (Siva)
+    - GW SOAP mailer code improvements (Partha)
+
+  * All
+    - Added 'searchable' flag for categories (Rodrigo)
+    - Fixed saving of categories config changes (Rodrigo)
+    - Use glib's i18n headers (Ross)
+    - Removed useless libgnome use (Ross)
+    - a11y improvements (Hao)
+
+Updated Translations:
+    - ca (Jordi Mallach)
+    - cs (Miloslav Trmac)
+    - de (Frank Arnold)
+    - el (Kostas Papadimas)
+    - en_CA (Adam Weinberger)
+    - en_GB (David Lodge)
+    - es (Francisco Javier F. Serrador)
+    - et (Priit Laes)
+    - ja (Takeshi AIHANA)
+    - ko (Changwoo Ryu)
+    - lt (Žygimantas Beručka)
+    - nb (Kjartan Maraas)
+    - nl (Vincent van Adrighem)
+    - no (Kjartan Maraas)
+    - pt (Duarte Loreto)
+    - pt_BR (Raphael Higino)
+    - sq (Laurent Dhima)
+    - sv (Christian Rose)
+
+Evolution Data Server 1.1.4, 2005-01-24
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Calendar
+
+    #57567 - calendar migration speed (Rodrigo)
+    #67974 - use proxy if necessary for webcal (Rodrigo)
+
+  * Camel
+
+    #65178 - newly created folder on local maildir doesn't show until evolution restart (Michael)
+    #71082 - Authenticated SMTP and TLS work very slowly (Jeff)
+    #69024 - Doesn't update NNTP folder in a Virtual folder (Michael)
+    #47824 - nested, identical multipart boundaries dont parse properly (Michael)
+    #70095 - deleting vfolder causes evo to hang (Michael)
+
+  * All
+    #70067 - Mask GW password when GROUPWISE_DEBUG=1 is used (Siva)
+    #28532 - Don't allow duplicate categories (Rodrigo)
+
+Other bugs
+
+  * Addressbook
+    - Fix full name queries (Siva)
+    - Order of magnitude speed fix for fetching list of contacts (Siva)
+
+  * Calendar
+    - Comply with new server api changes (Harish)
+    - Default to UTC timezone if nothing else (Chen)
+    - Handle cancelling instances via itip (Rodrigo)
+    - Handle case where events are only instances (no master) (Rodrigo)
+    - Don't save unless the file is actually dirty in the file backend (Rodrigo)
+    - Use single metric/imperial setting (David Trowbridge)
+
+  * Camel
+    - Make imap4 code have the same summary as imap (Jeff)
+    - Make imap4 code handle imap:// uri (Jeff)
+    - Fix offline syncing and journalling for imap, groupwise and exchange (Jeff)
+    - Be able to get the message status in groupwise (Partha)
+    - Restrict path lengths to 65k in lock helper (Michael, Max Vozeler)
+    - Fix groupwise offline transfers (Jeff)
+    - retain label settings in IMAP4 when offline for UIDPLUS servers (Jeff)
+    - 64 bit fixes (Michael)
+
+  * All
+    - emit source changed property if properties are totally removed (Siva)
+    - complete properly if the widget loses focus via tab (Hans)
+    - display all email addresses for a user again (Hans)
+    - fix crash pressing enter in empty completion widget (Hans)
+
+Updated Translations:
+	- it (Marco Ciampa)
+	- de (Frank Arnold)
+	- et (Priit Laes)
+	- cs (Miloslav Trmac)
+	- nb (Kjartan Maraas)
+	- lt (Zygimantas Berucka)
+	- ja (Takeshi AIHANA)
+	- es (Francisco Javier F. Serrador)
+	- en_CA (Adam Weinberger)
+
+Evolution Data Server 1.1.3, 2005-01-10
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Calendar
+
+    #68533 - evolution-alarm-notify appears to cause an e_data_book leak (Harish)
+
+  * Camel
+
+    #70556 - Unable load messages info from MS Exchange by IMAP (Michael)
+    #70919 - Crash during fetching mail (mail has gpg signature) (Michael)
+  
+Other bugs
+
+  * Addressbook
+    - Merge offline support for groupwise, ldap (Siva, Chen, Hans)
+
+  * Calendar
+    - Backend attachment support (Harish)
+    - Weather calendar (David Trowbridge)
+    - Handle send options for groupwise (Chen)
+    - Fixed problems when items only had detached instances (Rodrigo)
+    - Merge offline support for groupwise, ldap, webcal (Siva, Chen)
+
+  * Camel
+    - Merge groupwise SOAP mailer (Partha)
+    - IMAP4 offline support (Jeff)
+    - Groupwise offline support (JP, Jeff, Partha)
+    - 64 bit fixes (David Mosberger-Tang)
+
+  * All
+    - move e-categories and rewrite (Rodrigo)
+    - emit source_changed signal if properties change (David Trowbridge)
+    - implement e-name-selector class, without bonobo (Hans)
+
+Updated Translations:
+	- bg (Vladimir Petkov)
+	- ja (Takeshi AIHANA)
+	- ru (Leonid Kanter)
+
+Evolution Data Server 1.1.2, 2004-12-20
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Calendar
+
+    #70127 - Evolution Calendar does not use a User-Agent (JP)
+    #70267 - O(n^2) activity writing cache files when opening an ics webcal
+    #file (Rodrigo)
+
+  * Addressbook
+
+    #68454 - Ldap organizationalUnit show up in contact list (Siva)
+
+  * Camel
+
+    #69776 -Signed Mail with attachments displays everything with
+     multipart/boundaries stuff (NotZed)
+    #69533 - GW imap mail becomes invisble/unavailable (NotZed)
+  
+Other bugs
+
+  * Addressbook
+    - implement is_open accessor on ebook (Hans)
+    - move e-destination (Hans)
+
+  * Calendar
+    - Merge recurrence work, support for detached instances (Rodrigo)
+    - Add support for passing a modified object from sync backends (Anders Carlsson)
+    - Add static capabilities for send options (Chen)
+    - Leak fixes (Harish)
+
+  * Camel
+    - Move camel here (NotZed)
+    - Fix non-SSL build (Jeff)
+    - Add offline journalling for IMAP4 (Jeff)
+
+  * All
+    - implement a gtktreemodel contact store (Hans)
+
+Updated Translations:
+	- lt (Zygimantas Berucka)
+	- it (Marco Ciampa)
+
+Evolution Data Server 1.1.1, 2004-11-28
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Calendar
+
+    #69624 - make changes in evo corresponding to soap schema changes (Siva)
+
+  * All
+
+    #69056 - Translations set to wrong version (Ryan Skadzberg)
+    #68737 - Crash on Migrating (JP)
+  
+Other bugs
+
+  * Addressbook
+    - add API to determine required fields (Siva)
+
+  * All
+    - allow access to primary source selector (Harish)
+
+Updated Translations:
+	- sr (Danilo Segan)
+	- sr@Latn (Danilo Segan)
+	- cs (Miloslav Trmac)
+	- sq (Laurent Dhima)
+	- en_CA (Adam Weinberger)
+	- en_GB (David Lodge)
+
+Evolution Data Server 1.1.0, 2004-11-01
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Calendar
+
+    #64673 - Cannot view free/busy for GroupWise users for users outside POA (Harish)
+    #67031 - Groupwise task completion not showing (Chen)
+
+  * Address Book
+
+    #42165 - "search in any field" produces wrong results (Siva)
+    #64298 - G/W failure to authenticate (Siva)
+
+  * All
+
+    #65200 - GroupWise backend crash
+    #67031 - (Partial) show completed status properly for GroupWise tasks
+  
+Other bugs
+
+  * Address Book
+    - Fix e_book_commit_contact multiple usage crash (Diego Gonzalez)
+    - Make groupwise IM names searchable (Nat)
+
+  * Calendar
+    - Speed up free/busy gathering (Harish)
+    - Speed up getting detached instance information (Rodrigo)
+
+  * All
+    - loadable backend modules (Toshok)
+    - create libedataserverui (JP)
+
+Updated Translations:
+	- sr (Danilo Segan)
+	- sr@Latn (Danilo Segan)
+	- cs (Miloslav Trmac)
+	- sq (Laurent Dhima)
+	- en_CA (Adam Weinberger)
+	- en_GB (David Lodge)
+
+Evolution Data Server 1.0.2, 2004-10-11
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Calendar
+
+    #62868 - Permission denied accepting a GroupWise meeting a second time (Chen)
+    #67513 - Evolution corrupts memory if backend autobooks meeting attendees (JP)
+    #66230 - tasks from online iCal duplicate after auto-refresh (Rodrigo)
+
+  * Address Book
+
+    #66368 - VCard parser doesn't add "File under" (Hans)
+    #66574 - Make e_book_get_self work (Diego Gonzalez
+    #67600 - fix e-d-s issues on x86_64 machines (Hans)
+
+  * All
+
+    #65200 - GroupWise backend crash
+    #67031 - (Partial) show completed status properly for GroupWise tasks
+  
+Other bugs
+
+  * Address Book
+    - Restrict system address book queries to groupwise server for performance reasons (Siva)
+
+  * Calendar
+    - load system tasks backend correctly
+
+Updated Translations:
+	- fr (Craig Jeffares)
+	- zh_TW (Craig Jeffares)
+	- sk (Stanislav Visnovsky)
+	- fa (Roozbeh Pournader)
+	- id (Mohammad DAMT)
+	- ar (Arafat Medini)
+
+Evolution Data Server 1.0.1, 2004-09-24
+----------------------------------------
+                                                                                                                                                              
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+                                                                                                                                                              
+  * Calendar
+                                                                                                                                                              
+    #66383 - Warning fixes in calendar code (Dave Malcom)
+    #64955 - C99-ism in libecal (Vincent Noel)
+    #59904 - Calendar query caching (Rodrigo)
+    #65167 - Crash sending task to GroupWise (Chen)
+    #64685 - Appointment requests that have been replied to give "Invalid Object" error (Chen)
+    #63513 - G/W appointment acceptance fails ('invalid object') (Chen)
+    #64688 - mixing UTC and localtime in Appointment view (Chen)
+                                                                                                                                                              
+  * All
+                                                                                                                                                              
+    #66209 - only first source color change is saved to gconf (Michael)
+    #64062 - new all day recurring events do not show busy time or as all day appts (Chen)
+                                                                                                                                                              
+Other bugs
+                                                                                                                                                              
+  * Address Book
+    - disable debugging noise (William Jon McCann)
+    - don't search summary for groupwise system address book (Siva)
+                                                                                                                                                              
+  * Calendar
+    - support groupwise all day events
+                                                                                                                                                              
+  * All
+    - fix e-d-s issues on NPTL and AMD machines (Chris, Frederic Crozat, Hans, Dave Malcolm)
+                                                                                                                                                              
+Updated Translations:
+        - fr (Craig Jeffares)
+        - zh_TW (Craig Jeffares)
+        - sk (Stanislav Visnovsky)
+        - fa (Roozbeh Pournader)
+        - id (Mohammad DAMT)
+        - ar (Arafat Medini)
+
+Evolution Data Server 1.0.0, 2004-09-13
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Addressbook
+
+    #59582 - Contact incompletely updated to LDAP store, address information lost/not editable
+    #63385 - Evolution crash - Adding two email ids with same name 
+
+  * Calendar
+
+    #57443 - ics import crashes
+
+Updated Translations:
+	
+	- da (Martin Willemoes Hansen)
+	- ar (Arafat Medini)
+	- nn (Åsmund Skjæveland)
+	- en_GB (David Lodge)
+	- cy (Telsa Gwynne)
+	- el (Kostas Papadimas)
+	- tr (Baris Cicek)
+
+Evolution Data Server 0.0.99, 2004-08-27
+----------------------------------------
+
+Bugzilla bugs fixed (see http://bugzilla.ximian.com/show_bug.cgi):
+
+  * Addressbook
+
+    #63844 - avoid locking if authentication needed during auto completion (Siva)
+    #63255 - ignore name prefixes when completing (Siva)
+
+  * Calendar
+
+    #62857 - display recurring events upon creation for groupwise (Chen)
+    #61782 - handle importing objects with no UID (Rodrigo)
+    #62655 - don't crash with NULL uri (Hans)
+
+  * All
+
+    #63051 - solaris build fixes (notzed)
+
+Other bugs
+
+  * Calendar
+
+    - add has-alarms-in-range query type (Rodrigo)
+    - always set return value for e_cal_set_default_timezone (Frederic Crozat)
+    - don't set the same default timezone multiple times (JP)
+    - don't get all items from the groupwise server every time (Chen) 
+
+  * Addressbook
+
+    - and thread safety flag for libdb (Toshok)
+    - throw error when deleting system address book (Siva)
+    - avoid unfiltered system address book searchs (Siva)
+    - use cursors to populate the groupwise cache (Siva)
+    - prevent groupwise server crash by not doing to cursor requests at the same time (Chen)
+    - immediately show meeting status updates in GUI for groupwise (Chen)
+	
+  * All
+
+    - fix warnings (Frederic Crozat)
+    - set cache file name properly (Siva)
+
+Updated Translations:
+
+  - pt_BR (Gustavo Maciel Dias Vieira)
+  - es (Francisco Javier F. Serrador)
+  - da (Martin Willemoes Hansen)
+  - de (Christian Neumair)
+  - hu (Laszlo Dvornik)
+  - nb (Kjartan Maraas)
+  - no (Kjartan Maraas)
+  - sq (Laurent Dhima)
+  - uk (Maxim Dziumanenko)
+  - az (Metin Amiroff)
+  - ja (Takeshi AIHANA)
+  - pt (Duarte Loreto)
+  - fi (Ilkka Tuohela, Tommi Vainikainen)
+

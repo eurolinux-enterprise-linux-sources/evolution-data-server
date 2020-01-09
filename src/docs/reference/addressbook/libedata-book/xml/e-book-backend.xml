@@ -1,0 +1,955 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EBookBackend">
+<refmeta>
+<refentrytitle role="top_of_page" id="EBookBackend.top_of_page">EBookBackend</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEDATA-BOOK Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EBookBackend</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EBookBackend.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>struct              <link linkend="EBookBackend-struct">EBookBackend</link>;
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-backend-construct">e_book_backend_construct</link>            (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="GNOME-Evolution-Addressbook-CallStatus"><returnvalue>GNOME_Evolution_Addressbook_CallStatus</returnvalue></link>  <link linkend="e-book-backend-load-source">e_book_backend_load_source</link>
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> only_if_exists</parameter>);
+<link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           <link linkend="e-book-backend-get-source">e_book_backend_get_source</link>           (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-backend-add-client">e_book_backend_add_client</link>           (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-remove-client">e_book_backend_remove_client</link>        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-backend-has-out-of-proc-clients">e_book_backend_has_out_of_proc_clients</link>
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-book-backend-get-static-capabilities">e_book_backend_get_static_capabilities</link>
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-backend-is-loaded">e_book_backend_is_loaded</link>            (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-backend-is-writable">e_book_backend_is_writable</link>          (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-book-backend-is-removed">e_book_backend_is_removed</link>           (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-open">e_book_backend_open</link>                 (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> only_if_exists</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-remove">e_book_backend_remove</link>               (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-create-contact">e_book_backend_create_contact</link>       (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-remove-contacts">e_book_backend_remove_contacts</link>      (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *id_list</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-modify-contact">e_book_backend_modify_contact</link>       (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-get-contact">e_book_backend_get_contact</link>          (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-get-contact-list">e_book_backend_get_contact_list</link>     (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *query</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-get-changes">e_book_backend_get_changes</link>          (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *change_id</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-authenticate-user">e_book_backend_authenticate_user</link>    (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *user</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *passwd</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *auth_method</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-get-supported-fields">e_book_backend_get_supported_fields</link> (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-get-required-fields">e_book_backend_get_required_fields</link>  (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-get-supported-auth-methods">e_book_backend_get_supported_auth_methods</link>
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>);
+<link linkend="GNOME-Evolution-Addressbook-CallStatus"><returnvalue>GNOME_Evolution_Addressbook_CallStatus</returnvalue></link>  <link linkend="e-book-backend-cancel-operation">e_book_backend_cancel_operation</link>
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-set-mode">e_book_backend_set_mode</link>             (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Addressbook-BookMode"><type>GNOME_Evolution_Addressbook_BookMode</type></link> mode</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-start-book-view">e_book_backend_start_book_view</link>      (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *view</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-stop-book-view">e_book_backend_stop_book_view</link>       (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *view</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-add-book-view">e_book_backend_add_book_view</link>        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *view</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-remove-book-view">e_book_backend_remove_book_view</link>     (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *view</parameter>);
+<link linkend="EList"><returnvalue>EList</returnvalue></link> *             <link linkend="e-book-backend-get-book-views">e_book_backend_get_book_views</link>       (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-notify-update">e_book_backend_notify_update</link>        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-notify-remove">e_book_backend_notify_remove</link>        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-notify-complete">e_book_backend_notify_complete</link>      (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-notify-writable">e_book_backend_notify_writable</link>      (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> is_writable</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-notify-connection-status">e_book_backend_notify_connection_status</link>
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> is_online</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-notify-auth-required">e_book_backend_notify_auth_required</link> (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-sync">e_book_backend_sync</link>                 (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-set-is-loaded">e_book_backend_set_is_loaded</link>        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> is_loaded</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-set-is-writable">e_book_backend_set_is_writable</link>      (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> is_writable</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-book-backend-set-is-removed">e_book_backend_set_is_removed</link>       (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> is_removed</parameter>);
+<link linkend="GNOME-Evolution-Addressbook-BookChangeItem"><returnvalue>GNOME_Evolution_Addressbook_BookChangeItem</returnvalue></link>* <link linkend="e-book-backend-change-add-new">e_book_backend_change_add_new</link>
+                                                        (<parameter>const <link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);
+<link linkend="GNOME-Evolution-Addressbook-BookChangeItem"><returnvalue>GNOME_Evolution_Addressbook_BookChangeItem</returnvalue></link>* <link linkend="e-book-backend-change-modify-new">e_book_backend_change_modify_new</link>
+                                                        (<parameter>const <link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);
+<link linkend="GNOME-Evolution-Addressbook-BookChangeItem"><returnvalue>GNOME_Evolution_Addressbook_BookChangeItem</returnvalue></link>* <link linkend="e-book-backend-change-delete-new">e_book_backend_change_delete_new</link>
+                                                        (<parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>);
+struct              <link linkend="EBookBackendClass">EBookBackendClass</link>;
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="EBookBackend.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----EBookBackend
+         +----<link linkend="EBookBackendSync">EBookBackendSync</link>
+</synopsis>
+</refsect1>
+<refsect1 id="EBookBackend.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="EBookBackend-last-client-gone">last-client-gone</link>&quot;                               : Run First
+</synopsis>
+</refsect1>
+
+<refsect1 id="EBookBackend.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="EBookBackend.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EBookBackend-struct" role="struct">
+<title>struct EBookBackend</title>
+<indexterm zone="EBookBackend-struct"><primary>EBookBackend</primary></indexterm>
+<programlisting>struct EBookBackend;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-book-backend-construct" role="function">
+<title>e_book_backend_construct ()</title>
+<indexterm zone="e-book-backend-construct"><primary>e_book_backend_construct</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_backend_construct            (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Does nothing.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-load-source" role="function">
+<title>e_book_backend_load_source ()</title>
+<indexterm zone="e-book-backend-load-source"><primary>e_book_backend_load_source</primary></indexterm>
+<programlisting><link linkend="GNOME-Evolution-Addressbook-CallStatus"><returnvalue>GNOME_Evolution_Addressbook_CallStatus</returnvalue></link>  e_book_backend_load_source
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="ESource"><type>ESource</type></link> *source</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> only_if_exists</parameter>);</programlisting>
+<para>
+Loads <parameter>source</parameter> into <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>source</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="ESource"><type>ESource</type></link> to load
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>only_if_exists</parameter>&#160;:</term>
+<listitem><simpara><link linkend="TRUE:CAPS"><literal>TRUE</literal></link> to prevent the creation of a new book
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A <link linkend="GNOME-Evolution-Addressbook-CallStatus"><type>GNOME_Evolution_Addressbook_CallStatus</type></link> indicating the outcome.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-get-source" role="function">
+<title>e_book_backend_get_source ()</title>
+<indexterm zone="e-book-backend-get-source"><primary>e_book_backend_get_source</primary></indexterm>
+<programlisting><link linkend="ESource"><returnvalue>ESource</returnvalue></link> *           e_book_backend_get_source           (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Queries the source that an addressbook backend is serving.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An addressbook backend.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> ESource for the backend.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-add-client" role="function">
+<title>e_book_backend_add_client ()</title>
+<indexterm zone="e-book-backend-add-client"><primary>e_book_backend_add_client</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_backend_add_client           (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>);</programlisting>
+<para>
+Adds a client to an addressbook backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>An addressbook backend.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>the corba object representing the client connection.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> TRUE on success, FALSE on failure to add the client.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-remove-client" role="function">
+<title>e_book_backend_remove_client ()</title>
+<indexterm zone="e-book-backend-remove-client"><primary>e_book_backend_remove_client</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_remove_client        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>);</programlisting>
+<para>
+Removes <parameter>book</parameter> from the list of <parameter>backend</parameter>'s clients.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link> to remove
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-has-out-of-proc-clients" role="function">
+<title>e_book_backend_has_out_of_proc_clients ()</title>
+<indexterm zone="e-book-backend-has-out-of-proc-clients"><primary>e_book_backend_has_out_of_proc_clients</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_backend_has_out_of_proc_clients
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Checks if <parameter>backend</parameter> has clients running in other system processes.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if there are clients in other processes, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-get-static-capabilities" role="function">
+<title>e_book_backend_get_static_capabilities ()</title>
+<indexterm zone="e-book-backend-get-static-capabilities"><primary>e_book_backend_get_static_capabilities</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_book_backend_get_static_capabilities
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Gets the capabilities offered by this <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A string listing the capabilities.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-is-loaded" role="function">
+<title>e_book_backend_is_loaded ()</title>
+<indexterm zone="e-book-backend-is-loaded"><primary>e_book_backend_is_loaded</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_backend_is_loaded            (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Checks if <parameter>backend</parameter>'s storage has been opened and the backend
+itself is ready for accessing.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if loaded, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-is-writable" role="function">
+<title>e_book_backend_is_writable ()</title>
+<indexterm zone="e-book-backend-is-writable"><primary>e_book_backend_is_writable</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_backend_is_writable          (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Checks if we can write to <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if writeable, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if not.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-is-removed" role="function">
+<title>e_book_backend_is_removed ()</title>
+<indexterm zone="e-book-backend-is-removed"><primary>e_book_backend_is_removed</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_book_backend_is_removed           (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Checks if <parameter>backend</parameter> has been removed from its physical storage.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if <parameter>backend</parameter> has been removed, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-open" role="function">
+<title>e_book_backend_open ()</title>
+<indexterm zone="e-book-backend-open"><primary>e_book_backend_open</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_open                 (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> only_if_exists</parameter>);</programlisting>
+<para>
+Executes an 'open' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>only_if_exists</parameter>&#160;:</term>
+<listitem><simpara><link linkend="TRUE:CAPS"><literal>TRUE</literal></link> to prevent the creation of a new book
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-remove" role="function">
+<title>e_book_backend_remove ()</title>
+<indexterm zone="e-book-backend-remove"><primary>e_book_backend_remove</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_remove               (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>);</programlisting>
+<para>
+Executes a 'remove' request to remove all of <parameter>backend</parameter>'s data,
+specified by <parameter>opid</parameter> on <parameter>book</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-create-contact" role="function">
+<title>e_book_backend_create_contact ()</title>
+<indexterm zone="e-book-backend-create-contact"><primary>e_book_backend_create_contact</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_create_contact       (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);</programlisting>
+<para>
+Executes a 'create contact' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>vcard</parameter>&#160;:</term>
+<listitem><simpara>the VCard to add
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-remove-contacts" role="function">
+<title>e_book_backend_remove_contacts ()</title>
+<indexterm zone="e-book-backend-remove-contacts"><primary>e_book_backend_remove_contacts</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_remove_contacts      (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter><link linkend="GList"><type>GList</type></link> *id_list</parameter>);</programlisting>
+<para>
+Executes a 'remove contacts' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id_list</parameter>&#160;:</term>
+<listitem><simpara>list of string IDs to remove
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-modify-contact" role="function">
+<title>e_book_backend_modify_contact ()</title>
+<indexterm zone="e-book-backend-modify-contact"><primary>e_book_backend_modify_contact</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_modify_contact       (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);</programlisting>
+<para>
+Executes a 'modify contact' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>vcard</parameter>&#160;:</term>
+<listitem><simpara>the VCard to update
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-get-contact" role="function">
+<title>e_book_backend_get_contact ()</title>
+<indexterm zone="e-book-backend-get-contact"><primary>e_book_backend_get_contact</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_get_contact          (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>);</programlisting>
+<para>
+Executes a 'get contact' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>the ID of the contact to get
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-get-contact-list" role="function">
+<title>e_book_backend_get_contact_list ()</title>
+<indexterm zone="e-book-backend-get-contact-list"><primary>e_book_backend_get_contact_list</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_get_contact_list     (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *query</parameter>);</programlisting>
+<para>
+Executes a 'get contact list' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&#160;:</term>
+<listitem><simpara>the s-expression to match
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-get-changes" role="function">
+<title>e_book_backend_get_changes ()</title>
+<indexterm zone="e-book-backend-get-changes"><primary>e_book_backend_get_changes</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_get_changes          (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *change_id</parameter>);</programlisting>
+<para>
+Executes a 'get changes' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>change_id</parameter>&#160;:</term>
+<listitem><simpara>the ID of the changeset
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-authenticate-user" role="function">
+<title>e_book_backend_authenticate_user ()</title>
+<indexterm zone="e-book-backend-authenticate-user"><primary>e_book_backend_authenticate_user</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_authenticate_user    (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *user</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *passwd</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *auth_method</parameter>);</programlisting>
+<para>
+Executes an 'authenticate' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user</parameter>&#160;:</term>
+<listitem><simpara>the name of the user account
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>passwd</parameter>&#160;:</term>
+<listitem><simpara>the user's password
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>auth_method</parameter>&#160;:</term>
+<listitem><simpara>the authentication method to use
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-get-supported-fields" role="function">
+<title>e_book_backend_get_supported_fields ()</title>
+<indexterm zone="e-book-backend-get-supported-fields"><primary>e_book_backend_get_supported_fields</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_get_supported_fields (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>);</programlisting>
+<para>
+Executes a 'get supported fields' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-get-required-fields" role="function">
+<title>e_book_backend_get_required_fields ()</title>
+<indexterm zone="e-book-backend-get-required-fields"><primary>e_book_backend_get_required_fields</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_get_required_fields  (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>);</programlisting>
+<para>
+Executes a 'get required fields' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-get-supported-auth-methods" role="function">
+<title>e_book_backend_get_supported_auth_methods ()</title>
+<indexterm zone="e-book-backend-get-supported-auth-methods"><primary>e_book_backend_get_supported_auth_methods</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_get_supported_auth_methods
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>,
+                                                         <parameter><link linkend="guint32"><type>guint32</type></link> opid</parameter>);</programlisting>
+<para>
+Executes a 'get supported auth methods' request specified by <parameter>opid</parameter> on <parameter>book</parameter>
+using <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>opid</parameter>&#160;:</term>
+<listitem><simpara>the ID to use for this operation
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-cancel-operation" role="function">
+<title>e_book_backend_cancel_operation ()</title>
+<indexterm zone="e-book-backend-cancel-operation"><primary>e_book_backend_cancel_operation</primary></indexterm>
+<programlisting><link linkend="GNOME-Evolution-Addressbook-CallStatus"><returnvalue>GNOME_Evolution_Addressbook_CallStatus</returnvalue></link>  e_book_backend_cancel_operation
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBook"><type>EDataBook</type></link> *book</parameter>);</programlisting>
+<para>
+Cancel <parameter>book</parameter>'s running operation on <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBook"><type>EDataBook</type></link> whose operation should be cancelled
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A GNOME_Evolution_Addressbook_CallStatus indicating the outcome.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-set-mode" role="function">
+<title>e_book_backend_set_mode ()</title>
+<indexterm zone="e-book-backend-set-mode"><primary>e_book_backend_set_mode</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_set_mode             (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="GNOME-Evolution-Addressbook-BookMode"><type>GNOME_Evolution_Addressbook_BookMode</type></link> mode</parameter>);</programlisting>
+<para>
+Sets <parameter>backend</parameter>'s online/offline mode to <parameter>mode</parameter>. Mode can be 1 for offline
+or 2 indicating that it is connected and online.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookbackend"><type>EBookbackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&#160;:</term>
+<listitem><simpara>a mode indicating the online/offline status of the backend
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-start-book-view" role="function">
+<title>e_book_backend_start_book_view ()</title>
+<indexterm zone="e-book-backend-start-book-view"><primary>e_book_backend_start_book_view</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_start_book_view      (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *view</parameter>);</programlisting>
+<para>
+Starts running the query specified by <parameter>book_view</parameter>, emitting
+signals for matching contacts.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>view</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-stop-book-view" role="function">
+<title>e_book_backend_stop_book_view ()</title>
+<indexterm zone="e-book-backend-stop-book-view"><primary>e_book_backend_stop_book_view</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_stop_book_view       (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *view</parameter>);</programlisting>
+<para>
+Stops running the query specified by <parameter>book_view</parameter>, emitting
+no more signals.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>view</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-add-book-view" role="function">
+<title>e_book_backend_add_book_view ()</title>
+<indexterm zone="e-book-backend-add-book-view"><primary>e_book_backend_add_book_view</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_add_book_view        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *view</parameter>);</programlisting>
+<para>
+Adds <parameter>view</parameter> to <parameter>backend</parameter> for querying.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-remove-book-view" role="function">
+<title>e_book_backend_remove_book_view ()</title>
+<indexterm zone="e-book-backend-remove-book-view"><primary>e_book_backend_remove_book_view</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_remove_book_view     (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EDataBookView"><type>EDataBookView</type></link> *view</parameter>);</programlisting>
+<para>
+Removes <parameter>view</parameter> from <parameter>backend</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>view</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDataBookView"><type>EDataBookView</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-get-book-views" role="function">
+<title>e_book_backend_get_book_views ()</title>
+<indexterm zone="e-book-backend-get-book-views"><primary>e_book_backend_get_book_views</primary></indexterm>
+<programlisting><link linkend="EList"><returnvalue>EList</returnvalue></link> *             e_book_backend_get_book_views       (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Gets the list of <link linkend="EDataBookView"><type>EDataBookView</type></link> views running on this backend.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An <link linkend="EList"><type>EList</type></link> of <link linkend="EDataBookView"><type>EDataBookView</type></link> objects.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-notify-update" role="function">
+<title>e_book_backend_notify_update ()</title>
+<indexterm zone="e-book-backend-notify-update"><primary>e_book_backend_notify_update</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_notify_update        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>);</programlisting>
+<para>
+Notifies all of <parameter>backend</parameter>'s book views about the new or modified
+contacts <parameter>contact</parameter>.
+</para>
+<para>
+<link linkend="e-data-book-respond-create"><function>e_data_book_respond_create()</function></link> and <link linkend="e-data-book-respond-modify"><function>e_data_book_respond_modify()</function></link> call this
+function for you. You only need to call this from your backend if
+contacts are created or modified by another (non-PAS-using) client.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>a new or modified contact
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-notify-remove" role="function">
+<title>e_book_backend_notify_remove ()</title>
+<indexterm zone="e-book-backend-notify-remove"><primary>e_book_backend_notify_remove</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_notify_remove        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>);</programlisting>
+<para>
+Notifies all of <parameter>backend</parameter>'s book views that the contact with UID
+<parameter>id</parameter> has been removed.
+</para>
+<para>
+<link linkend="e-data-book-respond-remove-contacts"><function>e_data_book_respond_remove_contacts()</function></link> calls this function for you. You
+only need to call this from your backend if contacts are removed by
+another (non-PAS-using) client.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>a contact id
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-notify-complete" role="function">
+<title>e_book_backend_notify_complete ()</title>
+<indexterm zone="e-book-backend-notify-complete"><primary>e_book_backend_notify_complete</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_notify_complete      (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Notifies all of <parameter>backend</parameter>'s book views that the current set of
+notifications is complete; use this after a series of
+<link linkend="e-book-backend-notify-update"><function>e_book_backend_notify_update()</function></link> and <link linkend="e-book-backend-notify-remove"><function>e_book_backend_notify_remove()</function></link> calls.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookbackend"><type>EBookbackend</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-notify-writable" role="function">
+<title>e_book_backend_notify_writable ()</title>
+<indexterm zone="e-book-backend-notify-writable"><primary>e_book_backend_notify_writable</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_notify_writable      (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> is_writable</parameter>);</programlisting>
+<para>
+Notifies all backends clients about the current writable state.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>is_writable</parameter>&#160;:</term>
+<listitem><simpara>flag indicating writable status
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-notify-connection-status" role="function">
+<title>e_book_backend_notify_connection_status ()</title>
+<indexterm zone="e-book-backend-notify-connection-status"><primary>e_book_backend_notify_connection_status</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_notify_connection_status
+                                                        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> is_online</parameter>);</programlisting>
+<para>
+Notifies clients of <parameter>backend</parameter>'s connection status indicated by <parameter>is_online</parameter>.
+Meant to be used by backend implementations.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>is_online</parameter>&#160;:</term>
+<listitem><simpara>flag indicating whether <parameter>backend</parameter> is connected and online
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-notify-auth-required" role="function">
+<title>e_book_backend_notify_auth_required ()</title>
+<indexterm zone="e-book-backend-notify-auth-required"><primary>e_book_backend_notify_auth_required</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_notify_auth_required (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Notifies clients that <parameter>backend</parameter> requires authentication in order to
+connect. Means to be used by backend implementations.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-sync" role="function">
+<title>e_book_backend_sync ()</title>
+<indexterm zone="e-book-backend-sync"><primary>e_book_backend_sync</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_sync                 (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>);</programlisting>
+<para>
+Write all pending data to disk.  This is only required under special
+circumstances (for example before a live backup) and should not be used in
+normal use.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookbackend"><type>EBookbackend</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-set-is-loaded" role="function">
+<title>e_book_backend_set_is_loaded ()</title>
+<indexterm zone="e-book-backend-set-is-loaded"><primary>e_book_backend_set_is_loaded</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_set_is_loaded        (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> is_loaded</parameter>);</programlisting>
+<para>
+Sets the flag indicating whether <parameter>backend</parameter> is loaded to <parameter>is_loaded</parameter>.
+Meant to be used by backend implementations.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>is_loaded</parameter>&#160;:</term>
+<listitem><simpara>A flag indicating whether the backend is loaded
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-set-is-writable" role="function">
+<title>e_book_backend_set_is_writable ()</title>
+<indexterm zone="e-book-backend-set-is-writable"><primary>e_book_backend_set_is_writable</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_set_is_writable      (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> is_writable</parameter>);</programlisting>
+<para>
+Sets the flag indicating whether <parameter>backend</parameter> is writeable to <parameter>is_writeable</parameter>.
+Meant to be used by backend implementations.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>is_writable</parameter>&#160;:</term>
+<listitem><simpara>A flag indicating whether the backend is writeable
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-set-is-removed" role="function">
+<title>e_book_backend_set_is_removed ()</title>
+<indexterm zone="e-book-backend-set-is-removed"><primary>e_book_backend_set_is_removed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_book_backend_set_is_removed       (<parameter><link linkend="EBookBackend"><type>EBookBackend</type></link> *backend</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> is_removed</parameter>);</programlisting>
+<para>
+Sets the flag indicating whether <parameter>backend</parameter> was removed to <parameter>is_removed</parameter>.
+Meant to be used by backend implementations.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>backend</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBookBackend"><type>EBookBackend</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>is_removed</parameter>&#160;:</term>
+<listitem><simpara>A flag indicating whether the backend's storage was removed
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-change-add-new" role="function">
+<title>e_book_backend_change_add_new ()</title>
+<indexterm zone="e-book-backend-change-add-new"><primary>e_book_backend_change_add_new</primary></indexterm>
+<programlisting><link linkend="GNOME-Evolution-Addressbook-BookChangeItem"><returnvalue>GNOME_Evolution_Addressbook_BookChangeItem</returnvalue></link>* e_book_backend_change_add_new
+                                                        (<parameter>const <link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);</programlisting>
+<para>
+Creates a new change item indicating <parameter>vcard</parameter> was added.
+Meant to be used by backend implementations.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>vcard</parameter>&#160;:</term>
+<listitem><simpara>a VCard string
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="GNOME-Evolution-Addressbook-BookChangeItem"><type>GNOME_Evolution_Addressbook_BookChangeItem</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-change-modify-new" role="function">
+<title>e_book_backend_change_modify_new ()</title>
+<indexterm zone="e-book-backend-change-modify-new"><primary>e_book_backend_change_modify_new</primary></indexterm>
+<programlisting><link linkend="GNOME-Evolution-Addressbook-BookChangeItem"><returnvalue>GNOME_Evolution_Addressbook_BookChangeItem</returnvalue></link>* e_book_backend_change_modify_new
+                                                        (<parameter>const <link linkend="gchar"><type>gchar</type></link> *vcard</parameter>);</programlisting>
+<para>
+Creates a new change item indicating <parameter>vcard</parameter> was modified.
+Meant to be used by backend implementations.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>vcard</parameter>&#160;:</term>
+<listitem><simpara>a VCard string
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="GNOME-Evolution-Addressbook-BookChangeItem"><type>GNOME_Evolution_Addressbook_BookChangeItem</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-book-backend-change-delete-new" role="function">
+<title>e_book_backend_change_delete_new ()</title>
+<indexterm zone="e-book-backend-change-delete-new"><primary>e_book_backend_change_delete_new</primary></indexterm>
+<programlisting><link linkend="GNOME-Evolution-Addressbook-BookChangeItem"><returnvalue>GNOME_Evolution_Addressbook_BookChangeItem</returnvalue></link>* e_book_backend_change_delete_new
+                                                        (<parameter>const <link linkend="gchar"><type>gchar</type></link> *id</parameter>);</programlisting>
+<para>
+Creates a new change item indicating <parameter>vcard</parameter> was deleted.
+Meant to be used by backend implementations.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>id</parameter>&#160;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A new <link linkend="GNOME-Evolution-Addressbook-BookChangeItem"><type>GNOME_Evolution_Addressbook_BookChangeItem</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="EBookBackendClass" role="struct">
+<title>struct EBookBackendClass</title>
+<indexterm zone="EBookBackendClass"><primary>EBookBackendClass</primary></indexterm>
+<programlisting>struct EBookBackendClass {
+	GObjectClass parent_class;
+
+	/* Virtual methods */
+	GNOME_Evolution_Addressbook_CallStatus (*load_source) (EBookBackend *backend, ESource *source, gboolean only_if_exists);
+	void (*remove) (EBookBackend *backend, EDataBook *book, guint32 opid);
+        gchar *(*get_static_capabilities) (EBookBackend *backend);
+
+	void (*create_contact)  (EBookBackend *backend, EDataBook *book, guint32 opid, const gchar *vcard);
+	void (*remove_contacts) (EBookBackend *backend, EDataBook *book, guint32 opid, GList *id_list);
+	void (*modify_contact)  (EBookBackend *backend, EDataBook *book, guint32 opid, const gchar *vcard);
+	void (*get_contact) (EBookBackend *backend, EDataBook *book, guint32 opid, const gchar *id);
+	void (*get_contact_list) (EBookBackend *backend, EDataBook *book, guint32 opid, const gchar *query);
+	void (*start_book_view) (EBookBackend *backend, EDataBookView *book_view);
+	void (*stop_book_view) (EBookBackend *backend, EDataBookView *book_view);
+	void (*get_changes) (EBookBackend *backend, EDataBook *book, guint32 opid, const gchar *change_id);
+	void (*authenticate_user) (EBookBackend *backend, EDataBook *book, guint32 opid, const gchar *user, const gchar *passwd, const gchar *auth_method);
+	void (*get_required_fields) (EBookBackend *backend, EDataBook *bokk, guint32 opid);
+	void (*get_supported_fields) (EBookBackend *backend, EDataBook *book, guint32 opid);
+	void (*get_supported_auth_methods) (EBookBackend *backend, EDataBook *book, guint32 opid);
+	GNOME_Evolution_Addressbook_CallStatus (*cancel_operation) (EBookBackend *backend, EDataBook *book);
+	void (*set_mode) (EBookBackend *backend, GNOME_Evolution_Addressbook_BookMode  mode);
+
+	/* Notification signals */
+	void (* last_client_gone) (EBookBackend *backend);
+
+	void (*sync) (EBookBackend *backend);
+
+	/* Padding for future expansion */
+	void (*_pas_reserved1) (void);
+	void (*_pas_reserved2) (void);
+	void (*_pas_reserved3) (void);
+	void (*_pas_reserved4) (void);
+};
+</programlisting>
+<para>
+</para></refsect2>
+
+</refsect1>
+<refsect1 id="EBookBackend.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="EBookBackend-last-client-gone" role="signal"><title>The <literal>&quot;last-client-gone&quot;</literal> signal</title>
+<indexterm zone="EBookBackend-last-client-gone"><primary>EBookBackend::last-client-gone</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EBookBackend"><type>EBookBackend</type></link> *ebookbackend,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>      user_data)         : Run First</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>ebookbackend</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+</refentry>

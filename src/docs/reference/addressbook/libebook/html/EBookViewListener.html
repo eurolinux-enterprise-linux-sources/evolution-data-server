@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>EBookViewListener</title>
+<meta name="generator" content="DocBook XSL Stylesheets V1.74.0">
+<link rel="home" href="index.html" title="Evolution-Data-Server Manual: Address Book Client (libebook)">
+<link rel="up" href="ch01.html" title="Evolution-Data-Server Manual: Address Book Client (libebook)">
+<link rel="prev" href="EBookView.html" title="EBookView">
+<link rel="next" href="EVCard.html" title="EVCard">
+<meta name="generator" content="GTK-Doc V1.14 (XML mode)">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table class="navigation" id="top" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<td><a accesskey="p" href="EBookView.html"><img src="left.png" width="24" height="24" border="0" alt="Prev"></a></td>
+<td><a accesskey="u" href="ch01.html"><img src="up.png" width="24" height="24" border="0" alt="Up"></a></td>
+<td><a accesskey="h" href="index.html"><img src="home.png" width="24" height="24" border="0" alt="Home"></a></td>
+<th width="100%" align="center">Evolution-Data-Server Manual: Address Book Client (libebook)</th>
+<td><a accesskey="n" href="EVCard.html"><img src="right.png" width="24" height="24" border="0" alt="Next"></a></td>
+</tr>
+<tr><td colspan="5" class="shortcuts">
+<a href="#EBookViewListener.synopsis" class="shortcut">Top</a>
+                   | 
+                  <a href="#EBookViewListener.description" class="shortcut">Description</a>
+                   | 
+                  <a href="#EBookViewListener.object-hierarchy" class="shortcut">Object Hierarchy</a>
+                   | 
+                  <a href="#EBookViewListener.signals" class="shortcut">Signals</a>
+</td></tr>
+</table>
+<div class="refentry" lang="en">
+<a name="EBookViewListener"></a><div class="titlepage"></div>
+<div class="refnamediv"><table width="100%"><tr>
+<td valign="top">
+<h2><span class="refentrytitle"><a name="EBookViewListener.top_of_page"></a>EBookViewListener</span></h2>
+<p>EBookViewListener — Listens for call responses and event notifications from EBookView objects.</p>
+</td>
+<td valign="top" align="right"></td>
+</tr></table></div>
+<div class="refsynopsisdiv">
+<a name="EBookViewListener.synopsis"></a><h2>Synopsis</h2>
+<pre class="synopsis">                    <a class="link" href="EBookViewListener.html#EBookViewListener-struct" title="EBookViewListener">EBookViewListener</a>;
+                    <a class="link" href="EBookViewListener.html#EBookViewListenerResponse" title="EBookViewListenerResponse">EBookViewListenerResponse</a>;
+enum                <a class="link" href="EBookViewListener.html#EBookViewListenerOperation" title="enum EBookViewListenerOperation">EBookViewListenerOperation</a>;
+<a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="returnvalue">EBookViewListener</span></a> * <a class="link" href="EBookViewListener.html#e-book-view-listener-new" title="e_book_view_listener_new ()">e_book_view_listener_new</a>            (<em class="parameter"><code><span class="type">void</span></code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookViewListener.html#e-book-view-listener-start" title="e_book_view_listener_start ()">e_book_view_listener_start</a>          (<em class="parameter"><code><a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="type">EBookViewListener</span></a> *listener</code></em>);
+<span class="returnvalue">void</span>                <a class="link" href="EBookViewListener.html#e-book-view-listener-stop" title="e_book_view_listener_stop ()">e_book_view_listener_stop</a>           (<em class="parameter"><code><a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="type">EBookViewListener</span></a> *listener</code></em>);
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="EBookViewListener.object-hierarchy"></a><h2>Object Hierarchy</h2>
+<pre class="synopsis">
+  GObject
+   +----BonoboObject
+         +----EBookViewListener
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="EBookViewListener.signals"></a><h2>Signals</h2>
+<pre class="synopsis">
+  "<a class="link" href="EBookViewListener.html#EBookViewListener-response" title='The "response" signal'>response</a>"                                       : Run Last
+</pre>
+</div>
+<div class="refsect1" lang="en">
+<a name="EBookViewListener.description"></a><h2>Description</h2>
+<p>
+Exposes the Evolution:BookViewListener interface. Contrast with the EBookListener.
+</p>
+</div>
+<div class="refsect1" lang="en">
+<a name="EBookViewListener.details"></a><h2>Details</h2>
+<div class="refsect2" lang="en">
+<a name="EBookViewListener-struct"></a><h3>EBookViewListener</h3>
+<pre class="programlisting">typedef struct _EBookViewListener EBookViewListener;</pre>
+<p>
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="EBookViewListenerResponse"></a><h3>EBookViewListenerResponse</h3>
+<pre class="programlisting">typedef struct {
+	EBookViewListenerOperation  op;
+
+	/* For SequenceComplete */
+	EBookViewStatus             status;
+
+	/* For ContactsRemovedEvent */
+	GList                  *ids;
+
+	/* For Contact[sAdded|Modified]Event */
+	GList                  *contacts; /* Of type EContact. */
+
+	/* For StatusMessageEvent */
+	gchar                   *message;
+} EBookViewListenerResponse;
+</pre>
+<p>
+Data sent back to the e-book object.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="EBookViewListenerOperation"></a><h3>enum EBookViewListenerOperation</h3>
+<pre class="programlisting">typedef enum {
+	/* Async events */
+	ContactsAddedEvent,
+	ContactsRemovedEvent,
+	ContactsModifiedEvent,
+	SequenceCompleteEvent,
+	StatusMessageEvent
+} EBookViewListenerOperation;
+</pre>
+<p>
+Asynchronous events that are listened for.
+</p>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-book-view-listener-new"></a><h3>e_book_view_listener_new ()</h3>
+<pre class="programlisting"><a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="returnvalue">EBookViewListener</span></a> * e_book_view_listener_new            (<em class="parameter"><code><span class="type">void</span></code></em>);</pre>
+<p>
+Creates and returns a new <a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="type">EBookViewListener</span></a>.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></p></td>
+<td> a new <a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="type">EBookViewListener</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-book-view-listener-start"></a><h3>e_book_view_listener_start ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_view_listener_start          (<em class="parameter"><code><a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="type">EBookViewListener</span></a> *listener</code></em>);</pre>
+<p>
+Makes <em class="parameter"><code>listener</code></em> start generating events.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>listener</code></em> :</span></p></td>
+<td>an <a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="type">EBookViewListener</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<hr>
+<div class="refsect2" lang="en">
+<a name="e-book-view-listener-stop"></a><h3>e_book_view_listener_stop ()</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                e_book_view_listener_stop           (<em class="parameter"><code><a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="type">EBookViewListener</span></a> *listener</code></em>);</pre>
+<p>
+Makes <em class="parameter"><code>listener</code></em> stop generating events.</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody><tr>
+<td><p><span class="term"><em class="parameter"><code>listener</code></em> :</span></p></td>
+<td>an <a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="type">EBookViewListener</span></a>
+</td>
+</tr></tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="EBookViewListener.signal-details"></a><h2>Signal Details</h2>
+<div class="refsect2" lang="en">
+<a name="EBookViewListener-response"></a><h3>The <code class="literal">"response"</code> signal</h3>
+<pre class="programlisting"><span class="returnvalue">void</span>                user_function                      (<a class="link" href="EBookViewListener.html" title="EBookViewListener"><span class="type">EBookViewListener</span></a> *ebookviewlistener,
+                                                        <span class="type">gpointer</span>           arg1,
+                                                        <span class="type">gpointer</span>           user_data)              : Run Last</pre>
+<p>
+</p>
+<div class="variablelist"><table border="0">
+<col align="left" valign="top">
+<tbody>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>ebookviewlistener</code></em> :</span></p></td>
+<td>the object which received the signal.
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>arg1</code></em> :</span></p></td>
+<td>
+</td>
+</tr>
+<tr>
+<td><p><span class="term"><em class="parameter"><code>user_data</code></em> :</span></p></td>
+<td>user data set when the signal handler was connected.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+<div class="refsect1" lang="en">
+<a name="EBookViewListener.see-also"></a><h2>See Also</h2>
+<p>
+EBookListener
+EBookTypes
+</p>
+</div>
+</div>
+<div class="footer">
+<hr>
+          Generated by GTK-Doc V1.14</div>
+</body>
+</html>

@@ -1,0 +1,609 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<refentry id="EDestination">
+<refmeta>
+<refentrytitle role="top_of_page" id="EDestination.top_of_page">EDestination</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>
+  LIBEBOOK Library
+</refmiscinfo>
+</refmeta>
+<refnamediv>
+<refname>EDestination</refname>
+<refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv id="EDestination.synopsis" role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>                    <link linkend="EDestination-struct">EDestination</link>;
+<link linkend="EDestination"><returnvalue>EDestination</returnvalue></link> *      <link linkend="e-destination-copy">e_destination_copy</link>                  (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-destination-empty">e_destination_empty</link>                 (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-destination-equal">e_destination_equal</link>                 (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="EDestination"><type>EDestination</type></link> *b</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-destination-export">e_destination_export</link>                (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-export-to-vcard-attribute">e_destination_export_to_vcard_attribute</link>
+                                                        (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="EVCardAttribute"><type>EVCardAttribute</type></link> *attr</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-destination-exportv">e_destination_exportv</link>               (<parameter><link linkend="EDestination"><type>EDestination</type></link> **destv</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-freev">e_destination_freev</link>                 (<parameter><link linkend="EDestination"><type>EDestination</type></link> **destv</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-destination-get-address">e_destination_get_address</link>           (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+<link linkend="EContact"><returnvalue>EContact</returnvalue></link> *          <link linkend="e-destination-get-contact">e_destination_get_contact</link>           (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-destination-get-contact-uid">e_destination_get_contact_uid</link>       (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-destination-get-email">e_destination_get_email</link>             (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+<link linkend="gint"><returnvalue>gint</returnvalue></link>                <link linkend="e-destination-get-email-num">e_destination_get_email_num</link>         (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-destination-get-html-mail-pref">e_destination_get_html_mail_pref</link>    (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-destination-get-name">e_destination_get_name</link>              (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-destination-get-source-uid">e_destination_get_source_uid</link>        (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       <link linkend="e-destination-get-textrep">e_destination_get_textrep</link>           (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> include_email</parameter>);
+<link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             <link linkend="e-destination-get-textrepv">e_destination_get_textrepv</link>          (<parameter><link linkend="EDestination"><type>EDestination</type></link> **destv</parameter>);
+<link linkend="EDestination"><returnvalue>EDestination</returnvalue></link> *      <link linkend="e-destination-import">e_destination_import</link>                (<parameter>const <link linkend="gchar"><type>gchar</type></link> *str</parameter>);
+<link linkend="EDestination"><returnvalue>EDestination</returnvalue></link> **     <link linkend="e-destination-importv">e_destination_importv</link>               (<parameter>const <link linkend="gchar"><type>gchar</type></link> *str</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-destination-is-auto-recipient">e_destination_is_auto_recipient</link>     (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-destination-is-evolution-list">e_destination_is_evolution_list</link>     (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-destination-is-ignored">e_destination_is_ignored</link>            (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+const <link linkend="GList"><returnvalue>GList</returnvalue></link> *       <link linkend="e-destination-list-get-dests">e_destination_list_get_dests</link>        (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+<link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            <link linkend="e-destination-list-show-addresses">e_destination_list_show_addresses</link>   (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);
+<link linkend="EDestination"><returnvalue>EDestination</returnvalue></link> *      <link linkend="e-destination-new">e_destination_new</link>                   (<parameter><type>void</type></parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-set-auto-recipient">e_destination_set_auto_recipient</link>    (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> value</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-set-book">e_destination_set_book</link>              (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-set-contact">e_destination_set_contact</link>           (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> email_num</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-set-contact-uid">e_destination_set_contact_uid</link>       (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> email_num</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-set-email">e_destination_set_email</link>             (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *email</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-set-html-mail-pref">e_destination_set_html_mail_pref</link>    (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> flag</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-set-ignored">e_destination_set_ignored</link>           (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> ignored</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-set-name">e_destination_set_name</link>              (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>);
+<link linkend="void"><returnvalue>void</returnvalue></link>                <link linkend="e-destination-set-raw">e_destination_set_raw</link>               (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *raw</parameter>);
+</synopsis>
+</refsynopsisdiv>
+<refsect1 id="EDestination.object-hierarchy" role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+  <link linkend="GObject">GObject</link>
+   +----EDestination
+</synopsis>
+</refsect1>
+<refsect1 id="EDestination.signals" role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+  &quot;<link linkend="EDestination-changed">changed</link>&quot;                                        : Run Last
+</synopsis>
+</refsect1>
+
+<refsect1 id="EDestination.description" role="desc">
+<title role="desc.title">Description</title>
+<para>
+</para>
+</refsect1>
+<refsect1 id="EDestination.details" role="details">
+<title role="details.title">Details</title>
+<refsect2 id="EDestination-struct" role="struct">
+<title>EDestination</title>
+<indexterm zone="EDestination-struct"><primary>EDestination</primary></indexterm>
+<programlisting>typedef struct _EDestination EDestination;</programlisting>
+<para>
+</para></refsect2>
+<refsect2 id="e-destination-copy" role="function">
+<title>e_destination_copy ()</title>
+<indexterm zone="e-destination-copy"><primary>e_destination_copy</primary></indexterm>
+<programlisting><link linkend="EDestination"><returnvalue>EDestination</returnvalue></link> *      e_destination_copy                  (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EDestination"><type>EDestination</type></link> identical to <parameter>dest</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A newly created <link linkend="EDestination"><type>EDestination</type></link>, identical to <parameter>dest</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-empty" role="function">
+<title>e_destination_empty ()</title>
+<indexterm zone="e-destination-empty"><primary>e_destination_empty</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_destination_empty                 (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Checks if <parameter>dest</parameter> is blank.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if <parameter>dest</parameter> is empty, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-equal" role="function">
+<title>e_destination_equal ()</title>
+<indexterm zone="e-destination-equal"><primary>e_destination_equal</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_destination_equal                 (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *a</parameter>,
+                                                         <parameter>const <link linkend="EDestination"><type>EDestination</type></link> *b</parameter>);</programlisting>
+<para>
+Checks if <parameter>a</parameter> and <parameter>b</parameter> are equal.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the destinations are equal, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-export" role="function">
+<title>e_destination_export ()</title>
+<indexterm zone="e-destination-export"><primary>e_destination_export</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_destination_export                (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Exports a destination to an XML document.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An XML string, allocated with g_malloc.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-export-to-vcard-attribute" role="function">
+<title>e_destination_export_to_vcard_attribute ()</title>
+<indexterm zone="e-destination-export-to-vcard-attribute"><primary>e_destination_export_to_vcard_attribute</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_export_to_vcard_attribute
+                                                        (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="EVCardAttribute"><type>EVCardAttribute</type></link> *attr</parameter>);</programlisting>
+<para>
+Exports the contact information from <parameter>dest</parameter> to parameters
+and values in <parameter>attr</parameter>, suitable for an address book.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>attr</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EVCardAttribute"><type>EVCardAttribute</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-exportv" role="function">
+<title>e_destination_exportv ()</title>
+<indexterm zone="e-destination-exportv"><primary>e_destination_exportv</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_destination_exportv               (<parameter><link linkend="EDestination"><type>EDestination</type></link> **destv</parameter>);</programlisting>
+<para>
+Exports multiple <link linkend="EDestination"><type>EDestination</type></link> elements to a single XML document.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>destv</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="NULL:CAPS"><literal>NULL</literal></link>-terminated array of pointers to <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An XML string, allocated with g_malloc.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-freev" role="function">
+<title>e_destination_freev ()</title>
+<indexterm zone="e-destination-freev"><primary>e_destination_freev</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_freev                 (<parameter><link linkend="EDestination"><type>EDestination</type></link> **destv</parameter>);</programlisting>
+<para>
+Unrefs the elements of <parameter>destv</parameter> and frees <parameter>destv</parameter> itself.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>destv</parameter>&#160;:</term>
+<listitem><simpara>a <link linkend="NULL:CAPS"><literal>NULL</literal></link>-terminated array of pointers to <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-get-address" role="function">
+<title>e_destination_get_address ()</title>
+<indexterm zone="e-destination-get-address"><primary>e_destination_get_address</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_destination_get_address           (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Gets the formatted name and e-mail address, or in the case of
+lists, the formatted list of e-mail addresses, from <parameter>dest</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A formatted destination string, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if the destination was empty.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-get-contact" role="function">
+<title>e_destination_get_contact ()</title>
+<indexterm zone="e-destination-get-contact"><primary>e_destination_get_contact</primary></indexterm>
+<programlisting><link linkend="EContact"><returnvalue>EContact</returnvalue></link> *          e_destination_get_contact           (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Gets the contact <parameter>dest</parameter> is pointing to, if any.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An <link linkend="EContact"><type>EContact</type></link>, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if none was set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-get-contact-uid" role="function">
+<title>e_destination_get_contact_uid ()</title>
+<indexterm zone="e-destination-get-contact-uid"><primary>e_destination_get_contact_uid</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_destination_get_contact_uid       (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Gets the unique contact ID <parameter>dest</parameter> is pointing to, if any.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A unique contact ID, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if none was set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-get-email" role="function">
+<title>e_destination_get_email ()</title>
+<indexterm zone="e-destination-get-email"><primary>e_destination_get_email</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_destination_get_email             (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Gets the e-mail address of <parameter>dest</parameter>'s addressee.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An e-mail address, or an empty string if none was set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-get-email-num" role="function">
+<title>e_destination_get_email_num ()</title>
+<indexterm zone="e-destination-get-email-num"><primary>e_destination_get_email_num</primary></indexterm>
+<programlisting><link linkend="gint"><returnvalue>gint</returnvalue></link>                e_destination_get_email_num         (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Gets the index of the e-mail address of the contact that
+<parameter>dest</parameter> is pointing to, if any.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The e-mail index, or -1 if none was set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-get-html-mail-pref" role="function">
+<title>e_destination_get_html_mail_pref ()</title>
+<indexterm zone="e-destination-get-html-mail-pref"><primary>e_destination_get_html_mail_pref</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_destination_get_html_mail_pref    (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Check if <parameter>dest</parameter> wants to get mail formatted as HTML.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if destination wants HTML, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if not.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-get-name" role="function">
+<title>e_destination_get_name ()</title>
+<indexterm zone="e-destination-get-name"><primary>e_destination_get_name</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_destination_get_name              (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Gets the full name of <parameter>dest</parameter>'s addressee, or if the addressee is
+a contact list, the name the list was filed under.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The full name of the addressee, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if none was set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-get-source-uid" role="function">
+<title>e_destination_get_source_uid ()</title>
+<indexterm zone="e-destination-get-source-uid"><primary>e_destination_get_source_uid</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_destination_get_source_uid        (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Gets the unique source ID <parameter>dest</parameter> is pointing to, if any. The source
+ID specifies which address book <parameter>dest</parameter>'s contact came from.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A unique source ID, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if none was set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-get-textrep" role="function">
+<title>e_destination_get_textrep ()</title>
+<indexterm zone="e-destination-get-textrep"><primary>e_destination_get_textrep</primary></indexterm>
+<programlisting>const <link linkend="gchar"><returnvalue>gchar</returnvalue></link> *       e_destination_get_textrep           (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> include_email</parameter>);</programlisting>
+<para>
+Generates a textual representation of <parameter>dest</parameter>, suitable for referring
+to the destination during user interaction.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>include_email</parameter>&#160;:</term>
+<listitem><simpara>whether to include the e-mail address
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A textual representation of the destination.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-get-textrepv" role="function">
+<title>e_destination_get_textrepv ()</title>
+<indexterm zone="e-destination-get-textrepv"><primary>e_destination_get_textrepv</primary></indexterm>
+<programlisting><link linkend="gchar"><returnvalue>gchar</returnvalue></link> *             e_destination_get_textrepv          (<parameter><link linkend="EDestination"><type>EDestination</type></link> **destv</parameter>);</programlisting>
+<para>
+Generates a joint text representation of all the <link linkend="EDestination"><type>EDestination</type></link>
+elements in <parameter>destv</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>destv</parameter>&#160;:</term>
+<listitem><simpara><link linkend="NULL:CAPS"><literal>NULL</literal></link>-terminated array of pointers to <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> The text representation of <parameter>destv</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-import" role="function">
+<title>e_destination_import ()</title>
+<indexterm zone="e-destination-import"><primary>e_destination_import</primary></indexterm>
+<programlisting><link linkend="EDestination"><returnvalue>EDestination</returnvalue></link> *      e_destination_import                (<parameter>const <link linkend="gchar"><type>gchar</type></link> *str</parameter>);</programlisting>
+<para>
+Creates an <link linkend="EDestination"><type>EDestination</type></link> from an XML document.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>an XML string
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> An <link linkend="EDestination"><type>EDestination</type></link>, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if the document was not well-formed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-importv" role="function">
+<title>e_destination_importv ()</title>
+<indexterm zone="e-destination-importv"><primary>e_destination_importv</primary></indexterm>
+<programlisting><link linkend="EDestination"><returnvalue>EDestination</returnvalue></link> **     e_destination_importv               (<parameter>const <link linkend="gchar"><type>gchar</type></link> *str</parameter>);</programlisting>
+<para>
+Creates an array of pointers to <link linkend="EDestination"><type>EDestination</type></link> elements
+from an XML document.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>str</parameter>&#160;:</term>
+<listitem><simpara>an XML string
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A <link linkend="NULL:CAPS"><literal>NULL</literal></link>-terminated array of pointers to <link linkend="EDestination"><type>EDestination</type></link> elements.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-is-auto-recipient" role="function">
+<title>e_destination_is_auto_recipient ()</title>
+<indexterm zone="e-destination-is-auto-recipient"><primary>e_destination_is_auto_recipient</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_destination_is_auto_recipient     (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Checks if <parameter>dest</parameter> is flagged as an automatic recipient, meaning
+it was not explicitly specified by the user. This can be used
+to hide it from some UI elements.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if destination is an auto recipient, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-is-evolution-list" role="function">
+<title>e_destination_is_evolution_list ()</title>
+<indexterm zone="e-destination-is-evolution-list"><primary>e_destination_is_evolution_list</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_destination_is_evolution_list     (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Checks if <parameter>dest</parameter> is a list of addresses.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if destination is a list, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> if it is an individual.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-is-ignored" role="function">
+<title>e_destination_is_ignored ()</title>
+<indexterm zone="e-destination-is-ignored"><primary>e_destination_is_ignored</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_destination_is_ignored            (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+Check if <parameter>dest</parameter> is to be ignored.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><type>TRUE</type></link> if this destination should be ignored, else <link linkend="FALSE:CAPS"><type>FALSE</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-list-get-dests" role="function">
+<title>e_destination_list_get_dests ()</title>
+<indexterm zone="e-destination-list-get-dests"><primary>e_destination_list_get_dests</primary></indexterm>
+<programlisting>const <link linkend="GList"><returnvalue>GList</returnvalue></link> *       e_destination_list_get_dests        (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+If <parameter>dest</parameter> is a list, gets the list of destinations. The list
+and its elements belong to <parameter>dest</parameter>, and should not be freed.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A list of elements of type <link linkend="EDestination"><type>EDestination</type></link>, or <link linkend="NULL:CAPS"><literal>NULL</literal></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-list-show-addresses" role="function">
+<title>e_destination_list_show_addresses ()</title>
+<indexterm zone="e-destination-list-show-addresses"><primary>e_destination_list_show_addresses</primary></indexterm>
+<programlisting><link linkend="gboolean"><returnvalue>gboolean</returnvalue></link>            e_destination_list_show_addresses   (<parameter>const <link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>);</programlisting>
+<para>
+If <parameter>dest</parameter> is a list, checks if the addresses in the list
+should be presented to the user during interaction.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if addresses should be shown, <link linkend="FALSE:CAPS"><literal>FALSE</literal></link> otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-new" role="function">
+<title>e_destination_new ()</title>
+<indexterm zone="e-destination-new"><primary>e_destination_new</primary></indexterm>
+<programlisting><link linkend="EDestination"><returnvalue>EDestination</returnvalue></link> *      e_destination_new                   (<parameter><type>void</type></parameter>);</programlisting>
+<para>
+Creates a new <link linkend="EDestination"><type>EDestination</type></link> with blank values.</para>
+<variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&#160;:</term><listitem><simpara> A newly created <link linkend="EDestination"><type>EDestination</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-set-auto-recipient" role="function">
+<title>e_destination_set_auto_recipient ()</title>
+<indexterm zone="e-destination-set-auto-recipient"><primary>e_destination_set_auto_recipient</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_set_auto_recipient    (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> value</parameter>);</programlisting>
+<para>
+Sets the flag indicating if <parameter>dest</parameter> is an automatic recipient, meaning
+it was not explicitly specified by the user. This can be used
+to hide it from some UI elements.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&#160;:</term>
+<listitem><simpara>the auto recipient flag
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-set-book" role="function">
+<title>e_destination_set_book ()</title>
+<indexterm zone="e-destination-set-book"><primary>e_destination_set_book</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_set_book              (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="EBook"><type>EBook</type></link> *book</parameter>);</programlisting>
+<para>
+Specify the source <parameter>dest</parameter>'s contact comes from. This is useful
+if you need to update the contact later.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>book</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EBook"><type>EBook</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-set-contact" role="function">
+<title>e_destination_set_contact ()</title>
+<indexterm zone="e-destination-set-contact"><primary>e_destination_set_contact</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_set_contact           (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="EContact"><type>EContact</type></link> *contact</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> email_num</parameter>);</programlisting>
+<para>
+Sets <parameter>dest</parameter> to point to one of <parameter>contact</parameter>'s e-mail addresses
+indicated by <parameter>email_num</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>contact</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EContact"><type>EContact</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>email_num</parameter>&#160;:</term>
+<listitem><simpara>an email index
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-set-contact-uid" role="function">
+<title>e_destination_set_contact_uid ()</title>
+<indexterm zone="e-destination-set-contact-uid"><primary>e_destination_set_contact_uid</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_set_contact_uid       (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *uid</parameter>,
+                                                         <parameter><link linkend="gint"><type>gint</type></link> email_num</parameter>);</programlisting>
+<para>
+Sets <parameter>dest</parameter> to point to one of the contact specified by <parameter>uid</parameter>'s e-mail
+addresses indicated by <parameter>email_num</parameter>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uid</parameter>&#160;:</term>
+<listitem><simpara>a unique contact ID
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>email_num</parameter>&#160;:</term>
+<listitem><simpara>an email index
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-set-email" role="function">
+<title>e_destination_set_email ()</title>
+<indexterm zone="e-destination-set-email"><primary>e_destination_set_email</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_set_email             (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *email</parameter>);</programlisting>
+<para>
+Sets the e-mail address of <parameter>dest</parameter>'s addressee.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>email</parameter>&#160;:</term>
+<listitem><simpara>the destination's e-mail address
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-set-html-mail-pref" role="function">
+<title>e_destination_set_html_mail_pref ()</title>
+<indexterm zone="e-destination-set-html-mail-pref"><primary>e_destination_set_html_mail_pref</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_set_html_mail_pref    (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> flag</parameter>);</programlisting>
+<para>
+Specifies whether <parameter>dest</parameter> wants to get mail formatted as HTML.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flag</parameter>&#160;:</term>
+<listitem><simpara>whether the destination wants HTML mail
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-set-ignored" role="function">
+<title>e_destination_set_ignored ()</title>
+<indexterm zone="e-destination-set-ignored"><primary>e_destination_set_ignored</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_set_ignored           (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter><link linkend="gboolean"><type>gboolean</type></link> ignored</parameter>);</programlisting>
+<para>
+Set the ignore flag on a <link linkend="EDestination"><type>EDestination</type></link>.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ignored</parameter>&#160;:</term>
+<listitem><simpara><link linkend="TRUE:CAPS"><type>TRUE</type></link> if this <link linkend="EDestination"><type>EDestination</type></link> should be ignored.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-set-name" role="function">
+<title>e_destination_set_name ()</title>
+<indexterm zone="e-destination-set-name"><primary>e_destination_set_name</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_set_name              (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *name</parameter>);</programlisting>
+<para>
+Sets the full name of <parameter>dest</parameter>'s addressee.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&#160;:</term>
+<listitem><simpara>the destination's full name
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2 id="e-destination-set-raw" role="function">
+<title>e_destination_set_raw ()</title>
+<indexterm zone="e-destination-set-raw"><primary>e_destination_set_raw</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                e_destination_set_raw               (<parameter><link linkend="EDestination"><type>EDestination</type></link> *dest</parameter>,
+                                                         <parameter>const <link linkend="gchar"><type>gchar</type></link> *raw</parameter>);</programlisting>
+<para>
+Sets <parameter>dest</parameter> to point to the name and e-mail address resulting from
+parsing the supplied string. Useful for user input.</para>
+<variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&#160;:</term>
+<listitem><simpara>an <link linkend="EDestination"><type>EDestination</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>raw</parameter>&#160;:</term>
+<listitem><simpara>an unparsed string
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 id="EDestination.signal-details" role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2 id="EDestination-changed" role="signal"><title>The <literal>&quot;changed&quot;</literal> signal</title>
+<indexterm zone="EDestination-changed"><primary>EDestination::changed</primary></indexterm>
+<programlisting><link linkend="void"><returnvalue>void</returnvalue></link>                user_function                      (<link linkend="EDestination"><type>EDestination</type></link> *edestination,
+                                                        <link linkend="gpointer"><type>gpointer</type></link>      user_data)         : Run Last</programlisting>
+<para>
+</para><variablelist role="params">
+<varlistentry><term><parameter>edestination</parameter>&#160;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&#160;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+</refentry>
